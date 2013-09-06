@@ -33,6 +33,10 @@ To stop using the local version of python:
 
     deactivate
 
+To install Django Heroku-Toolbelt:
+	
+	pip install django-toolbelt
+
 To install all python requirements:
     
     pip install --requirement requirements.txt
