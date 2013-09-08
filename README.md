@@ -27,7 +27,7 @@ Next, create a local version of python.
 Put the local version of Python in your path.
 (You will have to do this every time you use the project.)
 
-    source bin/activate
+    source venv/bin/activate
 
 To stop using the local version of python:
 
