@@ -30,13 +30,12 @@ class Challenge(models.Model):
 		''' On save, update timestamps '''
         
 		if not self.id:
-			self.created = datetime.datetime.today()
+			self.timestamp = datetime.datetime.today()
 
-		self.modified = datetime.datetime.today()
 		super(Challenge, self).save(*args, **kwargs)
 
 """
-Name:           Challenge
+Name:           UserChallenge
 Date created:   Sept 8, 2013
 Description:    Will be used to keep track of all of the Users partcipaing within a challenge
 """
@@ -53,9 +52,8 @@ class UserChallenge(models.Model):
 		''' On save, update timestamps '''
 
 		if not self.id:
-			self.created = datetime.datetime.today()
-
-		self.modified = datetime.datetime.today()
+			self.timestamp = datetime.datetime.today()
+			
 		super(UserChallenge, self).save(*args, **kwargs)
 
 
