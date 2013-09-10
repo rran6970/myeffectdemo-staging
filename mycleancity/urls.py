@@ -1,19 +1,23 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin 
+from django.conf import settings
+from django.contrib import admin
+from django.views.generic import TemplateView
+
 admin.autodiscover()
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
-
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'mycleancity.views.home', name='home'),
-    # url(r'^mycleancity/', include('mycleancity.foo.urls')),
+	# url(r'^$', 'mycleancity.views.index', name='home'),
+    url(r'^$', TemplateView.as_view(template_name="index.html")),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^challenges/', include('challenges.urls')),
+    url(r'^cleancreds/', include('cleancreds.urls')),
+    url(r'^users/', include('users.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('django.contrib.staticfiles.views',
+        url(r'^static/(?P<path>.*)$', 'serve'),
+    )
