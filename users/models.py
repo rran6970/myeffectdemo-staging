@@ -23,3 +23,21 @@ class UserProfile(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)
+
+"""
+Name:           PrelaunchEmails
+Date created:   Sept 9, 2013
+Description:    Used to keep track of all of the prelaunch emails
+"""
+class PrelaunchEmails(models.Model):
+	first_name = models.CharField(max_length=50, blank=False)
+	email = models.EmailField(max_length = 70, blank=True)
+
+	class Meta:
+		verbose_name_plural = u'Prelaunch emails'
+
+	def __unicode__(self):
+		return u'Prelaunch : %s' % self.user.username
+
+	def save(self, *args, **kwargs):
+		super(PrelaunchEmails, self).save(*args, **kwargs)
