@@ -31,7 +31,8 @@ Description:    Used to keep track of all of the prelaunch emails
 """
 class PrelaunchEmails(models.Model):
 	first_name = models.CharField(max_length=50, blank=False)
-	email = models.EmailField(max_length = 70, blank=True)
+	email = models.EmailField(max_length = 70, blank=False)
+	postal_code = models.CharField(max_length = 7, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'Prelaunch emails'

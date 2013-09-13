@@ -1,0 +1,34 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with register='active' %}
+
+{% block title %} My Clean City - Register {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+
+	  <form action="" method="post">{% csrf_token %}
+	    {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            {{ form.first_name.label_tag }} {{ form.first_name }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.last_name.label_tag }} {{ form.last_name }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.email.label_tag }} {{ form.email }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.password.label_tag }} {{ form.password }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.confirm_password.label_tag }} {{ form.confirm_password }}
+        </div>
+	    <input type="submit" value="Submit" />
+	  </form>
+
+	</div> <!-- /container -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}

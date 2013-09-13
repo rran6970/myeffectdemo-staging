@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 from mycleancity.views import HomePageView
+from users.views import PrelaunchView
 
 admin.autodiscover()
 
@@ -17,7 +18,7 @@ urlpatterns = patterns('',
 	url(r'^cleancreds/', include('cleancreds.urls')),
 	url(r'^users/', include('users.urls')),
 
-	url(r'^$', HomePageView.as_view(), name="home"),
+	url(r'^$', PrelaunchView.as_view(), name="prelaunch"),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,55 @@
+/*------------------------------------------------------------------
+Author:         Zeeshan Syed
+Email:          zee@hakstudio.com
+Description:    CSS file for the My Clean City web application.
+Date created:   Sept 13, 2013
+-------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------
+[Color codes]
+Background:  ???
+Content:     ???
+Header h1:   ???
+Header h2:   ???
+Footer:      ???
+
+a (standard):   #a6b928 (olive green)
+a (active): 	#879622 (dark olive green)
+-------------------------------------------------------------------*/
+
+body { font: 14px Helvetica, Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6 { padding: 0; margin: 0; font-weight: 100; letter-spacing: 0px;  }
+
+h1 { font-size: 25px; }
+h2 { font-size: 22px; }
+h3 { font-size: 19px; color: #8d8d8d; }
+span.bold { font-weight: bold; }
+div.clear { clear: both; }
+div.left { float: left; }
+div.right { float: right; }
+.gray-italic-subtitle { color: #AAA !important; font-style: italic !important; font-size: 13px !important; }
+p, label { display: block; line-height: 20px; font-weight: 200; font-size: 14px; letter-spacing: 0px; margin: 0; padding: 0; }
+ul { padding: 0; margin: 0; }
+img { outline: 0; }
+hr { margin: 20px 0; border: 0; border-top: 1px solid #EEE; border-bottom: none; }
+a { color: #a6b928; letter-spacing: 0px; font-weight: 200; outline: 0; }
+a:hover { color: #879622; }
+a:active { outline: 0; }
+
+input[type="text"], input[type="password"], textarea { font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; padding: 13px 10px 7px 10px\9; font-weight: 200; text-align: left; }
+input[type="text"] + label, input[type="password"] + label, textarea + label { text-align: left; color: #AAA; }
+input[type="text"]:focus, input[type="password"]:focus { outline: 0; }
+
+/** Bootstrap button **/
+.button { font-size: 14px; padding: 12px 20px; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; text-align: center; width: 200px; }
+.button.disabled { box-shadow: none; text-shadow: none; background-image: none; background-color: #999 !important; }
+a.button { font-size: 13px; padding: 9px 60px; margin-top: 7px; letter-spacing: 1px; cursor: pointer; }
+
+.button, 
+.btn-primary { color: white; line-height: normal; border: 1px solid #859422; font-weight: 200; letter-spacing: 1px; cursor: pointer; text-shadow: 0px 1px 3px #000; box-shadow: 1px 1px 5px #555; background-color: #67af45; background-image: -khtml-gradient(linear, left top, left bottom, from(#b5bc29), to(#67af45)); background-image: -moz-linear-gradient(top, #b5bc29, #67af45); background-image: -ms-linear-gradient(top, #b5bc29, #67af45); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b5bc29), color-stop(100%, #67af45)); background-image: -webkit-linear-gradient(top, #b5bc29, #67af45); background-image: -o-linear-gradient(top, #b5bc29, #67af45); background-image: linear-gradient(top, #d9e134, #67af45); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d9e134', endColorstr='#67af45', GradientType=0); }
+
+.button:hover, 
+.btn-primary:hover { border: 1px solid #4b812f; background-color: #657019; background-image: -khtml-gradient(linear, left top, left bottom, from(#b3ca19), to(#657019)); background-image: -moz-linear-gradient(top, #b3ca19, #657019); background-image: -ms-linear-gradient(top, #b3ca19, #657019); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #657019), color-stop(100%, #b3ca19)); background-image: -webkit-linear-gradient(top, #b3ca19, #657019); background-image: -o-linear-gradient(top, #b3ca19, #657019); background-image: linear-gradient(top, #b3ca19, #657019); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3ca19', endColorstr='#657019', GradientType=0); color: #FFF !important; text-decoration: none !important; }
+
+ .button.dark { border: 1px solid #333300; background-color: #404711; background-image: -khtml-gradient(linear, left top, left bottom, from(#829120), to(#404711)); background-image: -moz-linear-gradient(top, #829120, #404711); background-image: -ms-linear-gradient(top, #829120, #404711); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #404711), color-stop(100%, #829120)); background-image: -webkit-linear-gradient(top, #829120, #404711); background-image: -o-linear-gradient(top, #829120, #404711); background-image: linear-gradient(top, #829120, #404711); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3ca19', endColorstr='#404711', GradientType=0); text-shadow: 1px 2px 1px #000; color: #FFF !important; text-decoration: none !important; }
+ .button.dark:hover { background-color: #262a0a; background-image: -khtml-gradient(linear, left top, left bottom, from(#566014), to(#262a0a)); background-image: -moz-linear-gradient(top, #566014, #262a0a); background-image: -ms-linear-gradient(top, #566014, #262a0a); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #566014), color-stop(100%, #262a0a)); background-image: -webkit-linear-gradient(top, #566014, #262a0a); background-image: -o-linear-gradient(top, #566014, #262a0a); background-image: linear-gradient(top, #566014, #262a0a); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#566014', endColorstr='#262a0a', GradientType=0); color: #FFF !important; text-decoration: none !important; }
