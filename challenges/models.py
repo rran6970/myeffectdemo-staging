@@ -18,7 +18,7 @@ class Challenge(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	user = models.OneToOneField(User)
-	timestamp = models.DateTimeField()
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -27,11 +27,6 @@ class Challenge(models.Model):
 		return u'Challenge: %s' % self.title
 
 	def save(self, *args, **kwargs):
-		''' On save, update timestamps '''
-        
-		if not self.id:
-			self.timestamp = datetime.datetime.today()
-
 		super(Challenge, self).save(*args, **kwargs)
 
 """
@@ -42,18 +37,11 @@ Description:    Will be used to keep track of all of the Users partcipaing withi
 class UserChallenge(models.Model):
 	challenge = models.ForeignKey(Challenge)
 	user = models.ForeignKey(User)
-	timestamp = models.DateTimeField()
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	complete = models.BooleanField()
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'
 
 	def save(self, *args, **kwargs):
-		''' On save, update timestamps '''
-
-		if not self.id:
-			self.timestamp = datetime.datetime.today()
-			
 		super(UserChallenge, self).save(*args, **kwargs)
-
-

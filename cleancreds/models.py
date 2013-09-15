@@ -13,7 +13,7 @@ class CleanCredsMilestones(models.Model):
 	title = models.CharField(max_length=60, blank=False, verbose_name="Title")
 	description = models.TextField(blank=False, verbose_name="Description")
 	cleancreds_needed = models.IntegerField()
-	timestamp = models.DateTimeField()
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = u'User Clean Creds Milestones'
@@ -22,11 +22,6 @@ class CleanCredsMilestones(models.Model):
 		return u'%ss' % self.title
 
 	def save(self, *args, **kwargs):
-		''' On save, update timestamps '''
-        
-		if not self.id:
-			self.timestamp = datetime.datetime.today()
-
 		super(CleanCredsMilestones, self).save(*args, **kwargs)
 
 """
@@ -37,7 +32,7 @@ Description:    Keeps track of all of the achievements a User has.
 class CleanCredsAchievements(models.Model):
 	user = models.ForeignKey(User)
 	milestone = models.ForeignKey(CleanCredsMilestones)
-	timestamp = models.DateTimeField()
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = u'User Clean Creds achievements by users'
@@ -45,10 +40,4 @@ class CleanCredsAchievements(models.Model):
 	def __unicode__(self):
 		return u'%ss' % self.title
 
-	def save(self, *args, **kwargs):
-		''' On save, update timestamps '''
-        
-		if not self.id:
-			self.timestamp = datetime.datetime.today()
-
-		super(CleanCredsAchievements, self).save(*args, **kwargs)
+	def save(self, *args, **kwargs):super(CleanCredsAchievements, self).save(*args, **kwargs)

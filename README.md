@@ -41,10 +41,13 @@ To install all python requirements:
     
     pip install --requirement requirements.txt
 
+To update database tables:
+    
+    python manage.py schemamigration users --
+
 To run the django development server, you will first need to setup the database:
 
     python manage.py syncdb
-
 
 This loads default data into the database as defined by fixtures within
 the `users` app.

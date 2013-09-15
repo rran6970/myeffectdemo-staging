@@ -10,11 +10,15 @@ div.green { z-index: -997; position: relative; width: 100%; height: 319px; backg
 /*div.push { min-height: 100%; }*/
 
 div.container.index h1.title { z-index: 999; position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
-div.container.index div.logo { width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; }
+div.container.index div.logo { width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0;position: relative; z-index: 100; }
 
-div.container.index div.wrapper { width: 448px; position: relative; left: 760px; top: 30px; }
+div.container.index div.wrapper { width: 272px; position: relative; left: 60%; top: 30px; }
 div.container.index div.wrapper form.signup-form h2 { font-size: 20px; color: white; text-shadow: 1px 1px 1px #999; font-weight: 200; }
 div.container.index div.wrapper form.signup-form input[type="text"] { width: 250px; }
+div.container.index div.wrapper form.signup-form select { width: 272px; }
+div.container.index div.wrapper form.signup-form div.fieldWrapper { color: white; }
+div.container.index div.wrapper form.signup-form div.fieldWrapper input[type="checkbox"] { margin-right: 10px; margin-bottom: 10px; }
 div.container.index div.wrapper form.signup-form input[type="submit"] { width: 270px; }
+div.container.index div.wrapper form.signup-form div.message-box.error { margin-top: 10px; }
 div.container.index div.wrapper form.signup-form ul.errorlist { margin: 0; padding: 0; }
 

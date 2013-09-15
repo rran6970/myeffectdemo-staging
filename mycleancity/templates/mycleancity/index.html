@@ -16,15 +16,33 @@
   <div class="wrapper">
     <form action="" method="post" class="signup-form">{% csrf_token %}
       <h2>Pre-register Today</h2>
-      {% for field in form %}
-          <div class="fieldWrapper">
-            {{ field }}
-          </div>
-      {% endfor %}
+      <div class="fieldWrapper">
+        {{ form.first_name }}
+      </div>
+      <div class="fieldWrapper">
+        {{ form.email }}
+      </div>
+      <div class="fieldWrapper">
+        {{ form.postal_code }}
+      </div>
+      <div class="fieldWrapper">
+        {{ form.school_type }}
+      </div>
+      <div class="fieldWrapper">
+        {{ form.ambassador }}{{ form.ambassador.label }}
+      </div>
       <input class="btn btn-primary button" type="submit" value="Get Notified!" />
       
+      <div class="message-box error">
       {{ form.non_field_errors }}
-      
+      </div>    
+
+      {% if success %}  
+        <ul class="successlist">
+          <li>Thank you! You will be notified when we launch</li>
+        </ul>
+      {% endif %}
+
     </form>
   </div><!-- /wrapper -->
 </div> <!-- /container -->

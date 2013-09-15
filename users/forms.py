@@ -2,6 +2,7 @@ import re
 
 from django import forms
 from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
 from users.models import PrelaunchEmails
 
 """
@@ -36,10 +37,13 @@ def country_is_valid(country):
 	if str(country) not in countries:
 		raise forms.ValidationError('Invalid country')
 
+SCHOOLS = (('high_school', 'High School'), ('post_secondary', 'Post Secondary'))
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
 	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
+	school_type = forms.ChoiceField(choices=SCHOOLS)
+	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
 
 	# Combines the form with the corresponding model
 	class Meta:
