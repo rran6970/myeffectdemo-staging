@@ -22,3 +22,6 @@ div.container.index div.wrapper form.signup-form input[type="submit"] { width: 2
 div.container.index div.wrapper form.signup-form div.message-box.error { margin-top: 10px; }
 div.container.index div.wrapper form.signup-form ul.errorlist { margin: 0; padding: 0; }
 
+div.social-media { z-index: 999; width: 200px; margin-left: 30px; position: absolute; top: 530px; left: 0; }
+#facebook { display: block; float: left; background: url(../images/facebook.png) no-repeat 0 0; height: 48px; width: 48px; margin-right: 20px; }
+#twitter { display: block; float: left; background: url(../images/twitter.png) no-repeat 0 0; height: 48px; width: 48px; }

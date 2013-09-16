@@ -37,7 +37,7 @@ def country_is_valid(country):
 	if str(country) not in countries:
 		raise forms.ValidationError('Invalid country')
 
-SCHOOLS = (('high_school', 'High School'), ('post_secondary', 'Post Secondary'))
+SCHOOLS = (('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))

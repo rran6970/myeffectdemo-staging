@@ -1,18 +1,46 @@
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from users.forms import PrelaunchEmailsForm, LoginUserForm, RegisterUserForm
 from users.models import UserProfile
 
 class PrelaunchView(FormView):
-	template_name = "mycleancity/index.html"
+	template_name = "mycleancity/index.html"	
+	success_url = "/success"
 	form_class = PrelaunchEmailsForm
-	success_url = "mycleancity/index.html"
+
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		return self.render_to_response(self.get_context_data(form=form))
+
+	def post(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form, **kwargs)
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
 
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 		form.save()
-		return super(PrelaunchView, self).form_valid(form)
+		# return super(PrelaunchView, self).form_valid(form)
+		return HttpResponseRedirect(self.get_success_url())
+		
+
+	# def get_context_data(self, **kwargs):
+	# 	context = super(PrelaunchView, self).get_context_data(**kwargs)
+	# 	context['success'] = True
+	# 	return context
 
 class RegisterView(FormView):
 	template_name = "users/register.html"

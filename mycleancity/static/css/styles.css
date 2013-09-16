@@ -58,5 +58,5 @@ a.button { font-size: 13px; padding: 9px 60px; margin-top: 7px; letter-spacing: 
 .errorlist { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; text-align: center; background-color: #b94a48; border: 1px solid #7e0000; color: #f2dede; }
 .errorlist li { padding: 20px; }
 
-.successlist { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; text-align: center; background-color: #b94a48; border: 1px solid #7e0000; color: #f2dede; }
+.successlist { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; text-align: center; background-color: #F0F7BC; border: 1px solid #6E7926; color: #6E7926; }
 .successlist li { padding: 20px; }

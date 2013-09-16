@@ -14,6 +14,7 @@
   <div class="logo"></div>
   <h1 class="title">Building sustainable communities<br/>through the power of YOUth</h1>
   <div class="wrapper">
+
     <form action="" method="post" class="signup-form">{% csrf_token %}
       <h2>Pre-register Today</h2>
       <div class="fieldWrapper">
@@ -35,16 +36,18 @@
       
       <div class="message-box error">
       {{ form.non_field_errors }}
-      </div>    
-
-      {% if success %}  
-        <ul class="successlist">
-          <li>Thank you! You will be notified when we launch</li>
-        </ul>
-      {% endif %}
+      </div>
 
     </form>
+
   </div><!-- /wrapper -->
+
+    <div class="social-media">
+      <h2>Let's stay in touch</h2>
+      <a id="facebook" href="https://www.facebook.com/pages/My-Clean-City/203721359785216" target="_blank"></a>
+      <a id="twitter" href="https://twitter.com/MyCleanCity1" target="_blank"></a>
+    </div>  
+  
 </div> <!-- /container -->
 <div class="green"></div>
 
