@@ -37,7 +37,7 @@ def country_is_valid(country):
 	if str(country) not in countries:
 		raise forms.ValidationError('Invalid country')
 
-SCHOOLS = (('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
+SCHOOLS = (('', 'Please select one...'),('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
@@ -54,6 +54,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		first_name = cleaned_data.get("first_name")
 		email = cleaned_data.get("email")
 		postal_code = cleaned_data.get("postal_code")
+		school_type = cleaned_data.get("school_type")
 
 		if not first_name and email and postal_code:
 			raise forms.ValidationError("Please enter all of the fields")
@@ -63,6 +64,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a valid email address")
 		elif not postal_code:
 			raise forms.ValidationError("Please enter a valid postal code")
+		elif not school_type:
+			raise forms.ValidationError("Please select your education")
 
 		return cleaned_data
 
