@@ -9,7 +9,8 @@
 	<div class="container">
 
 	  <form action="" method="post">{% csrf_token %}
-	    {{ form.non_field_errors }}
+        {{ form.non_field_errors }}
+	    {{ form.errors }}
         <div class="fieldWrapper">
             {{ form.first_name.label_tag }} {{ form.first_name }}
         </div>
@@ -18,6 +19,9 @@
         </div>
         <div class="fieldWrapper">
             {{ form.email.label_tag }} {{ form.email }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.dob.label_tag }} {{ form.dob }}
         </div>
         <div class="fieldWrapper">
             {{ form.password.label_tag }} {{ form.password }}

@@ -1,7 +1,9 @@
+import datetime
 import re
 
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
 from users.models import PrelaunchEmails
 
@@ -38,6 +40,7 @@ def country_is_valid(country):
 		raise forms.ValidationError('Invalid country')
 
 SCHOOLS = (('', 'Please select one...'),('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
+
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
@@ -70,65 +73,45 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
+	first_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput())
+	last_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(max_length = 128, validators = [
-		username_format_is_valid, username_is_unique], widget=forms.TextInput(attrs={'class':'required'}))
-	password = forms.CharField(max_length = 32, widget = forms.PasswordInput(attrs={'class':'required'}),
-		validators = [password_length_sufficient])
+		username_format_is_valid, username_is_unique], widget=forms.TextInput())
+	password = forms.CharField(max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(max_length = 32,
-		widget = forms.PasswordInput(attrs={'class':'required'}))
-	first_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'autofocus required'}))
-	last_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'required'}))
-
+		widget = forms.PasswordInput())
+	dob = forms.DateField(initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	
 	# Combines the form with the corresponding model
 	class Meta:
 		model = User
+		exclude = ('username', 'last_login', 'date_joined')
 
 	def clean(self):
-		cleaned_data = self.cleaned_data
+		cleaned_data = super(RegisterUserForm, self).clean()
+		first_name = cleaned_data.get("first_name")
+		last_name = cleaned_data.get("last_name")
+		email = cleaned_data.get("email")
 		passwd1 = cleaned_data.get('password')
 		passwd2 = cleaned_data.get('confirm_password')
+
+		if not first_name:
+			raise forms.ValidationError("Please let us know what to call you!")
+		elif not last_name:
+			raise forms.ValidationError("Please enter your last name!")
+		elif not email:
+			raise forms.ValidationError("Please enter a valid email address")
 
 		if passwd1 and passwd2:
 			if passwd1 != passwd2:
 				raise forms.ValidationError('Passwords did not match')
 
-		# for key in cleaned_data:
-		# 	if key in cleaned_data:
-		# 		key = key.title()
-		# 	else:
-		# 		raise forms.ValidationError('First name is required')
-
-		if 'first_name' in cleaned_data:
-			self.cleaned_data['first_name'] = cleaned_data['first_name'].title()
-		else:
-			raise forms.ValidationError('First name is required')
-
-		if 'last_name' in cleaned_data:
-			self.cleaned_data['last_name'] = cleaned_data['last_name'].title()
-		else:
-			raise forms.ValidationError('Last name is required')
-
-		if 'email' in cleaned_data:
-			self.cleaned_data['email'] = cleaned_data['email'].title()
-		else:
-			raise forms.ValidationError('Email is required')
-
-		if 'password' in cleaned_data:
-			self.cleaned_data['password'] = cleaned_data['password'].title()
-		else:
-			raise forms.ValidationError('Password is required')
-
-		if 'confirm_password' in cleaned_data:
-			self.cleaned_data['confirm_password'] = cleaned_data['confirm_password'].title()
-		else:
-			raise forms.ValidationError('Confirm password is required')
-
 		return cleaned_data
 
 class LoginUserForm(forms.Form):
 	email = forms.CharField(max_length = 128, validators = [
-		username_format_is_valid, username_exists], widget=forms.TextInput(attrs={'class':'required', 'placeholder':'Email Address'}))
-	password = forms.CharField(max_length = 32, widget = forms.PasswordInput(attrs={'class':'required', 'placeholder':'********'}))
+		username_format_is_valid, username_exists], widget=forms.TextInput())
+	password = forms.CharField(max_length = 32, widget = forms.PasswordInput())
 
 	def clean(self):
 		cleaned_data = self.cleaned_data
@@ -137,7 +120,7 @@ class LoginUserForm(forms.Form):
 			user = authenticate(username = cleaned_data['email'],
 				password = cleaned_data['password'])
 			if user is None or not user.is_active:
-				raise forms.ValidationError('Email address and password are not valid. If you are not currenly a member please sign up at "Become a Member".')
+				raise forms.ValidationError('Email address and password are not valid.')
 		else:
 			raise forms.ValidationError('Please provide an email address and password.')
 		return cleaned_data

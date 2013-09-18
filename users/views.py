@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout, SESSION_KEY
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
@@ -47,9 +49,12 @@ class RegisterView(FormView):
 	form_class = RegisterUserForm
 	success_url = "mycleancity/index.html"
 
-	def form_valid(self, form):
-		print "valid"
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
 
+	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 
@@ -62,11 +67,13 @@ class RegisterView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.save()
 
+		dob = form.cleaned_data['dob']
+
 		#Create User Profile
 		try:
-			p = UserProfile(user=u)
+			p = UserProfile(dob=dob, clean_creds=0, user=u)
 			p.save()
-		except Exception:
+		except Exception, e:
 			print e
 
 		user = authenticate(username=u.username, password=form.cleaned_data['password'])
@@ -79,7 +86,13 @@ class LoginView(FormView):
 	success_url = "mycleancity/index.html"
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-		form.save()
+		email = form.cleaned_data['email']
+		password = form.cleaned_data['password']
+
+		user = authenticate(username=email, password=password)
 		return super(LoginView, self).form_valid(form)
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)

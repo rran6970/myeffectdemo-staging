@@ -1,7 +1,7 @@
 # Django settings for mycleancity project.
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
