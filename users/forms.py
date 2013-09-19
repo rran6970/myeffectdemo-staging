@@ -124,3 +124,39 @@ class LoginUserForm(forms.Form):
 		else:
 			raise forms.ValidationError('Please provide an email address and password.')
 		return cleaned_data
+
+class ProfileForm(forms.ModelForm):
+	first_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput())
+	last_name = forms.CharField(max_length = 128, min_length = 2, widget=forms.TextInput())
+	email = forms.CharField(max_length = 128, validators = [
+		username_format_is_valid, username_is_unique], widget=forms.TextInput())
+	password = forms.CharField(max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
+	confirm_password = forms.CharField(max_length = 32,
+		widget = forms.PasswordInput())
+	dob = forms.DateField(initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	
+	# Combines the form with the corresponding model
+	class Meta:
+		model = User
+		exclude = ('username', 'last_login', 'date_joined')
+
+	def clean(self):
+		cleaned_data = super(RegisterUserForm, self).clean()
+		first_name = cleaned_data.get("first_name")
+		last_name = cleaned_data.get("last_name")
+		email = cleaned_data.get("email")
+		passwd1 = cleaned_data.get('password')
+		passwd2 = cleaned_data.get('confirm_password')
+
+		if not first_name:
+			raise forms.ValidationError("Please let us know what to call you!")
+		elif not last_name:
+			raise forms.ValidationError("Please enter your last name!")
+		elif not email:
+			raise forms.ValidationError("Please enter a valid email address")
+
+		if passwd1 and passwd2:
+			if passwd1 != passwd2:
+				raise forms.ValidationError('Passwords did not match')
+
+		return cleaned_data

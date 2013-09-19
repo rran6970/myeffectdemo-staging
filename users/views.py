@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout, SESSION_KEY
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from users.forms import PrelaunchEmailsForm, LoginUserForm, RegisterUserForm
+from users.forms import PrelaunchEmailsForm, LoginUserForm, RegisterUserForm, ProfileForm
 from users.models import UserProfile
 
 class PrelaunchView(FormView):
@@ -96,3 +97,52 @@ class LoginView(FormView):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 		return self.render_to_response(context)
+
+
+class ProfileView(FormView):
+	template_name = "users/profile.html"
+	form_class = ProfileForm
+	success_url = "mycleancity/index.html"
+
+	# @login_required(login_url='/users/login/')
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		# print request.user.id
+
+		return self.render_to_response(self.get_context_data(form=form))
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		# This method is called when valid form data has been POSTed.
+		# It should return an HttpResponse.
+
+		# u = User.objects.create_user(
+	 #        form.cleaned_data['email'],
+	 #        form.cleaned_data['email'],
+	 #        form.cleaned_data['password']
+	 #    )
+		# u.first_name = form.cleaned_data['first_name']
+		# u.last_name = form.cleaned_data['last_name']
+		# u.save()
+
+		# dob = form.cleaned_data['dob']
+
+		# #Create User Profile
+		# try:
+		# 	p = UserProfile(dob=dob, clean_creds=0, user=u)
+		# 	p.save()
+		# except Exception, e:
+		# 	print e
+
+		return super(RegisterView, self).form_valid(form)
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfileView, self).get_context_data(**kwargs)
+		context['success'] = True
+		return context
