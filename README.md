@@ -43,7 +43,9 @@ To install all python requirements:
 
 To update database tables:
     
-    python manage.py schemamigration users --
+    python manage.py schemamigration users --initial
+    python manage.py schemamigration users --auto
+    python manage.py schemamigration users --help
 
 To run the django development server, you will first need to setup the database:
 

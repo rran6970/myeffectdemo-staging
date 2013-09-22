@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	url(r'^admin/', include(admin.site.urls)),
-	url(r'^accounts/login/?', 'users.views.login'),
+	# url(r'^accounts/login/?', 'users.views.login'),
 
 	url(r'^challenges/', include('challenges.urls')),
 	url(r'^cleancreds/', include('cleancreds.urls')),

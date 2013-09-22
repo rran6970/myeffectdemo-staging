@@ -121,11 +121,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.admindocs',
-    'south',
+    'django.contrib.admindocs',    
     'cleancreds',
     'challenges',
+    'south',
     'users',
+    'userprofile',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -167,3 +168,4 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'

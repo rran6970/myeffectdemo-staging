@@ -10,7 +10,7 @@ from django.views.generic.edit import FormView
 from mycleancity.mixins import LoginRequiredMixin
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm
-from users.models import UserProfile
+from userprofile.models import UserProfile
 
 def login(request):
 	c = {}
@@ -102,16 +102,9 @@ class RegisterView(FormView):
 	    )
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
+		u.profile.dob = form.cleaned_data['dob']
+		u.profile.save()
 		u.save()
-
-		dob = form.cleaned_data['dob']
-
-		#Create User Profile
-		try:
-			p = UserProfile(dob=dob, clean_creds=0, user=u)
-			p.save()
-		except Exception, e:
-			print e
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
@@ -124,14 +117,13 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 	def get_initial(self):
 		user = User.objects.get(id=self.request.user.id)
-		user_profile = UserProfile.objects.get(user=user)
 
 		initial = {}
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		initial['organization'] = user_profile.organization
-		initial['dob'] = user_profile.dob
+		initial['organization'] = user.profile.organization
+		initial['dob'] = user.profile.dob
 
 		return initial
 

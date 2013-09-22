@@ -6,7 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from users.models import PrelaunchEmails, UserProfile
+from users.models import PrelaunchEmails
+from userprofile.models import UserProfile
 
 """
 Form validators
