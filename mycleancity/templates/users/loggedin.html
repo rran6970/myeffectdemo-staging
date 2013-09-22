@@ -1,0 +1,15 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with login='active' %}
+
+{% block title %} My Clean City - Dashboard {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	
+	<h2>Hi {{ full_name }}</h2>
+	<p><a href="/users/logout/">Logout</a></p>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

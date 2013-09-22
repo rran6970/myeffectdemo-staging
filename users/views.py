@@ -1,11 +1,47 @@
-from django.contrib.auth import authenticate, login, logout, SESSION_KEY
+from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.shortcuts import render_to_response
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from users.forms import PrelaunchEmailsForm, LoginUserForm, RegisterUserForm, ProfileForm
+
+from mycleancity.mixins import LoginRequiredMixin
+
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm
 from users.models import UserProfile
+
+def login(request):
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('users/login.html', c)
+
+def auth_view(request):
+	email = request.POST.get('email', '')
+	password = request.POST.get('password', '')
+	user = auth.authenticate(username=email, password=password)
+
+	if user is not None:
+		auth.login(request, user)
+		return HttpResponseRedirect('/users/loggedin')
+	else:
+		return HttpResponseRedirect('/users/invalid')
+
+@login_required(login_url='/users/login')
+def loggedin(request):
+	return render_to_response('users/loggedin.html',
+							 {'full_name' : request.user.username})
+
+def invalid_login(request):
+	return render_to_response('users/invalid_login.html')
+
+def logout(request):
+	auth.logout(request)
+	return render_to_response('users/logout.html')
+
+def register_success(request):
+	return render_to_response('register_success.html')
 
 class PrelaunchView(FormView):
 	template_name = "mycleancity/index.html"	
@@ -77,39 +113,31 @@ class RegisterView(FormView):
 		except Exception, e:
 			print e
 
-		user = authenticate(username=u.username, password=form.cleaned_data['password'])
+		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
+		auth.login(self.request, user)
+		return HttpResponseRedirect('/users/loggedin')
 
-		return super(RegisterView, self).form_valid(form)
-
-class LoginView(FormView):
-	template_name = "users/login.html"
-	form_class = LoginUserForm
-	success_url = "mycleancity/index.html"
-
-	def form_valid(self, form):
-		email = form.cleaned_data['email']
-		password = form.cleaned_data['password']
-
-		user = authenticate(username=email, password=password)
-		return super(LoginView, self).form_valid(form)
-
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		return self.render_to_response(context)
-
-
-class ProfileView(FormView):
+class ProfileView(LoginRequiredMixin, FormView):
 	template_name = "users/profile.html"
 	form_class = ProfileForm
-	success_url = "mycleancity/index.html"
+	success_url = "/users/profile"
 
-	# @login_required(login_url='/users/login/')
+	def get_initial(self):
+		user = User.objects.get(id=self.request.user.id)
+		user_profile = UserProfile.objects.get(user=user)
+
+		initial = {}
+		initial['first_name'] = user.first_name
+		initial['last_name'] = user.last_name
+		initial['email'] = user.email
+		initial['organization'] = user_profile.organization
+		initial['dob'] = user_profile.dob
+
+		return initial
+
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-
-		# print request.user.id
 
 		return self.render_to_response(self.get_context_data(form=form))
 
@@ -122,27 +150,15 @@ class ProfileView(FormView):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 
-		# u = User.objects.create_user(
-	 #        form.cleaned_data['email'],
-	 #        form.cleaned_data['email'],
-	 #        form.cleaned_data['password']
-	 #    )
-		# u.first_name = form.cleaned_data['first_name']
-		# u.last_name = form.cleaned_data['last_name']
-		# u.save()
+		user = User.objects.get(id=self.request.user.id)
+		user_profile = UserProfile.objects.get(user=user)
 
-		# dob = form.cleaned_data['dob']
+		user.first_name = form.cleaned_data['first_name']
+		user.last_name = form.cleaned_data['last_name']
+		user.save()
 
-		# #Create User Profile
-		# try:
-		# 	p = UserProfile(dob=dob, clean_creds=0, user=u)
-		# 	p.save()
-		# except Exception, e:
-		# 	print e
+		user_profile.dob = form.cleaned_data['dob'] 
+		user_profile.organization = form.cleaned_data['organization'] 
+		user_profile.save()
 
-		return super(RegisterView, self).form_valid(form)
-
-	def get_context_data(self, **kwargs):
-		context = super(ProfileView, self).get_context_data(**kwargs)
-		context['success'] = True
-		return context
+		return super(ProfileView, self).form_valid(form)

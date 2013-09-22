@@ -8,8 +8,7 @@
 {% block content %}
 	<div class="container">
 
-	  <form action="" method="post">{% csrf_token %}
-        {{ form.non_field_errors }}
+	  <form action="/users/register" method="post">{% csrf_token %}
 	    {{ form.errors }}
         <div class="fieldWrapper">
             {{ form.first_name.label_tag }} {{ form.first_name }}

@@ -7,17 +7,19 @@
 
 {% block content %}
 
-	<form action="" method="post">{% csrf_token %}
-        {{ form.non_field_errors }}
-	    {{ form.errors }}
-        <div class="fieldWrapper">
-            {{ form.email.label_tag }} {{ form.email }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.password.label_tag }} {{ form.password }}
-        </div>
+    {% if form.errors %}
+        <p>Sorry. that's not a valid username or password</p>
+    {% endif %}
+
+	<form action="/users/auth/" method="post">{% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="text" name="email" value="" />
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" value="" />
+
 	    <input type="submit" value="Login" />
-	  </form>
+	</form>
 
 
 {% endblock %}
