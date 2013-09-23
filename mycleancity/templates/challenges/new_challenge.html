@@ -1,0 +1,21 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with register='active' %}
+
+{% block title %} My Clean City - New Challenge {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+
+	  <form action="" method="post">{% csrf_token %}
+        {{ form.non_field_errors }}
+	    {{ form.errors }}
+        {{ form.as_ul }}
+	    <input type="submit" value="Submit" />
+	  </form>
+
+	</div> <!-- /container -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}

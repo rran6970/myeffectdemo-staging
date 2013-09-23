@@ -1,0 +1,57 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with register='active' %}
+
+{% block title %} My Clean City - A Challenge {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<table>
+		<tr>
+			<td>Challenge</td>
+			<td>{{ challenge.title }}</td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td>{{ challenge.event_date }}</td>
+		</tr>
+		<tr>
+			<td>Time</td>
+			<td>{{ challenge.event_time }}</td>
+		</tr>
+		<tr>
+			<td>Cleancreds</td>
+			<td>{{ challenge.cleancred_value }}</td>
+		</tr>
+		<tr>
+			<td>Address</td>
+			<td>{{ challenge.address1 }}</td>
+		</tr>
+		<tr>
+			<td>Suite</td>
+			<td>{{ challenge.address2 }}</td>
+		</tr>
+		<tr>
+			<td>City</td>
+			<td>{{ challenge.city }}</td>
+		</tr>
+		<tr>
+			<td>Postal Code</td>
+			<td>{{ challenge.postal_code }}</td>
+		</tr>
+		<tr>
+			<td>Country</td>
+			<td>{{ challenge.country }}</td>
+		</tr>
+		<tr>
+			<td>Created By</td>
+			<td>{{ challenge.user }}</td>
+		</tr>
+		<tr>
+			<td>Posted On</td>
+			<td>{{ challenge.timestamp }}</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

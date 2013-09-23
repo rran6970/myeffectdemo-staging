@@ -10,14 +10,15 @@ Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
 	title = models.CharField(max_length=60, blank=False, verbose_name="Title")
-	datetime = models.DateTimeField()
+	event_date = models.DateField(blank=True, null=True)
+	event_time = models.TimeField(blank=True, null=True)
 	cleancred_value = models.IntegerField()
 	address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")
-	address2 = models.CharField(max_length=60, blank=False, verbose_name="Suite")
+	address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
 	city = models.CharField(max_length=60, blank=True, verbose_name='City')
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
-	user = models.OneToOneField(User)
+	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
