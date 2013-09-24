@@ -1,0 +1,21 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with register='active' %}
+
+{% block title %} My Clean City - Participants {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+	<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
+	<table class="table table-hover">
+		{% for participant in participants %}
+			<tr>
+				<td>{{ participant.user.first_name }} {{ participant.user.last_name }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	</div> <!-- /container -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}

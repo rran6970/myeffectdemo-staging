@@ -39,7 +39,7 @@ class UserChallenge(models.Model):
 	challenge = models.ForeignKey(Challenge)
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	complete = models.BooleanField()
+	complete = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'

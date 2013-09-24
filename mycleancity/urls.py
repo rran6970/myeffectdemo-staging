@@ -19,8 +19,9 @@ urlpatterns = patterns('',
 	url(r'^cleancreds/', include('cleancreds.urls')),
 	url(r'^users/', include('users.urls')),
 
-	url(r'^$', PrelaunchView.as_view(), name='prelaunch'),
 	url(r'^success/?', TemplateView.as_view(template_name='mycleancity/success.html')),
+	url(r'^landing/?', PrelaunchView.as_view()),
+	url(r'^$', HomePageView.as_view()),
 )
 
 if settings.DEBUG:

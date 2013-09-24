@@ -1,0 +1,23 @@
+{% extends '_public_base.html' %}
+{% include '_public_navbar.html' with register='active' %}
+
+{% block title %} My Clean City - Challenges {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+	<table class="table table-hover">
+		{% for challenge in challenges %}
+			<tr>
+				<td><a href="/challenges/{{ challenge.id }}/">{{ challenge.title }}</a></td>
+				<td>{{ challenge.event_date }}</td>
+				<td>{{ challenge.cleancred_value }}</td>
+				<td>{{ challenge.timestamp }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	</div> <!-- /container -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}

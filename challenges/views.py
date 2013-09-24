@@ -9,9 +9,32 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from django.views.generic import *
 from django.views.generic.base import View
+# from django.views.generic.base import TemplateView
+# from django.views.generic.edit import FormView
+# from django.views.generic.detail import DetailView
 
 from challenges.models import Challenge, UserChallenge
 from mycleancity.mixins import LoginRequiredMixin
+
+def participate_in_challenge(request):
+	if request.method == 'POST':
+		cid = request.POST['cid']
+		challenge = Challenge.objects.get(id=cid)
+		
+		user_challenge = UserChallenge(user=request.user)
+		user_challenge.challenge = challenge
+		user_challenge.save()
+
+	return HttpResponseRedirect('/challenges')
+
+class ChallengesFeedView(TemplateView):
+	template_name = "challenges/challeges_feed.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
+		context['challenges'] = Challenge.objects.all()[:10]
+
+		return context
 
 class NewChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/new_challenge.html"
@@ -41,7 +64,18 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 
 		return HttpResponseRedirect('/challenges/new-challenge')
 
-class ChallengeView(DetailView):
+class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
+	template_name = "challenges/challenge_participants.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ChallengeParticipantsView, self).get_context_data(**kwargs)
+
+		if 'cid' in self.kwargs:
+			context['participants'] = UserChallenge.objects.filter(challenge_id=self.kwargs['cid'])
+
+		return context
+
+class ChallengeView(TemplateView):
 	template_name = "challenges/challenge_details.html"
 	model = Challenge
 

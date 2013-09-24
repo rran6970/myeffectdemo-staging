@@ -1,27 +1,22 @@
-body { }
+/*------------------------------------------------------------------
+Author:         Zeeshan Syed
+Email:          zee@hakstudio.com
+Description:    CSS file for the Index Page
+Date created:   Sept 24, 2013
+-------------------------------------------------------------------*/
 
-div.container.index { background-color: #1dc0ec;  margin: 0; padding: 0; width: auto; min-height: 100%; height: auto !important; height: 100%; /*margin: 0 auto -319px;*/
-}
+body { background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; }
 
-div.container.index div.clouds { z-index: 1; position: absolute; top: 0; width: 100%; height: 245px; background: url(../images/clouds.png) repeat-x 0 0; }
-div.container.index div.tree { z-index: 999; position: absolute; left: -87px; top: 0px; width: 560px; height: 761px; background: url(../images/tree.png) no-repeat 0 0; }
+div.wrapper.index { margin: 0 !important; }
 
-div.green { z-index: -997; position: relative; width: 100%; height: 319px; background: url(../images/green-2.png) no-repeat 0 0; }
-/*div.push { min-height: 100%; }*/
+div.wrapper.index div.clouds { z-index: 1; position: absolute; top: 0; height: 306px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
+div.wrapper.index div.tree { z-index: 999; position: absolute; left: -87px; top: 0px; width: 560px; height: 761px; background: url(../images/tree.png) no-repeat 0 0; }
 
-div.container.index h1.title { z-index: 999; position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
-div.container.index div.logo { width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0;position: relative; z-index: 100; }
+div.wrapper.index h1.title { z-index: 999; position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
+div.wrapper.index div.logo { width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 100; }
 
-div.container.index div.wrapper { width: 272px; position: relative; left: 60%; top: 30px; }
-div.container.index div.wrapper form.signup-form h2 { font-size: 20px; color: white; text-shadow: 1px 1px 1px #999; font-weight: 200; }
-div.container.index div.wrapper form.signup-form input[type="text"] { width: 250px; }
-div.container.index div.wrapper form.signup-form select { width: 272px; }
-div.container.index div.wrapper form.signup-form div.fieldWrapper { color: white; }
-div.container.index div.wrapper form.signup-form div.fieldWrapper input[type="checkbox"] { margin-right: 10px; margin-bottom: 10px; }
-div.container.index div.wrapper form.signup-form input[type="submit"] { width: 270px; }
-div.container.index div.wrapper form.signup-form div.message-box.error { margin-top: 10px; }
-div.container.index div.wrapper form.signup-form ul.errorlist { margin: 0; padding: 0; }
+div.wrapper.index .container { width: 1280px; margin: 0 auto; position: relative; }
 
-div.social-media { z-index: 999; width: 200px; margin-left: 30px; position: absolute; top: 530px; left: 0; }
-#facebook { display: block; float: left; background: url(../images/facebook.png) no-repeat 0 0; height: 48px; width: 48px; margin-right: 20px; }
-#twitter { display: block; float: left; background: url(../images/twitter.png) no-repeat 0 0; height: 48px; width: 48px; }
+#grass-1 { width: 482px; height: 517px; position: relative; z-index: 999; top: 0; left: -12px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
+#grass-2 { width: 364px; height: 241px; position: relative; z-index: 998; top: -340px; left: 200px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
+#grass-3 { width: 733px; height: 483px; position: absolute; z-index: 998; top: 33px; right: -20px; background: transparent url(../images/grass-3.png) no-repeat 0 0; }

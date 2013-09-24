@@ -8,48 +8,18 @@
 
 {% block content %}
 
-<div class="container index">
+<div class="wrapper index">
   <div class="clouds"></div>
-  <div class="tree"></div>
   <div class="logo"></div>
   <h1 class="title">Building sustainable communities<br/>through the power of YOUth</h1>
-  <div class="wrapper">
-
-    <form action="" method="post" class="signup-form">{% csrf_token %}
-      <h2>Pre-register Today</h2>
-      <div class="fieldWrapper">
-        {{ form.first_name }}
-      </div>
-      <div class="fieldWrapper">
-        {{ form.email }}
-      </div>
-      <div class="fieldWrapper">
-        {{ form.postal_code }}
-      </div>
-      <div class="fieldWrapper">
-        {{ form.school_type }}
-      </div>
-      <div class="fieldWrapper">
-        {{ form.ambassador }}{{ form.ambassador.label }}
-      </div>
-      <input class="btn btn-primary button" type="submit" value="Get Notified!" />
-      
-      <div class="message-box error">
-      {{ form.non_field_errors }}
-      </div>
-
-    </form>
-
-  </div><!-- /wrapper -->
-
-    <div class="social-media">
-      <h2>Let's stay in touch</h2>
-      <a id="facebook" href="https://www.facebook.com/pages/My-Clean-City/203721359785216" target="_blank"></a>
-      <a id="twitter" href="https://twitter.com/MyCleanCity1" target="_blank"></a>
-    </div>  
+  <div class="container">
   
-</div> <!-- /container -->
-<div class="green"></div>
+    <div id="grass-1"></div>
+    <div id="grass-2"></div>
+    <div id="grass-3"></div>
+
+  </div><!-- /container -->  
+</div> <!-- /wrapper -->
 
 {% endblock %}
 

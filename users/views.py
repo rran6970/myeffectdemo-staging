@@ -44,7 +44,7 @@ def register_success(request):
 	return render_to_response('register_success.html')
 
 class PrelaunchView(FormView):
-	template_name = "mycleancity/index.html"	
+	template_name = "mycleancity/landing.html"	
 	success_url = "/success"
 	form_class = PrelaunchEmailsForm
 
