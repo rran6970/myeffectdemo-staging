@@ -20,9 +20,12 @@ div.wrapper.index .container { width: 1280px; margin: 0 auto; position: relative
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -555px; left: 200px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
 #grass-3 { width: 917px; height: 604px; overflow: hidden; position: absolute; z-index: 997; top: -131px; right: -28px; background: transparent url(../images/grass-3.png) no-repeat 0 0; }
 #path-1 { width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 996; top: 213px; right: 466px; background: transparent url(../images/path-1.png) no-repeat 0 0; }
+#path-1 + a { display: block; width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 999; top: 213px; right: 466px; }
+
 #path-2 { width: 730px; height: 142px; overflow: hidden; position: absolute; z-index: 997; top: 350px; right: 276px; background: transparent url(../images/path-2.png) no-repeat 0 0; }
 #recycle-bench { width: 205px; height: 122px; position: absolute; z-index: 998;top: 175px; left: 1000px; background: transparent url(../images/recycle-bench.png) no-repeat 0 0; }
 #buildings { width: 346px; height: 144px; position: absolute; z-index: 995; top: 80px; left: 528px; background: transparent url(../images/buildings.png) no-repeat 0 0; }
+#buildings + a { display: block; width: 346px; height: 144px; position: absolute; z-index: 999; top: 80px; left: 528px; }
 
 #sign-stump { width: 46px; height: 346px; position: absolute; z-index: 999; top: 162px; left: 159px; background: transparent url(../images/sign-stump.png) no-repeat 0 0; }
 #sign-register { width: 202px; height: 59px; position: absolute; z-index: 1000; top: 142px; left: 76px; background: url(../images/sign-register.png) no-repeat 0 0; }
