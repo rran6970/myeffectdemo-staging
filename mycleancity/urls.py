@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from mycleancity.views import HomePageView
+from mycleancity.views import HomePageView, AboutPageView, ContactPageView
 from users.views import PrelaunchView
 
 admin.autodiscover()
@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 
 	url(r'^success/?', TemplateView.as_view(template_name='mycleancity/success.html')),
 	url(r'^landing/?', PrelaunchView.as_view()),
+	url(r'^about/?', AboutPageView.as_view()),
+	url(r'^contact/?', ContactPageView.as_view()),
 	url(r'^$', HomePageView.as_view()),
 )
 

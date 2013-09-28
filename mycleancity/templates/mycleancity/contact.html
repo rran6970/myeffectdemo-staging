@@ -1,0 +1,44 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Contact {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  <a href="/contact" id="contact" class="menu-items"></a>
+  <a href="/about" id="about" class="menu-items"></a>
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+        <div id="white-box">
+          <div class="left">
+            <h2>Contact</h2>
+            <p><strong>General Info</strong><br/>info@mycleancity.org</p>
+          </div><!-- /.left -->
+          <div class="right">
+            <form action="#" method="post">
+              <input type="text" name="name" placeholder="Name" />
+              <input type="text" name="email" placeholder="Email" />
+              <input type="text" name="subject" placeholder="Subject" />
+              <textarea name="message" id="" cols="30" rows="10" placeholder="Message"></textarea>
+              <input class="btn btn-primary" type="submit" value="Send Message" />
+            </form>
+          </div><!-- /.right -->
+        </div><!-- /#white-box -->
+  
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+<div id="footer"></div>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
