@@ -82,6 +82,8 @@ class RegisterUserForm(forms.ModelForm):
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	school_type = forms.ChoiceField(choices=SCHOOLS)
+	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -109,6 +111,7 @@ class ProfileForm(forms.ModelForm):
 	email = forms.CharField(required=True, max_length = 128, validators = [
 		username_format_is_valid], widget=forms.TextInput())
 	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	school_type = forms.ChoiceField(choices=SCHOOLS)
 	
 	# Combines the form with the corresponding model
 	class Meta:

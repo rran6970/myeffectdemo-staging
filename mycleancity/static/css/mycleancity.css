@@ -16,10 +16,16 @@ div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin:
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
-a.menu-items { float: right; position: relative; display: block; z-index: 999; margin: 20px; }
-a.menu-items:hover { background-position: 0 bottom !important; }
+a.menu-items { font-weight: 500; font-size: 23px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #000; }
+a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
+a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
+a.menu-items:hover { text-decoration: none; color: white; /*background-position: 0 bottom !important;*/ }
+
+/*#profile { width: 105px; height: 27px; background: url(../images/profile.png) no-repeat 0 0; }
 #about { width: 105px; height: 27px; background: url(../images/about.png) no-repeat 0 0; }
 #contact { width: 90px; height: 25px; background: url(../images/contact.png) no-repeat 0 0 }
+#signout { width: 105px; height: 27px; background: url(../images/signout.png) no-repeat 0 0; }
+#help { width: 105px; height: 27px; background: url(../images/help.png) no-repeat 0 0; }*/
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -49,9 +55,9 @@ a.menu-items:hover { background-position: 0 bottom !important; }
 /******************************
 	About
 ******************************/ 	
-div.content { background: url(../images/about-bg.png) no-repeat center 0; height: 546px; }
+div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 546px; }
 
-#white-box { position: absolute; z-index: 1000; left: 25%; width: 600px; margin: 0 auto; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; }
+#white-box { position: absolute; height: 400px; overflow: scroll; z-index: 1000; left: 29%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; }
 #white-box p, #white-box h2 { color: #638d3d; }
 #white-box p { padding: 10px 0; }
 #white-box .left { float: left; width: 150px; }
@@ -59,3 +65,33 @@ div.content { background: url(../images/about-bg.png) no-repeat center 0; height
 #white-box .right form input { display: block; width: 300px; }
 #white-box .right form input[type="submit"] { width: 320px; } 
 #white-box .right form textarea { width: 300px; height: 170px; }
+#white-box table tr td { padding: 5px 20px 5px 0; }
+
+/******************************
+	Login
+******************************/ 
+#white-box.login { width: 300px; left: 36%; }
+#white-box.login input[type="text"], #white-box.login input[type="password"] { width: 275px; }
+#white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
+#white-box.login p { text-align: center; }
+
+/******************************
+	Register
+******************************/ 
+#white-box.register { width: 478px; }
+#white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.register p { text-align: center; }
+
+/******************************
+	Profile
+******************************/ 
+#white-box.profile { width: 478px; }
+#white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.profile p { text-align: center; }
+
+/******************************
+	Profile
+******************************/ 
+#white-box.new-challenge { width: 478px; border: 3px solid #668f42; }
+#white-box.new-challenge textarea { width: 453px; height: 200px; }
+#white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }

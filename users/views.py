@@ -12,10 +12,12 @@ from mycleancity.mixins import LoginRequiredMixin
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm
 from userprofile.models import UserProfile
 
-def login(request):
-	c = {}
-	c.update(csrf(request))
-	return render_to_response('users/login.html', c)
+class LoginPageView(TemplateView):
+	template_name = "users/login.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(LoginPageView, self).get_context_data(**kwargs)
+		return context
 
 def auth_view(request):
 	email = request.POST.get('email', '')

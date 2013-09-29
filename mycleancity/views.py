@@ -1,5 +1,8 @@
 from django.views.generic.base import TemplateView
 
+def error404(request):
+    return render(request,'mycleancity/404.html')
+
 class HomePageView(TemplateView):
 	template_name = "mycleancity/index.html"
 

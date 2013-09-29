@@ -1,21 +1,64 @@
 {% extends '_public_base.html' %}
-{% include '_public_navbar.html' with register='active' %}
 
 {% block title %} My Clean City - New Challenge {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-	<div class="container">
 
-	  <form action="" method="post">{% csrf_token %}
-        {{ form.non_field_errors }}
-	    {{ form.errors }}
-        {{ form.as_ul }}
-	    <input class="btn" type="submit" value="Submit" />
-	  </form>
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  <a href="/users/profile" class="menu-items menu-items-left">My Profile</a>
+  <a href="/users/leader-board" class="menu-items menu-items-left">Leader Board</a>
+  <a href="/users/challenge-centre" class="menu-items menu-items-left">Challenge Centre</a>
 
-	</div> <!-- /container -->
+  <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
+  <a href="/users/help" class="menu-items menu-items-right">Help</a>
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+        <div id="white-box" class="new-challenge">
+            <h2>New Challenge</h2>
+			<form action="" method="post">{% csrf_token %}
+	            <table>
+	                <tr>
+	                    <td>{{ form.title.label_tag }} {{ form.title }}</td>
+	                    <td>{{ form.cleancred_value.label_tag }} {{ form.cleancred_value }}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{ form.address1.label_tag }} {{ form.address1 }}</td>
+	                    <td>{{ form.address2.label_tag }} {{ form.address2 }}</td>
+	                </tr>
+	                <tr>
+	                	<td>{{ form.city.label_tag }} {{ form.city }}</td>
+	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
+	                </tr>
+	                <tr>
+	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>
+	                </tr>
+	            </table>
+	            <input class="btn btn-primary" type="submit" value="Post Challenge" />
+        	</form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+<div id="footer">
+  <div class="icons">
+    <a href="http://facebook.com/mycleancity" target="_blank"><img src="{{ STATIC_URL }}images/facebook.png" alt="facebook" /></a>
+    <a href="http://twitter.com/mycleancity" target="_blank"><img src="{{ STATIC_URL }}images/twitter.png" alt="twitter" /></a>
+  </div>
+  <p class="copyright">&copy; 2013 My Clean City. All Rights Reserved.</p>
+</div>
+
 {% endblock %}
 
 {% block javascript %}{% endblock %}

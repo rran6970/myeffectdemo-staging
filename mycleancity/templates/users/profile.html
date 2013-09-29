@@ -1,35 +1,67 @@
 {% extends '_public_base.html' %}
-{% include '_public_navbar.html' with register='active' %}
 
 {% block title %} My Clean City - Profile {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-	<div class="container">
 
-	  <form action="" method="post">{% csrf_token %}
-        {{ form.non_field_errors }}
-	    {{ form.errors }}
-        <div class="fieldWrapper">
-            {{ form.first_name.label_tag }} {{ form.first_name }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.last_name.label_tag }} {{ form.last_name }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.email.label_tag }} {{ form.email }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.organization.label_tag }} {{ form.organization }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.dob.label_tag }} {{ form.dob }}
-        </div>
-	    <input class="btn" type="submit" value="Submit" />
-	  </form>
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  <a href="/users/profile" class="menu-items menu-items-left">My Profile</a>
+  <a href="/users/leader-board" class="menu-items menu-items-left">Leader Board</a>
+  <a href="/users/challenge-centre" class="menu-items menu-items-left">Challenge Centre</a>
 
-	</div> <!-- /container -->
+  <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
+  <a href="/users/help" class="menu-items menu-items-right">Help</a>
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+        <div id="white-box" class="profile">
+            <h2>My Profile</h2>
+            {% if form.errors %}
+               <p>Sorry. that's not a valid username or password</p>
+            {% endif %}
+
+            <form action="" method="post">{% csrf_token %}
+                {{ form.errors }}
+                <table>
+                    <tr>
+                        <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
+                        <td>{{ form.email.label_tag }} {{ form.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.last_name.label_tag }} {{ form.first_name }}</td>
+                        <td>{{ form.password.label_tag }} {{ form.password }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
+                        <td>{{ form.confirm_password.label_tag }} {{ form.confirm_password }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.school_type }}{{ form.label }}</td>
+                        <td>{{ form.ambassador }}{{ form.ambassador.label }}</td>
+                    </tr>
+                </table>
+                <input class="btn btn-primary" type="submit" value="Update" />
+            </form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+<div id="footer">
+  <div class="icons">
+    <a href="http://facebook.com/mycleancity" target="_blank"><img src="{{ STATIC_URL }}images/facebook.png" alt="facebook" /></a>
+    <a href="http://twitter.com/mycleancity" target="_blank"><img src="{{ STATIC_URL }}images/twitter.png" alt="twitter" /></a>
+  </div>
+  <p class="copyright">&copy; 2013 My Clean City. All Rights Reserved.</p>
+</div>
+
 {% endblock %}
 
 {% block javascript %}{% endblock %}

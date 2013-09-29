@@ -18,6 +18,7 @@ class Challenge(models.Model):
 	city = models.CharField(max_length=60, blank=True, verbose_name='City')
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
+	description = models.TextField(blank=False, default="")
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 

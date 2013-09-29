@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Login {% endblock %}
+{% block title %} My Clean City - Contact {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -17,26 +17,11 @@
   
   <div class="content">
     <div class="container">
-      <!-- <div id="buildings"></div>
-      <a href="/challenge-centre"></a> -->
       
-        <div id="white-box" class="login">
-            <h2>Login</h2>
-            {% if form.errors %}
-               <p>Sorry. that's not a valid username or password</p>
-            {% endif %}
-
-            <form action="/users/auth/" method="post">{% csrf_token %}
-                <label for="email">Email:</label>
-                <input type="text" name="email" value="" />
-
-                <label for="password">Password:</label>
-                <input type="password" name="password" value="" />
-
-                <input class="btn btn-primary" type="submit" value="Login" />
-            </form>
-            <p>Don't have an account? Create one <a href="/users/register">here</a>.</p>
+        <div id="white-box">
+          <h1>Page not found</h1>
         </div><!-- /#white-box -->
+  
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

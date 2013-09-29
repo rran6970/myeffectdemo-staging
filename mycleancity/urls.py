@@ -26,6 +26,8 @@ urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view()),
 )
 
+handler404 = 'mycleancity.views.error404'
+
 if settings.DEBUG:
 	urlpatterns += patterns('django.contrib.staticfiles.views',
 		url(r'^static/(?P<path>.*)$', 'serve'),
