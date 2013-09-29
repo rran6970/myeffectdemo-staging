@@ -16,6 +16,7 @@ class Challenge(models.Model):
 	address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")
 	address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
 	city = models.CharField(max_length=60, blank=True, verbose_name='City')
+	province = models.CharField(max_length=60, blank=True, verbose_name='Province')
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")

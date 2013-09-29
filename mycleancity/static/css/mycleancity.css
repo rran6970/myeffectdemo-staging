@@ -5,11 +5,11 @@ Description:    CSS file for the Index Page
 Date created:   Sept 24, 2013
 -------------------------------------------------------------------*/
 
-body {  }
+body { }
 
 div.wrapper.public { width: 100%; margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; overflow: hidden; }
 
-div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 306px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
+div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
 
 div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
 div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
@@ -19,13 +19,7 @@ div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; po
 a.menu-items { font-weight: 500; font-size: 23px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #000; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
-a.menu-items:hover { text-decoration: none; color: white; /*background-position: 0 bottom !important;*/ }
-
-/*#profile { width: 105px; height: 27px; background: url(../images/profile.png) no-repeat 0 0; }
-#about { width: 105px; height: 27px; background: url(../images/about.png) no-repeat 0 0; }
-#contact { width: 90px; height: 25px; background: url(../images/contact.png) no-repeat 0 0 }
-#signout { width: 105px; height: 27px; background: url(../images/signout.png) no-repeat 0 0; }
-#help { width: 105px; height: 27px; background: url(../images/help.png) no-repeat 0 0; }*/
+a.menu-items:hover { text-decoration: none; color: white; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -65,7 +59,7 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 #white-box .right form input { display: block; width: 300px; }
 #white-box .right form input[type="submit"] { width: 320px; } 
 #white-box .right form textarea { width: 300px; height: 170px; }
-#white-box table tr td { padding: 5px 20px 5px 0; }
+#white-box table tr td { padding: 5px 20px 0 0; }
 
 /******************************
 	Login
@@ -92,6 +86,19 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 /******************************
 	Profile
 ******************************/ 
-#white-box.new-challenge { width: 478px; border: 3px solid #668f42; }
+#white-box.new-challenge { width: 478px; border: 4px solid #668f42; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+
+/******************************
+	Challenge Centre
+******************************/ 
+#sign-challenge-centre { width: 444px; height: 101px; margin: 0 auto; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
+#white-box.challenge-centre { width: 478px; height: 300px; border: 5px solid #4a3c2e; }
+#white-box.challenge-centre div.challenges { margin-bottom: 20px; }
+#white-box.challenge-centre div.challenges h1 { font-weight: 900; font-size: 20px; }
+#white-box.challenge-centre div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
+#white-box.challenge-centre div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
+#white-box.challenge-centre div.challenges p { padding: 0; }
+
+
