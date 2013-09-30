@@ -1,21 +1,56 @@
 {% extends '_public_base.html' %}
-{% include '_public_navbar.html' with register='active' %}
 
-{% block title %} My Clean City - Participants {% endblock %}
+{% block title %} My Clean City - {{ challenge.title }} Participants {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-	<div class="container">
-	<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
-	<table class="table table-hover">
-		{% for participant in participants %}
-			<tr>
-				<td>{{ participant.user.first_name }} {{ participant.user.last_name }}</td>
-			</tr>
-		{% endfor %}
-	</table>
-	</div> <!-- /container -->
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_loggedin_navbar.html" %}  
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <div id="white-box" class="challenge-participants">
+        	<h1>{{ challenge.title }}</h1>
+			
+			<form action="/challenges/confirm-participants/" method="post">
+				{% csrf_token %}
+				<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
+				<table>
+					<tr>
+						<td><h2>Participant</h2></td>
+						<td><h2>Confirmed</h2></td>
+					</tr>
+					{% for participant in participants %}
+						<tr>
+							<td class="name">
+								{{ participant.user.first_name }} {{ participant.user.last_name }}
+							</td>
+							<td class="participated">
+								<input type="hidden" name="uids" value="{{ participant.user.id }}" />
+								<input type="hidden" name="participated" value="false" />
+								<input type="checkbox" {% if participant.complete %} checked {% endif %} name="participated" />
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+				
+				<input type="hidden" name="cid" value="{{ cid }}">
+				<input class="btn btn-primary" type="submit" value="Confirm Participants" />
+			</form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
 {% endblock %}
 
 {% block javascript %}{% endblock %}

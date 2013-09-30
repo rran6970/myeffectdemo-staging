@@ -81,7 +81,7 @@ class RegisterUserForm(forms.ModelForm):
 		username_format_is_valid, username_is_unique], widget=forms.TextInput())
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
-	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
 	school_type = forms.ChoiceField(choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
 	
@@ -92,9 +92,31 @@ class RegisterUserForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super(RegisterUserForm, self).clean()
-		first_name = cleaned_data.get("first_name")
-		last_name = cleaned_data.get("last_name")
-		email = cleaned_data.get("email")
+		passwd1 = cleaned_data.get('password')
+		passwd2 = cleaned_data.get('confirm_password')
+
+		if passwd1 and passwd2:
+			if passwd1 != passwd2:
+				raise forms.ValidationError('Passwords did not match')
+
+		return cleaned_data
+
+class RegisterOrganizationForm(forms.ModelForm):
+	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length = 128, validators = [
+		username_format_is_valid, username_is_unique], widget=forms.TextInput())
+	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
+	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
+	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	
+	# Combines the form with the corresponding model
+	class Meta:
+		model = User
+		exclude = ('username', 'last_login', 'date_joined')
+
+	def clean(self):
+		cleaned_data = super(RegisterOrganizationForm, self).clean()
 		passwd1 = cleaned_data.get('password')
 		passwd2 = cleaned_data.get('confirm_password')
 

@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
 
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizationForm, ProfileForm
 from userprofile.models import UserProfile
 
 class LoginPageView(TemplateView):
@@ -20,6 +20,7 @@ class LoginPageView(TemplateView):
 		return context
 
 def auth_view(request):
+	c = {}
 	email = request.POST.get('email', '')
 	password = request.POST.get('password', '')
 	user = auth.authenticate(username=email, password=password)
@@ -28,15 +29,13 @@ def auth_view(request):
 		auth.login(request, user)
 		return HttpResponseRedirect('/challenges/')
 	else:
-		return HttpResponseRedirect('/users/invalid')
+		c['invalid'] = True
+		return render_to_response('users/login.html', c)
 
 @login_required(login_url='/users/login')
 def loggedin(request):
 	return render_to_response('users/loggedin.html',
 							 {'full_name' : request.user.username})
-
-def invalid_login(request):
-	return render_to_response('users/invalid_login.html')
 
 def logout(request):
 	auth.logout(request)
@@ -74,14 +73,8 @@ class PrelaunchView(FormView):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 		form.save()
-		# return super(PrelaunchView, self).form_valid(form)
 		return HttpResponseRedirect(self.get_success_url())
 		
-
-	# def get_context_data(self, **kwargs):
-	# 	context = super(PrelaunchView, self).get_context_data(**kwargs)
-	# 	context['success'] = True
-	# 	return context
 
 class RegisterView(FormView):
 	template_name = "users/register.html"
@@ -105,12 +98,43 @@ class RegisterView(FormView):
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.dob = form.cleaned_data['dob']
+		u.profile.school_type = form.cleaned_data['school_type']
+		u.profile.ambassador = form.cleaned_data['ambassador']
 		u.profile.save()
 		u.save()
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
-		return HttpResponseRedirect('/users/loggedin')
+		return HttpResponseRedirect('/challenges/')
+
+class RegisterOrganizationView(FormView):
+	template_name = "users/register_organization.html"
+	form_class = RegisterOrganizationForm
+	success_url = "mycleancity/index.html"
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		# This method is called when valid form data has been POSTed.
+		# It should return an HttpResponse.
+
+		u = User.objects.create_user(
+	        form.cleaned_data['email'],
+	        form.cleaned_data['email'],
+	        form.cleaned_data['password']
+	    )
+		u.first_name = form.cleaned_data['first_name']
+		u.last_name = form.cleaned_data['last_name']
+		u.profile.organization = form.cleaned_data['organization']
+		u.profile.save()
+		u.save()
+
+		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
+		auth.login(self.request, user)
+		return HttpResponseRedirect('/challenges')
 
 class ProfileView(LoginRequiredMixin, FormView):
 	template_name = "users/profile.html"

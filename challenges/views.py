@@ -1,5 +1,3 @@
-from challenges.form import NewChallengeForm
-
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -9,11 +7,10 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from django.views.generic import *
 from django.views.generic.base import View
-# from django.views.generic.base import TemplateView
-# from django.views.generic.edit import FormView
-# from django.views.generic.detail import DetailView
 
+from challenges.form import NewChallengeForm
 from challenges.models import Challenge, UserChallenge
+from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
 def participate_in_challenge(request):
@@ -26,6 +23,35 @@ def participate_in_challenge(request):
 		user_challenge.save()
 
 	return HttpResponseRedirect('/challenges')
+
+def confirm_participants(request):
+	cid = 1
+	if request.method == 'POST':
+		cid = request.POST['cid']
+		uids = request.POST.getlist('uids')
+		participated = request.POST.getlist('participated')
+
+		print uids
+		print participated
+		
+		# for u in uids:
+		# 	try:
+		# 		userchallenge = UserChallenge.objects.get(user_id=u, challenge_id=cid, complete=False)
+		# 		userchallenge.complete = True
+		# 		userchallenge.save()
+
+		# 		challenge = Challenge.objects.get(id=cid)
+			
+		# 		user = User.objects.get(id=userchallenge.user_id)
+				
+		# 		user_profile = UserProfile.objects.get(user=user)
+		# 		user_profile.clean_creds += challenge.cleancred_value
+		# 		user_profile.save()
+		# 	except Exception, e:
+		# 		pass
+			
+	return HttpResponseRedirect('/challenges/participants/%s' %(cid))
+
 
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challege_centre.html"
@@ -72,6 +98,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 
 		if 'cid' in self.kwargs:
 			context['participants'] = UserChallenge.objects.filter(challenge_id=self.kwargs['cid'])
+			context['cid'] = self.kwargs['cid']
 
 		return context
 
