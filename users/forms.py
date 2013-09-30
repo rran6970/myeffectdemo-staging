@@ -129,7 +129,6 @@ class RegisterOrganizationForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [
 		username_format_is_valid], widget=forms.TextInput())
 	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
@@ -152,5 +151,35 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your last name!")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
+
+		return cleaned_data
+
+class OrganizationProfileForm(forms.ModelForm):
+	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length = 128, validators = [
+		username_format_is_valid], widget=forms.TextInput())
+	
+	# Combines the form with the corresponding model
+	class Meta:
+		model = User
+		exclude = ('username', 'last_login', 'date_joined', 'password')
+
+	def clean(self):
+		cleaned_data = super(OrganizationProfileForm, self).clean()
+		first_name = cleaned_data.get("first_name")
+		last_name = cleaned_data.get("last_name")
+		organization = cleaned_data.get("organization")
+		email = cleaned_data.get("email")
+
+		if not first_name:
+			raise forms.ValidationError("Please let us know what to call you!")
+		elif not last_name:
+			raise forms.ValidationError("Please enter your last name!")
+		elif not email:
+			raise forms.ValidationError("Please enter a valid email address")
+		elif not organization:
+			raise forms.ValidationError("Please enter your organization")
 
 		return cleaned_data

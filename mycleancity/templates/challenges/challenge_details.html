@@ -11,14 +11,19 @@
 <div class="wrapper public">
   <div class="clouds"></div>
 
-  {% include "_loggedin_navbar.html" %}  
+  {% if user.is_authenticated %}
+    {% include "_loggedin_navbar.html" %}
+  {% else %}
+    {% include "_public_navbar.html" %}
+  {% endif %}
 
   <a href="/" class="logo"></a>
   
   <div class="content">
     <div class="container">
         <div id="white-box" class="challenge-overview">
-        	<h1>{{ challenge.title }}</h1>
+        	<h1>{{ challenge.title }}</h1><span><a href="/users/organization/{{ challenge.user.id }}">{{ challenge.user.profile.organization }}</a></span>
+        	<div class="clear"></div>
 			<table class="">
 				<tr>
 					<td class="titles">Date and Time:</td>
@@ -51,8 +56,8 @@
 					<td>{{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td class="titles">Created By:</td>
-					<td>{{ challenge.user }}</td>
+					<td class="titles">Contact Person:</td>
+					<td><a href="mailto:{{ challenge.user.email }}">{{ challenge.user.first_name }} {{ challenge.user.last_name }}</a></td>
 				</tr>
 				<tr>
 					<td class="titles">Posted On:</td>
@@ -63,12 +68,17 @@
 					<td>{{ challenge.description }}</td>
 				</tr>
 			</table>
-
+			
+			{% if user.is_authenticated %}
 			<form action="/challenges/participate/" method="post">
 				{% csrf_token %}
 				<input type="hidden" name="cid" value="{{ challenge.id }}">
 				<input class="btn btn-primary" type="submit" value="Participate" />
 			</form>
+			{% else %}
+				<a class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
+			{% endif %}
+
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

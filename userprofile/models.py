@@ -24,6 +24,9 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return u'UserProfile: %s' % self.user.username
 
+	def is_organization(self):
+		return False if self.organization == None else True
+
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)
 

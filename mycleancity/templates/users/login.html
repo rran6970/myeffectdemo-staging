@@ -20,7 +20,9 @@
         <div id="white-box" class="login">
             <h2>Login</h2>
             {% if invalid %}
-               <p>Sorry. that's not a valid username or password</p>
+              <div class="error">
+               <p>Sorry, that's not a valid username or password</p>
+              </div>
             {% endif %}
 
             <form action="/users/auth/" method="post">{% csrf_token %}

@@ -3,14 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
 
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizationForm, ProfileForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizationForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile
+from challenges.models import Challenge
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"
@@ -30,7 +32,7 @@ def auth_view(request):
 		return HttpResponseRedirect('/challenges/')
 	else:
 		c['invalid'] = True
-		return render_to_response('users/login.html', c)
+		return render_to_response('users/login.html', c, context_instance=RequestContext(request))
 
 @login_required(login_url='/users/login')
 def loggedin(request):
@@ -142,20 +144,23 @@ class ProfileView(LoginRequiredMixin, FormView):
 	success_url = "/users/profile"
 
 	def get_initial(self):
-		user = User.objects.get(id=self.request.user.id)
+		user = self.request.user
 
 		initial = {}
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		initial['organization'] = user.profile.organization
 		initial['dob'] = user.profile.dob
+		initial['school_type'] = user.profile.school_type
 
 		return initial
 
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
+
+		if self.request.user.profile.organization != "":
+			return HttpResponseRedirect('/users/organization-profile')
 
 		return self.render_to_response(self.get_context_data(form=form))
 
@@ -181,14 +186,75 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 		return super(ProfileView, self).form_valid(form)
 
-class LeaderboardView(LoginRequiredMixin, TemplateView):
+class OrganizationProfileView(LoginRequiredMixin, FormView):
+	template_name = "users/organization_profile.html"
+	form_class = OrganizationProfileForm
+	success_url = "/users/organization-profile"
+
+	def get_initial(self):
+		user = self.request.user
+
+		initial = {}
+		initial['first_name'] = user.first_name
+		initial['last_name'] = user.last_name
+		initial['email'] = user.email
+		initial['organization'] = user.profile.organization
+
+		return initial
+
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		return self.render_to_response(self.get_context_data(form=form))
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		# This method is called when valid form data has been POSTed.
+		# It should return an HttpResponse.
+
+		user = User.objects.get(id=self.request.user.id)
+		user_profile = UserProfile.objects.get(user=user)
+
+		user.first_name = form.cleaned_data['first_name']
+		user.last_name = form.cleaned_data['last_name']
+		user.email = form.cleaned_data['email']
+		user.save()
+
+		user_profile.organization = form.cleaned_data['organization'] 
+		user_profile.save()
+
+		return super(OrganizationProfileView, self).form_valid(form)
+
+class OrganizationProfilePublicView(TemplateView):
+	template_name = "users/organization_profile_public.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(OrganizationProfilePublicView, self).get_context_data(**kwargs)
+
+		if 'uid' in self.kwargs:
+			user_id = self.kwargs['uid']
+			context['organization'] = get_object_or_404(User, id=user_id)
+			context['challenges'] = Challenge.objects.filter(user_id=user_id)
+
+		context['user'] = self.request.user
+		return context
+
+class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"
 	
 	def get_context_data(self, **kwargs):
 		context = super(LeaderboardView, self).get_context_data(**kwargs)
 
 		leaders = UserProfile.objects.all().order_by('-clean_creds')[:8]
-		user_profile = UserProfile.objects.get(user=self.request.user)
+		user_profile = None
+
+		if self.request.user.is_authenticated():
+			user_profile = UserProfile.objects.get(user=self.request.user)
 
 		context['user_profile'] = user_profile
 		context['leaders'] = leaders

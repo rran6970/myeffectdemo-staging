@@ -59,6 +59,7 @@ class ChallengesFeedView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
 		context['challenges'] = Challenge.objects.all()[:10]
+		context['user'] = self.request.user
 
 		return context
 
@@ -66,6 +67,15 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/new_challenge.html"
 	form_class = NewChallengeForm
 	success_url = "mycleancity/index.html"
+
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		if self.request.user.profile.organization != "":
+			return HttpResponseRedirect('/challenges')
+
+		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
@@ -115,4 +125,5 @@ class ChallengeView(TemplateView):
 		if 'cid' in self.kwargs:
 			context['challenge'] = get_object_or_404(Challenge, id=self.kwargs['cid'])
 
+		context['user'] = self.request.user
 		return context

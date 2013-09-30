@@ -19,7 +19,7 @@
     <div class="container">
       
         <div id="white-box" class="profile">
-            <h2>My Profile</h2>
+            <h2>My Organization Profile</h2>
             {% if form.errors %}
                <p>Sorry. that's not a valid username or password</p>
             {% endif %}
@@ -32,14 +32,8 @@
                         <td>{{ form.email.label_tag }} {{ form.email }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form.last_name.label_tag }} {{ form.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
-                        <td>{{ form.school_type }}{{ form.label }}</td>
-                    </tr>
-                    <tr>
-                        
+                        <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
+                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
                     </tr>
                 </table>
                 <input class="btn btn-primary" type="submit" value="Update" />

@@ -16,7 +16,7 @@ div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin:
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
-a.menu-items { font-weight: 500; font-size: 23px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #000; }
+a.menu-items { font-weight: 500; font-size: 19px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
 a.menu-items:hover { text-decoration: none; color: white; }
@@ -87,11 +87,12 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 #white-box.profile { width: 478px; left: 29%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
+#white-box.profile select { top: 33px; position: relative; }
 
 /******************************
 	New Challenge
 ******************************/ 
-#white-box.new-challenge { width: 478px; }
+#white-box.new-challenge { width: 478px; left: 29%; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 
@@ -110,11 +111,13 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 /******************************
 	Challenge Page
 ******************************/ 
-#white-box.challenge-overview h1 { font-weight: 900; }
+#white-box.challenge-overview h1 { font-weight: 900; float: left; }
+#white-box.challenge-overview h1 + span { display: block; top: 11px; left: 12px; position: relative; }
 #white-box.challenge-overview table { margin-bottom: 30px; }
 #white-box.challenge-overview table tr td { padding: 10px 15px 0 0; }
-#white-box.challenge-overview table tr td.titles { width: 100px; }
+#white-box.challenge-overview table tr td.titles { width: 150px; }
 #white-box.challenge-overview input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.challenge-overview a.btn { margin: 0 auto; width: 300px; }
 
 /******************************
 	Leaderboard Page
@@ -135,6 +138,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
 #sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
+#sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
 #tree-progress { display: block; float: left; margin-left: 30px; position: absolute; top: -10px; }
 
