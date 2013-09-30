@@ -1,66 +1,81 @@
 {% extends '_public_base.html' %}
-{% include '_public_navbar.html' with register='active' %}
 
-{% block title %} My Clean City - A Challenge {% endblock %}
+{% block title %} My Clean City - {{ challenge.title }} {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-	<div class="container">
-		<table class="table table-hover">
-			<tr>
-				<td>Challenge</td>
-				<td>{{ challenge.title }}</td>
-			</tr>
-			<tr>
-				<td>Date</td>
-				<td>{{ challenge.event_date }}</td>
-			</tr>
-			<tr>
-				<td>Time</td>
-				<td>{{ challenge.event_time }}</td>
-			</tr>
-			<tr>
-				<td>Cleancreds</td>
-				<td>{{ challenge.cleancred_value }}</td>
-			</tr>
-			<tr>
-				<td>Address</td>
-				<td>{{ challenge.address1 }}</td>
-			</tr>
-			<tr>
-				<td>Suite</td>
-				<td>{{ challenge.address2 }}</td>
-			</tr>
-			<tr>
-				<td>City</td>
-				<td>{{ challenge.city }}</td>
-			</tr>
-			<tr>
-				<td>Postal Code</td>
-				<td>{{ challenge.postal_code }}</td>
-			</tr>
-			<tr>
-				<td>Country</td>
-				<td>{{ challenge.country }}</td>
-			</tr>
-			<tr>
-				<td>Created By</td>
-				<td>{{ challenge.user }}</td>
-			</tr>
-			<tr>
-				<td>Posted On</td>
-				<td>{{ challenge.timestamp }}</td>
-			</tr>
-		</table>
 
-		<form action="/challenges/participate/" method="post">
-			{% csrf_token %}
-			<input type="hidden" name="cid" value="{{ challenge.id }}">
-			<input class="btn" type="submit" value="Participate" />
-		</form>
-		
-	</div>
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_loggedin_navbar.html" %}  
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+        <div id="white-box" class="challenge-overview">
+        	<h1>{{ challenge.title }}</h1>
+			<table class="">
+				<tr>
+					<td class="titles">Date and Time:</td>
+					<td>{{ challenge.event_date }} {{ challenge.event_time }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Cleancreds:</td>
+					<td>{{ challenge.cleancred_value }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Address:</td>
+					<td>{{ challenge.address1 }}</td>
+				</tr>
+				{% if challenge.address2 %}
+				<tr>
+					<td class="titles">Suite:</td>
+					<td>{{ challenge.address2 }}</td>
+				</tr>
+				{% endif %}
+				<tr>
+					<td class="titles">City:</td>
+					<td>{{ challenge.city }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Postal Code:</td>
+					<td>{{ challenge.postal_code }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Country:</td>
+					<td>{{ challenge.country }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Created By:</td>
+					<td>{{ challenge.user }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Posted On:</td>
+					<td>{{ challenge.timestamp }}</td>
+				</tr>
+				<tr>
+					<td class="titles">Description:</td>
+					<td>{{ challenge.description }}</td>
+				</tr>
+			</table>
+
+			<form action="/challenges/participate/" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="cid" value="{{ challenge.id }}">
+				<input class="btn btn-primary" type="submit" value="Participate" />
+			</form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
 {% endblock %}
 
 {% block javascript %}{% endblock %}

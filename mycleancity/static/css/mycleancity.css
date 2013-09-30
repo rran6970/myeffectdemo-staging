@@ -51,7 +51,11 @@ a.menu-items:hover { text-decoration: none; color: white; }
 ******************************/ 	
 div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 546px; }
 
-#white-box { position: absolute; height: 400px; overflow: scroll; z-index: 1000; left: 29%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; }
+
+/******************************
+	White Box
+******************************/ 
+#white-box { position: absolute; height: 400px; overflow: scroll; z-index: 1000; left: 29%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 #white-box p, #white-box h2 { color: #638d3d; }
 #white-box p { padding: 10px 0; }
 #white-box .left { float: left; width: 150px; }
@@ -64,7 +68,7 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 /******************************
 	Login
 ******************************/ 
-#white-box.login { width: 300px; left: 36%; }
+#white-box.login { width: 300px; height: 300px; left: 36%; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 275px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
 #white-box.login p { text-align: center; }
@@ -86,7 +90,7 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 /******************************
 	Profile
 ******************************/ 
-#white-box.new-challenge { width: 478px; border: 4px solid #668f42; }
+#white-box.new-challenge { width: 478px; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 
@@ -94,11 +98,41 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 	Challenge Centre
 ******************************/ 
 #sign-challenge-centre { width: 444px; height: 101px; margin: 0 auto; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
-#white-box.challenge-centre { width: 478px; height: 300px; border: 5px solid #4a3c2e; }
-#white-box.challenge-centre div.challenges { margin-bottom: 20px; }
-#white-box.challenge-centre div.challenges h1 { font-weight: 900; font-size: 20px; }
+#white-box.challenge-centre { width: 478px; height: 300px; }
+#white-box.challenge-centre div.challenges { margin-bottom: 40px; }
+#white-box.challenge-centre div.challenges h1 { line-height: 20px; font-weight: 900; font-size: 20px; }
 #white-box.challenge-centre div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
 #white-box.challenge-centre div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
 #white-box.challenge-centre div.challenges p { padding: 0; }
+#white-box.challenge-centre div.challenges a:hover { color: #86b45c !important; }
 
+/******************************
+	Challenge Page
+******************************/ 
+#white-box.challenge-overview h1 { font-weight: 900; }
+#white-box.challenge-overview table { margin-bottom: 30px; }
+#white-box.challenge-overview table tr td { padding: 10px 15px 0 0; }
+#white-box.challenge-overview table tr td.titles { width: 100px; }
+#white-box.challenge-overview input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 
+/******************************
+	Leaderboard Page
+******************************/ 
+div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center 89px; height: 478px; } 
+
+#brown-box { float: right; margin-right: 100px; text-shadow: 1px 1px 3px #111; }
+
+#board { padding: 20px; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
+#board h1 { color: #00aeef; font-size: 30px; font-weight: 900; } 
+#board table { margin-top: 10px; width: 100%; } 
+#board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
+#board table tr td.entry { padding-top: 5px; } 
+#board table tr td span.cleancreds { display: block; float: right; }
+#board table tr td.blue { color: #00aeef; } 
+#board table tr td.green { color: #83c156; } 
+
+#sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
+#sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
+#sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
+
+#tree-progress { display: block; float: left; margin-left: 30px; position: absolute; top: -10px; }

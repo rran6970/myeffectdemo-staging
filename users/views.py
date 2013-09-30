@@ -26,7 +26,7 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/users/loggedin')
+		return HttpResponseRedirect('/challenges/')
 	else:
 		return HttpResponseRedirect('/users/invalid')
 
@@ -40,7 +40,7 @@ def invalid_login(request):
 
 def logout(request):
 	auth.logout(request)
-	return render_to_response('users/logout.html')
+	return HttpResponseRedirect('/')
 
 def register_success(request):
 	return render_to_response('register_success.html')
@@ -156,3 +156,17 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user_profile.save()
 
 		return super(ProfileView, self).form_valid(form)
+
+class LeaderboardView(LoginRequiredMixin, TemplateView):
+	template_name = "users/leaderboard.html"
+	
+	def get_context_data(self, **kwargs):
+		context = super(LeaderboardView, self).get_context_data(**kwargs)
+
+		leaders = UserProfile.objects.all().order_by('-clean_creds')[:8]
+		user_profile = UserProfile.objects.get(user=self.request.user)
+
+		context['user_profile'] = user_profile
+		context['leaders'] = leaders
+		context['user'] = self.request.user
+		return context
