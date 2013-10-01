@@ -11,8 +11,10 @@ class UserOrganization(models.Model):
 	user = models.OneToOneField(User)
 	organization = models.CharField(max_length=60, blank=True, verbose_name='Organization')
 	city = models.CharField(max_length=60, blank=True, verbose_name='City')
-	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
-	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
+	province = models.CharField(max_length=60, blank=True, verbose_name='Province')
+	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
+	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
+	website = models.URLField(verbose_name = u'Website', default="http://")
 
 	class Meta:
 		verbose_name_plural = u'User Organization'

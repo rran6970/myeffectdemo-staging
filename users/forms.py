@@ -129,8 +129,9 @@ class RegisterOrganizationForm(forms.ModelForm):
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(choices=PROVINCES)
-	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -183,8 +184,9 @@ class OrganizationProfileForm(forms.ModelForm):
 	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(choices=PROVINCES)
-	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:

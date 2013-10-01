@@ -134,8 +134,8 @@ class RegisterOrganizationView(FormView):
 		o = UserOrganization(user=u)
 		o.organization = form.cleaned_data['organization']
 		o.city = form.cleaned_data['city']
-		o.postal_code = form.cleaned_data['postal_code']
-		o.country = form.cleaned_data['country']
+		o.province = form.cleaned_data['province']
+		o.website = form.cleaned_data['website']
 		o.save()
 
 		return HttpResponseRedirect('/register-success/')
@@ -212,8 +212,8 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		initial['email'] = user.email
 		initial['organization'] = organization.organization
 		initial['city'] = organization.city
-		initial['postal_code'] = organization.postal_code
-		initial['country'] = organization.country
+		initial['province'] = organization.province
+		initial['website'] = organization.website
 
 		return initial
 
@@ -242,8 +242,8 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 
 		user_organization.organization = form.cleaned_data['organization']
 		user_organization.city = form.cleaned_data['city']
-		user_organization.postal_code = form.cleaned_data['postal_code']
-		user_organization.country = form.cleaned_data['country']
+		user_organization.province = form.cleaned_data['province']
+		user_organization.website = form.cleaned_data['website']
 		user_organization.save()
 
 		return super(OrganizationProfileView, self).form_valid(form)
