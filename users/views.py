@@ -37,11 +37,6 @@ def auth_view(request):
 		c['invalid'] = True
 		return render_to_response('users/login.html', c, context_instance=RequestContext(request))
 
-# @login_required(login_url='/users/login')
-# def loggedin(request):
-# 	return render_to_response('users/loggedin.html',
-# 							 {'full_name' : request.user.username})
-
 def logout(request):
 	auth.logout(request)
 	return HttpResponseRedirect('/')
@@ -136,7 +131,7 @@ class RegisterOrganizationView(FormView):
 		u.is_active = False
 		u.save()
 
-		o = UserOrganization.objects.get(user=u)
+		o = UserOrganization(user=u)
 		o.organization = form.cleaned_data['organization']
 		o.city = form.cleaned_data['city']
 		o.postal_code = form.cleaned_data['postal_code']

@@ -23,9 +23,9 @@ class UserOrganization(models.Model):
 	def save(self, *args, **kwargs):
 		super(UserOrganization, self).save(*args, **kwargs)
 
-def create_user_organization(sender, instance, created, **kwargs):  
-    if created:  
-       organization, created = UserOrganization.objects.get_or_create(user=instance)  
+# def create_user_organization(sender, instance, created, **kwargs):  
+#     if created:  
+#        organization, created = UserOrganization.objects.get_or_create(user=instance)  
 
-post_save.connect(create_user_organization, sender=User) 
+# post_save.connect(create_user_organization, sender=User) 
 # User.organization = property(lambda u: u.get_profile())
