@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 	url(r'^(?P<cid>\d+)/?$', ChallengeView.as_view()),
 	url(r'^new-challenge/?$', NewChallengeView.as_view()),
 	url(r'^participants/(?P<cid>\d+)/?$', ChallengeParticipantsView.as_view()),
+	url(r'^my-challenges/?$', MyChallengesView.as_view()),
 	url(r'^confirm-participants/?$', 'challenges.views.confirm_participants'),
 	url(r'^participate/?$', 'challenges.views.participate_in_challenge'),
 )

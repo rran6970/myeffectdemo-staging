@@ -123,9 +123,18 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 
 		return context
 
+class MyChallengesView(LoginRequiredMixin, TemplateView):
+	template_name = "challenges/my_challenges.html"
+	
+	def get_context_data(self, **kwargs):
+		context = super(MyChallengesView, self).get_context_data(**kwargs)
+
+		context['challenges'] = Challenge.objects.filter(user=self.request.user)
+		context['user'] = self.request.user
+		return context
+
 class ChallengeView(TemplateView):
-	template_name = "challenges/challenge_details.html"
-	model = Challenge
+	template_name = "challenges/challenge_details.html"	
 
 	def get_object(self):
 		return get_object_or_404(User, pk=self.request.user.id)

@@ -1,0 +1,44 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Challenge Centre {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content my-challenges">
+    <div class="container">
+      	<div id="sign-my-challenges"></div>
+        <div id="white-box">
+			{% for challenge in challenges %}
+				<div class="challenges">
+					<a href="/challenges/participants/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+					
+					<span class="location">
+						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
+					</span>
+					<span class="clean-creds">
+						<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.cleancred_value }}</span>
+					</span>
+				</div>
+			{% endfor %}
+			
+        </div><!-- /#white-box -->
+        
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
