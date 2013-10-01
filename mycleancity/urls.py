@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	url(r'^landing/?', PrelaunchView.as_view()),
 	url(r'^about/?', AboutPageView.as_view()),
 	url(r'^contact/?', ContactPageView.as_view()),
-	url(r'^resources/?', ResourcesPageView.as_view()),
+	url(r'^media-hub/?', MediaHubPageView.as_view()),
 	url(r'^$', HomePageView.as_view()),
 )
 
