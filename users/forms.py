@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile
+from userorganization.models import UserOrganization
 
 """
 Form validators
@@ -109,6 +110,10 @@ class RegisterOrganizationForm(forms.ModelForm):
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -158,8 +163,10 @@ class OrganizationProfileForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, validators = [
-		username_format_is_valid], widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
+	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:

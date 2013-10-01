@@ -1,14 +1,32 @@
 {% extends '_public_base.html' %}
-{% include '_public_navbar.html' with login='active' %}
 
-{% block title %} My Clean City - Invalid {% endblock %}
+{% block title %} My Clean City - Success {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-	
-	<h2>You have registered!</h2>
-	<p>Click <a href="/users/login">here</a> to login</p>
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <!-- <div id="buildings"></div>
+      <a href="/challenge-centre"></a> -->
+      
+        <div id="white-box" class="register">
+            <p>Thank you for registering. We are approving all of the organizations that join My Clean City. We will notify you when the approval process is complete. It ususally takes 1-2 business days.</p>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
 
 {% endblock %}
 

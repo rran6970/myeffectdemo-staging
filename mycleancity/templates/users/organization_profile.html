@@ -29,11 +29,19 @@
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
+                        <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
                         <td>{{ form.email.label_tag }} {{ form.email }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
-                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
+                        <td>{{ form.city.label_tag }} {{ form.city }}</td>
+                        <td>{{ form.province.label_tag }} {{ form.province }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+                        <td>{{ form.country.label_tag }} {{ form.country }}</td>
                     </tr>
                 </table>
                 <input class="btn btn-primary" type="submit" value="Update" />

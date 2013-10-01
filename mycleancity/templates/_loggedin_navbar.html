@@ -2,8 +2,10 @@
 <a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
 <a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a>
 
-{% if user.profile.organization != "" %}
+{% if user.profile.is_organization %}
+{% if user.is_active %}
 <a href="/challenges/new-challenge" class="menu-items menu-items-left">Post Challenge</a>
+{% endif %}
 {% endif %}
 
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>

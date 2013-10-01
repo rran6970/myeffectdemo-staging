@@ -10,6 +10,7 @@ from django.views.generic.base import View
 
 from challenges.form import NewChallengeForm
 from challenges.models import Challenge, UserChallenge
+from userorganization.models import UserOrganization
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -72,7 +73,16 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
-		if self.request.user.profile.organization != "":
+		try:
+			organization = UserOrganization.objects.get(user=self.request.user)
+		except Exception, e:
+			print e
+			organization = None
+
+		if not organization:
+			return HttpResponseRedirect('/challenges')
+
+		if not self.request.user.is_active:
 			return HttpResponseRedirect('/challenges')
 
 		return self.render_to_response(self.get_context_data(form=form))

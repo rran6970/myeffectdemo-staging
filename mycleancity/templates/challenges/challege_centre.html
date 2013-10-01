@@ -19,10 +19,10 @@
 
   <a href="/" class="logo"></a>
   
-  <div class="content">
+  <div class="content challenge-centre">
     <div class="container">
       	<div id="sign-challenge-centre"></div>
-        <div id="white-box" class="challenge-centre">
+        <div id="white-box">
 			{% for challenge in challenges %}
 				<div class="challenges">
 					<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>

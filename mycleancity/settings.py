@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'challenges',
     'south',
     'users',
+    'userorganization',
     'userprofile',
 )
 

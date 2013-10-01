@@ -24,3 +24,10 @@ class ContactPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(ContactPageView, self).get_context_data(**kwargs)
 		return context
+
+class RegisterSuccessView(TemplateView):
+	template_name = "users/register_success.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(RegisterSuccessView, self).get_context_data(**kwargs)
+		return context

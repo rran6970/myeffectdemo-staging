@@ -1,3 +1,5 @@
+from challenges.models import Challenge
+
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -12,7 +14,8 @@ from mycleancity.mixins import LoginRequiredMixin
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizationForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile
-from challenges.models import Challenge
+from userorganization.models import UserOrganization
+
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"
@@ -34,10 +37,10 @@ def auth_view(request):
 		c['invalid'] = True
 		return render_to_response('users/login.html', c, context_instance=RequestContext(request))
 
-@login_required(login_url='/users/login')
-def loggedin(request):
-	return render_to_response('users/loggedin.html',
-							 {'full_name' : request.user.username})
+# @login_required(login_url='/users/login')
+# def loggedin(request):
+# 	return render_to_response('users/loggedin.html',
+# 							 {'full_name' : request.user.username})
 
 def logout(request):
 	auth.logout(request)
@@ -107,7 +110,7 @@ class RegisterView(FormView):
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
-		return HttpResponseRedirect('/challenges/')
+		return HttpResponseRedirect('/challenges')
 
 class RegisterOrganizationView(FormView):
 	template_name = "users/register_organization.html"
@@ -130,13 +133,17 @@ class RegisterOrganizationView(FormView):
 	    )
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
-		u.profile.organization = form.cleaned_data['organization']
-		u.profile.save()
+		u.is_active = False
 		u.save()
 
-		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
-		auth.login(self.request, user)
-		return HttpResponseRedirect('/challenges')
+		o = UserOrganization.objects.get(user=u)
+		o.organization = form.cleaned_data['organization']
+		o.city = form.cleaned_data['city']
+		o.postal_code = form.cleaned_data['postal_code']
+		o.country = form.cleaned_data['country']
+		o.save()
+
+		return HttpResponseRedirect('/register-success/')
 
 class ProfileView(LoginRequiredMixin, FormView):
 	template_name = "users/profile.html"
@@ -159,7 +166,13 @@ class ProfileView(LoginRequiredMixin, FormView):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
-		if self.request.user.profile.organization != "":
+		try:
+			organization = UserOrganization.objects.get(user=self.request.user)
+		except Exception, e:
+			print e
+			organization = None
+
+		if organization:
 			return HttpResponseRedirect('/users/organization-profile')
 
 		return self.render_to_response(self.get_context_data(form=form))
@@ -174,15 +187,13 @@ class ProfileView(LoginRequiredMixin, FormView):
 		# It should return an HttpResponse.
 
 		user = User.objects.get(id=self.request.user.id)
-		user_profile = UserProfile.objects.get(user=user)
 
 		user.first_name = form.cleaned_data['first_name']
 		user.last_name = form.cleaned_data['last_name']
 		user.save()
 
-		user_profile.dob = form.cleaned_data['dob'] 
-		user_profile.organization = form.cleaned_data['organization'] 
-		user_profile.save()
+		u.profile.dob = form.cleaned_data['dob'] 
+		u.profile.save()
 
 		return super(ProfileView, self).form_valid(form)
 
@@ -194,11 +205,20 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 	def get_initial(self):
 		user = self.request.user
 
+		try:
+			organization = UserOrganization.objects.get(user=self.request.user)
+		except Exception, e:
+			print e
+			organization = None
+
 		initial = {}
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		initial['organization'] = user.profile.organization
+		initial['organization'] = organization.organization
+		initial['city'] = organization.city
+		initial['postal_code'] = organization.postal_code
+		initial['country'] = organization.country
 
 		return initial
 
@@ -218,15 +238,18 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		# It should return an HttpResponse.
 
 		user = User.objects.get(id=self.request.user.id)
-		user_profile = UserProfile.objects.get(user=user)
+		user_organization = UserOrganization.objects.get(user=user)
 
 		user.first_name = form.cleaned_data['first_name']
 		user.last_name = form.cleaned_data['last_name']
 		user.email = form.cleaned_data['email']
 		user.save()
 
-		user_profile.organization = form.cleaned_data['organization'] 
-		user_profile.save()
+		user_organization.organization = form.cleaned_data['organization']
+		user_organization.city = form.cleaned_data['city']
+		user_organization.postal_code = form.cleaned_data['postal_code']
+		user_organization.country = form.cleaned_data['country']
+		user_organization.save()
 
 		return super(OrganizationProfileView, self).form_valid(form)
 

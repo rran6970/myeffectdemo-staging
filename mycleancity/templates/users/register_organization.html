@@ -31,12 +31,20 @@
                         <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
                     </tr>
                     <tr>
+                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
                         <td>{{ form.email.label_tag }} {{ form.email }}</td>
-                        <td>{{ form.password.label_tag }} {{ form.password }}</td>
                     </tr>
                     <tr>
+                        <td>{{ form.password.label_tag }} {{ form.password }}</td>
                         <td>{{ form.confirm_password.label_tag }} {{ form.confirm_password }}</td>
-                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.city.label_tag }} {{ form.city }}</td>
+                        <td>{{ form.province.label_tag }} {{ form.province }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+                        <td>{{ form.country.label_tag }} {{ form.country }}</td>
                     </tr>
                 </table>
                 <input class="btn btn-primary" type="submit" value="Register" />
