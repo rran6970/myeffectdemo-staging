@@ -58,7 +58,7 @@ a.menu-items:hover { text-decoration: none; color: white; }
 /******************************
 	About
 ******************************/ 	
-div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 546px; }
+div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 496px; }
 
 
 /******************************
@@ -96,7 +96,6 @@ div.content { background: transparent url(../images/about-bg.png) no-repeat cent
 #white-box.profile { width: 478px; left: 29%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
-#white-box.profile select { top: 33px; position: relative; }
 
 /******************************
 	New Challenge
