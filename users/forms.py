@@ -44,6 +44,22 @@ def country_is_valid(country):
 
 SCHOOLS = (('', 'Please select one...'),('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
 
+PROVINCES = (('', 'Please select one...'),
+	('AB', 'AB'), 
+	('BC', 'BC'), 
+	('MB', 'MB'),
+	('NB', 'NB'),
+	('NF', 'NF'),
+	('NW', 'NW'),
+	('NS', 'NS'),
+	('NU', 'NU'),
+	('ON', 'ON'),
+	('PEI', 'PEI'),
+	('QB', 'QB'),
+	('SA', 'SA'),
+	('YU', 'YU'),
+)
+
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
@@ -102,6 +118,7 @@ class RegisterUserForm(forms.ModelForm):
 
 		return cleaned_data
 
+
 class RegisterOrganizationForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -111,7 +128,7 @@ class RegisterOrganizationForm(forms.ModelForm):
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	province = forms.ChoiceField(choices=PROVINCES)
 	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	
@@ -165,6 +182,7 @@ class OrganizationProfileForm(forms.ModelForm):
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	province = forms.ChoiceField(choices=PROVINCES)
 	postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	
