@@ -26,32 +26,29 @@ def participate_in_challenge(request):
 	return HttpResponseRedirect('/challenges')
 
 def confirm_participants(request):
-	cid = 1
-	if request.method == 'POST':
+	if request.method == 'POST' and request.is_ajax:
 		cid = request.POST['cid']
-		uids = request.POST.getlist('uids')
-		participated = request.POST.getlist('participated')
-
-		print uids
-		print participated
+		uid = request.POST['uid']
+		participated = request.POST['participated']
 		
-		# for u in uids:
-		# 	try:
-		# 		userchallenge = UserChallenge.objects.get(user_id=u, challenge_id=cid, complete=False)
-		# 		userchallenge.complete = True
-		# 		userchallenge.save()
+		try:
+			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
+			user = User.objects.get(id=userchallenge.user_id)
+			challenge = Challenge.objects.get(id=cid)
 
-		# 		challenge = Challenge.objects.get(id=cid)
+			if participated == "true":
+				userchallenge.complete = True
+				user.profile.clean_creds += challenge.cleancred_value
+			else:
+				userchallenge.complete = False
+				user.profile.clean_creds -= challenge.cleancred_value
+
+			userchallenge.save()
+			user.profile.save()
+		except Exception, e:
+			pass
 			
-		# 		user = User.objects.get(id=userchallenge.user_id)
-				
-		# 		user_profile = UserProfile.objects.get(user=user)
-		# 		user_profile.clean_creds += challenge.cleancred_value
-		# 		user_profile.save()
-		# 	except Exception, e:
-		# 		pass
-			
-	return HttpResponseRedirect('/challenges/participants/%s' %(cid))
+	return HttpResponseRedirect('/challenges/')
 
 
 class ChallengesFeedView(TemplateView):

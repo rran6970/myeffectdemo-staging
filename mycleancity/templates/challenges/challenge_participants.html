@@ -20,13 +20,13 @@
         <div id="white-box" class="challenge-participants">
         	<h1>{{ challenge.title }}</h1>
 			
-			<form action="/challenges/confirm-participants/" method="post">
+			
 				{% csrf_token %}
 				<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
 				<table>
 					<tr>
-						<td><h2>Participant</h2></td>
-						<td><h2>Confirmed</h2></td>
+						<td class="name"><h2>Participant</h2></td>
+						<td class="participated"><h2>Complete</h2></td>
 					</tr>
 					{% for participant in participants %}
 						<tr>
@@ -34,17 +34,25 @@
 								{{ participant.user.first_name }} {{ participant.user.last_name }}
 							</td>
 							<td class="participated">
-								<input type="hidden" name="uids" value="{{ participant.user.id }}" />
-								<input type="hidden" name="participated" value="false" />
-								<input type="checkbox" {% if participant.complete %} checked {% endif %} name="participated" />
+								<form class="participation-forms" action="/challenges/confirm-participants/" method="post">
+									{% csrf_token %}
+									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
+									<input type="hidden" name="cid" value="{{ cid }}">
+									
+									{% if participant.complete %}
+										<input type="hidden" id="participated" name="participated" value="false" />
+										
+										<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Unconfirm" />
+									{% else %}
+										<input type="hidden" id="participated" name="participated" value="true" />
+										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Confirm" />
+									{% endif %}
+								</form>
+								
 							</td>
 						</tr>
 					{% endfor %}
 				</table>
-				
-				<input type="hidden" name="cid" value="{{ cid }}">
-				<input class="btn btn-primary" type="submit" value="Confirm Participants" />
-			</form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

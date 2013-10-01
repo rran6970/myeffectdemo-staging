@@ -180,12 +180,11 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 /******************************
 	Challenge Participants Page
 ******************************/ 
-#white-box.challenge-participants table { }
+#white-box.challenge-participants table tr td { }
 #white-box.challenge-participants table tr td.name { width: 600px; }
 #white-box.challenge-participants table tr td.participated { width: 100px; text-align: center; }
 #white-box.challenge-participants h1 { font-weight: 900; }
 #white-box.challenge-participants table { margin-bottom: 30px; }
 #white-box.challenge-participants table tr td { padding: 10px 15px; border-bottom: 1px solid #abd78c; }
 #white-box.challenge-participants table tr td.titles { width: 100px; }
-#white-box.challenge-participants input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
-#white-box.challenge-participants input[type="checkbox"] { margin: 0; padding: 0; }
+#white-box.challenge-participants table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
