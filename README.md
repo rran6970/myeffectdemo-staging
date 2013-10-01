@@ -47,6 +47,8 @@ To update database tables:
     python manage.py schemamigration users --auto
     python manage.py schemamigration users --help
 
+    heroku run python manage.py migrate usersorganization --app mycleancity-staging
+
 To run the django development server, you will first need to setup the database:
 
     python manage.py syncdb
