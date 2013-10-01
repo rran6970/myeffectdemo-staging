@@ -23,19 +23,19 @@
     <div class="container">
       	<div id="sign-challenge-centre"></div>
         <div id="white-box">
-			{% for challenge in challenges %}
-				<div class="challenges">
-					<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
-					
-					<span class="location">
-						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
-					</span>
-					<span class="clean-creds">
-						<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.cleancred_value }}</span>
-					</span>
-					<p>{{ challenge.description|slice:":130" }}...</p>
-				</div>
-			{% endfor %}
+    			{% for challenge in challenges %}
+    				<div class="challenges">
+    					<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+    					
+    					<span class="location">
+    						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
+    					</span>
+    					<span class="clean-creds">
+    						<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.cleancred_value }}</span>
+    					</span>
+    					<p>{{ challenge.description|slice:":130" }}...</p>
+    				</div>
+    			{% endfor %}
 			
         </div><!-- /#white-box -->
         

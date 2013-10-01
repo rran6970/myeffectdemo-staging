@@ -60,6 +60,14 @@ a.menu-items:hover { text-decoration: none; color: white; }
 ******************************/ 	
 div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 496px; }
 
+/******************************
+	Resources
+******************************/ 	
+div.content.resources { background: transparent url(../images/resources-bg.png) no-repeat 80% 0; height: 548px; }
+#sign-resources { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-resources.png) no-repeat 0 0; }
+#sign-resources + #white-box { width: 300px; left: 9%; height: 300px; }
+#white-box.facebook { width: 300px; height: 120px; left: 40%; top: -5px; }
+#white-box.photos { width: 300px; height: 140px; left: 40%; top: 225px; }
 
 /******************************
 	White Box

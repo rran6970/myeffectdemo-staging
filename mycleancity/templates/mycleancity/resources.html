@@ -1,0 +1,37 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Resources {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content resources">
+    <div class="container">
+        <div id="sign-resources"></div>
+        <div id="white-box">
+          <a class="twitter-timeline" href="https://twitter.com/MyCleanCity1" data-widget-id="384907140789309441">Tweets by @MyCleanCity1</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div><!-- /#white-box -->
+
+        <div id="white-box" class="facebook">
+          <div class="fb-activity" data-app-id="516343758455142" data-site="https://www.facebook.com/pages/My-Clean-City/203721359785216" data-action="Comma separated list of action of action types" data-width="300" data-height="300" data-header="true"></div>
+        </div>
+        <div id="white-box" class="photos"></div>
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

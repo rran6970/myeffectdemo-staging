@@ -31,3 +31,10 @@ class RegisterSuccessView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(RegisterSuccessView, self).get_context_data(**kwargs)
 		return context
+
+class ResourcesPageView(TemplateView):
+	template_name = "mycleancity/resources.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ResourcesPageView, self).get_context_data(**kwargs)
+		return context
