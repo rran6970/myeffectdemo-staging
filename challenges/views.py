@@ -19,11 +19,15 @@ def participate_in_challenge(request):
 		cid = request.POST['cid']
 		challenge = Challenge.objects.get(id=cid)
 		
-		user_challenge = UserChallenge(user=request.user)
-		user_challenge.challenge = challenge
-		user_challenge.save()
+		try:
+			user_challenge = UserChallenge.objects.get(user=request.user, challenge=challenge)
+			print user_challenge
+		except Exception, e:
+			user_challenge = UserChallenge(user=request.user)
+			user_challenge.challenge = challenge
+			user_challenge.save()
 
-	return HttpResponseRedirect('/challenges')
+	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
 def confirm_participants(request):
 	if request.method == 'POST' and request.is_ajax:
@@ -73,7 +77,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		try:
 			organization = UserOrganization.objects.get(user=self.request.user)
 		except Exception, e:
-			print e
 			organization = None
 
 		if not organization:
@@ -85,7 +88,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
-		print "asfasdf"
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 		return self.render_to_response(context)

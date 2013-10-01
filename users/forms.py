@@ -98,7 +98,7 @@ class RegisterUserForm(forms.ModelForm):
 		username_format_is_valid, username_is_unique], widget=forms.TextInput())
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
-	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
 	
@@ -153,7 +153,7 @@ class ProfileForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [
 		username_format_is_valid], widget=forms.TextInput())
-	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)")
+	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(choices=SCHOOLS)
 	
 	# Combines the form with the corresponding model
