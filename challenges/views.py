@@ -88,6 +88,7 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
+		print "asfasdf"
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 		return self.render_to_response(context)
@@ -133,7 +134,10 @@ class ChallengeView(TemplateView):
 		context = super(ChallengeView, self).get_context_data(**kwargs)
 
 		if 'cid' in self.kwargs:
-			context['challenge'] = get_object_or_404(Challenge, id=self.kwargs['cid'])
+			cid = self.kwargs['cid']
+			context['challenge'] = get_object_or_404(Challenge, id=cid)
+			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
+			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user
 		return context

@@ -42,10 +42,10 @@
 					<td class="titles">CleanCreds: {{ challenge.cleancred_value }}</td>
 				</tr>
 			</table>
+		
+			<div class="fb-like" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
 			
-			<div class="fb-like" data-href="http://developers.facebook.com/docs/reference/plugins/like" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
-			
-			<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+			<a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
 
 			{% if user.is_authenticated %}
 			<form action="/challenges/participate/" method="post">
@@ -58,6 +58,17 @@
 			{% endif %}
 
         </div><!-- /#white-box -->
+
+        <div id="participants-box">
+        	<h1>Participants</h1>
+        	<h2>Total: {{ participants|length }}</h2>
+
+			{% for participant in participants %}
+				<div class="participants">
+        			{{ participant.user.first_name }} {{ participant.user.last_name }}
+        		</div>
+			{% endfor %}
+        </div>
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

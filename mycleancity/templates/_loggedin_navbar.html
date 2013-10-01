@@ -4,7 +4,16 @@
 
 {% if user.profile.is_organization %}
 {% if user.is_active %}
-<a href="/challenges/new-challenge" class="menu-items menu-items-left">Post Challenge</a>
+<div class="dropdown">
+	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+	  <li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
+	  <li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
+	  
+	</ul>
+</div><!-- end of #user-dropdown.dropdown -->
+
+
 {% endif %}
 {% endif %}
 

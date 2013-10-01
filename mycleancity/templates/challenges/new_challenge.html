@@ -27,15 +27,20 @@
 	                    <td>{{ form.cleancred_value.label_tag }} {{ form.cleancred_value }}</td>
 	                </tr>
 	                <tr>
+	                	<td>{{ form.event_date.label_tag }}{{ form.event_date }}</td>
+	                	<td>{{ form.event_time.label_tag }}{{ form.event_time }}</td>
+	                </tr>
+	                <tr>
 	                    <td>{{ form.address1.label_tag }} {{ form.address1 }}</td>
 	                    <td>{{ form.address2.label_tag }} {{ form.address2 }}</td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.city.label_tag }} {{ form.city }}</td>
-	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+	                    <td>{{ form.province.label_tag }} {{ form.province }}</td>
 	                </tr>
 	                <tr>
 	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
+	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
 	                </tr>
 	                <tr>
 	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>

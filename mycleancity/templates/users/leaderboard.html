@@ -39,7 +39,7 @@
           <div class="clear"></div>
           <div id="sign-leaderboard">
             {% if user.is_authenticated %}
-              <h1 id="your-points">YOUR POINTS:&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
+              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
             {% else %}
               <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
             {% endif %}

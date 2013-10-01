@@ -16,10 +16,19 @@ div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin:
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
+[class^="icon-"], [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
+
 a.menu-items { font-weight: 500; font-size: 19px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
 a.menu-items:hover { text-decoration: none; color: white; }
+
+.dropdown { position: relative; z-index: 999; }
+.dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
+.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; }
+.dropdown-menu li { width: auto; }
+.dropdown-menu li a { margin: 0; padding: 15px 20px; text-shadow: none; }
+.dropdown-menu li a:hover { background: transparent; color: #999; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -122,6 +131,11 @@ div.content.challenge-overview #white-box table tr td { padding: 10px 15px 0 0; 
 div.content.challenge-overview #white-box table tr td.titles { min-width: 80px; font-weight: 700; font-size: 20px; }
 div.content.challenge-overview #white-box input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; }
+
+div.content.challenge-overview #participants-box { position: absolute; width: 200px; height: 300px; overflow: scroll; z-index: 1000; left: 14%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #689042; }
+div.content.challenge-overview #participants-box h1 { font-weight: 900; }
+div.content.challenge-overview #participants-box div.participants { margin-top: 10px; } 
+
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
 div.content.challenge-overview #participate-btn { float: right; }
@@ -139,8 +153,8 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
 #board table tr td.entry { padding-top: 5px; } 
 #board table tr td span.cleancreds { display: block; float: right; }
-#board table tr td.blue { color: #00aeef; } 
-#board table tr td.green { color: #83c156; } 
+.blue { color: #00aeef; } 
+.green { color: #83c156; } 
 
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
 #sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
