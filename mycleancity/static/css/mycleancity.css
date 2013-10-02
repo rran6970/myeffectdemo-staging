@@ -60,6 +60,12 @@ a.menu-items:hover { text-decoration: none; color: white; }
 	About
 ******************************/ 	
 div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 496px; }
+div.content.about #white-box { left: 18%; width: 800px; }
+div.content.about #white-box h1 { font-weight: 800; }
+div.content.about #white-box h2 { font-weight: 500; color: #638d3d; }
+div.content.about #white-box h3 { font-weight: 500; color: #638d3d; } 
+div.content.about #white-box ol li { list-style: decimal; } 
+div.content.about #white-box iframe { margin: 0 190px; }
 
 /******************************
 	Media Hub

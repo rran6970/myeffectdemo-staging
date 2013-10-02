@@ -170,3 +170,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+LOGIN_URL = '/users/login/'
+LOGOUT_URL = '/users/logout/'
+LOGIN_REDIRECT_URL = '/users/profile/'

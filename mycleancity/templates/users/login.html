@@ -25,7 +25,12 @@
               </div>
             {% endif %}
 
-            <form action="/users/auth/" method="post">{% csrf_token %}
+            {% if next_url %}
+              <form action="/users/auth/?next={{ next_url }}" method="post">
+            {% else %}
+              <form action="/users/auth/" method="post">
+            {% endif %}
+                {% csrf_token %}
                 <label for="email">Email:</label>
                 <input type="text" name="email" value="" />
 

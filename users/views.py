@@ -1,3 +1,5 @@
+import urllib
+
 from challenges.models import Challenge
 
 from django.contrib import auth
@@ -22,6 +24,13 @@ class LoginPageView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(LoginPageView, self).get_context_data(**kwargs)
+
+		if 'next' in self.kwargs:
+			next_url = urllib.quote(self.kwargs['next'])
+			context['next'] = next_url
+		else:
+			print "not there"
+
 		return context
 
 def auth_view(request):
@@ -29,13 +38,24 @@ def auth_view(request):
 	email = request.POST.get('email', '')
 	password = request.POST.get('password', '')
 	user = auth.authenticate(username=email, password=password)
+	next_url = None
+
+	if 'next' in request.GET:
+		next_url = urllib.quote(request.GET['next'])
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/challenges/')
+
+		if next_url:
+			return HttpResponseRedirect(urllib.unquote(next_url))
+		else:
+			return HttpResponseRedirect('/challenges/')
 	else:
 		c['invalid'] = True
-		return render_to_response('users/login.html', c, context_instance=RequestContext(request))
+	
+	c['next_url'] = next_url
+	c.update(csrf(request))
+	return render_to_response('users/login.html', c, context_instance=RequestContext(request))
 
 def logout(request):
 	auth.logout(request)
@@ -75,7 +95,6 @@ class PrelaunchView(FormView):
 		form.save()
 		return HttpResponseRedirect(self.get_success_url())
 		
-
 class RegisterView(FormView):
 	template_name = "users/register.html"
 	form_class = RegisterUserForm
