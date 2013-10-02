@@ -42,7 +42,7 @@ def country_is_valid(country):
 	if str(country) not in countries:
 		raise forms.ValidationError('Invalid country')
 
-SCHOOLS = (('', 'Please select one...'),('elementary', 'Elementary Student'), ('high_school', 'High School Student'), ('post_secondary', 'Post Secondary Student'))
+SCHOOLS = (('', 'Please select one...'),('Elementary Student', 'Elementary Student'), ('High School Student', 'High School Student'), ('Post Secondary Student', 'Post Secondary Student'))
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -64,7 +64,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
 	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
-	school_type = forms.ChoiceField(choices=SCHOOLS)
+	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
 
 	# Combines the form with the corresponding model
@@ -99,7 +99,7 @@ class RegisterUserForm(forms.ModelForm):
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	school_type = forms.ChoiceField(choices=SCHOOLS)
+	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
 	
 	# Combines the form with the corresponding model
@@ -128,7 +128,7 @@ class RegisterOrganizationForm(forms.ModelForm):
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	province = forms.ChoiceField(choices=PROVINCES)
+	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -155,7 +155,7 @@ class ProfileForm(forms.ModelForm):
 	email = forms.CharField(required=True, max_length = 128, validators = [
 		username_format_is_valid], widget=forms.TextInput())
 	dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	school_type = forms.ChoiceField(choices=SCHOOLS)
+	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -169,9 +169,9 @@ class ProfileForm(forms.ModelForm):
 		email = cleaned_data.get("email")
 
 		if not first_name:
-			raise forms.ValidationError("Please let us know what to call you!")
+			raise forms.ValidationError("Please enter your first name")
 		elif not last_name:
-			raise forms.ValidationError("Please enter your last name!")
+			raise forms.ValidationError("Please enter your last name")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
 
@@ -183,7 +183,7 @@ class OrganizationProfileForm(forms.ModelForm):
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	province = forms.ChoiceField(choices=PROVINCES)
+	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())

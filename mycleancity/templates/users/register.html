@@ -17,14 +17,13 @@
   
   <div class="content">
     <div class="container">
-      <!-- <div id="buildings"></div>
-      <a href="/challenge-centre"></a> -->
-      
         <div id="white-box" class="register">
             <h2>Register as a Student</h2>
+            {% if form.errors %}
+               <p>{{ form.errors }}</p>
+            {% endif %}
 
             <form action="/users/register" method="post">{% csrf_token %}
-                {{ form.errors }}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>

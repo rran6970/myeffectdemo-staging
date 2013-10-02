@@ -21,11 +21,10 @@
         <div id="white-box" class="profile">
             <h2>My Organization Profile</h2>
             {% if form.errors %}
-               <p>Sorry. that's not a valid username or password</p>
+               <p>{{ form.errors }}</p>
             {% endif %}
 
             <form action="" method="post">{% csrf_token %}
-                {{ form.errors }}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>

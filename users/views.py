@@ -206,8 +206,9 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.last_name = form.cleaned_data['last_name']
 		user.save()
 
-		u.profile.dob = form.cleaned_data['dob'] 
-		u.profile.save()
+		user.profile.dob = form.cleaned_data['dob'] 
+		user.profile.school_type = form.cleaned_data['school_type'] 
+		user.profile.save()
 
 		return super(ProfileView, self).form_valid(form)
 
