@@ -61,10 +61,12 @@ a.menu-items:hover { text-decoration: none; color: white; }
 ******************************/ 	
 div.content { background: transparent url(../images/about-bg.png) no-repeat center 0; height: 551px; }
 div.content.about ul.nav.nav-tabs { border: none; margin-left: 250px; position: relative; top: 24px; }
-div.content.about ul.nav.nav-tabs li { border: 2px solid #4a3c2e; border-right: none; background: url(../images/1x1-white.png) repeat 0 0; }
-div.content.about ul.nav.nav-tabs li.end { border-right: 2px solid #4a3c2e; }
+div.content.about ul.nav.nav-tabs li { background: transparent; }
+div.content.about ul.nav.nav-tabs li a { background-color: #4a3c2e; font-weight: 700; color: #8CC559; border-color: #4a3c2e; }
+div.content.about ul.nav.nav-tabs li a:hover { background-color: #A88460; color: #2D520C; }
+div.content.about ul.nav.nav-tabs li.active a { background-color: #A88460; color: #2D520C; }
 div.content.about #white-box { left: 18%; width: 800px; height: 350px; }
-div.content.about #white-box p { font-weight: 400; }
+div.content.about #white-box p { font-size: 15px; font-weight: 300; }
 div.content.about #white-box h1 { font-weight: 800; }
 div.content.about #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.about #white-box h3 { font-weight: 500; color: #638d3d; } 
