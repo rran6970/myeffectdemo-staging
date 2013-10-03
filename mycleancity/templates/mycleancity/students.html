@@ -1,0 +1,108 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Students {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content student">
+    <div class="container">
+
+        <a href="/users/register"><div class="sign" id="sign-student-take-action"></div></a>
+        <a href="#get-rewarded" data-toggle="tab"><div class="sign" id="sign-get-rewarded"></div></a>
+        <a href="#get-viral" data-toggle="tab"><div class="sign" id="sign-get-viral"></div></a>
+
+        
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          <h1>Students</h1>
+
+          <div class="tab-pane active" id="get-rewarded">
+            <h2>Get Rewarded</h2>
+            <h3>WHY JOIN THE TEAM?</h3>
+            <p>What you gain!</p>
+            <ul>
+              <li>Make a commitment to your future!</li>
+              <li>Create dynamic environmental change!</li>
+              <li>Freedom to choose how, when, where you make the difference!</li>
+              <li>Brand yourself—let My Clean City help you to create the image you want to show the nation!</li>
+              <li>Get rewarded!</li>
+            </ul>
+
+            <h3>BECOME AN AMBASSADOR FOR CHANGE</h3>
+            <p>We need ambitious and charismatic youth to lead their peers in environmental change—make your city a #mycleancity</p>
+            <p>Our Ambassadors are our leaders.  They inspire others to join the My Clean City Movement and take on an active role in our branding, marketing, and corporate communications!</p>
+            <p>Sign up to be an ambassador and take on a leadership role!</p>
+
+            <ul>
+              <li>Inspire others to join the My Clean City Movement!</li>
+              <li>Lead dynamic environmental change!</li>
+              <li>Freedom to choose how, when, where you lead others in making a difference!</li>
+              <li>Be a #mycleancitystar and have your social media messages seen on a National level!</li>
+              <li>Get more and better rewarded!</li>
+            </ul>
+
+            <h3>HOW DO I EARN REWARDS?</h3>
+            <p>It’s as simple as 1-2-3!</p>
+            <ol>
+              <li>Take Action</li>
+              <li>Complete Challenges</li>
+              <li>Earn CleanCreds</li>
+            </ol>
+
+            <h3>WHAT ARE CLEANCREDS?</h3>
+            <p>My Clean city is a team.  Youth who join our team and take actions towards positive environmental changes in their lives are rewarded with impact and effort points.  </p>
+            <p>Impact Points are awarded based on the environmental effect of the Clean actions, and Effort Points are awarded based on hours committed. </p>
+            <p>IMPACT + EFFORT = CleanCreds! </p>
+
+            <h3>CLEANCREDS = REWARDS! </h3>
+            <p>My Clean City challenges are just that—friendly competitions between youth for CleanCreds.  CleanCreds translate into national and provincial rewards and recognitions.  Emerging leaders and those with the highest CleanCreds will gain:</p>
+
+            <ul>
+              <li>Monetary scholarships</li>
+              <li>Provincial recognition</li>
+              <li>National recognition</li>
+              <li>School-based recognition</li>
+              <li>Mentorship opportunities</li>
+              <li>Leadership opportunities</li>
+            </ul>
+          </div>
+
+          <div class="tab-pane" id="get-viral">
+            <h2>Get Viral</h2>
+            <p>
+              Make our message YOUR message!  
+            </p>
+            <p>Go on your twitter/Instagram/Facebook and join the #mycleancity movement!</p>
+            <p>See how others express their #Cleanstyle!</p>
+            <p>
+              <ol>
+                <li>Community organizations and non-profits collaborate with My Clean City to promote their environmental programs through our online interface.</li>
+                <li>My Clean City posts these opportunities on our Challenge Board where users can access opportunities in their area through our unified portal and submit to participate.</li>
+                <li>Users go to host organizations and complete their challenges to earn CleanCreds, which are recorded on their profile.</li>
+                <li>Each team member profile records the individual volunteer’s progress, completed challenges via CleanCreds and quantifies that volunteer's impact. Rewards will be awarded to team members with the highest cumulative totals.</li>
+              </ol>
+              <h2>SMALL EFFORTS = BIG RESULTS</h2>
+            </p>
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -38,3 +38,17 @@ class MediaHubPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MediaHubPageView, self).get_context_data(**kwargs)
 		return context
+
+class StudentsPageView(TemplateView):
+	template_name = "mycleancity/students.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(StudentsPageView, self).get_context_data(**kwargs)
+		return context
+
+class OrganizationsPageView(TemplateView):
+	template_name = "mycleancity/organizations.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(OrganizationsPageView, self).get_context_data(**kwargs)
+		return context
