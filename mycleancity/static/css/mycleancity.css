@@ -18,6 +18,7 @@ div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; po
 
 [class^="icon-"], [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
 
+a { color: #00aeef; }
 a.menu-items { font-weight: 500; font-size: 19px; color: #262261; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
@@ -74,10 +75,10 @@ div.content.about #white-box iframe { margin: 0 190px; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
-#sign-mission { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 147px; left: 60px; background: url(../images/sign-mission.png) no-repeat 0 0; }
-#sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 210px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
-#sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 269px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
-#sign-our-founder { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 332px; left: 85px; background: url(../images/sign-our-founder.png) no-repeat 0 0; }
+#sign-mission { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 107px; left: 60px; background: url(../images/sign-mission.png) no-repeat 0 0; }
+#sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
+#sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
+#sign-our-founder { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 292px; left: 85px; background: url(../images/sign-our-founder.png) no-repeat 0 0; }
 
 /******************************
 	Students Page
@@ -92,11 +93,14 @@ div.content.student #white-box ul { margin-left: 18px; }
 div.content.student #white-box ul li { list-style: disc; } 
 div.content.student #white-box iframe { margin: 0 190px; }
 
+#kelly-img { display: block; margin-bottom: 20px; border: 1px solid #000; }
+
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
 #sign-student-take-action { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-take-action.png) no-repeat 0 0; }
 #sign-get-rewarded { width: 270px; height: 58px; position: absolute; z-index: 1000; top: 157px; left: 30px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
-#sign-get-viral { width: 234px; height: 55px; position: absolute; z-index: 1000; top: 220px; left: 68px; background: url(../images/sign-get-viral.png) no-repeat 0 0; }
+#sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
+#sign-get-viral { width: 234px; height: 55px; position: absolute; z-index: 1000; top: 289px; left: 68px; background: url(../images/sign-get-viral.png) no-repeat 0 0; }
 
 /******************************
 	Organizations Page
@@ -113,11 +117,11 @@ div.content.organization #white-box iframe { margin: 0 190px; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
-#sign-organization-take-action { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-take-action.png) no-repeat 0 0; }
+#sign-organization-register { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 #sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 152px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 #sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
 #sign-partnership-levels { width: 350px; height: 58px; position: absolute; z-index: 1000; top: 269px; left: 32px; background: url(../images/sign-partnership-levels.png) no-repeat 0 0; }
-#sign-support { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 332px; left: 85px; background: url(../images/sign-support.png) no-repeat 0 0; }
+#sign-impact { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 269px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
 
 /******************************
 	Media Hub
@@ -140,6 +144,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box .right form input[type="submit"] { width: 320px; } 
 #white-box .right form textarea { width: 300px; height: 170px; }
 #white-box table tr td { padding: 5px 20px 0 0; }
+#white-box h2.tab-titles {  }
 
 /******************************
 	Login
@@ -197,7 +202,6 @@ div.content.my-challenges #white-box div.challenges span.clean-creds h2 { displa
 div.content.my-challenges #white-box div.challenges p { padding: 0; }
 div.content.my-challenges #white-box div.challenges a:hover { color: #86b45c !important; }
 
-
 /******************************
 	Challenge Page
 ******************************/ 
@@ -233,8 +237,9 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
 #board table tr td.entry { padding-top: 5px; } 
 #board table tr td span.cleancreds { display: block; float: right; }
-.blue { color: #00aeef; } 
-.green { color: #83c156; } 
+.blue { color: #00aeef !important; } 
+.green { color: #83c156 !important; } 
+.bold { font-weight: 800 !important; }
 
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
 #sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
