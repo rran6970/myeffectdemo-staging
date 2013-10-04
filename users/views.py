@@ -25,6 +25,11 @@ class LoginPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(LoginPageView, self).get_context_data(**kwargs)
 
+		# if self.request.user.is_authenticated():
+		# 	return HttpResponseRedirect('/challenges')
+		# else:
+		# 	print "uu"
+
 		if 'next' in self.kwargs:
 			next_url = urllib.quote(self.kwargs['next'])
 			context['next'] = next_url

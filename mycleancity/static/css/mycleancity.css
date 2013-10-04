@@ -66,7 +66,6 @@ div.content.about ul.nav.nav-tabs li a { background-color: #4a3c2e; font-weight:
 div.content.about ul.nav.nav-tabs li a:hover { background-color: #A88460; color: #2D520C; }
 div.content.about ul.nav.nav-tabs li.active a { background-color: #A88460; color: #2D520C; }
 div.content.about #white-box { left: 30%; width: 700px; height: 350px; }
-div.content.about #white-box p { font-size: 15px; font-weight: 300; }
 div.content.about #white-box h1 { font-weight: 800; }
 div.content.about #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.about #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -84,7 +83,6 @@ div.content.about #white-box iframe { margin: 0 190px; }
 	Students Page
 ******************************/ 
 div.content.student #white-box { left: 30%; width: 700px; height: 350px; }
-div.content.student #white-box p { font-size: 15px; font-weight: 300; }
 div.content.student #white-box h1 { font-weight: 800; }
 div.content.student #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.student #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -93,7 +91,8 @@ div.content.student #white-box ul { margin-left: 18px; }
 div.content.student #white-box ul li { list-style: disc; } 
 div.content.student #white-box iframe { margin: 0 190px; }
 
-#kelly-img { display: block; margin-bottom: 20px; border: 1px solid #000; }
+#kelly-img { display: block; margin-bottom: 20px; float: left; margin-right: 20px; border: 1px solid #000; }
+#kelly-img + p { padding-top: 0 !important; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
@@ -106,7 +105,6 @@ div.content.student #white-box iframe { margin: 0 190px; }
 	Organizations Page
 ******************************/ 
 div.content.organization #white-box { left: 30%; width: 700px; height: 350px; }
-div.content.organization #white-box p { font-size: 15px; font-weight: 300; }
 div.content.organization #white-box h1 { font-weight: 800; }
 div.content.organization #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.organization #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -118,10 +116,11 @@ div.content.organization #white-box iframe { margin: 0 190px; }
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 152px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
-#sign-partnership-levels { width: 350px; height: 58px; position: absolute; z-index: 1000; top: 269px; left: 32px; background: url(../images/sign-partnership-levels.png) no-repeat 0 0; }
-#sign-impact { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 269px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
+
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 152px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+/*#sign-partnership-levels { width: 350px; height: 58px; position: absolute; z-index: 1000; top: 269px; left: 32px; background: url(../images/sign-partnership-levels.png) no-repeat 0 0; }*/
+#sign-impact { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 269px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 
 /******************************
 	Media Hub
@@ -138,13 +137,14 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box { position: absolute; height: 400px; overflow: scroll; z-index: 1000; left: 24%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 #white-box p, #white-box h2 { color: #638d3d; }
 #white-box p { padding: 10px 0; }
+#white-box p, #white-box ul li, #white-box ol li { font-size: 18px; font-weight: 300; line-height: 25px; }
 #white-box .left { float: left; width: 150px; }
 #white-box .right { float: right; }
 #white-box .right form input { display: block; width: 300px; }
 #white-box .right form input[type="submit"] { width: 320px; } 
 #white-box .right form textarea { width: 300px; height: 170px; }
 #white-box table tr td { padding: 5px 20px 0 0; }
-#white-box h2.tab-titles {  }
+#white-box .tab-titles { color: #00aeef !important; }
 
 /******************************
 	Login
