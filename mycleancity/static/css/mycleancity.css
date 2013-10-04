@@ -235,7 +235,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #brown-box h2 { font-size: 26px; font-weight: 900; }
 
 #board { padding: 20px; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
-#board h1 { color: #00aeef; font-size: 30px; font-weight: 900; } 
+#board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
 #board table { margin-top: 10px; width: 100%; } 
 #board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
 #board table tr td.entry { padding-top: 5px; } 
