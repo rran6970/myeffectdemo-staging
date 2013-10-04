@@ -26,7 +26,8 @@
         <div id="brown-box">
           <div id="board">
             <h1>LEADER BOARD</h1>
-            <table>
+            {% if user.is_authenticated %}
+              <table>
               {% for leader in leaders %}
                 {% if forloop.counter|divisibleby:2 %}
                 <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
@@ -34,7 +35,10 @@
                 <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
                 {% endif %}
               {% endfor %}
-            </table>
+              </table>
+            {% else %}
+              <h2>See Who Leads the Nation with their Clean Actions! <br/><a href="http://twitter.com/@MyCleanCity1" target="_blank">Follow us</a> so you don't miss our challenge launch.</h2>
+            {% endif %}
           </div>
           <div class="clear"></div>
           <div id="sign-leaderboard">
