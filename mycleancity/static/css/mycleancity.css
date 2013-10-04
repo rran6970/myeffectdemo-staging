@@ -254,6 +254,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 /******************************
 	Challenge Participants Page
 ******************************/ 
+#white-box p { font-weight: 400; }
 #white-box.challenge-participants table tr td { }
 #white-box.challenge-participants table tr td.name { width: 600px; }
 #white-box.challenge-participants table tr td.participated { width: 100px; text-align: center; }
