@@ -70,7 +70,7 @@ div.content.about #white-box h1 { font-weight: 800; }
 div.content.about #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.about #white-box h3 { font-weight: 500; color: #638d3d; } 
 div.content.about #white-box ol li { list-style: decimal; } 
-div.content.about #white-box iframe { margin: 0 190px; }
+div.content.about #white-box iframe { margin-left: 120px; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
