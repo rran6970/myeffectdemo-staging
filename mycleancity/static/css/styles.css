@@ -59,4 +59,4 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 
 /** Message Boxes **/
 .error { background-color: #f2dede; border: 1px solid #EDAAA8; padding: 5px; }
-.error p { color: #b94a48 !important; }
+.error p { color: #b94a48 !important; font-size: 13px !important; }

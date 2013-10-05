@@ -176,7 +176,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		initial['dob'] = user.profile.dob
+		# initial['dob'] = user.profile.dob
 		initial['school_type'] = user.profile.school_type
 
 		return initial
@@ -211,7 +211,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.last_name = form.cleaned_data['last_name']
 		user.save()
 
-		user.profile.dob = form.cleaned_data['dob'] 
+		# user.profile.dob = form.cleaned_data['dob'] 
 		user.profile.school_type = form.cleaned_data['school_type'] 
 		user.profile.save()
 

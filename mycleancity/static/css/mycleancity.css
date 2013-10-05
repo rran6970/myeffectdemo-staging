@@ -31,6 +31,9 @@ a.menu-items:hover { text-decoration: none; color: white; }
 .dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; }
 .dropdown-menu li a:hover { background: transparent; color: #999; }
 
+#sign-go-back { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -22px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
+#sign-go-back.login { left: 415px; }
+
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
 #grass-3 { width: 1072px; height: 579px; overflow: hidden; position: absolute; z-index: 997; top: -90px; right: -178px; background: transparent url(../images/grass-3.png) no-repeat 0 0; }

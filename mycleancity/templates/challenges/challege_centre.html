@@ -23,7 +23,8 @@
     <div class="container">
       	<div id="sign-challenge-centre"></div>
         <div id="white-box">
-          {% if user.is_authenticated %}
+          {# if user.is_authenticated #}
+          {% if false %}
       			{% for challenge in challenges %}
       				<div class="challenges">
       					<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
@@ -39,18 +40,34 @@
       			{% endfor %}
           {% else %}
             <p>
-              Rediscover your community and improve the environment through this nationwide challenge. Earn <span class="green bold">Clean</span><span class="blue bold">Creds</span> for your progress and be recognized for your actions! 
-            </p>
-            <p>
-              Interact with and discover local environmental resources. Earn volunteer hours in fun challenges.
-            </p>
-            <p>
+              Rediscover your community and improve the environment through this nationwide challenge. Earn <span class="green bold">Clean</span><span class="blue bold">Creds</span> for your progress and be recognized for your actions! Interact with and discover local environmental resources. Earn volunteer hours in fun challenges.
               Learn how small changes in your daily life can create huge environmental impacts.
             </p>
             <br/><br/>
             <div class="challenges">
-              <h1>Challenge One - Coming Spring 2014</h1>
+              <h1 style="text-align: center;">Challenge One - Coming Spring 2014</h1>
             </div>
+            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
+            <script>
+              var myCountdown2 = new Countdown({
+                        year:2014,
+                        month:3, 
+                        day:1,
+                        hour: 12,
+                        ampm: "am",
+                        minute: 0,
+                        width: 475, 
+                        height: 50, 
+                        padding   : 1.5,
+                        rangeHi   : "day",
+                        rangeLo   : "second",
+                        numbers: {
+                            font  : "Arial",
+                            color : "#FFFFFF",
+                            bkgd  : "#000"
+                          }
+                        });
+            </script>
           {% endif %}
 			
         </div><!-- /#white-box -->

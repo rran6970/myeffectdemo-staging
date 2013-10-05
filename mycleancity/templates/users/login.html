@@ -17,6 +17,7 @@
   
   <div class="content">
     <div class="container">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign login" id="sign-go-back"></div></a>
         <div id="white-box" class="login">
             <h2>Login to your Account</h2>
             {% if invalid %}
@@ -40,6 +41,7 @@
                 <input class="btn btn-primary" type="submit" value="Login" />
             </form>
             <p>Don't have an account?<br/>Create one <a href="/users/register">here</a>.</p>
+            <p><a href="#" onclick="history.go(-1)">Go Back</a></p>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
