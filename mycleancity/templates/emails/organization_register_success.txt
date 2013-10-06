@@ -1,0 +1,5 @@
+Hey {{ first_name }},
+
+Thank you for your interest in joining My Clean City. Your registration has been received.
+
+Once approved you will be sent access to post your challenges.

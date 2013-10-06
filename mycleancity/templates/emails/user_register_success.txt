@@ -1,0 +1,9 @@
+Hey {{ first_name }},
+
+Thank you for your interest in My Clean City. We are delighted to have you join us and will be sure to keep you updated as we near our full launch.
+
+If you indicated interest in becoming an ambassador, someone on our team will be in touch with you shortly.
+
+In the meantime, make sure to follow us on twitter and tag us on instagram & vine @MyCleanCity to be a part of our exciting upcoming challenges.
+
+Together we can build sustainable communities through the power of YOUth.

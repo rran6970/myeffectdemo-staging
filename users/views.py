@@ -6,9 +6,12 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
+from django.core.mail import EmailMultiAlternatives
+
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.template import Context, RequestContext
+from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
@@ -129,6 +132,19 @@ class RegisterView(FormView):
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
+
+		plaintext = get_template('emails/user_register_success.txt')
+		htmly = get_template('emails/user_register_success.html')
+
+		d = Context({ 'first_name': form.cleaned_data['first_name'] })
+
+		subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
+		text_content = plaintext.render(d)
+		html_content = htmly.render(d)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
+
 		return HttpResponseRedirect('/challenges')
 
 class RegisterOrganizationView(FormView):
@@ -161,6 +177,18 @@ class RegisterOrganizationView(FormView):
 		o.province = form.cleaned_data['province']
 		o.website = form.cleaned_data['website']
 		o.save()
+
+		plaintext = get_template('emails/organization_register_success.txt')
+		htmly = get_template('emails/organization_register_success.html')
+
+		d = Context({ 'first_name': form.cleaned_data['first_name'] })
+
+		subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
+		text_content = plaintext.render(d)
+		html_content = htmly.render(d)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
 
 		return HttpResponseRedirect('/register-success/')
 
