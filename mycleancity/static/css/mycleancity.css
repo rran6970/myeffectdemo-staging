@@ -189,7 +189,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 /******************************
 	Challenge Centre
 ******************************/ 
-div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center 0; }
+div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
 div.content.challenge-centre #white-box { width: 478px; height: 300px; left: 41%; }
 div.content.challenge-centre #white-box div.challenges { margin-bottom: 40px; }
@@ -238,7 +238,7 @@ div.content.challenge-overview #participate-btn { float: right; }
 /******************************
 	Leaderboard Page
 ******************************/ 
-div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center 89px; height: 478px; } 
+div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; } 
 
 #brown-box { float: right; margin-right: 100px; text-shadow: 1px 1px 3px #111; }
 #brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
@@ -259,7 +259,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
 #sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
-#tree-progress { display: block; float: left; margin-left: 30px; position: absolute; top: -10px; }
+#tree-progress { display: block; float: left; margin-left: 30px; position: absolute; top: 54px; }
 
 /******************************
 	Challenge Participants Page
