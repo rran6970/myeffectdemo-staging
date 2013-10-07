@@ -78,12 +78,10 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		postal_code = cleaned_data.get("postal_code")
 		school_type = cleaned_data.get("school_type")
 
-		if not first_name and email and postal_code:
-			raise forms.ValidationError("Please enter all of the fields")
-		elif not first_name:
+		if not first_name:
 			raise forms.ValidationError("Please let us know what to call you!")
 		elif not email:
-			raise forms.ValidationError("Please enter a valid email address")
+			raise forms.error
 		elif not postal_code:
 			raise forms.ValidationError("Please enter a valid postal code")
 		elif not school_type:
@@ -109,11 +107,29 @@ class RegisterUserForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super(RegisterUserForm, self).clean()
-		passwd1 = cleaned_data.get('password')
-		passwd2 = cleaned_data.get('confirm_password')
+		first_name = cleaned_data.get('first_name')
+		last_name = cleaned_data.get('last_name')
+		email = cleaned_data.get('email')
+		password = cleaned_data.get('password')
+		confirm_password = cleaned_data.get('confirm_password')
+		school_type = cleaned_data.get('school_type')
+		ambassador = cleaned_data.get('ambassador')
 
-		if passwd1 and passwd2:
-			if passwd1 != passwd2:
+		if not first_name:
+			raise forms.ValidationError("Please enter your first name")
+		elif not last_name:
+			raise forms.ValidationError("Please enter your last name")
+		# elif not email:
+		# 	raise forms.ValidationError("Please enter a valid email address")
+		# elif not password:
+		# 	raise forms.ValidationError("Please enter a password")
+		elif not confirm_password:
+			raise forms.ValidationError("Please confirm your password")
+		elif not school_type:
+			raise forms.ValidationError("Please select your school type")
+
+		if password and confirm_password:
+			if password != confirm_password:
 				raise forms.ValidationError('Passwords did not match')
 
 		return cleaned_data
@@ -140,11 +156,37 @@ class RegisterOrganizationForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super(RegisterOrganizationForm, self).clean()
-		passwd1 = cleaned_data.get('password')
-		passwd2 = cleaned_data.get('confirm_password')
+		first_name = cleaned_data.get('first_name')
+		last_name = cleaned_data.get('last_name')
+		email = cleaned_data.get('email')
+		organization = cleaned_data.get('organization')
+		password = cleaned_data.get('password')
+		confirm_password = cleaned_data.get('confirm_password')
+		city = cleaned_data.get('city')
+		province = cleaned_data.get('province')
+		website = cleaned_data.get('website')
 
-		if passwd1 and passwd2:
-			if passwd1 != passwd2:
+		if not first_name:
+			raise forms.ValidationError("Please enter your first name")
+		elif not last_name:
+			raise forms.ValidationError("Please enter your last name")
+		# elif not email:
+		# 	raise forms.ValidationError("Please enter a valid email address")
+		# elif not password:
+		# 	raise forms.ValidationError("Please enter a password")
+		elif not organization:
+			raise forms.ValidationError("Please enter your organization")
+		elif not confirm_password:
+			raise forms.ValidationError("Please confirm your password")
+		elif not city:
+			raise forms.ValidationError("Please select your city")
+		elif not province:
+			raise forms.ValidationError("Please select your province")
+		elif not website:
+			raise forms.ValidationError("Please enter your website")
+
+		if password and confirm_password:
+			if password != confirm_password:
 				raise forms.ValidationError('Passwords did not match')
 
 		return cleaned_data
@@ -167,6 +209,7 @@ class ProfileForm(forms.ModelForm):
 		first_name = cleaned_data.get("first_name")
 		last_name = cleaned_data.get("last_name")
 		email = cleaned_data.get("email")
+		school_type = cleaned_data.get("school_type")
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -174,6 +217,8 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your last name")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
+		elif not school_type:
+			raise forms.ValidationError("Please select your school type")
 
 		return cleaned_data
 
@@ -182,11 +227,13 @@ class OrganizationProfileForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
+	
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
+
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -195,18 +242,31 @@ class OrganizationProfileForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super(OrganizationProfileForm, self).clean()
-		first_name = cleaned_data.get("first_name")
-		last_name = cleaned_data.get("last_name")
-		organization = cleaned_data.get("organization")
-		email = cleaned_data.get("email")
+		first_name = cleaned_data.get('first_name')
+		last_name = cleaned_data.get('last_name')
+		email = cleaned_data.get('email')
+		organization = cleaned_data.get('organization')
+		password = cleaned_data.get('password')
+		confirm_password = cleaned_data.get('confirm_password')
+		city = cleaned_data.get('city')
+		province = cleaned_data.get('province')
+		website = cleaned_data.get('website')
 
 		if not first_name:
-			raise forms.ValidationError("Please let us know what to call you!")
+			raise forms.ValidationError("Please enter your first name")
 		elif not last_name:
-			raise forms.ValidationError("Please enter your last name!")
-		elif not email:
-			raise forms.ValidationError("Please enter a valid email address")
+			raise forms.ValidationError("Please enter your last name")
+		# elif not email:
+		# 	raise forms.ValidationError("Please enter a valid email address")
+		# elif not password:
+		# 	raise forms.ValidationError("Please enter a password")
 		elif not organization:
 			raise forms.ValidationError("Please enter your organization")
+		elif not city:
+			raise forms.ValidationError("Please select your city")
+		elif not province:
+			raise forms.ValidationError("Please select your province")
+		elif not website:
+			raise forms.ValidationError("Please enter your website")
 
-		return cleaned_data
+		return cleaned_data	

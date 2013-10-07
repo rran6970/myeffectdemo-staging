@@ -133,17 +133,17 @@ class RegisterView(FormView):
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
 
-		plaintext = get_template('emails/user_register_success.txt')
-		htmly = get_template('emails/user_register_success.html')
+		# plaintext = get_template('emails/user_register_success.txt')
+		# htmly = get_template('emails/user_register_success.html')
 
-		d = Context({ 'first_name': form.cleaned_data['first_name'] })
+		# d = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-		subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
+		# subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
+		# text_content = plaintext.render(d)
+		# html_content = htmly.render(d)
+		# msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		# msg.attach_alternative(html_content, "text/html")
+		# msg.send()
 
 		return HttpResponseRedirect('/challenges')
 
@@ -178,17 +178,17 @@ class RegisterOrganizationView(FormView):
 		o.website = form.cleaned_data['website']
 		o.save()
 
-		plaintext = get_template('emails/organization_register_success.txt')
-		htmly = get_template('emails/organization_register_success.html')
+		# plaintext = get_template('emails/organization_register_success.txt')
+		# htmly = get_template('emails/organization_register_success.html')
 
-		d = Context({ 'first_name': form.cleaned_data['first_name'] })
+		# d = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-		subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
+		# subject, from_email, to = 'My Clean City - Sign Successful', 'zee@hakstudio.com', form.cleaned_data['email']
+		# text_content = plaintext.render(d)
+		# html_content = htmly.render(d)
+		# msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		# msg.attach_alternative(html_content, "text/html")
+		# msg.send()
 
 		return HttpResponseRedirect('/register-success/')
 

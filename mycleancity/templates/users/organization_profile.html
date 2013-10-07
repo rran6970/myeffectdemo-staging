@@ -20,8 +20,10 @@
       
         <div id="white-box" class="profile">
             <h2>My Organization Profile</h2>
-            {% if form.errors %}
-               <p>{{ form.errors }}</p>
+            {% if form.non_field_errors %}
+              <div class="message-box error">
+              {{ form.non_field_errors }}
+              </div>
             {% endif %}
 
             <form action="" method="post">{% csrf_token %}

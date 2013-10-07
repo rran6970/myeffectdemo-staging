@@ -23,8 +23,13 @@
         <div id="white-box" class="register">
             <h2>Register as an Organization</h2>
 
+            {% if form.non_field_errors %}
+              <div class="message-box error">
+              {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
             <form action="/users/register-organization/" method="post">{% csrf_token %}
-                {{ form.errors }}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>

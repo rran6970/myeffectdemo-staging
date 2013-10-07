@@ -20,10 +20,13 @@
       
         <div id="white-box" class="contact">
           <h2>Contact</h2>
-          {% if form.errors %}
-             <p>{{ form.errors }}</p>
+          
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
           {% endif %}
-
+        
           <form action="#" method="post">
             {% csrf_token %}
             {{ form.name.label_tag }} {{ form.name }}

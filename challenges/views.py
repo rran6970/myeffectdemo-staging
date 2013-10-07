@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic import *
 from django.views.generic.base import View
 
-from challenges.form import NewChallengeForm
+from challenges.forms import NewChallengeForm
 from challenges.models import Challenge, UserChallenge
 from userorganization.models import UserOrganization
 from userprofile.models import UserProfile
