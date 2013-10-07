@@ -18,19 +18,20 @@
   <div class="content">
     <div class="container">
       
-        <div id="white-box">
-          <div class="left">
-            <h2>Contact</h2>
-          </div><!-- /.left -->
-          <div class="right">
-            <form action="#" method="post">
-              <input type="text" name="name" placeholder="Name" />
-              <input type="text" name="email" placeholder="Email" />
-              <input type="text" name="subject" placeholder="Subject" />
-              <textarea name="message" id="" cols="30" rows="10" placeholder="Message"></textarea>
-              <input class="btn btn-primary" type="submit" value="Send Message" />
-            </form>
-          </div><!-- /.right -->
+        <div id="white-box" class="contact">
+          <h2>Contact</h2>
+          {% if form.errors %}
+             <p>{{ form.errors }}</p>
+          {% endif %}
+
+          <form action="#" method="post">
+            {% csrf_token %}
+            {{ form.name.label_tag }} {{ form.name }}
+            {{ form.email.label_tag }} {{ form.email }}
+            {{ form.subject.label_tag }} {{ form.subject }}
+            {{ form.message.label_tag }} {{ form.message }}
+            <input class="btn btn-primary" type="submit" value="Send Message" />
+          </form>
         </div><!-- /#white-box -->
   
     </div><!-- /.container -->

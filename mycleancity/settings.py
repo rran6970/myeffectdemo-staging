@@ -1,7 +1,7 @@
 # Django settings for mycleancity project.
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -161,7 +161,7 @@ LOGGING = {
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-# DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -174,8 +174,8 @@ LOGIN_URL = '/users/login/'
 LOGOUT_URL = '/users/logout/'
 LOGIN_REDIRECT_URL = '/users/profile/'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'zee@hakstudio.com'
-EMAIL_HOST_PASSWORD = 'G4ndh123!'
-EMAIL_PORT = 587
+EMAIL_HOST = 'srv46.hosting24.com'
+EMAIL_HOST_USER = 'info@mycleancity.org'
+EMAIL_HOST_PASSWORD = 'cleancity'
+EMAIL_PORT = 465
 EMAIL_USE_TLS = True
