@@ -278,4 +278,12 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 	Twitter Feed
 ******************************/ 
 #tweets { float: left; overflow: hidden; }
-#tweets ul li { display: block; width: 300px; margin: 0 70px; position:relative; float: left;  }
+#tweets ul li { display: block; width: 300px; margin: 0 27px; position:relative; float: left;  }
+
+/******************************
+	Countdown
+******************************/ 
+div[id^='box_jbeeb_'] { display: none; }
+
+div[id^='container_jbeeb_'] { background-color: transparent !important; }
+div[id^='textbox_jbeeb_'] { color: #638d3d !important; font-weight: bold; }
