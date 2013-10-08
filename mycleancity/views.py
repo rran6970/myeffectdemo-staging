@@ -1,17 +1,24 @@
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from mycleancity.forms import ContactForm
+from django import http
 from django.template.loader import get_template
 from django.template import Context
 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
+from mycleancity.forms import ContactForm
+
 def error404(request):
     return render(request,'mycleancity/404.html')
 
 class HomePageView(TemplateView):
 	template_name = "mycleancity/index.html"
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			return HttpResponseRedirect('/challenges')
+		return super(HomePageView, self).dispatch(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		context = super(HomePageView, self).get_context_data(**kwargs)

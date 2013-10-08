@@ -17,10 +17,9 @@
   
   <div class="content">
     <div class="container">
+    	<a href="#" onclick="history.go(-1); return false;"><div class="sign challenge-participants" id="sign-go-back"></div></a>
         <div id="white-box" class="challenge-participants">
         	<h1>{{ challenge.title }}</h1>
-			
-			
 				{% csrf_token %}
 				<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
 				<table>

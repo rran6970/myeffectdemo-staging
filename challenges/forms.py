@@ -25,9 +25,17 @@ PROVINCES = (('', 'Please select one...'),
 )
 
 class NewChallengeForm(forms.ModelForm):
+	title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	cleancred_value = forms.DecimalField(required=True, widget=forms.TextInput())
 	event_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker'}))
 	event_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker'}))
-	province = forms.ChoiceField(choices=PROVINCES)
+	address1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	address2 = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
+	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+	description = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.Textarea())
 
 	class Meta:
 		model = Challenge
@@ -66,5 +74,6 @@ class NewChallengeForm(forms.ModelForm):
 		elif not postal_code:
 			raise forms.ValidationError("Please enter a postal code")	
 		elif not description:
-			raise forms.ValidationError("Please enter a description")		
+			raise forms.ValidationError("Please enter a description")
+
 		return cleaned_data

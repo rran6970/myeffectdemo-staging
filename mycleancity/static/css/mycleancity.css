@@ -32,7 +32,12 @@ a.menu-items:hover { text-decoration: none; color: white; }
 .dropdown-menu li a:hover { background: transparent; color: #999; }
 
 #sign-go-back { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -22px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
-#sign-go-back.login { left: 415px; }
+#sign-go-back.login { left: 441px; }
+#sign-go-back.new-challenge { left: 352px; }
+#sign-go-back.profile { left: 352px; }
+#sign-go-back.contact { left: 442px; }
+#sign-go-back.register { left: 352px; }
+#sign-go-back.challenge-participants { left: 289px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
