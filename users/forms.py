@@ -92,9 +92,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 class RegisterUserForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, validators = [
-		username_format_is_valid, username_is_unique], widget=forms.TextInput())
-	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators=[password_length_sufficient])
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
@@ -132,14 +131,19 @@ class RegisterUserForm(forms.ModelForm):
 			if password != confirm_password:
 				raise forms.ValidationError('Passwords did not match')
 
+		if User.objects.filter(username = email):
+			raise forms.ValidationError(u'%s is already registered' % email)
+
+		if len(password) < 8:
+			raise forms.ValidationError(u'Password must be at least 8 characters')
+
 		return cleaned_data
 
 class RegisterOrganizationForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, validators = [
-		username_format_is_valid, username_is_unique], widget=forms.TextInput())
-	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -188,13 +192,18 @@ class RegisterOrganizationForm(forms.ModelForm):
 			if password != confirm_password:
 				raise forms.ValidationError('Passwords did not match')
 
+		if User.objects.filter(username = email):
+			raise forms.ValidationError(u'%s is already registered' % email)
+
+		if len(password) < 8:
+			raise forms.ValidationError(u'Password must be at least 8 characters')
+
 		return cleaned_data
 
 class ProfileForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, validators = [
-		username_format_is_valid], widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	
@@ -225,7 +234,7 @@ class OrganizationProfileForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, validators = [username_format_is_valid], widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
 	
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
