@@ -140,6 +140,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
 #sign-media-hub + #white-box { width: 300px; left: 9%; height: 300px; }
 #white-box.facebook { width: 300px; height: 120px; left: 40%; top: -5px; }
+#white-box.photos h2 { line-height: 28px; padding-bottom: 10px; }
 #white-box.photos { width: 300px; height: 140px; left: 40%; top: 225px; }
 
 /******************************
