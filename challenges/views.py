@@ -21,7 +21,6 @@ def participate_in_challenge(request):
 		
 		try:
 			user_challenge = UserChallenge.objects.get(user=request.user, challenge=challenge)
-			print user_challenge
 		except Exception, e:
 			user_challenge = UserChallenge(user=request.user)
 			user_challenge.challenge = challenge
@@ -54,7 +53,6 @@ def confirm_participants(request):
 			
 	return HttpResponseRedirect('/challenges/')
 
-
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challege_centre.html"
 
@@ -74,12 +72,7 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
-		try:
-			organization = UserOrganization.objects.get(user=self.request.user)
-		except Exception, e:
-			organization = None
-
-		if not organization:
+		if not self.request.user.profile.is_organization():
 			return HttpResponseRedirect('/challenges')
 
 		if not self.request.user.is_active:
@@ -114,12 +107,29 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 	template_name = "challenges/challenge_participants.html"
 
+	def get(self, request, *args, **kwargs):
+		challenge = None
+
+		if 'cid' in self.kwargs:
+			cid = self.kwargs['cid']
+		else:
+			return HttpResponseRedirect('/challenges/my-challenges/')
+
+		try:
+			challenge = Challenge.objects.get(id=cid, user=self.request.user)
+		except Exception, e:
+			return HttpResponseRedirect('/challenges/my-challenges/')			
+
+		return self.render_to_response(self.get_context_data())
+
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeParticipantsView, self).get_context_data(**kwargs)
 
 		if 'cid' in self.kwargs:
-			context['participants'] = UserChallenge.objects.filter(challenge_id=self.kwargs['cid'])
-			context['cid'] = self.kwargs['cid']
+			cid = self.kwargs['cid']
+
+			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
+			context['cid'] = cid
 
 		return context
 
@@ -129,7 +139,11 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		context['challenges'] = Challenge.objects.filter(user=self.request.user)
+		if self.request.user.profile.is_organization():
+			context['challenges'] = Challenge.objects.filter(user=self.request.user)
+		else:
+			context['challenges'] = UserChallenge.objects.filter(user=self.request.user)
+
 		context['user'] = self.request.user
 		return context
 

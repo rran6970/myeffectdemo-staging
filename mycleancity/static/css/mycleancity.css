@@ -186,6 +186,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.profile { width: 478px; left: 45%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
+#white-box.profile table tr td.clean-creds { font-size: 18px; }
 
 /******************************
 	New Challenge
@@ -210,13 +211,14 @@ div.content.challenge-centre #white-box div.challenges a:hover { color: #86b45c 
 /******************************
 	My Challenges Page
 ******************************/ 
-div.content.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center 0; }
+div.content.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-my-challenges { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-my-challenges.png) no-repeat 0 0; }
 div.content.my-challenges #white-box { width: 478px; height: 300px; left: 41%; }
 div.content.my-challenges #white-box div.challenges { margin-bottom: 40px; }
 div.content.my-challenges #white-box div.challenges h1 { line-height: 20px; font-weight: 900; font-size: 20px; }
 div.content.my-challenges #white-box div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
 div.content.my-challenges #white-box div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
+div.content.my-challenges #white-box div.challenges span.status h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
 div.content.my-challenges #white-box div.challenges p { padding: 0; }
 div.content.my-challenges #white-box div.challenges a:hover { color: #86b45c !important; }
 

@@ -2,7 +2,7 @@ $(function(){
 	$('.dropdown-toggle').dropdown();
 	$(".timepicker").timepicker();
 	$(".datepicker").datepicker({
-		'format': 'yyyy-dd-mm'
+		'format': 'yyyy-mm-dd'
 	}).on('changeDate', function(event){
     	$(this).datepicker('hide');
   	});

@@ -2,19 +2,18 @@
 <a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
 <a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a>
 
-{% if user.profile.is_organization %}
+
 {% if user.is_active %}
 <div class="dropdown">
 	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-	  <li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
-	  <li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
+		{% if user.profile.is_organization %}
+		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
+		{% endif %}
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 	  
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->
-
-
-{% endif %}
 {% endif %}
 
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
