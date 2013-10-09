@@ -94,7 +94,7 @@ class RegisterUserForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, validators = [
 		username_format_is_valid, username_is_unique], widget=forms.TextInput())
-	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators = [password_length_sufficient])
+	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), validators=[password_length_sufficient])
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
@@ -119,10 +119,10 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your first name")
 		elif not last_name:
 			raise forms.ValidationError("Please enter your last name")
-		# elif not email:
-		# 	raise forms.ValidationError("Please enter a valid email address")
-		# elif not password:
-		# 	raise forms.ValidationError("Please enter a password")
+		elif not email:
+			raise forms.ValidationError("Please enter a valid email address")
+		elif not password:
+			raise forms.ValidationError("Please enter a password")
 		elif not confirm_password:
 			raise forms.ValidationError("Please confirm your password")
 		elif not school_type:
@@ -133,7 +133,6 @@ class RegisterUserForm(forms.ModelForm):
 				raise forms.ValidationError('Passwords did not match')
 
 		return cleaned_data
-
 
 class RegisterOrganizationForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())

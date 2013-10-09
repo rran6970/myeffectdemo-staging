@@ -34,10 +34,13 @@ a.menu-items:hover { text-decoration: none; color: white; }
 #sign-go-back { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -22px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login { left: 441px; }
 #sign-go-back.new-challenge { left: 352px; }
-#sign-go-back.profile { left: 352px; }
+#sign-go-back.profile { left: 558px; }
 #sign-go-back.contact { left: 442px; }
 #sign-go-back.register { left: 352px; }
 #sign-go-back.challenge-participants { left: 289px; }
+#sign-go-back.about { left: 32px; top: 386px; }
+#sign-go-back.students { left: 32px; top: 386px; }
+#sign-go-back.organizations { left: 32px; top: 356px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -121,7 +124,7 @@ div.content.organization #white-box ul { margin-left: 18px; }
 div.content.organization #white-box ul li { list-style: disc; } 
 div.content.organization #white-box iframe { margin: 0 190px; }
 
-#sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
+#sign-stump-long { width: 46px; height: 533px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
@@ -180,7 +183,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 /******************************
 	Profile
 ******************************/ 
-#white-box.profile { width: 478px; left: 29%; }
+#white-box.profile { width: 478px; left: 45%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
 
@@ -264,7 +267,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
 #sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
-#tree-progress { display: block; float: left; margin-left: 30px; position: absolute; top: 54px; }
+#tree-progress { display: block; z-index: 999; float: left; margin-left: 30px; position: absolute; top: -121px; }
 
 /******************************
 	Challenge Participants Page

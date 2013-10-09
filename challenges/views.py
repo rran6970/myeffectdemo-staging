@@ -90,7 +90,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
-		print form.errors
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
@@ -107,8 +106,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		challenge.city = form.cleaned_data['city']
 		challenge.postal_code = form.cleaned_data['postal_code']
 		challenge.country = form.cleaned_data['country']
-
-		print challenge
 
 		challenge.save()
 
