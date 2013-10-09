@@ -27,22 +27,24 @@
           <div class="fb-activity" data-app-id="516343758455142" data-site="https://www.facebook.com/pages/My-Clean-City/203721359785216" data-action="Comma separated list of action of action types" data-width="300" data-height="300" data-header="true"></div>
         </div>
         <div id="white-box" class="photos">
-          <div id="instafeed"></div> a
+          <div id="instafeed"></div>
         </div>
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
 {% include "_footer_navbar.html" %}
 
+{% endblock %}
+
+{% block javascript %}
 <script type="text/javascript">
   var feed = new Instafeed({
-      get: 'tagged',
-      tagName: 'MyCleanCity',
+      get: 'user',
+      userId: 588574229,
+      accessToken: '588574229.467ede5.399d001a278240e28c2669ede67c461e',
+      link: 'true',
       clientId: 'c4d979a78daa4114b8d0800e135097e6'
   });
   feed.run();
 </script>
-
 {% endblock %}
-
-{% block javascript %}{% endblock %}
