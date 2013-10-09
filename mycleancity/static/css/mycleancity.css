@@ -5,9 +5,7 @@ Description:    CSS file for the Index Page
 Date created:   Sept 24, 2013
 -------------------------------------------------------------------*/
 
-body { }
-
-div.wrapper.public { width: 100%; margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; overflow: hidden; }
+div.wrapper.public { margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; }
 
 div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
 
@@ -226,7 +224,7 @@ div.content.my-challenges #white-box div.challenges a:hover { color: #86b45c !im
 /******************************
 	Challenge Page
 ******************************/ 
-div.content.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center 0; }
+div.content.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-overview { width: 500px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 630px; height: 300px; left: 41%; }
 div.content.challenge-overview #white-box h1 { font-weight: 900; float: left; }
