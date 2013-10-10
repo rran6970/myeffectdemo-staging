@@ -35,7 +35,7 @@ class NewChallengeForm(forms.ModelForm):
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-	description = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.Textarea())
+	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 
 	class Meta:
 		model = Challenge

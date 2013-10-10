@@ -65,7 +65,7 @@
 
 			{% for participant in participants %}
 				<div class="participants">
-        			{{ participant.user.first_name }} {{ participant.user.last_name }}
+					<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
         		</div>
 			{% endfor %}
         </div>

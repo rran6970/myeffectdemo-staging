@@ -185,7 +185,18 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.profile { width: 478px; left: 45%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
-#white-box.profile table tr td.clean-creds { font-size: 18px; }
+#white-box.profile table tr td.clean-creds { font-size: 18px; padding: 10px 0; }
+#white-box.profile textarea { width: 453px; height: 200px; }
+
+/******************************
+	Public Profile
+******************************/ 
+#white-box.public-profile { width: 478px; left: 45%; }
+#white-box.public-profile span.edit-profile { display: block; float: right; }
+#white-box.public-profile h2 { font-weight: 700; float: left; }
+#white-box.public-profile div.field { font-size: 18px; }
+#white-box.public-profile div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
+#white-box.public-profile div.field.about p.title { margin-bottom: -16px; }
 
 /******************************
 	New Challenge

@@ -204,6 +204,7 @@ class ProfileForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	about = forms.CharField(required=False, widget=forms.Textarea())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	

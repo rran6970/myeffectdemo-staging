@@ -192,6 +192,19 @@ class RegisterOrganizationView(FormView):
 
 		return HttpResponseRedirect('/register-success/')
 
+class ProfilePublicView(LoginRequiredMixin, TemplateView):
+	template_name = "users/public_profile.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfilePublicView, self).get_context_data(**kwargs)
+		
+		if 'uid' in self.kwargs:
+			user_id = self.kwargs['uid']
+			context['user_profile'] = get_object_or_404(User, id=user_id)
+
+		context['user'] = self.request.user
+		return context
+
 class ProfileView(LoginRequiredMixin, FormView):
 	template_name = "users/profile.html"
 	form_class = ProfileForm
@@ -206,6 +219,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['email'] = user.email
 		# initial['dob'] = user.profile.dob
 		initial['school_type'] = user.profile.school_type
+		initial['about'] = user.profile.about
 
 		return initial
 
@@ -227,11 +241,14 @@ class ProfileView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+		print form.errors
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
+
+		print form.cleaned_data['about']
 
 		user = User.objects.get(id=self.request.user.id)
 
@@ -239,7 +256,8 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.last_name = form.cleaned_data['last_name']
 		user.save()
 
-		# user.profile.dob = form.cleaned_data['dob'] 
+		# user.profile.dob = form.cleaned_data['dob']
+		user.profile.about = form.cleaned_data['about']
 		user.profile.school_type = form.cleaned_data['school_type'] 
 		user.profile.save()
 

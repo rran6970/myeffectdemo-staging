@@ -1,0 +1,56 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - {{ user_profile.first_name }} {{ user_profile.last_name }} {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_loggedin_navbar.html" %}  
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
+        <div id="white-box" class="public-profile">
+          {% if user.id == user_profile.id %}
+          <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
+          {% endif %}
+          <h2>Profile</h2>
+          <div class="clear"></div>
+          <div class="field">
+            <p class="title">Name:</p>
+            <p>{{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+          </div>
+          <div class="field">
+            <p class="title">Email:</p>
+            <p class="text">{{ user_profile.email }}</p>
+          </div>
+          {% if user_profile.profile.about %}
+          <div class="field about">
+            <p class="title">About:</p>
+            <div class="clear"></div>
+            <p class="text">{{ user_profile.profile.about }}</p>
+          </div>
+          {% endif %}
+          <div class="field">
+            <p class="title"><span class="green bold">Clean</span><span class="blue bold">Creds:</span></p>
+            <p class="text">{{ user_profile.profile.clean_creds }}</p>
+          </div>
+                
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

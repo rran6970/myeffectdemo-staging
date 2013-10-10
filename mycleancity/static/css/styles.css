@@ -58,5 +58,14 @@ input:focus,
 textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px rgba(113, 255, 0, 0.6) !important; -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px rgba(113, 255, 0, 0.6) !important; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px rgba(113, 255, 0, 0.6) !important; }
 
 /** Message Boxes **/
-.error { background-color: #f2dede; border: 1px solid #EDAAA8; padding: 5px; text-align: center; margin: 10px 0; }
-.error p, .error li { color: #b94a48 !important; font-size: 13px !important; }
+.message-box { padding: 5px; text-align: center; margin: 10px 0; }
+.message-box p, .message-box li { font-size: 13px !important; font-weight: 400 !important; }
+
+.error { background-color: #f2dede; border: 1px solid #EDAAA8; }
+.error p, .error li { color: #b94a48 !important; }
+
+.success { background-color: #E3FCEA; border: 1px solid #74E05F; }
+.success p, .success li { color: #1DB800 !important; }
+
+.warning { background-color: #fcf8e3; border: 1px solid #F5D49D; }
+.warning p, .warning li { color: #c09853 !important; }

@@ -1,4 +1,4 @@
-<a href="/users/profile" class="menu-items menu-items-left">My Profile</a>
+<a href="/users/profile/{{ user.id }}" class="menu-items menu-items-left">My Profile</a>
 <a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
 <a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a>
 
@@ -11,7 +11,6 @@
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
 		{% endif %}
 		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
-	  
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->
 {% endif %}
