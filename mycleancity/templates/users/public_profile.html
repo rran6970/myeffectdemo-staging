@@ -17,7 +17,9 @@
   
   <div class="content">
     <div class="container">
+        {% if not user_profile.profile.is_organization %}
         <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
+        {% endif %}
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="public-profile">
           {% if user.id == user_profile.id %}
@@ -25,6 +27,7 @@
           {% endif %}
           <h2>Profile</h2>
           <div class="clear"></div>
+
           <div class="field">
             <p class="title">Name:</p>
             <p>{{ user_profile.first_name }} {{ user_profile.last_name }}</p>
@@ -33,6 +36,26 @@
             <p class="title">Email:</p>
             <p class="text">{{ user_profile.email }}</p>
           </div>
+  
+          {% if user_profile.profile.is_organization %}
+          <div class="field">
+            <p class="title">Organization:</p>
+            <p class="text">{{ organization.organization }}</p>
+          </div>
+          <div class="field">
+            <p class="title">City:</p>
+            <p class="text">{{ organization.city }}</p>
+          </div>
+          <div class="field">
+            <p class="title">Province:</p>
+            <p class="text">{{ organization.province }}</p>
+          </div>
+          <div class="field">
+            <p class="title">Website:</p>
+            <p class="text"><a href="{{ organization.website }}" target="_blank">{{ organization.website }}</a></p>
+          </div>
+          {% endif %}
+
           {% if user_profile.profile.about %}
           <div class="field about">
             <p class="title">About:</p>
@@ -40,10 +63,13 @@
             <p class="text">{{ user_profile.profile.about }}</p>
           </div>
           {% endif %}
+
+          {% if not user_profile.profile.is_organization %}
           <div class="field">
             <p class="title"><span class="green bold">Clean</span><span class="blue bold">Creds:</span></p>
             <p class="text">{{ user_profile.profile.clean_creds }}</p>
           </div>
+          {% endif %}
                 
         </div><!-- /#white-box -->
     </div><!-- /.container -->

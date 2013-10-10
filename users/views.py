@@ -200,6 +200,14 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 		
 		if 'uid' in self.kwargs:
 			user_id = self.kwargs['uid']
+
+			try:
+				context['organization'] = UserOrganization.objects.get(user_id=user_id)
+			except Exception, e:
+				pass
+
+			context['challenges'] = Challenge.objects.filter(user_id=user_id)
+
 			context['user_profile'] = get_object_or_404(User, id=user_id)
 
 		context['user'] = self.request.user
@@ -285,6 +293,7 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		initial['city'] = organization.city
 		initial['province'] = organization.province
 		initial['website'] = organization.website
+		initial['about'] = user.profile.about
 
 		return initial
 
@@ -311,6 +320,9 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		user.email = form.cleaned_data['email']
 		user.save()
 
+		user.profile.about = form.cleaned_data['about']
+		user.profile.save()
+
 		user_organization.organization = form.cleaned_data['organization']
 		user_organization.city = form.cleaned_data['city']
 		user_organization.province = form.cleaned_data['province']
@@ -319,19 +331,19 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 
 		return super(OrganizationProfileView, self).form_valid(form)
 
-class OrganizationProfilePublicView(TemplateView):
-	template_name = "users/organization_profile_public.html"
+# class OrganizationProfilePublicView(TemplateView):
+# 	template_name = "users/organization_profile_public.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(OrganizationProfilePublicView, self).get_context_data(**kwargs)
+# 	def get_context_data(self, **kwargs):
+# 		context = super(OrganizationProfilePublicView, self).get_context_data(**kwargs)
 
-		if 'uid' in self.kwargs:
-			user_id = self.kwargs['uid']
-			context['organization'] = get_object_or_404(User, id=user_id)
-			context['challenges'] = Challenge.objects.filter(user_id=user_id)
+# 		if 'uid' in self.kwargs:
+# 			user_id = self.kwargs['uid']
+# 			context['organization'] = get_object_or_404(User, id=user_id)
+# 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
 
-		context['user'] = self.request.user
-		return context
+# 		context['user'] = self.request.user
+# 		return context
 
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"

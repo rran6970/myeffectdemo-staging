@@ -242,6 +242,7 @@ class OrganizationProfileForm(forms.ModelForm):
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
+	about = forms.CharField(required=False, widget=forms.Textarea())
 
 	
 	# Combines the form with the corresponding model
