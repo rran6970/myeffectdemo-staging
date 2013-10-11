@@ -43,7 +43,9 @@
           <div class="clear"></div>
           <div id="sign-leaderboard">
             {% if user.is_authenticated %}
-              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
+              {% if not user.profile.is_organization %}
+                <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
+              {% endif %}
             {% else %}
               <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
             {% endif %}

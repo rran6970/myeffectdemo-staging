@@ -1,3 +1,8 @@
 <a href="/contact" class="menu-items menu-items-right">Contact</a>
 <a href="/about" class="menu-items menu-items-right">About</a>
+
+{% if user.is_active %}
+<a href="/users/logout" class="menu-items menu-items-right">Logout</a>
+{% else %}
 <a href="/users/login" class="menu-items menu-items-right">Login</a>
+{% endif %}

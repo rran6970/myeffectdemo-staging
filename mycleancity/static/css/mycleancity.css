@@ -55,9 +55,16 @@ a.menu-items:hover { text-decoration: none; color: white; }
 #buildings-link:hover + div { content: ""; background-position: 0 bottom !important; } 
 
 #sign-stump { width: 46px; height: 346px; position: absolute; z-index: 999; top: 144px; left: 159px; background: transparent url(../images/sign-stump.png) no-repeat 0 0; }
+#sign-user { min-width: 275px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 39px; }
+#sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; } 
+#sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
+#sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
+
 #sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
 #sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
+#sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
 #sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
 #footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x1-green.png) repeat-x 0 0; width: 100%; height: 210px; }
@@ -211,6 +218,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
 div.content.challenge-centre #white-box { width: 478px; height: 300px; left: 41%; }
+div.content.challenge-centre #white-box p { padding: 0; }
 div.content.challenge-centre #white-box div.challenges { margin-bottom: 40px; }
 div.content.challenge-centre #white-box div.challenges h1 { line-height: 20px; font-weight: 900; font-size: 20px; }
 div.content.challenge-centre #white-box div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }

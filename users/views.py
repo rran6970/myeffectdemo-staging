@@ -255,9 +255,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
-
-		print form.cleaned_data['about']
-
 		user = User.objects.get(id=self.request.user.id)
 
 		user.first_name = form.cleaned_data['first_name']

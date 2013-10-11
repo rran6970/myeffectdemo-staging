@@ -20,9 +20,20 @@
     <div id="buildings"></div>
 
     <a href="/media-hub"><div id="recycle-bench"></div></a>
-    <div id="sign-learn-more"></div>
-    <a href="/students"><div class="sign" id="sign-students"></div></a>
-    <a href="/organizations"><div class="sign" id="sign-organizations"></div></a>
+    
+    {% if user.is_authenticated %}
+      <div id="sign-user">
+        <div class="left"></div>
+        <div class="sign-content">WELCOME {{ user.first_name|upper }}</div>
+        <div class="right"></div>
+      </div><!-- /#sign-user -->
+      <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile"></div></a>
+      <a href="/challenges/my-challenges"><div class="sign" id="sign-my-challenges2"></div></a>
+    {% else %}
+      <div id="sign-learn-more"></div>
+      <a href="/students"><div class="sign" id="sign-students"></div></a>
+      <a href="/organizations"><div class="sign" id="sign-organizations"></div></a>
+    {% endif %}
     <div id="sign-stump"></div>
     
     <div id="grass-1"></div>

@@ -15,13 +15,15 @@ def error404(request):
 class HomePageView(TemplateView):
 	template_name = "mycleancity/index.html"
 
-	def dispatch(self, request, *args, **kwargs):
-		if request.user.is_authenticated():
-			return HttpResponseRedirect('/challenges')
-		return super(HomePageView, self).dispatch(request, *args, **kwargs)
+	# def dispatch(self, request, *args, **kwargs):
+	# 	if request.user.is_authenticated():
+	# 		return HttpResponseRedirect('/challenges')
+	# 	return super(HomePageView, self).dispatch(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		context = super(HomePageView, self).get_context_data(**kwargs)
+		context['user'] = self.request.user
+		
 		return context
 
 class AboutPageView(TemplateView):
