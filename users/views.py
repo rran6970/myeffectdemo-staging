@@ -329,7 +329,9 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		user_organization.website = form.cleaned_data['website']
 		user_organization.save()
 
-		return super(OrganizationProfileView, self).form_valid(form)
+		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+		# return super(OrganizationProfileView, self).form_valid(form)
 
 # class OrganizationProfilePublicView(TemplateView):
 # 	template_name = "users/organization_profile_public.html"
