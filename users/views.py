@@ -269,7 +269,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.school_type = form.cleaned_data['school_type'] 
 		user.profile.save()
 
-		return super(ProfileView, self).form_valid(form)
+		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 
 class OrganizationProfileView(LoginRequiredMixin, FormView):
 	template_name = "users/organization_profile.html"
