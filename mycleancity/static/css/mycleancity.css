@@ -71,6 +71,7 @@ a.menu-items:hover { text-decoration: none; color: white; }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
 #footer p.copyright { float: right; margin-right: 20px; }
+#footer #kelly-effect { width: 288px; margin: 0 auto; text-align: center; }
 
 /******************************
 	About
@@ -112,10 +113,10 @@ div.content.student #white-box iframe { margin: 0 190px; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
-#sign-student-take-action { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-take-action.png) no-repeat 0 0; }
+#sign-student-take-action { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-take-action.png) no-repeat 0 0; }
 #sign-get-rewarded { width: 270px; height: 58px; position: absolute; z-index: 1000; top: 157px; left: 30px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
-#sign-get-viral { width: 234px; height: 55px; position: absolute; z-index: 1000; top: 289px; left: 68px; background: url(../images/sign-get-viral.png) no-repeat 0 0; }
+#sign-get-viral { width: 192px; height: 55px; position: absolute; z-index: 1000; top: 289px; left: 68px; background: url(../images/sign-get-viral.png) no-repeat 0 0; }
 
 /******************************
 	Organizations Page
@@ -131,11 +132,10 @@ div.content.organization #white-box iframe { margin: 0 190px; }
 
 #sign-stump-long { width: 46px; height: 533px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
-#sign-organization-register { width: 234px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
+#sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
 #sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 152px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
-/*#sign-partnership-levels { width: 350px; height: 58px; position: absolute; z-index: 1000; top: 269px; left: 32px; background: url(../images/sign-partnership-levels.png) no-repeat 0 0; }*/
-#sign-impact { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
+#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
 #sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 269px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 
 /******************************

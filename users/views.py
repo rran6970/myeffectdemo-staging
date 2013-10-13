@@ -57,7 +57,7 @@ def auth_view(request):
 		if next_url:
 			return HttpResponseRedirect(urllib.unquote(next_url))
 		else:
-			return HttpResponseRedirect('/challenges/')
+			return HttpResponseRedirect('/')
 	else:
 		c['invalid'] = True
 	
