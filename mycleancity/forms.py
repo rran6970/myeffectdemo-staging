@@ -10,7 +10,7 @@ from django.forms.extras.widgets import SelectDateWidget
 class ContactForm(forms.Form):
 	name = forms.CharField(max_length=50, widget=forms.TextInput())
 	email = forms.EmailField(widget=forms.TextInput())
-	subject = forms.CharField(max_length=7, widget=forms.TextInput())
+	subject = forms.CharField(widget=forms.TextInput())
 	message = forms.CharField(widget=forms.Textarea())
 
 	def clean(self):

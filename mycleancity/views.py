@@ -49,7 +49,7 @@ class ContactPageView(FormView):
 		subject = "%s - %s" % (name, form.cleaned_data['subject'])
 		message = form.cleaned_data['message']
 
-		subject_line, from_email, to = subject, 'zee@hakstudio.com', email
+		subject_line, from_email, to = subject, email, 'info@mycleancity.org'
 		text_content = message
 		html_content = message
 		msg = EmailMultiAlternatives(subject_line, text_content, from_email, [to])

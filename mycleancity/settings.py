@@ -177,5 +177,5 @@ LOGIN_REDIRECT_URL = '/users/profile/'
 EMAIL_HOST = 'srv46.hosting24.com'
 EMAIL_HOST_USER = 'info@mycleancity.org'
 EMAIL_HOST_PASSWORD = 'cleancity'
-EMAIL_PORT = 465
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
