@@ -1,8 +1,10 @@
 Hey {{ first_name }},
 
-Thank you for your interest in joining My Clean City. Your registration has been received.
+Thank you! Your registration has been received and has been sent for approval by our team. 
 
-Once approved you will be sent access to post your challenges.
+We will notify you with next steps once the approval process is complete.
+
+Thank you again for your interest in My Clean City.
 
 Warm Regards,
 
