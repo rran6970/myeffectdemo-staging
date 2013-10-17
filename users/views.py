@@ -152,7 +152,7 @@ class RegisterView(FormView):
 
 		d = Context({ 'email': form.cleaned_data['email'], 'user': 'user' })
 
-		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', form.cleaned_data['email']
+		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', 'communications@mycleancity.org'
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -210,7 +210,7 @@ class RegisterOrganizationView(FormView):
 
 		d = Context({ 'email': form.cleaned_data['email'] })
 
-		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Clean City - Organization Sign Successful', 'communications@mycleancity.org', 'communications@mycleancity.org'
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
