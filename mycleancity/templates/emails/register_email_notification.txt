@@ -1,0 +1,5 @@
+{% if user %}
+  A new User has signed up under {{ email }}.
+{% else %}
+  A new Organization has signed up under {{ email }}.
+{% endif %}

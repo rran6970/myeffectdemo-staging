@@ -1,0 +1,17 @@
+Hey {{ first_name }},
+
+Welcome to My Clean City!
+
+Your request to register has been approved.
+To access your account please log in through the My Clean City portal</p>
+
+To register your programs of choice as a My Clean City challenge please go to your Challenges tab within your account.
+
+As a My Clean City partner (or is affiliate more fitting here?), we ask you to kindly add a link to us on your website with our logo www.mycleancity.org.
+You are encouraged to interact with us on Twitter @MyCleanCity1 and social media. We will be following up closer to our national launch with more specific details on cross promotion strategies.
+
+Thank you again for registering and welcome to My Clean City!
+
+Warm Regards,
+
+My Clean City Team

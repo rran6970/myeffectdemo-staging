@@ -133,12 +133,26 @@ class RegisterView(FormView):
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
 
+		# Send registration email to user
 		plaintext = get_template('emails/user_register_success.txt')
 		htmly = get_template('emails/user_register_success.html')
 
 		d = Context({ 'first_name': form.cleaned_data['first_name'] })
 
 		subject, from_email, to = 'My Clean City - Sign Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		text_content = plaintext.render(d)
+		html_content = htmly.render(d)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
+
+		# Send notification email to administrator
+		plaintext = get_template('emails/register_email_notification.txt')
+		htmly = get_template('emails/register_email_notification.html')
+
+		d = Context({ 'email': form.cleaned_data['email'], 'user': 'user' })
+
+		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', form.cleaned_data['email']
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -184,6 +198,19 @@ class RegisterOrganizationView(FormView):
 		d = Context({ 'first_name': form.cleaned_data['first_name'] })
 
 		subject, from_email, to = 'My Clean City - Sign Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		text_content = plaintext.render(d)
+		html_content = htmly.render(d)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
+
+		# Send notification email to administrator
+		plaintext = get_template('emails/register_email_notification.txt')
+		htmly = get_template('emails/register_email_notification.html')
+
+		d = Context({ 'email': form.cleaned_data['email'] })
+
+		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', form.cleaned_data['email']
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
