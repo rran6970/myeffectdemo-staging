@@ -151,7 +151,8 @@ class RegisterOrganizationForm(forms.ModelForm):
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
-	
+	logo = forms.ImageField(required=True)
+
 	# Combines the form with the corresponding model
 	class Meta:
 		model = User
@@ -168,6 +169,7 @@ class RegisterOrganizationForm(forms.ModelForm):
 		city = cleaned_data.get('city')
 		province = cleaned_data.get('province')
 		website = cleaned_data.get('website')
+		logo = cleaned_data.get('logo')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -187,6 +189,8 @@ class RegisterOrganizationForm(forms.ModelForm):
 			raise forms.ValidationError("Please select your province")
 		elif not website:
 			raise forms.ValidationError("Please enter your website")
+		elif not logo:
+			raise forms.ValidationError("Please upload your logo")
 
 		if password and confirm_password:
 			if password != confirm_password:

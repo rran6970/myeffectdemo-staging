@@ -190,6 +190,7 @@ class RegisterOrganizationView(FormView):
 		o.city = form.cleaned_data['city']
 		o.province = form.cleaned_data['province']
 		o.website = form.cleaned_data['website']
+		o.logo = form.cleaned_data['logo']
 		o.save()
 
 		plaintext = get_template('emails/organization_register_success.txt')

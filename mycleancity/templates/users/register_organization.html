@@ -29,7 +29,7 @@
               </div>
             {% endif %}
 
-            <form action="/users/register-organization/" method="post">{% csrf_token %}
+            <form action="/users/register-organization/" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
@@ -49,6 +49,7 @@
                     </tr>
                     <tr>
                         <td>{{ form.website.label_tag }} {{ form.website }}</td>
+                        <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                     </tr>
                 </table>
                 <input class="btn btn-primary" type="submit" value="Register" />
