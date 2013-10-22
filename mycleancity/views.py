@@ -1,6 +1,8 @@
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django import http
+
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import get_template
 from django.template import Context
 
@@ -10,7 +12,7 @@ from django.views.generic.edit import FormView
 from mycleancity.forms import ContactForm
 
 def error404(request):
-    return render(request,'mycleancity/404.html')
+	return render_to_response('mycleancity/404.html')
 
 class HomePageView(TemplateView):
 	template_name = "mycleancity/index.html"
