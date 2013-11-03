@@ -20,7 +20,7 @@ class UserOrganization(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	website = models.URLField(verbose_name = u'Website', default="http://")
-	logo = models.ImageField(upload_to=get_upload_file_name, default="",verbose_name='Logo')
+	logo = models.ImageField(upload_to=get_upload_file_name, default="",verbose_name='Logo [Not working yet - Zeeshan]')
 
 	class Meta:
 		verbose_name_plural = u'User Organization'

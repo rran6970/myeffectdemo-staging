@@ -1,5 +1,5 @@
-{% if user %}
-  A new User has signed up under {{ email }}.
+{% if student %}
+  A new Student named {{ first_name }} {{ last_name }} has signed up under {{ email }}.
 {% else %}
-  A new Organization has signed up under {{ email }}.
+  A new Organization named {{ first_name }} {{ last_name }} has signed up under {{ email }}.
 {% endif %}

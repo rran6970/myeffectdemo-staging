@@ -1,12 +1,19 @@
 import urllib
+import ftplib
+import os
+import tempfile
 
 from challenges.models import Challenge
 
+from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from django.core.mail import EmailMultiAlternatives
+# from django.core.files import temp as tempfile 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
@@ -21,6 +28,13 @@ from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizat
 from userprofile.models import UserProfile
 from userorganization.models import UserOrganization
 
+def upload(ftp, file):
+	ext = os.path.splitext(file)[1]
+	
+	if ext in (".txt", ".htm", ".html", ".jpeg", ".jpg", ".png"):
+		ftp.storlines("STOR " + file, open(file))
+	else:
+		ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"
@@ -139,7 +153,7 @@ class RegisterView(FormView):
 
 		d = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-		subject, from_email, to = 'My Clean City - Sign Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -150,9 +164,9 @@ class RegisterView(FormView):
 		plaintext = get_template('emails/register_email_notification.txt')
 		htmly = get_template('emails/register_email_notification.html')
 
-		d = Context({ 'email': form.cleaned_data['email'], 'user': 'user' })
+		d = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-		subject, from_email, to = 'My Clean City - User Sign Successful', 'communications@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -169,11 +183,41 @@ class RegisterOrganizationView(FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
+
+		# temp_location = "%s/%s" % (tempfile.gettempdir(), str(form.cleaned_data['logo']))
+
+
+
+
+		# file = self.request.FILES['logo']
+		# path = default_storage.save(str(form.cleaned_data['logo']), ContentFile(file.read()))
+
+		# tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+		# print tmp_file
+
+
+		
+		data = self.request.FILES.get('logo')
+
+		### write the data to a temp file
+		tup = tempfile.mkstemp() # make a tmp file
+		f = os.fdopen(tup[0], 'w') # open the tmp file for writing
+		f.write(data.read()) # write the tmp file
+		f.close()
+		filepath = tup[1]
+
+		ftp = ftplib.FTP("ftp.mycleancity.org")
+		ftp.login("partners@mycleancity.org", "partners")
+
+		upload(ftp, filepath)
+
+		return HttpResponseRedirect('/register-success/')
 
 		u = User.objects.create_user(
 	        form.cleaned_data['email'],
@@ -191,14 +235,15 @@ class RegisterOrganizationView(FormView):
 		o.province = form.cleaned_data['province']
 		o.website = form.cleaned_data['website']
 		o.logo = form.cleaned_data['logo']
-		o.save()
+		o.save()	
 
+		# Send registration email to user
 		plaintext = get_template('emails/organization_register_success.txt')
 		htmly = get_template('emails/organization_register_success.html')
 
-		d = Context({ 'first_name': form.cleaned_data['first_name'] })
+		d = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'] })
 
-		subject, from_email, to = 'My Clean City - Sign Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 		text_content = plaintext.render(d)
 		html_content = htmly.render(d)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -206,19 +251,18 @@ class RegisterOrganizationView(FormView):
 		msg.send()
 
 		# Send notification email to administrator
-		plaintext = get_template('emails/register_email_notification.txt')
-		htmly = get_template('emails/register_email_notification.html')
+		# TODO: These emails are being sent differently from 
+		# every other ones. Make all of the other ones like this
+		template = get_template('emails/register_email_notification.html')
+		content = Context({ 'email': form.cleaned_data['email'] })
+		content = template.render(content)
 
-		d = Context({ 'email': form.cleaned_data['email'] })
+		subject, from_email, to = 'My Clean City - Organization Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
 
-		subject, from_email, to = 'My Clean City - Organization Sign Successful', 'communications@mycleancity.org', 'communications@mycleancity.org'
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
-
-		return HttpResponseRedirect('/register-success/')
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		# mail.attach(form.cleaned_data['logo'].name, form.cleaned_data['logo'].read(), form.cleaned_data['logo'].content_type)
+		mail.send()
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
 	template_name = "users/public_profile.html"

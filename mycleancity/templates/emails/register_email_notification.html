@@ -20,10 +20,10 @@
             </tr>
             <tr>
               <td>
-                {% if user %}
-                  <p>A new User has signed up under {{ email }}.</p>
+                {% if student %}
+                  <p>A new Student named {{ first_name }} {{ last_name }} has signed up under {{ email }}.</p>
                 {% else %}
-                  <p>A new Organization has signed up under <a href="/admin/userorganization/userorganization/">{{ email }}</a>.</p>
+                  <p>A new Organization named {{ first_name }} {{ last_name }} has signed up under {{ email }}. Attached is their logo.</p>
                 {% endif %}
               </td>
             </tr>
