@@ -139,6 +139,8 @@ class RegisterView(FormView):
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.dob = form.cleaned_data['dob']
+		u.profile.city = form.cleaned_data['city']
+		u.profile.province = form.cleaned_data['province']
 		u.profile.school_type = form.cleaned_data['school_type']
 		u.profile.ambassador = form.cleaned_data['ambassador']
 		u.profile.save()
@@ -202,22 +204,22 @@ class RegisterOrganizationView(FormView):
 		# print tmp_file
 
 
-		
-		data = self.request.FILES.get('logo')
+		######################################################################################################
+		# data = self.request.FILES.get('logo')
 
-		### write the data to a temp file
-		tup = tempfile.mkstemp() # make a tmp file
-		f = os.fdopen(tup[0], 'w') # open the tmp file for writing
-		f.write(data.read()) # write the tmp file
-		f.close()
-		filepath = tup[1]
+		# ### write the data to a temp file
+		# tup = tempfile.mkstemp() # make a tmp file
+		# f = os.fdopen(tup[0], 'w') # open the tmp file for writing
+		# f.write(data.read()) # write the tmp file
+		# f.close()
+		# filepath = tup[1]
 
-		ftp = ftplib.FTP("ftp.mycleancity.org")
-		ftp.login("partners@mycleancity.org", "partners")
+		# ftp = ftplib.FTP("ftp.mycleancity.org")
+		# ftp.login("partners@mycleancity.org", "partners")
 
-		upload(ftp, filepath)
+		# upload(ftp, filepath)
 
-		return HttpResponseRedirect('/register-success/')
+		# return HttpResponseRedirect('/register-success/')
 
 		u = User.objects.create_user(
 	        form.cleaned_data['email'],
@@ -229,12 +231,14 @@ class RegisterOrganizationView(FormView):
 		u.is_active = False
 		u.save()
 
+		logo = form.cleaned_data['logo']
+
 		o = UserOrganization(user=u)
 		o.organization = form.cleaned_data['organization']
 		o.city = form.cleaned_data['city']
 		o.province = form.cleaned_data['province']
 		o.website = form.cleaned_data['website']
-		o.logo = form.cleaned_data['logo']
+		# o.logo = logo
 		o.save()	
 
 		# Send registration email to user
@@ -261,8 +265,10 @@ class RegisterOrganizationView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.attach(form.cleaned_data['logo'].name, form.cleaned_data['logo'].read(), form.cleaned_data['logo'].content_type)
+		mail.attach(logo.name, logo.read(), logo.content_type)
 		mail.send()
+
+		return HttpResponseRedirect('/register-success/')
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
 	template_name = "users/public_profile.html"

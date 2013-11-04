@@ -96,6 +96,8 @@ class RegisterUserForm(forms.ModelForm):
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	dob = forms.DateField(required=False, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
+	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
 	
@@ -111,6 +113,8 @@ class RegisterUserForm(forms.ModelForm):
 		email = cleaned_data.get('email')
 		password = cleaned_data.get('password')
 		confirm_password = cleaned_data.get('confirm_password')
+		city = cleaned_data.get('city')
+		province = cleaned_data.get('province')
 		school_type = cleaned_data.get('school_type')
 		ambassador = cleaned_data.get('ambassador')
 
@@ -126,6 +130,10 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please confirm your password")
 		elif not school_type:
 			raise forms.ValidationError("Please select your school type")
+		elif not city:
+			raise forms.ValidationError("Please select your city")
+		elif not province:
+			raise forms.ValidationError("Please select your province")
 
 		if password and confirm_password:
 			if password != confirm_password:
