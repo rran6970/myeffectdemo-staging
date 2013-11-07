@@ -128,12 +128,12 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a password")
 		elif not confirm_password:
 			raise forms.ValidationError("Please confirm your password")
-		elif not school_type:
-			raise forms.ValidationError("Please select your school type")
 		elif not city:
 			raise forms.ValidationError("Please select your city")
 		elif not province:
 			raise forms.ValidationError("Please select your province")
+		elif not school_type:
+			raise forms.ValidationError("Please select your school type")
 
 		if password and confirm_password:
 			if password != confirm_password:
