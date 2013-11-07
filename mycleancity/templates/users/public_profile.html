@@ -36,6 +36,12 @@
             <p class="title">Email:</p>
             <p class="text">{{ user_profile.email }}</p>
           </div>
+          {% if user_profile.profile.team_name %}
+          <div class="field">
+            <p class="title">Team:</p>
+            <p class="text">{{ user_profile.profile.team_name }}</p>
+          </div>
+          {% endif %}
   
           {% if user_profile.profile.is_organization %}
           <div class="field">
@@ -44,11 +50,11 @@
           </div>
           <div class="field">
             <p class="title">City:</p>
-            <p class="text">{{ organization.city }}</p>
+            <p class="text">{{ user_profile.profile.city }}</p>
           </div>
           <div class="field">
             <p class="title">Province:</p>
-            <p class="text">{{ organization.province }}</p>
+            <p class="text">{{ user_profile.profile.province }}</p>
           </div>
           <div class="field">
             <p class="title">Website:</p>

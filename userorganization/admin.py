@@ -6,8 +6,8 @@ from django.template.loader import get_template
 from userorganization.models import *
 
 class UserOrganizationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'organization', 'city', 'postal_code', 'country')
-    search_fields = ['user__id', 'user__first_name', 'user__last_name', 'province']
+    list_display = ('id', 'user', 'organization', 'website')
+    search_fields = ['user__id', 'user__first_name', 'user__last_name']
     actions = ['approved_organization']
 
     def approved_organization(self, request, queryset):

@@ -138,7 +138,7 @@ class RegisterView(FormView):
 	    )
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
-		u.profile.dob = form.cleaned_data['dob']
+		u.profile.team_name = form.cleaned_data['team_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
 		u.profile.school_type = form.cleaned_data['school_type']
@@ -229,14 +229,15 @@ class RegisterOrganizationView(FormView):
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
 		u.is_active = False
+		u.profile.city = form.cleaned_data['city']
+		u.profile.province = form.cleaned_data['province']
+		u.profile.save()
 		u.save()
 
 		logo = form.cleaned_data['logo']
 
 		o = UserOrganization(user=u)
 		o.organization = form.cleaned_data['organization']
-		o.city = form.cleaned_data['city']
-		o.province = form.cleaned_data['province']
 		o.website = form.cleaned_data['website']
 		# o.logo = logo
 		o.save()	
@@ -316,7 +317,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		try:
 			organization = UserOrganization.objects.get(user=self.request.user)
 		except Exception, e:
-			print e
 			organization = None
 
 		if organization:
@@ -327,7 +327,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
-		print form.errors
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
@@ -357,16 +356,15 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		try:
 			organization = UserOrganization.objects.get(user=self.request.user)
 		except Exception, e:
-			print e
-			organization = None
+			organization = None	
 
 		initial = {}
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
 		initial['organization'] = organization.organization
-		initial['city'] = organization.city
-		initial['province'] = organization.province
+		initial['city'] = user.profile.city
+		initial['province'] = user.profile.province
 		initial['website'] = organization.website
 		initial['about'] = user.profile.about
 
@@ -396,11 +394,11 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		user.save()
 
 		user.profile.about = form.cleaned_data['about']
+		user.profile.city = form.cleaned_data['city']
+		user.profile.province = form.cleaned_data['province']
 		user.profile.save()
 
 		user_organization.organization = form.cleaned_data['organization']
-		user_organization.city = form.cleaned_data['city']
-		user_organization.province = form.cleaned_data['province']
 		user_organization.website = form.cleaned_data['website']
 		user_organization.save()
 

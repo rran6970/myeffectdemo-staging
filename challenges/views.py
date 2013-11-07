@@ -54,7 +54,7 @@ def confirm_participants(request):
 	return HttpResponseRedirect('/challenges/')
 
 class ChallengesFeedView(TemplateView):
-	template_name = "challenges/challege_centre.html"
+	template_name = "challenges/challenge_centre.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
