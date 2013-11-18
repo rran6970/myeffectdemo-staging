@@ -3,6 +3,9 @@ import ftplib
 import os
 import tempfile
 
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+
 from challenges.models import Challenge
 
 from django.conf import settings
@@ -189,38 +192,6 @@ class RegisterOrganizationView(FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-
-		# temp_location = "%s/%s" % (tempfile.gettempdir(), str(form.cleaned_data['logo']))
-
-
-
-
-		# file = self.request.FILES['logo']
-		# path = default_storage.save(str(form.cleaned_data['logo']), ContentFile(file.read()))
-
-		# tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-		# print tmp_file
-
-
-		######################################################################################################
-		# data = self.request.FILES.get('logo')
-
-		# ### write the data to a temp file
-		# tup = tempfile.mkstemp() # make a tmp file
-		# f = os.fdopen(tup[0], 'w') # open the tmp file for writing
-		# f.write(data.read()) # write the tmp file
-		# f.close()
-		# filepath = tup[1]
-
-		# ftp = ftplib.FTP("ftp.mycleancity.org")
-		# ftp.login("partners@mycleancity.org", "partners")
-
-		# upload(ftp, filepath)
-
-		# return HttpResponseRedirect('/register-success/')
-
 		u = User.objects.create_user(
 	        form.cleaned_data['email'],
 	        form.cleaned_data['email'],
@@ -236,10 +207,17 @@ class RegisterOrganizationView(FormView):
 
 		logo = form.cleaned_data['logo']
 
+
+		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+		bucket = conn.get_bucket(settings.AWS_BUCKET)
+		k = Key(bucket)
+		k.key = 'uploads/organization_logo_%s' % str(u.id)
+		k.set_contents_from_string(form.cleaned_data['logo'].read())
+
 		o = UserOrganization(user=u)
 		o.organization = form.cleaned_data['organization']
 		o.website = form.cleaned_data['website']
-		# o.logo = logo
+		o.logo = k.key
 		o.save()	
 
 		# Send registration email to user
