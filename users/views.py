@@ -13,10 +13,9 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-# from django.core.files import temp as tempfile 
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.mail import EmailMessage
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
@@ -153,101 +152,28 @@ class RegisterView(FormView):
 		auth.login(self.request, user)
 
 		# Send registration email to user
-		plaintext = get_template('emails/user_register_success.txt')
-		htmly = get_template('emails/user_register_success.html')
-
-		d = Context({ 'first_name': form.cleaned_data['first_name'] })
-
-		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
-
-		# Send notification email to administrator
-		plaintext = get_template('emails/register_email_notification.txt')
-		htmly = get_template('emails/register_email_notification.html')
-
-		d = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
-
-		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
-
-		return HttpResponseRedirect('/challenges')
-
-class RegisterOrganizationView(FormView):
-	template_name = "users/register_organization.html"
-	form_class = RegisterOrganizationForm
-	success_url = "mycleancity/index.html"
-
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-
-		return self.render_to_response(context)
-
-	def form_valid(self, form):
-		u = User.objects.create_user(
-	        form.cleaned_data['email'],
-	        form.cleaned_data['email'],
-	        form.cleaned_data['password']
-	    )
-		u.first_name = form.cleaned_data['first_name']
-		u.last_name = form.cleaned_data['last_name']
-		u.is_active = False
-		u.profile.city = form.cleaned_data['city']
-		u.profile.province = form.cleaned_data['province']
-		u.profile.save()
-		u.save()
-
-		logo = form.cleaned_data['logo']
-
-
-		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-		bucket = conn.get_bucket(settings.AWS_BUCKET)
-		k = Key(bucket)
-		k.key = 'uploads/organization_logo_%s' % str(u.id)
-		k.set_contents_from_string(form.cleaned_data['logo'].read())
-
-		o = UserOrganization(user=u)
-		o.organization = form.cleaned_data['organization']
-		o.website = form.cleaned_data['website']
-		o.logo = k.key
-		o.save()	
-
-		# Send registration email to user
-		plaintext = get_template('emails/organization_register_success.txt')
-		htmly = get_template('emails/organization_register_success.html')
-
-		d = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'] })
-
-		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
-		text_content = plaintext.render(d)
-		html_content = htmly.render(d)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
-
-		# Send notification email to administrator
-		# TODO: These emails are being sent differently from 
-		# every other ones. Make all of the other ones like this
-		template = get_template('emails/register_email_notification.html')
-		content = Context({ 'email': form.cleaned_data['email'] })
+		template = get_template('emails/user_register_success.html')
+		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 		content = template.render(content)
 
-		subject, from_email, to = 'My Clean City - Organization Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
+		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.attach(logo.name, logo.read(), logo.content_type)
 		mail.send()
 
-		return HttpResponseRedirect('/register-success/')
+		# Send notification email to administrator
+		template = get_template('emails/register_email_notification.html')
+		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
+		content = template.render(content)
+
+		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		mail.send()
+
+		return HttpResponseRedirect('/challenges')
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
 	template_name = "users/public_profile.html"

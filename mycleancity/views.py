@@ -1,4 +1,4 @@
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django import http
 
@@ -52,11 +52,10 @@ class ContactPageView(FormView):
 		message = form.cleaned_data['message']
 
 		subject_line, from_email, to = subject, email, 'info@mycleancity.org'
-		text_content = message
-		html_content = message
-		msg = EmailMultiAlternatives(subject_line, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
+
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		mail.send()
 
 		return HttpResponseRedirect('/')
 

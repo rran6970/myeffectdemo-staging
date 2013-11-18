@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMessage
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 
@@ -15,16 +15,14 @@ class UserOrganizationAdmin(admin.ModelAdmin):
 			row.user.is_active = True
 			row.user.save()
 
-			plaintext = get_template('emails/organization_approval_success.txt')
-			htmly = get_template('emails/organization_approval_success.html')
-
-			d = Context({ 'first_name': row.user.first_name })
+			template = get_template('emails/organization_approval_success.html')
+			content = Context({ 'first_name': row.user.first_name })
+			content = template.render(content)
 
 			subject, from_email, to = 'My Clean City - Approval Successful', 'info@mycleancity.org', row.user.email
-			text_content = plaintext.render(d)
-			html_content = htmly.render(d)
-			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-			msg.attach_alternative(html_content, "text/html")
-			msg.send()
+
+			mail = EmailMessage(subject, content, from_email, [to])
+			mail.content_subtype = "html"
+			mail.send()
 
 admin.site.register(UserOrganization, UserOrganizationAdmin)
