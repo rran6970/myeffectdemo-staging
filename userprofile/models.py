@@ -12,7 +12,6 @@ Description:    Used as an extension to the User model.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	dob = models.DateField(auto_now_add=True, blank=True, null=True)
-	team_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Team Name')
 	about = models.TextField(blank=True, null=True, default="")
 	city = models.CharField(max_length=60, blank=True, null=True, verbose_name='City')
 	province = models.CharField(max_length=10, blank=True, null=True, verbose_name='Province')

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
+from cleanteams.views import *
 from userorganization.views import *
 from users.views import *
 
@@ -12,6 +13,7 @@ urlpatterns = patterns('',
 	url(r'^leaderboard/?$', LeaderboardView.as_view()),
     url(r'^register/?$', RegisterView.as_view()),
     url(r'^register-organization/?$', RegisterOrganizationView.as_view()),
+    url(r'^register-clean-team/?$', RegisterCleanTeamView.as_view()),
     url(r'^profile/(?P<uid>\d+)/?$', ProfilePublicView.as_view()),
     url(r'^profile/?$', ProfileView.as_view()),    
     url(r'^organization-profile/?$', OrganizationProfileView.as_view()),

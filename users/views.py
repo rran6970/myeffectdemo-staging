@@ -26,7 +26,7 @@ from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
 
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, RegisterOrganizationForm, ProfileForm, OrganizationProfileForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile
 from userorganization.models import UserOrganization
 
@@ -140,7 +140,6 @@ class RegisterView(FormView):
 	    )
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
-		u.profile.team_name = form.cleaned_data['team_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
 		u.profile.school_type = form.cleaned_data['school_type']
@@ -172,6 +171,9 @@ class RegisterView(FormView):
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
 		mail.send()
+
+		if form.cleaned_data['ambassador'] == True:
+			return HttpResponseRedirect('/users/register-clean-team/')
 
 		return HttpResponseRedirect('/challenges')
 
