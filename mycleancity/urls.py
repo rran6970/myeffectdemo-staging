@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	url(r'^admin/', include(admin.site.urls)),
 
+	url(r'^clean-team/', include('cleanteams.urls')),
 	url(r'^challenges/', include('challenges.urls')),
 	url(r'^cleancreds/', include('cleancreds.urls')),
 	url(r'^users/', include('users.urls')),

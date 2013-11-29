@@ -16,15 +16,18 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template
+
+from django.views.generic import *
+from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
 from cleanteams.forms import RegisterCleanTeamForm
-from cleanteams.models import CleanTeam
+from cleanteams.models import CleanTeam, CleanTeamMember
 
 from mycleancity.mixins import LoginRequiredMixin
 
 class RegisterCleanTeamView(LoginRequiredMixin, FormView):
-	template_name = "users/register_clean_team.html"
+	template_name = "cleanteams/register_clean_team.html"
 	form_class = RegisterCleanTeamForm
 	success_url = "mycleancity/index.html"
 
@@ -49,7 +52,16 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ct.name = form.cleaned_data['name']
 		ct.website = form.cleaned_data['website']
 		ct.logo = k.key
-		ct.save()	
+		ct.save()
+
+		ct = CleanTeam.objects.latest('id')
+		ctm = CleanTeamMember()
+		ctm.clean_team = ct
+		ctm.user = user
+		ctm.save()
+
+		user.profile.clean_team_member = ctm
+		user.profile.save()
 
 		# Send registration email to user
 		template = get_template('emails/organization_register_success.html')
@@ -74,3 +86,20 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		mail.send()
 
 		return HttpResponseRedirect('/')
+
+class CleamTeamView(TemplateView):
+	template_name = "cleanteams/clean_team_profile.html"	
+
+	def get_object(self):
+		return get_object_or_404(User, pk=self.request.user.id)
+
+	def get_context_data(self, **kwargs):
+		context = super(CleamTeamView, self).get_context_data(**kwargs)
+
+		if 'ctid' in self.kwargs:
+			ctid = self.kwargs['ctid']
+
+			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
+
+		context['user'] = self.request.user
+		return context

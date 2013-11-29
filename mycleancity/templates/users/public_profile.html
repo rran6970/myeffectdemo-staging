@@ -36,10 +36,10 @@
             <p class="title">Email:</p>
             <p class="text">{{ user_profile.email }}</p>
           </div>
-          {% if user_profile.profile.team_name %}
+          {% if user_profile.profile.clean_team_member.clean_team.name %}
           <div class="field">
-            <p class="title">Team:</p>
-            <p class="text">{{ user_profile.profile.team_name }}</p>
+            <p class="title">Clean Team:</p>
+            <p class="text">{{ user_profile.profile.clean_team_member.clean_team.name }}</p>
           </div>
           {% endif %}
   

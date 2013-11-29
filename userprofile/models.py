@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 
+from cleanteams.models import CleanTeamMember
 from userorganization.models import UserOrganization
 
 """
@@ -19,7 +20,8 @@ class UserProfile(models.Model):
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	clean_creds = models.IntegerField(default=0)
 	school_type = models.CharField(max_length = 30, blank=True, default="High School")
-	ambassador = models.BooleanField()	
+	ambassador = models.BooleanField()
+	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'

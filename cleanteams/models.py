@@ -15,6 +15,7 @@ class CleanTeam(models.Model):
 	name = models.CharField(max_length=60, blank=True, verbose_name='Clean Team Name')
 	website = models.URLField(verbose_name = u'Website', default="http://")
 	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo [Not working yet - Zeeshan]')
+	about = models.TextField(blank=True, null=True, default="")
 	clean_creds = models.IntegerField(default=0)
 
 	class Meta:
@@ -28,10 +29,11 @@ class CleanTeam(models.Model):
 
 class CleanTeamMember(models.Model):
 	user = models.ForeignKey(User)
-	cleam_team = models.ForeignKey(CleanTeam)
+	clean_team = models.ForeignKey(CleanTeam)
+	status = models.CharField(max_length=30, default="pending")
 
 	def __unicode__(self):
-		return u'%s is on %s' %(self.user.username, clean_team)
+		return u'%s is on %s' %(self.user.username, self.clean_team)
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
