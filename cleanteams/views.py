@@ -103,3 +103,52 @@ class CleamTeamView(TemplateView):
 
 		context['user'] = self.request.user
 		return context
+
+class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
+	template_name = "cleanteams/clean_team_members.html"	
+
+	def get_object(self):
+		return get_object_or_404(User, pk=self.request.user.id)
+
+	def get_context_data(self, **kwargs):
+		context = super(CleanTeamMembersView, self).get_context_data(**kwargs)
+		user = self.request.user
+
+		ct = CleanTeamMember.objects.get(user=user)
+		ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
+		
+		context['user'] = user
+		context['clean_team'] = ct.clean_team
+		context['clean_team_members'] = ctm
+
+		return context
+
+def request_join_clean_team(request):
+	if request.method == 'POST':
+		ctid = request.POST['ctid']
+
+		ct = get_object_or_404(CleanTeam, id=ctid)
+		
+		ctm = CleanTeamMember()
+		ctm.user = request.user
+		ctm.clean_team = ct
+		ctm.status = "pending"
+		ctm.save()
+
+		request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+		request.user.profile.save()
+
+	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
+def clean_team_member_action(request):
+	if request.method == 'POST' and request.is_ajax:
+		ctid = request.POST['ctid']
+		uid = request.POST['uid']
+		action = request.POST['action']
+		
+		if action == "approve":
+			CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="approved")
+		elif action == "remove":
+			CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="removed")
+			
+	return HttpResponse("success")

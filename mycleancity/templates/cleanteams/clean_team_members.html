@@ -1,0 +1,65 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - {{ clean_team.name }} Members {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_loggedin_navbar.html" %}  
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+    	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
+        <div id="white-box" class="team-members">
+			{% csrf_token %}
+			<h1>{{ clean_team.name }}</h1>
+			<table>
+				<tr>
+					<td class="members"><h2>Members</h2></td>
+					<td class="status"><h2>Status</h2></td>
+					<td class="actions"><h2>Actions</h2></td>
+				</tr>
+				{% for ctm in clean_team_members %}
+					<tr>
+						<td class="members">
+							{{ ctm.user.first_name }} {{ ctm.user.last_name }}
+						</td>
+						<td class="status">
+							{{ ctm.status }}
+						</td>
+						<td class="actions">
+							<form class="members-forms" action="/clean-team/member-action/" method="post">
+								{% csrf_token %}
+								<input type="hidden" name="uid" value="{{ ctm.user.id }}" />
+								<input type="hidden" name="ctid" value="{{ clean_team.id }}">
+								
+								{% if ctm.status == "pending" %}
+									<input type="hidden" id="action" name="action" value="approve" />
+									<input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+								{% endif %}
+								{% if ctm.status == "approved" %}
+									<input type="hidden" id="action" name="action" value="remove" />
+									<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
+								{% endif %}
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

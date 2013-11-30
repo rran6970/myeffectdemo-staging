@@ -21,6 +21,7 @@
         
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="public-profile">
+
           {% if user.id == user_profile.id %}
           <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
           {% endif %}
@@ -44,7 +45,17 @@
             <p class="title"><span class="green bold">Clean</span><span class="blue bold">Creds:</span></p>
             <p class="text">{{ clean_team.clean_creds }}</p>
           </div>
-                
+          
+          {% if not user.profile.clean_team_member.status == "pending" %}
+            <form action="/clean-team/request-join/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+              <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to Join" />
+            </form>
+          {% else %}
+            <div class="field">Request to join sent</div>
+          {% endif %}
+
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

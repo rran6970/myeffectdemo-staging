@@ -8,12 +8,13 @@ $(function(){
   	});
     $(".popover-btn").popover({ placement:"bottom", html:true });  
 
-	$('form.participation-forms').on('submit', ajaxParticipation);
+    $('form.participation-forms').on('submit', ajaxParticipation);
+	$('form.members-forms').on('submit', ajaxApproveMember);
 });
 
 function ajaxParticipation(e)
-{		
-	var form = $(this);
+{       
+    var form = $(this);
 
     $.ajax({
         type: form.attr('method'),
@@ -25,15 +26,47 @@ function ajaxParticipation(e)
 
             if(hidden_field.val() == "true")
             {
-	            hidden_field.val("false");
-    	        participated_btn.val("Unconfirm");
-    	        participated_btn.addClass("dark");
+                hidden_field.val("false");
+                participated_btn.val("Unconfirm");
+                participated_btn.addClass("dark");
+            }
+            else
+            {
+                hidden_field.val("true");
+                participated_btn.val("Confirm");
+                participated_btn.removeClass("dark");
+            }
+        },
+        error: function(data) {}
+    });
+    e.preventDefault();
+    return false;
+}
+
+function ajaxApproveMember(e)
+{		
+	var form = $(this);
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+            hidden_field = form.find("#action");
+            action_btn = form.find("#action-btn");
+
+            if(hidden_field.val() == "approve")
+            {
+	            hidden_field.val("remove");
+    	        action_btn.val("Remove");
+    	        action_btn.addClass("dark");
+
+                action_btn.closest("td").prev().text("approved");
     	    }
-    	    else
+    	    else if(hidden_field.val() == "remove")
     	    {
-				hidden_field.val("true");
-    	        participated_btn.val("Confirm");
-    	        participated_btn.removeClass("dark");
+                action_btn.hide();
+                action_btn.closest("td").prev().text("removed");
     	    }
         },
         error: function(data) {}

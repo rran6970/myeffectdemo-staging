@@ -45,6 +45,7 @@ a.btn { padding-top: 12px; }
 .button.disabled { box-shadow: none; text-shadow: none; background-image: none; background-color: #999 !important; }
 a.button { font-size: 13px; margin-top: 7px; letter-spacing: 1px; cursor: pointer; padding-top: 11px; }
 
+.button:active { outline: none; }
 .button, 
 .btn-primary { display: block; height: 40px; width: 200px; color: white; line-height: normal; border: 1px solid #6E7926; font-weight: 200; letter-spacing: 1px; cursor: pointer; text-shadow: 0px 1px 3px #000; box-shadow: 1px 1px 5px #393939; background-color: #859422; background-image: -khtml-gradient(linear, left top, left bottom, from(#c1d72e), to(#859422)); background-image: -moz-linear-gradient(top, #c1d72e, #859422); background-image: -ms-linear-gradient(top, #c1d72e, #859422); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c1d72e), color-stop(100%, #859422)); background-image: -webkit-linear-gradient(top, #c1d72e, #859422); background-image: -o-linear-gradient(top, #c1d72e, #859422); background-image: linear-gradient(top, #c1d72e, #859422); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c1d72e', endColorstr='#859422', GradientType=0); }
 

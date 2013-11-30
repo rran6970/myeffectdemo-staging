@@ -35,7 +35,7 @@ a.menu-items:hover { text-decoration: none; color: white; }
 #sign-go-back.profile { left: 558px; }
 #sign-go-back.contact { left: 442px; }
 #sign-go-back.register { left: 352px; }
-#sign-go-back.challenge-participants { left: 289px; }
+#sign-go-back.challenge-participants, #sign-go-back.clean-team-members { left: 289px; }
 #sign-go-back.about { left: 32px; top: 386px; }
 #sign-go-back.students { left: 32px; top: 386px; }
 #sign-go-back.organizations { left: 32px; top: 356px; }
@@ -302,9 +302,23 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.challenge-participants table tr td.participated { width: 100px; text-align: center; }
 #white-box.challenge-participants h1 { font-weight: 900; }
 #white-box.challenge-participants table { margin-bottom: 30px; }
-#white-box.challenge-participants table tr td { padding: 10px 15px; border-bottom: 1px solid #abd78c; }
+#white-box.challenge-participants table tr td { padding: 10px 15px; border-bottom: 1px solid #abd78c; vertical-align: middle; }
 #white-box.challenge-participants table tr td.titles { width: 100px; }
 #white-box.challenge-participants table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
+
+
+/******************************
+	Clean Team Members Page
+******************************/ 
+#white-box p { font-weight: 400; }
+#white-box.team-members table tr td { }
+#white-box.team-members table tr td.members { width: 600px; }
+#white-box.team-members table tr td.actions { width: 100px; text-align: center; }
+#white-box.team-members h1 { font-weight: 900; }
+#white-box.team-members table { margin-bottom: 30px; }
+#white-box.team-members table tr td { padding: 10px 15px; border-bottom: 1px solid #abd78c; vertical-align: middle; }
+#white-box.team-members table tr td.titles { width: 100px; }
+#white-box.team-members table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
 
 /******************************
 	Twitter Feed

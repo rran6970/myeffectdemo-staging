@@ -32,6 +32,9 @@ class CleanTeamMember(models.Model):
 	clean_team = models.ForeignKey(CleanTeam)
 	status = models.CharField(max_length=30, default="pending")
 
+	class Meta:
+		verbose_name_plural = u'Clean Team Member'
+
 	def __unicode__(self):
 		return u'%s is on %s' %(self.user.username, self.clean_team)
 

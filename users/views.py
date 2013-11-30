@@ -192,7 +192,6 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 				pass
 
 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
-
 			context['user_profile'] = get_object_or_404(User, id=user_id)
 
 		context['user'] = self.request.user
