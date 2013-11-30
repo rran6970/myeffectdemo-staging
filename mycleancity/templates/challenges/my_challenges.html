@@ -19,35 +19,44 @@
     <div class="container">
       	<div id="sign-my-challenges"></div>
         <div id="white-box">
-        	{% if user.profile.is_organization %}
-				{% for challenge in challenges %}
+        	
+			<h1>Posted Challenges</h1>
+			{% if posted_challenges %}
+				{% for challenge in posted_challenges %}
 					<div class="challenges">
 						<a href="/challenges/participants/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
 						
 						<span class="location">
-							<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
+							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>
 						</span>
 						<span class="clean-creds">
-							<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.cleancred_value }}</span>
+							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.cleancred_value }}</span></p>
 						</span>
 					</div>
 				{% endfor %}
 			{% else %}
-				{% for challenge in challenges %}
+				<p>There are no challenges that you've posted.</p>
+			{% endif %}
+		
+			<h1>User Challenges</h1>
+			{% if user_challenges %}
+				{% for challenge in user_challenges %}
 					<div class="challenges">
 						<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title|upper }} - {{ challenge.challenge.event_date }}</h1></a>
 						
 						<span class="location">
-							<h2>Location:</h2><span>&nbsp;{{ challenge.challenge.city }}, {{ challenge.challenge.province }}</span>
+							<p>Location:<span>&nbsp;{{ challenge.challenge.city }}, {{ challenge.challenge.province }}</span></p>
 						</span>
 						<span class="clean-creds">
-							<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.challenge.cleancred_value }}</span>
+							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span>:<span>&nbsp;{{ challenge.challenge.cleancred_value }}</span></p>
 						</span>
 						<span class="status">
-							<h2>Status:</h2><span>&nbsp;{% if challenge.complete %} Complete {% else %} Pending {% endif %}</span>
+							<p>Status:<span>&nbsp;{% if challenge.complete %} Complete {% else %} Pending {% endif %}</span></p>
 						</span>
 					</div>
 				{% endfor %}
+			{% else %}
+				<p>There are no challenges that you've partcipated in.</p>
 			{% endif %}
 			
         </div><!-- /#white-box -->

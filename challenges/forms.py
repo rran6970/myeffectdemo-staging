@@ -39,7 +39,7 @@ class NewChallengeForm(forms.ModelForm):
 
 	class Meta:
 		model = Challenge
-		exclude = ('user')
+		exclude = ('user', 'clean_team')
 
 	def clean(self):
 		cleaned_data = super(NewChallengeForm, self).clean()

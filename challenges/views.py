@@ -72,9 +72,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
-		if not self.request.user.profile.is_organization():
-			return HttpResponseRedirect('/challenges')
-
 		if not self.request.user.is_active:
 			return HttpResponseRedirect('/challenges')
 
@@ -83,12 +80,12 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
+		print form.errors
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-
 		challenge = Challenge(user=self.request.user)
 		challenge.title = form.cleaned_data['title']
 		challenge.event_date = form.cleaned_data['event_date']
@@ -98,7 +95,9 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		challenge.address2 = form.cleaned_data['address2']
 		challenge.city = form.cleaned_data['city']
 		challenge.postal_code = form.cleaned_data['postal_code']
+		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
+		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
 
 		challenge.save()
 
@@ -139,12 +138,10 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		if self.request.user.profile.is_organization():
-			context['challenges'] = Challenge.objects.filter(user=self.request.user)
-		else:
-			context['challenges'] = UserChallenge.objects.filter(user=self.request.user)
-
+		context['posted_challenges'] = Challenge.objects.filter(user=self.request.user)
+		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user)
 		context['user'] = self.request.user
+
 		return context
 
 class ChallengeView(TemplateView):

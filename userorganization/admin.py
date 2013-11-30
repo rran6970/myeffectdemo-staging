@@ -25,4 +25,4 @@ class UserOrganizationAdmin(admin.ModelAdmin):
 			mail.content_subtype = "html"
 			mail.send()
 
-admin.site.register(UserOrganization, UserOrganizationAdmin)
+# admin.site.register(UserOrganization, UserOrganizationAdmin)

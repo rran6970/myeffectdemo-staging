@@ -7,9 +7,7 @@
 <div class="dropdown">
 	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-		{% if user.profile.is_organization %}
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
-		{% endif %}
 		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->

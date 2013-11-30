@@ -3,6 +3,8 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from cleanteams.models import CleanTeam
+
 """
 Name:           Challenge
 Date created:   Sept 8, 2013
@@ -21,6 +23,7 @@ class Challenge(models.Model):
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")
 	user = models.ForeignKey(User)
+	clean_team = models.ForeignKey(CleanTeam, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
@@ -35,7 +38,7 @@ class Challenge(models.Model):
 """
 Name:           UserChallenge
 Date created:   Sept 8, 2013
-Description:    Will be used to keep track of all of the Users partcipaing within a challenge
+Description:    Will be used to keep track of all of the Users partcipating within a challenge
 """
 class UserChallenge(models.Model):
 	challenge = models.ForeignKey(Challenge)
