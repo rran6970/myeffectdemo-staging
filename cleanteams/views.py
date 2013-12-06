@@ -132,7 +132,7 @@ class CleanTeamView(TemplateView):
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
 			ctms = CleanTeamMember.objects.filter(clean_team_id=ctid)
-			
+			print ctms
 			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 			context['ctms'] = ctms
 

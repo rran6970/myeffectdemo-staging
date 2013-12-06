@@ -10,7 +10,6 @@ from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
 from challenges.models import Challenge, UserChallenge
-from userorganization.models import UserOrganization
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -42,11 +41,18 @@ def confirm_participants(request):
 			if participated == "true":
 				userchallenge.complete = True
 				user.profile.clean_creds += challenge.cleancred_value
+
+				if user.profile.clean_team_member.status == "approved":
+					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
 			else:
 				userchallenge.complete = False
 				user.profile.clean_creds -= challenge.cleancred_value
 
+				if user.profile.clean_team_member.status == "approved":
+					user.profile.clean_team_member.clean_team.clean_creds -= challenge.cleancred_value
+
 			userchallenge.save()
+			user.profile.clean_team_member.clean_team.save()
 			user.profile.save()
 		except Exception, e:
 			pass

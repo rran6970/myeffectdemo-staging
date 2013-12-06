@@ -2,6 +2,34 @@
 <a href="/about" class="menu-items menu-items-right">About</a>
 
 {% if user.is_active %}
+<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
+
+<div class="dropdown">
+	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
+	<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
+		<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
+		{% if user.profile.clean_team_member.role == "moderator" %}
+		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
+		{% endif %}
+	</ul>
+</div><!-- end of #user-dropdown.dropdown -->
+
+<div class="dropdown">
+	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Clean Team<b class="caret"></b></a>
+	<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
+		{% if user.profile.clean_team_member.role == "moderator" %}
+		<li><a href="/clean-team/members" class="menu-items">Members</a></li>
+		{% endif %}
+		{% if not user.profile.has_clean_team %}
+		<li><a href="/clean-team/" class="menu-items">Create Clean Team</a></li>
+		<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
+		{% else %}
+		<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
+		{% endif %}
+	</ul>
+</div><!-- end of #user-dropdown.dropdown -->
+
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
 {% else %}
 <a href="/register" class="menu-items menu-items-right">Register</a>

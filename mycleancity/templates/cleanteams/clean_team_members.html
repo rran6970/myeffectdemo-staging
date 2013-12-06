@@ -28,6 +28,7 @@
 					<td class="actions"><h2>Actions</h2></td>
 				</tr>
 				{% for ctm in clean_team_members %}
+					{% if ctm.user.is_active %}
 					<tr>
 						<td class="members">
 							{{ ctm.user.first_name }} {{ ctm.user.last_name }}
@@ -52,6 +53,7 @@
 							</form>
 						</td>
 					</tr>
+					{% endif %}
 				{% endfor %}
 			</table>
         </div><!-- /#white-box -->
