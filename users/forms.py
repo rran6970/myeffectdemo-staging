@@ -90,6 +90,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
+	CHOICES = (('individual', 'Individual',), ('clean-ambassador', 'Clean Ambassador',), ('clean-champion', 'Clean Champion',))
+
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
@@ -98,7 +100,7 @@ class RegisterUserForm(forms.ModelForm):
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	ambassador = forms.BooleanField(label="Be an ambassador", required=False)
+	role = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -115,7 +117,7 @@ class RegisterUserForm(forms.ModelForm):
 		city = cleaned_data.get('city')
 		province = cleaned_data.get('province')
 		school_type = cleaned_data.get('school_type')
-		ambassador = cleaned_data.get('ambassador')
+		role = cleaned_data.get('role')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")

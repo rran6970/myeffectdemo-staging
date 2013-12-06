@@ -6,7 +6,7 @@ $(function(){
 	}).on('changeDate', function(event){
     	$(this).datepicker('hide');
   	});
-    $(".popover-btn").popover({ placement:"bottom", html:true });  
+    $(".popover-btn").popover({ placement:"right", html:true });  
 
     $('form.participation-forms').on('submit', ajaxParticipation);
 	$('form.members-forms').on('submit', ajaxApproveMember);

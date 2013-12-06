@@ -21,7 +21,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm
 from cleanteams.models import CleanTeam, CleanTeamMember
 
 from mycleancity.mixins import LoginRequiredMixin
@@ -54,10 +54,16 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ct.logo = k.key
 		ct.save()
 
+		try:
+			ctm = CleanTeamMember.objects.get(user=self.request.user)
+		except Exception, e:
+			ctm = CleanTeamMember()
+
 		ct = CleanTeam.objects.latest('id')
-		ctm = CleanTeamMember()
 		ctm.clean_team = ct
 		ctm.user = user
+		ctm.status = "approved"
+		ctm.role = "moderator"
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
@@ -87,21 +93,124 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		return HttpResponseRedirect('/')
 
-class CleamTeamView(TemplateView):
+class CreateOrRequest(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/create_team_or_join.html"
+	form_class = CreateTeamOrJoinForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		if form.cleaned_data['selections'] == 'create-new-team':
+			return HttpResponseRedirect('/clean-team/register-clean-team')
+		else:
+			return HttpResponseRedirect('/clean-team/register-request-join')
+
+	def get_context_data(self, **kwargs):
+		context = super(CreateOrRequest, self).get_context_data(**kwargs)
+		user = self.request.user
+
+		if user.profile.clean_team_member:
+			# TODO: Not working
+			if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
+				return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
+		
+		context['user'] = self.request.user
+		return context
+
+class CleanTeamView(TemplateView):
 	template_name = "cleanteams/clean_team_profile.html"	
 
 	def get_object(self):
 		return get_object_or_404(User, pk=self.request.user.id)
 
 	def get_context_data(self, **kwargs):
-		context = super(CleamTeamView, self).get_context_data(**kwargs)
+		context = super(CleanTeamView, self).get_context_data(**kwargs)
 
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
-
+			ctms = CleanTeamMember.objects.filter(clean_team_id=ctid)
+			
 			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
+			context['ctms'] = ctms
 
 		context['user'] = self.request.user
+		return context
+
+class RegisterRequestJoinView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/register_request_join.html"
+	form_class = RequestJoinTeamsForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		selected_team = form.cleaned_data['team']
+
+		try:
+			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+		except Exception, e:
+			clean_team_member = CleanTeamMember()
+
+		clean_team_member.user = self.request.user
+		clean_team_member.clean_team = selected_team
+		clean_team_member.status = "pending"
+		clean_team_member.role = "clean-ambassador"
+		clean_team_member.save()
+
+		self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+		self.request.user.profile.save()
+
+		return HttpResponseRedirect('/')
+
+	def get_context_data(self, **kwargs):
+		context = super(RegisterRequestJoinView, self).get_context_data(**kwargs)
+		user = self.request.user
+		
+		context['user'] = user
+
+		return context
+
+class RegisterCleanChampionView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/register_clean_champion.html"
+	form_class = RequestJoinTeamsForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		selected_team = form.cleaned_data['team']
+
+		try:
+			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+		except Exception, e:
+			clean_team_member = CleanTeamMember()
+
+		clean_team_member.user = self.request.user
+		clean_team_member.clean_team = selected_team
+		clean_team_member.status = "approved"
+		clean_team_member.role = "clean-champion"
+		clean_team_member.save()
+
+		self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+		self.request.user.profile.save()
+
+		return HttpResponseRedirect('/')
+
+	def get_context_data(self, **kwargs):
+		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
+		user = self.request.user
+		
+		context['user'] = user
+
 		return context
 
 class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
@@ -123,16 +232,22 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 
 		return context
 
+# On the Clean Team's Profile
 def request_join_clean_team(request):
 	if request.method == 'POST':
 		ctid = request.POST['ctid']
 
 		ct = get_object_or_404(CleanTeam, id=ctid)
 		
-		ctm = CleanTeamMember()
+		try:
+			ctm = CleanTeamMember.objects.get(user=self.request.user)
+		except Exception, e:
+			ctm = CleanTeamMember()
+
 		ctm.user = request.user
 		ctm.clean_team = ct
 		ctm.status = "pending"
+		ctm.role = "clean-ambassador"
 		ctm.save()
 
 		request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')

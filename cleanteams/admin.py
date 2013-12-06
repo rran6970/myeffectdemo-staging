@@ -10,8 +10,8 @@ class CleanTeamAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class CleanTeamMemberAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'clean_team', 'status')
-    search_fields = ['user', 'clean_team', 'status']
+    list_display = ('id', 'user', 'clean_team', 'status', 'role')
+    search_fields = ['user', 'clean_team', 'status', 'role']
 
 admin.site.register(CleanTeam, CleanTeamAdmin)
 admin.site.register(CleanTeamMember, CleanTeamMemberAdmin)

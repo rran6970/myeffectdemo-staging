@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Register Clean Team {% endblock %}
+{% block title %} My Clean City - Be a Clean Champion {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -11,14 +11,14 @@
 <div class="wrapper public">
   <div class="clouds"></div>
   
-  {% include "_public_navbar.html" %}
+  {% include "_loggedin_navbar.html" %}
   
   <a href="/" class="logo"></a>
   
   <div class="content">
     <div class="container">
         <div id="white-box" class="register">
-            <h2>Create a new Clean Team</h2>
+            <h2>Be a Clean Champion</h2>
 
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -26,17 +26,19 @@
               </div>
             {% endif %}
 
-            <form action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="/clean-team/register-clean-champion/" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
                     <tr>
-                        <td>{{ form.name.label_tag }} {{ form.name }}</td>
-                        <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.website.label_tag }} {{ form.website }}</td>
+                        <td>
+                          <select name="team" id="">
+                          {% for team in form.team.field.queryset %}
+                            <option value="{{ team.id }}">{{ team.name }}</option>
+                          {% endfor%}
+                          </select>
+                        </td>
                     </tr>
                 </table>
-                <input class="btn btn-primary" type="submit" value="Register" />
+                <input class="btn btn-primary" type="submit" value="Be a Champion!" />
             </form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

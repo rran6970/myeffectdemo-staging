@@ -111,12 +111,12 @@ class PrelaunchView(FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
 		form.save()
+
 		return HttpResponseRedirect(self.get_success_url())
 		
 class RegisterView(FormView):
@@ -124,15 +124,19 @@ class RegisterView(FormView):
 	form_class = RegisterUserForm
 	success_url = "mycleancity/index.html"
 
+	def get_initial(self):
+		initial = {}
+		initial['role'] = 'individual'
+
+		return initial
+
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-
 		u = User.objects.create_user(
 	        form.cleaned_data['email'],
 	        form.cleaned_data['email'],
@@ -143,7 +147,6 @@ class RegisterView(FormView):
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
 		u.profile.school_type = form.cleaned_data['school_type']
-		u.profile.ambassador = form.cleaned_data['ambassador']
 		u.profile.save()
 		u.save()
 
@@ -172,8 +175,10 @@ class RegisterView(FormView):
 		mail.content_subtype = "html"
 		mail.send()
 
-		if form.cleaned_data['ambassador'] == True:
-			return HttpResponseRedirect('/clean-team/register-clean-team/')
+		if form.cleaned_data['role'] == "clean-ambassador":
+			return HttpResponseRedirect('/clean-team/')
+		elif form.cleaned_data['role'] == "clean-champion":
+			return HttpResponseRedirect('/clean-team/register-clean-champion/')
 
 		return HttpResponseRedirect('/challenges')
 

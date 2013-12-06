@@ -18,7 +18,7 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="register">
-            <h2>Create a new Clean Team</h2>
+            <h2>I would like to:</h2>
 
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -26,17 +26,17 @@
               </div>
             {% endif %}
 
-            <form action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="/clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
-                    <tr>
-                        <td>{{ form.name.label_tag }} {{ form.name }}</td>
-                        <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.website.label_tag }} {{ form.website }}</td>
-                    </tr>
+                  {% for radio in form.selections %}
+                  <tr>
+                    <td>
+                      {{ radio }}
+                    </td>
+                  </tr>
+                  {% endfor %}
                 </table>
-                <input class="btn btn-primary" type="submit" value="Register" />
+                <input class="btn btn-primary" type="submit" value="Continue" />
             </form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

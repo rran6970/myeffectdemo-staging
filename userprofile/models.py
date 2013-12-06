@@ -20,7 +20,6 @@ class UserProfile(models.Model):
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	clean_creds = models.IntegerField(default=0)
 	school_type = models.CharField(max_length = 30, blank=True, default="High School")
-	ambassador = models.BooleanField()
 	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
 
 	class Meta:
@@ -35,6 +34,21 @@ class UserProfile(models.Model):
 			return True
 		except Exception, e:
 			return False
+
+	def has_clean_team(self):
+		if not self.clean_team_member:
+			return False
+
+		try:
+			ctm = CleanTeamMember.objects.get(user=self.user)
+
+			if ctm.status == "removed":
+				return False
+
+		except Exception, e:
+			return False
+
+		return True
 
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)

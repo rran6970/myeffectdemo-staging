@@ -81,8 +81,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
-		print form.errors
-
 		return self.render_to_response(context)
 
 	def form_valid(self, form):

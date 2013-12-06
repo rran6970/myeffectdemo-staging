@@ -34,3 +34,14 @@ class RegisterCleanTeamForm(forms.ModelForm):
 			raise forms.ValidationError(u'%s already exists' % name)
 
 		return cleaned_data
+
+CHOICES = (
+	('create-new-team', 'Create a new team'), 
+	('join-existing-team', 'Join an existing team'),
+)
+
+class CreateTeamOrJoinForm(forms.Form):
+	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
+class RequestJoinTeamsForm(forms.Form):
+	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())

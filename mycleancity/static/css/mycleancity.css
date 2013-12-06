@@ -26,9 +26,13 @@ a.menu-items:hover { text-decoration: none; color: #262261; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
 .dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; }
+.dropdown-menu.challenges-dropdown { left: 164px; }
+.dropdown-menu.clean-team-dropdown { left: 300px; }
 .dropdown-menu li { width: auto; }
 .dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; }
 .dropdown-menu li a:hover { background: transparent; color: #999; }
+
+.popover.right { top: 415px !important; left: 214px !important; display: block; }
 
 #sign-go-back { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login { left: 441px; }
@@ -187,7 +191,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 	Register
 ******************************/ 
 #white-box.register { width: 478px; left: 29%; }
-#white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto 0; }
 #white-box.register input[type="checkbox"] { margin: 0; padding: 0; }
 #white-box.register p { text-align: center; }
 
@@ -322,6 +326,17 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members table tr td { padding: 10px 15px; border-bottom: 1px solid #abd78c; vertical-align: middle; }
 #white-box.team-members table tr td.titles { width: 100px; }
 #white-box.team-members table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
+
+/******************************
+	Clean Team Page
+******************************/ 
+#white-box.clean-team-members-list { width: 178px; left: 35%; }
+#white-box.clean-team-profile { width: 478px; left: 55%; }
+#white-box.clean-team-profile span.edit-profile { display: block; float: right; }
+#white-box.clean-team-profile h2 { font-weight: 700; float: left; }
+#white-box.clean-team-profile div.field { font-size: 18px; }
+#white-box.clean-team-profile div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
+#white-box.clean-team-profile div.field.about p.title { margin-bottom: -16px; }
 
 /******************************
 	Twitter Feed

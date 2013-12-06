@@ -25,9 +25,7 @@
           {% if user.id == user_profile.id %}
           <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
           {% endif %}
-          <h2>Profile</h2>
-          <div class="clear"></div>
-
+        
           <div class="field">
             <p class="title">Name:</p>
             <p>{{ user_profile.first_name }} {{ user_profile.last_name }}</p>

@@ -14,7 +14,7 @@ Description:    Users can be part of Clean Teams
 class CleanTeam(models.Model):
 	name = models.CharField(max_length=60, blank=True, verbose_name='Clean Team Name')
 	website = models.URLField(verbose_name = u'Website', default="http://")
-	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo [Not working yet - Zeeshan]')
+	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
 	about = models.TextField(blank=True, null=True, default="")
 	clean_creds = models.IntegerField(default=0)
 
@@ -30,6 +30,7 @@ class CleanTeam(models.Model):
 class CleanTeamMember(models.Model):
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam)
+	role = models.CharField(max_length=30, default="clean-ambassador")
 	status = models.CharField(max_length=30, default="pending")
 
 	class Meta:
