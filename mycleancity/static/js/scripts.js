@@ -8,9 +8,37 @@ $(function(){
   	});
     $(".popover-btn").popover({ placement:"right", html:true });  
 
-    $('form.participation-forms').on('submit', ajaxParticipation);
+    // $('form.participation-forms').on('submit', ajaxParticipation);
+    $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
 });
+
+function ajaxCheckInCheckOut(e)
+{       
+    var form = $(this);
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+            btn = form.find("#confirm-btn");
+
+            if (btn.val() == "Check In")
+            {
+                btn.val("Check Out");
+                btn.addClass("dark");
+            }
+            else
+            {
+                btn.val("Check In");
+            }
+        },
+        error: function(data) {}
+    });
+    e.preventDefault();
+    return false;
+}
 
 function ajaxParticipation(e)
 {       

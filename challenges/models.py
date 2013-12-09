@@ -45,6 +45,9 @@ class UserChallenge(models.Model):
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	complete = models.BooleanField(default=False)
+	time_in	= models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	time_out = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	total_hours = models.IntegerField(default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'

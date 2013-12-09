@@ -33,18 +33,15 @@
 								{{ participant.user.first_name }} {{ participant.user.last_name }}
 							</td>
 							<td class="participated">
-								<form class="participation-forms" action="/challenges/confirm-participants/" method="post">
+								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
 									{% csrf_token %}
 									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
 									<input type="hidden" name="cid" value="{{ cid }}">
 									
-									{% if participant.complete %}
-										<input type="hidden" id="participated" name="participated" value="false" />
-										
-										<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Unconfirm" />
+									{% if participant.time_in %}
+										<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
 									{% else %}
-										<input type="hidden" id="participated" name="participated" value="true" />
-										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Confirm" />
+										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
 									{% endif %}
 								</form>
 								

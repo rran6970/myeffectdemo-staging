@@ -1,9 +1,13 @@
+import datetime
+
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
+
+from django.utils.timezone import utc
 
 from django.views.generic import *
 from django.views.generic.base import View
@@ -27,8 +31,41 @@ def participate_in_challenge(request):
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
+def check_in_check_out(request):
+	if request.method == "POST" and request.is_ajax:
+		cid = request.POST['cid']
+		uid = request.POST['uid']
+
+		try:
+			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
+			user = User.objects.get(id=userchallenge.user_id)
+			challenge = Challenge.objects.get(id=cid)
+
+			if not userchallenge.time_in:
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+
+				userchallenge.time_in = now
+				userchallenge.save()
+			else:
+				now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
+				userchallenge.time_out = now
+
+				now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+				time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+
+				diff = now_str - time_in_str
+				total_hours = diff.seconds // 3600
+
+				userchallenge.total_hours = total_hours
+				userchallenge.save()
+
+		except Exception, e:
+			raise e
+
+		return HttpResponse('');
+
 def confirm_participants(request):
-	if request.method == 'POST' and request.is_ajax:
+	if request.method == "POST" and request.is_ajax:
 		cid = request.POST['cid']
 		uid = request.POST['uid']
 		participated = request.POST['participated']

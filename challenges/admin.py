@@ -7,7 +7,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     search_fields = ['title', 'user__id', 'user__first_name', 'user__last_name', 'user__organization']
 
 class UserChallengeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'challenge', 'user', 'timestamp', 'complete')
+    list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours', 'complete')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']    
 
 admin.site.register(Challenge, ChallengeAdmin)
