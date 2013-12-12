@@ -47,6 +47,7 @@ def check_in_check_out(request):
 				userchallenge.time_in = now
 				userchallenge.save()
 			else:
+				# Get current time and time out time
 				now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
 				userchallenge.time_out = now
 
@@ -57,6 +58,16 @@ def check_in_check_out(request):
 				total_hours = diff.seconds // 3600
 
 				userchallenge.total_hours = total_hours
+
+				# Add Clean Team points
+				userchallenge.complete = True
+				user.profile.clean_creds += challenge.cleancred_value
+
+				if user.profile.clean_team_member.status == "approved":
+					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
+				else:
+					challenge.clean_team.clean_creds += challenge.cleancred_value
+
 				userchallenge.save()
 
 		except Exception, e:

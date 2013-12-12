@@ -8,7 +8,7 @@
 	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
 	<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
 		<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
-		{% if user.profile.clean_team_member.role == "moderator" %}
+		{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
 		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 		{% endif %}
@@ -18,7 +18,7 @@
 <div class="dropdown">
 	<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Clean Team<b class="caret"></b></a>
 	<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
-		{% if user.profile.clean_team_member.role == "moderator" %}
+		{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 		<li><a href="/clean-team/members" class="menu-items">Members</a></li>
 		{% endif %}
 		{% if not user.profile.has_clean_team %}

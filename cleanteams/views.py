@@ -63,7 +63,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ctm.clean_team = ct
 		ctm.user = user
 		ctm.status = "approved"
-		ctm.role = "moderator"
+		ctm.role = "clean-ambassador"
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
@@ -132,7 +132,7 @@ class CleanTeamView(TemplateView):
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
 			ctms = CleanTeamMember.objects.filter(clean_team_id=ctid)
-			print ctms
+			
 			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 			context['ctms'] = ctms
 
@@ -150,21 +150,18 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		selected_team = form.cleaned_data['team']
+		ct = form.cleaned_data['team']
 
 		try:
-			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
-			clean_team_member = CleanTeamMember()
+			ctm = CleanTeamMember()
 
-		clean_team_member.user = self.request.user
-		clean_team_member.clean_team = selected_team
-		clean_team_member.status = "pending"
-		clean_team_member.role = "clean-ambassador"
-		clean_team_member.save()
-
-		self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		self.request.user.profile.save()
+		if not ctm.has_max_clean_ambassadors:
+			ctm.request_join_clean_team(request.user, ct)
+		else:
+			#TODO: Message saying that the Clean Team ambassador count is full
+			pass
 
 		return HttpResponseRedirect('/')
 
@@ -226,6 +223,12 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		ct = CleanTeamMember.objects.get(user=user)
 		ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
 		
+		# TODO: HttpResponseRedirect is not working
+		# Check if approved Clean Ambassador
+		if ct.role != "clean-ambassador" or ct.status != "approved":
+			print "kkkkk"
+			return HttpResponseRedirect("/challenges")
+
 		context['user'] = user
 		context['clean_team'] = ct.clean_team
 		context['clean_team_members'] = ctm
@@ -244,14 +247,11 @@ def request_join_clean_team(request):
 		except Exception, e:
 			ctm = CleanTeamMember()
 
-		ctm.user = request.user
-		ctm.clean_team = ct
-		ctm.status = "pending"
-		ctm.role = "clean-ambassador"
-		ctm.save()
-
-		request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		request.user.profile.save()
+		if not ctm.has_max_clean_ambassadors:
+			ctm.request_join_clean_team(request.user, ct)
+		else:
+			#TODO: Message saying that the Clean Team ambassador count is full
+			pass
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 

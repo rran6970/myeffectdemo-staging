@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 
 from time import time
 
@@ -41,3 +42,22 @@ class CleanTeamMember(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
+
+	def request_join_clean_team(self, user, ct):
+		self.user = user
+		self.clean_team = ct
+		self.status = "pending"
+		self.role = "clean-ambassador"
+		self.save()
+
+		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+		self.user.profile.save()
+
+	def has_max_clean_ambassadors(self):
+		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
+
+		if num_ca >= 4:
+			return True
+
+		return False
+		

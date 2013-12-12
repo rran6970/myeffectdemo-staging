@@ -25,9 +25,6 @@
             {% if member.user.is_active %}
               {% if member.status == "approved" %}
               <li>{{ member.user.first_name }} {{ member.user.last_name }} - 
-                {% if member.role == "moderator" %}
-                  Mod
-                {% endif %}
                 {% if member.role == "clean-ambassador" %}
                   CA
                 {% endif %}
