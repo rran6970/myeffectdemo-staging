@@ -30,7 +30,7 @@
 					{% for participant in participants %}
 						<tr>
 							<td class="name">
-								{{ participant.user.first_name }} {{ participant.user.last_name }}
+								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
 							</td>
 							<td class="participated">
 								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">

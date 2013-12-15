@@ -40,25 +40,9 @@
             <p class="text">{{ user_profile.profile.clean_team_member.clean_team.name }}</p>
           </div>
           {% endif %}
-  
-          {% if user_profile.profile.is_organization %}
-          <div class="field">
-            <p class="title">Organization:</p>
-            <p class="text">{{ organization.organization }}</p>
-          </div>
-          <div class="field">
-            <p class="title">City:</p>
-            <p class="text">{{ user_profile.profile.city }}</p>
-          </div>
-          <div class="field">
-            <p class="title">Province:</p>
-            <p class="text">{{ user_profile.profile.province }}</p>
-          </div>
-          <div class="field">
-            <p class="title">Website:</p>
-            <p class="text"><a href="{{ organization.website }}" target="_blank">{{ organization.website }}</a></p>
-          </div>
-          {% endif %}
+          <span class="clean-creds">
+            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
+          </span>
 
           {% if user_profile.profile.about %}
           <div class="field about">

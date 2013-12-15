@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from challenges.models import Challenge, UserChallenge
+from challenges.models import Challenge, UserChallenge, Category
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -26,7 +26,7 @@ PROVINCES = (('', 'Please select one...'),
 
 class NewChallengeForm(forms.ModelForm):
 	title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	cleancred_value = forms.DecimalField(required=True, widget=forms.TextInput())
+	category = forms.ModelChoiceField(required=True, queryset=Category.objects.all())
 	event_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker'}))
 	event_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker'}))
 	address1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -44,7 +44,7 @@ class NewChallengeForm(forms.ModelForm):
 	def clean(self):
 		cleaned_data = super(NewChallengeForm, self).clean()
 		title = cleaned_data.get("title")
-		cleancred_value = cleaned_data.get("cleancred_value")
+		category = cleaned_data.get("category")
 		event_date = cleaned_data.get("event_date")
 		event_time = cleaned_data.get("event_time")
 		address1 = cleaned_data.get("address1")
@@ -57,8 +57,8 @@ class NewChallengeForm(forms.ModelForm):
 
 		if not title:
 			raise forms.ValidationError("Please enter a title")
-		elif not cleancred_value:
-			raise forms.ValidationError("Please enter a number for the Clean Cred value")
+		elif not category:
+			raise forms.ValidationError("Please select a category")
 		elif not event_date:
 			raise forms.ValidationError("Please enter an event date")
 		elif not event_time:

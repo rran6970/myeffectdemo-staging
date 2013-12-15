@@ -13,7 +13,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
-from challenges.models import Challenge, UserChallenge
+from challenges.models import Challenge, UserChallenge, ChallengeCategory
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -60,52 +60,52 @@ def check_in_check_out(request):
 				userchallenge.total_hours = total_hours
 
 				# Add Clean Team points
-				userchallenge.complete = True
-				user.profile.clean_creds += challenge.cleancred_value
+				user.profile.clean_creds += challenge.getChallengeCleanCreds()
 
 				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
+					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds()
 				else:
-					challenge.clean_team.clean_creds += challenge.cleancred_value
+					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds()
 
 				userchallenge.save()
 
 		except Exception, e:
-			raise e
+			print e
 
 		return HttpResponse('');
 
-def confirm_participants(request):
-	if request.method == "POST" and request.is_ajax:
-		cid = request.POST['cid']
-		uid = request.POST['uid']
-		participated = request.POST['participated']
+# TODO: Not in use, replaced with check_in_check_out()
+# def confirm_participants(request):
+# 	if request.method == "POST" and request.is_ajax:
+# 		cid = request.POST['cid']
+# 		uid = request.POST['uid']
+# 		participated = request.POST['participated']
 		
-		try:
-			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
-			user = User.objects.get(id=userchallenge.user_id)
-			challenge = Challenge.objects.get(id=cid)
+# 		try:
+# 			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
+# 			user = User.objects.get(id=userchallenge.user_id)
+# 			challenge = Challenge.objects.get(id=cid)
 
-			if participated == "true":
-				userchallenge.complete = True
-				user.profile.clean_creds += challenge.cleancred_value
+# 			if participated == "true":
+# 				userchallenge.complete = True
+# 				user.profile.clean_creds += challenge.cleancred_value
 
-				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
-			else:
-				userchallenge.complete = False
-				user.profile.clean_creds -= challenge.cleancred_value
+# 				if user.profile.clean_team_member.status == "approved":
+# 					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
+# 			else:
+# 				userchallenge.complete = False
+# 				user.profile.clean_creds -= challenge.cleancred_value
 
-				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds -= challenge.cleancred_value
+# 				if user.profile.clean_team_member.status == "approved":
+# 					user.profile.clean_team_member.clean_team.clean_creds -= challenge.cleancred_value
 
-			userchallenge.save()
-			user.profile.clean_team_member.clean_team.save()
-			user.profile.save()
-		except Exception, e:
-			pass
+# 			userchallenge.save()
+# 			user.profile.clean_team_member.clean_team.save()
+# 			user.profile.save()
+# 		except Exception, e:
+# 			pass
 			
-	return HttpResponseRedirect('/challenges/')
+# 	return HttpResponseRedirect('/challenges/')
 
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challenge_centre.html"
@@ -142,16 +142,20 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		challenge.title = form.cleaned_data['title']
 		challenge.event_date = form.cleaned_data['event_date']
 		challenge.event_time = form.cleaned_data['event_time']
-		challenge.cleancred_value = form.cleaned_data['cleancred_value']
 		challenge.address1 = form.cleaned_data['address1']
 		challenge.address2 = form.cleaned_data['address2']
 		challenge.city = form.cleaned_data['city']
 		challenge.postal_code = form.cleaned_data['postal_code']
 		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
+		challenge.description = form.cleaned_data['description']
 		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
-
 		challenge.save()
+
+		challenge_category = ChallengeCategory()
+		challenge_category.challenge = challenge
+		challenge_category.category = form.cleaned_data['category']
+		challenge_category.save()
 
 		return HttpResponseRedirect('/challenges')
 
