@@ -17,30 +17,31 @@
   
   <div class="content">
     <div class="container">
-        <div id="white-box" class="register">
-            <h2>Request to join a Clean Team</h2>
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+      <div id="white-box" class="register">
+          <h2>Request to join a Clean Team</h2>
 
-            {% if form.non_field_errors %}
-              <div class="message-box error">
-              {{ form.non_field_errors }}
-              </div>
-            {% endif %}
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
 
-            <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
-                <table>
-                    <tr>
-                        <td>
-                          <select name="team" id="">
-                          {% for team in form.team.field.queryset %}
-                            <option value="{{ team.id }}">{{ team.name }}</option>
-                          {% endfor%}
-                          </select>
-                        </td>
-                    </tr>
-                </table>
-                <input class="btn btn-primary" type="submit" value="Request to join" />
-            </form>
-        </div><!-- /#white-box -->
+          <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
+              <table>
+                  <tr>
+                      <td>
+                        <select name="team" id="">
+                        {% for team in form.team.field.queryset %}
+                          <option value="{{ team.id }}">{{ team.name }}</option>
+                        {% endfor%}
+                        </select>
+                      </td>
+                  </tr>
+              </table>
+              <input class="btn btn-primary" type="submit" value="Request to join" />
+          </form>
+      </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

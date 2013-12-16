@@ -17,51 +17,50 @@
   
   <div class="content">
     <div class="container">
-        <img src="{{ STATIC_URL }}images/tree-stage-0.png" alt="" id="tree-progress">
+        <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
         
         <div id="white-box" class="clean-team-members-list">
-          <ul>
           {% for member in ctms %}
             {% if member.user.is_active %}
               {% if member.status == "approved" %}
-              <li>{{ member.user.first_name }} {{ member.user.last_name }} - 
+                <p>
                 {% if member.role == "clean-ambassador" %}
-                  CA
+                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
                 {% endif %}
                 {% if member.role == "clean-champion" %}
-                  CC
+                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
                 {% endif %}
-              </li>
+                {{ member.user.first_name }} {{ member.user.last_name }}
+              </p>
               {% endif %}
             {% endif %}
           {% endfor %}
-          </ul>
         </div>
 
-        <div id="white-box" class="clean-team-profile">
-
-          {% if user.id == user_profile.id %}
-          <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
-          {% endif %}
+        <div id="white-box" class="public-profile clean-team-profile">
           
-          <div class="field">
-            <p class="title">Name:</p>
-            <p>{{ clean_team.name }}</p>
-          </div>
-
-          {% if clean_team.about %}
-          <div class="field about">
-            <p class="title">About:</p>
+          <div class="info">
+            <h2>{{ clean_team.name }}</h2>
             <div class="clear"></div>
-            <p class="text">{{ clean_team.about }}</p>
-          </div>
-          {% endif %}
-
-          <div class="field">
-            <p class="title"><span class="green bold">Clean</span><span class="blue bold">Creds:</span></p>
-            <p class="text">{{ clean_team.clean_creds }}</p>
-          </div>
+            
+            <span class="clean-creds">
+              <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
+            </span>
+          </div><!-- /.info -->
           
+          <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
+          
+          <div class="info" style="width: 100%;">
+            {% if clean_team.about %}
+            <div class="field about">
+              <p class="title">About:</p>
+              <div class="clear"></div>
+              <p class="text">{{ clean_team.about }}</p>
+            </div>
+            {% endif %}
+          </div><!-- /.info -->
+
+
           {% if user.profile.clean_team_member.status == "removed" %}
             <form action="/clean-team/request-join/" method="post">
               {% csrf_token %}

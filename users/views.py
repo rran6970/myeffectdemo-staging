@@ -162,7 +162,7 @@ class RegisterView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -173,7 +173,7 @@ class RegisterView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		if form.cleaned_data['role'] == "clean-ambassador":
 			return HttpResponseRedirect('/clean-team/')

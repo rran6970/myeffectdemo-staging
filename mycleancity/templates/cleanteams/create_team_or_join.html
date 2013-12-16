@@ -11,7 +11,7 @@
 <div class="wrapper public">
   <div class="clouds"></div>
   
-  {% include "_public_navbar.html" %}
+  {% include "_loggedin_navbar.html" %}
   
   <a href="/" class="logo"></a>
   
@@ -27,16 +27,15 @@
             {% endif %}
 
             <form action="/clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
-                <table>
-                  {% for radio in form.selections %}
-                  <tr>
-                    <td>
-                      {{ radio }}
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </table>
-                <input class="btn btn-primary" type="submit" value="Continue" />
+              <div class="btn-group" data-toggle="buttons">
+                {% for radio in form.selections %}
+                  <label class="btn btn-radio-group">
+                    {{ radio.choice_label }}
+                    {{ radio.tag }}
+                  </label>
+                {% endfor %}
+              </div> 
+              <input class="btn btn-primary" type="submit" value="Continue" />
             </form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

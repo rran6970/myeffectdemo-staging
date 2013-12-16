@@ -18,48 +18,56 @@
   <div class="content">
     <div class="container">
         {% if not user_profile.profile.is_organization %}
-        <img src="{{ STATIC_URL }}images/tree-stage-0.png" alt="" id="tree-progress">
+        <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
         {% endif %}
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
-        <div id="white-box" class="public-profile">
-          {% if user.id == user_profile.id %}
-          <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
-          {% endif %}
         
-          <div class="field">
-            <p class="title">Name:</p>
-            <p>{{ user_profile.first_name }} {{ user_profile.last_name }}</p>
-          </div>
-          <div class="field">
-            <p class="title">Email:</p>
-            <p class="text">{{ user_profile.email }}</p>
-          </div>
-          {% if user_profile.profile.clean_team_member.clean_team.name %}
-          <div class="field">
-            <p class="title">Clean Team:</p>
-            <p class="text">{{ user_profile.profile.clean_team_member.clean_team.name }}</p>
-          </div>
-          {% endif %}
-          <span class="clean-creds">
-            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
-          </span>
-
-          {% if user_profile.profile.about %}
-          <div class="field about">
-            <p class="title">About:</p>
+        <div id="white-box" class="public-profile">
+          <div class="info">
+            <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
             <div class="clear"></div>
-            <p class="text">{{ user_profile.profile.about }}</p>
-          </div>
+            
+            <div class="field">
+              <p class="title">Email:</p>
+              <p class="text">{{ user_profile.email }}</p>
+            </div>
+            {% if user_profile.profile.clean_team_member.clean_team.name %}
+            <div class="field">
+              <p class="title">Clean Team:</p>
+              <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
+            </div>
+            {% endif %}
+            <span class="clean-creds">
+              <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
+            </span>
+          </div><!-- /.info -->
+          
+          {% if user.id == user_profile.id %}
+            <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
+          {% endif %}
+          <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
+          
+          <div class="info" style="width: 100%;">
+            {% if user_profile.profile.about %}
+            <div class="field about">
+              <p class="title">About:</p>
+              <div class="clear"></div>
+              <p class="text">{{ user_profile.profile.about }}</p>
+            </div>
+            {% endif %}
+          </div><!-- /.info -->          
+        </div><!-- /#white-box -->
+  
+        {% if user_profile.profile.clean_team_member.status == "approved" %}
+          {% if user_profile.profile.clean_team_member.role == "clean-ambassador" %}
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Badge CA" />
           {% endif %}
 
-          {% if not user_profile.profile.is_organization %}
-          <div class="field">
-            <p class="title"><span class="green bold">Clean</span><span class="blue bold">Creds:</span></p>
-            <p class="text">{{ user_profile.profile.clean_creds }}</p>
-          </div>
+          {% if user_profile.profile.clean_team_member.role == "clean-champion" %}
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Badge CC" />
           {% endif %}
-                
-        </div><!-- /#white-box -->
+        {% endif %}
+
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

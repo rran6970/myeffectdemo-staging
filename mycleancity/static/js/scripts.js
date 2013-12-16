@@ -1,5 +1,6 @@
 $(function(){  
-	$('.dropdown-toggle').dropdown();
+    $(".btn").button()
+	$(".dropdown-toggle").dropdown();
 	$(".timepicker").timepicker();
 	$(".datepicker").datepicker({
 		'format': 'yyyy-mm-dd'

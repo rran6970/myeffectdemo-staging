@@ -20,42 +20,54 @@
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
         <div id="white-box" class="team-members">
 			{% csrf_token %}
-			<h1>{{ clean_team.name }}</h1>
-			<table>
-				<tr>
-					<td class="members"><h2>Members</h2></td>
-					<td class="status"><h2>Status</h2></td>
-					<td class="actions"><h2>Actions</h2></td>
-				</tr>
-				{% for ctm in clean_team_members %}
-					{% if ctm.user.is_active %}
-					<tr>
-						<td class="members">
-							{{ ctm.user.first_name }} {{ ctm.user.last_name }}
-						</td>
-						<td class="status">
-							{{ ctm.status }}
-						</td>
-						<td class="actions">
-							<form class="members-forms" action="/clean-team/member-action/" method="post">
-								{% csrf_token %}
-								<input type="hidden" name="uid" value="{{ ctm.user.id }}" />
-								<input type="hidden" name="ctid" value="{{ clean_team.id }}">
-								
-								{% if ctm.status == "pending" %}
-									<input type="hidden" id="action" name="action" value="approve" />
-									<input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
-								{% endif %}
-								{% if ctm.status == "approved" %}
-									<input type="hidden" id="action" name="action" value="remove" />
-									<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
-								{% endif %}
-							</form>
-						</td>
-					</tr>
-					{% endif %}
-				{% endfor %}
-			</table>
+			<h1 id="team-name">{{ clean_team.name }}</h1>
+			<div class="table-container">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="members"><h2>Members</h2></th>
+							<th class="status"><h2>Status</h2></th>
+							<th class="actions"><h2>Actions</h2></th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for ctm in clean_team_members %}
+						{% if ctm.user.is_active %}
+						<tr>
+							<td class="members">
+								{% if ctm.role == "clean-ambassador" %}
+				                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+				                {% endif %}
+				                {% if ctm.role == "clean-champion" %}
+				                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+				                {% endif %}
+								{{ ctm.user.first_name }} {{ ctm.user.last_name }}
+							</td>
+							<td class="status">
+								{{ ctm.status }}
+							</td>
+							<td class="actions">
+								<form class="members-forms" action="/clean-team/member-action/" method="post">
+									{% csrf_token %}
+									<input type="hidden" name="uid" value="{{ ctm.user.id }}" />
+									<input type="hidden" name="ctid" value="{{ clean_team.id }}">
+									
+									{% if ctm.status == "pending" %}
+										<input type="hidden" id="action" name="action" value="approve" />
+										<input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+									{% endif %}
+									{% if ctm.status == "approved" %}
+										<input type="hidden" id="action" name="action" value="remove" />
+										<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
+									{% endif %}
+								</form>
+							</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+				</table><!-- /.table.table-hover -->
+			</div>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

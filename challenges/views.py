@@ -72,40 +72,7 @@ def check_in_check_out(request):
 		except Exception, e:
 			print e
 
-		return HttpResponse('');
-
-# TODO: Not in use, replaced with check_in_check_out()
-# def confirm_participants(request):
-# 	if request.method == "POST" and request.is_ajax:
-# 		cid = request.POST['cid']
-# 		uid = request.POST['uid']
-# 		participated = request.POST['participated']
-		
-# 		try:
-# 			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
-# 			user = User.objects.get(id=userchallenge.user_id)
-# 			challenge = Challenge.objects.get(id=cid)
-
-# 			if participated == "true":
-# 				userchallenge.complete = True
-# 				user.profile.clean_creds += challenge.cleancred_value
-
-# 				if user.profile.clean_team_member.status == "approved":
-# 					user.profile.clean_team_member.clean_team.clean_creds += challenge.cleancred_value
-# 			else:
-# 				userchallenge.complete = False
-# 				user.profile.clean_creds -= challenge.cleancred_value
-
-# 				if user.profile.clean_team_member.status == "approved":
-# 					user.profile.clean_team_member.clean_team.clean_creds -= challenge.cleancred_value
-
-# 			userchallenge.save()
-# 			user.profile.clean_team_member.clean_team.save()
-# 			user.profile.save()
-# 		except Exception, e:
-# 			pass
-			
-# 	return HttpResponseRedirect('/challenges/')
+		return HttpResponse('')
 
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challenge_centre.html"

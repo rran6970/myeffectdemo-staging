@@ -78,7 +78,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -89,7 +89,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		return HttpResponseRedirect('/')
 
@@ -97,9 +97,16 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/create_team_or_join.html"
 	form_class = CreateTeamOrJoinForm
 
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		return self.render_to_response(self.get_context_data(form=form))
+
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
