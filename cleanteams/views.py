@@ -159,13 +159,15 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		ct = form.cleaned_data['team']
 
+		print ct
+
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
 			ctm = CleanTeamMember()
 
-		if not ctm.has_max_clean_ambassadors:
-			ctm.request_join_clean_team(request.user, ct)
+		if not ctm.has_max_clean_ambassadors():
+			ctm.request_join_clean_team(self.request.user, ct)
 		else:
 			#TODO: Message saying that the Clean Team ambassador count is full
 			pass

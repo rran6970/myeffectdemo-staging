@@ -17,30 +17,43 @@
   
   <div class="content">
     <div class="container">
-      <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
-      <div id="white-box" class="register">
-          <h2>Request to join a Clean Team</h2>
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign register-join-team" id="sign-go-back"></div></a>
+      <div id="white-box" class="register-join-team">
+          <h1>Request to join a Clean Team</h1>
+          <p class="subtitle">Select a Clean Team to join as a Clean Ambassador</p>
 
-          {% if form.non_field_errors %}
+          {% if false %}
             <div class="message-box error">
-            {{ form.non_field_errors }}
+            
             </div>
           {% endif %}
 
-          <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
-              <table>
-                  <tr>
-                      <td>
-                        <select name="team" id="">
-                        {% for team in form.team.field.queryset %}
-                          <option value="{{ team.id }}">{{ team.name }}</option>
-                        {% endfor%}
-                        </select>
-                      </td>
-                  </tr>
-              </table>
-              <input class="btn btn-primary" type="submit" value="Request to join" />
-          </form>
+          <div class="table-container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="action"><h2>Actions</h2></th>
+                  <th class="team"><h2>Team</h2></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for team in form.team.field.queryset %}
+                <tr>
+                  <td class="action">
+                    <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                      <input type="hidden" name="team" value="{{ team.id }}" />
+                      <input type="submit" class="btn btn-primary" value="Select" />
+                    </form>
+                  </td>
+                  <td class="team">                          
+                    {{ team.name }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table><!-- /.table.table-hover -->
+          </div><!-- /.table-container -->
+          
       </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

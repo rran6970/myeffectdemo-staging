@@ -21,6 +21,7 @@
         <div id="white-box" class="team-members">
 			{% csrf_token %}
 			<h1 id="team-name">{{ clean_team.name }}</h1>
+			<p class="subtitle">Edit team members</p>
 			<div class="table-container">
 				<table class="table table-hover">
 					<thead>
@@ -67,7 +68,7 @@
 					{% endfor %}
 					</tbody>
 				</table><!-- /.table.table-hover -->
-			</div>
+			</div><!-- /.table-container -->
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

@@ -1,5 +1,5 @@
 $(function(){  
-    $(".btn").button()
+    $(".btn").button();
 	$(".dropdown-toggle").dropdown();
 	$(".timepicker").timepicker();
 	$(".datepicker").datepicker({
