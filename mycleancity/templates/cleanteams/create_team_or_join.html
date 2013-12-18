@@ -26,7 +26,7 @@
               </div>
             {% endif %}
 
-            <form action="/clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="/clean-team/create-or-request/" method="post" enctype="multipart/form-data">{% csrf_token %}
               <div class="btn-group" data-toggle="buttons">
                 {% for radio in form.selections %}
                   <label class="btn btn-radio-group">

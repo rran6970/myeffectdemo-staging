@@ -127,6 +127,19 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 		context['user'] = self.request.user
 		return context
 
+class ViewAllCleanTeams(TemplateView):
+	template_name = "cleanteams/all_clean_teams.html"	
+
+	def get_context_data(self, **kwargs):
+		context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
+
+		teams = CleanTeam.objects.all()
+
+		context['teams'] = teams
+		context['user'] = self.request.user
+
+		return context
+
 class CleanTeamView(TemplateView):
 	template_name = "cleanteams/clean_team_profile.html"	
 
@@ -144,6 +157,7 @@ class CleanTeamView(TemplateView):
 			context['ctms'] = ctms
 
 		context['user'] = self.request.user
+
 		return context
 
 class RegisterRequestJoinView(LoginRequiredMixin, FormView):
