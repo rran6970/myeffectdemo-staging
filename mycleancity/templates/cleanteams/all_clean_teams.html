@@ -1,0 +1,46 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Clean Teams {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
+      <div id="white-box" class="all-clean-teams">
+          <h1>All Clean Teams</h1>
+
+          <div class="table-container">
+            <table class="table table-hover">
+              <tbody>
+                {% for team in teams %}
+                <tr>
+                  <td class="team">                          
+                    <a href="{{ team.id }}">{{ team.name }}</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table><!-- /.table.table-hover -->
+          </div><!-- /.table-container -->
+          
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

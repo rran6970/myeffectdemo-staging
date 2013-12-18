@@ -36,12 +36,12 @@ a.menu-items:hover { text-decoration: none; color: #262261; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
-#sign-go-back.login { left: 424px; }
+#sign-go-back.login, #sign-go-back.all-clean-teams { left: 424px; }
 #sign-go-back.new-challenge { left: 374px; }
 #sign-go-back.profile { left: 540px; }
 #sign-go-back.contact { left: 424px; }
 #sign-go-back.register { left: 373px; }
-#sign-go-back.challenge-participants, #sign-go-back.clean-team-members { left: 270px; }
+#sign-go-back.challenge-participants, #sign-go-back.clean-team-members, #sign-go-back.register-join-team { left: 270px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
 #sign-go-back-big.students { left: 32px; top: 386px; }
 #sign-go-back-big.organizations { left: 32px; top: 296px; }
@@ -103,6 +103,12 @@ div.content.about #white-box iframe { margin-left: 120px; }
 #sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
 #sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
 #sign-our-founder { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 286px; left: 85px; background: url(../images/sign-our-founder.png) no-repeat 0 0; }
+
+
+/******************************
+	White Box
+******************************/
+#white-box .subtitle { font-size: 15px; margin-left: 20px; color: #7DA35A; }
 
 /******************************
 	Students Page
@@ -192,10 +198,18 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 /******************************
 	Register
 ******************************/ 
+#white-box.register-join-team { width: 678px; left: 24%; }
+#white-box.register-join-team .btn.btn-primary { padding-top: 10px; }
+#white-box.register-join-team .table .action { width: 300px; vertical-align: middle; }
+#white-box.register-join-team .table .action input[type="submit"] { margin: 0; }
+#white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
+
 #white-box.register { width: 478px; left: 32%; }
 #white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto 0; }
 #white-box.register input[type="checkbox"] { margin: 0; padding: 0; }
 #white-box.register p { text-align: center; }
+
+#white-box.register table tr td { height: 60px; }
 
 /******************************
 	Profile
@@ -326,18 +340,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 ******************************/ 
 #white-box p { font-weight: 400; }
 #white-box.team-members { width: 685px; }
-#white-box.team-members div.table-container { border: 2px solid #abd78c; padding: 10px; border-radius: 5px; height: 100%; }
-#white-box.team-members #team-name { margin-bottom: 20px; }
-#white-box.team-members table { }
-#white-box.team-members table tr th { border-bottom: 1px solid #abd78c; }
-#white-box.team-members table tr td { }
-#white-box.team-members table tr td.members { width: 600px; }
-#white-box.team-members table tr td.actions { width: 100px; text-align: center; }
-#white-box.team-members h1 { font-weight: 900; }
-#white-box.team-members table { margin-bottom: 30px; }
-#white-box.team-members table tr td { padding: 10px 15px; vertical-align: middle; }
-#white-box.team-members table tr td.titles { width: 100px; }
-#white-box.team-members table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
+#white-box.team-members #team-name {  }
 
 /******************************
 	Clean Team Page
@@ -353,6 +356,12 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.clean-team-profile div.field.about p.title { margin-bottom: -16px; }*/
 
 /******************************
+	All Clean Teams Page
+******************************/ 
+#white-box.all-clean-teams { width: 356px; height: 450px; left: 36%; }
+#white-box.all-clean-teams h1 { margin-bottom: 15px; }
+
+/******************************
 	Twitter Feed
 ******************************/ 
 #tweets { float: left; overflow: hidden; }
@@ -365,3 +374,17 @@ div[id^='box_jbeeb_'] { display: none; }
 
 div[id^='container_jbeeb_'] { background-color: transparent !important; }
 div[id^='textbox_jbeeb_'] { color: #638d3d !important; font-weight: bold; }
+
+/******************************
+	Table
+******************************/ 
+div.table-container { border: 2px solid #abd78c; padding: 10px; border-radius: 5px; height: 100%; overflow-y: scroll; }
+div.table-container table { }
+div.table-container table tr th { padding: 14px 15px !important; border-bottom: 1px solid #abd78c; }
+div.table-container table tr td { padding: 14px 15px !important; vertical-align: middle; }
+div.table-container table tr td.members { width: 600px; }
+div.table-container table tr td.actions { width: 100px; text-align: center; }
+div.table-container h1 { font-weight: 900; }
+div.table-container table { margin-bottom: 30px; }
+div.table-container table tr td.titles { width: 100px; }
+div.table-container table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }

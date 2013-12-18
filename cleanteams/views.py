@@ -127,6 +127,19 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 		context['user'] = self.request.user
 		return context
 
+class ViewAllCleanTeams(TemplateView):
+	template_name = "cleanteams/all_clean_teams.html"	
+
+	def get_context_data(self, **kwargs):
+		context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
+
+		teams = CleanTeam.objects.all()
+
+		context['teams'] = teams
+		context['user'] = self.request.user
+
+		return context
+
 class CleanTeamView(TemplateView):
 	template_name = "cleanteams/clean_team_profile.html"	
 
@@ -144,6 +157,7 @@ class CleanTeamView(TemplateView):
 			context['ctms'] = ctms
 
 		context['user'] = self.request.user
+
 		return context
 
 class RegisterRequestJoinView(LoginRequiredMixin, FormView):
@@ -159,13 +173,15 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		ct = form.cleaned_data['team']
 
+		print ct
+
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
 			ctm = CleanTeamMember()
 
-		if not ctm.has_max_clean_ambassadors:
-			ctm.request_join_clean_team(request.user, ct)
+		if not ctm.has_max_clean_ambassadors():
+			ctm.request_join_clean_team(self.request.user, ct)
 		else:
 			#TODO: Message saying that the Clean Team ambassador count is full
 			pass
