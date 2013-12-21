@@ -24,7 +24,9 @@
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
-						<a href="/challenges/participants/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+
+						<a href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 						
 						<span class="location">
 							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>

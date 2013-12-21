@@ -11,7 +11,7 @@ Date created:   Sept 8, 2013
 Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
-	title = models.CharField(max_length=60, blank=False, verbose_name="Title")
+	title = models.CharField(max_length=60, blank=False, verbose_name="Title")	
 	event_date = models.DateField(blank=True, null=True)
 	event_time = models.TimeField(blank=True, null=True)
 	address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")

@@ -23,7 +23,10 @@
     <div class="container">
     	<div id="sign-challenge-overview"></div>
         <div id="white-box">
-        	<h1>{{ challenge.title }}</h1><span><a href="/users/organization/{{ challenge.user.id }}">{{ challenge.user.profile.organization }}</a></span>
+        	<h1>{{ challenge.title }}</h1>
+        	<span id="edit-challenge-link">
+        		<a href="/challenges/edit/{{ challenge.id }}/">Edit Challenge</a>
+        	</span>
         	<div class="clear"></div>
 	
 			<table>
