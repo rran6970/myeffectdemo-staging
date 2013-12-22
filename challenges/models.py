@@ -91,8 +91,8 @@ class UserChallenge(models.Model):
 	challenge = models.ForeignKey(Challenge)
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	time_in	= models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	time_out = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	time_in	= models.DateTimeField(blank=True, null=True)
+	time_out = models.DateTimeField(blank=True, null=True)
 	total_hours = models.IntegerField(default=0)
 
 	class Meta:

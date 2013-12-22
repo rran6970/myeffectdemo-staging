@@ -29,6 +29,8 @@ def participate_in_challenge(request):
 			user_challenge.challenge = challenge
 			user_challenge.save()
 
+			print e
+
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
 def check_in_check_out(request):
@@ -55,19 +57,21 @@ def check_in_check_out(request):
 				time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 				diff = now_str - time_in_str
-				total_hours = diff.seconds // 3600
+				total_hours = (diff.days * 24) + (diff.seconds // 3600)
 
 				userchallenge.total_hours = total_hours
+				userchallenge.save()
 
-				# Add Clean Team points
+				# Add CredCreds
 				user.profile.clean_creds += challenge.getChallengeCleanCreds()
+				user.profile.save()
 
 				if user.profile.clean_team_member.status == "approved":
 					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds()
+					user.profile.clean_team_member.clean_team.save()
 				else:
 					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds()
-
-				userchallenge.save()
+					challenge.clean_team.save()
 
 		except Exception, e:
 			print e
@@ -140,7 +144,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
 		except Exception, e:
 			print e
-			return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+			return HttpResponseRedirect(u'/challenges/%s' %(cid))
 
 		initial = {}
 		initial['title'] = challenge.title
@@ -199,6 +203,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 		try:
 			challenge = Challenge.objects.get(id=cid, user=self.request.user)
 		except Exception, e:
+			print e
 			return HttpResponseRedirect('/challenges/my-challenges/')			
 
 		return self.render_to_response(self.get_context_data())

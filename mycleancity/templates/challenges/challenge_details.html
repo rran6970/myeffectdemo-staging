@@ -42,7 +42,7 @@
 					<td colspan="2"><p>{{ challenge.description }}</p></td>
 				</tr>
 				<tr>
-					<td class="titles">CleanCreds: {{ challenge.getChallengeCleanCreds }}</td>
+					<td class="titles"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCreds }}</span></td>
 				</tr>
 			</table>
 		
@@ -64,7 +64,7 @@
 
         <div id="participants-box">
         	<h1>Participants</h1>
-        	<h2>Total: {{ participants|length }}</h2>
+        	<p>Total: {{ participants|length }}</p>
 
 			{% for participant in participants %}
 				<div class="participants">

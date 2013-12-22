@@ -5,6 +5,7 @@ from cleanteams.views import *
 
 urlpatterns = patterns('',
 	url(r'^members/?$', CleanTeamMembersView.as_view()),
+	url(r'^edit/(?P<ctid>\d+)/?$', EditCleanTeamView.as_view()),
 	url(r'^register-clean-team/?$', RegisterCleanTeamView.as_view()),
 	url(r'^register-request-join/?$', RegisterRequestJoinView.as_view()),
 	url(r'^register-clean-champion/?$', RegisterCleanChampionView.as_view()),

@@ -33,6 +33,7 @@ class UserProfile(models.Model):
 			organization = UserOrganization.objects.get(user=self.user)
 			return True
 		except Exception, e:
+			print e
 			return False
 
 	def has_clean_team(self):
@@ -46,6 +47,7 @@ class UserProfile(models.Model):
 				return False
 
 		except Exception, e:
+			print e
 			return False
 
 		return True
