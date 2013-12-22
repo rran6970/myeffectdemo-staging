@@ -31,10 +31,10 @@ class Challenge(models.Model):
 	def __unicode__(self):
 		return u'Challenge: %s' % self.title
 
-	def getChallengeCleanCreds(self):
+	def getChallengeCleanCreds(self, total_hours):
 		challenge_category = ChallengeCategory.objects.get(challenge=self)
 		
-		return int(challenge_category.category.clean_cred_value)
+		return int(challenge_category.category.clean_cred_value * total_hours)
 
 	def getChallengeCategory(self):
 		challenge_category = ChallengeCategory.objects.get(challenge=self)

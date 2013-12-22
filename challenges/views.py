@@ -63,14 +63,14 @@ def check_in_check_out(request):
 				userchallenge.save()
 
 				# Add CredCreds
-				user.profile.clean_creds += challenge.getChallengeCleanCreds()
+				user.profile.clean_creds += challenge.getChallengeCleanCreds(total_hours)
 				user.profile.save()
 
 				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds()
+					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
 					user.profile.clean_team_member.clean_team.save()
 				else:
-					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds()
+					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
 					challenge.clean_team.save()
 
 		except Exception, e:
