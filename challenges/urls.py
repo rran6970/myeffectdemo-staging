@@ -6,6 +6,7 @@ from challenges.views import *
 urlpatterns = patterns('',
 	url(r'^/?$', ChallengesFeedView.as_view()),
 	url(r'^(?P<cid>\d+)/?$', ChallengeView.as_view()),
+	url(r'^edit/(?P<cid>\d+)/?$', EditChallengeView.as_view()),
 	url(r'^new-challenge/?$', NewChallengeView.as_view()),
 	url(r'^participants/(?P<cid>\d+)/?$', ChallengeParticipantsView.as_view()),
 	url(r'^my-challenges/?$', MyChallengesView.as_view()),

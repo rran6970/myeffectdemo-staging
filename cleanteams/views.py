@@ -41,22 +41,25 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		user = self.request.user
 		logo = form.cleaned_data['logo']
 
-		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-		bucket = conn.get_bucket(settings.AWS_BUCKET)
-		k = Key(bucket)
-		k.key = 'uploads/ct_logo_%s' % str(user.id)
-		k.set_contents_from_string(form.cleaned_data['logo'].read())
-
 		ct = CleanTeam()
 		ct.user = user
 		ct.name = form.cleaned_data['name']
 		ct.website = form.cleaned_data['website']
-		ct.logo = k.key
+
+		if logo:
+			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+			bucket = conn.get_bucket(settings.AWS_BUCKET)
+			k = Key(bucket)
+			k.key = 'uploads/ct_logo_%s' % str(user.id)
+			k.set_contents_from_string(form.cleaned_data['logo'].read())
+			ct.logo = k.key
+
 		ct.save()
 
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			ctm = CleanTeamMember()
 
 		ct = CleanTeam.objects.latest('id')
@@ -92,6 +95,58 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		# mail.send()
 
 		return HttpResponseRedirect('/')
+
+class EditCleanTeamView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/edit_clean_team.html"
+	form_class = RegisterCleanTeamForm
+	success_url = "mycleancity/index.html"
+
+	def get_initial(self):
+		if 'ctid' in self.kwargs:
+			ctid = self.kwargs['ctid']
+
+		try:
+			clean_team = CleanTeam.objects.get(id=ctid)
+		except Exception, e:
+			print e
+			return HttpResponseRedirect(u'/clean-team/%s' %(ctid))
+
+		initial = {}
+		initial['name'] = clean_team.name
+		initial['website'] = clean_team.website
+		# initial['logo'] = clean_team.logo
+		initial['about'] = clean_team.about
+		initial['clean_team_id'] = clean_team.id
+
+		return initial
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		# conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+		# bucket = conn.get_bucket(settings.AWS_BUCKET)
+		# k = Key(bucket)
+		# k.key = 'uploads/ct_logo_%s' % str(user.id)
+		# k.set_contents_from_string(form.cleaned_data['logo'].read())
+
+		clean_team_id = form.cleaned_data['clean_team_id']
+
+		try:
+			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+			clean_team = CleanTeam.objects.get(id=clean_team_member.clean_team.id)
+		except Exception, e:
+			print e
+		
+		clean_team.name = form.cleaned_data['name']
+		clean_team.website = form.cleaned_data['website']
+		clean_team.about = form.cleaned_data['about']
+		clean_team.save()
+
+		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 
 class CreateOrRequest(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/create_team_or_join.html"
@@ -173,11 +228,10 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		ct = form.cleaned_data['team']
 
-		print ct
-
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			ctm = CleanTeamMember()
 
 		if not ctm.has_max_clean_ambassadors():
@@ -212,6 +266,7 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		try:
 			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			clean_team_member = CleanTeamMember()
 
 		clean_team_member.user = self.request.user
@@ -268,6 +323,7 @@ def request_join_clean_team(request):
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			ctm = CleanTeamMember()
 
 		if not ctm.has_max_clean_ambassadors:

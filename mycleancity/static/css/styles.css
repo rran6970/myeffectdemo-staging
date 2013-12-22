@@ -94,6 +94,7 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 /** Message Boxes **/
 .message-box { padding: 5px; text-align: center; margin: 10px 0; }
 .message-box p, .message-box li { font-size: 13px !important; font-weight: 400 !important; }
+.message-box ul { margin: 0; } 
 
 .error { background-color: #f2dede; border: 1px solid #EDAAA8; }
 .error p, .error li { color: #b94a48 !important; }

@@ -29,6 +29,8 @@ def participate_in_challenge(request):
 			user_challenge.challenge = challenge
 			user_challenge.save()
 
+			print e
+
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
 def check_in_check_out(request):
@@ -55,19 +57,21 @@ def check_in_check_out(request):
 				time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 				diff = now_str - time_in_str
-				total_hours = diff.seconds // 3600
+				total_hours = (diff.days * 24) + (diff.seconds // 3600)
 
 				userchallenge.total_hours = total_hours
+				userchallenge.save()
 
-				# Add Clean Team points
+				# Add CredCreds
 				user.profile.clean_creds += challenge.getChallengeCleanCreds()
+				user.profile.save()
 
 				if user.profile.clean_team_member.status == "approved":
 					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds()
+					user.profile.clean_team_member.clean_team.save()
 				else:
 					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds()
-
-				userchallenge.save()
+					challenge.clean_team.save()
 
 		except Exception, e:
 			print e
@@ -124,7 +128,66 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		challenge_category.category = form.cleaned_data['category']
 		challenge_category.save()
 
-		return HttpResponseRedirect('/challenges')
+		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+
+class EditChallengeView(LoginRequiredMixin, FormView):
+	template_name = "challenges/edit_challenge.html"
+	form_class = NewChallengeForm
+	success_url = "mycleancity/index.html"
+
+	def get_initial(self):
+		if 'cid' in self.kwargs:
+			cid = self.kwargs['cid']
+
+		try:
+			challenge = Challenge.objects.get(id=cid)
+			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
+		except Exception, e:
+			print e
+			return HttpResponseRedirect(u'/challenges/%s' %(cid))
+
+		initial = {}
+		initial['title'] = challenge.title
+		initial['category'] = challenge_category.category
+		initial['event_date'] = challenge.event_date
+		initial['event_time'] = challenge.event_time
+		initial['address1'] = challenge.address1
+		initial['address2'] = challenge.address2
+		initial['city'] = challenge.city
+		initial['province'] = challenge.province
+		initial['country'] = challenge.country
+		initial['postal_code'] = challenge.postal_code
+		initial['description'] = challenge.description
+		initial['challenge_id'] = challenge.id
+
+		return initial
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		challenge = Challenge.objects.get(id=form.cleaned_data['challenge_id'])
+		challenge.title = form.cleaned_data['title']
+		challenge.event_date = form.cleaned_data['event_date']
+		challenge.event_time = form.cleaned_data['event_time']
+		challenge.address1 = form.cleaned_data['address1']
+		challenge.address2 = form.cleaned_data['address2']
+		challenge.city = form.cleaned_data['city']
+		challenge.postal_code = form.cleaned_data['postal_code']
+		challenge.province = form.cleaned_data['province']
+		challenge.country = form.cleaned_data['country']
+		challenge.description = form.cleaned_data['description']
+		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
+		challenge.save()
+
+		challenge_category = ChallengeCategory.objects.get(challenge=challenge)
+		challenge_category.category = form.cleaned_data['category']
+		challenge_category.save()
+
+		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
 class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 	template_name = "challenges/challenge_participants.html"
@@ -140,6 +203,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 		try:
 			challenge = Challenge.objects.get(id=cid, user=self.request.user)
 		except Exception, e:
+			print e
 			return HttpResponseRedirect('/challenges/my-challenges/')			
 
 		return self.render_to_response(self.get_context_data())

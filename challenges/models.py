@@ -11,7 +11,7 @@ Date created:   Sept 8, 2013
 Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
-	title = models.CharField(max_length=60, blank=False, verbose_name="Title")
+	title = models.CharField(max_length=60, blank=False, verbose_name="Title")	
 	event_date = models.DateField(blank=True, null=True)
 	event_time = models.TimeField(blank=True, null=True)
 	address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")
@@ -91,8 +91,8 @@ class UserChallenge(models.Model):
 	challenge = models.ForeignKey(Challenge)
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	time_in	= models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	time_out = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	time_in	= models.DateTimeField(blank=True, null=True)
+	time_out = models.DateTimeField(blank=True, null=True)
 	total_hours = models.IntegerField(default=0)
 
 	class Meta:

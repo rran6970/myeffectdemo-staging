@@ -46,8 +46,17 @@
             <span class="clean-creds">
               <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </span>
+
+            <div class="field">
+              <p class="title">Website:</p>
+              <p class="text"><a target="_blank" href="{{ clean_team.website }}">{{ clean_team.website }}</a></p>
+            </div>
           </div><!-- /.info -->
           
+          {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
+            <span class="edit-clean-team-link"><a href="/clean-team/edit/{{ clean_team.id }}">Edit Clean Team</a></span>
+          {% endif %}
+
           <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
           
           <div class="info" style="width: 100%;">

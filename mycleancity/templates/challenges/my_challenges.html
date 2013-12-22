@@ -18,13 +18,14 @@
   <div class="content my-challenges">
     <div class="container">
       	<div id="sign-my-challenges"></div>
-        <div id="white-box">
-        	
+        <div id="white-box" class="posted-challenges">
 			<h1>Posted Challenges</h1>
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
-						<a href="/challenges/participants/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+
+						<a href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 						
 						<span class="location">
 							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>
@@ -37,8 +38,10 @@
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
 			{% endif %}
-		
-			<h1>User Challenges</h1>
+        </div><!-- /#white-box -->
+
+        <div id="white-box"class="user-challenges">
+			<h1>Challenges Participating In</h1>
 			{% if user_challenges %}
 				{% for challenge in user_challenges %}
 					<div class="challenges">
@@ -58,7 +61,6 @@
 			{% else %}
 				<p>There are no challenges that you've partcipated in.</p>
 			{% endif %}
-			
         </div><!-- /#white-box -->
         
     </div><!-- /.container -->

@@ -17,9 +17,7 @@
   
   <div class="content">
     <div class="container">
-        {% if not user_profile.profile.is_organization %}
         <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
-        {% endif %}
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         
         <div id="white-box" class="public-profile">
@@ -43,7 +41,7 @@
           </div><!-- /.info -->
           
           {% if user.id == user_profile.id %}
-            <span class="edit-profile"><a href="/users/profile">Edit Profile</a></span>
+            <span class="edit-profile-link"><a href="/users/profile">Edit Profile</a></span>
           {% endif %}
           <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
           

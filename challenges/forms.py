@@ -27,8 +27,8 @@ PROVINCES = (('', 'Please select one...'),
 class NewChallengeForm(forms.ModelForm):
 	title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	category = forms.ModelChoiceField(required=True, queryset=Category.objects.all())
-	event_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker'}))
-	event_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker'}))
+	event_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
+	event_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
 	address1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	address2 = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -36,6 +36,7 @@ class NewChallengeForm(forms.ModelForm):
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
+	challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	class Meta:
 		model = Challenge
@@ -54,6 +55,7 @@ class NewChallengeForm(forms.ModelForm):
 		country = cleaned_data.get("country")
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
+		challenge_id = cleaned_data.get("challenge_id")
 
 		if not title:
 			raise forms.ValidationError("Please enter a title")

@@ -194,6 +194,7 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 			try:
 				context['organization'] = UserOrganization.objects.get(user_id=user_id)
 			except Exception, e:
+				print e
 				pass
 
 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
@@ -227,6 +228,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		try:
 			organization = UserOrganization.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			organization = None
 
 		if organization:
@@ -266,6 +268,7 @@ class OrganizationProfileView(LoginRequiredMixin, FormView):
 		try:
 			organization = UserOrganization.objects.get(user=self.request.user)
 		except Exception, e:
+			print e
 			organization = None	
 
 		initial = {}
