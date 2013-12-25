@@ -7,8 +7,9 @@
 		<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
 		{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
-		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 		{% endif %}
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
+		
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->
 

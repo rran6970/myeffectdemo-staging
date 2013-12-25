@@ -18,8 +18,10 @@
   <div class="content my-challenges">
     <div class="container">
       	<div id="sign-my-challenges"></div>
+
+      	{% if user.profile.clean_team_member %}
         <div id="white-box" class="posted-challenges">
-			<h1>Posted Challenges</h1>
+			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted Challenges</h1>
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
@@ -30,34 +32,49 @@
 						<span class="location">
 							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>
 						</span>
-						<span class="clean-creds">
-							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCreds }}</span></p>
-						</span>
 					</div>
 				{% endfor %}
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
 			{% endif %}
         </div><!-- /#white-box -->
-
-        <div id="white-box"class="user-challenges">
-			<h1>Challenges Participating In</h1>
+		{% endif %}
+	
+        <div id="white-box" class="user-challenges" {% if not user.profile.clean_team_member %}style="left: 30%"{% endif %}>
 			{% if user_challenges %}
-				{% for challenge in user_challenges %}
-					<div class="challenges">
-						<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title|upper }} - {{ challenge.challenge.event_date }}</h1></a>
-						
-						<span class="location">
-							<p>Location:<span>&nbsp;{{ challenge.challenge.city }}, {{ challenge.challenge.province }}</span></p>
-						</span>
-						<span class="clean-creds">
-							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span>:<span>&nbsp;{{ challenge.challenge.cleancred_value }}</span></p>
-						</span>
-						<span class="status">
-							<p>Status:<span>&nbsp;{% if challenge.complete %} Complete {% else %} Pending {% endif %}</span></p>
-						</span>
-					</div>
-				{% endfor %}
+				
+				<div class="table-container">
+					<table class="table table-hover">
+						<tbody>
+							{% for challenge in user_challenges %}
+							<tr>
+								<td>
+									{% if challenge.total_hours %}
+									<img class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+									{% else %}
+									<div style="height: 32px; width: 32px; float: left;"></div>
+									{% endif %}
+
+									<div class="challenge-info">
+										<a href="/challenges/{{ challenge.challenge.id }}/">{{ challenge.challenge.title|upper }} - {{ challenge.challenge.event_date }}</a>
+
+										{% if challenge.total_hours %}
+										<span class="total-hours">{{ challenge.total_hours }} Hours</span>
+										{% else %}
+											{% if challenge.time_in %}
+											<span class="total-hours">Checked in</span>
+											{% else %}
+											<span class="total-hours">Not checked in</span>
+											{% endif %}
+										{% endif %}
+									</div>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table><!-- /.table.table-hover -->
+				</div><!-- /.table-container -->
+				
 			{% else %}
 				<p>There are no challenges that you've partcipated in.</p>
 			{% endif %}

@@ -47,6 +47,11 @@ function ajaxCheckInCheckOut(e)
                 btn.val("Check Out");
                 btn.addClass("dark");
             }
+            else if (data)
+            {
+                btn.before(data + " Hours");
+                btn.hide();
+            }
             else
             {
                 btn.val("Check In");

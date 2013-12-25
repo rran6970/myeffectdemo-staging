@@ -39,7 +39,11 @@
 									<input type="hidden" name="cid" value="{{ cid }}">
 									
 									{% if participant.time_in %}
-										<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
+										{% if participant.time_out %}
+											{{ participant.total_hours }} Hours
+										{% else %}
+											<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
+										{% endif %}
 									{% else %}
 										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
 									{% endif %}

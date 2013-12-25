@@ -14,6 +14,7 @@ from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
 from challenges.models import Challenge, UserChallenge, ChallengeCategory
+from cleanteams.models import CleanTeamMember
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -72,6 +73,8 @@ def check_in_check_out(request):
 				else:
 					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
 					challenge.clean_team.save()
+
+				return HttpResponse(total_hours)
 
 		except Exception, e:
 			print e
@@ -228,8 +231,15 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		context['posted_challenges'] = Challenge.objects.filter(user=self.request.user)
+		try:
+			ctm = CleanTeamMember.objects.get(user=self.request.user)
+			context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team)
+		except Exception, e:
+			print e
+			pass
+
 		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user)
+		
 		context['user'] = self.request.user
 
 		return context
@@ -245,7 +255,16 @@ class ChallengeView(TemplateView):
 
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
-			context['challenge'] = get_object_or_404(Challenge, id=cid)
+			challenge = get_object_or_404(Challenge, id=cid)
+			
+			context['challenge'] = challenge
+			
+			try:
+				context['user_challenge'] = UserChallenge.objects.get(user=self.request.user, challenge=challenge)
+			except Exception, e:
+				print e
+				pass
+			
 			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
 			context['page_url'] = self.request.get_full_path()
 
