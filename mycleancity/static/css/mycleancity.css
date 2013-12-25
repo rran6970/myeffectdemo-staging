@@ -36,6 +36,10 @@ a.menu-items:hover { text-decoration: none; color: #262261; }
 .bootstrap-timepicker.dropdown-menu.open { width: 202px; }
 
 .popover.right { top: 415px !important; left: 214px !important; display: block; }
+.tooltip-inner { padding: 12px; opacity: 0.9; }
+.tooltip-inner span.description { display: block; margin-bottom: 20px; }
+.tooltip-inner span.description.last { margin-bottom: 0; }
+.tooltip-inner span.description strong.title { display: block; margin-bottom: 3px; font-size: 17px; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
@@ -205,7 +209,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 ******************************/ 
 #white-box.register-join-team { width: 678px; left: 24%; }
 #white-box.register-join-team .btn.btn-primary { padding-top: 10px; }
-#white-box.register-join-team .table .action { width: 300px; vertical-align: middle; }
+#white-box.register-join-team .table .action { width: 151px; vertical-align: middle; }
 #white-box.register-join-team .table .action input[type="submit"] { margin: 0; }
 #white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
 
@@ -215,6 +219,9 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.register p { text-align: center; }
 
 #white-box.register table tr td { height: 60px; }
+
+#white-box.register .tooltip.left { width: 300px !important; }
+#white-box.register .tooltip-arrow { display: none; }
 
 /******************************
 	Profile

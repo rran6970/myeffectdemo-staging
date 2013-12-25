@@ -120,6 +120,7 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
+		challenge.host_organization = form.cleaned_data['host_organization']
 		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
 		challenge.save()
 
@@ -158,6 +159,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['country'] = challenge.country
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
+		initial['host_organization'] = challenge.host_organization
 		initial['challenge_id'] = challenge.id
 
 		return initial
@@ -180,6 +182,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
+		challenge.host_organization = form.cleaned_data['host_organization']
 		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
 		challenge.save()
 

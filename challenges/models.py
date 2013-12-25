@@ -21,6 +21,7 @@ class Challenge(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")
+	host_organization = models.TextField(blank=False, default="")
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam, blank=True, null=True, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)

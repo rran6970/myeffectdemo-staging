@@ -7,6 +7,12 @@ $(function(){
 	}).on('changeDate', function(event){
     	$(this).datepicker('hide');
   	});
+
+    $("[rel=tooltip]").tooltip({ 
+        "html" : true,
+        "animation" : true,
+        "delay" : { show: 300, hide: 200 }
+    });
     $(".popover-btn").popover({ placement:"right", html:true });  
 
     // $('form.participation-forms').on('submit', ajaxParticipation);

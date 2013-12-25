@@ -30,6 +30,12 @@
         	<div class="clear"></div>
 	
 			<table>
+				{% if challenge.host_organization %}
+				<tr>
+					<td class="titles">Hosted by:</td>
+					<td>{{ challenge.host_organization }}</td>
+				</tr>
+				{% endif %}
 				<tr>
 					<td class="titles">Where:</td>
 					<td>{{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>

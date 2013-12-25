@@ -153,6 +153,7 @@ class ProfileForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
 	about = forms.CharField(required=False, widget=forms.Textarea())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=2, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	
@@ -166,6 +167,8 @@ class ProfileForm(forms.ModelForm):
 		first_name = cleaned_data.get("first_name")
 		last_name = cleaned_data.get("last_name")
 		email = cleaned_data.get("email")
+		about = cleaned_data.get("about")
+		twitter = cleaned_data.get("twitter")
 		school_type = cleaned_data.get("school_type")
 
 		if not first_name:

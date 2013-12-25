@@ -46,7 +46,10 @@
                     </tr>
                     <tr>
                         <td>{{ form.school_type.label_tag }}{{ form.school_type }}</td>
-                        <td><a class="popover-btn" rel="popover" data-content="We need ambitious and charismatic youth to lead their peers in environmental change - <a href='/students#ambassador'>learn more</a>" data-original-title=""><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
+                        <td>
+                          <a rel="tooltip" data-placement="left" data-original-title="<span class='description'><strong class='title'>Clean Ambassador</strong>I want to be a My Clean City leader and start or join a Clean Team</span>
+
+                          <span class='description last'><strong class='title'>Clean Champion</strong>I want to support a Clean Team while I participate</span>"><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
                           {{ form.role }}</td>
                     </tr>
                 </table>
