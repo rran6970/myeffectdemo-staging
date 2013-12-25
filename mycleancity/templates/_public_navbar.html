@@ -31,6 +31,25 @@
 </div><!-- end of #user-dropdown.dropdown -->
 
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
+
+<div class="dropdown" id="notification-dropdown">
+	<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
+	<ul style="right: 52px;" class="dropdown-menu notification-dropdown" role="menu" aria-labelledby="dLabel">
+		<li>	
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Team Awesome posted a new Challenge</div>
+		</li>
+		<li class="unread">			
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Zeeshan Syed just became a Clean Champion</div>
+		</li>
+		<li>			
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Team Awesome posted a new Challenge</div>
+		</li>
+	</ul>
+	<div style="left: initial; right: 339px;" id="notification-container">1</div>
+</div><!-- end of #notification-dropdown.dropdown -->
 {% else %}
 <a href="/register" class="menu-items menu-items-right">Register</a>
 <a href="/users/login" class="menu-items menu-items-right">Login</a>

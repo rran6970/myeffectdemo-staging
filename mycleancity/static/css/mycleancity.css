@@ -20,15 +20,25 @@ a { color: #00aeef; }
 a.menu-items { font-weight: 500; font-size: 19px; color: white; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
-a.menu-items:hover { text-decoration: none; color: #262261; }
+a.menu-items:hover { text-decoration: none; color: #000; }
+#notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
+#notification-icon:hover { background-position: bottom; bottom }
+#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 419px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
 
-.dropdown { position: relative; z-index: 1000; }
+.dropdown { position: relative; z-index: 1000000; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
+.dropdown#notification-dropdown { top: -5px; }
 .dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; }
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
-.dropdown-menu li { width: auto; }
+.dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; }
+.dropdown-menu.notification-dropdown li { width: 300px; padding: 10px; height: 70px; cursor: pointer; }
+.dropdown-menu.notification-dropdown li:hover { opacity: 0.75; }
+.dropdown-menu.notification-dropdown li.unread { background: url(../images/1x1-green.png) repeat 0 0 !important; }
+.dropdown-menu.notification-dropdown li img.notification-image { float: left; margin-right: 10px; }
+.dropdown-menu.notification-dropdown li div { font-size: 12px; width: 200px; height: 42px; margin-top: 5px; overflow: hidden; }
+.dropdown-menu li { width: auto; outline: none; }
 .dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; }
 .dropdown-menu li a:hover { background: transparent; color: #999; }
 
@@ -82,7 +92,7 @@ a.menu-items:hover { text-decoration: none; color: #262261; }
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x1-green.png) repeat-x 0 0; width: 100%; height: 210px; }
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 210px; }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
 #footer p.copyright { float: right; padding-right: 30px; padding-bottom: 20px; }

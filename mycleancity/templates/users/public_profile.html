@@ -30,7 +30,7 @@
               <p class="text">{{ user_profile.email }}</p>
             </div>
 
-            {% if user_profile.profile.twitter %}
+            {% if user_profile.profile.twitter and not user_profile.profile.twitter == "@" %}
             <div class="field">
               <p class="title">Twitter:</p>
               <p class="text"><a href="http://twitter.com/{{ user_profile.profile.twitter }}" target="_blank">{{ user_profile.profile.twitter }}</a></p>
@@ -51,7 +51,7 @@
           {% if user.id == user_profile.id %}
             <span class="edit-profile-link"><a href="/users/profile">Edit Profile</a></span>
           {% endif %}
-          <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
+          <img src="{{ STATIC_URL }}images/default-profile-pic-150x150.png" alt="" class="profile-pic" />
           
           <div class="info" style="width: 100%;">
             {% if user_profile.profile.about %}

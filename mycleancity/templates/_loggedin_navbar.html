@@ -9,7 +9,6 @@
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
 		{% endif %}
 		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
-		
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->
 
@@ -27,9 +26,28 @@
 		{% endif %}
 		<li><a href="/clean-team/" class="menu-items">All Clean Teams</a></li>
 	</ul>
-</div><!-- end of #user-dropdown.dropdown -->
+</div><!-- end of .dropdown -->
 {% endif %}
 
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
 <a href="/" class="menu-items menu-items-right">Home</a>
 <a href="/users/profile/{{ user.id }}" class="menu-items menu-items-right">Welcome {{ user.first_name }}</a>
+
+<div class="dropdown" id="notification-dropdown">
+	<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
+	<ul class="dropdown-menu notification-dropdown" role="menu" aria-labelledby="dLabel">
+		<li>			
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Team Awesome posted a new Challenge</div>
+		</li>
+		<li class="unread">			
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Zeeshan Syed just became a Clean Champion</div>
+		</li>
+		<li>			
+			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+			<div>Team Awesome posted a new Challenge</div>
+		</li>
+	</ul>
+	<div id="notification-container">1</div>
+</div><!-- end of #notification-dropdown.dropdown -->
