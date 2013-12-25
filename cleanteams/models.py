@@ -32,6 +32,11 @@ class CleanTeam(models.Model):
 	def save(self, *args, **kwargs):
 		super(CleanTeam, self).save(*args, **kwargs)
 
+"""
+Name:           CleanTeamMember
+Date created:   Nov 25, 2013
+Description:    Users can be part of Clean Teams
+"""
 class CleanTeamMember(models.Model):
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam)
@@ -64,4 +69,24 @@ class CleanTeamMember(models.Model):
 			return True
 
 		return False
-		
+
+
+"""
+Name:           CleanTeamPost
+Date created:   Dec 25, 2013
+Description:    The posts on a Clean Team's profile
+"""
+class CleanTeamPost(models.Model):
+	clean_team = models.ForeignKey(CleanTeam)
+	user = models.ForeignKey(User)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	message = models.TextField(blank=True, null=True, default="")
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Post'
+
+	def __unicode__(self):
+		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamPost, self).save(*args, **kwargs)

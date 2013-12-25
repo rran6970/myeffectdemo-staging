@@ -40,6 +40,8 @@ input[type="text"], input[type="password"], textarea { font-size: 16px; padding-
 input[type="text"] + label, input[type="password"] + label, textarea + label { text-align: left; }
 input[type="text"]:focus, input[type="password"]:focus { outline: 0; }
 
+textarea { width: 417px; }
+
 textarea,
 input[type="text"],
 input[type="password"],

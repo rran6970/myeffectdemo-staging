@@ -46,11 +46,6 @@
             <span class="clean-creds">
               <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </span>
-            
-            <div class="field">
-              <p class="title">Team Type:</p>
-              <p class="text">{{ clean_team.team_type }}</p>
-            </div>
 
             {% if clean_team.group %}
             <div class="field">
@@ -59,10 +54,12 @@
             </div>
             {% endif %}
 
+            {% if clean_team.region %}
             <div class="field">
               <p class="title">Region:</p>
               <p class="text">{{ clean_team.region }}</p>
             </div>
+            {% endif %}
 
             {% if clean_team.website and not clean_team.website == "http://" %}
             <div class="field">

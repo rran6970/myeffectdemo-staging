@@ -64,3 +64,20 @@ class CreateTeamOrJoinForm(forms.Form):
 
 class RequestJoinTeamsForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
+
+class PostMessageForm(forms.Form):
+	message = forms.CharField(required=False, widget=forms.Textarea())
+
+	# Combines the form with the corresponding model
+	class Meta:
+		model = CleanTeam
+		exclude = ('clean_creds')
+
+	def clean(self):
+		cleaned_data = super(PostMessageForm, self).clean()
+		message = cleaned_data.get('message')
+
+		if not message:
+			raise forms.ValidationError("Please enter a message")
+
+		return cleaned_data

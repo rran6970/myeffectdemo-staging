@@ -21,8 +21,8 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm
-from cleanteams.models import CleanTeam, CleanTeamMember
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost
 
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -322,6 +322,37 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		context['user'] = user
 		context['clean_team'] = ct.clean_team
 		context['clean_team_members'] = ctm
+
+		return context
+
+class PostMessageView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/post_message.html"
+	form_class = PostMessageForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		message = form.cleaned_data['message']
+		clean_team = self.request.user.profile.clean_team_member.clean_team
+
+		clean_team_post = CleanTeamPost()
+		clean_team_post.user = self.request.user
+		clean_team_post.clean_team = clean_team
+		clean_team_post.message = message
+
+		clean_team_post.save()
+
+		return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
+
+	def get_context_data(self, **kwargs):
+		context = super(PostMessageView, self).get_context_data(**kwargs)
+		user = self.request.user
+		
+		context['user'] = user
 
 		return context
 
