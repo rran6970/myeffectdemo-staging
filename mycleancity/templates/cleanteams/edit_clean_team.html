@@ -27,6 +27,12 @@
             </div>
           {% endif %}
 
+          {% if form.errors %}
+            <div class="message-box error">
+            {{ form.errors }}
+            </div>
+          {% endif %}
+
           <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
@@ -35,6 +41,14 @@
                 </tr>
                 <tr>
                     <td>{{ form.website.label_tag }} {{ form.website }}</td>
+                    <td>{{ form.twitter.label_tag }} {{ form.twitter }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form.region.label_tag }} {{ form.region }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+                    <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>

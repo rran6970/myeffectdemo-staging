@@ -46,11 +46,37 @@
             <span class="clean-creds">
               <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </span>
+            
+            <div class="field">
+              <p class="title">Team Type:</p>
+              <p class="text">{{ clean_team.team_type }}</p>
+            </div>
 
+            {% if clean_team.group %}
+            <div class="field">
+              <p class="title">Representing Group:</p>
+              <p class="text">{{ clean_team.group }}</p>
+            </div>
+            {% endif %}
+
+            <div class="field">
+              <p class="title">Region:</p>
+              <p class="text">{{ clean_team.region }}</p>
+            </div>
+
+            {% if clean_team.website and not clean_team.website == "http://" %}
             <div class="field">
               <p class="title">Website:</p>
               <p class="text"><a target="_blank" href="{{ clean_team.website }}">{{ clean_team.website }}</a></p>
             </div>
+            {% endif %}
+
+            {% if clean_team.twitter %}
+            <div class="field">
+              <p class="title">Twitter:</p>
+              <p class="text"><a href="http://twitter.com/{{ clean_team.twitter }}" target="_blank">{{ clean_team.twitter }}</a></p>
+            </div>
+            {% endif %}
           </div><!-- /.info -->
           
           {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}

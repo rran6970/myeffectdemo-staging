@@ -18,6 +18,17 @@ $(function(){
     // $('form.participation-forms').on('submit', ajaxParticipation);
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
+
+    $("#id_team_type").on("change", function(e){
+        if ($(this).val() == "representing")
+        {
+            $("#clean-team-group-td").fadeIn();
+        }
+        else
+        {
+            $("#clean-team-group-td").fadeOut();   
+        }
+    });
 });
 
 function ajaxCheckInCheckOut(e)

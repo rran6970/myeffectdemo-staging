@@ -14,7 +14,7 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	dob = models.DateField(auto_now_add=True, blank=True, null=True)
 	about = models.TextField(blank=True, null=True, default="")
-	twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle", default="@")
+	twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
 	city = models.CharField(max_length=60, blank=True, null=True, verbose_name='City')
 	province = models.CharField(max_length=10, blank=True, null=True, verbose_name='Province')
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')

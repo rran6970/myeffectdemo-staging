@@ -44,7 +44,9 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ct = CleanTeam()
 		ct.user = user
 		ct.name = form.cleaned_data['name']
-		ct.website = form.cleaned_data['website']
+		ct.region = form.cleaned_data['region']
+		ct.team_type = form.cleaned_data['team_type']
+		ct.group = form.cleaned_data['group']
 
 		if logo:
 			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
@@ -114,8 +116,12 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		initial = {}
 		initial['name'] = clean_team.name
 		initial['website'] = clean_team.website
+		initial['twitter'] = clean_team.twitter
 		# initial['logo'] = clean_team.logo
 		initial['about'] = clean_team.about
+		initial['region'] = clean_team.region
+		initial['team_type'] = clean_team.team_type
+		initial['group'] = clean_team.group
 		initial['clean_team_id'] = clean_team.id
 
 		return initial
@@ -123,6 +129,8 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
+		print form.errors
 
 		return self.render_to_response(context)
 
@@ -143,7 +151,11 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		
 		clean_team.name = form.cleaned_data['name']
 		clean_team.website = form.cleaned_data['website']
+		clean_team.twitter = form.cleaned_data['twitter']
 		clean_team.about = form.cleaned_data['about']
+		clean_team.region = form.cleaned_data['region']
+		clean_team.team_type = form.cleaned_data['team_type']
+		clean_team.group = form.cleaned_data['group']
 		clean_team.save()
 
 		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))

@@ -17,6 +17,10 @@ class CleanTeam(models.Model):
 	website = models.URLField(verbose_name = u'Website', default="http://")
 	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
 	about = models.TextField(blank=True, null=True, default="")
+	twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
+	region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
+	team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
+	group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
 	clean_creds = models.IntegerField(default=0)
 
 	class Meta:

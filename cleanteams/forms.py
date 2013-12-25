@@ -7,11 +7,20 @@ from django.contrib.auth.models import User
 
 from cleanteams.models import CleanTeam
 
+CLEAN_TEAM_TYPES = (('', 'Please select one...'),
+	('independent', 'Independent'), 
+	('representing', 'Representing a school or group'),
+)
+
 class RegisterCleanTeamForm(forms.ModelForm):
 	name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
-	website = forms.URLField(required=True, initial="http://", max_length=128, min_length=2, widget=forms.TextInput())
+	website = forms.URLField(required=False, initial="http://", max_length=128, min_length=2, widget=forms.TextInput())
 	logo = forms.ImageField(required=False)
 	about = forms.CharField(required=False, widget=forms.Textarea())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=2, widget=forms.TextInput())
+	region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+	team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
+	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	# Combines the form with the corresponding model
@@ -24,12 +33,19 @@ class RegisterCleanTeamForm(forms.ModelForm):
 		name = cleaned_data.get('name')
 		website = cleaned_data.get('website')
 		logo = cleaned_data.get('logo')
+		about = cleaned_data.get('about')
+		twitter = cleaned_data.get('twitter')
+		region = cleaned_data.get('region')
+		team_type = cleaned_data.get('team_type')
+		group = cleaned_data.get('group')
 		clean_team_id = cleaned_data.get('clean_team_id')
 
 		if not name:
 			raise forms.ValidationError("Please enter your Clean Team's name")
-		elif not website:
-			raise forms.ValidationError("Please enter your website")
+		elif not region:
+			raise forms.ValidationError("Please enter your region")
+		elif not team_type:
+			raise forms.ValidationError("Please select the type of team")
 		# elif not logo:
 		# 	raise forms.ValidationError("Please upload your logo")
 
