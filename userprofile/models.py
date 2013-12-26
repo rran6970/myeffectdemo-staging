@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 from django.db.models.signals import post_save
 
 from cleanteams.models import CleanTeamMember
+from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
 """
@@ -52,6 +54,18 @@ class UserProfile(models.Model):
 			return False
 
 		return True
+
+	def get_notifications(self):
+		user_notifications = UserNotification.objects.filter(user=self.user)
+		return user_notifications
+
+	def count_unread_notifications(self):
+		count = UserNotification.objects.filter(user=self.user, read=False).count()
+		return count
+
+	def count_notifications(self):
+		count = UserNotification.objects.filter(user=self.user).count()
+		return count
 
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)

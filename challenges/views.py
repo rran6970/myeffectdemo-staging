@@ -112,25 +112,8 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		challenge = Challenge(user=self.request.user)
-		challenge.title = form.cleaned_data['title']
-		challenge.event_date = form.cleaned_data['event_date']
-		challenge.event_time = form.cleaned_data['event_time']
-		challenge.address1 = form.cleaned_data['address1']
-		challenge.address2 = form.cleaned_data['address2']
-		challenge.city = form.cleaned_data['city']
-		challenge.postal_code = form.cleaned_data['postal_code']
-		challenge.province = form.cleaned_data['province']
-		challenge.country = form.cleaned_data['country']
-		challenge.description = form.cleaned_data['description']
-		challenge.host_organization = form.cleaned_data['host_organization']
-		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
-		challenge.save()
-
-		challenge_category = ChallengeCategory()
-		challenge_category.challenge = challenge
-		challenge_category.category = form.cleaned_data['category']
-		challenge_category.save()
+		challenge = Challenge()
+		challenge.newChallenge(self.request.user, form)
 
 		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 

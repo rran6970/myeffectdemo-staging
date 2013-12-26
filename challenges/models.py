@@ -3,7 +3,8 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-from cleanteams.models import CleanTeam
+from cleanteams.models import CleanTeam, CleanTeamMember
+from notifications.models import Notification, UserNotification
 
 """
 Name:           Challenge
@@ -31,6 +32,44 @@ class Challenge(models.Model):
 
 	def __unicode__(self):
 		return u'Challenge: %s' % self.title
+
+	def newChallenge(self, user, form):
+		self.user = user
+		self.title = form.cleaned_data['title']
+		self.event_date = form.cleaned_data['event_date']
+		self.event_time = form.cleaned_data['event_time']
+		self.address1 = form.cleaned_data['address1']
+		self.address2 = form.cleaned_data['address2']
+		self.city = form.cleaned_data['city']
+		self.postal_code = form.cleaned_data['postal_code']
+		self.province = form.cleaned_data['province']
+		self.country = form.cleaned_data['country']
+		self.description = form.cleaned_data['description']
+		self.host_organization = form.cleaned_data['host_organization']
+		self.clean_team = user.profile.clean_team_member.clean_team
+		self.save()
+
+		challenge_category = ChallengeCategory()
+		challenge_category.challenge = self
+		challenge_category.category = form.cleaned_data['category']
+		challenge_category.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="challenge_posted")
+		# The names that will go in the notification message template
+		name_strings = [self.clean_team.name, self.title]
+		link_strings = [str(self.id)]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("challenge_posted", member.user, name_strings, link_strings)
 
 	def getChallengeCleanCreds(self, total_hours):
 		challenge_category = ChallengeCategory.objects.get(challenge=self)

@@ -4,6 +4,8 @@ from django.db.models import Count
 
 from time import time
 
+from notifications.models import Notification, UserNotification
+
 def get_upload_file_name(instance, filename):
 	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
@@ -52,15 +54,63 @@ class CleanTeamMember(models.Model):
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
 
-	def request_join_clean_team(self, user, ct):
+	def requestBecomeCleanAmbassador(self, user, form):
+		selected_team = form.cleaned_data['team']
+
 		self.user = user
-		self.clean_team = ct
+		self.clean_team = selected_team
 		self.status = "pending"
 		self.role = "clean-ambassador"
 		self.save()
 
 		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
 		self.user.profile.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="ca_request")
+		# The names that will go in the notification message template
+		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+		name_strings = [full_name, self.clean_team.name]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("ca_request", member.user, name_strings)
+
+	def becomeCleanChampion(self, user, form):
+		selected_team = form.cleaned_data['team']
+
+		self.user = user
+		self.clean_team = selected_team
+		self.status = "approved"
+		self.role = "clean-champion"
+		self.save()
+
+		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+		self.user.profile.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="cc_joined")
+		# The names that will go in the notification message template
+		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+		name_strings = [full_name, self.clean_team.name]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("cc_joined", member.user, name_strings)
 
 	def has_max_clean_ambassadors(self):
 		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
@@ -69,7 +119,6 @@ class CleanTeamMember(models.Model):
 			return True
 
 		return False
-
 
 """
 Name:           CleanTeamPost
@@ -87,6 +136,31 @@ class CleanTeamPost(models.Model):
 
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
+
+	def newPost(self, user, form, clean_team):
+		self.user = user
+		self.clean_team = clean_team
+		self.message = form.cleaned_data['message']
+
+		self.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="message_posted")
+		# The names that will go in the notification message template
+		name_strings = [self.clean_team.name]
+		link_strings = [str(self.clean_team.id)]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
+
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamPost, self).save(*args, **kwargs)

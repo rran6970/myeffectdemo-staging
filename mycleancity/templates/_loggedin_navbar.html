@@ -35,19 +35,27 @@
 
 <div class="dropdown" id="notification-dropdown">
 	<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
+	
 	<ul class="dropdown-menu notification-dropdown" role="menu" aria-labelledby="dLabel">
-		<li>			
-			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
-			<div>Team Awesome posted a new Challenge</div>
-		</li>
-		<li class="unread">			
-			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
-			<div>Zeeshan Syed just became a Clean Champion</div>
-		</li>
-		<li>			
-			<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
-			<div>Team Awesome posted a new Challenge</div>
-		</li>
+		{% if user.profile.count_notifications > 0 %}
+			{% for notification in user.profile.get_notifications %}
+			<li {% if not notification.read %}class="unread"{% endif %}>
+				<a href="{{ notification.link }}">
+					<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+					<div>{{ notification.message }}</div>
+				</a>
+			</li>
+			{% endfor %}
+		{% else %}
+			<li>
+				<a>
+					<div style="text-align: center"><h2>No notifications</h2></div>
+				</a>
+			</li>
+		{% endif %}
 	</ul>
-	<div id="notification-container">1</div>
+	
+	{% if user.profile.count_unread_notifications > 0 %}
+	<div id="notification-container">{{ user.profile.count_unread_notifications }}</div>
+	{% endif %}
 </div><!-- end of #notification-dropdown.dropdown -->

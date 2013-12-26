@@ -238,19 +238,17 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		ct = form.cleaned_data['team']
-
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
 			print e
 			ctm = CleanTeamMember()
 
-		if not ctm.has_max_clean_ambassadors():
-			ctm.request_join_clean_team(self.request.user, ct)
-		else:
+		# if not ctm.has_max_clean_ambassadors():
+		ctm.requestBecomeCleanAmbassador(self.request.user, form)
+		# else:
 			#TODO: Message saying that the Clean Team ambassador count is full
-			pass
+			# pass
 
 		return HttpResponseRedirect('/')
 
@@ -273,22 +271,13 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		selected_team = form.cleaned_data['team']
-
 		try:
 			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
 		except Exception, e:
 			print e
 			clean_team_member = CleanTeamMember()
 
-		clean_team_member.user = self.request.user
-		clean_team_member.clean_team = selected_team
-		clean_team_member.status = "approved"
-		clean_team_member.role = "clean-champion"
-		clean_team_member.save()
-
-		self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		self.request.user.profile.save()
+		clean_team_member.becomeCleanChampion(self.request.user, form)
 
 		return HttpResponseRedirect('/')
 
@@ -336,15 +325,10 @@ class PostMessageView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		message = form.cleaned_data['message']
 		clean_team = self.request.user.profile.clean_team_member.clean_team
 
 		clean_team_post = CleanTeamPost()
-		clean_team_post.user = self.request.user
-		clean_team_post.clean_team = clean_team
-		clean_team_post.message = message
-
-		clean_team_post.save()
+		clean_team_post.newPost(self.request.user, form, clean_team)
 
 		return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
 
@@ -370,7 +354,7 @@ def request_join_clean_team(request):
 			ctm = CleanTeamMember()
 
 		if not ctm.has_max_clean_ambassadors:
-			ctm.request_join_clean_team(request.user, ct)
+			ctm.requestBecomeCleanAmbassador(request.user, ct)
 		else:
 			#TODO: Message saying that the Clean Team ambassador count is full
 			pass

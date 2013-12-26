@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'cleancreds',
     'cleanteams',
     'challenges',
+    'notifications',
     'south',
     'storages',
     'users',

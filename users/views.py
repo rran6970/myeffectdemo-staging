@@ -180,7 +180,7 @@ class RegisterView(FormView):
 		elif form.cleaned_data['role'] == "clean-champion":
 			return HttpResponseRedirect('/clean-team/register-clean-champion/')
 
-		return HttpResponseRedirect('/challenges')
+		return HttpResponseRedirect('/')
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
 	template_name = "users/public_profile.html"
