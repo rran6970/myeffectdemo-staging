@@ -82,53 +82,5 @@
         "message": "You have been approved to be a Clean Ambassador for {0}", 
         "description": "A new Clean Ambassador request is approved"
     }
-},
-{
-    "pk": 31, 
-    "model": "notifications.usernotification", 
-    "fields": {
-        "read": false, 
-        "notification": 1, 
-        "link": "/challenges/41/", 
-        "user": 113, 
-        "timestamp": "2013-12-26T07:40:15Z", 
-        "message": "Boss Team posted a challenge called Challenge 11"
-    }
-},
-{
-    "pk": 32, 
-    "model": "notifications.usernotification", 
-    "fields": {
-        "read": false, 
-        "notification": 1, 
-        "link": "/challenges/41/", 
-        "user": 74, 
-        "timestamp": "2013-12-26T07:40:15Z", 
-        "message": "Boss Team posted a challenge called Challenge 11"
-    }
-},
-{
-    "pk": 33, 
-    "model": "notifications.usernotification", 
-    "fields": {
-        "read": false, 
-        "notification": 1, 
-        "link": "/challenges/41/", 
-        "user": 99, 
-        "timestamp": "2013-12-26T07:40:15Z", 
-        "message": "Boss Team posted a challenge called Challenge 11"
-    }
-},
-{
-    "pk": 34, 
-    "model": "notifications.usernotification", 
-    "fields": {
-        "read": false, 
-        "notification": 1, 
-        "link": "/challenges/41/", 
-        "user": 136, 
-        "timestamp": "2013-12-26T07:40:15Z", 
-        "message": "Boss Team posted a challenge called Challenge 11"
-    }
 }
 ]

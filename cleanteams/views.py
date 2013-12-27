@@ -367,9 +367,11 @@ def clean_team_member_action(request):
 		uid = request.POST['uid']
 		action = request.POST['action']
 		
+		clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
+
 		if action == "approve":
-			CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="approved")
+			clean_team_member.approveCleanAmbassador(request)
 		elif action == "remove":
-			CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="removed")
+			clean_team_member.removedCleanAmbassador(request)
 			
 	return HttpResponse("success")

@@ -10,7 +10,7 @@ class NotificationAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class UserNotificationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'notification', 'read')
+    list_display = ('id', 'user', 'notification', 'read', 'timestamp')
     search_fields = ['user', 'notification', 'read']
 
 admin.site.register(Notification, NotificationAdmin)

@@ -53,6 +53,26 @@ class CleanTeamMember(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
+	
+	def approveCleanAmbassador(self, request):
+		self.status = "approved"
+		self.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="ca_joined")
+		# The names that will go in the notification message template
+		name_strings = [self.clean_team.name]
+		link_strings = [str(self.clean_team.id)]
+	
+		user_notification = UserNotification()
+		user_notification.create_notification("ca_joined", self.user, name_strings, link_strings)
+
+	@staticmethod
+	def removedCleanAmbassador(request):
+		ctid = request.POST['ctid']
+		uid = request.POST['uid']
+
+		CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="removed")
 
 	def requestBecomeCleanAmbassador(self, user, form):
 		selected_team = form.cleaned_data['team']
