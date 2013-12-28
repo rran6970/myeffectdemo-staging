@@ -56,7 +56,7 @@ class UserProfile(models.Model):
 		return True
 
 	def get_notifications(self):
-		user_notifications = UserNotification.objects.filter(user=self.user)
+		user_notifications = UserNotification.objects.filter(user=self.user).order_by('-timestamp')[:5]
 		return user_notifications
 
 	def count_unread_notifications(self):

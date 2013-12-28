@@ -8,6 +8,8 @@ $(function(){
     	$(this).datepicker('hide');
   	});
 
+    $(".notification-link").on('click', ajaxReadNotification);
+
     $("[rel=tooltip]").tooltip({ 
         "html" : true,
         "animation" : true,
@@ -30,6 +32,29 @@ $(function(){
         }
     });
 });
+
+function ajaxReadNotification(e)
+{
+    var element = $(this);
+    var form = element.closest("form");
+
+    url = element.attr("href");
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+            window.location = url;
+        },
+        error: function(data) {
+            window.location = url;
+        }
+    });
+
+    e.preventDefault();
+    return false;
+}
 
 function ajaxCheckInCheckOut(e)
 {       

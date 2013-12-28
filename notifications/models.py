@@ -44,6 +44,10 @@ class UserNotification(models.Model):
 	def __unicode__(self):
 		return u'Notification %s on %s' % (self.notification, self.user)
 
+	def read_notification(self):
+		self.read = True
+		self.save()
+
 	def create_notification(self, notification_type, user, *args, **kwargs):
 		notification = Notification.objects.get(notification_type=notification_type)
 
@@ -68,11 +72,7 @@ class UserNotification(models.Model):
 		else:
 			link = notification.link
 
-		print message
-		print link
-
 		self.link = link
-
 		self.save()
 
 	def save(self, *args, **kwargs):

@@ -36,24 +36,31 @@
 <div class="dropdown" id="notification-dropdown">
 	<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
 	
-	<ul class="dropdown-menu notification-dropdown" role="menu" aria-labelledby="dLabel">
-		{% if user.profile.count_notifications > 0 %}
-			{% for notification in user.profile.get_notifications %}
-			<li {% if not notification.read %}class="unread"{% endif %}>
-				<a href="{{ notification.link }}">
-					<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
-					<div>{{ notification.message }}</div>
-				</a>
-			</li>
-			{% endfor %}
-		{% else %}
-			<li>
-				<a>
-					<div style="text-align: center"><h2>No notifications</h2></div>
-				</a>
-			</li>
-		{% endif %}
-	</ul>
+	<div class="dropdown-menu notification-dropdown">
+		<ul role="menu" aria-labelledby="dLabel">
+			{% if user.profile.count_notifications > 0 %}
+				{% for notification in user.profile.get_notifications %}
+				<li class="{% if not notification.read %}unread{% endif %}">
+					<form action="/notifications/read/" method="post">{% csrf_token %}
+						<input type="hidden" name="nid" value="{{ notification.id }}" />
+						<a href="{{ notification.link }}" class="notification-link">
+							<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" />
+							<div>{{ notification.message }}</div>
+							<p class="timestamp">{{ notification.timestamp }}</p>
+						</a>
+					</form>
+				</li>
+				{% endfor %}
+			{% else %}
+				<li>
+					<a>
+						<div style="text-align: center"><h2>No notifications</h2></div>
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+		<a href="/notifications/">View all noitifications</a>
+	</div>
 	
 	{% if user.profile.count_unread_notifications > 0 %}
 	<div id="notification-container">{{ user.profile.count_unread_notifications }}</div>

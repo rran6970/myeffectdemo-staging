@@ -370,8 +370,8 @@ def clean_team_member_action(request):
 		clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
 
 		if action == "approve":
-			clean_team_member.approveCleanAmbassador(request)
+			clean_team_member.approveCleanAmbassador()
 		elif action == "remove":
-			clean_team_member.removedCleanAmbassador(request)
+			clean_team_member.removedCleanAmbassador()
 			
 	return HttpResponse("success")

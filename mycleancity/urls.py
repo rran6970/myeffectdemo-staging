@@ -15,6 +15,7 @@ urlpatterns = patterns('',
 	url(r'^clean-team/', include('cleanteams.urls')),
 	url(r'^challenges/', include('challenges.urls')),
 	url(r'^cleancreds/', include('cleancreds.urls')),
+	url(r'^notifications/', include('notifications.urls')),
 	url(r'^users/', include('users.urls')),
 
 	url(r'^register-success/?', RegisterSuccessView.as_view()),

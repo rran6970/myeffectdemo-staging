@@ -54,7 +54,7 @@ class CleanTeamMember(models.Model):
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
 	
-	def approveCleanAmbassador(self, request):
+	def approveCleanAmbassador(self):
 		self.status = "approved"
 		self.save()
 
@@ -67,12 +67,9 @@ class CleanTeamMember(models.Model):
 		user_notification = UserNotification()
 		user_notification.create_notification("ca_joined", self.user, name_strings, link_strings)
 
-	@staticmethod
-	def removedCleanAmbassador(request):
-		ctid = request.POST['ctid']
-		uid = request.POST['uid']
-
-		CleanTeamMember.objects.filter(clean_team_id=ctid, user_id=uid).update(status="removed")
+	def removedCleanAmbassador(self):
+		self.status = "removed"
+		self.save()
 
 	def requestBecomeCleanAmbassador(self, user, form):
 		selected_team = form.cleaned_data['team']
