@@ -31,9 +31,9 @@ p, label { display: block; line-height: 20px; font-weight: 200; font-size: 14px;
 ul, ol { padding: 0; margin: 0 0 10px 25px; }
 img { outline: 0; }
 hr { margin: 20px 0; border: 0; border-top: 1px solid #EEE; border-bottom: none; }
-a { letter-spacing: 0px; font-weight: 200; outline: 0; color: #638d3d;  }
+a { letter-spacing: 0px; font-weight: 200; outline: 0 !important; outline: none !important; color: #638d3d;  }
 a:hover { color: #86b45c; text-decoration: none; }
-a:active { outline: 0; }
+a:active { outline: 0 !important; outline: none !important; }
 
 select { display: block; }
 input[type="text"], input[type="password"], textarea { font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; padding: 13px 10px 7px 10px\9; font-weight: 200; text-align: left; margin-bottom: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
@@ -106,3 +106,6 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 
 .warning { background-color: #fcf8e3; border: 1px solid #F5D49D; }
 .warning p, .warning li { color: #c09853 !important; }
+
+.popup-container { display: none; }
+.popup { padding: 20px; }

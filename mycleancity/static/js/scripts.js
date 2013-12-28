@@ -10,6 +10,13 @@ $(function(){
 
     $(".notification-link").on('click', ajaxReadNotification);
 
+    $(".popup-600").colorbox({
+        width: "600px",
+        height: "500px",
+        inline: true, 
+        scrolling: true
+    });
+
     $("[rel=tooltip]").tooltip({ 
         "html" : true,
         "animation" : true,

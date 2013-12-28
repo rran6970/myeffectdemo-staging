@@ -101,6 +101,7 @@ class RegisterUserForm(forms.ModelForm):
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+	uea = forms.BooleanField(required=True)
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -118,6 +119,7 @@ class RegisterUserForm(forms.ModelForm):
 		province = cleaned_data.get('province')
 		school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
+		uea = cleaned_data.get('uea')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -135,6 +137,8 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please select your province")
 		elif not school_type:
 			raise forms.ValidationError("Please select your school type")
+		elif not uea:
+			raise forms.ValidationError("Please accept the Terms & Conditions")
 
 		if password and confirm_password:
 			if password != confirm_password:

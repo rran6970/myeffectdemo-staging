@@ -41,7 +41,7 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 .dropdown-menu.notification-dropdown ul li a:hover { opacity: 0.90; }
 .dropdown-menu.notification-dropdown ul li.unread { background: url(../images/1x1-green.png) repeat 0 0 !important; /*background-color: #A5FFA1 !important;*/ }
 .dropdown-menu.notification-dropdown ul li a img.notification-image { float: left; margin-right: 10px; }
-.dropdown-menu.notification-dropdown ul li a div { font-size: 12px; width: 215px; height: 38px; /*margin-top: 5px;*/ overflow: hidden; position: relative; top: 6px; white-space: normal; text-align: left; }
+.dropdown-menu.notification-dropdown ul li a div { font-size: 12px; height: 38px; /*margin-top: 5px;*/ overflow: hidden; position: relative; top: 6px; white-space: normal; text-align: left; }
 .dropdown-menu.notification-dropdown ul li a p.timestamp { color: #999; font-size: 12px; float: right; }
 .dropdown-menu.notification-dropdown a { display: block; text-align: center; margin-top: 10px; }
 
@@ -106,6 +106,17 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 #footer #hak-studio { width: 305px; float: right; text-align: center; }
 #footer #hak-studio a { display: block; }
 #footer #kelly-effect { width: 288px; margin: 0 auto; text-align: center; }
+
+/******************************
+	Terms & Conditions Section
+******************************/ 
+#terms-conditions h1 { text-align: center; margin-bottom: 20px; }
+#terms-conditions h2.section-overview { color: #638d3d; font-size: 22px; margin-top: 50px; }
+#terms-conditions h3.section { margin: 20px 0; }
+#terms-conditions p { margin: 10px 0; }
+#terms-conditions ul li { list-style-type: disc; margin: 0 10px; line-height: 20px;font-weight: 200; font-size: 14px; letter-spacing: 0px; }
+#terms-conditions #copyright { float: right; }
+#terms-conditions #copyright p { text-align: right; }
 
 /******************************
 	About
@@ -231,14 +242,17 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
 
 #white-box.register { width: 478px; left: 32%; }
-#white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto 0; }
+#white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 24px auto 0; }
 #white-box.register input[type="checkbox"] { margin: 0; padding: 0; }
 #white-box.register p { text-align: center; }
 
-#white-box.register table tr td { height: 60px; }
+#white-box.register table tr td { /*height: 60px;*/ }
 
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
+
+#white-box.register #id_uea { float: left; }
+#white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; }
 
 /******************************
 	Profile
