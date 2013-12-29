@@ -64,14 +64,14 @@ def check_in_check_out(request):
 				userchallenge.save()
 
 				# Add CredCreds
-				user.profile.clean_creds += challenge.getChallengeCleanCreds(total_hours)
+				user.profile.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
 				user.profile.save()
 
 				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
+					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
 					user.profile.clean_team_member.clean_team.save()
 				else:
-					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
+					challenge.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
 					challenge.clean_team.save()
 
 				return HttpResponse(total_hours)
@@ -248,7 +248,8 @@ class ChallengeView(TemplateView):
 				print e
 				pass
 			
-			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
+			context['participants'] = UserChallenge.objects.filter(challenge=challenge)
+			print challenge.getChallengeCleanCredsPerHour()
 			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user

@@ -71,10 +71,15 @@ class Challenge(models.Model):
 				user_notification = UserNotification()
 				user_notification.create_notification("challenge_posted", member.user, name_strings, link_strings)
 
-	def getChallengeCleanCreds(self, total_hours):
+	def getChallengeTotalCleanCreds(self, total_hours):
 		challenge_category = ChallengeCategory.objects.get(challenge=self)
 		
 		return int(challenge_category.category.clean_cred_value * total_hours)
+
+	def getChallengeCleanCredsPerHour(self):
+		challenge_category = ChallengeCategory.objects.get(challenge=self)
+
+		return int(challenge_category.category.clean_cred_value)
 
 	def getChallengeCategory(self):
 		challenge_category = ChallengeCategory.objects.get(challenge=self)

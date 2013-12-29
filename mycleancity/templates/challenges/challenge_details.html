@@ -23,7 +23,12 @@
     <div class="container">
     	<div id="sign-challenge-overview"></div>
         <div id="white-box">
-        	<h1>{{ challenge.title }}</h1>
+        	<h2>{{ challenge.title }}</h2>
+        	<a id="learn-more" class="popup-600" href="#challenge-description">Learn more</a>
+        	<div class="clear"></div>
+        	{% if challenge.host_organization %}
+        		<span class="subtitle">Hosted by: {{ challenge.host_organization }}</span>
+        	{% endif %}
 
         	{% if user.profile.clean_team_member.role == "clean-ambassador" and user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
         	<span id="edit-challenge-link">
@@ -34,25 +39,14 @@
 			<div class="clear"></div>
 
 			<table>
-				{% if challenge.host_organization %}
 				<tr>
-					<td class="titles">Hosted by:</td>
-					<td>{{ challenge.host_organization }}</td>
-				</tr>
-				{% endif %}
-				<tr>
-					<td class="titles">Where:</td>
-					<td>{{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
+					<td><span class="titles">Date:</span> {{ challenge.event_date }} {{ challenge.event_time }}</td>
 				</tr>
 				<tr>
-					<td class="titles">When:</td>
-					<td>{{ challenge.event_date }} {{ challenge.event_time }}</td>
+					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td colspan="2"><p>{{ challenge.description }}</p></td>
-				</tr>
-				<tr>
-					<td class="titles"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCreds }}</span></td>
+					<td><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCredsPerHour }}</span></td>
 				</tr>
 			</table>
 		
@@ -82,13 +76,21 @@
 
 			{% for participant in participants %}
 				<div class="participants">
-					<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+					<a href="/users/profile/{{ participant.user.id }}">
+						<img class="" src="{{ STATIC_URL }}images/default-profile-pic-50x50.png" alt="" /><p>{{ participant.user.get_full_name }}</p>
+					</a>
         		</div>
 			{% endfor %}
         </div>
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="challenge-description" class="popup">
+  	{{ challenge.description }}
+  </div><!-- end of #challenge-description -->
+</div><!-- end of .popup-container -->
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
