@@ -25,13 +25,17 @@
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
-						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }}</h1></a>
 
-						<a href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
+						<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 						
-						<span class="location">
-							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>
-						</span>
+						<div class="title">
+							<p><span>Date:</span>&nbsp;{{ challenge.event_date }}</p>
+						</div>
+
+						<div class="title">
+							<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
+						</div>
 					</div>
 				{% endfor %}
 			{% else %}
@@ -40,7 +44,7 @@
         </div><!-- /#white-box -->
 		{% endif %}
 	
-        <div id="white-box" class="user-challenges" {% if not user.profile.clean_team_member %}style="left: 30%"{% endif %}>
+        <div id="white-box" class="user-challenges" {% if not user.profile.clean_team_member %}style="left: 30%; width: 600px;"{% endif %}>
 			{% if user_challenges %}
 				
 				<div class="table-container">
@@ -48,30 +52,30 @@
 						<tbody>
 							{% for challenge in user_challenges %}
 							<tr>
-								<td>
+								<td class="icon">
 									{% if challenge.time_out %}
 									<img class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
 									{% else %}
 										{% if challenge.time_in %}
 										<img class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
 										{% else %}
-										<div style="height: 32px; width: 32px; float: left;"></div>
+										<img class="status-icon" src="{{ STATIC_URL }}images/32x32-red-circle.png" alt="" />
 										{% endif %}
 									{% endif %}
-
+								</td>
+								<td class="challenge">
 									<div class="challenge-info">
-										<a href="/challenges/{{ challenge.challenge.id }}/">{{ challenge.challenge.title|upper }} - {{ challenge.challenge.event_date }}</a>
+										<a href="/challenges/{{ challenge.challenge.id }}/">{{ challenge.challenge.title|upper }}</a>
 
-										{% if challenge.time_out %}
-										<span class="total-hours">{{ challenge.total_hours }} Hours</span>
+										{% if challenge.time_in %}
+										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
 										{% else %}
-											{% if challenge.time_in %}
-											<span class="total-hours">Checked in</span>
-											{% else %}
-											<span class="total-hours">Not checked in</span>
-											{% endif %}
-										{% endif %}
+										<span class="total-hours">Not checked in</span>
+										{% endif %}									
 									</div>
+								</td>
+								<td class="total-hours">
+									{{ challenge.total_hours }} hours
 								</td>
 							</tr>
 							{% endfor %}

@@ -308,16 +308,20 @@ div.content.my-challenges { background: url(../images/challenge-centre-bg.png) n
 div.content.my-challenges #white-box.posted-challenges { width: 478px; height: 300px; left: 50%; }
 
 div.content.my-challenges #white-box.user-challenges { width: 478px; height: 300px; left: 11%; }
-div.content.my-challenges #white-box.user-challenges .table .status-icon { display: block; float: left; }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; }
+div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
+div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; font-size: 12px; }
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; margin-left: 10px; }
 
 
-div.content.my-challenges #white-box div.challenges { margin: 20px 0; padding: 10px 15px; border-bottom: 1px solid #abd78c; vertical-align: middle; }
+div.content.my-challenges #white-box div.challenges { margin: 20px 0; padding: 10px 0; border-bottom: 1px solid #abd78c; vertical-align: middle; }
 div.content.my-challenges #white-box div.challenges h1 { line-height: 20px; font-weight: 900; font-size: 16px; margin-bottom: 12px; }
-div.content.my-challenges #white-box div.challenges span.location { margin-left: 10px; display: block; }
-div.content.my-challenges #white-box div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
-div.content.my-challenges #white-box div.challenges span.location p { font-size: 15px; }
+
+div.content.my-challenges #white-box div.challenges .view-participants { float: right; }
+div.content.my-challenges #white-box div.challenges div.title { margin-left: 10px; display: block; }
+div.content.my-challenges #white-box div.challenges div.title p { font-size: 15px; }
+div.content.my-challenges #white-box div.challenges div.title p span { font-weight: 700; font-size: 16px; }
+
 div.content.my-challenges #white-box div.challenges span.clean-creds { margin-left: 10px; display: block; }
 div.content.my-challenges #white-box div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
 div.content.my-challenges #white-box div.challenges span.status h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }

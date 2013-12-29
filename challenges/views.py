@@ -63,16 +63,18 @@ def check_in_check_out(request):
 				userchallenge.total_hours = total_hours
 				userchallenge.save()
 
-				# Add CredCreds
+				# Add CleanCreds to individual
 				user.profile.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
 				user.profile.save()
 
-				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
-					user.profile.clean_team_member.clean_team.save()
-				else:
-					challenge.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
-					challenge.clean_team.save()
+				# Add CleanCreds to Clean Team if appliciable
+				if user.profile.clean_team_member:
+					if user.profile.clean_team_member.status == "approved":
+						user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
+						user.profile.clean_team_member.clean_team.save()
+					else:
+						challenge.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
+						challenge.clean_team.save()
 
 				return HttpResponse(total_hours)
 
@@ -190,7 +192,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 			return HttpResponseRedirect('/challenges/my-challenges/')
 
 		try:
-			challenge = Challenge.objects.get(id=cid, user=self.request.user)
+			challenge = Challenge.objects.get(id=cid, clean_team=self.request.user.profile.clean_team_member.clean_team)
 		except Exception, e:
 			print e
 			return HttpResponseRedirect('/challenges/my-challenges/')			
