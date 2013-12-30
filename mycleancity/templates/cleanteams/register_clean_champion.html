@@ -44,8 +44,8 @@
                         <input type="submit" class="btn btn-primary" value="Select" />
                       </form>
                     </td>
-                    <td class="team">                          
-                      {{ team.name }}
+                    <td class="team">
+                      <a href="/clean-team/{{ team.id }}">{{ team.name }}</a>
                     </td>
                   </tr>
                   {% endfor %}

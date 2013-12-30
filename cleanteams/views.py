@@ -21,8 +21,8 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion
 
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -218,11 +218,20 @@ class CleanTeamView(TemplateView):
 
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
-			ctms = CleanTeamMember.objects.filter(clean_team_id=ctid)
+			cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
+			ccs = CleanChampion.objects.filter(clean_team_id=ctid)
 			posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
-			
+
+			try:
+				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=self.request.user)
+				context['clean_champion'] = clean_champion
+			except Exception, e:
+				print e
+
+			context['page_url'] = self.request.get_full_path()
 			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
-			context['ctms'] = ctms
+			context['cas'] = cas
+			context['ccs'] = ccs
 			context['posts'] = posts
 
 		context['user'] = self.request.user
@@ -266,7 +275,7 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 
 class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/register_clean_champion.html"
-	form_class = RequestJoinTeamsForm
+	form_class = JoinTeamCleanChampionForm
 
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
@@ -275,16 +284,18 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
+		selected_team = form.cleaned_data['team']
+
 		try:
-			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+			clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
+			print clean_champion
 		except Exception, e:
 			print e
-			clean_team_member = CleanTeamMember()
+			clean_champion = CleanChampion()
 
-		selected_team = form.cleaned_data['team']
-		clean_team_member.becomeCleanChampion(self.request.user, selected_team)
+		clean_champion.becomeCleanChampion(self.request.user, selected_team)
 
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/clean-team/%s' % str(selected_team.id))
 
 	def get_context_data(self, **kwargs):
 		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
@@ -305,7 +316,9 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		user = self.request.user
 
 		ct = CleanTeamMember.objects.get(user=user)
-		ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
+		cas = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
+		ccs = CleanChampion.objects.filter(clean_team=ct.clean_team)
+		# ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
 		
 		# TODO: HttpResponseRedirect is not working
 		# Check if approved Clean Ambassador
@@ -315,7 +328,9 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 
 		context['user'] = user
 		context['clean_team'] = ct.clean_team
-		context['clean_team_members'] = ctm
+		context['cas'] = cas
+		context['ccs'] = ccs
+		# context['clean_team_members'] = ctm
 
 		return context
 
@@ -371,12 +386,12 @@ def be_clean_champion(request):
 
 		try:
 			selected_team = CleanTeam.objects.get(id=ctid)
-			ctm = CleanTeamMember.objects.get(user=request.user)
+			clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
 		except Exception, e:
 			print e
-			ctm = CleanTeamMember()
-
-		ctm.becomeCleanChampion(request.user, selected_team)
+			clean_champion = CleanChampion()
+			
+		clean_champion.becomeCleanChampion(request.user, selected_team)
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 

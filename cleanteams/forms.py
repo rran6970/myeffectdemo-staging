@@ -65,6 +65,9 @@ class CreateTeamOrJoinForm(forms.Form):
 class RequestJoinTeamsForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
 
+class JoinTeamCleanChampionForm(forms.Form):
+	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
+
 class PostMessageForm(forms.Form):
 	message = forms.CharField(required=False, widget=forms.Textarea())
 

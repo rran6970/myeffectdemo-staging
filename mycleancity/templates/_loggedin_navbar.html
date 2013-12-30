@@ -20,10 +20,10 @@
 		{% endif %}
 		{% if not user.profile.has_clean_team %}
 		<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
-		<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
 		{% else %}
 		<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
 		{% endif %}
+		<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
 		<li><a href="/clean-team/" class="menu-items">All Clean Teams</a></li>
 	</ul>
 </div><!-- end of .dropdown -->

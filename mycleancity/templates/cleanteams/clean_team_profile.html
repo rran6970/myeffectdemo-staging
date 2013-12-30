@@ -30,6 +30,9 @@
             </div>
             
             <div id="clean-team-info">
+              <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
+
               {% if clean_team.twitter %}
               <div>
                 <span><a href="http://twitter.com/{{ clean_team.twitter }}" target="_blank">{{ clean_team.twitter }}</a></span>
@@ -45,25 +48,26 @@
             <a href="#clean-team-members-list" id="clean-team-members-list-btn" class="popup-200">View Members</a>
 
             {% if user.is_authenticated %}
-              {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
-
               <!-- Clean Ambassador -->
+              {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
               <form action="/clean-team/ca-request-join/" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="ctid" value="{{ clean_team.id }}">
                 <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to Join" />
               </form>
+              {% endif %}
+        
+              {% if user.profile.clean_team_member.status == "pending" %}
+                <input disabled id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to join sent" />
+              {% endif %}
 
               <!-- Clean Champion -->
+              {% if not clean_champion and not user.profile.clean_team_member.role == "clean-ambassador" and not user.profile.clean_team_member.status == "removed"%}
               <form action="/clean-team/cc-join/" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="ctid" value="{{ clean_team.id }}">
                 <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Be a Clean Champion" />
               </form>
-              {% endif %}
-              
-              {% if user.profile.clean_team_member.status == "pending" %}
-                <input disabled id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to join sent" />
               {% endif %}
 
             {% else %}
@@ -117,18 +121,28 @@
 
 <div class="popup-container">
   <div id="clean-team-members-list" class="popup">
-    {% for member in ctms %}
+    <!-- Clean Ambassadors -->
+    {% for member in cas %}
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
           <p>
           {% if member.role == "clean-ambassador" %}
             <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            {{ member.user.first_name }} {{ member.user.last_name }}
           {% endif %}
-          {% if member.role == "clean-champion" %}
-            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
-          {% endif %}
-          {{ member.user.first_name }} {{ member.user.last_name }}
         </p>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Clean Champions -->
+    {% for member in ccs %}
+      {% if member.user.is_active %}
+        {% if member.status == "approved" %}
+          <p>          
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+            {{ member.user.first_name }} {{ member.user.last_name }}
+          </p>
         {% endif %}
       {% endif %}
     {% endfor %}

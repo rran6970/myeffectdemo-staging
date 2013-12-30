@@ -18,7 +18,7 @@
   <div class="content">
     <div class="container">
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
-        <div id="white-box" class="team-members">
+        <div id="white-box" class="team-members-ca">
 			{% csrf_token %}
 			<h1 id="team-name">{{ clean_team.name }}</h1>
 			<p class="subtitle">Edit team members</p>
@@ -32,32 +32,27 @@
 						</tr>
 					</thead>
 					<tbody>
-					{% for ctm in clean_team_members %}
-						{% if ctm.user.is_active %}
+					{% for ca in cas %}
+						{% if ca.user.is_active and ca.role == "clean-ambassador" %}
 						<tr>
-							<td class="members">
-								{% if ctm.role == "clean-ambassador" %}
-				                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
-				                {% endif %}
-				                {% if ctm.role == "clean-champion" %}
-				                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
-				                {% endif %}
-								{{ ctm.user.first_name }} {{ ctm.user.last_name }}
+							<td class="members">						
+			                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+			                  <a href="/users/profile/{{ ca.user.id }}">{{ ca.user.first_name }} {{ ca.user.last_name }}</a>
 							</td>
 							<td class="status">
-								{{ ctm.status }}
+								{{ ca.status }}
 							</td>
 							<td class="actions">
 								<form class="members-forms" action="/clean-team/member-action/" method="post">
 									{% csrf_token %}
-									<input type="hidden" name="uid" value="{{ ctm.user.id }}" />
+									<input type="hidden" name="uid" value="{{ ca.user.id }}" />
 									<input type="hidden" name="ctid" value="{{ clean_team.id }}">
 									
-									{% if ctm.status == "pending" %}
+									{% if ca.status == "pending" %}
 										<input type="hidden" id="action" name="action" value="approve" />
 										<input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
 									{% endif %}
-									{% if ctm.status == "approved" %}
+									{% if ca.status == "approved" %}
 										<input type="hidden" id="action" name="action" value="remove" />
 										<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
 									{% endif %}
@@ -70,6 +65,23 @@
 				</table><!-- /.table.table-hover -->
 			</div><!-- /.table-container -->
         </div><!-- /#white-box -->
+
+		<div id="white-box" class="team-members-cc">	
+			<h1 id="team-name">Clean Champions</h1>	
+	        <div id="clean-team-members-list">
+			    {% for cc in ccs %}
+			      {% if cc.user.is_active %}
+			        {% if cc.status == "approved" %}
+			          <p>          
+			            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+			            <a href="/users/profile/{{ cc.user.id }}">{{ cc.user.first_name }} {{ cc.user.last_name }}</a>
+			          </p>
+			        {% endif %}
+			      {% endif %}
+			    {% endfor %}
+			</div><!-- end of #clean-team-members-list -->
+		</div><!-- /#white-box -->
+
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

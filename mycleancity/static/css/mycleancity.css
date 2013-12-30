@@ -67,7 +67,7 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 #sign-go-back.register { left: 373px; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
-#sign-go-back.clean-team-members { left: 270px; }
+#sign-go-back.clean-team-members { left: 181px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
 #sign-go-back-big.students { left: 32px; top: 386px; }
 #sign-go-back-big.organizations { left: 32px; top: 296px; }
@@ -237,7 +237,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 ******************************/ 
 #white-box.register-join-team { width: 678px; left: 24%; }
 #white-box.register-join-team .btn.btn-primary { padding-top: 10px; }
-#white-box.register-join-team .table .action { width: 151px; vertical-align: middle; }
+#white-box.register-join-team .table .action { text-align: center; width: 151px; vertical-align: middle; }
 #white-box.register-join-team .table .action input[type="submit"] { margin: 0; }
 #white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
 
@@ -276,7 +276,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.public-profile div.info div.field * { font-size: 14px; line-height: 18px; }
 #white-box.public-profile div.info div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
 #white-box.public-profile div.info div.field.about p.title { margin-bottom: -16px; }
-#white-box.public-profile + #badge-icon { display: block; position: absolute; top: -25px; right: 188px; z-index: 1000; }
+#white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px;right: 344px; z-index: 1000; }
 
 /******************************
 	New Challenge
@@ -338,7 +338,7 @@ div.content.challenge-overview { background: url(../images/challenge-centre-bg.p
 div.content.challenge-overview #white-box { width: 530px; height: 300px; left: 11%; }
 div.content.challenge-overview #white-box h2 { float: left; text-transform: uppercase; font-weight: 400; }
 div.content.challenge-overview #white-box #learn-more { top: 6px; position: relative; left: 18px; }
-div.content.challenge-overview #white-box #edit-challenge-link { top: 6px; position: relative; left: 131px; }
+div.content.challenge-overview #white-box #edit-challenge-link { top: 6px; position: relative; left: 105px; }
 /*div.content.challenge-overview #white-box h1 + span { display: block; top: 11px; left: 12px; position: relative; }*/
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
 div.content.challenge-overview #white-box table { margin: 30px 0; }
@@ -400,8 +400,11 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 	Clean Team Members Page
 ******************************/ 
 #white-box p { font-weight: 400; }
-#white-box.team-members { width: 685px; left: 24%; }
-#white-box.team-members #team-name {  }
+#white-box.team-members-ca { width: 685px; left: 17%; }
+#white-box.team-members-ca #team-name {  }
+#white-box.team-members-ca table thead tr th.actions { text-align: center; }
+
+#white-box.team-members-cc { left: 73%%; width: 275px; }
 
 /******************************
 	Clean Team Page

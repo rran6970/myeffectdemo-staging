@@ -32,10 +32,23 @@ class UserProfile(models.Model):
 		return u'UserProfile: %s' % self.user.username
 
 	def is_clean_ambassador(self):
-		ctm = CleanTeamMember.objects.get(user=self.user)
+		try:
+			ctm = CleanTeamMember.objects.get(user=self.user)
 
-		return True if ctm.role=="clean-ambassador" and ctm.status=="approved" else False
+			return True if ctm.role=="clean-ambassador" and ctm.status=="approved" else False
+		except Exception, e:
+			print e
+			return False
 
+	def is_clean_champion(self, clean_team):
+		try:
+			clean_champion = CleanChampion.objects.get(user=self.user, clean_team=clean_team)
+
+			return True if clean_champion.status=="approved" else False
+		except Exception, e:
+			print e
+			return False
+		
 	def is_organization(self):
 		try:
 			organization = UserOrganization.objects.get(user=self.user)

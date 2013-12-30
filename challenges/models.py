@@ -3,9 +3,11 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-from cleanteams.models import CleanTeam, CleanTeamMember
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion
+
 from notifications.models import Notification, UserNotification
 
+from itertools import chain
 """
 Name:           Challenge
 Date created:   Sept 8, 2013
@@ -67,7 +69,14 @@ class Challenge(models.Model):
 		for role in users_to_notify:
 			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-			for member in clean_team_members:
+			members_list = list(clean_team_members)
+
+			if role == "clean-champion":
+				clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
+
+				members_list = list(chain(clean_team_members, clean_champions))
+
+			for member in members_list:
 				user_notification = UserNotification()
 				user_notification.create_notification("challenge_posted", member.user, name_strings, link_strings)
 

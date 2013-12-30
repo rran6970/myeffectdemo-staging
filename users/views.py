@@ -26,6 +26,8 @@ from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
 
+from cleanteams.models import CleanChampion
+
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile
 from userorganization.models import UserOrganization
@@ -197,6 +199,7 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 				print e
 				pass
 
+			context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
 			context['user_profile'] = get_object_or_404(User, id=user_id)
 

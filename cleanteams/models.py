@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Count
 
+from itertools import chain
+
 from time import time
 
 from notifications.models import Notification, UserNotification
@@ -39,6 +41,50 @@ class CleanTeam(models.Model):
 		super(CleanTeam, self).save(*args, **kwargs)
 
 """
+Name:           CleanChampion
+Date created:   Dec 30, 2013
+Description:    Users can be part of Clean Teams as Clean Champions
+"""
+class CleanChampion(models.Model):
+	user = models.ForeignKey(User)
+	clean_team = models.ForeignKey(CleanTeam)
+	status = models.CharField(max_length=30, default="approved")
+
+	class Meta:
+		verbose_name_plural = u'Clean Champions'
+
+	def __unicode__(self):
+		return u'%s is supporting %s' %(self.user.email, self.clean_team.name)
+
+	def save(self, *args, **kwargs):
+		super(CleanChampion, self).save(*args, **kwargs)
+
+	def becomeCleanChampion(self, user, selected_team):
+		self.user = user
+		self.clean_team = selected_team
+		self.status = "approved"
+		self.save()
+
+		# Send notifications
+		notification = Notification.objects.get(notification_type="cc_joined")
+		# The names that will go in the notification message template
+		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+		name_strings = [full_name, self.clean_team.name]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("cc_joined", member.user, name_strings)
+
+		self.clean_team.add_team_clean_creds(5)	
+
+"""
 Name:           CleanTeamMember
 Date created:   Nov 25, 2013
 Description:    Users can be part of Clean Teams
@@ -61,6 +107,8 @@ class CleanTeamMember(models.Model):
 	def approveCleanAmbassador(self):
 		self.status = "approved"
 		self.save()
+
+		CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
 
 		# Send notifications
 		notification = Notification.objects.get(notification_type="ca_joined")
@@ -101,35 +149,6 @@ class CleanTeamMember(models.Model):
 			for member in clean_team_members:
 				user_notification = UserNotification()
 				user_notification.create_notification("ca_request", member.user, name_strings)
-
-	def becomeCleanChampion(self, user, selected_team):
-		self.user = user
-		self.clean_team = selected_team
-		self.status = "approved"
-		self.role = "clean-champion"
-		self.save()
-
-		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		self.user.profile.save()
-
-		# Send notifications
-		notification = Notification.objects.get(notification_type="cc_joined")
-		# The names that will go in the notification message template
-		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-		name_strings = [full_name, self.clean_team.name]
-
-		users_to_notify_str = notification.users_to_notify
-		users_to_notify = users_to_notify_str.split(', ')
-
-		# Notify all of the Users that have the roles within users_to_notify
-		for role in users_to_notify:
-			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
-
-			for member in clean_team_members:
-				user_notification = UserNotification()
-				user_notification.create_notification("cc_joined", member.user, name_strings)
-
-		self.clean_team.add_team_clean_creds(5)
 
 	def has_max_clean_ambassadors(self):
 		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
@@ -176,7 +195,14 @@ class CleanTeamPost(models.Model):
 		for role in users_to_notify:
 			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-			for member in clean_team_members:
+			members_list = list(clean_team_members)
+
+			if role == "clean-champion":
+				clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
+
+				members_list = list(chain(clean_team_members, clean_champions))
+
+			for member in members_list:
 				user_notification = UserNotification()
 				user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
 

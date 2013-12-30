@@ -14,7 +14,7 @@ from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
 from challenges.models import Challenge, UserChallenge, ChallengeCategory
-from cleanteams.models import CleanTeamMember
+from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -63,18 +63,29 @@ def check_in_check_out(request):
 				userchallenge.total_hours = total_hours
 				userchallenge.save()
 
+				total_clean_creds = challenge.getChallengeTotalCleanCreds(total_hours)
+
 				# Add CleanCreds to individual
-				user.profile.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
+				user.profile.clean_creds += total_clean_creds
 				user.profile.save()
 
-				# Add CleanCreds to Clean Team if applicable
+				# Add CleanCreds to Clean Teams if applicable
+				clean_champions = CleanChampion.objects.filter(user=user)
+
+				for clean_champion in clean_champions:
+					if clean_champion.status == "approved":
+						clean_champion.clean_team.clean_creds += total_clean_creds
+						clean_champion.clean_team.save()
+
+				# Clean Ambassador
 				if user.profile.clean_team_member:
-					if user.profile.clean_team_member.status == "approved":
-						user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
+					if user.profile.is_clean_ambassador or user.profile.clean_team_member.status == "approved":
+						user.profile.clean_team_member.clean_team.clean_creds += total_clean_creds
 						user.profile.clean_team_member.clean_team.save()
-					else:
-						challenge.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
-						challenge.clean_team.save()
+				
+				# Clean Team posting challenge	
+				challenge.clean_team.clean_creds += total_clean_creds
+				challenge.clean_team.save()
 
 				return HttpResponse(total_hours)
 
@@ -224,7 +235,7 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		print self.request.user.profile.is_clean_ambassador()
+		# print self.request.user.profile.is_clean_ambassador()
 
 		if self.request.user.profile.is_clean_ambassador():
 			try:
