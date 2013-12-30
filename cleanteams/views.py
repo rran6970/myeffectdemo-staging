@@ -219,9 +219,11 @@ class CleanTeamView(TemplateView):
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
 			ctms = CleanTeamMember.objects.filter(clean_team_id=ctid)
+			posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
 			
 			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 			context['ctms'] = ctms
+			context['posts'] = posts
 
 		context['user'] = self.request.user
 
@@ -244,8 +246,10 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 			print e
 			ctm = CleanTeamMember()
 
+		selected_team = form.cleaned_data['team']
+
 		# if not ctm.has_max_clean_ambassadors():
-		ctm.requestBecomeCleanAmbassador(self.request.user, form)
+		ctm.requestBecomeCleanAmbassador(self.request.user, selected_team)
 		# else:
 			#TODO: Message saying that the Clean Team ambassador count is full
 			# pass
@@ -343,21 +347,20 @@ class PostMessageView(LoginRequiredMixin, FormView):
 # On the Clean Team's Profile
 def request_join_clean_team(request):
 	if request.method == 'POST':
-		ctid = request.POST['ctid']
+		ctid = request.POST.get('ctid')
 
-		ct = get_object_or_404(CleanTeam, id=ctid)
-		
 		try:
-			ctm = CleanTeamMember.objects.get(user=self.request.user)
+			selected_team = CleanTeam.objects.get(id=ctid)
+			ctm = CleanTeamMember.objects.get(user=request.user)
 		except Exception, e:
 			print e
 			ctm = CleanTeamMember()
 
-		if not ctm.has_max_clean_ambassadors:
-			ctm.requestBecomeCleanAmbassador(request.user, ct)
-		else:
+		# if not ctm.has_max_clean_ambassadors():
+		ctm.requestBecomeCleanAmbassador(request.user, selected_team)
+		# else:
 			#TODO: Message saying that the Clean Team ambassador count is full
-			pass
+			# pass
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 

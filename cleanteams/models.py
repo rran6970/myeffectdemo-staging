@@ -49,11 +49,11 @@ class CleanTeamMember(models.Model):
 		verbose_name_plural = u'Clean Team Member'
 
 	def __unicode__(self):
-		return u'%s is on %s' %(self.user.username, self.clean_team)
+		return u'%s is on %s' %(self.user.email, self.clean_team.name)
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
-	
+
 	def approveCleanAmbassador(self):
 		self.status = "approved"
 		self.save()
@@ -71,9 +71,7 @@ class CleanTeamMember(models.Model):
 		self.status = "removed"
 		self.save()
 
-	def requestBecomeCleanAmbassador(self, user, form):
-		selected_team = form.cleaned_data['team']
-
+	def requestBecomeCleanAmbassador(self, user, selected_team):
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "pending"

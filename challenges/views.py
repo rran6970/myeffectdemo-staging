@@ -131,6 +131,14 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		try:
 			challenge = Challenge.objects.get(id=cid)
 			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
+
+			#TODO: Shouldn't be able to access all Challenges
+			# if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
+
+			# 	print "unauthorized"
+			# 	return HttpResponseRedirect('/')
+			# else:
+			# 	print "authorized"	
 		except Exception, e:
 			print e
 			return HttpResponseRedirect(u'/challenges/%s' %(cid))
@@ -216,12 +224,15 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		try:
-			ctm = CleanTeamMember.objects.get(user=self.request.user)
-			context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team)
-		except Exception, e:
-			print e
-			pass
+		print self.request.user.profile.is_clean_ambassador()
+
+		if self.request.user.profile.is_clean_ambassador():
+			try:
+				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
+				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team)
+			except Exception, e:
+				print e
+				pass
 
 		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user)
 		
@@ -251,7 +262,7 @@ class ChallengeView(TemplateView):
 				pass
 			
 			context['participants'] = UserChallenge.objects.filter(challenge=challenge)
-			print challenge.getChallengeCleanCredsPerHour()
+			
 			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user

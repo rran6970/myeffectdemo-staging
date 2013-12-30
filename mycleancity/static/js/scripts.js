@@ -11,10 +11,23 @@ $(function(){
     $(".notification-link").on('click', ajaxReadNotification);
 
     $(".popup-600").colorbox({
+        speed: 250,
         width: "600px",
         height: "500px",
         inline: true, 
-        scrolling: true
+        scrolling: true,
+        opacity: 0.7,
+        fadeOut: 200
+    });
+
+    $(".popup-200").colorbox({
+        speed: 250,
+        width: "200px",
+        height: "500px",
+        inline: true, 
+        scrolling: true,
+        opacity: 0.7,
+        fadeOut: 200
     });
 
     $("[rel=tooltip]").tooltip({ 

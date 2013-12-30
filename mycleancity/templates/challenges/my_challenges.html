@@ -19,7 +19,7 @@
     <div class="container">
       	<div id="sign-my-challenges"></div>
 
-      	{% if user.profile.clean_team_member %}
+      	{% if user.profile.is_clean_ambassador %}
         <div id="white-box" class="posted-challenges">
 			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted Challenges</h1>
 			{% if posted_challenges %}
@@ -44,22 +44,29 @@
         </div><!-- /#white-box -->
 		{% endif %}
 	
-        <div id="white-box" class="user-challenges" {% if not user.profile.clean_team_member %}style="left: 30%; width: 600px;"{% endif %}>
+        <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
 			{% if user_challenges %}
 				
 				<div class="table-container">
 					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Challenge</th>
+								<th>Your Hours</th>
+							</tr>
+						</thead>
 						<tbody>
 							{% for challenge in user_challenges %}
 							<tr>
 								<td class="icon">
 									{% if challenge.time_out %}
-									<img class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+									<img title="Challenge is complete" class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
 									{% else %}
 										{% if challenge.time_in %}
-										<img class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
+										<img title="You are checked in to a challenge"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
 										{% else %}
-										<img class="status-icon" src="{{ STATIC_URL }}images/32x32-red-circle.png" alt="" />
+										<img title="Challenge not started yet" class="status-icon" src="{{ STATIC_URL }}images/32x32-red-circle.png" alt="" />
 										{% endif %}
 									{% endif %}
 								</td>
@@ -84,7 +91,7 @@
 				</div><!-- /.table-container -->
 				
 			{% else %}
-				<p>There are no challenges that you've partcipated in.</p>
+				<p style="text-align: center;">There are no challenges that you've partcipated in.</p>
 			{% endif %}
         </div><!-- /#white-box -->
         

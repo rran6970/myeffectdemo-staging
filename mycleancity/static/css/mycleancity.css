@@ -268,7 +268,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 	Public Profile
 ******************************/ 
 #white-box.public-profile { width: 478px; left: 45%; }
-#white-box.public-profile img.profile-pic { display: block; }
+#white-box.public-profile img.profile-pic { display: block; margin-top: 10px; margin-right: 16px; float: right; }
 #white-box.public-profile span.edit-profile-link { position: relative; left: 40px; top: 5px; }
 
 #white-box.public-profile div.info { width: 264px; float: left; }
@@ -307,11 +307,13 @@ div.content.my-challenges { background: url(../images/challenge-centre-bg.png) n
 
 div.content.my-challenges #white-box.posted-challenges { width: 478px; height: 300px; left: 50%; }
 
-div.content.my-challenges #white-box.user-challenges { width: 478px; height: 300px; left: 11%; }
+div.content.my-challenges #white-box.user-challenges { width: 478px; height: 300px; left: 11%; padding: 10px; }
 div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
 div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
+div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
+div.content.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; }
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; font-size: 12px; }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; margin-left: 10px; }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
 
 
 div.content.my-challenges #white-box div.challenges { margin: 20px 0; padding: 10px 0; border-bottom: 1px solid #abd78c; vertical-align: middle; }
@@ -336,6 +338,7 @@ div.content.challenge-overview { background: url(../images/challenge-centre-bg.p
 div.content.challenge-overview #white-box { width: 530px; height: 300px; left: 11%; }
 div.content.challenge-overview #white-box h2 { float: left; text-transform: uppercase; font-weight: 400; }
 div.content.challenge-overview #white-box #learn-more { top: 6px; position: relative; left: 18px; }
+div.content.challenge-overview #white-box #edit-challenge-link { top: 6px; position: relative; left: 131px; }
 /*div.content.challenge-overview #white-box h1 + span { display: block; top: 11px; left: 12px; position: relative; }*/
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
 div.content.challenge-overview #white-box table { margin: 30px 0; }
@@ -344,12 +347,11 @@ div.content.challenge-overview #white-box table tr td p { font-size: 15px; }
 div.content.challenge-overview #white-box table tr td span.titles { font-weight: 700; font-size: 16px; }
 div.content.challenge-overview #white-box input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; }
-div.content.challenge-overview #white-box #edit-challenge-link { float: right; margin-right: 17px; }
 
 div.content.challenge-overview #participants-box { position: absolute; width: 375px; height: 300px; overflow: scroll; z-index: 1000; left: 54%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 div.content.challenge-overview #participants-box h1 { font-weight: 900; }
-div.content.challenge-overview #participants-box div.participants { margin: 7px; width: 89px; float: left; } 
-div.content.challenge-overview #participants-box div.participants a img { margin-left: 8px; display: block; }
+div.content.challenge-overview #participants-box div.participants { margin: 7px; width: 89px; float: left; text-align: center; } 
+div.content.challenge-overview #participants-box div.participants a img { margin: 0 auto 6px; display: block; }
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
@@ -404,12 +406,41 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 /******************************
 	Clean Team Page
 ******************************/ 
-#white-box.clean-team-members-list { width: 240px; left: 35%; }
-#white-box.clean-team-members-list p { font-size: 14px; }
-#white-box.clean-team-members-list p #badge-icon { width: 62px; }
+#clean-team-members-list { width: 240px; left: 35%; }
+#clean-team-members-list p { font-size: 14px; }
+#clean-team-members-list p #badge-icon { width: 62px; }
 
-#white-box.clean-team-profile { width: 478px; left: 55%; }
+#white-box.clean-team-profile { width: 733px; left: 37%; padding-right: 0; }
+#white-box.clean-team-profile h2 { font-weight: 700; }
+#white-box.clean-team-profile div.info { width: 450px; float: left; border-right: 1px solid #abd78c; border-bottom: 1px solid #abd78c; padding-right: 20px; padding-bottom: 10px; }
+
+#white-box.clean-team-profile div.info#profile-pic { width: 247px; float: right; border: none; padding: 0; }
+
+#white-box.clean-team-profile div.info#about { height: 200px; overflow-y: scroll;  }
+
+/* Wall */
+#white-box.clean-team-profile div.info#wall { padding: 0 20px 20px 0; height: 400px; overflow-y: scroll; border-bottom: none; }
+#white-box.clean-team-profile div.info#wall div.post { display: block; border-bottom: 1px solid #B2DB95; min-height: 74px; padding: 10px;}
+#white-box.clean-team-profile div.info#wall div.post p.user { padding: 0; font-weight: 600; }
+#white-box.clean-team-profile div.info#wall div.post p.timestamp { padding: 0; }
+#white-box.clean-team-profile div.info#wall div.post p.message { left: 52px; position: relative; width: 365px; }
+#white-box.clean-team-profile div.info#wall div.post img { float: left; margin-right: 10px; }
+
 #white-box.clean-team-profile span.edit-clean-team-link { position: relative; left: 22px; top: 5px; }
+#white-box.clean-team-profile img.profile-pic { margin-right: 58px; }
+#white-box.clean-team-profile img.profile-pic + #badge-icon { display: block; 
+	position: absolute; top: 120px; right: 133px; z-index: 1000; }
+#white-box.clean-team-profile div.clean-creds { margin-top: 192px; text-align: center; }
+#white-box.clean-team-profile div.clean-creds p { font-size: 20px; }
+#white-box.clean-team-profile #clean-team-info { padding: 0px 10px; text-align: center; }
+/*#white-box.clean-team-profile #clean-team-info a { display: block; margin-left: 12px; margin-bottom: 40px; }*/
+/*#white-box.clean-team-profile #clean-team-info div span.field { font-weight: 600; }*/
+#white-box.clean-team-profile #clean-team-info div { margin: 10px; }
+#white-box.clean-team-profile #clean-team-members-list-btn { display: block; text-align: center; }
+
+#white-box.clean-team-profile #request-join-clean-team-btn, #white-box.clean-team-profile  #register-to-join-btn { margin: 16px auto; }
+
+#white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
 
 /******************************
 	All Clean Teams Page
