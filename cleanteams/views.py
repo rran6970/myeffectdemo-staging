@@ -281,7 +281,8 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 			print e
 			clean_team_member = CleanTeamMember()
 
-		clean_team_member.becomeCleanChampion(self.request.user, form)
+		selected_team = form.cleaned_data['team']
+		clean_team_member.becomeCleanChampion(self.request.user, selected_team)
 
 		return HttpResponseRedirect('/')
 
@@ -361,6 +362,21 @@ def request_join_clean_team(request):
 		# else:
 			#TODO: Message saying that the Clean Team ambassador count is full
 			# pass
+
+	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
+def be_clean_champion(request):
+	if request.method == 'POST':
+		ctid = request.POST.get('ctid')
+
+		try:
+			selected_team = CleanTeam.objects.get(id=ctid)
+			ctm = CleanTeamMember.objects.get(user=request.user)
+		except Exception, e:
+			print e
+			ctm = CleanTeamMember()
+
+		ctm.becomeCleanChampion(request.user, selected_team)
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 

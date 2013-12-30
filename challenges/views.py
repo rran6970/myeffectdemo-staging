@@ -67,7 +67,7 @@ def check_in_check_out(request):
 				user.profile.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)
 				user.profile.save()
 
-				# Add CleanCreds to Clean Team if appliciable
+				# Add CleanCreds to Clean Team if applicable
 				if user.profile.clean_team_member:
 					if user.profile.clean_team_member.status == "approved":
 						user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeTotalCleanCreds(total_hours)

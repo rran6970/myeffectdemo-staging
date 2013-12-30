@@ -31,6 +31,10 @@ class CleanTeam(models.Model):
 	def __unicode__(self):
 		return u'Clean Team: %s' % self.name
 
+	def add_team_clean_creds(self, amount):
+		self.clean_creds += amount
+		self.save()
+
 	def save(self, *args, **kwargs):
 		super(CleanTeam, self).save(*args, **kwargs)
 
@@ -98,9 +102,7 @@ class CleanTeamMember(models.Model):
 				user_notification = UserNotification()
 				user_notification.create_notification("ca_request", member.user, name_strings)
 
-	def becomeCleanChampion(self, user, form):
-		selected_team = form.cleaned_data['team']
-
+	def becomeCleanChampion(self, user, selected_team):
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "approved"
@@ -126,6 +128,8 @@ class CleanTeamMember(models.Model):
 			for member in clean_team_members:
 				user_notification = UserNotification()
 				user_notification.create_notification("cc_joined", member.user, name_strings)
+
+		self.clean_team.add_team_clean_creds(5)
 
 	def has_max_clean_ambassadors(self):
 		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()

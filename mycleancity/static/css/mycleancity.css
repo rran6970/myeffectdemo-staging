@@ -252,7 +252,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box.register .tooltip-arrow { display: none; }
 
 #white-box.register #id_uea { float: left; }
-#white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; }
+#white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
 
 /******************************
 	Profile
