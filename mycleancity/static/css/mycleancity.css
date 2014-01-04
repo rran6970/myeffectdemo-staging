@@ -38,6 +38,8 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
 .dropdown-menu.notification-dropdown ul li {  }
 .dropdown-menu.notification-dropdown ul li a { cursor: pointer; display: block; width: 300px;  height: 70px; padding: 10px; margin: 0; } 
+.dropdown-menu.notification-dropdown ul li a.notification-mark-read, 
+.dropdown-menu.notification-dropdown ul li a.notification-mark-unread { cursor: pointer; display: block; font-size: 10px; height: 23px; padding: 0; margin: 0; border-bottom: 1px solid #DDD; } 
 .dropdown-menu.notification-dropdown ul li a:hover { opacity: 0.90; }
 .dropdown-menu.notification-dropdown ul li.unread { background: url(../images/1x1-green.png) repeat 0 0 !important; /*background-color: #A5FFA1 !important;*/ }
 .dropdown-menu.notification-dropdown ul li a img.notification-image { float: left; margin-right: 10px; }

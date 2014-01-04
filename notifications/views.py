@@ -34,3 +34,12 @@ def read_notification(request):
 		user_notification.read_notification()
 			
 	return HttpResponse("success")
+
+def unread_notification(request):
+	if request.method == 'POST' and request.is_ajax:	
+		nid = request.POST['nid']
+		
+		user_notification = UserNotification.objects.get(id=nid, user=request.user)
+		user_notification.unread_notification()
+			
+	return HttpResponse("success")

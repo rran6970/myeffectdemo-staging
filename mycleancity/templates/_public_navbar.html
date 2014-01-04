@@ -48,6 +48,11 @@
 							<div>{{ notification.message }}</div>
 							<p class="timestamp">{{ notification.timestamp }}</p>
 						</a>
+						{% if notification.read %}
+						<a class="notification-mark-unread">Make unread</a>
+						{% else %}
+						<a class="notification-mark-read">Make read</a>
+						{% endif %}
 					</form>
 				</li>
 				{% endfor %}

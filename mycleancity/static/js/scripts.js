@@ -9,6 +9,8 @@ $(function(){
   	});
 
     $(".notification-link").on('click', ajaxReadNotification);
+    $(".notification-mark-read").on('click', ajaxQuickReadNotification);
+    $(".notification-mark-unread").on('click', ajaxQuickUnreadNotification);
 
     $(".popup-600").colorbox({
         speed: 250,
@@ -52,6 +54,52 @@ $(function(){
         }
     });
 });
+
+function ajaxQuickUnreadNotification(e)
+{
+    var element = $(this);
+    var form = element.closest("form");
+
+    $.ajax({
+        type: form.attr('method'),
+        url: '/notifications/quick-unread/',
+        data: form.serialize(),
+        success: function (data) {
+            element.closest("li").addClass("unread");
+
+            var notification_number = parseInt($("#notification-container").html());
+            notification_number = notification_number + 1;
+            $("#notification-container").html(notification_number);
+        },
+        error: function(data) {}
+    });
+
+    e.preventDefault();
+    return false;
+}
+
+function ajaxQuickReadNotification(e)
+{
+    var element = $(this);
+    var form = element.closest("form");
+
+    $.ajax({
+        type: form.attr('method'),
+        url: '/notifications/quick-read/',
+        data: form.serialize(),
+        success: function (data) {
+            element.closest("li").removeClass("unread");
+
+            var notification_number = parseInt($("#notification-container").html());
+            notification_number = notification_number - 1;
+            $("#notification-container").html(notification_number);
+        },
+        error: function(data) {}
+    });
+
+    e.preventDefault();
+    return false;
+}
 
 function ajaxReadNotification(e)
 {

@@ -48,6 +48,10 @@ class UserNotification(models.Model):
 		self.read = True
 		self.save()
 
+	def unread_notification(self):
+		self.read = False
+		self.save()
+
 	def create_notification(self, notification_type, user, *args, **kwargs):
 		notification = Notification.objects.get(notification_type=notification_type)
 
