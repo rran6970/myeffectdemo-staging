@@ -27,7 +27,8 @@
               </div>
             {% endif %}
 
-            <form action="/users/register" method="post">{% csrf_token %}
+            <form method="post">{% csrf_token %}
+                {{ form.token }}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>

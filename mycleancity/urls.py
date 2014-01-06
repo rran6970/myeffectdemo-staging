@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 
 	url(r'^register-success/?', RegisterSuccessView.as_view()),
 	url(r'^register/?$', RegisterView.as_view()),
+	url(r'^register-invite/(?P<token>\w+)/?$', RegisterInviteView.as_view()),
 	url(r'^landing/?', PrelaunchView.as_view()),
 	url(r'^about/?', AboutPageView.as_view()),
 	url(r'^students/?', StudentsPageView.as_view()),

@@ -102,6 +102,7 @@ class RegisterUserForm(forms.ModelForm):
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
 	uea = forms.BooleanField(required=True)
+	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -120,6 +121,7 @@ class RegisterUserForm(forms.ModelForm):
 		school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
 		uea = cleaned_data.get('uea')
+		token = cleaned_data.get('token')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")

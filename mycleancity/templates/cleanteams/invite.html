@@ -69,6 +69,13 @@
 
       <div id="white-box" class="invite-form">  
         <h2>Invite Friends</h2> 
+
+        {% if form.non_field_errors %}
+          <div class="message-box error">
+          {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
         <div id="clean-team-members-list">
           <form action="/clean-team/invite" method="post">{% csrf_token %}
             <table>

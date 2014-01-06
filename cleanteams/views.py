@@ -429,8 +429,14 @@ def be_clean_champion(request):
 
 def accept_invite(request, token):
 	invite = CleanTeamInvite.objects.get(token=token)
-	invite.status = "accepted"
-	invite.save()
+
+	emails = User.objects.filter(email=invite.email).count()
+
+	if emails > 0:
+		invite.status = "accepted"
+		invite.save()
+	else:
+		return HttpResponseRedirect('/register-invite/')
 
 	return HttpResponseRedirect('/clean-team/invite/')
 

@@ -111,26 +111,27 @@ class CleanTeamMember(models.Model):
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
 
-	def approveCleanAmbassador(self):
+	def approveCleanAmbassador(self, notification=True):
 		self.status = "approved"
 		self.save()
 
 		CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
 
-		# Send notifications
-		notification = Notification.objects.get(notification_type="ca_joined")
-		# The names that will go in the notification message template
-		name_strings = [self.clean_team.name]
-		link_strings = [str(self.clean_team.id)]
-	
-		user_notification = UserNotification()
-		user_notification.create_notification("ca_joined", self.user, name_strings, link_strings)
+		if notification:
+			# Send notifications
+			notification = Notification.objects.get(notification_type="ca_joined")
+			# The names that will go in the notification message template
+			name_strings = [self.clean_team.name]
+			link_strings = [str(self.clean_team.id)]
+		
+			user_notification = UserNotification()
+			user_notification.create_notification("ca_joined", self.user, name_strings, link_strings)
 
 	def removedCleanAmbassador(self):
 		self.status = "removed"
 		self.save()
 
-	def requestBecomeCleanAmbassador(self, user, selected_team):
+	def requestBecomeCleanAmbassador(self, user, selected_team, notification=True):
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "pending"
@@ -140,22 +141,23 @@ class CleanTeamMember(models.Model):
 		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
 		self.user.profile.save()
 
-		# Send notifications
-		notification = Notification.objects.get(notification_type="ca_request")
-		# The names that will go in the notification message template
-		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-		name_strings = [full_name, self.clean_team.name]
+		if notification:
+			# Send notifications
+			notification = Notification.objects.get(notification_type="ca_request")
+			# The names that will go in the notification message template
+			full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+			name_strings = [full_name, self.clean_team.name]
 
-		users_to_notify_str = notification.users_to_notify
-		users_to_notify = users_to_notify_str.split(', ')
+			users_to_notify_str = notification.users_to_notify
+			users_to_notify = users_to_notify_str.split(', ')
 
-		# Notify all of the Users that have the roles within users_to_notify
-		for role in users_to_notify:
-			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+			# Notify all of the Users that have the roles within users_to_notify
+			for role in users_to_notify:
+				clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-			for member in clean_team_members:
-				user_notification = UserNotification()
-				user_notification.create_notification("ca_request", member.user, name_strings)
+				for member in clean_team_members:
+					user_notification = UserNotification()
+					user_notification.create_notification("ca_request", member.user, name_strings)
 
 	def has_max_clean_ambassadors(self):
 		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
@@ -263,7 +265,7 @@ class CleanTeamInvite(models.Model):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamInvite, self).save(*args, **kwargs)

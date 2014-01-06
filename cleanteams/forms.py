@@ -76,13 +76,27 @@ ROLE_CHOICES = (
 )
 
 class InviteForm(forms.Form):
-	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length=128, widget=forms.TextInput())
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
 
 	# Combines the form with the corresponding model
 	class Meta:
 		model = CleanTeamInvite
 		exclude = ('clean_team', 'user', 'role', 'status')
+
+	def clean(self):
+		cleaned_data = super(InviteForm, self).clean()
+		email = cleaned_data.get('email')
+
+		if not email:
+			raise forms.ValidationError("Please enter an email")
+
+		emails = CleanTeamInvite.objects.filter(email=email).count()
+
+		if emails > 0:
+			raise forms.ValidationError("Already invited")
+		
+		return cleaned_data
 
 class PostMessageForm(forms.Form):
 	message = forms.CharField(required=False, widget=forms.Textarea())
