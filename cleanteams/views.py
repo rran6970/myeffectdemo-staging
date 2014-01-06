@@ -21,10 +21,42 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite
 
 from mycleancity.mixins import LoginRequiredMixin
+
+class InviteView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/invite.html"
+	form_class = InviteForm
+	success_url = "cleanteams/invite.html"
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		user = self.request.user
+		email = form.cleaned_data['email']
+		role = form.cleaned_data['role']
+		uri = self.request.build_absolute_uri()
+
+		invite = CleanTeamInvite()
+		invite.inviteUsers(user, role, email, uri)
+
+		return HttpResponseRedirect('/clean-team/invite')
+
+	def get_context_data(self, **kwargs):
+		context = super(InviteView, self).get_context_data(**kwargs)
+
+		invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+	
+		context['invitees'] = invitees
+		context['user'] = self.request.user
+
+		return context
 
 class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/register_clean_team.html"
@@ -394,6 +426,13 @@ def be_clean_champion(request):
 		clean_champion.becomeCleanChampion(request.user, selected_team)
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
+def accept_invite(request, token):
+	invite = CleanTeamInvite.objects.get(token=token)
+	invite.status = "accepted"
+	invite.save()
+
+	return HttpResponseRedirect('/clean-team/invite/')
 
 def clean_team_member_action(request):
 	if request.method == 'POST' and request.is_ajax:

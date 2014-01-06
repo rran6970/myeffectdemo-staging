@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title></title>
+      <style>
+        body { font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #666; font-weight: 300; }
+        .button { display: block; height: 40px; width: 235px; background: url(images/email-button.png) no-repeat 0 0; }
+      </style>
+  </head>
+  <body>
+    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+      <tr>
+        <td align="center" valign="top">
+          <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+            <tr>
+              <td align="center" valign="top">
+                <a href="/"><img src="http://www.mycleancity.org/static/images/logo-295x221.png" alt="My Clean City" /></a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              	<p>Hey {{ email }},</p>
+
+                <p>You've been invited to join My Clean City by {{ user.first_name }} {{ user.last_name }} on the {{ user.profile.clean_team_member.clean_team.name }} as a {{ role }}</p>
+                
+        			  <p><a href="{{ full_uri }}">Accept the invite.</a></p>
+
+                <p>Warm Regards,</p>
+
+                <p>My Clean City Team</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

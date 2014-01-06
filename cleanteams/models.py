@@ -1,6 +1,13 @@
+import random
+import string
+
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+
 from django.db import models
 from django.db.models import Count
+from django.template import Context
+from django.template.loader import get_template
 
 from itertools import chain
 
@@ -206,6 +213,57 @@ class CleanTeamPost(models.Model):
 				user_notification = UserNotification()
 				user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
 
-
 	def save(self, *args, **kwargs):
 		super(CleanTeamPost, self).save(*args, **kwargs)
+
+"""
+Name:           CleanTeamInvite
+Date created:   Jan 5, 2014
+Description:    The invites that each member can receive
+"""
+class CleanTeamInvite(models.Model):
+	email = models.EmailField(max_length=70, blank=True)
+	clean_team = models.ForeignKey(CleanTeam)
+	user = models.ForeignKey(User)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	role = models.CharField(max_length=30, default="clean-ambassador")
+	status = models.CharField(max_length=30, default="pending")
+	token = models.CharField(max_length=20, blank=True)
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Invite'
+
+	def __unicode__(self):
+		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
+
+	def inviteUsers(self, user, role, email, uri):
+		char_set = string.ascii_lowercase + string.digits
+		token = ''.join(random.sample(char_set*20,20))
+		full_uri = u'%s/%s' % (uri, token)
+
+		self.clean_team = user.profile.clean_team_member.clean_team
+		self.user = user
+		self.email = str(email)
+		self.role = role
+		self.status = 'pending'
+		self.token = token
+		self.save()
+
+		if role == "clean-ambassador":
+			role = "Clean Ambassador"
+		elif role == "clean-champion":
+			role = "Clean Champion"
+
+		# Send registration email to email address
+		template = get_template('emails/email_invite_join.html')
+		content = Context({ 'user': user, 'email': email, 'role': role, 'full_uri': full_uri })
+		content = template.render(content)
+
+		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', email
+
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		mail.send()
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamInvite, self).save(*args, **kwargs)

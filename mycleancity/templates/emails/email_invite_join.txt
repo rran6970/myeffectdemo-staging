@@ -1,0 +1,10 @@
+Hey {{ first_name }},
+
+You've been invited to join My Clean City by {{ user.first_name }} {{ user.last_name }}
+
+Accept the invite by copying and pasting this link into your browser:
+{{ uri }}
+
+Warm Regards,
+
+My Clean City Team

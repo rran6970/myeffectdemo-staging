@@ -4,6 +4,8 @@ from django.views.generic import TemplateView
 from cleanteams.views import *
 
 urlpatterns = patterns('',
+	url(r'^invite/?$', InviteView.as_view()),
+	url(r'^invite/(?P<token>\w+)/?$', 'cleanteams.views.accept_invite'),
 	url(r'^post-message/?$', PostMessageView.as_view()),
 	url(r'^members/?$', CleanTeamMembersView.as_view()),
 	url(r'^edit/(?P<ctid>\d+)/?$', EditCleanTeamView.as_view()),

@@ -5,7 +5,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from cleanteams.models import CleanTeam
+from cleanteams.models import CleanTeam, CleanTeamInvite
 
 CLEAN_TEAM_TYPES = (('', 'Please select one...'),
 	('independent', 'Independent'), 
@@ -54,6 +54,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
 		return cleaned_data
 
+
 CHOICES = (
 	('create-new-team', 'Create a new team'), 
 	('join-existing-team', 'Join an existing team'),
@@ -67,6 +68,21 @@ class RequestJoinTeamsForm(forms.Form):
 
 class JoinTeamCleanChampionForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
+
+
+ROLE_CHOICES = (
+	('clean-ambassador', 'Clean Ambassador'), 
+	('clean-champion', 'Clean Champion'),
+)
+
+class InviteForm(forms.Form):
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
+
+	# Combines the form with the corresponding model
+	class Meta:
+		model = CleanTeamInvite
+		exclude = ('clean_team', 'user', 'role', 'status')
 
 class PostMessageForm(forms.Form):
 	message = forms.CharField(required=False, widget=forms.Textarea())

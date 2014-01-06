@@ -70,6 +70,7 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
 #sign-go-back.clean-team-members { left: 181px; }
+#sign-go-back.invite { left: 181px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
 #sign-go-back-big.students { left: 32px; top: 386px; }
 #sign-go-back-big.organizations { left: 32px; top: 296px; }
@@ -406,7 +407,17 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members-ca #team-name {  }
 #white-box.team-members-ca table thead tr th.actions { text-align: center; }
 
-#white-box.team-members-cc { left: 73%%; width: 275px; }
+#white-box.invite-form { left: 73%%; width: 275px; }
+
+/******************************
+	Invite Page
+******************************/ 
+#white-box p { font-weight: 400; }
+#white-box.invite { width: 685px; left: 17%; }
+
+div.table-container #invitees-table tr td.members { width: 300px; }
+div.table-container #invitees-table tr td.status {  }
+div.table-container #invitees-table tr td.roles {  }
 
 /******************************
 	Clean Team Page

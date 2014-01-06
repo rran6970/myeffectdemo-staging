@@ -21,7 +21,12 @@ class CleanTeamPostAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team', 'user', 'timestamp')
     search_fields = ['user', 'clean_team', 'user']
 
+class CleanTeamInviteAdmin(admin.ModelAdmin):
+    list_display = ('id', 'clean_team', 'user', 'email', 'role', 'timestamp')
+    search_fields = ['user', 'clean_team', 'user']
+
 admin.site.register(CleanTeam, CleanTeamAdmin)
 admin.site.register(CleanTeamMember, CleanTeamMemberAdmin)
 admin.site.register(CleanTeamPost, CleanTeamPostAdmin)
 admin.site.register(CleanChampion, CleanChampionAdmin)
+admin.site.register(CleanTeamInvite, CleanTeamInviteAdmin)
