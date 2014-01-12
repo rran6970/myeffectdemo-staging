@@ -54,21 +54,29 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
 		return cleaned_data
 
-
-CHOICES = (
-	('create-new-team', 'Create a new team'), 
-	('join-existing-team', 'Join an existing team'),
-)
-
-class CreateTeamOrJoinForm(forms.Form):
-	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
-
 class RequestJoinTeamsForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
 
 class JoinTeamCleanChampionForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
 
+CREATE_OR_JOIN_CHOICES = (
+	('create-new-team', 'Create a new team'), 
+	('join-existing-team', 'Join an existing team'),
+)
+
+class CreateTeamOrJoinForm(forms.Form):
+	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CREATE_OR_JOIN_CHOICES)
+	invite = forms.CharField(required=False, widget=forms.HiddenInput())
+
+
+RESPONSE_CHOICES = (
+	('accepted', 'Accept'), 
+	('declined', 'Decline'),
+)
+class InviteResponseForm(forms.Form):
+	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=RESPONSE_CHOICES)
+	token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
 	('clean-ambassador', 'Clean Ambassador'), 

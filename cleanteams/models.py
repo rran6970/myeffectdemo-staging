@@ -238,7 +238,7 @@ class CleanTeamInvite(models.Model):
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
 
-	def inviteUsers(self, user, role, email, uri):
+	def inviteUsers(self, user, role, email, uri, notification=True):
 		char_set = string.ascii_lowercase + string.digits
 		token = ''.join(random.sample(char_set*20,20))
 		full_uri = u'%s/%s' % (uri, token)
@@ -251,12 +251,34 @@ class CleanTeamInvite(models.Model):
 		self.token = token
 		self.save()
 
+		# If the User is already registered, send them a notification
+		try:
+			u = User.objects.get(email=str(email))
+		except Exception, e:
+			u = None
+
+		if notification:
+			if u:
+				# Send notifications
+				notification_type = "cc_invite"
+				if role == "clean-ambassador":
+					notification_type = "ca_invite"
+					
+				notification = Notification.objects.get(notification_type=notification_type)
+				# The names that will go in the notification message template
+				full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+				name_strings = [full_name, self.clean_team.name]
+				link_strings = [str(self.token)]
+
+				user_notification = UserNotification()
+				user_notification.create_notification(notification_type, u, name_strings, link_strings)
+
 		if role == "clean-ambassador":
 			role = "Clean Ambassador"
 		elif role == "clean-champion":
 			role = "Clean Champion"
 
-		# Send registration email to email address
+		# Send invite email to email address
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': user, 'email': email, 'role': role, 'full_uri': full_uri })
 		content = template.render(content)

@@ -53,7 +53,7 @@
     "fields": {
         "name": "Clean Ambassador invite", 
         "users_to_notify": "individual-user", 
-        "link": "/clean-team/{0}", 
+        "link": "/clean-team/invite/{0}", 
         "notification_type": "ca_invite", 
         "message": "{0} from {1} has invited you to become a Clean Ambassador", 
         "description": "A requst is sent to a User for them to become a Clean Ambassador"
@@ -65,7 +65,7 @@
     "fields": {
         "name": "Clean Champion invite", 
         "users_to_notify": "individual-user", 
-        "link": "/clean-team/{0}", 
+        "link": "/clean-team/invite/{0}", 
         "notification_type": "cc_invite", 
         "message": "{0} from {1} has invited you to become a Clean Champion", 
         "description": "A requst is sent to a User for them to become a Clean Champion"

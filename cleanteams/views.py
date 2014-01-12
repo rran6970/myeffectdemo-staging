@@ -21,8 +21,10 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite
+
+from notifications.models import Notification
 
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -392,6 +394,89 @@ class PostMessageView(LoginRequiredMixin, FormView):
 
 		return context
 
+class InviteResponseView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/invite_response.html"
+	form_class = InviteResponseForm
+
+	def get_initial(self):
+		if 'token' in self.kwargs:
+			token = self.kwargs['token']
+
+			try:
+				invite = CleanTeamInvite.objects.get(token=token)
+			except Exception, e:
+				# TDOD: Redirect to error page
+				print e
+
+			initial = {}
+			initial['token'] = invite.token
+
+			return initial
+		return
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+		print form.errors
+		
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		response = form.cleaned_data['selections']
+		token = form.cleaned_data['token']
+		
+		try:
+			invite = CleanTeamInvite.objects.get(token=token)
+			
+			if response == "accepted":
+				invite.status = "accepted"
+
+				if invite.role == "clean-champion":
+					clean_champion = CleanChampion()				
+					clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
+
+				elif invite.role == "clean-ambassador":
+					try:
+						ctm = CleanTeamMember.objects.get(user=self.request.user)
+					except Exception, e:
+						ctm = CleanTeamMember(user=self.request.user)
+						
+					ctm.clean_team = invite.clean_team
+					ctm.role = invite.role
+					ctm.status = "approved"
+					ctm.save()
+
+					self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+					self.request.user.profile.save()
+			else:
+				invite.status = "declined"
+
+			invite.save()
+		except Exception, e:
+			# TDOD: Redirect to error page
+			print e
+
+		return HttpResponseRedirect('/clean-team/%s' % str(invite.clean_team.id))
+
+	def get_context_data(self, **kwargs):
+		context = super(InviteResponseView, self).get_context_data(**kwargs)
+		
+		if 'token' in self.kwargs:
+			token = self.kwargs['token']
+
+			try:
+				invite = CleanTeamInvite.objects.get(token=token)
+			except Exception, e:
+				# TDOD: Redirect to error page
+				print e
+
+			context['invite'] = invite
+
+		user = self.request.user
+		context['user'] = user
+
+		return context
+
 # On the Clean Team's Profile
 def request_join_clean_team(request):
 	if request.method == 'POST':
@@ -430,6 +515,7 @@ def be_clean_champion(request):
 def accept_invite(request, token):
 	invite = CleanTeamInvite.objects.get(token=token)
 
+	# Checks if the User already is in the system
 	emails = User.objects.filter(email=invite.email).count()
 
 	if emails > 0:
