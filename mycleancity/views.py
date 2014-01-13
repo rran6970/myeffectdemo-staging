@@ -86,3 +86,10 @@ class OrganizationsPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(OrganizationsPageView, self).get_context_data(**kwargs)
 		return context
+
+class RewardsPageView(TemplateView):
+	template_name = "mycleancity/rewards.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(RewardsPageView, self).get_context_data(**kwargs)
+		return context

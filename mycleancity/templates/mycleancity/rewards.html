@@ -1,0 +1,121 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Organizations {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content rewards">
+    <div class="container">
+
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-rewards2"></div></a>
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-cleancreds"></div></a>
+        <a href="#individuals" data-toggle="tab"><div class="sign" id="sign-individuals"></div></a>
+        <a href="#clean-teams" data-toggle="tab"><div class="sign" id="sign-clean-teams"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign organizations" id="sign-go-back-big"></div></a>
+        
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          
+          <div class="tab-pane active" id="rewards">
+            <h1 class="tab-titles">Rewards</h1>
+
+            <p>What are <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</p>
+            <p>
+              <span class="green bold">Clean</span><span class="blue bold">Creds</span> is our rewards system. It is a currency that is earned by volunteerism and community impact!
+            </p>
+
+            <p>How do I earn <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</p>
+            <p>
+              By completing Clean Challenges with your peers in your communit.
+            </p>
+
+            <p>How are <span class="green bold">Clean</span><span class="blue bold">Creds</span> Calculated?</p>
+            <p>
+              Impact + Effect = <span class="green bold">Clean</span><span class="blue bold">Creds</span>!
+            </p>
+            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span> are based on the volunteer hours donated to a Clean Challenge and the impact of your actions.</p>
+            <p>
+              How do we measure your hours? Through our super cool new app coming soon!
+            </p>
+            <p>
+              How do we calculate the impact of your efforts? A secret formula based on environmental data :)
+            </p>
+          </div>
+
+          <div class="tab-pane" id="individuals">
+            <h1 class="tab-titles">Individual Rewards</h1>
+            <p>
+              Be sure to FOLLOW us on twitter <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> and facebook <link to FB page> so you don’t miss when to check back for the reveal of our exciting rewards partners!
+            </p>
+            <p>What kind of rewards to expect?</p>
+
+            <ul>
+              <li>gift cards with leading brands</li>
+              <li>exclusive prize packs</li>
+              <li>special mentorship and leadership opportunities</li>
+              <li>and some super cool surprises!</li>
+            </ul>          
+          </div>
+
+          <div class="tab-pane" id="clean-teams">
+            <h1 class="tab-titles">Clean Team Rewards</h1>
+            <p>
+              You took the challenge to be a leader in your community and My Clean City has some extra special rewards lined up for your efforts!
+            </p>
+            <p>
+              As a Clean Team you will have the opportunity to start earning rewards before our official Clean Challenge launch on April 1st. Move up in our Clean Tree Level system as you grow your team page and unlock special opportunities.
+            </p>
+
+            <p class="question">
+              What is our Clean Tree Level System? 
+            </p>
+            <p>
+              Every Clean Team starts off as a seed. As your team grows to create challenges and recruit peers to sign up as Clean Champions you move up levels from sprout, to sapling to tree and all the way to Full Blossom.
+            </p>
+            <p>
+              Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you can hit Full Blossom you will receive national recognition.
+            </p>
+
+            <p class="question">
+              What are some privileges to look forward to?
+            </p>
+            <ul>
+              <li>
+                Become a face for My Clean City in marketing efforts
+              </li>
+              <li>
+                Represent My Clean City on provincial platforms
+              </li>
+              <li>
+                Receive special deals and opportunities with brand partners
+              </li>
+              <li>
+                Unlock bonus CleanCreds and multipliers to use in our Clean Challenge
+              </li>
+              <li>
+                and more
+              </li>
+            </ul>
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

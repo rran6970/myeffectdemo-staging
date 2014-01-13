@@ -72,8 +72,8 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 #sign-go-back.clean-team-members { left: 181px; }
 #sign-go-back.invite { left: 181px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
-#sign-go-back-big.students { left: 32px; top: 386px; }
-#sign-go-back-big.organizations { left: 32px; top: 296px; }
+#sign-go-back-big.students { left: 32px; top: 445px; }
+#sign-go-back-big.organizations { left: 32px; top: 345px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -96,9 +96,10 @@ a.menu-items:hover { text-decoration: none; color: #000; }
 #sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
 #sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
-#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
+#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 230px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
-#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 282px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 340px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
@@ -167,10 +168,11 @@ div.content.student #white-box iframe { margin: 0 190px; }
 
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 #sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
-#sign-student-take-action { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-take-action.png) no-repeat 0 0; }
-#sign-get-rewarded { width: 270px; height: 58px; position: absolute; z-index: 1000; top: 157px; left: 30px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
+#sign-student-explain-it { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 97px; background: url(../images/sign-explain-it.png) no-repeat 0 0; }
+#sign-join-challenge { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-join-challenge.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
-#sign-get-viral { width: 192px; height: 55px; position: absolute; z-index: 1000; top: 289px; left: 68px; background: url(../images/sign-get-viral.png) no-repeat 0 0; }
+#sign-get-rewarded { width: 275px; height: 54px; position: absolute; z-index: 1000; top: 289px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
+#sign-get-connected { width: 275px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 49px; background: url(../images/sign-get-connected.png) no-repeat 0 0; }
 
 /******************************
 	Organizations Page
@@ -188,21 +190,45 @@ div.content.organization #white-box iframe { margin: 0 190px; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 92px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
-#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 150px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 209px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 92px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 148px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+/*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 205px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+
+
+/******************************
+	Rewards Page
+******************************/ 
+div.content.rewards #white-box { left: 30%; width: 700px; }
+div.content.rewards #white-box h1 { font-weight: 800; }
+div.content.rewards #white-box h2 { font-weight: 500; color: #638d3d; }
+div.content.rewards #white-box h3 { font-weight: 500; color: #638d3d; } 
+div.content.rewards #white-box ol li { list-style: decimal; } 
+div.content.rewards #white-box ul { margin-left: 18px; }
+div.content.rewards #white-box ul li { list-style: disc; } 
+div.content.rewards #white-box iframe { margin: 0 190px; }
+
+div.content.rewards #white-box p.question { font-weight: 800; }
+
+#sign-stump-long { width: 46px; height: 533px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
+#sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
+#sign-cleancreds { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-cleancreds.png) no-repeat 0 0; }
+
+#sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 151px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
+#sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
 
 /******************************
 	Media Hub
 ******************************/ 	
 div.content.media-hub { background: transparent url(../images/media-hub-bg.png) no-repeat 80% 0; height: 548px; }
-#sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
-#sign-media-hub + #white-box { width: 300px; left: 9%; height: 300px; }
-#white-box.facebook { width: 300px; height: 120px; left: 40%; top: -5px; }
-#white-box.photos h2 { line-height: 28px; padding-bottom: 10px; }
-#white-box.photos { width: 300px; height: 140px; left: 40%; top: 225px; }
-#white-box.photos #instafeed { }
-#white-box.photos #instafeed a { display: block; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
+div.content.media-hub #sign-media-hub + #white-box { width: 375px; left: 9%; height: 494px; }
+div.content.media-hub #white-box.twitter { height: 420px !important; }
+div.content.media-hub #white-box.annoucements { width: 311px; height: 494px; left: 40%; top: -4px; }
+div.content.media-hub #white-box.photos { width: 408px; height: 313px; left: 66%; top: -3px; }
+div.content.media-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
+div.content.media-hub #white-box.photos #instafeed { }
+div.content.media-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
 
 /******************************
 	White Box
@@ -211,7 +237,7 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box h2 { margin-bottom: 12px; }
 #white-box p, #white-box h2 { color: #638d3d; }
 #white-box p { padding: 10px 0; }
-#white-box p, #white-box ul li, #white-box ol li { font-size: 18px; font-weight: 300; line-height: 25px; }
+#white-box p, #white-box ul li, #white-box ol li { font-size: 18px; font-weight: 400; line-height: 25px; }
 #white-box .left { float: left; width: 150px; }
 #white-box .right { float: right; }
 #white-box .right form input { display: block; width: 300px; }
@@ -219,6 +245,8 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 #white-box .right form textarea { width: 300px; height: 170px; }
 #white-box table tr td { padding: 5px 20px 0 0; }
 #white-box .tab-titles { color: #00aeef !important; margin-bottom: 10px; }
+#white-box.tab-content div.tab-pane ul li { margin: 10px 0; }
+#white-box.tab-content div.tab-pane ul li span.titles { font-weight: bold !important; }
 
 /******************************
 	Contact
