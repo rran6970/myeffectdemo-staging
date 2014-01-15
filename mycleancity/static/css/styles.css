@@ -24,10 +24,14 @@ h2 { font-size: 22px; }
 h3 { font-size: 19px; color: #8d8d8d; }
 h1.titles { color: #00aeef !important; font-weight: 800; }
 span.bold { font-weight: bold; }
+
 div.clear { clear: both; }
 div.left { float: left; }
 div.right { float: right; }
+
 .gray-italic-subtitle { color: #AAA !important; font-style: italic !important; font-size: 13px !important; }
+.subtitle-blue { color: #00aeef !important; }
+
 p, label { display: block; line-height: 20px; font-weight: 200; font-size: 14px; letter-spacing: 0px; margin: 0; padding: 0; }
 ul, ol { padding: 0; margin: 0 0 10px 25px; }
 img { outline: 0; }
