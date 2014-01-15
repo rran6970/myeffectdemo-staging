@@ -68,6 +68,16 @@
 </div> <!-- /.wrapper -->
 
 <div class="popup-container">
+  <div id="blurb" class="popup">
+    <p class="question" style="margin-bottom: 10px;">Want the freedom to choose how YOU make a difference? Want to earn REWARDS and be RECOGNIZED?</p>
+    <p>My Clean City makes volunteer work into volunteer PLAY. We are a leadership initiative made for YOUth by YOUth. </p>
+  
+    <p class="question" style="margin: 30px 0 10px;">Want a platform where YOUth collaborate with peers, take part in fun challenges and make a difference all at the same time? Ready to play?</p>
+    <p style="margin-bottom: 10px;">Join now to make an impact YOUR way and earn rewards along the  way from your favourite brands.</p>
+
+    <a class="btn btn-primary">Get Started Now!</a>
+  </div>
+
   <div id="terms-conditions" class="popup">
     <h1>My Clean City User<br/>Agreement and Usage Policies</h1>
 
@@ -112,8 +122,8 @@
     <p>The MyCleanCity logo is in sole ownership of MyCleanCity and therefore is not to be copied, used or distributed either electronically or otherwise, in any form without the express written consent of an authorized representative of MyCleanCity. Any reproduction, use or distribution without the consent of an authorized representative of MyCleanCity will result in the revocation of privileges and potentially legal action, as well as a life-time ban from participation with MyCleanCity. </p>
   
     <div id="copyright">
-    <p>Copyright Notice (to be posted on our website)</p>
-    <p>&copy; 2013. MyCleanCity.org. All rights reserved.</p>
+      <p>Copyright Notice (to be posted on our website)</p>
+      <p>&copy; 2013. MyCleanCity.org. All rights reserved.</p>
     </div>
 
   </div><!-- end of #terms-conditions -->
@@ -122,4 +132,20 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+
+{% if popup %} 
+  <script type="text/javascript">
+    $(function(){  
+      $.colorbox({
+          width:"50%", 
+          inline:true, 
+          href:"#blurb"
+        });
+      $("#blurb a").on("click", function(){
+        $.colorbox.close();
+      });
+    });
+  </script>
+{% endif %}
+{% endblock %}

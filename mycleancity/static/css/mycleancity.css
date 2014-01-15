@@ -21,6 +21,9 @@ a.menu-items { font-weight: 500; font-size: 19px; color: white; letter-spacing: 
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
 a.menu-items:hover { text-decoration: none; color: #000; }
+
+p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
+
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
 #notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 419px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
@@ -207,7 +210,6 @@ div.content.rewards #white-box ol li { list-style: decimal; }
 div.content.rewards #white-box ul { margin-left: 18px; }
 div.content.rewards #white-box ul li { list-style: disc; } 
 div.content.rewards #white-box iframe { margin: 0 190px; }
-div.content.rewards #white-box p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 
 div.content.rewards #sign-stump { top: 200px; }
 
@@ -288,6 +290,8 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 
 #white-box.register #id_uea { float: left; }
 #white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
+
+#blurb a { margin: 0 auto; width: 300px; }
 
 /******************************
 	Profile

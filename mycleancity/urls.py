@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 	url(r'^users/', include('users.urls')),
 
 	url(r'^register-success/?', RegisterSuccessView.as_view()),
+	url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
 	url(r'^register/?$', RegisterView.as_view()),
 	url(r'^register-invite/(?P<token>\w+)/?$', RegisterInviteView.as_view()),
 	url(r'^landing/?', PrelaunchView.as_view()),

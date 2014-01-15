@@ -184,6 +184,17 @@ class RegisterView(FormView):
 
 		return HttpResponseRedirect('/')
 
+
+	def get_context_data(self, **kwargs):
+		context = super(RegisterView, self).get_context_data(**kwargs)
+
+		if 'qrcode' in self.kwargs:
+			context['popup'] = True
+	
+		context['user'] = self.request.user
+
+		return context	
+
 # TODO: Pretty much a copy and paste of RegisterView,
 # find a more efficient way of doing this.
 class RegisterInviteView(FormView):
