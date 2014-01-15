@@ -172,7 +172,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #sign-join-challenge { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-join-challenge.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
 #sign-get-rewarded { width: 275px; height: 54px; position: absolute; z-index: 1000; top: 289px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
-#sign-get-connected { width: 275px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 49px; background: url(../images/sign-get-connected.png) no-repeat 0 0; }
+#sign-be-connected { width: 275px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 49px; background: url(../images/sign-be-connected.png) no-repeat 0 0; }
 
 /******************************
 	Organizations Page
@@ -224,8 +224,12 @@ div.content.media-hub { background: transparent url(../images/media-hub-bg.png) 
 div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
 div.content.media-hub #sign-media-hub + #white-box { width: 375px; left: 9%; height: 494px; }
 div.content.media-hub #white-box.twitter { height: 420px !important; }
-div.content.media-hub #white-box.annoucements { width: 311px; height: 494px; left: 40%; top: -4px; }
-div.content.media-hub #white-box.photos { width: 408px; height: 313px; left: 66%; top: -3px; }
+
+div.content.media-hub #white-box.annoucements { width: 311px; height: 494px; left: 74%; top: -4px; }
+div.content.media-hub #white-box.annoucements h1.titles { margin-bottom: 10px; }
+div.content.media-hub #white-box.annoucements img { border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+
+div.content.media-hub #white-box.photos { width: 408px; height: 494px; left: 40%; top: -3px; }
 div.content.media-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
 div.content.media-hub #white-box.photos #instafeed { }
 div.content.media-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }

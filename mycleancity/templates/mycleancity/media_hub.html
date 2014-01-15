@@ -18,13 +18,23 @@
   <div class="content media-hub">
     <div class="container">
         <div id="sign-media-hub"></div>
+
         <div id="white-box" class="twitter">
           <a class="twitter-timeline" href="https://twitter.com/MyCleanCity1" data-widget-id="384907140789309441">Tweets by @MyCleanCity1</a>
           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div><!-- /#white-box -->
 
+        <div id="white-box" class="photos">
+          <h1 class="titles">Photos and Videos</h1>
+          <div id="instafeed"></div>
+
+          <iframe scrolling="no" marginheight="0" frameborder="0" width="609" src="http://vinalwidget.com/gallery.php?id=992634697492611072&amp;width=189&amp;margin=4&amp;display_username=1&amp;likes=1&amp;comments=1&amp;revines=1&amp;date=1&amp;description=0&amp;responsive=0&amp;frame=1" style="height: 235px;"></iframe>
+        </div>
+
         <div id="white-box" class="annoucements">
           <h1 class="titles">Annoucements</h1>
+
+          <a href="#staples-banner" class="popup-image"><img src="{{ STATIC_URL }}images/staples-200x300.jpg" alt="" /></a>
 
           <p>
             My Clean City is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!
@@ -38,16 +48,16 @@
 
           <!-- <div class="fb-activity" data-app-id="516343758455142" data-site="https://www.facebook.com/pages/My-Clean-City/203721359785216" data-action="Comma separated list of action of action types" data-width="300" data-height="300" data-header="true"></div> -->
         </div>
-        <div id="white-box" class="photos">
-          <h1 class="titles">Photos and Videos</h1>
-          <div id="instafeed"></div>
-
-          <iframe scrolling="no" marginheight="0" frameborder="0" width="609" src="http://vinalwidget.com/gallery.php?id=992634697492611072&amp;width=189&amp;margin=4&amp;display_username=1&amp;likes=1&amp;comments=1&amp;revines=1&amp;date=1&amp;description=0&amp;responsive=0&amp;frame=1" style="height: 235px;"></iframe>
-        </div>
-
+       
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="staples-banner" class="popup">
+    <img src="{{ STATIC_URL }}images/staples-851x315.jpg" alt="" />
+  </div>
+</div><!-- /.popup-container -->
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

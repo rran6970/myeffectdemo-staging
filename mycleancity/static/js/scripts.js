@@ -12,6 +12,15 @@ $(function(){
     $(".notification-mark-read").on('click', ajaxQuickReadNotification);
     $(".notification-mark-unread").on('click', ajaxQuickUnreadNotification);
 
+    $(".popup-image").colorbox({
+        speed: 250,
+        inline: true, 
+        scrolling: true,
+        opacity: 0.7,
+        photo: true,
+        fadeOut: 200
+    });
+
     $(".popup-600").colorbox({
         speed: 250,
         width: "600px",
