@@ -238,6 +238,19 @@ class CleanTeamInvite(models.Model):
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
 
+	# Checks if User is already registered before accpeting the invite
+	# Returns False if not accepted
+	def acceptInvite(self):
+		emails = User.objects.filter(email=invite.email).count()
+
+		if emails > 0:
+			self.status = "accepted"
+			self.save()
+
+			return True
+
+		return False
+
 	def inviteUsers(self, user, role, email, uri, notification=True):
 		char_set = string.ascii_lowercase + string.digits
 		token = ''.join(random.sample(char_set*20,20))

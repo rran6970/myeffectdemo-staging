@@ -68,7 +68,7 @@
       </div><!-- /#white-box -->
 
       <div id="white-box" class="invite-form">  
-        <h2>Invite Friends</h2> 
+        <h2>Invite friends</h2> 
 
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -78,6 +78,7 @@
 
         <div id="clean-team-members-list">
           <form action="/clean-team/invite" method="post">{% csrf_token %}
+            {{ form.clean_team_id }}
             <table>
               <tr>
                 <td>{{ form.email.label_tag }} {{ form.email }}</td>

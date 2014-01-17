@@ -86,6 +86,7 @@ ROLE_CHOICES = (
 class InviteForm(forms.Form):
 	email = forms.CharField(required=True, max_length=128, widget=forms.TextInput())
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
+	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -95,15 +96,30 @@ class InviteForm(forms.Form):
 	def clean(self):
 		cleaned_data = super(InviteForm, self).clean()
 		email = cleaned_data.get('email')
+		role = cleaned_data.get('role')
+		clean_team_id = cleaned_data.get('clean_team_id')
 
 		if not email:
 			raise forms.ValidationError("Please enter an email")
 
-		emails = CleanTeamInvite.objects.filter(email=email).count()
+		try:
+			u = User.objects.get(email=email)
 
-		if emails > 0:
-			raise forms.ValidationError("Already invited")
-		
+			if role == 'clean-ambassador':
+				if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
+					raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (email, u.profile.clean_team_member.clean_team.name))
+
+			if role == 'clean-champion':
+				if u.profile.is_clean_champion(clean_team_id):
+					raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (email))	
+		except User.DoesNotExist, e:
+			print e
+
+		e = CleanTeamInvite.objects.filter(email=email, role=role, clean_team_id=clean_team_id).count()
+
+		if e > 0:
+			raise forms.ValidationError("Already invited for that role")
+
 		return cleaned_data
 
 class PostMessageForm(forms.Form):

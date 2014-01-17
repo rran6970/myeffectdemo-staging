@@ -40,7 +40,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
 .dropdown-menu.notification-dropdown ul li {  }
-.dropdown-menu.notification-dropdown ul li a { cursor: pointer; display: block; width: 300px;  height: 70px; padding: 10px; margin: 0; } 
+.dropdown-menu.notification-dropdown ul li a { cursor: pointer; display: block; width: 300px;  height: 70px; padding: 10px; margin: 0; border-bottom: none; } 
 .dropdown-menu.notification-dropdown ul li a.notification-mark-read, 
 .dropdown-menu.notification-dropdown ul li a.notification-mark-unread { cursor: pointer; display: block; font-size: 10px; height: 23px; padding: 0; margin: 0; border-bottom: 1px solid #DDD; } 
 .dropdown-menu.notification-dropdown ul li a:hover { opacity: 0.90; }
@@ -51,7 +51,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 .dropdown-menu.notification-dropdown a { display: block; text-align: center; margin-top: 10px; }
 
 .dropdown-menu li { width: auto; outline: none; }
-.dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; }
+.dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; border-bottom: 1px solid #CBE4B9; }
 .dropdown-menu li a:hover { background: transparent; color: #999; }
 
 .bootstrap-timepicker table td input { width: 50px; }
@@ -73,7 +73,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
 #sign-go-back.clean-team-members { left: 181px; }
-#sign-go-back.invite { left: 181px; }
+#sign-go-back.invite { left: 78px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
 #sign-go-back-big.students { left: 32px; top: 445px; }
 #sign-go-back-big.organizations { left: 32px; top: 445px; }
@@ -444,13 +444,15 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members-ca #team-name {  }
 #white-box.team-members-ca table thead tr th.actions { text-align: center; }
 
-#white-box.invite-form { left: 73%%; width: 275px; }
+#white-box.invite-form { left: 66%; width: 337px; }
+#white-box.invite-form input[type="text"] { width: 270px; }
+#white-box.invite-form input[type="submit"] { margin: 10px auto; }
 
 /******************************
 	Invite Page
 ******************************/ 
 #white-box p { font-weight: 400; }
-#white-box.invite { width: 685px; left: 17%; }
+#white-box.invite { width: 685px; left: 9%; }
 
 div.table-container #invitees-table tr td.members { width: 300px; }
 div.table-container #invitees-table tr td.status {  }

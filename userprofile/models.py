@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
 
-from cleanteams.models import CleanTeamMember
+from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
@@ -31,11 +31,11 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return u'UserProfile: %s' % self.user.username
 
-	def is_clean_ambassador(self):
+	def is_clean_ambassador(self, status="approved"):
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.user)
 
-			return True if ctm.role=="clean-ambassador" and ctm.status=="approved" else False
+			return True if ctm.role=="clean-ambassador" and ctm.status==status else False
 		except Exception, e:
 			print e
 			return False

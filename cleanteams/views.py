@@ -33,6 +33,12 @@ class InviteView(LoginRequiredMixin, FormView):
 	form_class = InviteForm
 	success_url = "cleanteams/invite.html"
 
+	def get_initial(self):
+		initial = {}
+		initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+
+		return initial
+
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
@@ -259,6 +265,7 @@ class CleanTeamView(TemplateView):
 			try:
 				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=self.request.user)
 				context['clean_champion'] = clean_champion
+				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
 			except Exception, e:
 				print e
 
@@ -512,16 +519,11 @@ def be_clean_champion(request):
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
+# Coming from the email invite link
 def accept_invite(request, token):
 	invite = CleanTeamInvite.objects.get(token=token)
 
-	# Checks if the User already is in the system
-	emails = User.objects.filter(email=invite.email).count()
-
-	if emails > 0:
-		invite.status = "accepted"
-		invite.save()
-	else:
+	if not invite.accept_invite():
 		return HttpResponseRedirect('/register-invite/')
 
 	return HttpResponseRedirect('/clean-team/invite/')
