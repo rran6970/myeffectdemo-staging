@@ -27,7 +27,8 @@
               </div>
             {% endif %}
 
-            <form action="/users/register" method="post">{% csrf_token %}
+            <form method="post">{% csrf_token %}
+                {{ form.token }}
                 <table>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
@@ -46,10 +47,18 @@
                     </tr>
                     <tr>
                         <td>{{ form.school_type.label_tag }}{{ form.school_type }}</td>
-                        <td><a class="popover-btn" rel="popover" data-content="We need ambitious and charismatic youth to lead their peers in environmental change - <a href='/students#ambassador'>learn more</a>" data-original-title=""><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
-                          {{ form.role }}</td>
+                        <td>
+                          <a rel="tooltip" data-placement="left" data-original-title="<span class='description'><strong class='title'>Clean Ambassador</strong>I want to be a My Clean City leader and start or join a Clean Team</span>
+
+                          <span class='description last'><strong class='title'>Clean Champion</strong>I want to support a Clean Team while I participate</span>"><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
+                          {{ form.role }}
+                        </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditiions</a></label></td>
                     </tr>
                 </table>
+
                 <input class="btn btn-primary" type="submit" value="Register" />
             </form>
             <p>Already have an account? Login in <a href="/users/login">here</a>.
@@ -57,8 +66,86 @@
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="blurb" class="popup">
+    <p class="question" style="margin-bottom: 10px;">Want the freedom to choose how YOU make a difference? Want to earn REWARDS and be RECOGNIZED?</p>
+    <p>My Clean City makes volunteer work into volunteer PLAY. We are a leadership initiative made for YOUth by YOUth. </p>
+  
+    <p class="question" style="margin: 30px 0 10px;">Want a platform where YOUth collaborate with peers, take part in fun challenges and make a difference all at the same time? Ready to play?</p>
+    <p style="margin-bottom: 10px;">Join now to make an impact YOUR way and earn rewards along the  way from your favourite brands.</p>
+
+    <a class="btn btn-primary">Get Started Now!</a>
+  </div>
+
+  <div id="terms-conditions" class="popup">
+    <h1>My Clean City User<br/>Agreement and Usage Policies</h1>
+
+    <h3 class="section">1.1. Purpose</h2>
+    <p>
+    The mission of MyCleanCity is to connect youth to environmental projects and enable them to engage in their communities through active interaction with environmentally aware organizations. To achieve our mission, we make services available through our website, to help you, your connections, and millions of other like-minded individuals meet, exchange ideas, learn, find opportunities, and make decisions in a network of trusted relationships and groups.
+    </p>
+
+    <h3 class="section">1.2. Scope and Intent</h2>
+    <p>When you use MyCleanCity, you are entering into a legal agreement and you agree to all of these terms.</p>
+    <p>You also agree to our Privacy Policy, which covers how we collect, use, share, and store your personal information.</p>
+    <p>You agree that by registering on MyCleanCity, or by using our website, including all of our services, or other information provided as part of the MyCleanCity services (collectively "MyCleanCity" or the "Services"), you are entering into a legally binding agreement with MyCleanCity.org ("we," "us," "our," and "MyCleanCity") based on the terms of this MyCleanCity User Agreement and the MyCleanCity Privacy Policy, which is hereby incorporated by reference (collectively referred to as the "Agreement") and become a MyCleanCity member ("Member"). If you are using MyCleanCity on behalf of a company or other legal entity, you are nevertheless individually bound by this Agreement even if your company has a separate agreement with us. If you do not want to register an account and become a MyCleanCity Member, do not enter into this Agreement, do NOT click "Register" and do not access, view, download or otherwise use any MyCleanCity webpage, information or services. By clicking "Register" (or "Sign In " or similar), you acknowledge that you have read and understood the terms and conditions of this Agreement and that you agree to be bound by all of its provisions. By clicking "Register," you also consent to use electronic signatures and acknowledge your click of the "Register" button as one. Please note that the MyCleanCity User Agreement and Privacy Policy are also collectively referred to as MyCleanCity’s "Terms of Service."</p>
+
+    <h3 class="section">1.3 Privacy Policy</h2>
+    <p>Our registered users ("Members") share their identities, engage with their network, exchange knowledge and insights, and find opportunities. We believe that our service allows our Members to effectively complete and achieve their full volunteer/community involvement potential. The cornerstone of our organization is to focus on our Members first.</p>
+    <p>Maintaining your trust is our top priority, so we adhere to the following principles to protect your privacy:</p>
+    <ul>
+      <li>We protect your personal information and will only provide it to third parties: (1) with your consent; (2) where it is necessary to carry out your instructions; (3) as reasonably necessary in order to provide MyCleanCity features and functionality to you; (4) as we reasonably believe is permitted by law or regulation; or (5) as necessary to enforce our User Agreement or protect the rights, property, or safety of MyCleanCity, its Members, and the public.</li>
+      <li>We have implemented appropriate security safeguards designed to protect your information in accordance with industry standards.</li>
+      <li>We may modify this Privacy Policy from time to time, and if we make material changes to it, we will provide notice through our website, apps, or other services ("MyCleanCity" or "Service") or by other means so that you may review the changes before you continue to use MyCleanCity. If you object to any changes, you may close your account. Continuing to use MyCleanCity after we publish or communicate a notice about any changes to this Privacy Policy means that you are consenting to the changes.</li>
+    </ul>
+
+    <h2 class="section-overview">2. Social Media, Email and Logo Usage</h2>
+
+    <h3 class="section">2.1 Social Media Usage</h3>
+    <p>Usage of social media cites including, but not limited to, Facebook, Twitter and Instagram, for the purposes of promoting or otherwise interacting with others as a representative of MyCleanCity, is authorized to conduct MyCleanCity activities only. Unauthorized use of MyCleanCitiy websites and social media accounts brings the possibility of breaches to the security of confidential MyCleanCIty information.</p>
+    <p>Under no circumstances may MyCleanCity proprietary sites be used to obtain, view, or reach any pornographic, or otherwise immoral, unethical, or non-business-related sites. Doing so can lead to disciplinary action up to and including life-time ban from participation in MyCleanCity.</p>
+
+    <h3 class="section">2.2 MyCleanCity Email Usage</h3>
+    <p>MyCleanCity Email accounts are to be used for MyCleanCity activities only. Confidential information must not be shared outside of the MyCleanCity groups, without authorization, at any time. You are also not to conduct personal business using the MyCleanCity user accounts or email.</p>
+    <p>Viewing pornography, or sending pornographic jokes or stories via email, is considered sexual harassment and will be addressed according to sexual harassment laws in your legal jurisdiction.</p>
+
+    <h3 class="section">2.3 Emails That Discriminate</h3>    
+    <p>Any emails that discriminate by virtue of any protected classification including race, gender, nationality, religion, and so forth, will be dealt with according to the harassment legislation in your legal jurisdiction.</p>
+    <p>These emails are prohibited at MyCleanCity. Sending or forwarding emails of this nature, or that violate any federal or provincial laws will result in disciplinary action that may lead to prosecution and life-time ban from MyCleanCity participation.</p>
+
+    <h3 class="section">2.4 MyCleanCity Owns Organizational Email and Accounts</h3>
+    <p>MyCleanCity owns any communication sent via email or that is stored on MyCleanCity’s servers. Management and other authorized persons have the right to access any material in your MyCleanCity email at any time. Please do not consider your electronic communication, storage or access to be private if it is created or stored at MyCleanCity.</p>
+
+    <h2 class="section-overview">3. Logo Use and Distribution</h2>
+
+    <p>The MyCleanCity logo is in sole ownership of MyCleanCity and therefore is not to be copied, used or distributed either electronically or otherwise, in any form without the express written consent of an authorized representative of MyCleanCity. Any reproduction, use or distribution without the consent of an authorized representative of MyCleanCity will result in the revocation of privileges and potentially legal action, as well as a life-time ban from participation with MyCleanCity. </p>
+  
+    <div id="copyright">
+      <p>Copyright Notice (to be posted on our website)</p>
+      <p>&copy; 2013. MyCleanCity.org. All rights reserved.</p>
+    </div>
+
+  </div><!-- end of #terms-conditions -->
+</div>
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+
+{% if popup %} 
+  <script type="text/javascript">
+    $(function(){  
+      $.colorbox({
+          width:"50%", 
+          inline:true, 
+          href:"#blurb"
+        });
+      $("#blurb a").on("click", function(){
+        $.colorbox.close();
+      });
+    });
+  </script>
+{% endif %}
+{% endblock %}

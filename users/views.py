@@ -26,6 +26,8 @@ from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
 
+from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
+
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile
 from userorganization.models import UserOrganization
@@ -180,7 +182,107 @@ class RegisterView(FormView):
 		elif form.cleaned_data['role'] == "clean-champion":
 			return HttpResponseRedirect('/clean-team/register-clean-champion/')
 
-		return HttpResponseRedirect('/challenges')
+		return HttpResponseRedirect('/')
+
+
+	def get_context_data(self, **kwargs):
+		context = super(RegisterView, self).get_context_data(**kwargs)
+
+		if 'qrcode' in self.kwargs:
+			context['popup'] = True
+	
+		context['user'] = self.request.user
+
+		return context	
+
+# TODO: Pretty much a copy and paste of RegisterView,
+# find a more efficient way of doing this.
+class RegisterInviteView(FormView):
+	template_name = "users/register.html"
+	form_class = RegisterUserForm
+	success_url = "mycleancity/index.html"
+
+	def get_initial(self):
+		if 'token' in self.kwargs:
+			token = self.kwargs['token']
+		else:
+			return HttpResponseRedirect('/register/')
+
+		invite = CleanTeamInvite.objects.get(token=token)
+
+		initial = {}
+		initial['email'] = invite.email
+		initial['role'] = invite.role
+		initial['token'] = invite.token
+
+		return initial
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		u = User.objects.create_user(
+	        form.cleaned_data['email'],
+	        form.cleaned_data['email'],
+	        form.cleaned_data['password']
+	    )
+		u.first_name = form.cleaned_data['first_name']
+		u.last_name = form.cleaned_data['last_name']
+		u.profile.city = form.cleaned_data['city']
+		u.profile.province = form.cleaned_data['province']
+		u.profile.school_type = form.cleaned_data['school_type']
+		u.profile.save()
+		u.save()	
+
+		invite = CleanTeamInvite.objects.get(token=form.cleaned_data['token'])
+		invite.status = "accepted"
+
+		if invite.role == "clean-champion":
+			clean_champion = CleanChampion()				
+			clean_champion.becomeCleanChampion(u, invite.clean_team)
+
+		elif invite.role == "clean-ambassador":
+			ctm = CleanTeamMember()
+			ctm.user = u
+			ctm.clean_team = invite.clean_team
+			ctm.role = invite.role
+			ctm.status = "approved"
+			ctm.save()
+
+			u.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+			u.profile.save()
+
+		invite.save()
+
+		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
+		auth.login(self.request, user)
+
+		# Send registration email to user
+		template = get_template('emails/user_register_success.html')
+		content = Context({ 'first_name': form.cleaned_data['first_name'] })
+		content = template.render(content)
+
+		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
+
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		# mail.send()
+
+		# Send notification email to administrator
+		template = get_template('emails/register_email_notification.html')
+		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
+		content = template.render(content)
+
+		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+
+		mail = EmailMessage(subject, content, from_email, [to])
+		mail.content_subtype = "html"
+		# mail.send()
+
+		return HttpResponseRedirect('/')
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
 	template_name = "users/public_profile.html"
@@ -197,6 +299,7 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 				print e
 				pass
 
+			context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
 			context['user_profile'] = get_object_or_404(User, id=user_id)
 
@@ -218,6 +321,9 @@ class ProfileView(LoginRequiredMixin, FormView):
 		# initial['dob'] = user.profile.dob
 		initial['school_type'] = user.profile.school_type
 		initial['about'] = user.profile.about
+
+		if user.profile.twitter:
+			initial['twitter'] = user.profile.twitter
 
 		return initial
 
@@ -252,86 +358,11 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 		# user.profile.dob = form.cleaned_data['dob']
 		user.profile.about = form.cleaned_data['about']
+		user.profile.twitter = form.cleaned_data['twitter']
 		user.profile.school_type = form.cleaned_data['school_type'] 
 		user.profile.save()
 
 		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
-
-class OrganizationProfileView(LoginRequiredMixin, FormView):
-	template_name = "users/organization_profile.html"
-	form_class = OrganizationProfileForm
-	success_url = "/users/organization-profile"
-
-	def get_initial(self):
-		user = self.request.user
-
-		try:
-			organization = UserOrganization.objects.get(user=self.request.user)
-		except Exception, e:
-			print e
-			organization = None	
-
-		initial = {}
-		initial['first_name'] = user.first_name
-		initial['last_name'] = user.last_name
-		initial['email'] = user.email
-		initial['organization'] = organization.organization
-		initial['city'] = user.profile.city
-		initial['province'] = user.profile.province
-		initial['website'] = organization.website
-		initial['about'] = user.profile.about
-
-		return initial
-
-	def get(self, request, *args, **kwargs):
-		form_class = self.get_form_class()
-		form = self.get_form(form_class)
-
-		return self.render_to_response(self.get_context_data(form=form))
-
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		return self.render_to_response(context)
-
-	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-
-		user = User.objects.get(id=self.request.user.id)
-		user_organization = UserOrganization.objects.get(user=user)
-
-		user.first_name = form.cleaned_data['first_name']
-		user.last_name = form.cleaned_data['last_name']
-		user.email = form.cleaned_data['email']
-		user.save()
-
-		user.profile.about = form.cleaned_data['about']
-		user.profile.city = form.cleaned_data['city']
-		user.profile.province = form.cleaned_data['province']
-		user.profile.save()
-
-		user_organization.organization = form.cleaned_data['organization']
-		user_organization.website = form.cleaned_data['website']
-		user_organization.save()
-
-		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
-
-		# return super(OrganizationProfileView, self).form_valid(form)
-
-# class OrganizationProfilePublicView(TemplateView):
-# 	template_name = "users/organization_profile_public.html"
-
-# 	def get_context_data(self, **kwargs):
-# 		context = super(OrganizationProfilePublicView, self).get_context_data(**kwargs)
-
-# 		if 'uid' in self.kwargs:
-# 			user_id = self.kwargs['uid']
-# 			context['organization'] = get_object_or_404(User, id=user_id)
-# 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
-
-# 		context['user'] = self.request.user
-# 		return context
 
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"

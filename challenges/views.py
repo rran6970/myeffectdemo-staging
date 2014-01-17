@@ -14,6 +14,7 @@ from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
 from challenges.models import Challenge, UserChallenge, ChallengeCategory
+from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
 
@@ -62,16 +63,31 @@ def check_in_check_out(request):
 				userchallenge.total_hours = total_hours
 				userchallenge.save()
 
-				# Add CredCreds
-				user.profile.clean_creds += challenge.getChallengeCleanCreds(total_hours)
+				total_clean_creds = challenge.getChallengeTotalCleanCreds(total_hours)
+
+				# Add CleanCreds to individual
+				user.profile.clean_creds += total_clean_creds
 				user.profile.save()
 
-				if user.profile.clean_team_member.status == "approved":
-					user.profile.clean_team_member.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
-					user.profile.clean_team_member.clean_team.save()
-				else:
-					challenge.clean_team.clean_creds += challenge.getChallengeCleanCreds(total_hours)
-					challenge.clean_team.save()
+				# Add CleanCreds to Clean Teams if applicable
+				clean_champions = CleanChampion.objects.filter(user=user)
+
+				for clean_champion in clean_champions:
+					if clean_champion.status == "approved":
+						clean_champion.clean_team.clean_creds += total_clean_creds
+						clean_champion.clean_team.save()
+
+				# Clean Ambassador
+				if user.profile.clean_team_member:
+					if user.profile.is_clean_ambassador or user.profile.clean_team_member.status == "approved":
+						user.profile.clean_team_member.clean_team.clean_creds += total_clean_creds
+						user.profile.clean_team_member.clean_team.save()
+				
+				# Clean Team posting challenge	
+				challenge.clean_team.clean_creds += total_clean_creds
+				challenge.clean_team.save()
+
+				return HttpResponse(total_hours)
 
 		except Exception, e:
 			print e
@@ -109,24 +125,8 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		challenge = Challenge(user=self.request.user)
-		challenge.title = form.cleaned_data['title']
-		challenge.event_date = form.cleaned_data['event_date']
-		challenge.event_time = form.cleaned_data['event_time']
-		challenge.address1 = form.cleaned_data['address1']
-		challenge.address2 = form.cleaned_data['address2']
-		challenge.city = form.cleaned_data['city']
-		challenge.postal_code = form.cleaned_data['postal_code']
-		challenge.province = form.cleaned_data['province']
-		challenge.country = form.cleaned_data['country']
-		challenge.description = form.cleaned_data['description']
-		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
-		challenge.save()
-
-		challenge_category = ChallengeCategory()
-		challenge_category.challenge = challenge
-		challenge_category.category = form.cleaned_data['category']
-		challenge_category.save()
+		challenge = Challenge()
+		challenge.newChallenge(self.request.user, form)
 
 		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
@@ -142,6 +142,14 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		try:
 			challenge = Challenge.objects.get(id=cid)
 			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
+
+			#TODO: Shouldn't be able to access all Challenges
+			# if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
+
+			# 	print "unauthorized"
+			# 	return HttpResponseRedirect('/')
+			# else:
+			# 	print "authorized"	
 		except Exception, e:
 			print e
 			return HttpResponseRedirect(u'/challenges/%s' %(cid))
@@ -158,6 +166,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['country'] = challenge.country
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
+		initial['host_organization'] = challenge.host_organization
 		initial['challenge_id'] = challenge.id
 
 		return initial
@@ -180,6 +189,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
+		challenge.host_organization = form.cleaned_data['host_organization']
 		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
 		challenge.save()
 
@@ -201,7 +211,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 			return HttpResponseRedirect('/challenges/my-challenges/')
 
 		try:
-			challenge = Challenge.objects.get(id=cid, user=self.request.user)
+			challenge = Challenge.objects.get(id=cid, clean_team=self.request.user.profile.clean_team_member.clean_team)
 		except Exception, e:
 			print e
 			return HttpResponseRedirect('/challenges/my-challenges/')			
@@ -225,8 +235,18 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		context['posted_challenges'] = Challenge.objects.filter(user=self.request.user)
+		# print self.request.user.profile.is_clean_ambassador()
+
+		if self.request.user.profile.is_clean_ambassador():
+			try:
+				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
+				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team)
+			except Exception, e:
+				print e
+				pass
+
 		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user)
+		
 		context['user'] = self.request.user
 
 		return context
@@ -242,8 +262,18 @@ class ChallengeView(TemplateView):
 
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
-			context['challenge'] = get_object_or_404(Challenge, id=cid)
-			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
+			challenge = get_object_or_404(Challenge, id=cid)
+			
+			context['challenge'] = challenge
+			
+			try:
+				context['user_challenge'] = UserChallenge.objects.get(user=self.request.user, challenge=challenge)
+			except Exception, e:
+				print e
+				pass
+			
+			context['participants'] = UserChallenge.objects.filter(challenge=challenge)
+			
 			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user

@@ -19,73 +19,135 @@
     <div class="container">
         <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress">
         
-        <div id="white-box" class="clean-team-members-list">
-          {% for member in ctms %}
-            {% if member.user.is_active %}
-              {% if member.status == "approved" %}
-                <p>
-                {% if member.role == "clean-ambassador" %}
-                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
-                {% endif %}
-                {% if member.role == "clean-champion" %}
-                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
-                {% endif %}
-                {{ member.user.first_name }} {{ member.user.last_name }}
-              </p>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </div>
-
         <div id="white-box" class="public-profile clean-team-profile">
           
-          <div class="info">
-            <h2>{{ clean_team.name }}</h2>
-            <div class="clear"></div>
-            
-            <span class="clean-creds">
+          <div class="info" id="profile-pic">
+            <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic" />
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="Badge Level" />
+
+            <div class="clean-creds">
               <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
-            </span>
-
-            <div class="field">
-              <p class="title">Website:</p>
-              <p class="text"><a target="_blank" href="{{ clean_team.website }}">{{ clean_team.website }}</a></p>
             </div>
-          </div><!-- /.info -->
-          
-          {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
-            <span class="edit-clean-team-link"><a href="/clean-team/edit/{{ clean_team.id }}">Edit Clean Team</a></span>
-          {% endif %}
+            
+            <div id="clean-team-info">
+              <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
 
-          <img src="{{ STATIC_URL }}images/default-profile-pic.png" alt="" class="profile-pic" />
+              {% if clean_team.twitter %}
+              <div>
+                <span><a href="http://twitter.com/{{ clean_team.twitter }}" target="_blank">{{ clean_team.twitter }}</a></span>
+              </div>
+              {% endif %}
+
+              {% if clean_team.region %}
+              <div>
+                <span>{{ clean_team.region }}</span>
+              </div>
+              {% endif %}
+            </div>
+            <a href="#clean-team-members-list" id="clean-team-members-list-btn" class="popup-200">View Members</a>
+
+            {% if user.is_authenticated %}
+              <!-- Clean Ambassador -->
+              {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
+              <form action="/clean-team/ca-request-join/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+                <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to Join" />
+              </form>
+              {% endif %}
+        
+              {% if user.profile.clean_team_member.status == "pending" %}
+                <input disabled id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to join sent" />
+              {% endif %}
+
+              <!-- Clean Champion -->
+              {% if not clean_champion and not clean_ambassador and not user.profile.clean_team_member.status == "removed"%}
+              <form action="/clean-team/cc-join/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+                <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Be a Clean Champion" />
+              </form>
+              {% endif %}
+
+            {% else %}
+              <a id="register-to-join-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Join</a>
+            {% endif %}
+
+          </div><!-- /#clean-team-info -->
           
-          <div class="info" style="width: 100%;">
+          <h2>{{ clean_team.name }}</h2>
+
+          <div class="info" id="about">
+            <div class="clear"></div>
+
             {% if clean_team.about %}
             <div class="field about">
-              <p class="title">About:</p>
+              <p class="title">About</p>
               <div class="clear"></div>
               <p class="text">{{ clean_team.about }}</p>
             </div>
             {% endif %}
           </div><!-- /.info -->
 
+          <div class="info" id="wall">
+            <div class="field about">
+              <p class="title">Posts</p>
+              <div class="clear"></div>
 
-          {% if user.profile.clean_team_member.status == "removed" %}
-            <form action="/clean-team/request-join/" method="post">
-              {% csrf_token %}
-              <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-              <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to Join" />
-            </form>
-          {% endif %}
-          
-          {% if user.profile.clean_team_member.status == "pending" %}
-            <div class="field">Request to join sent</div>
-          {% endif %}
+              {% if posts %}
+                {% for post in posts %}
+                  <div class="post">
+                    
+                    <img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                    <p class="user">{{ post.user.get_full_name }}</p>
+                    <p class="timestamp">{{ post.timestamp }}</p>
+                    <div class="clear"></div>
+                    <p class="message">{{ post.message }}</p>
+                  
+                  </div><!-- /.post -->
+                  <div class="clear"></div>
+                {% endfor %}
+              {% else %}
+                <p class="messsage">No recent posts</p>
+              {% endif %}
+            </div>
+          </div><!-- /.info -->
 
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="clean-team-members-list" class="popup">
+    <!-- Clean Ambassadors -->
+    {% for member in cas %}
+      {% if member.user.is_active %}
+        {% if member.status == "approved" %}
+          <p>
+          {% if member.role == "clean-ambassador" %}
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            {{ member.user.first_name }} {{ member.user.last_name }}
+          {% endif %}
+        </p>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Clean Champions -->
+    {% for member in ccs %}
+      {% if member.user.is_active %}
+        {% if member.status == "approved" %}
+          <p>          
+            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+            {{ member.user.first_name }} {{ member.user.last_name }}
+          </p>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div><!-- end of #clean-team-members-list -->
+</div>
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

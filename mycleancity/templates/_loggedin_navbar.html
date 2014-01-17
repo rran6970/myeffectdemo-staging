@@ -7,8 +7,8 @@
 		<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
 		{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 		<li><a href="/challenges/new-challenge" class="menu-items">Post Challenge</a></li>
-		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 		{% endif %}
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
 	</ul>
 </div><!-- end of #user-dropdown.dropdown -->
 
@@ -20,15 +20,56 @@
 		{% endif %}
 		{% if not user.profile.has_clean_team %}
 		<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
-		<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
 		{% else %}
 		<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
+		<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>
+		<li><a href="/clean-team/post-message/" class="menu-items">Post a message</a></li>
 		{% endif %}
+		<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
 		<li><a href="/clean-team/" class="menu-items">All Clean Teams</a></li>
 	</ul>
-</div><!-- end of #user-dropdown.dropdown -->
+</div><!-- end of .dropdown -->
 {% endif %}
 
 <a href="/users/logout" class="menu-items menu-items-right">Logout</a>
 <a href="/" class="menu-items menu-items-right">Home</a>
 <a href="/users/profile/{{ user.id }}" class="menu-items menu-items-right">Welcome {{ user.first_name }}</a>
+
+<div class="dropdown" id="notification-dropdown">
+	<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
+	
+	<div class="dropdown-menu notification-dropdown">
+		<ul role="menu" aria-labelledby="dLabel">
+			{% if user.profile.count_notifications > 0 %}
+				{% for notification in user.profile.get_notifications %}
+				<li class="{% if not notification.read %}unread{% endif %}">
+					<form action="/notifications/read/" method="post">{% csrf_token %}
+						<input type="hidden" name="nid" value="{{ notification.id }}" />
+						<a href="{{ notification.link }}" class="notification-link">
+							<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+							<div>{{ notification.message }}</div>
+							<p class="timestamp">{{ notification.timestamp }}</p>
+						</a>
+						{% if notification.read %}
+						<a class="notification-mark-unread">Make unread</a>
+						{% else %}
+						<a class="notification-mark-read">Make read</a>
+						{% endif %}
+					</form>
+				</li>
+				{% endfor %}
+			{% else %}
+				<li>
+					<a>
+						<div style="text-align: center"><h2>No notifications</h2></div>
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+		<a href="/notifications/">View all notifications</a>
+	</div>
+	
+	{% if user.profile.count_unread_notifications > 0 %}
+	<div id="notification-container">{{ user.profile.count_unread_notifications }}</div>
+	{% endif %}
+</div><!-- end of #notification-dropdown.dropdown -->

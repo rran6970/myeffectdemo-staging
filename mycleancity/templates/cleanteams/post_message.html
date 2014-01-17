@@ -1,0 +1,47 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Post to Wall {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+      <div id="white-box" class="register">
+          <h2>Post to Wall</h2>
+
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.clean_team_id }}
+            <table>
+                <tr>
+                    <td>{{ form.message.label_tag }} {{ form.message }}</td>
+                </tr>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Post Message" />
+          </form>
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

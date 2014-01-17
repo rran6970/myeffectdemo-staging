@@ -101,6 +101,8 @@ class RegisterUserForm(forms.ModelForm):
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+	uea = forms.BooleanField(required=True)
+	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -118,6 +120,8 @@ class RegisterUserForm(forms.ModelForm):
 		province = cleaned_data.get('province')
 		school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
+		uea = cleaned_data.get('uea')
+		token = cleaned_data.get('token')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -135,6 +139,8 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please select your province")
 		elif not school_type:
 			raise forms.ValidationError("Please select your school type")
+		elif not uea:
+			raise forms.ValidationError("Please accept the Terms & Conditions")
 
 		if password and confirm_password:
 			if password != confirm_password:
@@ -153,6 +159,7 @@ class ProfileForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
 	about = forms.CharField(required=False, widget=forms.Textarea())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=2, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	
@@ -166,6 +173,8 @@ class ProfileForm(forms.ModelForm):
 		first_name = cleaned_data.get("first_name")
 		last_name = cleaned_data.get("last_name")
 		email = cleaned_data.get("email")
+		about = cleaned_data.get("about")
+		twitter = cleaned_data.get("twitter")
 		school_type = cleaned_data.get("school_type")
 
 		if not first_name:

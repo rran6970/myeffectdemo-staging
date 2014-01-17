@@ -1,0 +1,52 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Clean Teams {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-notifications" id="sign-go-back"></div></a>
+      <div id="white-box" class="all-notifications">
+          <h1>{{ user.first_name }}'s Notifications</h1>
+
+          <div class="table-container">
+              <table class="table table-hover">
+                <tbody>
+                  {% for n in notifications %}
+                  <tr>
+                    <td class="notification {% if not n.read %}unread{% endif %}">
+                      <form action="/notifications/read/" method="post">{% csrf_token %}
+                        <input type="hidden" name="nid" value="{{ n.id }}" />
+                        <a href="{{ n.link }}" class="notification-link">
+                          {{ n.message }}
+                          <p class="timestamp">{{ n.timestamp }}</p>
+                        </a>
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table><!-- /.table.table-hover -->
+          </div><!-- /.table-container -->
+          
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

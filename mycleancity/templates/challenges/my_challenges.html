@@ -18,48 +18,80 @@
   <div class="content my-challenges">
     <div class="container">
       	<div id="sign-my-challenges"></div>
+
+      	{% if user.profile.is_clean_ambassador %}
         <div id="white-box" class="posted-challenges">
-			<h1>Posted Challenges</h1>
+			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted Challenges</h1>
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
-						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }}</h1></a>
 
-						<a href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
+						<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 						
-						<span class="location">
-							<p>Location:<span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span></p>
-						</span>
-						<span class="clean-creds">
-							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCreds }}</span></p>
-						</span>
+						<div class="title">
+							<p><span>Date:</span>&nbsp;{{ challenge.event_date }}</p>
+						</div>
+
+						<div class="title">
+							<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
+						</div>
 					</div>
 				{% endfor %}
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
 			{% endif %}
         </div><!-- /#white-box -->
-
-        <div id="white-box"class="user-challenges">
-			<h1>Challenges Participating In</h1>
+		{% endif %}
+	
+        <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
 			{% if user_challenges %}
-				{% for challenge in user_challenges %}
-					<div class="challenges">
-						<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title|upper }} - {{ challenge.challenge.event_date }}</h1></a>
-						
-						<span class="location">
-							<p>Location:<span>&nbsp;{{ challenge.challenge.city }}, {{ challenge.challenge.province }}</span></p>
-						</span>
-						<span class="clean-creds">
-							<p><span class="green bold">Clean</span><span class="blue bold">Creds</span>:<span>&nbsp;{{ challenge.challenge.cleancred_value }}</span></p>
-						</span>
-						<span class="status">
-							<p>Status:<span>&nbsp;{% if challenge.complete %} Complete {% else %} Pending {% endif %}</span></p>
-						</span>
-					</div>
-				{% endfor %}
+				
+				<div class="table-container">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Challenge</th>
+								<th>Your Hours</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for challenge in user_challenges %}
+							<tr>
+								<td class="icon">
+									{% if challenge.time_out %}
+									<img title="Challenge is complete" class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+									{% else %}
+										{% if challenge.time_in %}
+										<img title="You are checked in to a challenge"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
+										{% else %}
+										<img title="Challenge not started yet" class="status-icon" src="{{ STATIC_URL }}images/32x32-red-circle.png" alt="" />
+										{% endif %}
+									{% endif %}
+								</td>
+								<td class="challenge">
+									<div class="challenge-info">
+										<a href="/challenges/{{ challenge.challenge.id }}/">{{ challenge.challenge.title|upper }}</a>
+
+										{% if challenge.time_in %}
+										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
+										{% else %}
+										<span class="total-hours">Not checked in</span>
+										{% endif %}									
+									</div>
+								</td>
+								<td class="total-hours">
+									{{ challenge.total_hours }} hours
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table><!-- /.table.table-hover -->
+				</div><!-- /.table-container -->
+				
 			{% else %}
-				<p>There are no challenges that you've partcipated in.</p>
+				<p style="text-align: center;">There are no challenges that you've partcipated in.</p>
 			{% endif %}
         </div><!-- /#white-box -->
         

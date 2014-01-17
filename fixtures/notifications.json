@@ -1,0 +1,86 @@
+[
+{
+    "pk": 1, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "Challenge posted", 
+        "users_to_notify": "clean-ambassador, clean-champion", 
+        "link": "/challenges/{0}/", 
+        "notification_type": "challenge_posted", 
+        "message": "{0} posted a challenge called {1}", 
+        "description": "A Clean Team posts a Challenge"
+    }
+},
+{
+    "pk": 2, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "Message posted", 
+        "users_to_notify": "clean-ambassador, clean-champion", 
+        "link": "/clean-team/{0}", 
+        "notification_type": "message_posted", 
+        "message": "{0} posted a message on their wall", 
+        "description": "A Clean Team posts a message"
+    }
+},
+{
+    "pk": 3, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "New Clean Champion", 
+        "users_to_notify": "clean-ambassador", 
+        "link": "/clean-team/members/", 
+        "notification_type": "cc_joined", 
+        "message": "{0} joined {1} as a Clean Champion!", 
+        "description": "A new Clean Champion has joined a Clean Team"
+    }
+},
+{
+    "pk": 4, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "New Clean Ambassador request", 
+        "users_to_notify": "clean-ambassador", 
+        "link": "/clean-team/members/", 
+        "notification_type": "ca_request", 
+        "message": "{0} has requested to join {1} as a Clean Ambassador", 
+        "description": "A new Clean Ambassador request is made"
+    }
+},
+{
+    "pk": 5, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "Clean Ambassador invite", 
+        "users_to_notify": "individual-user", 
+        "link": "/clean-team/invite/{0}", 
+        "notification_type": "ca_invite", 
+        "message": "{0} from {1} has invited you to become a Clean Ambassador", 
+        "description": "A requst is sent to a User for them to become a Clean Ambassador"
+    }
+},
+{
+    "pk": 6, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "Clean Champion invite", 
+        "users_to_notify": "individual-user", 
+        "link": "/clean-team/invite/{0}", 
+        "notification_type": "cc_invite", 
+        "message": "{0} from {1} has invited you to become a Clean Champion", 
+        "description": "A requst is sent to a User for them to become a Clean Champion"
+    }
+},
+{
+    "pk": 7, 
+    "model": "notifications.notification", 
+    "fields": {
+        "name": "Clean Ambassador", 
+        "users_to_notify": "individual-user", 
+        "link": "/clean-team/{0}", 
+        "notification_type": "ca_joined", 
+        "message": "You have been approved to be a Clean Ambassador for {0}", 
+        "description": "A new Clean Ambassador request is approved"
+    }
+}
+]

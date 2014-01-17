@@ -23,26 +23,28 @@
     <div class="container">
     	<div id="sign-challenge-overview"></div>
         <div id="white-box">
-        	<h1>{{ challenge.title }}</h1>
+        	<h2>{{ challenge.title }}</h2>
+        	<a id="learn-more" class="popup-600" href="#challenge-description">Learn more</a>
+
+        	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
         	<span id="edit-challenge-link">
         		<a href="/challenges/edit/{{ challenge.id }}/">Edit Challenge</a>
         	</span>
+        	{% endif %}
         	<div class="clear"></div>
-	
+        	{% if challenge.host_organization %}
+        		<span class="subtitle">Hosted by: {{ challenge.host_organization }}</span>
+        	{% endif %}
+
 			<table>
 				<tr>
-					<td class="titles">Where:</td>
-					<td>{{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
+					<td><span class="titles">Date:</span> {{ challenge.event_date }} {{ challenge.event_time }}</td>
 				</tr>
 				<tr>
-					<td class="titles">When:</td>
-					<td>{{ challenge.event_date }} {{ challenge.event_time }}</td>
+					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td colspan="2"><p>{{ challenge.description }}</p></td>
-				</tr>
-				<tr>
-					<td class="titles"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCreds }}</span></td>
+					<td><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCredsPerHour }}</span></td>
 				</tr>
 			</table>
 		
@@ -51,11 +53,15 @@
 			<a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
 
 			{% if user.is_authenticated %}
-			<form action="/challenges/participate/" method="post">
-				{% csrf_token %}
-				<input type="hidden" name="cid" value="{{ challenge.id }}">
-				<input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
-			</form>
+				{% if user_challenge %}
+					<input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+				{% else %}
+					<form action="/challenges/participate/" method="post">
+						{% csrf_token %}
+						<input type="hidden" name="cid" value="{{ challenge.id }}">
+						<input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
+					</form>
+				{% endif %}
 			{% else %}
 				<a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
 			{% endif %}
@@ -68,13 +74,21 @@
 
 			{% for participant in participants %}
 				<div class="participants">
-					<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+					<a href="/users/profile/{{ participant.user.id }}">
+						<img class="" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" /><p>{{ participant.user.get_full_name }}</p>
+					</a>
         		</div>
 			{% endfor %}
         </div>
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="challenge-description" class="popup">
+  	{{ challenge.description }}
+  </div><!-- end of #challenge-description -->
+</div><!-- end of .popup-container -->
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
