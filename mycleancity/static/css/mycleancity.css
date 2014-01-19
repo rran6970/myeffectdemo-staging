@@ -65,7 +65,9 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
-#sign-go-back.login, #sign-go-back.all-clean-teams, #sign-go-back.all-notifications { left: 424px; }
+#sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
+#sign-go-back.all-clean-teams { left: 283px; }
+
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
 #sign-go-back.contact { left: 424px; }
@@ -512,8 +514,10 @@ div.table-container #invitees-table tr td.roles {  }
 /******************************
 	All Clean Teams Page
 ******************************/ 
-#white-box.all-clean-teams { width: 356px; height: 450px; left: 36%; }
+#white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 15px; }
+#white-box.all-clean-teams tr td { height: 70px; }
+#white-box.all-clean-teams tr td.roles { width: 100px; text-align: right; }
 
 /******************************
 	All Notifications Page
