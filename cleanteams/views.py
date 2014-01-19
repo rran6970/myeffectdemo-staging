@@ -265,6 +265,18 @@ class CleanTeamView(TemplateView):
 			try:
 				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=self.request.user)
 				context['clean_champion'] = clean_champion
+			except Exception, e:
+				print e
+
+			try:
+				invite = CleanTeamInvite.objects.get(email=self.request.user.email, clean_team_id=ctid)
+				context['invite'] = invite
+			except Exception, e:
+				print e
+
+			try:
+				# TODO: Need to pass this to the template
+				# context['clean_ambassador']
 				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
 			except Exception, e:
 				print e
