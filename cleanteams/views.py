@@ -448,13 +448,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 					except Exception, e:
 						ctm = CleanTeamMember(user=self.request.user)
 						
-					ctm.clean_team = invite.clean_team
-					ctm.role = invite.role
-					ctm.status = "approved"
-					ctm.save()
-
-					self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-					self.request.user.profile.save()
+					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, True)
 			else:
 				invite.status = "declined"
 

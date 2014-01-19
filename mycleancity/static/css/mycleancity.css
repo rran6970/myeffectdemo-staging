@@ -444,6 +444,8 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members-ca #team-name {  }
 #white-box.team-members-ca table thead tr th.actions { text-align: center; }
 
+#white-box.team-members-cc { width: 270px; left: 73%; }
+
 #white-box.invite-form { left: 66%; width: 337px; }
 #white-box.invite-form input[type="text"] { width: 270px; }
 #white-box.invite-form input[type="submit"] { margin: 10px auto; }
@@ -467,6 +469,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile { width: 733px; left: 37%; padding-right: 0; }
 #white-box.clean-team-profile h2 { font-weight: 700; }
+#white-box.clean-team-profile h2 a { font-size: 15px; }
 #white-box.clean-team-profile div.info { width: 450px; float: left; border-right: 1px solid #abd78c; border-bottom: 1px solid #abd78c; padding-right: 20px; padding-bottom: 10px; }
 
 #white-box.clean-team-profile div.info#profile-pic { width: 247px; float: right; border: none; padding: 0; }
