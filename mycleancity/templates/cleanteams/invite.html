@@ -77,7 +77,7 @@
         {% endif %}
 
         <div id="clean-team-members-list">
-          <form action="/clean-team/invite" method="post">{% csrf_token %}
+          <form autocomplete="off" action="/clean-team/invite" method="post">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
               <tr>

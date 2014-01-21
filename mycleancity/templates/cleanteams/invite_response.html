@@ -17,8 +17,14 @@
   
   <div class="content">
     <div class="container">
-        <div id="white-box" class="register">
-            <h2>Would you like to join {{ invite.clean_team.name }}?</h2>
+        <div id="white-box" class="invite-response">
+            <p>{{ invite.user.get_full_name }} from {{ invite.clean_team.name }} is inviting you to be a 
+              {% if invite.role == "clean-ambassador" %}
+                Clean Ambassasdor
+              {% else %}
+                Clean Champion
+              {% endif %}
+            </p>
 
             {% if form.non_field_errors %}
               <div class="message-box error">

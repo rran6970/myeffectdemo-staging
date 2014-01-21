@@ -56,7 +56,7 @@ class LoginPageView(TemplateView):
 			context['next'] = next_url
 		else:
 			print "not there"
-
+			
 		return context
 
 def auth_view(request):

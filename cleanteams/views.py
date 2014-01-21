@@ -136,7 +136,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		mail.content_subtype = "html"
 		# mail.send()
 
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/clean-team/invite/')
 
 class EditCleanTeamView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/edit_clean_team.html"
@@ -241,8 +241,10 @@ class ViewAllCleanTeams(TemplateView):
 		context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
 		teams = CleanTeam.objects.all()
+		clean_champions = CleanChampion.objects.filter(user=self.request.user)
 
 		context['teams'] = teams
+		context['clean_champions'] = clean_champions
 		context['user'] = self.request.user
 
 		return context
@@ -265,6 +267,18 @@ class CleanTeamView(TemplateView):
 			try:
 				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=self.request.user)
 				context['clean_champion'] = clean_champion
+			except Exception, e:
+				print e
+
+			try:
+				invite = CleanTeamInvite.objects.get(email=self.request.user.email, clean_team_id=ctid)
+				context['invite'] = invite
+			except Exception, e:
+				print e
+
+			try:
+				# TODO: Need to pass this to the template
+				# context['clean_ambassador']
 				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
 			except Exception, e:
 				print e
@@ -336,7 +350,7 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 
 		clean_champion.becomeCleanChampion(self.request.user, selected_team)
 
-		return HttpResponseRedirect('/clean-team/%s' % str(selected_team.id))
+		return HttpResponseRedirect('/clean-team/invite/')
 
 	def get_context_data(self, **kwargs):
 		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
@@ -448,13 +462,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 					except Exception, e:
 						ctm = CleanTeamMember(user=self.request.user)
 						
-					ctm.clean_team = invite.clean_team
-					ctm.role = invite.role
-					ctm.status = "approved"
-					ctm.save()
-
-					self.request.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-					self.request.user.profile.save()
+					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, True)
 			else:
 				invite.status = "declined"
 

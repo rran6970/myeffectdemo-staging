@@ -65,7 +65,9 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
-#sign-go-back.login, #sign-go-back.all-clean-teams, #sign-go-back.all-notifications { left: 424px; }
+#sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
+#sign-go-back.all-clean-teams { left: 283px; }
+
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
 #sign-go-back.contact { left: 424px; }
@@ -376,9 +378,8 @@ div.content.challenge-overview { background: url(../images/challenge-centre-bg.p
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 300px; left: 11%; }
 div.content.challenge-overview #white-box h2 { float: left; text-transform: uppercase; font-weight: 400; }
-div.content.challenge-overview #white-box #learn-more { top: 6px; position: relative; left: 18px; }
-div.content.challenge-overview #white-box #edit-challenge-link { top: 6px; position: relative; left: 105px; }
-/*div.content.challenge-overview #white-box h1 + span { display: block; top: 11px; left: 12px; position: relative; }*/
+div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
+div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
 div.content.challenge-overview #white-box table { margin: 30px 0; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }
@@ -444,6 +445,8 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members-ca #team-name {  }
 #white-box.team-members-ca table thead tr th.actions { text-align: center; }
 
+#white-box.team-members-cc { width: 270px; left: 73%; }
+
 #white-box.invite-form { left: 66%; width: 337px; }
 #white-box.invite-form input[type="text"] { width: 270px; }
 #white-box.invite-form input[type="submit"] { margin: 10px auto; }
@@ -459,6 +462,13 @@ div.table-container #invitees-table tr td.status {  }
 div.table-container #invitees-table tr td.roles {  }
 
 /******************************
+	Invite Response Page
+******************************/ 
+#white-box.invite-response {  }
+#white-box.invite-response form { width: 400px; margin: 0 auto; }
+#white-box.invite-response form input[type="submit"] { width: 300px; margin: 20px auto; }
+
+/******************************
 	Clean Team Page
 ******************************/ 
 #clean-team-members-list { width: 240px; left: 35%; }
@@ -466,7 +476,8 @@ div.table-container #invitees-table tr td.roles {  }
 #clean-team-members-list p #badge-icon { width: 62px; }
 
 #white-box.clean-team-profile { width: 733px; left: 37%; padding-right: 0; }
-#white-box.clean-team-profile h2 { font-weight: 700; }
+#white-box.clean-team-profile h2 { font-weight: 700; width: 350px; float: left; }
+#white-box.clean-team-profile h2 a { font-size: 15px; }
 #white-box.clean-team-profile div.info { width: 450px; float: left; border-right: 1px solid #abd78c; border-bottom: 1px solid #abd78c; padding-right: 20px; padding-bottom: 10px; }
 
 #white-box.clean-team-profile div.info#profile-pic { width: 247px; float: right; border: none; padding: 0; }
@@ -493,15 +504,19 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile #clean-team-info div { margin: 10px; }
 #white-box.clean-team-profile #clean-team-members-list-btn { display: block; text-align: center; }
 
-#white-box.clean-team-profile #request-join-clean-team-btn, #white-box.clean-team-profile  #register-to-join-btn { margin: 16px auto; }
+#white-box.clean-team-profile #request-join-clean-team-btn, #white-box.clean-team-profile  #register-to-join-btn, #white-box.clean-team-profile #view-invite-btn { margin: 16px auto; }
 
 #white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
+
+#white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
 
 /******************************
 	All Clean Teams Page
 ******************************/ 
-#white-box.all-clean-teams { width: 356px; height: 450px; left: 36%; }
+#white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 15px; }
+#white-box.all-clean-teams tr td { height: 70px; }
+#white-box.all-clean-teams tr td.roles { width: 100px; text-align: right; }
 
 /******************************
 	All Notifications Page
