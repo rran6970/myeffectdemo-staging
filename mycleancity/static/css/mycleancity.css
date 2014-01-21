@@ -378,9 +378,8 @@ div.content.challenge-overview { background: url(../images/challenge-centre-bg.p
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 300px; left: 11%; }
 div.content.challenge-overview #white-box h2 { float: left; text-transform: uppercase; font-weight: 400; }
-div.content.challenge-overview #white-box #learn-more { top: 6px; position: relative; left: 18px; }
-div.content.challenge-overview #white-box #edit-challenge-link { top: 6px; position: relative; left: 105px; }
-/*div.content.challenge-overview #white-box h1 + span { display: block; top: 11px; left: 12px; position: relative; }*/
+div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
+div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
 div.content.challenge-overview #white-box table { margin: 30px 0; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }

@@ -24,6 +24,7 @@
     	<div id="sign-challenge-overview"></div>
         <div id="white-box">
         	<h2>{{ challenge.title }}</h2>
+        	<div class="clear"></div>
         	<a id="learn-more" class="popup-600" href="#challenge-description">Learn more</a>
 
         	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}

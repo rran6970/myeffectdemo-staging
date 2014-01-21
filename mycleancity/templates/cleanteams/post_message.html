@@ -27,7 +27,7 @@
             </div>
           {% endif %}
 
-          <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+          <form autocomplete="off" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
                 <tr>

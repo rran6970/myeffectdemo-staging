@@ -27,7 +27,7 @@
               </div>
             {% endif %}
 
-            <form method="post">{% csrf_token %}
+            <form method="post" autocomplete="off">{% csrf_token %}
                 {{ form.token }}
                 <table>
                     <tr>
