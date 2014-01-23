@@ -145,7 +145,7 @@ div.content.about #white-box h3 { font-weight: 500; color: #638d3d; }
 div.content.about #white-box ol li { list-style: decimal; } 
 div.content.about #white-box iframe { margin-left: 120px; }
 
-#sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
+#sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
 #sign-mission { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 107px; left: 60px; background: url(../images/sign-mission.png) no-repeat 0 0; }
 #sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
 #sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
@@ -172,7 +172,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #kelly-img { display: block; float: left; border: 1px solid #000; margin: 9px 20px 20px 0; }
 #kelly-img + p { padding-top: 0 !important; }
 
-#sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
+#sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
 #sign-student-explain-it { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 97px; background: url(../images/sign-explain-it.png) no-repeat 0 0; }
 #sign-how-to-play { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-how-to-play.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
