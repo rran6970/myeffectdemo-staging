@@ -90,7 +90,7 @@
             <ol>
               <li>
                 <p>
-                  <a href="#infographic-individual">Individual</a> - You are a free agent, choose the challenges you want to complete, move up the leaderboard on your own and earn individual rewards
+                  <a class="popup-image" href="#infographic-individual">Individual</a> - You are a free agent, choose the challenges you want to complete, move up the leaderboard on your own and earn individual rewards
                 </p>
               </li>
               <li>
@@ -103,7 +103,7 @@
               </li>
               <li>
                 <p>
-                  <a href="#infographic-clean-team">Clean Team</a> - Take a leadership role and become a <a href="#ambassador" data-toggle="tab">Clean Ambassador</a> with a group of 3-5 of your friends. You can even represent your school as official My Clean City program leaders. Get your own team page to create Clean Challenges, unlock special levels and exclusive opportunities. 
+                  <a class="popup-image" href="#infographic-clean-team">Clean Team</a> - Take a leadership role and become a <a href="#ambassador" data-toggle="tab">Clean Ambassador</a> with a group of 3-5 of your friends. You can even represent your school as official My Clean City program leaders. Get your own team page to create Clean Challenges, unlock special levels and exclusive opportunities. 
                 </p>
                 <p>
                   <span class="bold">Are you ready to play?</span> <a href="/register/">Register</a>.
@@ -171,6 +171,15 @@
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="infographic-individual" class="popup">
+    <img src="{{ STATIC_URL }}images/infographic-individual.png" alt="" />
+  </div>
+  <div id="infographic-clean-team" class="popup">
+    <img src="{{ STATIC_URL }}images/infographic-clean-team.png" alt="" />
+  </div>
+</div><!-- /.popup-container -->
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
