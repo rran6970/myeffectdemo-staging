@@ -195,7 +195,7 @@ div.content.organization #sign-stump { top: 210px; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 16px; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
-#sign-student-youth { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 86px; left: 88px; background: url(../images/sign-student-youth.png) no-repeat 0 0; }
+#sign-student-nonprofits { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 84px; left: 66px; background: url(../images/sign-student-nonprofits.png) no-repeat 0 0; }
 #sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
 #sign-brands { width: 207px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 88px; background: url(../images/sign-brands.png) no-repeat 0 0; }
 #sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
@@ -295,8 +295,8 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
 
-#white-box.register #id_uea { float: left; }
-#white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
+#white-box.register #id_uea, #white-box.register #id_smartphone { float: left; }
+#white-box.register #id_uea + label, #white-box.register #id_smartphone + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
 
 #blurb a { margin: 0 auto; width: 300px; }
 

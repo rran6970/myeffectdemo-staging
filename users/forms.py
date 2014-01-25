@@ -90,7 +90,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
-	CHOICES = (('individual', 'Individual',), ('clean-ambassador', 'Clean Ambassador',), ('clean-champion', 'Clean Champion',))
+	ROLE_CHOICES = (('individual', 'Individual',), ('clean-ambassador', 'Clean Ambassador',), ('clean-champion', 'Clean Champion',))
+	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',))
 
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -99,8 +100,10 @@ class RegisterUserForm(forms.ModelForm):
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
-	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	role = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
+	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range")
+	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES)
+	smartphone = forms.BooleanField(required=False)
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	
@@ -118,8 +121,9 @@ class RegisterUserForm(forms.ModelForm):
 		confirm_password = cleaned_data.get('confirm_password')
 		city = cleaned_data.get('city')
 		province = cleaned_data.get('province')
-		school_type = cleaned_data.get('school_type')
+		# school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
+		age = cleaned_data.get('age')
 		uea = cleaned_data.get('uea')
 		token = cleaned_data.get('token')
 
@@ -137,10 +141,12 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please select your city")
 		elif not province:
 			raise forms.ValidationError("Please select your province")
-		elif not school_type:
-			raise forms.ValidationError("Please select your school type")
+		# elif not school_type:
+		# 	raise forms.ValidationError("Please select your school type")
 		elif not uea:
 			raise forms.ValidationError("Please accept the Terms & Conditions")
+		elif not age:
+			raise forms.ValidationError("Please select your age range")
 
 		if password and confirm_password:
 			if password != confirm_password:

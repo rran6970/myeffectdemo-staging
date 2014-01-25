@@ -22,7 +22,9 @@ class UserProfile(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	clean_creds = models.IntegerField(default=0)
-	school_type = models.CharField(max_length = 30, blank=True, default="High School")
+	school_type = models.CharField(max_length=30, blank=True, default="High School")
+	age = models.CharField(max_length=30, blank=True, default="17-21")
+	smartphone = models.BooleanField(default=0)
 	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
 
 	class Meta:
