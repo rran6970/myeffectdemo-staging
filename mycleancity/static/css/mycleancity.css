@@ -298,6 +298,8 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 #white-box.register #id_uea, #white-box.register #id_smartphone { float: left; }
 #white-box.register #id_uea + label, #white-box.register #id_smartphone + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
 
+#white-box.qr-code-blurb { width: 350px; left: 70%; }
+
 #blurb a { margin: 0 auto; width: 300px; }
 
 /******************************
