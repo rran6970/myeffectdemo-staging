@@ -191,6 +191,7 @@ class RegisterView(FormView):
 		if 'qrcode' in self.kwargs:
 			context['popup'] = True
 	
+		context['page_url'] = self.request.get_full_path()
 		context['user'] = self.request.user
 
 		return context	

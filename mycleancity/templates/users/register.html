@@ -26,6 +26,10 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
+              
+            <div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
+
+            <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Clean City" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
 
             <form method="post" autocomplete="off">{% csrf_token %}
                 {{ form.token }}
