@@ -182,7 +182,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 /******************************
 	Organizations Page
 ******************************/ 
-div.content.organization #white-box { left: 30%; width: 700px; }
+div.content.organization #white-box { left: 30%; width: 828px; }
 div.content.organization #white-box h1 { font-weight: 800; }
 div.content.organization #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.organization #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -195,14 +195,16 @@ div.content.organization #sign-stump { top: 210px; }
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 16px; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
-#sign-student-youth { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 98px; left: 88px; background: url(../images/sign-student-youth.png) no-repeat 0 0; }
-#sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 156px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
-#sign-brands { width: 207px; height: 54px; position: absolute; z-index: 1000; top: 213px; left: 88px; background: url(../images/sign-brands.png) no-repeat 0 0; }
-/*#sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 242px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }*/
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+#sign-student-youth { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 86px; left: 88px; background: url(../images/sign-student-youth.png) no-repeat 0 0; }
+#sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
+#sign-brands { width: 207px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 88px; background: url(../images/sign-brands.png) no-repeat 0 0; }
+#sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 315px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
 /*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 355px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 372px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 
+table.supporters-table tr td { padding: 10px !important; }
+table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 2px solid #4a3c2e; }
 
 /******************************
 	Rewards Page
