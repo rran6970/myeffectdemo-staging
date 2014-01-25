@@ -21,7 +21,7 @@
         
         <div id="white-box" class="public-profile clean-team-profile">
           
-          <div class="info" id="profile-pic">
+          <div class="info" id="right-side">
             <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic" />
             <img id="badge-icon" src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="Badge Level" />
 
@@ -45,7 +45,10 @@
               </div>
               {% endif %}
             </div>
-            <a href="#clean-team-members-list" id="clean-team-members-list-btn" class="popup-200">View Members</a>
+            <a href="#clean-team-members-list" class="popup-200">View Members</a>
+            {% if challenges %}
+              <a href="#clean-team-challenges-list" class="popup-600">View Challenges</a>
+            {% endif %}
 
             {% if user.is_authenticated %}
               {% if invite.status == "pending" %}
@@ -129,6 +132,19 @@
 </div> <!-- /.wrapper -->
 
 <div class="popup-container">
+  <div id="clean-team-challenges-list" class="popup">
+    <!-- Challenges -->
+    {% for challenge in challenges %}
+      <div class="challenge">
+        <h1><a href="/challenges/{{ challenge.id }}/">{{ challenge.title }}</a></h1>
+        <span class="date-time">{{ challenge.event_date }} {{ challenge.event_time }}</span>
+        <p>{{ challenge.description|slice:":255" }}</p>
+        <p class="clean-creds"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ challenge.getChallengeCleanCredsPerHour }}</span></p>
+        
+      </div>
+    {% endfor %}
+  </div>
+
   <div id="clean-team-members-list" class="popup">
     <!-- Clean Ambassadors -->
     {% for member in cas %}

@@ -23,6 +23,7 @@ from django.views.generic.edit import FormView
 
 from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite
+from challenges.models import Challenge
 
 from notifications.models import Notification
 
@@ -288,6 +289,7 @@ class CleanTeamView(TemplateView):
 			context['cas'] = cas
 			context['ccs'] = ccs
 			context['posts'] = posts
+			context['challenges'] = Challenge.objects.filter(clean_team_id=ctid)
 
 		context['user'] = self.request.user
 
