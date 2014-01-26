@@ -63,6 +63,8 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 .tooltip-inner span.description.last { margin-bottom: 0; }
 .tooltip-inner span.description strong.title { display: block; margin-bottom: 3px; font-size: 17px; }
 
+.badge-join { display: block; text-align: center; }
+
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
