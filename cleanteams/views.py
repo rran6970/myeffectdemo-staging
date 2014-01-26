@@ -89,11 +89,12 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ct.team_type = form.cleaned_data['team_type']
 		ct.group = form.cleaned_data['group']
 
+		# TODO: Move to models
 		if logo:
 			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
 			bucket = conn.get_bucket(settings.AWS_BUCKET)
 			k = Key(bucket)
-			k.key = 'uploads/ct_logo_%s' % str(user.id)
+			k.key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
 			k.set_contents_from_string(form.cleaned_data['logo'].read())
 			ct.logo = k.key
 
@@ -176,12 +177,6 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-		# bucket = conn.get_bucket(settings.AWS_BUCKET)
-		# k = Key(bucket)
-		# k.key = 'uploads/ct_logo_%s' % str(user.id)
-		# k.set_contents_from_string(form.cleaned_data['logo'].read())
-
 		clean_team_id = form.cleaned_data['clean_team_id']
 
 		try:
@@ -196,8 +191,20 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		clean_team.about = form.cleaned_data['about']
 		clean_team.region = form.cleaned_data['region']
 		clean_team.team_type = form.cleaned_data['team_type']
-		clean_team.group = form.cleaned_data['group']
+		
+		logo = form.cleaned_data['logo']
+
+		# TODO: Move to models
+		if logo:
+			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+			bucket = conn.get_bucket(settings.AWS_BUCKET)
+			k = Key(bucket)
+			k.key = 'uploads/ct_logo_%s_%s' % (str(self.request.user.id), logo)
+			k.set_contents_from_string(form.cleaned_data['logo'].read())
+			clean_team.logo = k.key
+
 		clean_team.save()
+
 
 		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 

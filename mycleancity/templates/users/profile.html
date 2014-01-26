@@ -21,13 +21,14 @@
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
             <h2>My Profile</h2>
+
             {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
             {% endif %}
 
-            <form action="" method="post">{% csrf_token %}
+            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
                     <tr>
                       <td class="clean-creds"><span class="green bold">Clean</span><span class="blue bold">Creds:</span>&nbsp;{{ user.profile.clean_creds }}</td>
@@ -43,6 +44,7 @@
                     </tr>
                     <tr>
                         <td>{{ form.twitter.label_tag }} {{ form.twitter }}</td>
+                        <td>{{ form.picture.label_tag }} {{ form.picture }}</td>
                     </tr>
                     <tr>
                       <td colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>

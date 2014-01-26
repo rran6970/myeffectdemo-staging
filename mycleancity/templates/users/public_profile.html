@@ -51,7 +51,13 @@
           {% if user.id == user_profile.id %}
             <span class="edit-profile-link"><a href="/users/profile">Edit Profile</a></span>
           {% endif %}
-          <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic" />
+
+          {% if user_profile.profile.picture %}
+            <img style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ user_profile.profile.picture }}" alt="" class="profile-pic" />
+          {% else %}
+            <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic" />
+          {% endif %}
+          
           
           <div class="info" style="width: 100%;">
             {% if user_profile.profile.about %}

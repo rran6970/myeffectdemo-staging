@@ -347,12 +347,14 @@ class ProfileView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 		user = User.objects.get(id=self.request.user.id)
+		picture = form.cleaned_data['picture']
 
 		user.first_name = form.cleaned_data['first_name']
 		user.last_name = form.cleaned_data['last_name']
@@ -362,6 +364,16 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
 		user.profile.school_type = form.cleaned_data['school_type'] 
+
+		# TODO: Move to models
+		if picture:			
+			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+			bucket = conn.get_bucket(settings.AWS_BUCKET)
+			k = Key(bucket)
+			k.key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
+			k.set_contents_from_string(form.cleaned_data['picture'].read())
+			user.profile.picture = k.key
+
 		user.profile.save()
 
 		return HttpResponseRedirect('/users/profile/%s' % str(user.id))

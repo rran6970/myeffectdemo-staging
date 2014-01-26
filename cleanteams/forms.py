@@ -2,8 +2,11 @@ import datetime
 import re
 
 from django import forms
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+from django.core.files.images import get_image_dimensions
 
 from cleanteams.models import CleanTeam, CleanTeamInvite
 
@@ -17,7 +20,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 	website = forms.URLField(required=False, initial="http://", max_length=128, min_length=2, widget=forms.TextInput())
 	logo = forms.ImageField(required=False)
 	about = forms.CharField(required=False, widget=forms.Textarea())
-	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=2, widget=forms.TextInput())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
 	region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
 	team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
 	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
@@ -46,8 +49,17 @@ class RegisterCleanTeamForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:
 			raise forms.ValidationError("Please select the type of team")
-		# elif not logo:
-		# 	raise forms.ValidationError("Please upload your logo")
+
+		if logo:
+			if logo._size > 2*1024*1024:
+				raise forms.ValidationError("Image file must be smaller than 2MB")
+
+			w, h = get_image_dimensions(logo)
+
+			if w != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
+			if h != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
 		if CleanTeam.objects.filter(name=name) and not clean_team_id:
 			raise forms.ValidationError(u'%s already exists' % name)

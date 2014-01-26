@@ -7,6 +7,9 @@ from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
+def get_upload_file_name(instance, filename):
+	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
+
 """
 Name:           UserProfile
 Date created:   Sept 8, 2013
@@ -26,6 +29,7 @@ class UserProfile(models.Model):
 	age = models.CharField(max_length=30, blank=True, default="17-21")
 	smartphone = models.BooleanField(default=0)
 	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
+	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'

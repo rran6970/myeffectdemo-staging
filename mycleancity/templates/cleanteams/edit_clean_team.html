@@ -27,17 +27,12 @@
             </div>
           {% endif %}
 
-          {% if form.errors %}
-            <div class="message-box error">
-            {{ form.errors }}
-            </div>
-          {% endif %}
-
           <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
                 <tr>
                     <td>{{ form.name.label_tag }} {{ form.name }}</td>
+                    <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                 </tr>
                 <tr>
                     <td>{{ form.website.label_tag }} {{ form.website }}</td>

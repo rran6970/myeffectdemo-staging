@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.core.files.images import get_image_dimensions
 from django.forms.extras.widgets import SelectDateWidget
 
 from captcha.fields import CaptchaField
@@ -172,9 +173,10 @@ class ProfileForm(forms.ModelForm):
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
 	about = forms.CharField(required=False, widget=forms.Textarea())
-	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=2, widget=forms.TextInput())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
+	picture = forms.ImageField(required=True, label="Profile Picture")
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -189,6 +191,7 @@ class ProfileForm(forms.ModelForm):
 		about = cleaned_data.get("about")
 		twitter = cleaned_data.get("twitter")
 		school_type = cleaned_data.get("school_type")
+		picture = cleaned_data.get("picture")
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -198,6 +201,17 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a valid email address")
 		elif not school_type:
 			raise forms.ValidationError("Please select your school type")
+
+		if picture:
+			if picture._size > 2*1024*1024:
+				raise forms.ValidationError("Image file must be smaller than 2MB")
+
+			w, h = get_image_dimensions(picture)
+
+			if w != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
+			if h != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
 		return cleaned_data
 

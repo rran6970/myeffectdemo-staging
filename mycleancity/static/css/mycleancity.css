@@ -318,7 +318,7 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 	Public Profile
 ******************************/ 
 #white-box.public-profile { width: 478px; left: 45%; }
-#white-box.public-profile img.profile-pic { display: block; margin-top: 10px; margin-right: 16px; float: right; }
+#white-box.public-profile img.profile-pic { border-radius: 4px; border: 2px solid #4a3c2e; display: block; margin-top: 10px; margin-right: 16px; float: right; }
 #white-box.public-profile span.edit-profile-link { position: relative; left: 40px; top: 5px; }
 
 #white-box.public-profile div.info { width: 264px; float: left; }
@@ -510,7 +510,7 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile img.profile-pic { margin-right: 58px; }
 #white-box.clean-team-profile img.profile-pic + #badge-icon { display: block; 
 	position: absolute; top: 120px; right: 133px; z-index: 1000; }
-#white-box.clean-team-profile div.clean-creds { margin-top: 171px; text-align: center; }
+#white-box.clean-team-profile div.clean-creds { margin-top: 160px; text-align: center; }
 #white-box.clean-team-profile div.clean-creds p { font-size: 20px; }
 #white-box.clean-team-profile #clean-team-info { padding: 0px 10px; text-align: center; }
 /*#white-box.clean-team-profile #clean-team-info a { display: block; margin-left: 12px; margin-bottom: 40px; }*/
