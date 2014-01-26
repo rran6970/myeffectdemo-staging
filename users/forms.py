@@ -6,6 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
+
+from captcha.fields import CaptchaField
+
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile
 from userorganization.models import UserOrganization
@@ -106,6 +109,7 @@ class RegisterUserForm(forms.ModelForm):
 	smartphone = forms.BooleanField(required=False)
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
+	captcha = CaptchaField()
 	
 	# Combines the form with the corresponding model
 	class Meta:
@@ -125,6 +129,7 @@ class RegisterUserForm(forms.ModelForm):
 		role = cleaned_data.get('role')
 		age = cleaned_data.get('age')
 		uea = cleaned_data.get('uea')
+		captcha = cleaned_data.get('captcha')
 		token = cleaned_data.get('token')
 
 		if not first_name:
@@ -145,6 +150,8 @@ class RegisterUserForm(forms.ModelForm):
 		# 	raise forms.ValidationError("Please select your school type")
 		elif not uea:
 			raise forms.ValidationError("Please accept the Terms & Conditions")
+		elif not captcha:
+			raise forms.ValidationError("Please enter the CAPTCHA field correctly")
 		elif not age:
 			raise forms.ValidationError("Please select your age range")
 
