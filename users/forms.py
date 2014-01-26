@@ -176,7 +176,7 @@ class ProfileForm(forms.ModelForm):
 	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	picture = forms.ImageField(required=True, label="Profile Picture")
+	picture = forms.ImageField(required=False, label="Profile Picture")
 	
 	# Combines the form with the corresponding model
 	class Meta:
