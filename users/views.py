@@ -148,7 +148,8 @@ class RegisterView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
-		u.profile.school_type = form.cleaned_data['school_type']
+		u.profile.age = form.cleaned_data['age']
+		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.save()
 		u.save()
 
@@ -191,6 +192,7 @@ class RegisterView(FormView):
 		if 'qrcode' in self.kwargs:
 			context['popup'] = True
 	
+		context['page_url'] = self.request.get_full_path()
 		context['user'] = self.request.user
 
 		return context	

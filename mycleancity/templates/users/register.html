@@ -26,6 +26,10 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
+              
+            <div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
+
+            <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Clean City" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
 
             <form method="post" autocomplete="off">{% csrf_token %}
                 {{ form.token }}
@@ -46,13 +50,16 @@
                         <td>{{ form.province.label_tag }} {{ form.province }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form.school_type.label_tag }}{{ form.school_type }}</td>
+                        <td>{{ form.age.label_tag }}{{ form.age }}</td>
                         <td>
                           <a rel="tooltip" data-placement="left" data-original-title="<span class='description'><strong class='title'>Clean Ambassador</strong>I want to be a My Clean City leader and start or join a Clean Team</span>
 
                           <span class='description last'><strong class='title'>Clean Champion</strong>I want to support a Clean Team while I participate</span>"><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
                           {{ form.role }}
                         </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">{{ form.smartphone }}<label for="">Do you have a smartphone?</label></td>
                     </tr>
                     <tr>
                       <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditiions</a></label></td>
@@ -62,7 +69,17 @@
                 <input class="btn btn-primary" type="submit" value="Register" />
             </form>
             <p>Already have an account? Login in <a href="/users/login">here</a>.
-        </div><!-- /#white-box -->
+        </div><!-- /#white-box .register -->
+
+        {% if popup %}
+        <div id="white-box" class="qr-code-blurb">
+          <p class="question" style="margin-bottom: 10px;">Want the freedom to choose how YOU make a difference? Want to earn REWARDS and be RECOGNIZED?</p>
+          <p>My Clean City makes volunteer work into volunteer PLAY. We are a leadership initiative made for YOUth by YOUth. </p>
+        
+          <p class="question" style="margin: 0 0 10px;">Want a platform where YOUth collaborate with peers, take part in fun challenges and make a difference all at the same time? Ready to play?</p>
+          <p style="margin-bottom: 10px;">Join now to make an impact YOUR way and earn rewards along the  way from your favourite brands.</p>
+        </div>
+        {% endif %}<!-- /#white-box .qr-code-blurb -->
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
@@ -134,7 +151,7 @@
 
 {% block javascript %}
 
-{% if popup %} 
+{% if False %} 
   <script type="text/javascript">
     $(function(){  
       $.colorbox({

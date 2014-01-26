@@ -63,6 +63,8 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 .tooltip-inner span.description.last { margin-bottom: 0; }
 .tooltip-inner span.description strong.title { display: block; margin-bottom: 3px; font-size: 17px; }
 
+.badge-join { display: block; text-align: center; }
+
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
@@ -95,7 +97,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 #buildings-link:hover + div { content: ""; background-position: 0 bottom !important; } 
 
 #sign-stump { width: 46px; height: 346px; position: absolute; z-index: 999; top: 144px; left: 159px; background: transparent url(../images/sign-stump.png) no-repeat 0 0; }
-#sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 44px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
+#sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 62px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 
 #sign-user { min-width: 275px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 39px; }
 #sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; } 
@@ -145,7 +147,7 @@ div.content.about #white-box h3 { font-weight: 500; color: #638d3d; }
 div.content.about #white-box ol li { list-style: decimal; } 
 div.content.about #white-box iframe { margin-left: 120px; }
 
-#sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
+#sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
 #sign-mission { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 107px; left: 60px; background: url(../images/sign-mission.png) no-repeat 0 0; }
 #sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
 #sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
@@ -172,7 +174,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #kelly-img { display: block; float: left; border: 1px solid #000; margin: 9px 20px 20px 0; }
 #kelly-img + p { padding-top: 0 !important; }
 
-#sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 0; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
+#sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
 #sign-student-explain-it { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 97px; background: url(../images/sign-explain-it.png) no-repeat 0 0; }
 #sign-how-to-play { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-how-to-play.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
@@ -182,7 +184,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 /******************************
 	Organizations Page
 ******************************/ 
-div.content.organization #white-box { left: 30%; width: 700px; }
+div.content.organization #white-box { left: 30%; width: 828px; }
 div.content.organization #white-box h1 { font-weight: 800; }
 div.content.organization #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.organization #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -192,14 +194,19 @@ div.content.organization #white-box ul li { list-style: disc; }
 div.content.organization #white-box iframe { margin: 0 190px; }
 div.content.organization #sign-stump { top: 210px; }
 
-#sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 163px; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
+#sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 16px; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
 #sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
-#sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 242px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+#sign-student-nonprofits { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 84px; left: 66px; background: url(../images/sign-student-nonprofits.png) no-repeat 0 0; }
+#sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
+#sign-brands { width: 207px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 88px; background: url(../images/sign-brands.png) no-repeat 0 0; }
+#sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 315px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
 /*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 355px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 372px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 
+table.supporters-table tr td { padding: 10px !important; }
+table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 2px solid #4a3c2e; }
 
 /******************************
 	Rewards Page
@@ -290,8 +297,10 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
 
-#white-box.register #id_uea { float: left; }
-#white-box.register #id_uea + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
+#white-box.register #id_uea, #white-box.register #id_smartphone { float: left; }
+#white-box.register #id_uea + label, #white-box.register #id_smartphone + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
+
+#white-box.qr-code-blurb { width: 350px; left: 70%; }
 
 #blurb a { margin: 0 auto; width: 300px; }
 
@@ -475,12 +484,17 @@ div.table-container #invitees-table tr td.roles {  }
 #clean-team-members-list p { font-size: 14px; }
 #clean-team-members-list p #badge-icon { width: 62px; }
 
+#clean-team-challenges-list div.challenge { margin: 20px; padding: 20px; border: 1px solid #AAA; }
+#clean-team-challenges-list div.challenge h1 { font-size: 18px; }
+#clean-team-challenges-list div.challenge span.date-time { display: block; margin-top: 10px; }
+#clean-team-challenges-list div.challenge p { margin-top: 10px; }
+
 #white-box.clean-team-profile { width: 733px; left: 37%; padding-right: 0; }
 #white-box.clean-team-profile h2 { font-weight: 700; width: 350px; float: left; }
 #white-box.clean-team-profile h2 a { font-size: 15px; }
 #white-box.clean-team-profile div.info { width: 450px; float: left; border-right: 1px solid #abd78c; border-bottom: 1px solid #abd78c; padding-right: 20px; padding-bottom: 10px; }
 
-#white-box.clean-team-profile div.info#profile-pic { width: 247px; float: right; border: none; padding: 0; }
+#white-box.clean-team-profile div.info#right-side { width: 247px; float: right; border: none; padding: 0; }
 
 #white-box.clean-team-profile div.info#about { height: 200px; overflow-y: scroll;  }
 
@@ -496,13 +510,13 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile img.profile-pic { margin-right: 58px; }
 #white-box.clean-team-profile img.profile-pic + #badge-icon { display: block; 
 	position: absolute; top: 120px; right: 133px; z-index: 1000; }
-#white-box.clean-team-profile div.clean-creds { margin-top: 192px; text-align: center; }
+#white-box.clean-team-profile div.clean-creds { margin-top: 171px; text-align: center; }
 #white-box.clean-team-profile div.clean-creds p { font-size: 20px; }
 #white-box.clean-team-profile #clean-team-info { padding: 0px 10px; text-align: center; }
 /*#white-box.clean-team-profile #clean-team-info a { display: block; margin-left: 12px; margin-bottom: 40px; }*/
 /*#white-box.clean-team-profile #clean-team-info div span.field { font-weight: 600; }*/
 #white-box.clean-team-profile #clean-team-info div { margin: 10px; }
-#white-box.clean-team-profile #clean-team-members-list-btn { display: block; text-align: center; }
+#white-box.clean-team-profile div.info#right-side a { display: block; margin-top: 10px; text-align: center; }
 
 #white-box.clean-team-profile #request-join-clean-team-btn, #white-box.clean-team-profile  #register-to-join-btn, #white-box.clean-team-profile #view-invite-btn { margin: 16px auto; }
 
@@ -533,7 +547,7 @@ div.table-container #invitees-table tr td.roles {  }
 	Twitter Feed
 ******************************/ 
 #tweets { float: left; overflow: hidden; }
-#tweets ul li { display: block; width: 300px; margin: 0 27px; position:relative; float: left;  }
+#tweets ul li { display: block; width: 300px; margin: 0 27px; position:relative; float: left; word-wrap: break-word;  }
 
 /******************************
 	Countdown

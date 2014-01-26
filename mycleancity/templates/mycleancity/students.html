@@ -52,7 +52,7 @@
               Are you ready to play? 
             </p>
             <p>
-              <a href="/register/">Join the fun</a>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
             </p>
           </div>
 
@@ -78,7 +78,9 @@
             </p>
             <p>Finally, an EXCITING and REWARDING way to make a difference!</p>
             
-            <p>Ready to play? <a href="/register/">Register today</a></p>
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
           </div>
 
           <div class="tab-pane" id="how-to-play">
@@ -90,7 +92,7 @@
             <ol>
               <li>
                 <p>
-                  <a href="#infographic-individual">Individual</a> - You are a free agent, choose the challenges you want to complete, move up the leaderboard on your own and earn individual rewards
+                  <a class="popup-image" href="#infographic-individual">Individual</a> - You are a free agent, choose the challenges you want to complete, move up the leaderboard on your own and earn individual rewards
                 </p>
               </li>
               <li>
@@ -103,10 +105,10 @@
               </li>
               <li>
                 <p>
-                  <a href="#infographic-clean-team">Clean Team</a> - Take a leadership role and become a <a href="#ambassador" data-toggle="tab">Clean Ambassador</a> with a group of 3-5 of your friends. You can even represent your school as official My Clean City program leaders. Get your own team page to create Clean Challenges, unlock special levels and exclusive opportunities. 
+                  <a class="popup-image" href="#infographic-clean-team">Clean Team</a> - Take a leadership role and become a <a href="#ambassador" data-toggle="tab">Clean Ambassador</a> with a group of 3-5 of your friends. You can even represent your school as official My Clean City program leaders. Get your own team page to create Clean Challenges, unlock special levels and exclusive opportunities. 
                 </p>
                 <p>
-                  <span class="bold">Are you ready to play?</span> <a href="/register/">Register</a>.
+                  <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
                 </p>
 
               </li>
@@ -132,6 +134,10 @@
             <p>
               <a href="/register/">Sign up</a> to be an ambassador and take on a leadership role! <span class="bold">EARN 50 BONUS</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span> <img src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="" />
             </p> 
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
           </div>
 
           <div class="tab-pane" id="get-rewarded">
@@ -171,6 +177,15 @@
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="infographic-individual" class="popup">
+    <img src="{{ STATIC_URL }}images/infographic-individual.png" alt="" />
+  </div>
+  <div id="infographic-clean-team" class="popup">
+    <img src="{{ STATIC_URL }}images/infographic-clean-team.png" alt="" />
+  </div>
+</div><!-- /.popup-container -->
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
