@@ -29,7 +29,7 @@ from mycleancity.mixins import LoginRequiredMixin
 from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile, QRCodeSignups
 from userorganization.models import UserOrganization
 
 def upload(ftp, file):
@@ -152,6 +152,11 @@ class RegisterView(FormView):
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.save()
 		u.save()
+
+		if 'qrcode' in self.kwargs:
+			qr_code_signup = QRCodeSignups()
+			qr_code_signup.user = User.objects.latest('id')
+			qr_code_signup.save()
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)

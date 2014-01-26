@@ -97,6 +97,24 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
        profile, created = UserProfile.objects.get_or_create(user=instance)  
+
+"""
+Name:           QRCodeSignups
+Date created:   Sept 9, 2013
+Description:    Used to keep track of all of the signups through the QR Code URL
+"""
+class QRCodeSignups(models.Model):
+	user = models.OneToOneField(User)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+	class Meta:
+		verbose_name_plural = u'QR Code Signups'
+
+	def __unicode__(self):
+		return u'QR Code Signups : %s' % self.user.username
+
+	def save(self, *args, **kwargs):
+		super(QRCodeSignups, self).save(*args, **kwargs)
  
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
