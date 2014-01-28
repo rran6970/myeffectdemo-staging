@@ -59,7 +59,7 @@
             {% if user.is_authenticated %}
               {% if invite.status == "pending" %}
                 <div>
-                  <span><a id="view-invite-btn" href="/clean-team/invite/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>
+                  <span><a id="view-invite-btn" href="/clean-team/invite-response/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>
                 </div>
               {% else %}
                 <!-- Clean Champion -->

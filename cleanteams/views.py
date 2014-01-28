@@ -512,7 +512,7 @@ def invite_check(request, token):
 		except Exception, e:
 			print e
 		
-	return HttpResponse('/')
+	return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
 
 # On the Clean Team's Profile
 def request_join_clean_team(request):
