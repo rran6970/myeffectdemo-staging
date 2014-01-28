@@ -46,14 +46,10 @@ class LoginPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(LoginPageView, self).get_context_data(**kwargs)
 
-		# if self.request.user.is_authenticated():
-		# 	return HttpResponseRedirect('/challenges')
-		# else:
-		# 	print "uu"
-
-		if 'next' in self.kwargs:
-			next_url = urllib.quote(self.kwargs['next'])
-			context['next'] = next_url
+		if 'next' in self.request.GET:
+			next_url = urllib.quote(self.request.GET['next'])
+			print next_url
+			context['next_url'] = next_url
 		else:
 			print "not there"
 			
@@ -170,7 +166,7 @@ class RegisterView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -181,7 +177,7 @@ class RegisterView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		if form.cleaned_data['role'] == "clean-ambassador":
 			return HttpResponseRedirect('/clean-team/create-or-request/')
@@ -217,6 +213,7 @@ class RegisterInviteView(FormView):
 
 		invite = CleanTeamInvite.objects.get(token=token)
 
+		# TODO: Need to make the fields read-only
 		initial = {}
 		initial['email'] = invite.email
 		initial['role'] = invite.role
@@ -240,13 +237,13 @@ class RegisterInviteView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
-		u.profile.school_type = form.cleaned_data['school_type']
+		u.profile.age = form.cleaned_data['age']
+		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.save()
 		u.save()	
 
 		invite = CleanTeamInvite.objects.get(token=form.cleaned_data['token'])
-		invite.status = "accepted"
-
+		
 		if invite.role == "clean-champion":
 			clean_champion = CleanChampion()				
 			clean_champion.becomeCleanChampion(u, invite.clean_team)
@@ -262,6 +259,7 @@ class RegisterInviteView(FormView):
 			u.profile.clean_team_member = CleanTeamMember.objects.latest('id')
 			u.profile.save()
 
+		invite.acceptInvite()
 		invite.save()
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
@@ -276,7 +274,7 @@ class RegisterInviteView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -287,7 +285,7 @@ class RegisterInviteView(FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		return HttpResponseRedirect('/')
 

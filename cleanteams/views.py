@@ -29,44 +29,6 @@ from notifications.models import Notification
 
 from mycleancity.mixins import LoginRequiredMixin
 
-class InviteView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/invite.html"
-	form_class = InviteForm
-	success_url = "cleanteams/invite.html"
-
-	def get_initial(self):
-		initial = {}
-		initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
-
-		return initial
-
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-
-		return self.render_to_response(context)
-
-	def form_valid(self, form):
-		user = self.request.user
-		email = form.cleaned_data['email']
-		role = form.cleaned_data['role']
-		uri = self.request.build_absolute_uri()
-
-		invite = CleanTeamInvite()
-		invite.inviteUsers(user, role, email, uri)
-
-		return HttpResponseRedirect('/clean-team/invite')
-
-	def get_context_data(self, **kwargs):
-		context = super(InviteView, self).get_context_data(**kwargs)
-
-		invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
-	
-		context['invitees'] = invitees
-		context['user'] = self.request.user
-
-		return context
-
 class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/register_clean_team.html"
 	form_class = RegisterCleanTeamForm
@@ -125,7 +87,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -136,7 +98,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 		return HttpResponseRedirect('/clean-team/invite/')
 
@@ -424,25 +386,61 @@ class PostMessageView(LoginRequiredMixin, FormView):
 
 		return context
 
+class InviteView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/invite.html"
+	form_class = InviteForm
+	success_url = "cleanteams/invite.html"
+
+	def get_initial(self):
+		initial = {}
+		initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+
+		return initial
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		user = self.request.user
+		email = form.cleaned_data['email']
+		role = form.cleaned_data['role']
+		uri = self.request.build_absolute_uri()
+
+		invite = CleanTeamInvite()
+		invite.inviteUsers(user, role, email, uri)
+
+		return HttpResponseRedirect('/clean-team/invite')
+
+	def get_context_data(self, **kwargs):
+		context = super(InviteView, self).get_context_data(**kwargs)
+
+		invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+	
+		context['invitees'] = invitees
+		context['user'] = self.request.user
+
+		return context
+
 class InviteResponseView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/invite_response.html"
 	form_class = InviteResponseForm
 
 	def get_initial(self):
+		initial = {}
 		if 'token' in self.kwargs:
 			token = self.kwargs['token']
 
 			try:
 				invite = CleanTeamInvite.objects.get(token=token)
+				initial['token'] = invite.token
 			except Exception, e:
 				# TDOD: Redirect to error page
 				print e
-
-			initial = {}
-			initial['token'] = invite.token
-
-			return initial
-		return
+	
+		return initial
 
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
@@ -500,6 +498,21 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 		context['user'] = user
 
 		return context
+
+# Check if the invitee email address is a registered User
+def invite_check(request, token):
+	if token:
+		try:
+			invite = CleanTeamInvite.objects.get(token=token)
+			user = User.objects.get(email=invite.email)
+		except User.DoesNotExist, e:
+			return HttpResponseRedirect('/register-invite/%s' % invite.token)
+		except Invite.DoesNotExist, e:
+			print e
+		except Exception, e:
+			print e
+		
+	return HttpResponse('/')
 
 # On the Clean Team's Profile
 def request_join_clean_team(request):

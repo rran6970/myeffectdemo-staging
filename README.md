@@ -49,6 +49,9 @@ To update database tables:
 
     heroku run python manage.py migrate userorganization --app mycleancity-staging
 
+To dump fixtures
+    python manage.py dumpdata --indent 2 notifications.notification > fixtures/notifications.json 
+
 To run the django development server, you will first need to setup the database:
 
     python manage.py syncdb
