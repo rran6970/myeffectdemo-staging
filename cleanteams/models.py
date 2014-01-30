@@ -67,29 +67,31 @@ class CleanTeam(models.Model):
 	def level_up(self):
 		# If they don't have a badge, ie. new team, make them a Seedling
 		if self.level is None:
-			print "it's None"
 			level = CleanTeamLevel.objects.get(name="Seedling")
-
+			level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=level)
+			
+			# Create default list of tasks for Seedling
+			for task in level_tasks:
+				if task.name == "signup":
+					self.complete_level_task(task)
+				elif task.name == "sign_code_conduct":
+					self.complete_level_task(task)
+				elif task.name == "ct_name":
+					self.complete_level_task(task)
+				else:
+					level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
+					level_progress.save()
+			
 			self.level = level
 			self.save()
 
-			level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=level)
-			
-			for task in level_tasks:
-				level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
-
-				if level_progress.level_task.name == "signup":
-					level_progress.completed = True
-				elif level_progress.level_task.name == "sign_code_conduct":
-					level_progress.completed = True
-				elif level_progress.level_task.name == "ct_name":
-					level_progress.completed = True
-
-				level_progress.save()
-
-		else:
-			if self.level.next_level.name == "Sapling":
+		elif self.level.next_level.name == "Sapling":
 				print "it's Seedling"
+
+	def complete_level_task(self, task):
+		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)			
+		level_progress.completed = True
+		level_progress.save()
 
 	def save(self, *args, **kwargs):
 		super(CleanTeam, self).save(*args, **kwargs)
@@ -137,7 +139,7 @@ class CleanChampion(models.Model):
 				user_notification = UserNotification()
 				user_notification.create_notification("cc_joined", member.user, name_strings)
 
-		self.clean_team.add_team_clean_creds(10)	
+		self.clean_team.add_team_clean_creds(5)	
 
 """
 Name:           CleanTeamMember
@@ -404,7 +406,7 @@ Description:    All of the tasks required to be completed in a level
 """
 class CleanTeamLevelTask(models.Model):
 	clean_team_level = models.ForeignKey(CleanTeamLevel)
-	name = models.CharField(max_length=60, blank=False, default="", verbose_name='Clean Team Level Task Name')
+	name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Clean Team Level Task Name')
 	description = models.TextField(blank=True, null=True, default="")
 
 	class Meta:
