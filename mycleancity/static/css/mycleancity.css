@@ -273,7 +273,7 @@ div.content.media-hub #white-box.photos #instafeed a { display: block; width: 16
 /******************************
 	Login
 ******************************/ 
-#white-box.login { width: 356px; height: 340px; left: 36%; overflow: hidden; }
+#white-box.login { width: 356px; height: 340px; left: 36%; overflow-y: scroll; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
 #white-box.login p { text-align: center; }
