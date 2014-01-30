@@ -1,6 +1,102 @@
 [
 {
   "pk": 1, 
+  "model": "cleanteams.cleanteamlevel", 
+  "fields": {
+    "badge": "images/badge-level-1-75x63.png", 
+    "name": "Seedling"
+  }
+},
+{
+  "pk": 2, 
+  "model": "cleanteams.cleanteamlevel", 
+  "fields": {
+    "badge": "images/badge-level-2-75x59.png", 
+    "name": "Seedling"
+  }
+},
+{
+  "pk": 3, 
+  "model": "cleanteams.cleanteamlevel", 
+  "fields": {
+    "badge": "images/badge-level-3-75x63.png", 
+    "name": "Seedling"
+  }
+},
+{
+  "pk": 4, 
+  "model": "cleanteams.cleanteamlevel", 
+  "fields": {
+    "badge": "images/badge-level-4-75x73.png", 
+    "name": "Seedling"
+  }
+},
+{
+  "pk": 5, 
+  "model": "cleanteams.cleanteamlevel", 
+  "fields": {
+    "badge": "images/badge-level-5-75x73.png", 
+    "name": "Seedling"
+  }
+},
+{
+  "pk": 1, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Sign up on MyCleanCity.org ", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 2, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Create a team of 3 like-minded individuals", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 3, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Sign Code of Conduct and Terms & Conditions", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 4, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Team name", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 5, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Team profile description", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 6, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Team profile twitter account", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 7, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "description": "Invite friends to My Clean City", 
+    "clean_team_level": 1
+  }
+},
+{
+  "pk": 1, 
   "model": "notifications.notification", 
   "fields": {
     "name": "Challenge posted", 

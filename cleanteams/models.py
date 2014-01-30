@@ -19,6 +19,24 @@ def get_upload_file_name(instance, filename):
 	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
 """
+Name:           CleanTeamLevel
+Date created:   Jan 30, 2014
+Description:    All of the levels each Clean Team can go through
+"""
+class CleanTeamLevel(models.Model):
+	name = models.CharField(max_length=30, null=False, default="Seedling")
+	badge = models.CharField(max_length=100, null=False, default="images/badge-level-1-75x63.png")	
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Level'
+
+	def __unicode__(self):
+		return u'%s' % self.name
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamLevel, self).save(*args, **kwargs)
+
+"""
 Name:           CleanTeam
 Date created:   Nov 25, 2013
 Description:    Users can be part of Clean Teams
@@ -33,6 +51,7 @@ class CleanTeam(models.Model):
 	team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
 	group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
 	clean_creds = models.IntegerField(default=0)
+	level = models.ForeignKey(CleanTeamLevel, default=1)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team'
@@ -348,3 +367,41 @@ class CleanTeamInvite(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamInvite, self).save(*args, **kwargs)
+
+
+"""
+Name:           CleanTeamLevelTask
+Date created:   Jan 30, 2014
+Description:    All of the tasks required to be completed in a level
+"""
+class CleanTeamLevelTask(models.Model):
+	clean_team_level = models.ForeignKey(CleanTeamLevel)
+	description = models.TextField(blank=True, null=True, default="")
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Level Task'
+
+	def __unicode__(self):
+		return u'%s' % self.clean_team_level
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamLevelTask, self).save(*args, **kwargs)
+
+"""
+Name:           CleanTeamLevelProgress
+Date created:   Jan 30, 2014
+Description:    The tasks each Clean Team has completed per level
+"""
+class CleanTeamLevelProgress(models.Model):
+	clean_team = models.ForeignKey(CleanTeam)
+	level_task = models.ForeignKey(CleanTeamLevelTask)
+	completed = models.BooleanField(default=0)
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Level Progress'
+
+	def __unicode__(self):
+		return u'%s - %s' % (self.clean_team, self.level_task)
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamLevelProgress, self).save(*args, **kwargs)
