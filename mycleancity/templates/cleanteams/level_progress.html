@@ -1,0 +1,61 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Clean Team Level Progress {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
+      <div id="white-box" class="clean-team-progress">
+          <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
+          <h1>{{ clean_team.name }}'s Level Progress</h1>
+
+          <div class="clear"></div>
+          <div class="table-container">
+            <table class="table table-hover">
+              <tbody>
+                  {% for task in tasks %}
+                  <tr>
+                    <td class="status">
+                      {% if task.completed %}
+                        <img title="C omplete"  class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+                      {% else %}
+                        <img title="In progress"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
+                      {% endif %}
+                    </td>
+                    <td class="description">
+                      <p>
+                        {{ task.level_task.description }}
+                      </p>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td class="next_level" colspan="2">
+                      <p>Complete all of the these tasks to get to <img src="{{ STATIC_URL }}{{ clean_team.level.next_level.badge }}" alt="Badge Level" /></p>
+                    </td>
+                  </tr>
+              </tbody>
+            </table><!-- /.table.table-hover -->
+          </div><!-- /.table-container -->
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

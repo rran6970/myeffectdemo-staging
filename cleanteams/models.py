@@ -26,6 +26,7 @@ Description:    All of the levels each Clean Team can go through
 class CleanTeamLevel(models.Model):
 	name = models.CharField(max_length=30, null=False, default="Seedling")
 	badge = models.CharField(max_length=100, null=False, default="images/badge-level-1-75x63.png")	
+	next_level = models.ForeignKey('self', null=True, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team Level'
@@ -51,7 +52,7 @@ class CleanTeam(models.Model):
 	team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
 	group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
 	clean_creds = models.IntegerField(default=0)
-	level = models.ForeignKey(CleanTeamLevel, default=1)
+	level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team'
@@ -63,8 +64,36 @@ class CleanTeam(models.Model):
 		self.clean_creds += amount
 		self.save()
 
+	def level_up(self):
+		# If they don't have a badge, ie. new team, make them a Seedling
+		if self.level is None:
+			print "it's None"
+			level = CleanTeamLevel.objects.get(name="Seedling")
+
+			self.level = level
+			self.save()
+
+			level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=level)
+			
+			for task in level_tasks:
+				level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
+
+				if level_progress.level_task.name == "signup":
+					level_progress.completed = True
+				elif level_progress.level_task.name == "sign_code_conduct":
+					level_progress.completed = True
+				elif level_progress.level_task.name == "ct_name":
+					level_progress.completed = True
+
+				level_progress.save()
+
+		else:
+			if self.level.next_level.name == "Sapling":
+				print "it's Seedling"
+
 	def save(self, *args, **kwargs):
 		super(CleanTeam, self).save(*args, **kwargs)
+		self.level_up()
 
 """
 Name:           CleanChampion
@@ -368,7 +397,6 @@ class CleanTeamInvite(models.Model):
 	def save(self, *args, **kwargs):
 		super(CleanTeamInvite, self).save(*args, **kwargs)
 
-
 """
 Name:           CleanTeamLevelTask
 Date created:   Jan 30, 2014
@@ -376,6 +404,7 @@ Description:    All of the tasks required to be completed in a level
 """
 class CleanTeamLevelTask(models.Model):
 	clean_team_level = models.ForeignKey(CleanTeamLevel)
+	name = models.CharField(max_length=60, blank=False, default="", verbose_name='Clean Team Level Task Name')
 	description = models.TextField(blank=True, null=True, default="")
 
 	class Meta:

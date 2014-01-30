@@ -3,6 +3,7 @@
   "pk": 1, 
   "model": "cleanteams.cleanteamlevel", 
   "fields": {
+    "next_level": 2, 
     "badge": "images/badge-level-1-75x63.png", 
     "name": "Seedling"
   }
@@ -11,88 +12,99 @@
   "pk": 2, 
   "model": "cleanteams.cleanteamlevel", 
   "fields": {
+    "next_level": 3, 
     "badge": "images/badge-level-2-75x59.png", 
-    "name": "Seedling"
+    "name": "Sprout"
   }
 },
 {
   "pk": 3, 
   "model": "cleanteams.cleanteamlevel", 
   "fields": {
+    "next_level": 4, 
     "badge": "images/badge-level-3-75x63.png", 
-    "name": "Seedling"
+    "name": "Sapling"
   }
 },
 {
   "pk": 4, 
   "model": "cleanteams.cleanteamlevel", 
   "fields": {
+    "next_level": 5, 
     "badge": "images/badge-level-4-75x73.png", 
-    "name": "Seedling"
+    "name": "Tree"
   }
 },
 {
   "pk": 5, 
   "model": "cleanteams.cleanteamlevel", 
   "fields": {
+    "next_level": null, 
     "badge": "images/badge-level-5-75x73.png", 
-    "name": "Seedling"
+    "name": "Full Bloom"
   }
 },
 {
   "pk": 1, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Sign up on MyCleanCity.org ", 
-    "clean_team_level": 1
+    "name": "signup", 
+    "clean_team_level": 1, 
+    "description": "Sign up on MyCleanCity.org"
   }
 },
 {
   "pk": 2, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Create a team of 3 like-minded individuals", 
-    "clean_team_level": 1
+    "name": "create_team_3", 
+    "clean_team_level": 1, 
+    "description": "Create a team of 3 like-minded individuals"
   }
 },
 {
   "pk": 3, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Sign Code of Conduct and Terms & Conditions", 
-    "clean_team_level": 1
+    "name": "sign_code_conduct", 
+    "clean_team_level": 1, 
+    "description": "Sign Code of Conduct and Terms & Conditions"
   }
 },
 {
   "pk": 4, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Team name", 
-    "clean_team_level": 1
+    "name": "ct_name", 
+    "clean_team_level": 1, 
+    "description": "Give your Clean Team a name"
   }
 },
 {
   "pk": 5, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Team profile description", 
-    "clean_team_level": 1
+    "name": "ct_description", 
+    "clean_team_level": 1, 
+    "description": "Add a profile description to your Clean Team"
   }
 },
 {
   "pk": 6, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Team profile twitter account", 
-    "clean_team_level": 1
+    "name": "ct_twitter", 
+    "clean_team_level": 1, 
+    "description": "Add Twitter account to your Clean Team profile"
   }
 },
 {
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "description": "Invite friends to My Clean City", 
-    "clean_team_level": 1
+    "name": "invite_mcc", 
+    "clean_team_level": 1, 
+    "description": "Invite friends to My Clean City"
   }
 },
 {

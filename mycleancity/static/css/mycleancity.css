@@ -69,6 +69,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
 #sign-go-back.all-clean-teams { left: 283px; }
+#sign-go-back.clean-team-progress { left: 283px; }
 
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
@@ -524,13 +525,21 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
 
+/************************************************************
+	Clean Team Level Progress Page
+************************************************************/ 
+#white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; }
+#white-box.clean-team-progress #badge-icon { display: block; float: left; }
+#white-box.clean-team-progress h1 { position: relative; top: 13px; left: 10px; }
+#white-box.clean-team-progress table { margin-bottom: 0; }
+#white-box.clean-team-progress table tbody tr td.status {  }
+#white-box.clean-team-progress table tbody tr td.description p { font-size: 14px; padding: 0; }
+#white-box.clean-team-progress table tbody tr td.next_level { text-align: center; }
+
 /******************************
 	All Clean Teams Page
 ******************************/ 
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
-#white-box.all-clean-teams h1 { margin-bottom: 15px; }
-#white-box.all-clean-teams tr td { height: 70px; }
-#white-box.all-clean-teams tr td.roles { width: 100px; text-align: right; }
 
 /******************************
 	All Notifications Page

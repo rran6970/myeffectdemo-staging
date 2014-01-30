@@ -29,7 +29,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 	# Combines the form with the corresponding model
 	class Meta:
 		model = CleanTeam
-		exclude = ('clean_creds')
+		exclude = ('clean_creds', 'level')
 
 	def clean(self):
 		cleaned_data = super(RegisterCleanTeamForm, self).clean()

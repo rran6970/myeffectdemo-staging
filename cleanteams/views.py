@@ -22,7 +22,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
 from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelProgress
 from challenges.models import Challenge
 
 from notifications.models import Notification
@@ -87,7 +87,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -98,7 +98,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		mail.send()
+		# mail.send()
 
 		return HttpResponseRedirect('/clean-team/invite/')
 
@@ -216,6 +216,22 @@ class ViewAllCleanTeams(TemplateView):
 		context['teams'] = teams
 		context['clean_champions'] = clean_champions
 		context['user'] = self.request.user
+
+		return context
+
+class LevelProgressView(TemplateView):
+	template_name = "cleanteams/level_progress.html"	
+
+	def get_context_data(self, **kwargs):
+		context = super(LevelProgressView, self).get_context_data(**kwargs)
+		user = self.request.user
+		clean_team = user.profile.clean_team_member.clean_team
+
+		tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team)
+	
+		context['tasks'] = tasks
+		context['clean_team'] = clean_team
+		context['user'] = user
 
 		return context
 
