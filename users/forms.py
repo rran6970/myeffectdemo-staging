@@ -62,6 +62,7 @@ PROVINCES = (('', 'Please select one...'),
 	('QB', 'QB'),
 	('SA', 'SA'),
 	('YU', 'YU'),
+	('Other', 'Other'),
 )
 
 class PrelaunchEmailsForm(forms.ModelForm):
@@ -95,7 +96,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 
 class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('individual', 'Individual',), ('clean-ambassador', 'Clean Ambassador',), ('clean-champion', 'Clean Champion',))
-	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',))
+	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher',))
+	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting',), ('School Flyer', 'School Flyer',), ('Teacher', 'Teacher',), ('Friend', 'Friend',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website',), ('H&M', 'H&M',), ('Staples', 'Staples',))
 
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -108,6 +110,7 @@ class RegisterUserForm(forms.ModelForm):
 	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES)
 	smartphone = forms.BooleanField(required=False)
+	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us")
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = CaptchaField()

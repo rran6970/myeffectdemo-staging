@@ -146,6 +146,7 @@ class RegisterView(FormView):
 		u.profile.province = form.cleaned_data['province']
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
+		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.save()
 		u.save()
 
@@ -239,6 +240,7 @@ class RegisterInviteView(FormView):
 		u.profile.province = form.cleaned_data['province']
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
+		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.save()
 		u.save()	
 

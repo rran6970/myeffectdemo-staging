@@ -30,6 +30,7 @@ class UserProfile(models.Model):
 	smartphone = models.BooleanField(default=0)
 	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
 	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
+	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'
