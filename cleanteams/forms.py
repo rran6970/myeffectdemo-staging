@@ -17,7 +17,7 @@ CLEAN_TEAM_TYPES = (('', 'Please select one...'),
 
 class RegisterCleanTeamForm(forms.ModelForm):
 	name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
-	website = forms.URLField(required=False, initial="http://", max_length=128, min_length=2, widget=forms.TextInput())
+	website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
 	logo = forms.ImageField(required=False)
 	about = forms.CharField(required=False, widget=forms.Textarea())
 	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())

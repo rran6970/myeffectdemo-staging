@@ -528,9 +528,10 @@ div.table-container #invitees-table tr td.roles {  }
 /************************************************************
 	Clean Team Level Progress Page
 ************************************************************/ 
-#white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; }
+#white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; overflow-y: hidden;  }
 #white-box.clean-team-progress #badge-icon { display: block; float: left; }
 #white-box.clean-team-progress h1 { position: relative; top: 13px; left: 10px; }
+#white-box.clean-team-progress div.table-container { height: 400px; }
 #white-box.clean-team-progress table { margin-bottom: 0; }
 #white-box.clean-team-progress table tbody tr td.status {  }
 #white-box.clean-team-progress table tbody tr td.description p { font-size: 14px; padding: 0; }

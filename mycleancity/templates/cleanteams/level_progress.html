@@ -24,13 +24,15 @@
 
           <div class="clear"></div>
           <div class="table-container">
+            
             <table class="table table-hover">
               <tbody>
+                {% if tasks %}
                   {% for task in tasks %}
                   <tr>
                     <td class="status">
                       {% if task.completed %}
-                        <img title="C omplete"  class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+                        <img title="Complete"  class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
                       {% else %}
                         <img title="In progress"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
                       {% endif %}
@@ -47,8 +49,17 @@
                       <p>Complete all of the these tasks to get to <img src="{{ STATIC_URL }}{{ clean_team.level.next_level.badge }}" alt="Badge Level" /></p>
                     </td>
                   </tr>
+                {% else %}
+                  <tr>
+                    <td class="next_level" colspan="2">
+                      <p><h2>More tasks to come</h2></p>
+                    </td>
+                  </tr>
+                  
+                {% endif %}
               </tbody>
             </table><!-- /.table.table-hover -->
+            
           </div><!-- /.table-container -->
       </div><!-- /#white-box -->
     </div><!-- /.container -->

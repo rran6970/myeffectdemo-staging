@@ -22,7 +22,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
 from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelProgress
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress
 from challenges.models import Challenge
 
 from notifications.models import Notification
@@ -61,6 +61,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 			ct.logo = k.key
 
 		ct.save()
+		ct.level_up()
 
 		try:
 			ctm = CleanTeamMember.objects.get(user=self.request.user)
@@ -167,6 +168,21 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
 		clean_team.save()
 
+		if clean_team.level.name == "Seedling":
+			if clean_team.about:
+				task = CleanTeamLevelTask.objects.get(name="ct_description")
+				clean_team.complete_level_task(task)
+			else:
+				task = CleanTeamLevelTask.objects.get(name="ct_description")
+				clean_team.uncomplete_level_task(task)
+
+		if clean_team.level.name == "Seedling":
+			if clean_team.twitter:
+				task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+				clean_team.complete_level_task(task)
+			else:
+				task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+				clean_team.uncomplete_level_task(task)
 
 		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 
@@ -227,7 +243,8 @@ class LevelProgressView(TemplateView):
 		user = self.request.user
 		clean_team = user.profile.clean_team_member.clean_team
 
-		tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team)
+		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
+		tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
 	
 		context['tasks'] = tasks
 		context['clean_team'] = clean_team
@@ -434,7 +451,7 @@ class InviteView(LoginRequiredMixin, FormView):
 		context = super(InviteView, self).get_context_data(**kwargs)
 
 		invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
-	
+
 		context['invitees'] = invitees
 		context['user'] = self.request.user
 
@@ -588,3 +605,17 @@ def clean_team_member_action(request):
 			clean_team_member.removedCleanAmbassador()
 			
 	return HttpResponse("success")
+
+
+
+def download_welcome_package(request):
+	response = HttpResponse(mimetype='application/force-download')
+	response['Content-Disposition'] = 'attachment; filename=YMCA_Enviro_Guide_FINAL_ENG.pdf'
+	response['X-Sendfile'] = 'downloadable/YMCA_Enviro_Guide_FINAL_ENG.pdf'
+	
+	task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
+	request.user.profile.clean_team_member.clean_team.complete_level_task(task)
+
+	# TODO: Fix this so there is a redirect, as well as a link to download
+	# return HttpResponseRedirect('/clean-team/level-progress/')
+	return response
