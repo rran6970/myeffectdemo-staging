@@ -5,7 +5,8 @@
   "fields": {
     "next_level": 2, 
     "badge": "images/badge-level-1-75x63.png", 
-    "name": "Seedling"
+    "name": "Seedling", 
+    "tree_level": "images/clean-team-tree-stage-1.png"
   }
 },
 {
@@ -14,7 +15,8 @@
   "fields": {
     "next_level": 3, 
     "badge": "images/badge-level-2-75x59.png", 
-    "name": "Sprout"
+    "name": "Sprout", 
+    "tree_level": "images/clean-team-tree-stage-2.png"
   }
 },
 {
@@ -23,7 +25,8 @@
   "fields": {
     "next_level": 4, 
     "badge": "images/badge-level-3-75x63.png", 
-    "name": "Sapling"
+    "name": "Sapling", 
+    "tree_level": "images/clean-team-tree-stage-3.png"
   }
 },
 {
@@ -32,7 +35,8 @@
   "fields": {
     "next_level": 5, 
     "badge": "images/badge-level-4-75x73.png", 
-    "name": "Tree"
+    "name": "Tree", 
+    "tree_level": "images/clean-team-tree-stage-4.png"
   }
 },
 {
@@ -41,43 +45,17 @@
   "fields": {
     "next_level": null, 
     "badge": "images/badge-level-5-75x73.png", 
-    "name": "Full Bloom"
+    "name": "Full Bloom", 
+    "tree_level": "images/clean-team-tree-stage-5.png"
   }
 },
 {
   "pk": 1, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "name": "signup", 
+    "name": "download_welcome_package", 
     "clean_team_level": 1, 
-    "description": "Sign up on MyCleanCity.org"
-  }
-},
-{
-  "pk": 2, 
-  "model": "cleanteams.cleanteamleveltask", 
-  "fields": {
-    "name": "create_team_3", 
-    "clean_team_level": 1, 
-    "description": "Create a team of 3 like-minded individuals"
-  }
-},
-{
-  "pk": 3, 
-  "model": "cleanteams.cleanteamleveltask", 
-  "fields": {
-    "name": "sign_code_conduct", 
-    "clean_team_level": 1, 
-    "description": "Sign Code of Conduct and Terms & Conditions"
-  }
-},
-{
-  "pk": 4, 
-  "model": "cleanteams.cleanteamleveltask", 
-  "fields": {
-    "name": "ct_name", 
-    "clean_team_level": 1, 
-    "description": "Give your Clean Team a name"
+    "description": "Download welcome package"
   }
 },
 {
@@ -102,9 +80,90 @@
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "name": "invite_mcc", 
+    "name": "invite_5_mcc", 
     "clean_team_level": 1, 
-    "description": "Invite friends to My Clean City"
+    "description": "Invite at least 5 friends to My Clean City"
+  }
+},
+{
+  "pk": 9, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "1_challenge", 
+    "clean_team_level": 2, 
+    "description": "Task coming soon"
+  }
+},
+{
+  "pk": 11, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "3_ccs", 
+    "clean_team_level": 2, 
+    "description": "Task coming soon"
+  }
+},
+{
+  "pk": 12, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "follow_twitter", 
+    "clean_team_level": 2, 
+    "description": "Task coming soon"
+  }
+},
+{
+  "pk": 13, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "5_challenges", 
+    "clean_team_level": 3, 
+    "description": "Create 5 Challenges"
+  }
+},
+{
+  "pk": 14, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "10_ccs", 
+    "clean_team_level": 3, 
+    "description": "Recruit 10 Clean Champions"
+  }
+},
+{
+  "pk": 16, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "refer_teacher", 
+    "clean_team_level": 3, 
+    "description": "Refer an interested Teacher or Youth Group leader, city hall counselor"
+  }
+},
+{
+  "pk": 17, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "2_national_challenges_signup", 
+    "clean_team_level": 4, 
+    "description": "Sign up for at least 2 national challenges"
+  }
+},
+{
+  "pk": 18, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "20_ccs", 
+    "clean_team_level": 4, 
+    "description": "Recruit 20 Clean Champions "
+  }
+},
+{
+  "pk": 19, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "mcc_presentation", 
+    "clean_team_level": 4, 
+    "description": "Make a My Clean City presentation"
   }
 },
 {
@@ -201,6 +260,18 @@
     "notification_type": "ca_joined", 
     "message": "{0} joined {1} as a Clean Ambassador!", 
     "description": "A new Clean Ambassador has joined a Clean Team"
+  }
+},
+{
+  "pk": 9, 
+  "model": "notifications.notification", 
+  "fields": {
+    "name": "Level Up", 
+    "users_to_notify": "clean-ambassador", 
+    "link": "/clean-team/{0}", 
+    "notification_type": "level_up", 
+    "message": "Congratulations, {0} has just leveled up to {1}!", 
+    "description": "A Clean Team has just leveled up"
   }
 }
 ]
