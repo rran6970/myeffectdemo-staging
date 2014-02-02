@@ -1,4 +1,10 @@
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+
+from django.conf import settings
 from django.core.mail import EmailMessage
+from django.core.servers.basehttp import FileWrapper
+
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django import http
 
@@ -6,10 +12,14 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import get_template
 from django.template import Context
 
+from django.utils.encoding import smart_str
+
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.forms import ContactForm
+
+import os
 
 def error404(request):
 	return render_to_response('mycleancity/404.html')
@@ -93,3 +103,20 @@ class RewardsPageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(RewardsPageView, self).get_context_data(**kwargs)
 		return context
+
+def download_file(request):
+	filename = request.GET.get('filename', None)
+
+	filename = "downloadable/%s" % (filename)
+	conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+	bucket = conn.get_bucket(settings.AWS_BUCKET)
+	k = bucket.get_key(filename)
+	url = k.generate_url(6000)
+
+	if filename == "welcome_package.pdf":
+		task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
+		request.user.profile.clean_team_member.clean_team.complete_level_task(task)
+
+	# TODO: Fix this so there is a redirect, as well as a link to download
+	# return HttpResponseRedirect('/clean-team/level-progress/')
+	return HttpResponseRedirect(url)
