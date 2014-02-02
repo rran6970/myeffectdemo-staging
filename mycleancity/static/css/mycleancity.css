@@ -162,7 +162,7 @@ div.content.about #white-box iframe { margin-left: 120px; }
 /******************************
 	Students Page
 ******************************/ 
-div.content.student #white-box { left: 30%; width: 700px; }
+div.content.student #white-box { left: 30%; width: 850px; }
 div.content.student #white-box h1 { font-weight: 800; }
 div.content.student #white-box h2 { font-weight: 500; color: #638d3d; }
 div.content.student #white-box h3 { font-weight: 500; color: #638d3d; } 
@@ -174,12 +174,15 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #kelly-img { display: block; float: left; border: 1px solid #000; margin: 9px 20px 20px 0; }
 #kelly-img + p { padding-top: 0 !important; }
 
-#sign-students2 { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 72px; background: url(../images/sign-students2.png) no-repeat 0 0; }
-#sign-student-explain-it { width: 206px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 97px; background: url(../images/sign-explain-it.png) no-repeat 0 0; }
-#sign-how-to-play { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-how-to-play.png) no-repeat 0 0; }
+#sign-students2 { width: 212px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 73px; background: url(../images/sign-students2.png) no-repeat 0 0; }
+#sign-why-mcc { width: 277px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-why-mcc.png) no-repeat 0 0; }
+#sign-get-started { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-get-started.png) no-repeat 0 0; }
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
 #sign-get-rewarded { width: 275px; height: 54px; position: absolute; z-index: 1000; top: 289px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
 #sign-go-viral { width: 225px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 65px; background: url(../images/sign-go-viral.png) no-repeat 0 0; }
+
+div.tab-pane#why-mcc #overview-infographic-thumbnail { width: 300px; float: right; margin-left: 20px; }
+div.tab-pane#why-mcc #overview-infographic-thumbnail img { width: 300px; display: block; }
 
 /******************************
 	Organizations Page
@@ -425,6 +428,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .green { color: #83c156 !important; } 
 .red { color: #EB0900 !important; } 
 .bold { font-weight: 800 !important; }
+.center { text-align: center !important; }
 
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
 #sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
