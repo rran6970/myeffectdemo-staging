@@ -605,17 +605,3 @@ def clean_team_member_action(request):
 			clean_team_member.removedCleanAmbassador()
 			
 	return HttpResponse("success")
-
-
-
-def download_welcome_package(request):
-	response = HttpResponse(mimetype='application/force-download')
-	response['Content-Disposition'] = 'attachment; filename=YMCA_Enviro_Guide_FINAL_ENG.pdf'
-	response['X-Sendfile'] = 'downloadable/YMCA_Enviro_Guide_FINAL_ENG.pdf'
-	
-	task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
-	request.user.profile.clean_team_member.clean_team.complete_level_task(task)
-
-	# TODO: Fix this so there is a redirect, as well as a link to download
-	# return HttpResponseRedirect('/clean-team/level-progress/')
-	return response

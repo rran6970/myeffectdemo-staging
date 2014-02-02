@@ -32,6 +32,8 @@ urlpatterns = patterns('',
 	url(r'^contact/?', ContactPageView.as_view()),
 	url(r'^media-hub/?', MediaHubPageView.as_view()),
 	url(r'^$', HomePageView.as_view()),
+
+	url(r'^download/$', 'mycleancity.views.download_file'),
 )
 
 handler404 = 'mycleancity.views.error404'
