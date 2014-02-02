@@ -227,10 +227,12 @@ class ViewAllCleanTeams(TemplateView):
 		context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
 		teams = CleanTeam.objects.all()
-		clean_champions = CleanChampion.objects.filter(user=self.request.user)
+		
+		if self.request.user.is_authenticated():
+			clean_champions = CleanChampion.objects.filter(user=self.request.user)
+			context['clean_champions'] = clean_champions
 
 		context['teams'] = teams
-		context['clean_champions'] = clean_champions
 		context['user'] = self.request.user
 
 		return context
