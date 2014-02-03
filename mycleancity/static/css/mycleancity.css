@@ -106,7 +106,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
 #sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
-#sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 94px; background: url(../images/sign-register2.png) no-repeat 0 0; }
+#sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 #sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
 #sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }

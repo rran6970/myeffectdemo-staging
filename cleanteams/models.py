@@ -471,7 +471,7 @@ class CleanTeamInvite(models.Model):
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
-		# mail.send()
+		mail.send()
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamInvite, self).save(*args, **kwargs)
