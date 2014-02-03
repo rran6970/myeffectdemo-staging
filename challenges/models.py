@@ -154,3 +154,52 @@ class UserChallenge(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(UserChallenge, self).save(*args, **kwargs)
+
+"""
+Name:           CleanGrid
+Date created:   Feb 3, 2013
+Description:    The Clean Grid system for answer value calculation.
+"""
+class CleanGrid(models.Model):
+	name = models.CharField(max_length=60, blank=False, default="None", verbose_name='Clean Grid Name')
+	value = models.DecimalField(max_digits=10, decimal_places=6)
+
+	class Meta:
+		verbose_name_plural = u'Challenge question answer'
+
+	def save(self, *args, **kwargs):
+		super(CleanGrid, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeQuestion
+Date created:   Feb 3, 2013
+Description:    The questions that need to be answered to determine the
+				CleanCred per hour value.
+"""
+class ChallengeQuestion(models.Model):
+	question_number = models.IntegerField(default=0)	
+	question = models.CharField(max_length=60, blank=False, default="None", verbose_name='Question')
+
+	class Meta:
+		verbose_name_plural = u'Challenge questions'
+
+	def save(self, *args, **kwargs):
+		super(ChallengeQuestion, self).save(*args, **kwargs)
+
+"""
+Name:           QuestionAnswer
+Date created:   Feb 3, 2013
+Description:    The answer to each question and the value of each answer.
+"""
+class QuestionAnswer(models.Model):
+	question = models.ForeignKey(ChallengeQuestion)
+	question_number = models.IntegerField(default=0)
+	answer = models.CharField(max_length=60, blank=False, default="None", verbose_name='Answer')
+	score = models.IntegerField(default=0)
+	clean_grid = models.ForeignKey(CleanGrid)
+
+	class Meta:
+		verbose_name_plural = u'Challenge question answer'
+
+	def save(self, *args, **kwargs):
+		super(QuestionAnswer, self).save(*args, **kwargs)
