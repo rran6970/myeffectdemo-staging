@@ -17,7 +17,34 @@
   
   <div class="content">
     <div class="container">
-        <img src="{{ STATIC_URL }}{{ clean_team.level.tree_level }}" alt="Tree Level" id="tree-progress" />
+
+        {% if clean_team.clean_creds < 250 %}
+        <img src="{{ STATIC_URL }}images/clean-team-tree-stage-0.png" alt="Tree Level" id="tree-progress">
+        {% else %}
+          {% if clean_team.clean_creds < 1000 %}
+          <img src="{{ STATIC_URL }}images/clean-team-tree-stage-1.png" alt="Tree Level" id="tree-progress">
+          {% else %}
+            {% if clean_team.clean_creds < 3000 %}
+            <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
+            {% else %}
+              {% if clean_team.clean_creds < 3000 %}
+              <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
+              {% else %}
+                {% if clean_team.clean_creds < 5000 %}
+                <img src="{{ STATIC_URL }}images/clean-team-tree-stage-3.png" alt="Tree Level" id="tree-progress">
+                {% else %}
+                  {% if clean_team.clean_creds < 10000 %}
+                  <img src="{{ STATIC_URL }}images/clean-team-tree-stage-4.png" alt="Tree Level" id="tree-progress">
+                  {% else %}
+                    {% if clean_team.clean_creds > 9999 %}
+                    <img src="{{ STATIC_URL }}images/clean-team-tree-stage-5.png" alt="Tree Level" id="tree-progress">
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
         
         <div id="white-box" class="public-profile clean-team-profile">
           
