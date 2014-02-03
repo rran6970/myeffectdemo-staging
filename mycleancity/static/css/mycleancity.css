@@ -70,6 +70,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
 #sign-go-back.all-clean-teams { left: 283px; }
+#sign-go-back.clean-team-progress { left: 283px; }
 
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
@@ -105,12 +106,12 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
 #sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
-#sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 213px; left: 94px; background: url(../images/sign-register2.png) no-repeat 0 0; }
+#sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 94px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 #sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
-#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 266px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
+#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
-#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 318px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
-#sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 376px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
+#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 356px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
@@ -239,16 +240,19 @@ div.content.rewards #sign-stump { top: 200px; }
 div.content.media-hub { background: transparent url(../images/media-hub-bg.png) no-repeat 80% 0; height: 548px; }
 div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
 div.content.media-hub #sign-media-hub + #white-box { width: 375px; left: 9%; height: 494px; }
-div.content.media-hub #white-box.twitter { height: 420px !important; }
+div.content.media-hub #white-box.twitter { height: 349px !important; }
 
-div.content.media-hub #white-box.annoucements { width: 311px; height: 494px; left: 74%; top: -4px; }
+div.content.media-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
 div.content.media-hub #white-box.annoucements h1.titles { margin-bottom: 10px; }
 div.content.media-hub #white-box.annoucements img { border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
 
-div.content.media-hub #white-box.photos { width: 408px; height: 494px; left: 40%; top: -3px; }
+div.content.media-hub #white-box.photos { width: 408px; height: 420px; left: 40%; top: -3px; }
 div.content.media-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
 div.content.media-hub #white-box.photos #instafeed { }
 div.content.media-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+
+div.content.media-hub #white-box.resources { height: 81px; top: 438px; overflow: hidden; }
+div.content.media-hub #white-box.resources * { text-align: center }
 
 /******************************
 	White Box
@@ -531,13 +535,22 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
 
+/************************************************************
+	Clean Team Level Progress Page
+************************************************************/ 
+#white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; overflow-y: hidden;  }
+#white-box.clean-team-progress #badge-icon { display: block; float: left; }
+#white-box.clean-team-progress h1 { position: relative; top: 13px; left: 10px; }
+#white-box.clean-team-progress div.table-container { height: 400px; }
+#white-box.clean-team-progress table { margin-bottom: 0; }
+#white-box.clean-team-progress table tbody tr td.status {  }
+#white-box.clean-team-progress table tbody tr td.description p { font-size: 14px; padding: 0; }
+#white-box.clean-team-progress table tbody tr td.next_level { text-align: center; }
+
 /******************************
 	All Clean Teams Page
 ******************************/ 
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
-#white-box.all-clean-teams h1 { margin-bottom: 15px; }
-#white-box.all-clean-teams tr td { height: 70px; }
-#white-box.all-clean-teams tr td.roles { width: 100px; text-align: right; }
 
 /******************************
 	All Notifications Page
