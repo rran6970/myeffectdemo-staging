@@ -356,7 +356,7 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 
 		clean_champion.becomeCleanChampion(self.request.user, selected_team)
 
-		return HttpResponseRedirect('/clean-team/invite/')
+		return HttpResponseRedirect('/clean-team/%s' % selected_team.id)
 
 	def get_context_data(self, **kwargs):
 		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
