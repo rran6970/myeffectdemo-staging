@@ -435,7 +435,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
 #sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
-#tree-progress { display: block; z-index: 999; float: left; margin-left: 30px; position: absolute; top: -121px; }
+#tree-progress { display: block; z-index: 999; float: left; margin-left: 30px; position: absolute; top: -2px; }
 
 /******************************
 	Challenge Participants Page
