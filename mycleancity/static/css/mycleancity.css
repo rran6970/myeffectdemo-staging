@@ -23,6 +23,7 @@ a.menu-items-right { float: right; margin: 20px; position: relative; display: bl
 a.menu-items:hover { text-decoration: none; color: #000; }
 
 p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
+h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; padding-bottom: 0; }
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
@@ -80,7 +81,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 #sign-go-back.invite { left: 78px; }
 #sign-go-back-big.about { left: 32px; top: 386px; }
 #sign-go-back-big.students { left: 32px; top: 445px; }
-#sign-go-back-big.organizations { left: 32px; top: 445px; }
+#sign-go-back-big.organizations { left: 46px; top: 410px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -104,11 +105,12 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 #sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
 #sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
-#sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
-#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 230px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
+#sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 213px; left: 94px; background: url(../images/sign-register2.png) no-repeat 0 0; }
+#sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
+#sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 266px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
-#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 282px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
-#sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 340px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
+#sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 318px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 376px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
@@ -202,11 +204,11 @@ div.content.organization #sign-stump { top: 210px; }
 
 #sign-student-nonprofits { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 84px; left: 66px; background: url(../images/sign-student-nonprofits.png) no-repeat 0 0; }
 #sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
-#sign-brands { width: 207px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 88px; background: url(../images/sign-brands.png) no-repeat 0 0; }
+#sign-corporate-leaders { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 62px; background: url(../images/sign-corporate-leaders.png) no-repeat 0 0; }
 #sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 315px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
 /*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 372px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 329px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
 
 table.supporters-table tr td { padding: 10px !important; }
 table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 2px solid #4a3c2e; }
@@ -227,8 +229,9 @@ div.content.rewards #sign-stump { top: 200px; }
 
 #sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 150px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
 #sign-cleancreds { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 244px; left: 68px; background: url(../images/sign-cleancreds.png) no-repeat 0 0; }
-#sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 301px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
-#sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 360px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
+#sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 301px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
+#sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 355px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
+
 
 /******************************
 	Media Hub
