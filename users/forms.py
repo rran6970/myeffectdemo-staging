@@ -178,7 +178,6 @@ class ProfileForm(forms.ModelForm):
 	about = forms.CharField(required=False, widget=forms.Textarea())
 	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	picture = forms.ImageField(required=False, label="Profile Picture")
 	
 	# Combines the form with the corresponding model
@@ -202,8 +201,6 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your last name")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
-		elif not school_type:
-			raise forms.ValidationError("Please select your school type")
 
 		if picture:
 			if picture._size > 2*1024*1024:

@@ -325,8 +325,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		# initial['dob'] = user.profile.dob
-		initial['school_type'] = user.profile.school_type
 		initial['about'] = user.profile.about
 
 		if user.profile.twitter:
@@ -368,7 +366,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		# user.profile.dob = form.cleaned_data['dob']
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
-		user.profile.school_type = form.cleaned_data['school_type'] 
 
 		# TODO: Move to models
 		if picture:			
