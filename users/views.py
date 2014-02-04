@@ -8,6 +8,8 @@ from boto.s3.key import Key
 
 from challenges.models import Challenge
 
+from datetime import date
+
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -149,6 +151,12 @@ class RegisterView(FormView):
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.save()
 		u.save()
+
+		today = date.today()
+		feb_24 = date(2014, 02, 24)
+
+		if today <= feb_24:
+			u.profile.add_clean_creds(50)
 
 		if 'qrcode' in self.kwargs:
 			qr_code_signup = QRCodeSignups()

@@ -66,26 +66,22 @@ def check_in_check_out(request):
 				total_clean_creds = challenge.getChallengeTotalCleanCreds(total_hours)
 
 				# Add CleanCreds to individual
-				user.profile.clean_creds += total_clean_creds
-				user.profile.save()
+				user.profile.add_clean_creds(total_clean_creds)
 
 				# Add CleanCreds to Clean Teams if applicable
 				clean_champions = CleanChampion.objects.filter(user=user)
 
 				for clean_champion in clean_champions:
 					if clean_champion.status == "approved":
-						clean_champion.clean_team.clean_creds += total_clean_creds
-						clean_champion.clean_team.save()
-
+						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+						
 				# Clean Ambassador
 				if user.profile.clean_team_member:
 					if user.profile.is_clean_ambassador or user.profile.clean_team_member.status == "approved":
-						user.profile.clean_team_member.clean_team.clean_creds += total_clean_creds
-						user.profile.clean_team_member.clean_team.save()
+						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 				
 				# Clean Team posting challenge	
-				challenge.clean_team.clean_creds += total_clean_creds
-				challenge.clean_team.save()
+				challenge.clean_team.add_team_clean_creds(total_clean_creds)
 
 				return HttpResponse(total_hours)
 
@@ -199,6 +195,29 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge_category.save()
 
 		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+
+	def get_context_data(self, **kwargs):
+		context = super(EditChallengeView, self).get_context_data(**kwargs)
+		
+		if 'cid' in self.kwargs:
+			cid = self.kwargs['cid']
+		
+		try:
+			challenge = Challenge.objects.get(id=cid)
+			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
+
+			#TODO: Shouldn't be able to access all Challenges
+			if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
+
+				print "unauthorized"
+				return HttpResponseRedirect('/')
+			else:
+				print "authorized"	
+		except Exception, e:
+			print e
+			return HttpResponseRedirect(u'/challenges/%s' %(cid))	
+
+		return context
 
 class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 	template_name = "challenges/challenge_participants.html"
