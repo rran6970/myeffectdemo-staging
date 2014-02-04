@@ -110,6 +110,7 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 	success_url = "mycleancity/index.html"
 
 	def get(self, request, *args, **kwargs):
+		return HttpResponseRedirect('/coming-soon')
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 

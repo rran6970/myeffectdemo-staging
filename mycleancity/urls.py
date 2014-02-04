@@ -13,13 +13,14 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 
 	url(r'^captcha/', include('captcha.urls')),
-
+	
 	url(r'^clean-team/', include('cleanteams.urls')),
 	url(r'^challenges/', include('challenges.urls')),
 	url(r'^cleancreds/', include('cleancreds.urls')),
 	url(r'^notifications/', include('notifications.urls')),
 	url(r'^users/', include('users.urls')),
 
+	url(r'^coming-soon/', ComingSoonPageView.as_view()),
 	url(r'^register-success/?', RegisterSuccessView.as_view()),
 	url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
 	url(r'^register/?$', RegisterView.as_view()),

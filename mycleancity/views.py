@@ -45,6 +45,13 @@ class AboutPageView(TemplateView):
 		context = super(AboutPageView, self).get_context_data(**kwargs)
 		return context
 
+class ComingSoonPageView(TemplateView):
+	template_name = "mycleancity/coming_soon.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ComingSoonPageView, self).get_context_data(**kwargs)
+		return context
+
 class ContactPageView(FormView):
 	template_name = "mycleancity/contact.html"
 	success_url = "mycleancity/index.html"
