@@ -362,6 +362,7 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
 		user = self.request.user
 		
+		context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
 		context['user'] = user
 
 		return context
