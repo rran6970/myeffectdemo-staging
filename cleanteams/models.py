@@ -216,6 +216,8 @@ class CleanTeamMember(models.Model):
 
 	# By pass the requestBecomeCleanAmbassador() and approveCleanAmbassador()
 	def becomeCleanAmbassador(self, user, selected_team, notification=True):
+		CleanChampion.objects.filter(user=user, clean_team=selected_team).delete()
+
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "approved"

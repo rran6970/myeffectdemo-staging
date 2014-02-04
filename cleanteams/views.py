@@ -283,8 +283,8 @@ class CleanTeamView(TemplateView):
 
 			try:
 				# TODO: Need to pass this to the template
-				# context['clean_ambassador']
 				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
+				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
 
@@ -505,7 +505,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 					except Exception, e:
 						ctm = CleanTeamMember(user=self.request.user)
 						
-					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, True)
+					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, False)
 			else:
 				invite.status = "declined"
 
