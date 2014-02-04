@@ -102,6 +102,10 @@
                   <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Clean Champion" />
                 {% endif %}
 
+                {% if clean_ambassador %}
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Clean Champion" />
+                {% endif %}
+
                 <!-- Clean Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
                 <form action="/clean-team/ca-request-join/" method="post">
