@@ -80,7 +80,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		user.profile.save()
 
 		# Send registration email to user
-		template = get_template('emails/organization_register_success.html')
+		template = get_template('emails/clean_team_register.html')
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
 		content = template.render(content)
 
