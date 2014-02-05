@@ -21,7 +21,6 @@
   
   <div class="content leadership-board">
     <div class="container">
-        <img src="{{ STATIC_URL }}images/tree-stage-0.png" alt="" id="tree-progress">
         <div id="brown-box">
           <div id="board">
             <h1>LEADER BOARD</h1>
@@ -37,8 +36,30 @@
               {% endfor %}
               </table>
             {% else %}
-              <h2>See Who Leads the Nation with their Clean Actions! <br/><a href="http://twitter.com/@MyCleanCity1" target="_blank">Follow us</a> so you don't miss our launch.</h2>
+              <h2>See who is leading the nation in <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a>Who is our top Clean Team? Our individual national champs? Let the challenge begin April 1st</h2>
             {% endif %}
+
+            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
+            <script>
+              var myCountdown2 = new Countdown({
+                year: 2014,
+                month: 4, 
+                day: 1,
+                hour: 0,
+                ampm: "am",
+                minute: 0,
+                width: 475, 
+                height: 50, 
+                padding   : 1.5,
+                rangeHi   : "month",
+                rangeLo   : "second",
+                numbers: {
+                  font  : "Arial",
+                  color : "#FFFFFF",
+                  bkgd  : "#000"
+                }
+              });
+            </script>
           </div>
           <div class="clear"></div>
           <div id="sign-leaderboard">
