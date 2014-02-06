@@ -43,8 +43,8 @@ urlpatterns = patterns('',
 
 	url(r'^contact/?', ContactPageView.as_view()),
 	
-	url(r'^fr/$', HomePageView.as_view()),
-	url(r'^$', HomePageView.as_view()),
+	url(r'^fr/$', TemplateView.as_view(template_name="mycleancity/french/index_fr.html")),
+	url(r'^$', TemplateView.as_view(template_name="mycleancity/index.html")),
 
 	url(r'^download/$', 'mycleancity.views.download_file'),
 )

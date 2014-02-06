@@ -11,15 +11,15 @@
 <div class="wrapper public">
   <div class="clouds"></div>
   
-  {% include '_public_navbar.html' %}
-  <a href="/" class="logo"></a>
+  {% include "french/_public_navbar_fr.html" %}
+  <a href="/fr" class="logo"></a>
   
-  <h1 class="title">Building sustainable communities<br/>through the power of YOUth</h1>
+  <h1 class="title">Bâtir des communautés durables par<br/>le pouvoir des jeunes</h1>
   <div class="container">
     <a id="buildings-link" href="/challenges/"></a>
-    <div id="buildings"></div>
+    <div id="buildings-fr"></div>
 
-    <a href="/media-hub"><div id="recycle-bench"></div></a>
+    <a href="/media-hub"><div id="recycle-bench-fr"></div></a>
     
     {% if user.is_authenticated %}
       <div id="sign-user">
@@ -30,11 +30,11 @@
       <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile"></div></a>
       <a href="/challenges/my-challenges"><div class="sign" id="sign-my-challenges2"></div></a>
     {% else %}
-      <div id="sign-learn-more"></div>
-      <a href="/register"><div class="sign" id="sign-register"></div></a>
-      <a href="/students"><div class="sign" id="sign-students"></div></a>
-      <a href="/organizations"><div class="sign" id="sign-organizations"></div></a>
-      <a href="/rewards"><div class="sign" id="sign-rewards"></div></a>
+      <div id="sign-learn-more-fr"></div>
+      <a href="/register"><div class="sign" id="sign-register-fr"></div></a>
+      <a href="/students/fr"><div class="sign" id="sign-students-fr"></div></a>
+      <a href="/organizations/fr"><div class="sign" id="sign-organizations-fr"></div></a>
+      <a href="/rewards/fr"><div class="sign" id="sign-rewards-fr"></div></a>
     {% endif %}
     <div id="sign-stump"></div>
     
@@ -48,7 +48,7 @@
     <div id="path-2"></div>
   </div><!-- /.container -->
 </div> <!-- /.wrapper -->
-{% include "_footer_navbar.html" %}
+{% include "french/_footer_navbar_fr.html" %}
 
 {% endblock %}
 
