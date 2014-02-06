@@ -17,9 +17,9 @@
   
   <div class="content">
     <div class="container">
-        <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+        <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a> -->
         <div id="white-box" class="register">
-            <h2>Register</h2>
+            <h2>Register/Inscription</h2>
             
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -62,17 +62,17 @@
                         </td>
                     </tr>
                     <tr>
-                      <td colspan="2">{{ form.smartphone }}<label for="">Do you have a smartphone?</label></td>
+                      <td colspan="2">{{ form.smartphone }}<label for="">Do you have a smartphone? / Est-ce que tu as un téléphone intelligent?</label></td>
                     </tr>
                     <tr>
-                      <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditiions</a></label></td>
+                      <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditions</a> / Je reconnais que j'ai lu et j’accepte les <a href="#terms-conditions" class="popup-600">Conditions générales</a></label></td>
                     </tr>
                     <tr>
                       <td colspan="2">{{ form.captcha }}</td>
                     </tr>
                 </table>
 
-                <input class="btn btn-primary" type="submit" value="Register" />
+                <input class="btn btn-primary" type="submit" value="Register/Inscription" />
             </form>
             <p>Already have an account? Login in <a href="/users/login">here</a>.
         </div><!-- /#white-box .register -->

@@ -96,7 +96,9 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
 #grass-3 { width: 1072px; height: 579px; overflow: hidden; position: absolute; z-index: 997; top: -90px; right: -178px; background: transparent url(../images/grass-3.png) no-repeat 0 0; }
+
 #path-1 { width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 996; top: 213px; right: 401px; background: transparent url(../images/path-1.png) no-repeat 0 0; }
+#path-1-fr { width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 996; top: 208px; right: 387px; background: transparent url(../images/french/path-1.png) no-repeat 0 0; }
 #path-1-link { display: block; width: 191px; height: 83px; overflow: hidden; position: absolute; z-index: 999; top: 231px; right: 627px; }
 #path-1-link:hover + div { content: ""; background-position: 0 bottom !important; }
 
@@ -362,12 +364,17 @@ div.content.media-hub #white-box.resources * { text-align: center }
 #white-box.register-join-team .table .action input[type="submit"] { margin: 0; }
 #white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
 
-#white-box.register { width: 478px; left: 32%; }
+#white-box.small { width: 478px; left: 32%; }
+
+#white-box.register { width: 700px; left: 22%; }
 #white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 24px auto 0; }
 #white-box.register input[type="checkbox"] { margin: 0; padding: 0; }
 #white-box.register p { text-align: center; }
 
 #white-box.register table tr td { /*height: 60px;*/ }
+#white-box.register table tr td input[type='text'],
+#white-box.register table tr td input[type='password'] { width: 285px; }
+#white-box.register table tr td ul { padding: 0; margin: 0; }
 
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
