@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Organizations {% endblock %}
+{% block title %} Ma Ville Propre - Récompense {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -29,85 +29,90 @@
         <div id="white-box" class="tab-content">
           
           <div class="tab-pane active" id="rewards">
-            <h1 class="tab-titles">Rewards</h1>
+            <h1 class="tab-titles">Récompense</h1>
 
-            <h2 class="question subtitle-blue">What are <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</h2>
+            <h2 class="question subtitle-blue">Qu'est-ce que les CréditsPropre?</h2>
             <p>
-              <span class="green bold">Clean</span><span class="blue bold">Creds</span> is our rewards system. It is a currency that is earned by volunteerism and community impact!
+              Les CréditsPropre sont notre système de récompense. Ce sont une monnaie qui est gagnée par le bénévolat et l'impact communautaire!
             </p>
 
-            <h2 class="question subtitle-blue">How do I earn <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</h2>
+            <h2 class="question subtitle-blue">Comment gagner des CréditsPropre?</h2>
             <p>
-              You will earn <span class="green bold">Clean</span><span class="blue bold">Creds</span> by completing <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> with your peers in your community.
+              Vous gagnerez des CréditsPropre en complétant #ActionsPropre avec vos amis dans votre communauté.
             </p>
-            <p>Here are some quick tips to boost your score:</p>
+            <p>
+              Voici quelques conseils rapides pour augmenter vos points:
+            </p>
 
             <ol>
               <li>
-                <span class="bold">Impact:</span> Each <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> will have a CleanCred multiplier based on the impact of your actions. The greater the impact your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> has on our environment the more <span class="green bold">Clean</span><span class="blue bold">Creds</span> you earn per hour
+                <span class="bold">Votre impact:</span> Chaque #ActionsPropre aura un multiplicateur de CréditsPropre basé sur l'impact de vos actions. Plus grand l'impact votre #ActionsPropre sur notre environnement,  plus grand sera le multiplicateur de CréditsPropre par heure.
               </li>
               <li>
-                <span class="bold">Lead:</span> Sign Up as an <a href="/students#ambassador"></a>Ambassador to lead a Clean Team. Earn <span class="bold blue">50 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span> for taking leadership in your community to mobilize your peers and make a positive difference
+                <span class="bold">Prenez la charge:</span> Inscrivez-vous comme un <a href="/students/fr/">Ambassadeur Net</a> pour mener votre PropreÉquipe. Gagnez 50 CréditsPropre en cadeau parce que vous prenez en charge votre communauté et vous mobilisez vous amis. Faites une différence positive. 
               </li>
               <li>
-                <span class="bold">Recruit:</span> Earn <span class="bold blue">5 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span> for every Clean Champion that signs up to support your Clean Team
+                <span class="bold">Recrutez:</span>Gagnez 5 CréditsPropre pour chaque Champion Net qui s'inscrit pour supporter votre PropreÉquipe.
               </li>
               <li>
-                <span class="bold">Support:</span> Help your friends by sponsoring their Clean Team. Sign up as a Clean Champion to earn <span class="bold blue">20 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span>
+                <span class="bold">Encouragez:</span>Aidez vos amis en partir leur PropreÉquipe. Inscrivez-vous comme un Champion Net pour gagner 20 CréditsPropre.
               </li>
               <li>
-                <span class="bold">Connect:</span> Interact with us on social media to be entered into weekly contests and CleanCred giveaways. Follow <a href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a>. Trend <a href="http://twitter.com/#MyCleanCity">#MyCleanCity</a>
+                <span class="bold">Resautez:</span>Interagissez avec nous sur des médias sociaux, participez à nos concours hebdomadaires et aux défis pour remporter des CréditsPropre. Suivez @MyCleanCity1. Tendance #MyCleanCity #MaVillePropre
               </li>
               <li>
-                <a href="/register"><span class="bold">Register:</span></a> Don’t miss our early bird registration. Sign up before February 24th to earn a <span class="bold blue">bonus 50</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span>!</a>
+                <a href="/register"><span class="bold">Inscrivez-vous:</span></a>Ne manquez pas l'inscription hâtive. Inscrivez-vous avant le 24 février pour gagner 50 CréditsPropre!
               </li>
             </ol>
 
 
-            <h2 class="question subtitle-blue">How are <span class="green bold">Clean</span><span class="blue bold">Creds</span> Calculated?</h2>
+            <h2 class="question subtitle-blue">Comment les CréditsPropre sont-ils calculés?</h2>
             <p>
-              Impact + Effect = <span class="green bold">Clean</span><span class="blue bold">Creds</span>!
+              IMPACT + EFFORT = CréditsPropre!
             </p>
-            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span> are based on the volunteer hours donated to a Clean Challenge and the impact of your actions.</p>
+            <p>
+              Nous attribuons des points d'impact basés sur l'effet environnemental des actions et nous donnons des points d'effort basés sur les heures de bénévolat
+            </p>
             
-            <h2 class="question subtitle-blue">How do we measure your hours?</h2>
+            <h2 class="question subtitle-blue">Comment mesurons-nous vos heures?</h2>
             <p>
-              Through our super cool new app available at the end of March! Search for <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> near you, register to track your hours and share your progress with your friends.
+              Par notre nouvelle application pour téléphone intelligent qui sera disponible à la fin de mars! 
+              Recherchez les #ActionsPropre près de chez  vous, inscrivez-vous pour compter vos heures et partagez votre progrès avec vos amis. 
             </p>
 
-
-
-            <h2 class="question subtitle-blue">How do we calculate the impact of your efforts? </h2>
+            <h2 class="question subtitle-blue">Comment calculons-nous l'impact de vos efforts?</h2>
             <p>
-              The impact of your actions is determined by our CleanCred L.A.W.S:
+              L'impact de vos actions est déterminé par nos catégories de CréditsPropre:
             </p>
 
-            <p><span class="bold">Land</span> - the effect of a <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on our carbon footprint</p>
-            <p><span class="bold">Air</span> – the ability of the <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> to positively change air quality</p>
-            <p><span class="bold">Water</span> – the impact of your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on water use, contaminant levels and pollution</p>
-            <p><span class="bold">Species</span> – the impact of your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on the ecosystems and populations of animals</p>
+            <p><span class="bold">Terrain </span> - l'effet d'une #ActionsPropre sur notre empreinte carbone </p>
+            <p><span class="bold">Air</span> – la capacité d’une #ActionPropre d’améliorer la qualité de l'air </p>
+            <p><span class="bold">Eau </span> – l'impact de votre #ActionsPropre sur utilisation d'eau, les niveaux de polluant et la pollution</p>
+            <p><span class="bold">Faune</span> – l'impact de votre #ActionsPropre sur les écosystèmes et la faune </p>
             <p><span class="bold">Result</span>: a metric based score that measures volunteer impact</p>
 
             <p>
               <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
             </p>
-             <p class="center">Register before <span class="blue bold">February 24th</span> and earn <span class="blue bold">50 bonus CleanCreds</span>.</p>
+             <p class="center">
+              Inscrivez-vous avant le <span class="blue bold">24 février</span> et recevez <span class="bold">50</span> <span class="green bold">Crédits</span><span class="blue bold">Propre</span> en cadeau.
+            </p>
           </div>
 
           <div class="tab-pane" id="clean-teams">
-            <h1 class="tab-titles">Clean Team Rewards</h1>
+            <h1 class="tab-titles">Récompenses de votre PropreÉquipe </h1>
             <p>
-              You have accepted the challenge to be a leader in your community and My Clean City has some extra special rewards lined up for your efforts!
+              Vous avez accepté le défi d'être un leader dans votre communauté et Ma Ville Propre a des récompenses spéciales supplémentaires pour vos efforts!
             </p>
             <p>
-              As a Clean Team you will have the opportunity to start earning rewards before our official <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> launch on April 1st. Move up in our Clean Team Level system as you grow your team page and unlock special opportunities such as participating in My Clean City pre-launch events, branding yourselves with custom team swag and guest judging along with sustainability experts in a national environmental school competition.
+              En tant qu’une PropreÉquipe vous aurez l'occasion de commencer à amasser des récompenses avant que nos #ActionsPropre soient officiellement lancées le 1 avril. Avancez dans notre système de niveau pour les PropreÉquipes en bâtissant votre page d’équipe pagine et décrouvrez des offres spéciales, comme la participation au pré-lancement de Ma Ville Propre, personnalisez votre équipe avec du matériel promotionnel bien à vous et vous pourriez être invité à juger, avec des experts du développement durable, une compétition scolaire environnementale au niveau nationale. 
             </p>
 
             <h2 class="question subtitle-blue">
-              What is our Clean Tree Level System? 
+              Quel est notre système de niveaux pour votre PropreÉquipe?  
             </h2>
             <p>
-              Every Clean Team starts off as a seed. As your team grows to create <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> and recruit peers to sign up as Clean Champions you move up levels from sprout, to sapling to tree and all the way to full bloom. Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you hit full bloom you will receive national recognition including an exclusive invite to My Clean City's official awards gala.
+              Chaque PropreÉquipe commence comme une graine. Comme votre équipe grandit et que vous recrutez des gens comme des Champions Net et créer une #ActionPropre vous avancez des niveaux de la pousse, au jeune arbre à l'arbre et jusqu'à la floraison. 
             </p>
             <p>
               <img src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="" />
@@ -117,52 +122,60 @@
               <img src="{{ STATIC_URL }}images/badge-level-5-75x73.png" alt="" />
             </p>
             <p>
-              Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you can hit Full Blossom you will receive national recognition.
+              Des privilèges spéciaux sont remis tout au long de votre cheminement, vous recevrez également plus de responsabilités en tant que leader de Ma Ville Propre et quand vous vous développez au niveau de la floraison vous recevrez une reconnaissance nationale incluant une invitation officielle au gala Ma Ville Propre.
             </p>
 
             <h2 class="question subtitle-blue">
-              What are some privileges to look forward to?
+              Quels sont les privilèges?
             </h2>
             <ul>
               <li>
-                Become a face for My Clean City in marketing efforts
+                Représentez Ma Ville Propre dans ses efforts de marketing.
               </li>
               <li>
-                Represent My Clean City on provincial platforms
+                Représenter Ma Ville Propre sur des plates-formes provinciales.
               </li>
               <li>
-                Receive special deals and opportunities with corporate leaders
+                Recevoir des offres spéciales et des opportunités avec des entreprises de marque.
               </li>
               <li>
-                Unlock bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span> and multipliers to use in our <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> and more!
+                Obtenir des CréditsPropre en cadeau et des multiplicateurs pour utiliser dans vos #ActionsPropre
+              </li>
+              <li>
+                Et plus encore
               </li>
             </ul>
 
-            <p><a href="/register">Sign up</a></p>
-            <p>Start building your Clean Team to learn about all of the exciting opportunities we have in store for you!</p>
-            <p>Register to be an ambassador to earn 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</p>
-            <p><span class="bold blue">Double</span> your bonus rewards by registering <span class="bold">before February 24th and earn another 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>!</span></p>
+            <p><a href="/register">Inscrivez-vous aujourd'hui! </a></p>
+            <p>Inscrivez-vous pour être un ambassadeur et recevez 50 CréditsPropre en cadeau.</p>
+            
+            <p>Doublez vos CréditsPropre et inscrivez-vous avant le 24 février pour gagner 50 CréditsPropre supplémentaires!</p>
+
+            
+            <p>Commencez à bâtir votre PropreÉquipe pour connaître toutes les offres spéciales que nous avons en magasin pour vous!</span>.</p>
           </div>
 
           <div class="tab-pane" id="individuals">
-            <h1 class="tab-titles">Individual Rewards</h1>
+            <h1 class="tab-titles">La Récompense Individuelle</h1>
             <p>
-              Be sure to follow us on Twitter <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> and like us on <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> so you don’t miss when to check back for the reveal of our exciting rewards partners!
+              Assurez-vous de nous aimer sur <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> et suivez-nous sur Twitter <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> pour vous assurer de ne rien manquer. Nous aurons également de l’information importante à propos de nos partenaires et leurs récompenses passionnantes! 
             </p>
-            <p class="question">What kind of rewards to expect?</p>
+            <p class="question">Quelles sont les genres de récompenses?</p>
 
             <ul>
-              <li>Gift cards from leading brands</li>
-              <li>Tickets for special events including concerts</li>
-              <li>Special mentorship and leadership opportunities</li>
-              <li>Exclusive prize packs including personalized shopping experiences</li>
-              <li>And some super cool surprises!</li>
+              <li>Des cartes de cadeau de nos partenaires</li>
+              <li>Billets pour événements spéciaux incluant des concerts</li>
+              <li>Mentorat spécial et opportunités de leadership</li>
+              <li>Forfaits exclusifs incluant des expériences de magasinage personnalisées</li>
+              <li>Et quelques surprises vraiment cool!</li>
             </ul>  
 
             <p>
               <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
             </p>
-            <p class="center">Register before February 24th and earn 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</p>
+            <p class="center">
+              Inscrivez-vous avant le <span class="blue bold">24 février</span> et recevez <span class="bold">50</span> <span class="green bold">Crédits</span><span class="blue bold">Propre</span> en cadeau.
+            </p>
           </div>
 
         </div><!-- /#white-box -->
