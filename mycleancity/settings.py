@@ -1,4 +1,4 @@
-# Django settings for mycleancity project.
+res# Django settings for mycleancity project.
 import os
 
 DEBUG = False

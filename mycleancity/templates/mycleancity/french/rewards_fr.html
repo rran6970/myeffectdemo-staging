@@ -1,0 +1,176 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Organizations {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content rewards">
+    <div class="container">
+
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-rewards2-fr"></div></a>
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-cleancreds-fr"></div></a>
+        <a href="#clean-teams" data-toggle="tab"><div class="sign" id="sign-clean-teams-fr"></div></a>
+        <a href="#individuals" data-toggle="tab"><div class="sign" id="sign-individuals"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign organizations" id="sign-go-back-big"></div></a>
+        
+        <div id="sign-stump"></div>
+        
+        <div id="white-box" class="tab-content">
+          
+          <div class="tab-pane active" id="rewards">
+            <h1 class="tab-titles">Rewards</h1>
+
+            <h2 class="question subtitle-blue">What are <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</h2>
+            <p>
+              <span class="green bold">Clean</span><span class="blue bold">Creds</span> is our rewards system. It is a currency that is earned by volunteerism and community impact!
+            </p>
+
+            <h2 class="question subtitle-blue">How do I earn <span class="green bold">Clean</span><span class="blue bold">Creds</span>?</h2>
+            <p>
+              You will earn <span class="green bold">Clean</span><span class="blue bold">Creds</span> by completing <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> with your peers in your community.
+            </p>
+            <p>Here are some quick tips to boost your score:</p>
+
+            <ol>
+              <li>
+                <span class="bold">Impact:</span> Each <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> will have a CleanCred multiplier based on the impact of your actions. The greater the impact your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> has on our environment the more <span class="green bold">Clean</span><span class="blue bold">Creds</span> you earn per hour
+              </li>
+              <li>
+                <span class="bold">Lead:</span> Sign Up as an <a href="/students#ambassador"></a>Ambassador to lead a Clean Team. Earn <span class="bold blue">50 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span> for taking leadership in your community to mobilize your peers and make a positive difference
+              </li>
+              <li>
+                <span class="bold">Recruit:</span> Earn <span class="bold blue">5 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span> for every Clean Champion that signs up to support your Clean Team
+              </li>
+              <li>
+                <span class="bold">Support:</span> Help your friends by sponsoring their Clean Team. Sign up as a Clean Champion to earn <span class="bold blue">20 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span>
+              </li>
+              <li>
+                <span class="bold">Connect:</span> Interact with us on social media to be entered into weekly contests and CleanCred giveaways. Follow <a href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a>. Trend <a href="http://twitter.com/#MyCleanCity">#MyCleanCity</a>
+              </li>
+              <li>
+                <a href="/register"><span class="bold">Register:</span></a> Don’t miss our early bird registration. Sign up before February 24th to earn a <span class="bold blue">bonus 50</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span>!</a>
+              </li>
+            </ol>
+
+
+            <h2 class="question subtitle-blue">How are <span class="green bold">Clean</span><span class="blue bold">Creds</span> Calculated?</h2>
+            <p>
+              Impact + Effect = <span class="green bold">Clean</span><span class="blue bold">Creds</span>!
+            </p>
+            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span> are based on the volunteer hours donated to a Clean Challenge and the impact of your actions.</p>
+            
+            <h2 class="question subtitle-blue">How do we measure your hours?</h2>
+            <p>
+              Through our super cool new app available at the end of March! Search for <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> near you, register to track your hours and share your progress with your friends.
+            </p>
+
+
+
+            <h2 class="question subtitle-blue">How do we calculate the impact of your efforts? </h2>
+            <p>
+              The impact of your actions is determined by our CleanCred L.A.W.S:
+            </p>
+
+            <p><span class="bold">Land</span> - the effect of a <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on our carbon footprint</p>
+            <p><span class="bold">Air</span> – the ability of the <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> to positively change air quality</p>
+            <p><span class="bold">Water</span> – the impact of your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on water use, contaminant levels and pollution</p>
+            <p><span class="bold">Species</span> – the impact of your <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> on the ecosystems and populations of animals</p>
+            <p><span class="bold">Result</span>: a metric based score that measures volunteer impact</p>
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+             <p class="center">Register before <span class="blue bold">February 24th</span> and earn <span class="blue bold">50 bonus CleanCreds</span>.</p>
+          </div>
+
+          <div class="tab-pane" id="clean-teams">
+            <h1 class="tab-titles">Clean Team Rewards</h1>
+            <p>
+              You have accepted the challenge to be a leader in your community and My Clean City has some extra special rewards lined up for your efforts!
+            </p>
+            <p>
+              As a Clean Team you will have the opportunity to start earning rewards before our official <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> launch on April 1st. Move up in our Clean Team Level system as you grow your team page and unlock special opportunities such as participating in My Clean City pre-launch events, branding yourselves with custom team swag and guest judging along with sustainability experts in a national environmental school competition.
+            </p>
+
+            <h2 class="question subtitle-blue">
+              What is our Clean Tree Level System? 
+            </h2>
+            <p>
+              Every Clean Team starts off as a seed. As your team grows to create <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> and recruit peers to sign up as Clean Champions you move up levels from sprout, to sapling to tree and all the way to full bloom. Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you hit full bloom you will receive national recognition including an exclusive invite to My Clean City's official awards gala.
+            </p>
+            <p>
+              <img src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-2-75x59.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-3-75x63.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-4-75x73.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-5-75x73.png" alt="" />
+            </p>
+            <p>
+              Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you can hit Full Blossom you will receive national recognition.
+            </p>
+
+            <h2 class="question subtitle-blue">
+              What are some privileges to look forward to?
+            </h2>
+            <ul>
+              <li>
+                Become a face for My Clean City in marketing efforts
+              </li>
+              <li>
+                Represent My Clean City on provincial platforms
+              </li>
+              <li>
+                Receive special deals and opportunities with corporate leaders
+              </li>
+              <li>
+                Unlock bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span> and multipliers to use in our <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> and more!
+              </li>
+            </ul>
+
+            <p><a href="/register">Sign up</a></p>
+            <p>Start building your Clean Team to learn about all of the exciting opportunities we have in store for you!</p>
+            <p>Register to be an ambassador to earn 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</p>
+            <p><span class="bold blue">Double</span> your bonus rewards by registering <span class="bold">before February 24th and earn another 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>!</span></p>
+          </div>
+
+          <div class="tab-pane" id="individuals">
+            <h1 class="tab-titles">Individual Rewards</h1>
+            <p>
+              Be sure to follow us on Twitter <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> and like us on <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> so you don’t miss when to check back for the reveal of our exciting rewards partners!
+            </p>
+            <p class="question">What kind of rewards to expect?</p>
+
+            <ul>
+              <li>Gift cards from leading brands</li>
+              <li>Tickets for special events including concerts</li>
+              <li>Special mentorship and leadership opportunities</li>
+              <li>Exclusive prize packs including personalized shopping experiences</li>
+              <li>And some super cool surprises!</li>
+            </ul>  
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+            <p class="center">Register before February 24th and earn 50 bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</p>
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

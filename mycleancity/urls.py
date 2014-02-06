@@ -20,18 +20,30 @@ urlpatterns = patterns('',
 	url(r'^notifications/', include('notifications.urls')),
 	url(r'^users/', include('users.urls')),
 
-	url(r'^coming-soon/', ComingSoonPageView.as_view()),
+	url(r'^coming-soon/', TemplateView.as_view(template_name="mycleancity/coming_soon.html")),
 	url(r'^register-success/?', RegisterSuccessView.as_view()),
 	url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
 	url(r'^register/?$', RegisterView.as_view()),
 	url(r'^register-invite/(?P<token>\w+)/?$', RegisterInviteView.as_view()),
 	url(r'^landing/?', PrelaunchView.as_view()),
-	url(r'^about/?', AboutPageView.as_view()),
-	url(r'^students/?', StudentsPageView.as_view()),
-	url(r'^rewards/?', RewardsPageView.as_view()),
-	url(r'^organizations/?', OrganizationsPageView.as_view()),
+
+	url(r'^about/fr/?', TemplateView.as_view(template_name="mycleancity/french/about_fr.html")),
+	url(r'^about/?', TemplateView.as_view(template_name="mycleancity/about.html")),
+
+	url(r'^students/fr/?', TemplateView.as_view(template_name="mycleancity/french/students_fr.html")),
+	url(r'^students/?', TemplateView.as_view(template_name="mycleancity/students.html")),
+
+	url(r'^rewards/fr/?', TemplateView.as_view(template_name="mycleancity/french/rewards_fr.html")),
+	url(r'^rewards/?', TemplateView.as_view(template_name="mycleancity/rewards.html")),
+
+	url(r'^organizations/fr/?', TemplateView.as_view(template_name="mycleancity/french/organizations_fr.html")),
+	url(r'^organizations/?', TemplateView.as_view(template_name="mycleancity/organizations.html")),
+
+	url(r'^media-hub/?', TemplateView.as_view(template_name="mycleancity/media_hub.html")),
+
 	url(r'^contact/?', ContactPageView.as_view()),
-	url(r'^media-hub/?', MediaHubPageView.as_view()),
+	
+	url(r'^fr/$', HomePageView.as_view()),
 	url(r'^$', HomePageView.as_view()),
 
 	url(r'^download/$', 'mycleancity.views.download_file'),

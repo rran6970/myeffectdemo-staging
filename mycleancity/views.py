@@ -38,20 +38,6 @@ class HomePageView(TemplateView):
 		
 		return context
 
-class AboutPageView(TemplateView):
-	template_name = "mycleancity/about.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(AboutPageView, self).get_context_data(**kwargs)
-		return context
-
-class ComingSoonPageView(TemplateView):
-	template_name = "mycleancity/coming_soon.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(ComingSoonPageView, self).get_context_data(**kwargs)
-		return context
-
 class ContactPageView(FormView):
 	template_name = "mycleancity/contact.html"
 	success_url = "mycleancity/index.html"
@@ -81,34 +67,6 @@ class RegisterSuccessView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(RegisterSuccessView, self).get_context_data(**kwargs)
-		return context
-
-class MediaHubPageView(TemplateView):
-	template_name = "mycleancity/media_hub.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(MediaHubPageView, self).get_context_data(**kwargs)
-		return context
-
-class StudentsPageView(TemplateView):
-	template_name = "mycleancity/students.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(StudentsPageView, self).get_context_data(**kwargs)
-		return context
-
-class OrganizationsPageView(TemplateView):
-	template_name = "mycleancity/organizations.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(OrganizationsPageView, self).get_context_data(**kwargs)
-		return context
-
-class RewardsPageView(TemplateView):
-	template_name = "mycleancity/rewards.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(RewardsPageView, self).get_context_data(**kwargs)
 		return context
 
 def download_file(request):
