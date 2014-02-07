@@ -5,6 +5,8 @@ from challenges.views import *
 
 urlpatterns = patterns('',
 	url(r'^/?$', ChallengesFeedView.as_view()),
+	url(r'^fr/?', TemplateView.as_view(template_name="mycleancity/french/challenge_centre_fr.html")),
+
 	url(r'^(?P<cid>\d+)/?$', ChallengeView.as_view()),
 	url(r'^edit/(?P<cid>\d+)/?$', EditChallengeView.as_view()),
 	url(r'^new-challenge/?$', NewChallengeView.as_view()),

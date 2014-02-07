@@ -121,7 +121,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-user { min-width: 275px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 39px; }
 #sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; } 
 #sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
-#sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
+#sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #0C2218; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
 #sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 #sign-register-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/french/sign-register2.png) no-repeat 0 0; }
@@ -305,8 +305,12 @@ div.content.rewards #sign-stump { top: 200px; }
 	Media Hub
 ******************************/ 	
 div.content.media-hub { background: transparent url(../images/media-hub-bg.png) no-repeat 80% 0; height: 548px; }
+
 div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
-div.content.media-hub #sign-media-hub + #white-box { width: 375px; left: 9%; height: 494px; }
+div.content.media-hub #sign-media-hub-fr { width: 209; height: 69px; position: relative; left: 11%; background: url(../images/french/sign-media-hub.png) no-repeat 0 0; }
+
+div.content.media-hub #sign-media-hub + #white-box,
+div.content.media-hub #sign-media-hub-fr + #white-box { width: 375px; left: 9%; height: 494px; }
 div.content.media-hub #white-box.twitter { height: 349px !important; }
 
 div.content.media-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
@@ -421,7 +425,10 @@ div.content.media-hub #white-box.resources * { text-align: center }
 	Challenge Centre
 ******************************/ 
 div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
+
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
+#sign-challenge-centre-fr { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/french/sign-challenge-centre.png) no-repeat 0 0; }
+
 div.content.challenge-centre #white-box { width: 530px; height: 300px; left: 39%; }
 div.content.challenge-centre #white-box p { padding: 0; }
 div.content.challenge-centre #white-box div.challenges { margin-bottom: 40px; }

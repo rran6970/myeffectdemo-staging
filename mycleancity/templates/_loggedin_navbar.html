@@ -33,7 +33,7 @@
 </div><!-- end of .dropdown -->
 {% endif %}
 
-<a href="/users/logout" class="menu-items menu-items-right">déconnexion</a>
+<a href="/users/logout" class="menu-items menu-items-right">Logout</a>
 <a href="/" class="menu-items menu-items-right">Home</a>
 {% if user.is_active %}
 <a href="/users/profile/{{ user.id }}" class="menu-items menu-items-right">Welcome {{ user.first_name }}</a>

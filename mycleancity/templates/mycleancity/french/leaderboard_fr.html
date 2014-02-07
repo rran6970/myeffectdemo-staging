@@ -1,0 +1,73 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - Leader Board {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% if user.is_authenticated %}
+    {% include "french/_public_navbar_fr.html" %}
+  {% else %}
+    {% include "french/_public_navbar_fr.html" %}
+  {% endif %}
+
+  <a href="/fr" class="logo-fr"></a>
+  
+  <div class="content leadership-board">
+    <div class="container">
+        <div id="brown-box">
+          <div id="board">
+            <h1>Tableau des meneurs</h1>
+            
+            <h2>Voir qui mène la nation dans des <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a>. Qui est la PropreÉquipe championne? Qui est notre champion national? Commenceons le défi le 1er avril.</h2>
+
+            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
+            <script>
+              var myCountdown2 = new Countdown({
+                year: 2014,
+                month: 4, 
+                day: 1,
+                hour: 0,
+                ampm: "am",
+                minute: 0,
+                width: 475, 
+                height: 50, 
+                padding   : 1.5,
+                rangeHi   : "month",
+                rangeLo   : "second",
+                numbers: {
+                  font  : "Arial",
+                  color : "#FFFFFF",
+                  bkgd  : "#000"
+                }
+              });
+            </script>
+          </div>
+          <div class="clear"></div>
+          <div id="sign-leaderboard">
+            {% if user.is_authenticated %}
+              {% if not user.profile.is_organization %}
+                <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
+              {% endif %}
+            {% else %}
+              <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
+            {% endif %}
+          </div>   
+        </div><!-- /#brown-box -->
+        <div class="clear"></div>
+        
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
