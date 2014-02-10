@@ -3,12 +3,14 @@ from django.core.mail import EmailMessage
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 
+from mycleancity.actions import export_as_csv_action
+
 from userorganization.models import *
 
 class UserOrganizationAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'organization', 'website')
     search_fields = ['user__id', 'user__first_name', 'user__last_name']
-    actions = ['approved_organization']
+    actions = ['approved_organization', export_as_csv_action("CSV Export")]
 
     def approved_organization(self, request, queryset):
 		for row in queryset:
