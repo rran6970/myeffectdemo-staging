@@ -195,8 +195,8 @@ class QuestionAnswer(models.Model):
 	question = models.ForeignKey(ChallengeQuestion)
 	question_number = models.IntegerField(default=0)
 	answer = models.CharField(max_length=60, blank=False, default="None", verbose_name='Answer')
-	score = models.IntegerField(default=0)
-	clean_grid = models.ForeignKey(CleanGrid)
+	score = models.IntegerField(blank=True)
+	clean_grid = models.ForeignKey(CleanGrid, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenge question answer'
