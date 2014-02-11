@@ -1,0 +1,63 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - Centre des Défis {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% if user.is_authenticated %}
+    {% include "french/_public_navbar_fr.html" %}
+  {% else %}
+    {% include "french/_public_navbar_fr.html" %}
+  {% endif %}
+
+  <a href="/fr" class="logo-fr"></a>
+  
+  <div class="content challenge-centre">
+    <div class="container">
+      	<div id="sign-challenge-centre-fr"></div>
+        <div id="white-box">
+            <p>
+              Êtes-vous prêts pour notre défi environnemental national? Joignez Ma Ville Propre et impliquez-vous dans votre communauté une <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> à la fois. Suivez-nous pour ne rien manquez.
+            </p>
+            <br/><br/>
+            <div class="challenges">
+              <!-- <h1 style="text-align: center;">Challenge One - Coming Spring 2014</h1> -->
+            </div>
+            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
+            <script>
+              var myCountdown2 = new Countdown({
+                year: 2014,
+                month: 4, 
+                day: 1,
+                hour: 0,
+                ampm: "am",
+                minute: 0,
+                width: 475, 
+                height: 50, 
+                padding   : 1.5,
+                rangeHi   : "month",
+                rangeLo   : "second",
+                numbers: {
+                  font  : "Arial",
+                  color : "#FFFFFF",
+                  bkgd  : "#000"
+                }
+              });
+            </script>
+        </div><!-- /#white-box -->
+        
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

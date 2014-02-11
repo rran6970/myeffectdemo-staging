@@ -17,9 +17,9 @@
   
   <div class="content">
     <div class="container">
-        <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+        <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a> -->
         <div id="white-box" class="register">
-            <h2>Register as a Student</h2>
+            <h2>Register/Inscription</h2>
             
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -62,28 +62,38 @@
                         </td>
                     </tr>
                     <tr>
-                      <td colspan="2">{{ form.smartphone }}<label for="">Do you have a smartphone?</label></td>
+                      <td colspan="2">{{ form.smartphone }}<label for="">Do you have a smartphone? / Est-ce que tu as un téléphone intelligent?</label></td>
                     </tr>
                     <tr>
-                      <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditiions</a></label></td>
+                      <td colspan="2">{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditions</a> / Je reconnais que j'ai lu et j’accepte les <a href="#terms-conditions" class="popup-600">Conditions générales</a></label></td>
                     </tr>
                     <tr>
                       <td colspan="2">{{ form.captcha }}</td>
                     </tr>
                 </table>
 
-                <input class="btn btn-primary" type="submit" value="Register" />
+                <input class="btn btn-primary" type="submit" value="Register/Inscription" />
             </form>
             <p>Already have an account? Login in <a href="/users/login">here</a>.
         </div><!-- /#white-box .register -->
 
         {% if popup %}
         <div id="white-box" class="qr-code-blurb">
-          <p class="question" style="margin-bottom: 10px;">Want the freedom to choose how YOU make a difference? Want to earn REWARDS and be RECOGNIZED?</p>
-          <p>My Clean City makes <span class="red">volunteer work</span> into volunteer PLAY. We are a leadership initiative made for YOUth by YOUth. </p>
-        
-          <p class="question" style="margin: 0 0 10px;">Want a platform where YOUth collaborate with peers, take part in fun challenges and make a difference all at the same time? Ready to play?</p>
-          <p style="margin-bottom: 10px;">Join now to make an impact YOUR way and earn rewards along the  way from your favourite brands.</p>
+          <p>
+            YOU want to make a difference but YOU DON’T want to be told what to do!  My Clean City was created for YOUth who want to show the world what they can do and be CREATIVE doing it!
+          </p>
+          
+          <p><span class="bold">Engage</span> – Connect with like-minded peers and community leaders who are passionate about making a difference.</p>
+
+          <p><span class="bold">Impact</span> – Sign up for <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> to make a positive environmental impact in your community.</p>
+
+          <p><span class="bold">Earn</span> – Get rewarded for your effort by earning <span class="bold blue">Clean</span><span class="bold green">Creds</span>. The greater the impact, the more you receive!</p>
+
+          <p><span class="bold">Redeem</span> – Cash in your <span class="bold blue">Clean</span><span class="bold green">Creds</span> for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities.</p>
+
+          <div class="clear"></div>
+          
+          <p class="center">Register before <span class="blue bold">February 24th</span> and earn <span class="blue bold">50 bonus <span class="bold blue">Clean</span><span class="bold green">Creds</span></span>.</p>
         </div>
         {% endif %}<!-- /#white-box .qr-code-blurb -->
     </div><!-- /.container -->
@@ -92,11 +102,21 @@
 
 <div class="popup-container">
   <div id="blurb" class="popup">
-    <p class="question" style="margin-bottom: 10px;">Want the freedom to choose how YOU make a difference? Want to earn REWARDS and be RECOGNIZED?</p>
-    <p>My Clean City makes <span class="red">volunteer work</span> into volunteer PLAY. We are a leadership initiative made for YOUth by YOUth. </p>
-  
-    <p class="question" style="margin: 30px 0 10px;">Want a platform where YOUth collaborate with peers, take part in fun challenges and make a difference all at the same time? Ready to play?</p>
-    <p style="margin-bottom: 10px;">Join now to make an impact YOUR way and earn rewards along the  way from your favourite brands.</p>
+    <p>
+      YOU want to make a difference but YOU DON’T want to be told what to do!  My Clean City was created for YOUth who want to show the world what they can do and be CREATIVE doing it!
+    </p>
+        
+    <p><span class="bold">Engage</span> – Connect with like-minded peers and community leaders who are passionate about making a difference.</p>
+
+    <p><span class="bold">Impact</span> – Sign up for <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Acts</span></a> to make a positive environmental impact in your community.</p>
+
+    <p><span class="bold">Earn</span> – Get rewarded for your effort by earning <span class="bold blue">Clean</span><span class="bold green">Creds</span>. The greater the impact, the more you receive!</p>
+
+    <p><span class="bold">Redeem</span> – Cash in your <span class="bold blue">Clean</span><span class="bold green">Creds</span> for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities.</p>
+
+    <div class="clear"></div>
+
+    <p class="center">Register before <span class="blue bold">February 24th</span> and earn <span class="blue bold">50 bonus <span class="bold blue">Clean</span><span class="bold green">Creds</span></span>.</p>
 
     <a class="btn btn-primary">Get Started Now!</a>
   </div>

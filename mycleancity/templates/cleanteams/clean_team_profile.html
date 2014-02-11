@@ -78,7 +78,7 @@
               </div>
               {% endif %}
             </div>
-            <a href="#clean-team-members-list" class="popup-200">View Members</a>
+            <a href="#clean-team-members-list" class="popup-600">View Members</a>
             {% if challenges %}
               <a href="#clean-team-challenges-list" class="popup-600">View Challenges</a>
             {% endif %}
@@ -100,6 +100,10 @@
 
                 {% if clean_champion %}
                   <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Clean Champion" />
+                {% endif %}
+
+                {% if clean_ambassador %}
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Clean Champion" />
                 {% endif %}
 
                 <!-- Clean Ambassador -->
@@ -144,7 +148,12 @@
                 {% for post in posts %}
                   <div class="post">
                     
-                    <img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                    {% if post.user.profile.picture %}
+                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="notification-image" />
+                    {% else %}
+                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="notification-image" />
+                    {% endif %}
+
                     <p class="user"><a href="/users/profile/{{ post.user.id }}">{{ post.user.get_full_name }}</a></p>
                     <p class="timestamp">{{ post.timestamp }}</p>
                     <div class="clear"></div>

@@ -80,7 +80,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		user.profile.save()
 
 		# Send registration email to user
-		template = get_template('emails/organization_register_success.html')
+		template = get_template('emails/clean_team_register.html')
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
 		content = template.render(content)
 
@@ -283,8 +283,8 @@ class CleanTeamView(TemplateView):
 
 			try:
 				# TODO: Need to pass this to the template
-				# context['clean_ambassador']
 				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
+				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
 
@@ -362,6 +362,7 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
 		user = self.request.user
 		
+		context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
 		context['user'] = user
 
 		return context
@@ -504,7 +505,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 					except Exception, e:
 						ctm = CleanTeamMember(user=self.request.user)
 						
-					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, True)
+					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, False)
 			else:
 				invite.status = "declined"
 

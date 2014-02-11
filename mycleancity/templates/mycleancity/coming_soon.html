@@ -1,0 +1,30 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - New Challenge {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <div id="white-box" class="login">
+			<h1 style="text-align: center;">Coming soon!</h1>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,0 +1,47 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Contact {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign contact" id="sign-go-back"></div></a>
+        <div id="white-box" class="contact">
+          <h2>Contact</h2>
+          
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+        
+          <form action="#" method="post">
+            {% csrf_token %}
+            {{ form.name.label_tag }} {{ form.name }}
+            {{ form.email.label_tag }} {{ form.email }}
+            {{ form.subject.label_tag }} {{ form.subject }}
+            {{ form.message.label_tag }} {{ form.message }}
+            <input class="btn btn-primary" type="submit" value="Send Message" />
+          </form>
+        </div><!-- /#white-box -->
+  
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,0 +1,189 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - Récompense {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "french/_public_navbar_fr.html" %}
+  
+  <a href="/fr" class="logo-fr"></a>
+  
+  <div class="content rewards">
+    <div class="container">
+
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-rewards2-fr"></div></a>
+        <a href="#rewards" data-toggle="tab"><div class="sign" id="sign-cleancreds-fr"></div></a>
+        <a href="#clean-teams" data-toggle="tab"><div class="sign" id="sign-clean-teams-fr"></div></a>
+        <a href="#individuals" data-toggle="tab"><div class="sign" id="sign-individuals-fr"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign organizations" id="sign-go-back-big-fr"></div></a>
+        
+        <div id="sign-stump"></div>
+        
+        <div id="white-box" class="tab-content">
+          
+          <div class="tab-pane active" id="rewards">
+            <h1 class="tab-titles">Récompense</h1>
+
+            <h2 class="question subtitle-blue">Qu'est-ce que les CréditsPropre?</h2>
+            <p>
+              Les CréditsPropre sont notre système de récompense. Ce sont une monnaie qui est gagnée par le bénévolat et l'impact communautaire!
+            </p>
+
+            <h2 class="question subtitle-blue">Comment gagner des CréditsPropre?</h2>
+            <p>
+              Vous gagnerez des CréditsPropre en complétant <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> avec vos amis dans votre communauté.
+            </p>
+            <p>
+              Voici quelques conseils rapides pour augmenter vos points:
+            </p>
+
+            <ol>
+              <li>
+                <span class="bold">Votre impact:</span> Chaque <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> aura un multiplicateur de CréditsPropre basé sur l'impact de vos actions. Plus grand l'impact votre <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> sur notre environnement,  plus grand sera le multiplicateur de CréditsPropre par heure.
+              </li>
+              <li>
+                <span class="bold">Prenez la charge:</span> Inscrivez-vous comme un <a href="/students/fr/">Ambassadeur Net</a> pour mener votre PropreÉquipe. Gagnez 50 CréditsPropre en cadeau parce que vous prenez en charge votre communauté et vous mobilisez vous amis. Faites une différence positive. 
+              </li>
+              <li>
+                <span class="bold">Recrutez:</span>Gagnez 5 CréditsPropre pour chaque Champion Net qui s'inscrit pour supporter votre PropreÉquipe.
+              </li>
+              <li>
+                <span class="bold">Encouragez:</span>Aidez vos amis en partir leur PropreÉquipe. Inscrivez-vous comme un Champion Net pour gagner 20 CréditsPropre.
+              </li>
+              <li>
+                <span class="bold">Resautez:</span>Interagissez avec nous sur des médias sociaux, participez à nos concours hebdomadaires et aux défis pour remporter des CréditsPropre. Suivez @MyCleanCity1. Tendance #MyCleanCity #MaVillePropre
+              </li>
+              <li>
+                <a href="/register"><span class="bold">Inscrivez-vous:</span></a>Ne manquez pas l'inscription hâtive. Inscrivez-vous avant le 24 février pour gagner 50 CréditsPropre!
+              </li>
+            </ol>
+
+
+            <h2 class="question subtitle-blue">Comment les CréditsPropre sont-ils calculés?</h2>
+            <p>
+              IMPACT + EFFORT = CréditsPropre!
+            </p>
+            <p>
+              Nous attribuons des points d'impact basés sur l'effet environnemental des actions et nous donnons des points d'effort basés sur les heures de bénévolat
+            </p>
+            
+            <h2 class="question subtitle-blue">Comment mesurons-nous vos heures?</h2>
+            <p>
+              Par notre nouvelle application pour téléphone intelligent qui sera disponible à la fin de mars! 
+              Recherchez les <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> près de chez  vous, inscrivez-vous pour compter vos heures et partagez votre progrès avec vos amis. 
+            </p>
+
+            <h2 class="question subtitle-blue">Comment calculons-nous l'impact de vos efforts?</h2>
+            <p>
+              L'impact de vos actions est déterminé par nos catégories de CréditsPropre:
+            </p>
+
+            <p><span class="bold">Terrain </span> - l'effet d'une <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> sur notre empreinte carbone </p>
+            <p><span class="bold">Air</span> – la capacité d’une <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> d’améliorer la qualité de l'air </p>
+            <p><span class="bold">Eau </span> – l'impact de votre <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> sur utilisation d'eau, les niveaux de polluant et la pollution</p>
+            <p><span class="bold">Faune</span> – l'impact de votre <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> sur les écosystèmes et la faune </p>
+            <p><span class="bold">Result</span>: a metric based score that measures volunteer impact</p>
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/french/badge-join-200-145.png" alt=""/></a>
+            </p>
+             <p class="center">
+              Inscrivez-vous avant le <span class="blue bold">24 février</span> et recevez <span class="bold">50</span> <span class="green bold">Crédits</span><span class="blue bold">Propre</span> en cadeau.
+            </p>
+          </div>
+
+          <div class="tab-pane" id="clean-teams">
+            <h1 class="tab-titles">Récompenses de votre PropreÉquipe </h1>
+            <p>
+              Vous avez accepté le défi d'être un leader dans votre communauté et Ma Ville Propre a des récompenses spéciales supplémentaires pour vos efforts!
+            </p>
+            <p>
+              En tant qu’une PropreÉquipe vous aurez l'occasion de commencer à amasser des récompenses avant que nos <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> soient officiellement lancées le 1 avril. Avancez dans notre système de niveau pour les PropreÉquipes en bâtissant votre page d’équipe pagine et décrouvrez des offres spéciales, comme la participation au pré-lancement de Ma Ville Propre, personnalisez votre équipe avec du matériel promotionnel bien à vous et vous pourriez être invité à juger, avec des experts du développement durable, une compétition scolaire environnementale au niveau nationale. 
+            </p>
+
+            <h2 class="question subtitle-blue">
+              Quel est notre système de niveaux pour votre PropreÉquipe?  
+            </h2>
+            <p>
+              Chaque PropreÉquipe commence comme une graine. Comme votre équipe grandit et que vous recrutez des gens comme des Champions Net et créer une <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a> vous avancez des niveaux de la pousse, au jeune arbre à l'arbre et jusqu'à la floraison. 
+            </p>
+            <p>
+              <img src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-2-75x59.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-3-75x63.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-4-75x73.png" alt="" />
+              <img src="{{ STATIC_URL }}images/badge-level-5-75x73.png" alt="" />
+            </p>
+            <p>
+              Des privilèges spéciaux sont remis tout au long de votre cheminement, vous recevrez également plus de responsabilités en tant que leader de Ma Ville Propre et quand vous vous développez au niveau de la floraison vous recevrez une reconnaissance nationale incluant une invitation officielle au gala Ma Ville Propre.
+            </p>
+
+            <h2 class="question subtitle-blue">
+              Quels sont les privilèges?
+            </h2>
+            <ul>
+              <li>
+                Représentez Ma Ville Propre dans ses efforts de marketing.
+              </li>
+              <li>
+                Représenter Ma Ville Propre sur des plates-formes provinciales.
+              </li>
+              <li>
+                Recevoir des offres spéciales et des opportunités avec des entreprises de marque.
+              </li>
+              <li>
+                Obtenir des CréditsPropre en cadeau et des multiplicateurs pour utiliser dans vos <a href="http://twitter.com/#ActionsPropre" target="_blank"><span class="bold blue">#Actions</span><span class="bold green">Propre</span></a>
+              </li>
+              <li>
+                Et plus encore
+              </li>
+            </ul>
+
+            <p><a href="/register">Inscrivez-vous aujourd'hui! </a></p>
+            <p>Inscrivez-vous pour être un ambassadeur et recevez 50 CréditsPropre en cadeau.</p>
+            
+            <p>Doublez vos CréditsPropre et inscrivez-vous avant le 24 février pour gagner 50 CréditsPropre supplémentaires!</p>
+
+            
+            <p>Commencez à bâtir votre PropreÉquipe pour connaître toutes les offres spéciales que nous avons en magasin pour vous!</span>.</p>
+          </div>
+
+          <div class="tab-pane" id="individuals">
+            <h1 class="tab-titles">La Récompense Individuelle</h1>
+            <p>
+              Assurez-vous de nous aimer sur <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> et suivez-nous sur Twitter <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> pour vous assurer de ne rien manquer. Nous aurons également de l’information importante à propos de nos partenaires et leurs récompenses passionnantes! 
+            </p>
+            <p class="question">Quelles sont les genres de récompenses?</p>
+
+            <ul>
+              <li>Des cartes de cadeau de nos partenaires</li>
+              <li>Billets pour événements spéciaux incluant des concerts</li>
+              <li>Mentorat spécial et opportunités de leadership</li>
+              <li>Forfaits exclusifs incluant des expériences de magasinage personnalisées</li>
+              <li>Et quelques surprises vraiment cool!</li>
+            </ul>  
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/french/badge-join-200-145.png" alt=""/></a>
+            </p>
+            <p class="center">
+              Inscrivez-vous avant le <span class="blue bold">24 février</span> et recevez <span class="bold">50</span> <span class="green bold">Crédits</span><span class="blue bold">Propre</span> en cadeau.
+            </p>
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

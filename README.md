@@ -53,6 +53,10 @@ To dump fixtures
 
     python manage.py dumpdata --indent 2 cleanteams.cleanteamlevel cleanteams.cleanteamleveltask notifications.notification > fixtures/initial_data.json
 
+To load fixtures
+
+    python manage.py loaddata fixtures/initial_data.json
+
 To run the django development server, you will first need to setup the database:
 
     python manage.py syncdb

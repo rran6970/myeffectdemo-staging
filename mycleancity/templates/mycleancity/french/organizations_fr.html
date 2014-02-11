@@ -1,0 +1,220 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - Organisations {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "french/_public_navbar_fr.html" %}
+  
+  <a href="/fr" class="logo-fr"></a>
+  
+  <div class="content organization">
+    <div class="container">
+
+        <a href="#organizations" data-toggle="tab"><div class="sign" id="sign-organizations2-fr"></div></a>
+        <a href="#student-nonprofits" data-toggle="tab"><div class="sign" id="sign-student-nonprofits-fr"></div></a>
+        <a href="#municipalities" data-toggle="tab"><div class="sign" id="sign-municipalities-fr"></div></a>
+        <a href="#corporate-leaders" data-toggle="tab"><div class="sign" id="sign-corporate-leaders-fr"></div></a>
+
+        <!-- <a href="#our-value" data-toggle="tab"><div class="sign" id="sign-our-value"></div></a> -->
+
+        <a href="#why-partner" data-toggle="tab"><div class="sign" id="sign-why-partner-fr"></div></a>
+        <a href="#our-supporters" data-toggle="tab"><div class="sign" id="sign-our-supporters-fr"></div></a>
+        <!-- <a href="#partnership-levels" data-toggle="tab"><div class="sign" id="sign-partnership-levels"></div></a> -->
+        <!-- <a href="#impact" data-toggle="tab"><div class="sign" id="sign-impact"></div></a> -->
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign organizations" id="sign-go-back-big-fr"></div></a>
+        
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          
+          <div class="tab-pane active" id="organizations">
+            <h1 class="tab-titles">Organisations</h1>
+            <p>
+              Ma Ville Propre est un projet collaboratif. Nous nous efforçons de rationaliser l'engagement des jeunes pour qu’ils utilisent les ressources environnementales existantes. Notre but est d'engager les jeunes et de conserver leur intérêt dans vos programmes et atteindre vos objectifs.  Nous sommes votre portail pour avoir accès aux jeunes.
+            </p>
+            <p>
+              Ma Ville Propre collabore avec des villes, des écoles, des organismes à but non lucratif et des sociétés responsables aux niveaux locaux, provinciaux et nationaux. 
+            </p>
+            <p>
+              Notre mission est seulement réalisable en collaborant avec des organisations avant-gardistes et responsables.
+            </p>
+            <p>Nos partenaires:</p> 
+            <ul>
+              <li>Croient au potentiel des jeunes.</li>
+              <li>Désirent un avenir durable.</li>
+              <li>Cherchent à combler le fossé entre les jeunes et leur communauté.</li>
+              <li>Souhaitent renforcer les efforts environnementaux existants et favorisent le leadership des jeunes Canadiens.</li>
+              <li>S'efforcent de s’impliquer au-delà de la conscience générale pour le changement environnemental et s’efforcent de promouvoir les actions concrètes.</li>
+            </ul>
+
+            <p>
+              Si ces valeurs sont les vôtres, nous vous encourageons à nous <a href="mailto:partners@mycleancity.org">contacter</a> aujourd'hui pour apprendre comment nous pouvons travailler ensemble.</p>
+          </div>
+
+          <div class="tab-pane" id="student-nonprofits">
+            <h1 class="tab-titles">Écoles / Groupes Jeunesse</h1>
+            
+            <p>Notre programme vous aide à engager vos jeunes en respectant vos buts environnementaux. Ma Ville Propre offre:</p>
+
+            <ul>
+              <li>
+                Une plate-forme – englobant un format médiatique social interactif - qui fournit aux jeunes une avenue pour prendre des rôles de leadership et peuvent appliquer leur connaissances environnementale apprises en a salle de classe dans leurs communautés.
+              </li>
+              <li>
+                Un outil vérifié, qui enregistre l'impact du bénévolat, qui satisfait les exigences académiques; croissance du leadership et expérience communautaire.
+              </li>
+              <li>
+                Un programme est concentré sur les résultats ce qui motive les jeunes qui sont autrement désengagés face à leur communauté. En plus d’offrir des opportunités de leadership aux jeunes en difficulté, nous renforçons leurs réseaux.
+              </li>
+              <li>
+                Un nouveau moyen pour vos collectes de fonds pour la salle de classe ou l'organisation par notre programme de récompense des PropresÉquipe.
+              </li>
+            </ul>
+
+            <p><a href="/contact">Contact us today</a> to learn how we can work together.</p>
+          </div>
+
+          <div class="tab-pane" id="municipalities">
+            <h1 class="tab-titles">Municipalités</h1>
+                
+            <p>Ma Ville Propre collabore avec les municipalités à travers le Canada pour supporter vos initiatives vertes en développant la prochaine génération de leaders communautaires. Nous offrons:</p>
+
+            <ul>
+              <li>
+                Un programme pour supporter le développement de jeunes leaders avec un investissement en santé environnementale et sa prospérité.
+              </li>
+              <li>
+                Un moyen pour renforcer vos efforts environnementaux existant en supportant les organisations populaires locales.
+              </li>
+              <li>
+                Un outil pour quantifier l'impact de jeunes de votre ville.
+              </li>
+              <li>
+                Une occasion de démontrer votre engagement à bâtir des communautés durables et une ville vivante avec des citoyens engagés.
+              </li>
+            </ul>
+
+            <p><a href="/contact">Contact us today</a> to learn how we can work together.</p>
+          </div>
+
+          <div class="tab-pane" id="corporate-leaders">
+            <h1 class="tab-titles">Leaders Corporatifs </h1>
+
+            <p>Ma Ville Propre crée des programmes personnalisés pour chacun de nos partenaires. Nous vous offrons:</p>
+
+            <ul>
+              <li>
+                Un portail important vous donnant accès à une jeune démographie.
+              </li>
+              <li>
+                Une opportunité pour personnalisé un défi et inciter les jeunes à visiter vos magasins, s’informer sur vos produits, vos offres et votre engagement face à la communauté.
+              </li>
+              <li>
+                Un outil pour quantifier l'impact de votre don d'entreprise.
+              </li>
+              <li>
+                Un moyen pour démontrer votre dévouement comme leader de développement durable et par le fait même, pour assurer une image positive face aux jeunes professionnels.
+              </li>
+              <li>
+                En tant que fournisseur de récompenses, vous augmenterez la fidélité des jeunes pour votre marque et vos produits. Vous aurez également une chance d’augmenter votre nombre de clients.
+              </li>
+            </ul>
+          </div>
+
+          <!-- <div class="tab-pane" id="our-value">
+            <h1 class="tab-titles">Our Value</h1>
+            <p>
+              Our mission is only possible through collaborations with forward-thinking, responsible organizations.
+            </p>
+            <p>Our partners:</p>
+            <ul>
+              <li>                
+                believe in the potential of youth
+              </li>
+              <li>
+                desire a more sustainable future
+              </li>
+              <li>
+                seek to bridge the gap between youth and community
+              </li>
+              <li>
+                wish to strengthen existing environmental efforts to foster leadership in young Canadians
+              </li>
+              <li>
+                strive to move beyond awareness for environmental change and promote action
+              </li>
+            </ul>
+            <p>
+              If you value these pillars we encourage you to <a href="/contact/">contact us</a> today to learn more on how we can work together.
+            </p>
+          </div> -->
+
+          <div class="tab-pane" id="why-partner">
+            <br/><br/><br/>
+            <h1 class="tab-titles">Pourquoi Être un Partenaire?</h1>
+            <p>
+              Ma Ville Propre s'efforce de créer un changement d'attitude vers le bénévolat. Ma Ville Propre est une équipe créée par les jeunes pour les jeunes, qui a pour but de redéfinir le bénévolat comme une activité amusante, engageante, expressive et utile.
+            </p>
+            <p>
+              Ma Ville Propre est un portail pour donner aux jeunes la liberté de choisir comment ils s'impliquent et quel niveau ils s'impliquent. Pour exécuter les ActionsPropre d’une manière unique et expressive, les jeunes doivent utilisés leur créativité. 
+            </p>
+            <p>
+              En donnant aux jeunes la liberté de choisir et en utilisant le système de récompenses des CréditsPropre, Ma Ville Propre engagera et exploitera leurs efforts pour mesurer le changement positif environnemental!
+            </p>
+          </div>
+
+          <div class="tab-pane" id="our-supporters">
+            <h1 class="tab-titles">Nos Supporteurs</h1>
+            
+            <table class="supporters-table">
+              <tr>
+                <td><a href="http://www.staples.ca/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/staples.jpg" alt="Staples" /></a></td>
+              </tr>
+            </table>
+            
+            <table class="supporters-table" style="margin-top: 20px;">
+              <tr>
+                <td><a href="http://www.hm.com/ca/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/hm.jpg" alt="H &amp; M" /></a></td>
+                <td><a href="http://kellyalovell.com/kellyEFFECT.html" target="_blank"><img src="{{ STATIC_URL }}images/supporters/kelly-effect.jpg" alt="Kelly Effect" /></a></td>
+              </tr>
+            </table>
+
+            <table class="supporters-table" style="margin-top: 20px;">
+              <tr>
+                <td><a href="http://www.terracycle.ca/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/terracycle.jpeg" alt="Terracycle" /></a></td>
+                <td><a href="http://www.ecyclesolutions.com/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/ecycle.jpg" alt="E-Cycle Solutions" /></a></td>
+                <td><a href="http://environmentaldefence.ca/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/e-defence.jpg" alt="Environmental Defense" /></a></td>
+              </tr>
+              <tr>
+                <td><a href="http://www.greenlearning.ca/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/green-learning.jpg" alt="Green Learning" /></a></td>
+                <td><a href="http://www.tigweb.org/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/taking-it-global.jpg" alt="Taking it Global" /></a></td>
+                <td><a href="http://ontarioecoschools.org/" target="_blank"><img src="{{ STATIC_URL }}images/supporters/eco-school.jpg" alt="Eco School" /></a></td>
+              </tr>
+              <tr>
+                <td><a href="http://www.ymcagta.org/en/index.html" target="_blank"><img src="{{ STATIC_URL }}images/supporters/ymca-gta.JPG" alt="YMCA" /></a></td>
+                <td><a href="http://hakstudio.com" target="_blank"><img src="{{ STATIC_URL }}images/supporters/hak-studio.jpg" alt="Hak Studio" /></a></td>
+                <td><a target="_blank"><img src="{{ STATIC_URL }}images/supporters/succinct.png" alt="Succinct Social Media" /></a></td>
+              </tr>
+              <tr>
+                <td><a target="_blank"><img src="{{ STATIC_URL }}images/supporters/epr.png" alt="Evolution Public Relations" /></a></td>
+              </tr>
+            </table>            
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

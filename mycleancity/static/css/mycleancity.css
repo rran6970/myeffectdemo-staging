@@ -10,7 +10,9 @@ div.wrapper.public { margin: 0 !important; background: #00b6f1 url(../images/sky
 div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
 
 div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
+
 div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
+div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
@@ -29,7 +31,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #notification-icon:hover { background-position: bottom; bottom }
 #notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 419px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
 
-.dropdown { position: relative; z-index: 1000000; }
+.dropdown { position: relative; z-index: 1001; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
 .dropdown#notification-dropdown { top: -5px; }
@@ -67,7 +69,9 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .badge-join { display: block; text-align: center; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
-#sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 9999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
+#sign-go-back-big-fr { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
+
+#sign-go-back { width: 43px; height: 54px; position: absolute; z-index: 999; top: -8px; left: 325px; background: url(../images/sign-go-back.png) no-repeat 0 0; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
 #sign-go-back.all-clean-teams { left: 283px; }
 #sign-go-back.clean-team-progress { left: 283px; }
@@ -80,21 +84,34 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-go-back.register-join-team { left: 270px; }
 #sign-go-back.clean-team-members { left: 181px; }
 #sign-go-back.invite { left: 78px; }
-#sign-go-back-big.about { left: 32px; top: 386px; }
-#sign-go-back-big.students { left: 32px; top: 445px; }
-#sign-go-back-big.organizations { left: 46px; top: 410px; }
+#sign-go-back-big.about,
+#sign-go-back-big-fr.about { left: 32px; top: 386px; }
+
+#sign-go-back-big.students,
+#sign-go-back-big-fr.students { left: 32px; top: 445px; }
+
+#sign-go-back-big.organizations,
+#sign-go-back-big-fr.organizations { left: 46px; top: 410px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
 #grass-3 { width: 1072px; height: 579px; overflow: hidden; position: absolute; z-index: 997; top: -90px; right: -178px; background: transparent url(../images/grass-3.png) no-repeat 0 0; }
+
 #path-1 { width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 996; top: 213px; right: 401px; background: transparent url(../images/path-1.png) no-repeat 0 0; }
+#path-1-fr { width: 691px; height: 273px; overflow: hidden; position: absolute; z-index: 996; top: 208px; right: 387px; background: transparent url(../images/french/path-1.png) no-repeat 0 0; }
 #path-1-link { display: block; width: 191px; height: 83px; overflow: hidden; position: absolute; z-index: 999; top: 231px; right: 627px; }
 #path-1-link:hover + div { content: ""; background-position: 0 bottom !important; }
 
 #path-2 { width: 730px; height: 142px; overflow: hidden; position: absolute; z-index: 997; top: 342px; right: 236px; background: transparent url(../images/path-2.png) no-repeat 0 0; }
+
 #recycle-bench { width: 205px; height: 122px; position: absolute; z-index: 998; top: 224px; left: 944px; background: transparent url(../images/recycle-bench.png) no-repeat 0 0; }
-#recycle-bench:hover { background-position: 0 bottom; }
+#recycle-bench-fr { width: 337px; height: 122px; position: absolute; z-index: 998; top: 224px; left: 875px; background: transparent url(../images/french/recycle-bench.png) no-repeat 0 0; }
+#recycle-bench:hover,
+#recycle-bench-fr:hover { background-position: 0 bottom; }
+
 #buildings { width: 346px; height: 144px; position: absolute; z-index: 995; top: 81px; left: 588px; background: transparent url(../images/buildings.png) no-repeat 0 0; }
+#buildings-fr { width: 346px; height: 144px; position: absolute; z-index: 995; top: 81px; left: 588px; background: transparent url(../images/french/buildings.png) no-repeat 0 0; }
+
 #buildings-link { display: block; width: 346px; height: 144px; position: absolute; z-index: 999; top: 81px; left: 588px; }
 #buildings-link:hover + div { content: ""; background-position: 0 bottom !important; } 
 
@@ -104,18 +121,29 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-user { min-width: 275px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 39px; }
 #sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; } 
 #sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
-#sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #006738; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
+#sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #0C2218; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
 #sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/sign-register2.png) no-repeat 0 0; }
+#sign-register-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/french/sign-register2.png) no-repeat 0 0; }
+
 #sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
+#sign-learn-more-fr { width: 296px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 43px; background: url(../images/french/sign-learn-more.png) no-repeat 0 0; }
+
 #sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
+#sign-students-fr { width: 204px; height: 54px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/french/sign-students.png) no-repeat 0 0; }
+
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
+
 #sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
+#sign-organizations-fr { width: 254px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 62px; background: url(../images/french/sign-organizations.png) no-repeat 0 0; }
+
 #sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 356px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
+#sign-rewards-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 356px; left: 113px; background: url(../images/french/sign-rewards.png) no-repeat 0 0; }
+
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 210px; }
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 363px; }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
 #footer p.copyright { float: right; padding-right: 30px; padding-bottom: 20px; }
@@ -151,10 +179,18 @@ div.content.about #white-box ol li { list-style: decimal; }
 div.content.about #white-box iframe { margin-left: 120px; }
 
 #sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
+#sign-about-fr { width: 296px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 43px; background: url(../images/french/sign-about.png) no-repeat 0 0; }
+
 #sign-mission { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 107px; left: 60px; background: url(../images/sign-mission.png) no-repeat 0 0; }
+
 #sign-approach { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/sign-approach.png) no-repeat 0 0; }
+#sign-approach-fr { width: 208px; height: 54px; position: absolute; z-index: 1000; top: 170px; left: 88px; background: url(../images/french/sign-approach.png) no-repeat 0 0; }
+
 #sign-model { width: 208px; height: 52px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/sign-model.png) no-repeat 0 0; }
+#sign-model-fr { width: 250px; height: 54px; position: absolute; z-index: 1000; top: 229px; left: 32px; background: url(../images/french/sign-model.png) no-repeat 0 0; }
+
 #sign-our-founder { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 286px; left: 85px; background: url(../images/sign-our-founder.png) no-repeat 0 0; }
+#sign-our-founder-fr { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 286px; left: 85px; background: url(../images/french/sign-our-founder.png) no-repeat 0 0; }
 
 
 /******************************
@@ -178,11 +214,22 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #kelly-img + p { padding-top: 0 !important; }
 
 #sign-students2 { width: 212px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 73px; background: url(../images/sign-students2.png) no-repeat 0 0; }
+#sign-students2-fr { width: 212px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 73px; background: url(../images/french/sign-students2.png) no-repeat 0 0; }
+
 #sign-why-mcc { width: 277px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-why-mcc.png) no-repeat 0 0; }
+#sign-why-mcc-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-why-mcc.png) no-repeat 0 0; }
+
 #sign-get-started { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-get-started.png) no-repeat 0 0; }
+#sign-get-started-fr { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 165px; left: 62px; background: url(../images/french/sign-get-started.png) no-repeat 0 0; }
+
 #sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
+#sign-ambassador-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-ambassador.png) no-repeat 0 0; }
+
 #sign-get-rewarded { width: 275px; height: 54px; position: absolute; z-index: 1000; top: 289px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
+#sign-get-rewarded-fr { width: 258px; height: 54px; position: absolute; z-index: 1000; top: 296px; left: 62px; background: url(../images/french/sign-get-rewarded.png) no-repeat 0 0; }
+
 #sign-go-viral { width: 225px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 65px; background: url(../images/sign-go-viral.png) no-repeat 0 0; }
+#sign-go-viral-fr { width: 261px; height: 58px; position: absolute; z-index: 1000; top: 357px; left: 65px; background: url(../images/french/sign-go-viral.png) no-repeat 0 0; }
 
 div.tab-pane#why-mcc #overview-infographic-thumbnail { width: 300px; float: right; margin-left: 20px; }
 div.tab-pane#why-mcc #overview-infographic-thumbnail img { width: 300px; display: block; }
@@ -201,15 +248,28 @@ div.content.organization #white-box iframe { margin: 0 190px; }
 div.content.organization #sign-stump { top: 210px; }
 
 #sign-organizations2 { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 16px; left: 42px; background: url(../images/sign-organizations2.png) no-repeat 0 0; }
+#sign-organizations2-fr { width: 297px; height: 59px; position: absolute; z-index: 1000; top: 16px; left: 42px; background: url(../images/french/sign-organizations2.png) no-repeat 0 0; }
+
 #sign-organization-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 94px; left: 68px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 
 #sign-student-nonprofits { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 84px; left: 66px; background: url(../images/sign-student-nonprofits.png) no-repeat 0 0; }
+#sign-student-nonprofits-fr { width: 350px; height: 68px; position: absolute; z-index: 1000; top: 84px; left: 24px; background: url(../images/french/sign-student-nonprofits.png) no-repeat 0 0; }
+
 #sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
+#sign-municipalities-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 150px; left: 66px; background: url(../images/french/sign-municipalities.png) no-repeat 0 0; }
+
 #sign-corporate-leaders { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 62px; background: url(../images/sign-corporate-leaders.png) no-repeat 0 0; }
+#sign-corporate-leaders-fr { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 208px; left: 62px; background: url(../images/french/sign-corporate-leaders.png) no-repeat 0 0; }
+
 #sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
+
 #sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+#sign-why-partner-fr { width: 347px; height: 69px; position: absolute; z-index: 1000; top: 263px; left: 28px; background: url(../images/french/sign-why-partner.png) no-repeat 0 0; }
+
 /*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
+
 #sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 329px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters-fr { width: 302px; height: 54px; position: absolute; z-index: 1000; top: 329px; left: 60px; background: url(../images/french/sign-our-supporters.png) no-repeat 0 0; }
 
 table.supporters-table tr td { padding: 10px !important; }
 table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 2px solid #4a3c2e; }
@@ -229,17 +289,28 @@ div.content.rewards #white-box iframe { margin: 0 190px; }
 div.content.rewards #sign-stump { top: 200px; }
 
 #sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 150px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
+#sign-rewards2-fr { width: 294px; height: 59px; position: absolute; z-index: 1000; top: 150px; left: 45px; background: url(../images/french/sign-rewards2.png) no-repeat 0 0; }
+
 #sign-cleancreds { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 244px; left: 68px; background: url(../images/sign-cleancreds.png) no-repeat 0 0; }
+#sign-cleancreds-fr { width: 269px; height: 64px; position: absolute; z-index: 1000; top: 233px; left: 58px; background: url(../images/french/sign-cleancreds.png) no-repeat 0 0; }
+
 #sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 301px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
+#sign-clean-teams-fr { width: 267px; height: 65px; position: absolute; z-index: 1000; top: 294px; left: 56px; background: url(../images/french/sign-clean-teams.png) no-repeat 0 0; }
+
 #sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 355px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
+#sign-individuals-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 355px; left: 62px; background: url(../images/french/sign-individuals.png) no-repeat 0 0; }
 
 
 /******************************
 	Media Hub
 ******************************/ 	
 div.content.media-hub { background: transparent url(../images/media-hub-bg.png) no-repeat 80% 0; height: 548px; }
+
 div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
-div.content.media-hub #sign-media-hub + #white-box { width: 375px; left: 9%; height: 494px; }
+div.content.media-hub #sign-media-hub-fr { width: 209; height: 69px; position: relative; left: 11%; background: url(../images/french/sign-media-hub.png) no-repeat 0 0; }
+
+div.content.media-hub #sign-media-hub + #white-box,
+div.content.media-hub #sign-media-hub-fr + #white-box { width: 375px; left: 9%; height: 494px; }
 div.content.media-hub #white-box.twitter { height: 349px !important; }
 
 div.content.media-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
@@ -297,12 +368,17 @@ div.content.media-hub #white-box.resources * { text-align: center }
 #white-box.register-join-team .table .action input[type="submit"] { margin: 0; }
 #white-box.register-join-team .table .team { text-align: center; vertical-align: middle; }
 
-#white-box.register { width: 478px; left: 32%; }
+#white-box.small { width: 478px; left: 32%; }
+
+#white-box.register { width: 700px; left: 22%; }
 #white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 24px auto 0; }
 #white-box.register input[type="checkbox"] { margin: 0; padding: 0; }
 #white-box.register p { text-align: center; }
 
 #white-box.register table tr td { /*height: 60px;*/ }
+#white-box.register table tr td input[type='text'],
+#white-box.register table tr td input[type='password'] { width: 285px; }
+#white-box.register table tr td ul { padding: 0; margin: 0; }
 
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
@@ -349,7 +425,10 @@ div.content.media-hub #white-box.resources * { text-align: center }
 	Challenge Centre
 ******************************/ 
 div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
+
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
+#sign-challenge-centre-fr { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/french/sign-challenge-centre.png) no-repeat 0 0; }
+
 div.content.challenge-centre #white-box { width: 530px; height: 300px; left: 39%; }
 div.content.challenge-centre #white-box p { padding: 0; }
 div.content.challenge-centre #white-box div.challenges { margin-bottom: 40px; }
@@ -410,7 +489,7 @@ div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; 
 div.content.challenge-overview #participants-box { position: absolute; width: 375px; height: 300px; overflow: scroll; z-index: 1000; left: 54%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 div.content.challenge-overview #participants-box h1 { font-weight: 900; }
 div.content.challenge-overview #participants-box div.participants { margin: 7px; width: 89px; float: left; text-align: center; } 
-div.content.challenge-overview #participants-box div.participants a img { margin: 0 auto 6px; display: block; }
+div.content.challenge-overview #participants-box div.participants a img { margin: 0 auto 6px; display: block; border-radius: 4px; border: 1px solid #4a3c2e; width: 42px; height: 42px; }
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
@@ -421,9 +500,11 @@ div.content.challenge-overview #participate-btn { float: right; }
 ******************************/ 
 div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; } 
 
+#brown-box #stage_jbeeb_3 { top: 38px !important; }
+
 #brown-box { float: right; margin-right: 100px; text-shadow: 1px 1px 3px #111; }
 #brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
-#brown-box h2 { font-size: 26px; font-weight: 900; }
+#brown-box h2 { font-size: 22px; font-weight: 900; }
 
 #board { padding: 20px; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
 #board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
@@ -515,7 +596,7 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile div.info#wall div.post p.user { padding: 0; font-weight: 600; }
 #white-box.clean-team-profile div.info#wall div.post p.timestamp { padding: 0; }
 #white-box.clean-team-profile div.info#wall div.post p.message { left: 52px; position: relative; width: 365px; }
-#white-box.clean-team-profile div.info#wall div.post img { float: left; margin-right: 10px; border: 1px solid #4a3c2e; }
+#white-box.clean-team-profile div.info#wall div.post img { float: left; margin-right: 10px; border-radius: 4px; border: 1px solid #4a3c2e; width: 42px; height: 42px; }
 
 #white-box.clean-team-profile span.edit-clean-team-link { position: relative; left: 22px; top: 5px; }
 #white-box.clean-team-profile img.profile-pic { margin-right: 58px; }
@@ -551,6 +632,7 @@ div.table-container #invitees-table tr td.roles {  }
 	All Clean Teams Page
 ******************************/ 
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
+#white-box.all-clean-teams h1 { margin-bottom: 20px; }
 
 /******************************
 	All Notifications Page

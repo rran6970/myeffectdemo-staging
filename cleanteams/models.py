@@ -191,7 +191,8 @@ class CleanChampion(models.Model):
 			except Exception, e:
 				print e
 
-		self.clean_team.add_team_clean_creds(5)	
+		self.clean_team.add_team_clean_creds(5)
+		self.user.profile.add_clean_creds(20)
 
 """
 Name:           CleanTeamMember
@@ -216,6 +217,8 @@ class CleanTeamMember(models.Model):
 
 	# By pass the requestBecomeCleanAmbassador() and approveCleanAmbassador()
 	def becomeCleanAmbassador(self, user, selected_team, notification=True):
+		CleanChampion.objects.filter(user=user, clean_team=selected_team).delete()
+
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "approved"
@@ -237,7 +240,8 @@ class CleanTeamMember(models.Model):
 			except Exception, e:
 				print e
 
-		self.clean_team.add_team_clean_creds(10)	
+		self.clean_team.add_team_clean_creds(10)
+		self.user.profile.add_clean_creds(50)
 
 	def approveCleanAmbassador(self, notification=True):
 		self.status = "approved"
@@ -259,6 +263,7 @@ class CleanTeamMember(models.Model):
 				print e
 
 		self.clean_team.add_team_clean_creds(10)
+		self.user.profile.add_clean_creds(50)
 
 	def removedCleanAmbassador(self):
 		self.status = "removed"

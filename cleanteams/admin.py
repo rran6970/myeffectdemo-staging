@@ -5,37 +5,47 @@ from django.template.loader import get_template
 
 from cleanteams.models import *
 
+from mycleancity.actions import export_as_csv_action
+
 class CleanTeamLevelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'badge')
     search_fields = ['name']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'website', 'clean_creds', 'level')
     search_fields = ['name', 'level']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamMemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'clean_team', 'status', 'role')
     search_fields = ['user', 'clean_team', 'status', 'role']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanChampionAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'clean_team', 'status')
     search_fields = ['user', 'clean_team', 'status', 'role']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamPostAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team', 'user', 'timestamp')
     search_fields = ['user', 'clean_team', 'user']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamInviteAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team', 'user', 'email', 'role', 'timestamp')
     search_fields = ['user', 'clean_team', 'user']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamLevelTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team_level', 'description')
     search_fields = ['user', 'clean_team_level', 'description']
+    actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamLevelProgressAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team', 'level_task', 'completed')
     search_fields = ['clean_team', 'level_task', 'completed']
+    actions = [export_as_csv_action("CSV Export")]
 
 admin.site.register(CleanTeamLevel, CleanTeamLevelAdmin)
 admin.site.register(CleanTeam, CleanTeamAdmin)

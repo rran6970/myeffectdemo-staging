@@ -1,0 +1,55 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "french/_public_navbar_fr.html" %}
+  <a href="/fr" class="logo-fr"></a>
+  
+  <h1 class="title">Bâtir des communautés durables par<br/>le pouvoir des jeunes</h1>
+  <div class="container">
+    <a id="buildings-link" href="/challenges/fr"></a>
+    <div id="buildings-fr"></div>
+
+    <a href="/media-hub/fr"><div id="recycle-bench-fr"></div></a>
+    
+    {% if user.is_authenticated %}
+      <div id="sign-user">
+        <div class="left"></div>
+        <div class="sign-content">WELCOME {{ user.first_name|upper }}</div>
+        <div class="right"></div>
+      </div><!-- /#sign-user -->
+      <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile"></div></a>
+      <a href="/challenges/my-challenges"><div class="sign" id="sign-my-challenges2"></div></a>
+    {% else %}
+      <div id="sign-learn-more-fr"></div>
+      <a href="/register"><div class="sign" id="sign-register-fr"></div></a>
+      <a href="/students/fr"><div class="sign" id="sign-students-fr"></div></a>
+      <a href="/organizations/fr"><div class="sign" id="sign-organizations-fr"></div></a>
+      <a href="/rewards/fr"><div class="sign" id="sign-rewards-fr"></div></a>
+    {% endif %}
+    <div id="sign-stump"></div>
+    
+    <div id="grass-1"></div>
+    <div id="grass-2"></div>
+    <div id="grass-3"></div>
+    
+    <a id="path-1-link" href="/users/leaderboard/fr"></a>
+    <div id="path-1-fr"></div>
+  
+    <div id="path-2"></div>
+  </div><!-- /.container -->
+</div> <!-- /.wrapper -->
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

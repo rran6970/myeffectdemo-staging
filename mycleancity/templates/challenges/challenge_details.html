@@ -38,6 +38,9 @@
         	{% endif %}
 
 			<table>
+        <tr>
+          <td><span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
+        </tr>
 				<tr>
 					<td><span class="titles">Date:</span> {{ challenge.event_date }} {{ challenge.event_time }}</td>
 				</tr>
@@ -73,13 +76,19 @@
         	<h1>Participants</h1>
         	<p>Total: {{ participants|length }}</p>
 
-			{% for participant in participants %}
-				<div class="participants">
-					<a href="/users/profile/{{ participant.user.id }}">
-						<img class="" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" /><p>{{ participant.user.get_full_name }}</p>
-					</a>
-        		</div>
-			{% endfor %}
+    			{% for participant in participants %}
+    				<div class="participants">
+    					<a href="/users/profile/{{ participant.user.id }}">
+
+                {% if participant.user.profile.picture %}
+                  <img src="{{ MEDIA_URL }}{{ participant.user.profile.picture }}" alt="" />
+                {% else %}
+                  <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                {% endif %}
+                <p>{{ participant.user.get_full_name }}</p>
+    					</a>
+            </div>
+    			{% endfor %}
         </div>
     </div><!-- /.container -->
   </div><!-- /.about -->

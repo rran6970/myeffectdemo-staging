@@ -8,6 +8,8 @@ from boto.s3.key import Key
 
 from challenges.models import Challenge
 
+from datetime import date
+
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -149,6 +151,12 @@ class RegisterView(FormView):
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.save()
 		u.save()
+
+		today = date.today()
+		feb_24 = date(2014, 02, 24)
+
+		if today <= feb_24:
+			u.profile.add_clean_creds(50)
 
 		if 'qrcode' in self.kwargs:
 			qr_code_signup = QRCodeSignups()
@@ -325,8 +333,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['first_name'] = user.first_name
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
-		# initial['dob'] = user.profile.dob
-		initial['school_type'] = user.profile.school_type
 		initial['about'] = user.profile.about
 
 		if user.profile.twitter:
@@ -368,7 +374,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		# user.profile.dob = form.cleaned_data['dob']
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
-		user.profile.school_type = form.cleaned_data['school_type'] 
 
 		# TODO: Move to models
 		if picture:			

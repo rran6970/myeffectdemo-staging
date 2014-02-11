@@ -92,6 +92,10 @@ class UserProfile(models.Model):
 		count = UserNotification.objects.filter(user=self.user).count()
 		return count
 
+	def add_clean_creds(self, amount):
+		self.clean_creds += amount
+		self.save()
+
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)
 

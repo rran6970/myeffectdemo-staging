@@ -1,0 +1,131 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - About {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "french/_public_navbar_fr.html" %}
+  
+  <a href="/fr" class="logo-fr"></a>
+  
+  <div class="content about">
+    <div class="container">
+        <div id="sign-about-fr"></div>
+        <a href="#mission" data-toggle="tab"><div class="sign" id="sign-mission"></div></a>
+        <a href="#founder" data-toggle="tab"><div class="sign" id="sign-our-founder-fr"></div></a>
+        <a href="#approach" data-toggle="tab"><div class="sign" id="sign-approach-fr"></div></a>
+        <a href="#model" data-toggle="tab"><div class="sign" id="sign-model-fr"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign about" id="sign-go-back-big-fr"></div></a>
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          <div class="tab-pane active" id="mission">
+            <br/><br/><br/><br/><br/><br/><br/>
+            <h1 class="tab-titles">Notre Mission</h1>
+            <p>
+              Un programme national à multi-paliers qui rassemble des organisations écologiquement engagées pour encourager, habiliter et évaluer les actions des jeunes bénévoles. Notre but est de construire un avenir durable.
+            </p>
+            <p>
+              Des résultats mesurables, un programme de leadership environnemental exécuté par les jeunes et  pour les jeunes.
+            </p>
+          </div>
+
+          <div class="tab-pane" id="approach">
+            <h1 class="tab-titles">Notre Approche</h1>
+            <p>
+              Transformer l'engagement communautaire pour en faire un effort concentré sur ses résultats et ses expériences utiles.
+            </p>
+            <p>
+              <ul>
+                <li>
+                  <span class="titles">Résultats:</span> Ma Ville Propre s'efforce de quantifier l'impact des jeunes en enregistrant leurs bénévolats ainsi qu'en créditant les jeunes et les organisations qui supports les projets environnementaux. 
+                </li>
+                <li>
+                  <span class="titles">Expériences utiles:</span> Ma Ville Propre vise les bénévoles du 21e siècle; fournir un véhicule de changement pour les jeunes engagés et inclure la motivation personnelle du jeune afin d’offrir des expériences utiles.
+                </li>
+              </ul>
+            </p>
+            <p>
+              Ensemble, nous travaillons pour combler le fossé entre la jeunesse, les ressources communautaires locales et les leaders d'entreprise pour améliorer notre environnement au Canada.
+            </p>
+          </div>
+
+          <div class="tab-pane" id="model">
+            <h1 class="tab-titles">Notre Modèle</h1>
+            <p>
+              Ma Ville Propre est un programme de leadership national unique dans son genre qui engage et récompense les jeunes qui ont un impact positif sur l'environnement. 
+            </p>
+            <p>
+              Nous nous efforçons de changer l'attitude des jeunes face au bénévolat pour en faire un jeu ! </span>
+            </p>
+            
+            <h2 class="subtitle-blue">Passez à l’action et soyez récompensé</h2>
+
+            <p>
+              <ol>
+                <li>
+                  Les jeunes leaders forment leurs PropreÉquipe avec leurs amis et servent d'Ambassadeurs Propre dans leur école et dans leur communauté. 
+                </li>
+                <li>
+                  Vos PropresÉquipe collaborent avec les organisations environnementales de la région pour présenter les programmes existants en tant que défis par l’entremise de Ma Ville Propre.
+                </li>
+                <li>
+                  Vos PropresÉquipe mobilisent leur réseau pour participer à leurs défis en collaboration avec les organisations hôtes.
+                </li>
+                <li>
+                  Les participants et les Champions Net se rendent aux organisations hôtes pour compléter leurs défis et gagner des CréditsPropre basé selon le nombre d’heures communautaires effectuées et l'impact sur l’environnement. Les crédits sont comptabilisés automatiquement sur leur profil.
+                </li>
+                <li>
+                  Le progrès de chaque participant et Champion Net est enregistré sur leur profil individuel. Leur profil quantifie les défis complétés, les CréditsPropre et l’impact environnemental.  Ensuire les CréditsPropre peuvent être échangés pour des récompenses et des offres exclusives aux membres de Ma Ville Propre.
+                </li>
+              </ol>
+            </p>
+
+            <p><a href="/rewards/">Plus d’information sur le système des CréditsPropre.</a></p>
+            <p><a href="/organizations/">Comment est-ce que Ma Ville Propre peut aider votre organisation?</a></p>
+            
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+            <p class="center">Inscrivez-vous avant le 24 février et recevez 50 CréditsPropre en cadeau.</p>
+          </div>
+
+          <!-- <span class="green bold">Clean</span><span class="blue bold">Creds</span> -->
+
+          <div class="tab-pane" id="founder">
+            <h1 class="tab-titles">Our Founder</h1>
+            <img id="kelly-img" src="{{ STATIC_URL }}images/kelly.jpg" alt="" />
+            <p>
+              My Clean City was founded by Kelly Lovell, a Canadian motivational figure, nonprofit &amp; community engagement consultant and global youth leader. Recently recognized as one of the Top 50 Student Leaders of the World with an inauguration as a Hesselbien Fellow and being named Canada's 2013 Emerging Innovator by Ashoka and American Express, Lovell invests her time in empowering individuals and organizations to excel to their full potential.
+            </p>
+            <p>
+              Creator of The Kelly Effect, Lovell works to develop forward-thinking initiatives to address current issues, promote social engagement and build sustainable communities. Her track record of fruitful nonprofit projects is an example of her investment in others.
+            </p>
+            <p>
+              Lovell exudes a commitment to fostering leadership development and community change in all of her work. As a motivational youth figure she has graced respected stages including TEDx and WE Day, speaking live to audiences as large as 7000+ and spreading messages of empowerment across the globe.
+            </p>
+            <p>
+              "If I were able to define my life with one word, it would be passion; it's the driving force behind everything I do, but more importantly, it’s the essence of how I help individuals find success in life. I invite you to be a part of my quest for global change and inspiration." - Kelly Lovell, Motivational Public Figure and CEO of The Kelly Effect
+            </p>
+            
+            <p>To learn more about Kelly and The Kelly Effect please visit <a href="http://www.kellyalovell.com">www.kellyalovell.com</a></p>
+  
+            <iframe width="420" height="315" src="//www.youtube.com/embed/SOz13TIGm-4" frameborder="0" allowfullscreen></iframe>
+    
+          </div>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

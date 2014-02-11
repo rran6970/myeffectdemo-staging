@@ -10,7 +10,10 @@ urlpatterns = patterns('',
 	url(r'^auth/?', 'users.views.auth_view'),
 	url(r'^logout/?', 'users.views.logout'),	
 	url(r'^register_success/?', 'users.views.register_success'),
+
 	url(r'^leaderboard/?$', LeaderboardView.as_view()),
+    url(r'^leaderboard/fr/?', TemplateView.as_view(template_name="mycleancity/french/leaderboard_fr.html")),
+    
     url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
     url(r'^register/?$', RegisterView.as_view()),
     # url(r'^register-organization/?$', RegisterOrganizationView.as_view()),
