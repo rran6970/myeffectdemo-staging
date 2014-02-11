@@ -73,6 +73,8 @@ class UserProfile(models.Model):
 
 			if ctm.status == "removed":
 				return False
+			if ctm.status == "pending":
+				return False
 
 		except Exception, e:
 			print e
