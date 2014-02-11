@@ -51,7 +51,7 @@ To update database tables:
 
 To dump fixtures
 
-    python manage.py dumpdata --indent 2 cleanteams.cleanteamlevel cleanteams.cleanteamleveltask notifications.notification > fixtures/initial_data.json
+    python manage.py dumpdata --indent 2 cleanteams.cleanteamlevel cleanteams.cleanteamleveltask challenges.cleangrid challenges.challengequestiontype challenges.challengequestion challenges.questionanswer notifications.notification > fixtures/initial_data.json
 
 To load fixtures
 

@@ -168,6 +168,338 @@
 },
 {
   "pk": 1, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "LAN", 
+    "value": "0.827625"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "AIR", 
+    "value": "0.804139"
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "WAT ", 
+    "value": "11.426941"
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "MBF", 
+    "value": "5.022831"
+  }
+},
+{
+  "pk": 5, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "ARM", 
+    "value": "2.283105"
+  }
+},
+{
+  "pk": 6, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "ELE", 
+    "value": "1.272632"
+  }
+},
+{
+  "pk": 7, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "FF", 
+    "value": "1.986614"
+  }
+},
+{
+  "pk": 8, 
+  "model": "challenges.cleangrid", 
+  "fields": {
+    "name": "CP", 
+    "value": "1.461096"
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.challengequestiontype", 
+  "fields": {
+    "name": "point_value", 
+    "description": "An assigned point value"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.challengequestiontype", 
+  "fields": {
+    "name": "clean_grid_value", 
+    "description": "CleanGrid values are calculated"
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.challengequestiontype", 
+  "fields": {
+    "name": "no_point_value", 
+    "description": "No points, only for survey purposes"
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 1, 
+    "question": "Did you or your team create this challenge?"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 2, 
+    "question": "Which of the CleanCred LAWS is the most affected by your event?"
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 2, 
+    "question_number": 3, 
+    "question": "Select all CleanCred LAWS that are impacted by your challenge? Think carefully, recycling would affect the land, air, and water for example."
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 3, 
+    "question_number": 4, 
+    "question": "Does the challenge involve (select all that apply)"
+  }
+},
+{
+  "pk": 5, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 5, 
+    "question": "If you selected C. are the species:"
+  }
+},
+{
+  "pk": 6, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 2, 
+    "question_number": 6, 
+    "question": "Does the challenge involve reducing consumption of (select all that apply)"
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 5, 
+    "question": 1
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 1
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Land", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 2
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Air", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 2
+  }
+},
+{
+  "pk": 5, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Water", 
+    "clean_grid": null, 
+    "score": 11, 
+    "question": 2
+  }
+},
+{
+  "pk": 6, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Species", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 2
+  }
+},
+{
+  "pk": 7, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Land", 
+    "clean_grid": 1, 
+    "score": null, 
+    "question": 3
+  }
+},
+{
+  "pk": 8, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Air", 
+    "clean_grid": 2, 
+    "score": null, 
+    "question": 3
+  }
+},
+{
+  "pk": 9, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Water", 
+    "clean_grid": 3, 
+    "score": null, 
+    "question": 3
+  }
+},
+{
+  "pk": 10, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Species", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 3
+  }
+},
+{
+  "pk": 11, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Recycling", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 4
+  }
+},
+{
+  "pk": 12, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Prevention", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 4
+  }
+},
+{
+  "pk": 13, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Protection of a Species", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 4
+  }
+},
+{
+  "pk": 14, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Restoration of habitat", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 4
+  }
+},
+{
+  "pk": 15, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Mammals,Birds, Fish", 
+    "clean_grid": null, 
+    "score": 5, 
+    "question": 5
+  }
+},
+{
+  "pk": 16, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Amphibians, Reptiles, Molluscs", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 5
+  }
+},
+{
+  "pk": 17, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Electricity", 
+    "clean_grid": 6, 
+    "score": null, 
+    "question": 6
+  }
+},
+{
+  "pk": 18, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Fossil Fuels", 
+    "clean_grid": 7, 
+    "score": null, 
+    "question": 6
+  }
+},
+{
+  "pk": 19, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Commercial products", 
+    "clean_grid": 8, 
+    "score": null, 
+    "question": 6
+  }
+},
+{
+  "pk": 1, 
   "model": "notifications.notification", 
   "fields": {
     "name": "Challenge posted", 

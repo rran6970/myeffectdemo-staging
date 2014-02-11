@@ -165,10 +165,31 @@ class CleanGrid(models.Model):
 	value = models.DecimalField(max_digits=10, decimal_places=6)
 
 	class Meta:
-		verbose_name_plural = u'Challenge question answer'
+		verbose_name_plural = u'Challenge question CleanGrid'
+
+	def __unicode__(self):
+		return u'CleanGrid: %s' %(self.name)
 
 	def save(self, *args, **kwargs):
 		super(CleanGrid, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeQuestionType
+Date created:   Feb 3, 2013
+Description:    The questions types.
+"""
+class ChallengeQuestionType(models.Model):
+	name = models.CharField(max_length=60, blank=False, default="None", unique=True, verbose_name='Question Type Name')
+	description = models.TextField(blank=False, default="")
+
+	class Meta:
+		verbose_name_plural = u'Challenge question type'
+
+	def __unicode__(self):
+		return u'Question Type: %s' %(self.name)
+
+	def save(self, *args, **kwargs):
+		super(ChallengeQuestionType, self).save(*args, **kwargs)
 
 """
 Name:           ChallengeQuestion
@@ -178,10 +199,14 @@ Description:    The questions that need to be answered to determine the
 """
 class ChallengeQuestion(models.Model):
 	question_number = models.IntegerField(default=0)	
-	question = models.CharField(max_length=60, blank=False, default="None", verbose_name='Question')
+	question = models.TextField(blank=False, default="None", verbose_name='Question')
+	type = models.ForeignKey(ChallengeQuestionType, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenge questions'
+
+	def __unicode__(self):
+		return u'Question: %s. %s' %(self.question_number, self.question)
 
 	def save(self, *args, **kwargs):
 		super(ChallengeQuestion, self).save(*args, **kwargs)
@@ -193,10 +218,9 @@ Description:    The answer to each question and the value of each answer.
 """
 class QuestionAnswer(models.Model):
 	question = models.ForeignKey(ChallengeQuestion)
-	question_number = models.IntegerField(default=0)
 	answer = models.CharField(max_length=60, blank=False, default="None", verbose_name='Answer')
-	score = models.IntegerField(blank=True)
-	clean_grid = models.ForeignKey(CleanGrid, blank=True)
+	score = models.IntegerField(blank=True, null=True, default=None)
+	clean_grid = models.ForeignKey(CleanGrid, null=True, blank=True, default=None)
 
 	class Meta:
 		verbose_name_plural = u'Challenge question answer'
