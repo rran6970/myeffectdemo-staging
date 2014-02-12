@@ -81,3 +81,6 @@ class NewChallengeForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a description")
 
 		return cleaned_data
+
+# class ChallengeSurveyForm(forms.Form):
+# 		question1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())

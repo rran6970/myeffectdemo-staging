@@ -157,7 +157,7 @@ class UserChallenge(models.Model):
 
 """
 Name:           CleanGrid
-Date created:   Feb 3, 2013
+Date created:   Feb 3, 2014
 Description:    The Clean Grid system for answer value calculation.
 """
 class CleanGrid(models.Model):
@@ -175,7 +175,7 @@ class CleanGrid(models.Model):
 
 """
 Name:           ChallengeQuestionType
-Date created:   Feb 3, 2013
+Date created:   Feb 3, 2014
 Description:    The questions types.
 """
 class ChallengeQuestionType(models.Model):
@@ -193,7 +193,7 @@ class ChallengeQuestionType(models.Model):
 
 """
 Name:           ChallengeQuestion
-Date created:   Feb 3, 2013
+Date created:   Feb 3, 2014
 Description:    The questions that need to be answered to determine the
 				CleanCred per hour value.
 """
@@ -205,6 +205,15 @@ class ChallengeQuestion(models.Model):
 	class Meta:
 		verbose_name_plural = u'Challenge questions'
 
+	@staticmethod
+	def buildQuestionForm():
+		questions = ChallengeQuestion.objects.all()
+		answers = QuestionAnswer.objects.all()
+
+		for question in questions:
+			
+
+
 	def __unicode__(self):
 		return u'Question: %s. %s' %(self.question_number, self.question)
 
@@ -213,7 +222,7 @@ class ChallengeQuestion(models.Model):
 
 """
 Name:           QuestionAnswer
-Date created:   Feb 3, 2013
+Date created:   Feb 3, 2014
 Description:    The answer to each question and the value of each answer.
 """
 class QuestionAnswer(models.Model):
@@ -225,5 +234,27 @@ class QuestionAnswer(models.Model):
 	class Meta:
 		verbose_name_plural = u'Challenge question answer'
 
+	def __unicode__(self):
+		return u'Question Answer: %s: %s' %(self.question, self.answer)
+
 	def save(self, *args, **kwargs):
 		super(QuestionAnswer, self).save(*args, **kwargs)
+
+"""
+Name:           UserQuestionAnswer
+Date created:   Feb 11, 2014
+Description:    The answer each user has given.
+"""
+class UserQuestionAnswer(models.Model):
+	answer = models.ForeignKey(QuestionAnswer)
+	user = models.ForeignKey(User)
+	clean_team = models.ForeignKey(CleanTeam)
+	
+	class Meta:
+		verbose_name_plural = u'User question answer'
+
+	def __unicode__(self):
+		return u'User Answer: %s: %s' %(self.answer.question, self.answer)
+
+	def save(self, *args, **kwargs):
+		super(UserQuestionAnswer, self).save(*args, **kwargs)

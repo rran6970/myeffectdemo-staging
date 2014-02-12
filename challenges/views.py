@@ -13,7 +13,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm
-from challenges.models import Challenge, UserChallenge, ChallengeCategory
+from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQuestion, QuestionAnswer, UserQuestionAnswer
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
@@ -100,13 +100,23 @@ class ChallengesFeedView(TemplateView):
 
 		return context
 
+class ChallengeSurveyView(LoginRequiredMixin, TemplateView):
+	template_name = "challenges/challenge_survey.html"
+	
+	def get_context_data(self, **kwargs):
+		context = super(ChallengeSurveyView, self).get_context_data(**kwargs)
+
+		ChallengeQuestion.buildQuestionForm()
+
+		return context
+
 class NewChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/new_challenge.html"
 	form_class = NewChallengeForm
 	success_url = "mycleancity/index.html"
 
 	def get(self, request, *args, **kwargs):
-		return HttpResponseRedirect('/coming-soon')
+		# return HttpResponseRedirect('/coming-soon')
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 

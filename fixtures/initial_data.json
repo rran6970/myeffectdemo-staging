@@ -442,7 +442,7 @@
   "pk": 14, 
   "model": "challenges.questionanswer", 
   "fields": {
-    "answer": "Restoration of habitat", 
+    "answer": "Restoration of Habitat", 
     "clean_grid": null, 
     "score": 0, 
     "question": 4
@@ -452,7 +452,7 @@
   "pk": 15, 
   "model": "challenges.questionanswer", 
   "fields": {
-    "answer": "Mammals,Birds, Fish", 
+    "answer": "Mammals, Birds, Fish", 
     "clean_grid": null, 
     "score": 5, 
     "question": 5
@@ -492,7 +492,7 @@
   "pk": 19, 
   "model": "challenges.questionanswer", 
   "fields": {
-    "answer": "Commercial products", 
+    "answer": "Commercial Products", 
     "clean_grid": 8, 
     "score": null, 
     "question": 6

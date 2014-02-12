@@ -45,6 +45,11 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
     search_fields = ['question', 'question_number']
     actions = [export_as_csv_action("CSV Export")]
 
+class UserQuestionAnswerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'answer', 'clean_team')
+    search_fields = ['user', 'answer', 'clean_team']
+    actions = [export_as_csv_action("CSV Export")]
+
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(ChallengeCategory, ChallengeCategoryAdmin)
 admin.site.register(Category, CategoryAdmin)
@@ -53,3 +58,4 @@ admin.site.register(CleanGrid, CleanGridAdmin)
 admin.site.register(ChallengeQuestion, ChallengeQuestionAdmin)
 admin.site.register(ChallengeQuestionType, ChallengeQuestionTypeAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
+admin.site.register(UserQuestionAnswer, UserQuestionAnswerAdmin)
