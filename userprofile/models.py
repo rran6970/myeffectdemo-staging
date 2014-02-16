@@ -11,6 +11,24 @@ def get_upload_file_name(instance, filename):
 	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
 """
+Name:           UserSettings
+Date created:   Feb 15, 2014
+Description:    All of the settings for each UserProfile.
+"""
+class UserSettings(models.Model):
+	user = models.OneToOneField(User, null=True)
+	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
+
+	class Meta:
+		verbose_name_plural = u'User Settings'
+
+	def __unicode__(self):
+		return u'User Setting: %s' % self.user.username
+
+	def save(self, *args, **kwargs):
+		super(UserSettings, self).save(*args, **kwargs)
+
+"""
 Name:           UserProfile
 Date created:   Sept 8, 2013
 Description:    Used as an extension to the User model.
@@ -31,6 +49,7 @@ class UserProfile(models.Model):
 	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
 	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
 	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
+	settings = models.OneToOneField(UserSettings, null=True)
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'
@@ -103,11 +122,14 @@ class UserProfile(models.Model):
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
-       profile, created = UserProfile.objects.get_or_create(user=instance)  
+       profile, created = UserProfile.objects.get_or_create(user=instance) 
+       settings, created = UserSettings.objects.get_or_create(user=instance)
+       profile.settings = UserSettings.objects.latest('id')
+       profile.save()
 
 """
 Name:           QRCodeSignups
-Date created:   Sept 9, 2013
+Date created:   Jan 9, 2013
 Description:    Used to keep track of all of the signups through the QR Code URL
 """
 class QRCodeSignups(models.Model):

@@ -149,6 +149,8 @@ class RegisterView(FormView):
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
+		u.profile.settings.communication_language = form.cleaned_data['communication_language']
+		u.profile.settings.save()
 		u.profile.save()
 		u.save()
 
