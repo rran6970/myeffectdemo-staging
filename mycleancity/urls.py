@@ -39,8 +39,10 @@ urlpatterns = patterns('',
 	url(r'^organizations/fr/?', TemplateView.as_view(template_name="mycleancity/french/organizations_fr.html")),
 	url(r'^organizations/?', TemplateView.as_view(template_name="mycleancity/organizations.html")),
 
-	url(r'^media-hub/fr?', TemplateView.as_view(template_name="mycleancity/french/media_hub_fr.html")),
-	url(r'^media-hub/?', TemplateView.as_view(template_name="mycleancity/media_hub.html")),
+	url(r'^communication-hub/fr?', TemplateView.as_view(template_name="mycleancity/french/communication_hub_fr.html")),
+	url(r'^media-hub/fr?', TemplateView.as_view(template_name="mycleancity/french/communication_hub_fr.html")),
+	url(r'^communication-hub/?', TemplateView.as_view(template_name="mycleancity/communication_hub.html")),
+	url(r'^media-hub/?', TemplateView.as_view(template_name="mycleancity/communication_hub.html")),
 
 	url(r'^contact/?', ContactPageView.as_view()),
 	

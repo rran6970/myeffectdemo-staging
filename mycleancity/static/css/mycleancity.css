@@ -87,6 +87,8 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-go-back.invite { left: 78px; }
 #sign-go-back-big.about,
 #sign-go-back-big-fr.about { left: 32px; top: 386px; }
+#sign-go-back-big.communication-hub,
+#sign-go-back-big-fr.communication-hub { left: 32px; top: 386px; }
 
 #sign-go-back-big.students,
 #sign-go-back-big-fr.students { left: 32px; top: 445px; }
@@ -105,7 +107,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 #path-2 { width: 730px; height: 142px; overflow: hidden; position: absolute; z-index: 997; top: 342px; right: 236px; background: transparent url(../images/path-2.png) no-repeat 0 0; }
 
-#recycle-bench { width: 205px; height: 122px; position: absolute; z-index: 998; top: 224px; left: 944px; background: transparent url(../images/recycle-bench.png) no-repeat 0 0; }
+#recycle-bench { width: 294px; height: 122px; position: absolute; z-index: 998; top: 224px; left: 875px; background: transparent url(../images/recycle-bench.png) no-repeat 0 0; }
 #recycle-bench-fr { width: 337px; height: 122px; position: absolute; z-index: 998; top: 224px; left: 875px; background: transparent url(../images/french/recycle-bench.png) no-repeat 0 0; }
 #recycle-bench:hover,
 #recycle-bench-fr:hover { background-position: 0 bottom; }
@@ -144,7 +146,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 363px; }
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 963px; }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
 #footer p.copyright { float: right; padding-right: 30px; padding-bottom: 20px; }
@@ -275,6 +277,10 @@ div.content.organization #sign-stump { top: 210px; }
 table.supporters-table tr td { padding: 10px !important; }
 table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 2px solid #4a3c2e; }
 
+div.powered-by * { text-align: center; }
+div.powered-by h2 { margin: 30px 0; }
+div.powered-by a img { background-color: white; padding: 10px; border: 2px solid #4a3c2e; }
+
 /******************************
 	Rewards Page
 ******************************/ 
@@ -303,28 +309,47 @@ div.content.rewards #sign-stump { top: 200px; }
 
 
 /******************************
-	Media Hub
+	Communication Hub
 ******************************/ 	
-div.content.media-hub { background: transparent url(../images/media-hub-bg.png) no-repeat 80% 0; height: 548px; }
+div.content.communication-hub { background: transparent url(../images/communication-hub-bg.png) no-repeat 80% 0; height: 548px; }
 
-div.content.media-hub #sign-media-hub { width: 209; height: 69px; position: relative; left: 15%; background: url(../images/sign-media-hub.png) no-repeat 0 0; }
-div.content.media-hub #sign-media-hub-fr { width: 209; height: 69px; position: relative; left: 11%; background: url(../images/french/sign-media-hub.png) no-repeat 0 0; }
+#sign-communication-hub { width: 295px; height: 59px; position: absolute; z-index: 1000; top: 26px; left: 41px; background: url(../images/sign-communication-hub.png) no-repeat 0 0; }
+#sign-communication-hub-fr { width: 295px; height: 59px; position: absolute; z-index: 1000; top: 26px; left: 41px; background: url(../images/french/sign-communication-hub.png) no-repeat 0 0; }
 
-div.content.media-hub #sign-media-hub + #white-box,
-div.content.media-hub #sign-media-hub-fr + #white-box { width: 375px; left: 9%; height: 494px; }
-div.content.media-hub #white-box.twitter { height: 349px !important; }
+#sign-social-media { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 105px; left: 59px; background: url(../images/sign-social-media.png) no-repeat 0 0; }
+#sign-social-media-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 105px; left: 59px; background: url(../images/french/sign-social-media.png) no-repeat 0 0; }
 
-div.content.media-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
-div.content.media-hub #white-box.annoucements h1.titles { margin-bottom: 10px; }
-div.content.media-hub #white-box.annoucements img { border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+#sign-resources { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 164px; left: 59px; background: url(../images/sign-resources.png) no-repeat 0 0; }
+#sign-resources-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 164px; left: 59px; background: url(../images/french/sign-resources.png) no-repeat 0 0; }
 
-div.content.media-hub #white-box.photos { width: 408px; height: 420px; left: 40%; top: -3px; }
-div.content.media-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
-div.content.media-hub #white-box.photos #instafeed { }
-div.content.media-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+#sign-press { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 224px; left: 75px; background: url(../images/sign-press.png) no-repeat 0 0; }
+#sign-press-fr { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 224px; left: 75px; background: url(../images/french/sign-press.png) no-repeat 0 0; }
 
-div.content.media-hub #white-box.resources { height: 81px; top: 438px; overflow: hidden; }
-div.content.media-hub #white-box.resources * { text-align: center }
+#sign-photo-gallery { width: 248px; height: 54px; position: absolute; z-index: 1000; top: 284px; left: 60px; background: url(../images/sign-photo-gallery.png) no-repeat 0 0; }
+#sign-photo-gallery-fr { width: 355px; height: 69px; position: absolute; z-index: 1000; top: 284px; left: 18px; background: url(../images/french/sign-photo-gallery.png) no-repeat 0 0; }
+
+/*#sign-communication-hub + #white-box,
+#sign-communication-hub-fr + #white-box { width: 375px; left: 9%; height: 494px; }*/
+
+div.content.communication-hub #white-box { left: 30%; width: 843px; }
+div.content.communication-hub #white-box div.tab-pane h1.titles { margin-bottom: 20px; }
+div.content.communication-hub #white-box div.tab-pane#photo-gallery #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; padding: 10px; }
+div.content.communication-hub #white-box div.tab-pane#press a.articles { margin: 0 20px 20px 0; display: block; float: left; }
+div.content.communication-hub #white-box div.tab-pane#press a.articles img { border: 2px solid #4a3c2e; padding: 4px; background: white; border-radius: 5px; display: block; }
+
+/*div.content.communication-hub #white-box.twitter { height: 349px !important; }
+
+div.content.communication-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
+div.content.communication-hub #white-box.annoucements h1.titles { margin-bottom: 10px; }
+div.content.communication-hub #white-box.annoucements img { border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+
+div.content.communication-hub #white-box.photos { width: 408px; height: 420px; left: 40%; top: -3px; }
+div.content.communication-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
+div.content.communication-hub #white-box.photos #instafeed { }
+div.content.communication-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
+
+div.content.communication-hub #white-box.resources { height: 81px; top: 438px; overflow: hidden; }
+div.content.communication-hub #white-box.resources * { text-align: center }*/
 
 /******************************
 	White Box
@@ -682,3 +707,9 @@ div.table-container h1 { font-weight: 900; }
 div.table-container table { margin-bottom: 30px; }
 div.table-container table tr td.titles { width: 100px; }
 div.table-container table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
+
+.padding-10 { display: block; padding: 10px 0; }
+.padding-20 { display: block; padding: 20px 0; }
+.width-350 { display: block; width: 350px; }
+.width-450 { display: block; width: 450px; }
+.width-550 { display: block; width: 550px; }

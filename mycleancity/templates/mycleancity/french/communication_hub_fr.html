@@ -1,0 +1,90 @@
+{% extends '_public_base.html' %}
+
+{% block title %} Ma Ville Propre - Centre des Médias {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "french/_public_navbar_fr.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content communication-hub">
+    <div class="container">
+        <div id="sign-communication-hub-fr"></div>
+        
+        <a href="#social-media" data-toggle="tab"><div class="sign" id="sign-social-media-fr"></div></a>
+        <a href="#resources" data-toggle="tab"><div class="sign" id="sign-resources-fr"></div></a>
+        <a href="#press" data-toggle="tab"><div class="sign" id="sign-press-fr"></div></a>
+        <a href="#photo-gallery" data-toggle="tab"><div class="sign" id="sign-photo-gallery-fr"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign communication-hub" id="sign-go-back-big-fr"></div></a>
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          <div class="tab-pane active" id="social-media">
+            <a class="twitter-timeline" href="https://twitter.com/MyCleanCity1" data-widget-id="384907140789309441">Tweets by @MyCleanCity1</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          </div>
+
+          <div class="tab-pane" id="resources">
+            <h1 class="titles">Ressources</h1>
+            <h2><a target="_blank" href="/download/?filename=Guide_Du_YMCA_Sur_Le_Leadership_Environmental.pdf">Téléchargez le Guide environnemental de YMCA</a></h2>
+          </div>
+
+          <div class="tab-pane" id="press">
+            <h1 class="titles">la Presse</h1>
+
+            <a class="articles" href="/download/?filename=HM_SASSOCIE_AVEC_MA_VILLE_PROPRE.pdf" target="_blank"><img src="{{ STATIC_URL }}images/french/press/hm-partner.jpg" alt=""/></a>
+
+            <a class="articles" href="/download/?filename=0-2.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/teenage-youth.jpg" alt=""/></a>
+            
+
+            <div>
+              <img style="width: 773px; background-color: white; padding: 10px; border: 2px solid #4a3c2e;" src="{{ STATIC_URL }}images/staples-851x315.jpg" alt="" />
+
+              <p>
+                My Clean City is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!
+              </p>
+              <p>
+                Be sure to share the opportunity with your friends, My Clean City will be watching for leaders who trend #RFE and we may even award some special surprises!
+
+                <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+                  <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
+              </p>
+            </div>
+          </div>
+          
+          <div class="tab-pane" id="photo-gallery">
+            <h1 class="titles">Photos et Vidéos</h1>
+            <div id="instafeed"></div>
+
+            <iframe scrolling="no" marginheight="0" frameborder="0" width="609" src="http://vinalwidget.com/gallery.php?id=992634697492611072&amp;width=189&amp;margin=4&amp;display_username=1&amp;likes=1&amp;comments=1&amp;revines=1&amp;date=1&amp;description=0&amp;responsive=0&amp;frame=1" style="height: 235px;"></iframe>
+          </div>
+        </div><!-- /#white-box -->
+
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+
+{% include "french/_footer_navbar_fr.html" %}
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  var feed = new Instafeed({
+      get: 'user',
+      userId: 588574229,
+      accessToken: '588574229.467ede5.399d001a278240e28c2669ede67c461e',
+      link: 'true',
+      clientId: 'c4d979a78daa4114b8d0800e135097e6'
+  });
+  feed.run();
+</script>
+{% endblock %}
