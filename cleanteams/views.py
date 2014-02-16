@@ -82,24 +82,20 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		# Send registration email to user
 		template = get_template('emails/clean_team_register.html')
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@mycleancity.org', user.email
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': user.email })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
 
 		return HttpResponseRedirect('/clean-team/invite/')
 

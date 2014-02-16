@@ -7,6 +7,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 from challenges.models import Challenge
+from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
 
 from datetime import date
 
@@ -27,8 +28,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
-
-from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
+from mycleancity.actions import export_as_csv_action, SendEmail
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
 from userprofile.models import UserProfile, QRCodeSignups
@@ -171,24 +171,21 @@ class RegisterView(FormView):
 		# Send registration email to user
 		template = get_template('emails/user_register_success.html')
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
+
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
 
 		if form.cleaned_data['role'] == "clean-ambassador":
 			return HttpResponseRedirect('/clean-team/create-or-request/')
@@ -280,24 +277,22 @@ class RegisterInviteView(FormView):
 		# Send registration email to user
 		template = get_template('emails/user_register_success.html')
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
+
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
+
 
 		return HttpResponseRedirect('/')
 

@@ -470,13 +470,11 @@ class CleanTeamInvite(models.Model):
 		# Send invite email to email address
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': user, 'email': email, 'role': role, 'full_uri': full_uri })
-		content = template.render(content)
 
 		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', email
 
-		mail = EmailMessage(subject, content, from_email, [to])
-		mail.content_subtype = "html"
-		mail.send()
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamInvite, self).save(*args, **kwargs)

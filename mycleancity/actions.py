@@ -1,5 +1,11 @@
 import csv
+
+from django.core.mail import EmailMessage
+
 from django.http import HttpResponse
+
+from django.template import Context, RequestContext
+from django.template.loader import get_template
 
 def export_as_csv_action(description="Export selected as CSV file",
                          fields=None, exclude=None, header=True):
@@ -33,3 +39,16 @@ def export_as_csv_action(description="Export selected as CSV file",
         return response
     export_as_csv.short_description = description
     return export_as_csv
+
+
+class SendEmail(object):
+    
+    def send(self, template, content, subject, from_email, to):
+        render_content = template.render(content)
+
+        try:
+            mail = EmailMessage(subject, render_content, from_email, [to])
+            mail.content_subtype = "html"
+            mail.send()
+        except Exception, e:
+            print e
