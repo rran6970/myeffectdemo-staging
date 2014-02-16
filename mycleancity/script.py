@@ -22,7 +22,8 @@ def add_settings_to_all_user_profiles():
 
 			
 		except Exception, e:
-			print "No profile for %s: CREATED" % user_profile.user.email
 			user_profile = UserProfile()
 			user_profile.user = user
 			user_profile.save()
+
+			print "No profile for %s: CREATED" % user_profile.user.email
