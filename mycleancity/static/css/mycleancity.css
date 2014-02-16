@@ -697,3 +697,9 @@ div.table-container h1 { font-weight: 900; }
 div.table-container table { margin-bottom: 30px; }
 div.table-container table tr td.titles { width: 100px; }
 div.table-container table tr td input[type="submit"] { width: 120px; font-size: 16px; margin: 0 auto; }
+
+.padding-10 { display: block; padding: 10px 0; }
+.padding-20 { display: block; padding: 20px 0; }
+.width-350 { display: block; width: 350px; }
+.width-450 { display: block; width: 450px; }
+.width-550 { display: block; width: 550px; }

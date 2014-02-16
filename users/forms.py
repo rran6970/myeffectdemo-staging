@@ -102,6 +102,7 @@ class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('individual', 'Individual / Individu',), ('clean-ambassador', 'Clean Ambassador / Ambassadeur Net',), ('clean-champion', 'Clean Champion / Champion Net',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher/Enseingnant', 'Teacher',))
 	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting/Affichage du poste de bénévolat', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend/Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website/Site Web', 'Website/Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples',))
+	COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
@@ -112,7 +113,8 @@ class RegisterUserForm(forms.ModelForm):
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province / Province")
 	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
-	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Last name / Nom de famille")
+	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
+	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
 	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
