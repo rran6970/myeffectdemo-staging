@@ -256,11 +256,29 @@
 },
 {
   "pk": 1, 
+  "model": "challenges.answertype", 
+  "fields": {
+    "name": "single", 
+    "description": "Can select ONLY one answer"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.answertype", 
+  "fields": {
+    "name": "multiple", 
+    "description": "Can select multiple answers"
+  }
+},
+{
+  "pk": 1, 
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 1, 
     "question_number": 1, 
-    "question": "Did you or your team create this challenge?"
+    "question": "Did you or your team create this challenge?", 
+    "answer_type": 1, 
+    "required": true
   }
 },
 {
@@ -269,7 +287,9 @@
   "fields": {
     "type": 1, 
     "question_number": 2, 
-    "question": "Which of the CleanCred LAWS is the most affected by your event?"
+    "question": "Which of the CleanCred LAWS is the most affected by your event?", 
+    "answer_type": 1, 
+    "required": true
   }
 },
 {
@@ -277,8 +297,10 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 2, 
-    "question_number": 3, 
-    "question": "Select all CleanCred LAWS that are impacted by your challenge? Think carefully, recycling would affect the land, air, and water for example."
+    "question_number": 4, 
+    "question": "Select all CleanCred LAWS that are impacted by your challenge? Think carefully, recycling would affect the land, air, and water for example.", 
+    "answer_type": 2, 
+    "required": true
   }
 },
 {
@@ -286,8 +308,10 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 3, 
-    "question_number": 4, 
-    "question": "Does the challenge involve (select all that apply)"
+    "question_number": 3, 
+    "question": "Does the challenge involve (select all that apply)", 
+    "answer_type": 2, 
+    "required": true
   }
 },
 {
@@ -296,7 +320,9 @@
   "fields": {
     "type": 1, 
     "question_number": 5, 
-    "question": "If you selected C. are the species:"
+    "question": "If you selected D. are the species:", 
+    "answer_type": 1, 
+    "required": false
   }
 },
 {
@@ -305,7 +331,9 @@
   "fields": {
     "type": 2, 
     "question_number": 6, 
-    "question": "Does the challenge involve reducing consumption of (select all that apply)"
+    "question": "Does the challenge involve reducing consumption of (select all that apply)", 
+    "answer_type": 2, 
+    "required": true
   }
 },
 {
@@ -315,7 +343,8 @@
     "answer": "Yes", 
     "clean_grid": null, 
     "score": 5, 
-    "question": 1
+    "question": 1, 
+    "answer_number": "A"
   }
 },
 {
@@ -325,7 +354,8 @@
     "answer": "No", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 1
+    "question": 1, 
+    "answer_number": "B"
   }
 },
 {
@@ -335,7 +365,8 @@
     "answer": "Land", 
     "clean_grid": null, 
     "score": 1, 
-    "question": 2
+    "question": 2, 
+    "answer_number": "A"
   }
 },
 {
@@ -345,7 +376,8 @@
     "answer": "Air", 
     "clean_grid": null, 
     "score": 1, 
-    "question": 2
+    "question": 2, 
+    "answer_number": "B"
   }
 },
 {
@@ -355,7 +387,8 @@
     "answer": "Water", 
     "clean_grid": null, 
     "score": 11, 
-    "question": 2
+    "question": 2, 
+    "answer_number": "C"
   }
 },
 {
@@ -365,7 +398,8 @@
     "answer": "Species", 
     "clean_grid": null, 
     "score": 2, 
-    "question": 2
+    "question": 2, 
+    "answer_number": "D"
   }
 },
 {
@@ -375,7 +409,8 @@
     "answer": "Land", 
     "clean_grid": 1, 
     "score": null, 
-    "question": 3
+    "question": 3, 
+    "answer_number": "A"
   }
 },
 {
@@ -385,7 +420,8 @@
     "answer": "Air", 
     "clean_grid": 2, 
     "score": null, 
-    "question": 3
+    "question": 3, 
+    "answer_number": "B"
   }
 },
 {
@@ -395,7 +431,8 @@
     "answer": "Water", 
     "clean_grid": 3, 
     "score": null, 
-    "question": 3
+    "question": 3, 
+    "answer_number": "C"
   }
 },
 {
@@ -405,7 +442,8 @@
     "answer": "Species", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 3
+    "question": 3, 
+    "answer_number": "D"
   }
 },
 {
@@ -415,7 +453,8 @@
     "answer": "Recycling", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 4
+    "question": 4, 
+    "answer_number": "A"
   }
 },
 {
@@ -425,7 +464,8 @@
     "answer": "Prevention", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 4
+    "question": 4, 
+    "answer_number": "B"
   }
 },
 {
@@ -435,7 +475,8 @@
     "answer": "Protection of a Species", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 4
+    "question": 4, 
+    "answer_number": "C"
   }
 },
 {
@@ -445,7 +486,8 @@
     "answer": "Restoration of Habitat", 
     "clean_grid": null, 
     "score": 0, 
-    "question": 4
+    "question": 4, 
+    "answer_number": "D"
   }
 },
 {
@@ -455,7 +497,8 @@
     "answer": "Mammals, Birds, Fish", 
     "clean_grid": null, 
     "score": 5, 
-    "question": 5
+    "question": 5, 
+    "answer_number": "A"
   }
 },
 {
@@ -465,7 +508,8 @@
     "answer": "Amphibians, Reptiles, Molluscs", 
     "clean_grid": null, 
     "score": 2, 
-    "question": 5
+    "question": 5, 
+    "answer_number": "B"
   }
 },
 {
@@ -475,7 +519,8 @@
     "answer": "Electricity", 
     "clean_grid": 6, 
     "score": null, 
-    "question": 6
+    "question": 6, 
+    "answer_number": "A"
   }
 },
 {
@@ -485,7 +530,8 @@
     "answer": "Fossil Fuels", 
     "clean_grid": 7, 
     "score": null, 
-    "question": 6
+    "question": 6, 
+    "answer_number": "B"
   }
 },
 {
@@ -495,7 +541,8 @@
     "answer": "Commercial Products", 
     "clean_grid": 8, 
     "score": null, 
-    "question": 6
+    "question": 6, 
+    "answer_number": "C"
   }
 },
 {

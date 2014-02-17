@@ -62,6 +62,18 @@ $(function(){
             $("#clean-team-group-td").fadeOut();   
         }
     });
+
+    // Challenge survey enable/disable question 5 based on answer from question 4
+    $("#id_question_4_3").click(function(){
+        var checkbox = $(this)
+
+        if (checkbox.is(':checked'))
+            $("input[name='question_5']").prop('disabled', false);
+        else
+            $("input[name='question_5']").prop('disabled', 'disabled');
+    });
+
+    
 });
 
 function ajaxQuickUnreadNotification(e)
@@ -101,7 +113,11 @@ function ajaxQuickReadNotification(e)
 
             var notification_number = parseInt($("#notification-container").html());
             notification_number = notification_number - 1;
-            $("#notification-container").html(notification_number);
+
+            if (notification_number == 0)
+                $("#notification-container").hide();   
+            else
+                $("#notification-container").html(notification_number);
         },
         error: function(data) {}
     });

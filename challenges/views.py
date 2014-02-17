@@ -12,7 +12,7 @@ from django.utils.timezone import utc
 from django.views.generic import *
 from django.views.generic.base import View
 
-from challenges.forms import NewChallengeForm
+from challenges.forms import NewChallengeForm, ChallengeSurveyForm
 from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQuestion, QuestionAnswer, UserQuestionAnswer
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
@@ -100,13 +100,44 @@ class ChallengesFeedView(TemplateView):
 
 		return context
 
-class ChallengeSurveyView(LoginRequiredMixin, TemplateView):
+class ChallengeSurveyView(LoginRequiredMixin, FormView):
 	template_name = "challenges/challenge_survey.html"
+	form_class = ChallengeSurveyForm
 	
+	def form_valid(self, form, **kwargs):
+		user = self.request.user
+		clean_team = self.request.user.profile.clean_team_member.clean_team
+		# print form.cleaned_data
+
+		for question, answers in form.cleaned_data.items():
+			# print question
+			# print answers
+			for answer in answers:
+				try:
+					answer = int(answer)
+					ans = QuestionAnswer.objects.get(id=answer)
+					
+					user_answer = UserQuestionAnswer()
+					user_answer.user = user
+					user_answer.clean_team = clean_team
+					user_answer.answer = ans
+					user_answer.save()
+				except Exception, e:
+					print e
+			
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeSurveyView, self).get_context_data(**kwargs)
-
-		ChallengeQuestion.buildQuestionForm()
 
 		return context
 

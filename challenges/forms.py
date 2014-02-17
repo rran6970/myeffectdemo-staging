@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from challenges.models import Challenge, UserChallenge, Category
+from challenges.models import Challenge, UserChallenge, Category, ChallengeQuestion, QuestionAnswer
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -82,5 +82,42 @@ class NewChallengeForm(forms.ModelForm):
 
 		return cleaned_data
 
-# class ChallengeSurveyForm(forms.Form):
-# 		question1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+class ChallengeSurveyForm(forms.Form):
+	def __init__(self, *args, **kwargs):
+		super(ChallengeSurveyForm, self).__init__(*args, **kwargs)
+		
+		questions = ChallengeQuestion.objects.all().order_by('question_number')
+		
+		for question in questions:
+			answers = QuestionAnswer.objects.filter(question=question).order_by('answer_number')
+			answer_list = []
+
+			for answer in answers:
+				answer_list.append((answer.id, answer.answer))
+
+			answer_tuple = tuple(answer_list)
+
+			label = "%s. %s" %(question.question_number, question.question)	
+
+			required = question.required
+
+			if question.answer_type.name == "single":
+				self.fields['question_%s' % question.question_number] = forms.ChoiceField(widget=forms.RadioSelect, required=required, label=label, choices=answer_tuple)
+			elif question.answer_type.name == "multiple":
+				self.fields['question_%s' % question.question_number] = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=required, label=label, choices=answer_tuple)
+
+			if question.question_number == 5:
+				self.fields['question_%s' % question.question_number].widget.attrs['disabled'] = True
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,6 +28,7 @@ class Challenge(models.Model):
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam, blank=True, null=True, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	complete = models.BooleanField(default=False, verbose_name='Confirms the Challenge is created')
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -192,6 +193,24 @@ class ChallengeQuestionType(models.Model):
 		super(ChallengeQuestionType, self).save(*args, **kwargs)
 
 """
+Name:           AnswerType
+Date created:   Feb 3, 2014
+Description:    The asnwer types.
+"""
+class AnswerType(models.Model):
+	name = models.CharField(max_length=60, blank=False, default="None", unique=True, verbose_name='Answer Type Name')
+	description = models.TextField(blank=False, default="")
+
+	class Meta:
+		verbose_name_plural = u'Challenge answer type'
+
+	def __unicode__(self):
+		return u'Answer Type: %s' %(self.name)
+
+	def save(self, *args, **kwargs):
+		super(AnswerType, self).save(*args, **kwargs)
+
+"""
 Name:           ChallengeQuestion
 Date created:   Feb 3, 2014
 Description:    The questions that need to be answered to determine the
@@ -200,19 +219,12 @@ Description:    The questions that need to be answered to determine the
 class ChallengeQuestion(models.Model):
 	question_number = models.IntegerField(default=0)	
 	question = models.TextField(blank=False, default="None", verbose_name='Question')
-	type = models.ForeignKey(ChallengeQuestionType, blank=True)
+	type = models.ForeignKey(ChallengeQuestionType, blank=True, default=1)
+	answer_type = models.ForeignKey(AnswerType, blank=True, default=1)
+	required = models.BooleanField(default=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenge questions'
-
-	@staticmethod
-	def buildQuestionForm():
-		questions = ChallengeQuestion.objects.all()
-		answers = QuestionAnswer.objects.all()
-
-		for question in questions:
-			
-
 
 	def __unicode__(self):
 		return u'Question: %s. %s' %(self.question_number, self.question)
@@ -227,6 +239,7 @@ Description:    The answer to each question and the value of each answer.
 """
 class QuestionAnswer(models.Model):
 	question = models.ForeignKey(ChallengeQuestion)
+	answer_number = models.CharField(max_length=1, blank=False, null=False, default="A", verbose_name="Answer Number")
 	answer = models.CharField(max_length=60, blank=False, default="None", verbose_name='Answer')
 	score = models.IntegerField(blank=True, null=True, default=None)
 	clean_grid = models.ForeignKey(CleanGrid, null=True, blank=True, default=None)
@@ -249,6 +262,7 @@ class UserQuestionAnswer(models.Model):
 	answer = models.ForeignKey(QuestionAnswer)
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam)
+	challenge = models.ForeignKey(Challenge)
 	
 	class Meta:
 		verbose_name_plural = u'User question answer'

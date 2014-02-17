@@ -22,22 +22,7 @@
 		        <h2>Challenge Survey Questions</h2>
 				
 				<form autocomplete="off" action="" method="post">{% csrf_token %}
-		            <table class="survey-questions">
-		            	{% for question in questions %}
-		                <tr>
-		                    <td>{{ question.question_number }}.</td>
-		                    <td>{{ question.question }}</td>
-		                </tr>
-		                <tr>
-		                	<td></td>
-		                	{% for answer in answers %}
-		                		{% if answer.question.id == question.id %}
-		                		<td>{{ answer.answer }}</td>
-		                		{% endif %}
-		                	{% endfor %}
-		                </tr>
-		                {% endfor %}
-		            </table>
+		            {{ form }}
 		            <input class="btn btn-primary" type="submit" value="Next" />
 		    	</form>
 		    </div><!-- /#white-box -->
