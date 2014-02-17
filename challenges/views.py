@@ -13,7 +13,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 
 from challenges.forms import NewChallengeForm, ChallengeSurveyForm
-from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQuestion, QuestionAnswer, UserQuestionAnswer
+from challenges.models import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
@@ -109,22 +109,9 @@ class ChallengeSurveyView(LoginRequiredMixin, FormView):
 		clean_team = self.request.user.profile.clean_team_member.clean_team
 		# print form.cleaned_data
 
-		for question, answers in form.cleaned_data.items():
-			# print question
-			# print answers
-			for answer in answers:
-				try:
-					answer = int(answer)
-					ans = QuestionAnswer.objects.get(id=answer)
-					
-					user_answer = UserQuestionAnswer()
-					user_answer.user = user
-					user_answer.clean_team = clean_team
-					user_answer.answer = ans
-					user_answer.save()
-				except Exception, e:
-					print e
-			
+		survey = UserChallengeSurvey()
+		survey.create_survey(user, clean_team, form.cleaned_data)
+
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 

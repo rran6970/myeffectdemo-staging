@@ -31,7 +31,7 @@ class CleanGridAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class ChallengeQuestionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'question_number', 'question', 'type')
+    list_display = ('id', 'question_number', 'question', 'type', 'answer_type')
     search_fields = ['question', 'type']
     actions = [export_as_csv_action("CSV Export")]
 
@@ -45,9 +45,14 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
     search_fields = ['question', 'question_number']
     actions = [export_as_csv_action("CSV Export")]
 
-class UserQuestionAnswerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'answer', 'clean_team')
-    search_fields = ['user', 'answer', 'clean_team']
+class UserChallengeSurveyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'clean_team', 'challenge')
+    search_fields = ['user', 'clean_team', 'challenge']
+    actions = [export_as_csv_action("CSV Export")]
+
+class UserChallengeSurveyAnswersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'survey', 'answer')
+    search_fields = ['user', 'survey', 'answer']
     actions = [export_as_csv_action("CSV Export")]
 
 admin.site.register(Challenge, ChallengeAdmin)
@@ -58,4 +63,5 @@ admin.site.register(CleanGrid, CleanGridAdmin)
 admin.site.register(ChallengeQuestion, ChallengeQuestionAdmin)
 admin.site.register(ChallengeQuestionType, ChallengeQuestionTypeAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
-admin.site.register(UserQuestionAnswer, UserQuestionAnswerAdmin)
+admin.site.register(UserChallengeSurvey, UserChallengeSurveyAdmin)
+admin.site.register(UserChallengeSurveyAnswers, UserChallengeSurveyAnswersAdmin)

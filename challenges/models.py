@@ -253,22 +253,88 @@ class QuestionAnswer(models.Model):
 	def save(self, *args, **kwargs):
 		super(QuestionAnswer, self).save(*args, **kwargs)
 
+# """
+# Name:           UserQuestionAnswer
+# Date created:   Feb 11, 2014
+# Description:    The answer each user has given.
+# """
+# class UserQuestionAnswer(models.Model):
+# 	answer = models.ForeignKey(QuestionAnswer)
+# 	user = models.ForeignKey(User)
+# 	clean_team = models.ForeignKey(CleanTeam)
+# 	challenge = models.ForeignKey(Challenge)
+	
+# 	class Meta:
+# 		verbose_name_plural = u'User question answer'
+
+# 	def __unicode__(self):
+# 		return u'User Answer: %s: %s' %(self.answer.question, self.answer)
+
+# 	def save(self, *args, **kwargs):
+# 		super(UserQuestionAnswer, self).save(*args, **kwargs)
+
 """
-Name:           UserQuestionAnswer
-Date created:   Feb 11, 2014
-Description:    The answer each user has given.
+Name:           UserChallengeSurvey
+Date created:   Feb 17 2014
+Description:    The survey each User creates for the Challenge.
 """
-class UserQuestionAnswer(models.Model):
-	answer = models.ForeignKey(QuestionAnswer)
+class UserChallengeSurvey(models.Model): 
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam)
 	challenge = models.ForeignKey(Challenge)
-	
+
 	class Meta:
-		verbose_name_plural = u'User question answer'
+		verbose_name_plural = u'User Challenge Surveys'
+
+	def create_survey(self, user, clean_team, form):
+		challenge = Challenge()
+		challenge.user = user
+		challenge.clean_team = clean_team
+		# challenge.save()
+
+		print form
+		self.user = user
+		self.clean_team = clean_team
+		self.challenge = Challenge.objects.latest('id')
+		# self.save()
+
+		for question, answers in form.items():
+			# print question
+			# print answers
+			for answer in answers:
+				try:	
+					# print answer
+					answer = int(answer)
+					ans = QuestionAnswer.objects.get(id=answer)
+					print ans
+
+					user_answer = UserChallengeSurveyAnswers(survey=self, answer=ans)
+					# user_answer.save()
+				except Exception, e:
+					print e
+					return False
+		return True
 
 	def __unicode__(self):
-		return u'User Answer: %s: %s' %(self.answer.question, self.answer)
+		return u'User Challenge Survey: %s:' %(self.user)
 
 	def save(self, *args, **kwargs):
-		super(UserQuestionAnswer, self).save(*args, **kwargs)
+		super(UserChallengeSurvey, self).save(*args, **kwargs)
+
+"""
+Name:           UserChallengeSurveyAnswers
+Date created:   Feb 17 2014
+Description:    The survey answer that each User gives for the Challenge.
+"""
+class UserChallengeSurveyAnswers(models.Model): 
+	survey = models.ForeignKey(UserChallengeSurvey)
+	answer = models.ForeignKey(QuestionAnswer)
+
+	class Meta:
+		verbose_name_plural = u'User Challenge Survey Answers'
+
+	def __unicode__(self):
+		return u'User Challenge Survey Answer: %s' %(self.answer)
+
+	def save(self, *args, **kwargs):
+		super(UserChallengeSurveyAnswers, self).save(*args, **kwargs)
