@@ -443,11 +443,13 @@ div.content.communication-hub #white-box.resources * { text-align: center }*/
 /******************************
 	Challenge Survey
 ******************************/ 
-#white-box.challenge-survey { width: 712px; left: 22%; }
+#white-box.challenge-survey { width: 712px; left: 22%; height: 433px; }
 #white-box.challenge-survey textarea { width: 453px; height: 200px; }
 #white-box.challenge-survey input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto; }
 #white-box.challenge-survey table.survey-questions tr { display: block; margin: 17px 0; }
 #white-box.challenge-survey table.survey-questions tr td { line-height: 21px; }
+
+#white-box.challenge-survey + #sign-leaderboard { position: relative; top: 411px; right: 360px; }
 
 /******************************
 	New Challenge
@@ -455,6 +457,7 @@ div.content.communication-hub #white-box.resources * { text-align: center }*/
 #white-box.new-challenge { width: 512px; left: 30%; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }
 
 /******************************
 	Challenge Centre

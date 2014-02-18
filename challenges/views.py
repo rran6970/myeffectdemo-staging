@@ -12,11 +12,25 @@ from django.utils.timezone import utc
 from django.views.generic import *
 from django.views.generic.base import View
 
-from challenges.forms import NewChallengeForm, ChallengeSurveyForm
+from challenges.forms import NewChallengeForm
 from challenges.models import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
 from mycleancity.mixins import LoginRequiredMixin
+
+def survey_update_score(request):
+	if request.is_ajax:
+		aid = request.GET['aid']
+		
+		try:
+			answer = int(aid)
+			answer = QuestionAnswer.objects.get(id=answer)
+			
+			return HttpResponse(answer.get_answer_score())
+		except Exception, e:
+			print e
+
+	return HttpResponse('')
 
 def participate_in_challenge(request):
 	if request.method == 'POST':
@@ -63,8 +77,8 @@ def check_in_check_out(request):
 				userchallenge.total_hours = total_hours
 				userchallenge.save()
 
-				total_clean_creds = challenge.getChallengeTotalCleanCreds(total_hours)
-
+				total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
+				print total_clean_creds
 				# Add CleanCreds to individual
 				user.profile.add_clean_creds(total_clean_creds)
 
@@ -100,34 +114,6 @@ class ChallengesFeedView(TemplateView):
 
 		return context
 
-class ChallengeSurveyView(LoginRequiredMixin, FormView):
-	template_name = "challenges/challenge_survey.html"
-	form_class = ChallengeSurveyForm
-	
-	def form_valid(self, form, **kwargs):
-		user = self.request.user
-		clean_team = self.request.user.profile.clean_team_member.clean_team
-		# print form.cleaned_data
-
-		survey = UserChallengeSurvey()
-		survey.create_survey(user, clean_team, form.cleaned_data)
-
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-
-		return self.render_to_response(context)
-
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-
-		return self.render_to_response(context)
-
-	def get_context_data(self, **kwargs):
-		context = super(ChallengeSurveyView, self).get_context_data(**kwargs)
-
-		return context
-
 class NewChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/new_challenge.html"
 	form_class = NewChallengeForm
@@ -149,11 +135,16 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 
 		return self.render_to_response(context)
 
-	def form_valid(self, form):
+	def form_valid(self, form, **kwargs):
+		# print form.cleaned_data
 		challenge = Challenge()
-		challenge.newChallenge(self.request.user, form)
+		challenge.new_challenge(self.request.user, form.cleaned_data)
 
-		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+		# return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
 class EditChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/edit_challenge.html"
@@ -166,7 +157,6 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		try:
 			challenge = Challenge.objects.get(id=cid)
-			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
 
 			#TODO: Shouldn't be able to access all Challenges
 			# if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
@@ -181,7 +171,6 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		initial = {}
 		initial['title'] = challenge.title
-		initial['category'] = challenge_category.category
 		initial['event_date'] = challenge.event_date
 		initial['event_time'] = challenge.event_time
 		initial['address1'] = challenge.address1
@@ -218,9 +207,6 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
 		challenge.save()
 
-		challenge_category = ChallengeCategory.objects.get(challenge=challenge)
-		challenge_category.category = form.cleaned_data['category']
-		challenge_category.save()
 
 		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
@@ -232,7 +218,6 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		
 		try:
 			challenge = Challenge.objects.get(id=cid)
-			challenge_category = ChallengeCategory.objects.get(challenge=challenge)
 
 			#TODO: Shouldn't be able to access all Challenges
 			if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:

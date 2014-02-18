@@ -63,18 +63,52 @@ $(function(){
         }
     });
 
+    // Enable question 5 if there is an answer selected
+    var question_5 = $("input[name='question_5']");
+
+    if (question_5.is(':checked'))
+    {
+        question_5.prop('disabled', false);
+    }
+
     // Challenge survey enable/disable question 5 based on answer from question 4
-    $("#id_question_4_3").click(function(){
-        var checkbox = $(this)
+    $("#id_question_4_3").on("click", enabledDisableQuestion5);
 
-        if (checkbox.is(':checked'))
-            $("input[name='question_5']").prop('disabled', false);
-        else
-            $("input[name='question_5']").prop('disabled', 'disabled');
-    });
-
-    
+    // Challenge survey update score in real time
+    $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
 });
+
+var challenge_survey_score = 0;
+
+function ajaxChallengeSurveyUpdateScore(e)
+{
+    var element = $(this);
+
+    $.ajax({
+        type: 'GET',
+        url: '/challenges/survey-update-score/',
+        data: { 'aid': element.val() },
+        success: function (data) {
+            if (element.is(':checked'))
+                challenge_survey_score += parseInt(data);
+            else
+                challenge_survey_score -= parseInt(data);
+
+            $("#sign-leaderboard #your-points .points").html(challenge_survey_score);
+        },
+        error: function(data) {}
+    });
+}
+
+function enabledDisableQuestion5(e)
+{
+    var checkbox = $(this)
+
+    if (checkbox.is(':checked'))
+        $("input[name='question_5']").prop('disabled', false);
+    else
+        $("input[name='question_5']").prop('disabled', 'disabled');
+}
 
 function ajaxQuickUnreadNotification(e)
 {
