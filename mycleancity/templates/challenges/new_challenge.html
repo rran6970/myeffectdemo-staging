@@ -19,7 +19,9 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>New Challenge</h2>
+            <h2>Challenge Survey Questions</h2>
+            <span class="subtitle">Please fill out our survey to calculate the <span class="green bold">Clean</span><span class="blue bold">Creds</span>/hr</span>
+
 			{% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
@@ -27,10 +29,20 @@
             {% endif %}
 
 			<form autocomplete="off" action="" method="post">{% csrf_token %}
+				{{ form.question_1.label_tag }} {{ form.question_1 }} {{ form.question_1.errors }}
+				{{ form.question_2.label_tag }} {{ form.question_2 }} {{ form.question_2.errors }}
+				{{ form.question_3.label_tag }} {{ form.question_3 }} {{ form.question_3.errors }}
+				{{ form.question_4.label_tag }} {{ form.question_4 }} {{ form.question_4.errors }}
+				{{ form.question_5.label_tag }} {{ form.question_5 }} {{ form.question_5.errors }}
+				{{ form.question_6.label_tag }} {{ form.question_6 }} {{ form.question_6.errors }}
+
+				<h2 style="margin-top: 50px;">Create Challenge</h2>
+	            <span class="subtitle">Fill out the fields below to create your Challenge</span>
+
 	            <table>
 	                <tr>
 	                    <td>{{ form.title.label_tag }} {{ form.title }}</td>
-	                    <td>{{ form.category.label_tag }} {{ form.category }}</td>
+	                    <td>{{ form.host_organization.label_tag }} {{ form.host_organization }}</td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.event_date.label_tag }}{{ form.event_date }}</td>
@@ -47,9 +59,6 @@
 	                <tr>
 	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
 	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
-	                </tr>
-	                <tr>
-	                	<td>{{ form.host_organization.label_tag }} {{ form.host_organization }}</td>
 	                </tr>
 	                <tr>
 	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>

@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 	url(r'^participants/(?P<cid>\d+)/?$', ChallengeParticipantsView.as_view()),
 	url(r'^my-challenges/?$', MyChallengesView.as_view()),
 	# url(r'^confirm-participants/?$', 'challenges.views.confirm_participants'),
+	url(r'^survey-update-score/?$', 'challenges.views.survey_update_score'),
 	url(r'^check-in-check-out/?$', 'challenges.views.check_in_check_out'),
 	url(r'^participate/?$', 'challenges.views.participate_in_challenge'),
 )
