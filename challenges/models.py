@@ -25,10 +25,11 @@ class Challenge(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")
-	host_organization = models.TextField(blank=False, default="")
+	host_organization = models.TextField(blank=True, null=True, default="")
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam, blank=True, null=True, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	last_updated_by = models.ForeignKey(User, related_name='user_last_updated_by')
 	clean_creds_per_hour = models.IntegerField(default=0)
 	complete = models.BooleanField(default=False, verbose_name='Confirms the Challenge is created')
 
@@ -40,6 +41,7 @@ class Challenge(models.Model):
 
 	def new_challenge(self, user, form):
 		self.user = user
+		self.last_updated_by = user
 		self.title = form['title']
 		self.event_date = form['event_date']
 		self.event_time = form['event_time']
