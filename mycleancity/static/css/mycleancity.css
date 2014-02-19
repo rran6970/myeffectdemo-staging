@@ -484,7 +484,7 @@ div.content.my-challenges { background: url(../images/challenge-centre-bg.png) n
 
 div.content.my-challenges #white-box.posted-challenges { width: 478px; height: 400px; left: 50%; }
 
-div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; padding: 10px; }
+div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; }
 div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
 div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
 div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
@@ -501,6 +501,7 @@ div.content.my-challenges #white-box div.challenges .view-participants { float: 
 div.content.my-challenges #white-box div.challenges div.title { margin-left: 10px; display: block; }
 div.content.my-challenges #white-box div.challenges div.title p { font-size: 15px; }
 div.content.my-challenges #white-box div.challenges div.title p span { font-weight: 700; font-size: 16px; }
+div.content.my-challenges #white-box div.challenges div.title h2.clean-creds-per-hour { font-weight: 700; }
 
 div.content.my-challenges #white-box div.challenges span.clean-creds { margin-left: 10px; display: block; }
 div.content.my-challenges #white-box div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
@@ -522,6 +523,7 @@ div.content.challenge-overview #white-box table { margin: 30px 0; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }
 div.content.challenge-overview #white-box table tr td p { font-size: 15px; }
 div.content.challenge-overview #white-box table tr td span.titles { font-weight: 700; font-size: 16px; }
+div.content.challenge-overview #white-box table tr td h2.clean-creds-per-hour { margin-top: 10px; } 
 div.content.challenge-overview #white-box input[type="submit"] { font-size: 16px; margin: 0 auto; }
 div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; }
 

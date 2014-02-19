@@ -36,6 +36,10 @@
 						<div class="title">
 							<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
 						</div>
+
+						<div class="title">
+							<h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></h2>
+						</div>
 					</div>
 				{% endfor %}
 			{% else %}
@@ -45,6 +49,7 @@
 		{% endif %}
 	
         <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
+        	<h1>{{ user.first_name }}'s Challenges</h1>
 			{% if user_challenges %}
 				
 				<div class="table-container">
@@ -95,7 +100,7 @@
 				</div><!-- /.table-container -->
 				
 			{% else %}
-				<p style="text-align: center;">There are no challenges that you've partcipated in.</p>
+				<p style="text-align: center;">There are no challenges you are partcipating in.</p>
 			{% endif %}
         </div><!-- /#white-box -->
         
