@@ -74,11 +74,12 @@ def check_in_check_out(request):
 				diff = now_str - time_in_str
 				total_hours = (diff.days * 24) + (diff.seconds // 3600)
 
+				total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
+
 				userchallenge.total_hours = total_hours
+				userchallenge.total_clean_creds = total_clean_creds
 				userchallenge.save()
 
-				total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
-				print total_clean_creds
 				# Add CleanCreds to individual
 				user.profile.add_clean_creds(total_clean_creds)
 
@@ -120,7 +121,6 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 	success_url = "mycleancity/index.html"
 
 	def get(self, request, *args, **kwargs):
-		# return HttpResponseRedirect('/coming-soon')
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
@@ -136,15 +136,13 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form, **kwargs):
-		# print form.cleaned_data
 		challenge = Challenge()
 		challenge.new_challenge(self.request.user, form.cleaned_data)
 
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
-		return self.render_to_response(context)
-		# return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
 class EditChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/edit_challenge.html"

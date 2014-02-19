@@ -39,7 +39,7 @@
 
 			<table>
         <tr>
-          <td><span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
+          <td><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
         </tr>
 				<tr>
 					<td><span class="titles">Date:</span> {{ challenge.event_date }} {{ challenge.event_time }}</td>
@@ -48,13 +48,15 @@
 					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr:&nbsp;{{ challenge.clean_creds_per_hour }}</span></td>
+					<td>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></td>
 				</tr>
 			</table>
 		
 			<div class="fb-like" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
 			
 			<a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
+      
+      <div class="clear"></div>
 
 			{% if user.is_authenticated %}
 				{% if user_challenge %}
