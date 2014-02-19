@@ -27,16 +27,31 @@
 					<div class="challenges">
 						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }}</h1></a>
 
-						<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
-						
-						<div class="title">
-							<p><span>Date:</span>&nbsp;{{ challenge.event_date }}</p>
+						<div class="links">
+							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
+							<div class="clear"></div>
+							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit Challenge</a>
 						</div>
+						
+						<div class="details">
+							<div class="title">
+								<p><span>Last updated by:</span>&nbsp;{{ challenge.last_updated_by.first_name }} {{ challenge.last_updated_by.last_name }}</p>
+							</div>
 
-						<div class="title">
-							<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
+							<div class="title">
+								<p><span>Date:</span>&nbsp;{{ challenge.event_date }}</p>
+							</div>
+
+							<div class="title">
+								<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
+							</div>
+
+							<div class="title">
+								<h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></h2>
+							</div>
 						</div>
 					</div>
+					<div class="clear"></div>
 				{% endfor %}
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
@@ -45,6 +60,7 @@
 		{% endif %}
 	
         <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
+        	<h1>{{ user.first_name }}'s Challenges</h1>
 			{% if user_challenges %}
 				
 				<div class="table-container">
@@ -95,7 +111,7 @@
 				</div><!-- /.table-container -->
 				
 			{% else %}
-				<p style="text-align: center;">There are no challenges that you've partcipated in.</p>
+				<p style="text-align: center;">There are no challenges you are partcipating in.</p>
 			{% endif %}
         </div><!-- /#white-box -->
         
