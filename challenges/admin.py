@@ -11,7 +11,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class UserChallengeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours')
+    list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours', 'total_clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
     actions = [export_as_csv_action("CSV Export")]
 

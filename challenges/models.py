@@ -100,6 +100,7 @@ class UserChallenge(models.Model):
 	time_in	= models.DateTimeField(blank=True, null=True)
 	time_out = models.DateTimeField(blank=True, null=True)
 	total_hours = models.IntegerField(default=0)
+	total_clean_creds = models.IntegerField(default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'

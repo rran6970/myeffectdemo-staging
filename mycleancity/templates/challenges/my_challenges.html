@@ -53,7 +53,8 @@
 							<tr>
 								<th>Status</th>
 								<th>Challenge</th>
-								<th>Your Hours</th>
+								<th>Hours</th>
+								<th><span class="green bold">Clean</span><span class="blue bold">Creds</span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,6 +84,9 @@
 								</td>
 								<td class="total-hours">
 									{{ challenge.total_hours }} hours
+								</td>
+								<td class="total-clean-creds">
+									{{ challenge.total_clean_creds }}
 								</td>
 							</tr>
 							{% endfor %}
