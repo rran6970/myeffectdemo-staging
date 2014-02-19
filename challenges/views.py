@@ -12,7 +12,7 @@ from django.utils.timezone import utc
 from django.views.generic import *
 from django.views.generic.base import View
 
-from challenges.forms import NewChallengeForm
+from challenges.forms import *
 from challenges.models import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
@@ -146,7 +146,7 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 
 class EditChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/edit_challenge.html"
-	form_class = NewChallengeForm
+	form_class = EditChallengeForm
 	success_url = "mycleancity/index.html"
 
 	def get_initial(self):
@@ -155,17 +155,8 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		try:
 			challenge = Challenge.objects.get(id=cid)
-
-			#TODO: Shouldn't be able to access all Challenges
-			# if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
-
-			# 	print "unauthorized"
-			# 	return HttpResponseRedirect('/')
-			# else:
-			# 	print "authorized"	
 		except Exception, e:
 			print e
-			return HttpResponseRedirect(u'/challenges/%s' %(cid))
 
 		initial = {}
 		initial['title'] = challenge.title
@@ -202,9 +193,8 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
 		challenge.host_organization = form.cleaned_data['host_organization']
-		challenge.clean_team = self.request.user.profile.clean_team_member.clean_team
+		challenge.last_updated_by = self.request.user
 		challenge.save()
-
 
 		return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
@@ -220,10 +210,10 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 			#TODO: Shouldn't be able to access all Challenges
 			if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
 
-				print "unauthorized"
-				return HttpResponseRedirect('/')
+				pass
 			else:
-				print "authorized"	
+				context = None
+				return context
 		except Exception, e:
 			print e
 			return HttpResponseRedirect(u'/challenges/%s' %(cid))	

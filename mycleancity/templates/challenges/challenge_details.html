@@ -33,11 +33,14 @@
         	</span>
         	{% endif %}
         	<div class="clear"></div>
-        	{% if challenge.host_organization %}
-        		<span class="subtitle">Hosted by: {{ challenge.host_organization }}</span>
-        	{% endif %}
+        	
 
 			<table>
+        {% if challenge.host_organization %}
+          <tr>
+            <td><span class="titles">Hosted by: {{ challenge.host_organization }}</span></td>
+          </tr>
+        {% endif %}
         <tr>
           <td><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
         </tr>

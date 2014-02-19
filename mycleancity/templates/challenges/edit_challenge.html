@@ -26,11 +26,13 @@
               </div>
             {% endif %}
 
+			{% if form %}
 			<form action="" method="post">{% csrf_token %}
 				{{ form.challenge_id }}
 	            <table>
 	                <tr>
 	                    <td>{{ form.title.label_tag }} {{ form.title }}</td>
+	                    <td>{{ form.host_organization.label_tag }} {{ form.host_organization }}</td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.event_date.label_tag }}{{ form.event_date }}</td>
@@ -49,14 +51,12 @@
 	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
 	                </tr>
 	                <tr>
-	                	<td>{{ form.host_organization.label_tag }} {{ form.host_organization }}</td>
-	                </tr>
-	                <tr>
 	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>
 	                </tr>
 	            </table>
 	            <input class="btn btn-primary" type="submit" value="Update Challenge" />
         	</form>
+       		{% endif %}
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
