@@ -25,7 +25,7 @@
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
-						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }}</h1></a>
+						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
 
 						<div class="links">
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
@@ -47,7 +47,7 @@
 							</div>
 
 							<div class="title">
-								<h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></h2>
+								<p><span>{{ challenge.clean_creds_per_hour }}&nbsp;</span><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></p>
 							</div>
 						</div>
 					</div>
@@ -89,7 +89,7 @@
 								</td>
 								<td class="challenge">
 									<div class="challenge-info">
-										<a href="/challenges/{{ challenge.challenge.id }}/">{{ challenge.challenge.title|upper }}</a>
+										<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title }}</h1></a>
 
 										{% if challenge.time_in %}
 										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>

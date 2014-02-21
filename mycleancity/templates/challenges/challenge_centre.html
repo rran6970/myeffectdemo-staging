@@ -23,17 +23,31 @@
     <div class="container">
       	<div id="sign-challenge-centre"></div>
         <div id="white-box">
-          {# if user.is_authenticated #}
-            {% if false %}
+          {% if user.is_authenticated %}
       			{% for challenge in challenges %}
       				<div class="challenges">
-      					<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title|upper }} - {{ challenge.event_date }}</h1></a>
+                <a class="team-picture" href="/challenges/{{ challenge.id }}/">
+                  {% if challenge.clean_team.logo %}
+                    <img style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ challenge.clean_team.logo }}" alt="" />
+                  {% else %}
+                    <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" />
+                  {% endif %}
+                </a>
+
+      					<a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
       					
+                <span class="hosted-by">
+                  <h2>Hosted by:</h2><span>&nbsp;<a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span>
+                </span>
+
+                <span class="date">
+                  <h2>Date:</h2><span>&nbsp;{{ challenge.event_date }}</span>
+                </span>
       					<span class="location">
       						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
       					</span>
       					<span class="clean-creds">
-      						<h2>Clean Creds:</h2><span>&nbsp;{{ challenge.cleancred_value }}</span>
+      						<h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>/hr</h2>
       					</span>
       					<p>{{ challenge.description|slice:":130" }}...</p>
       				</div>

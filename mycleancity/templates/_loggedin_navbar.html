@@ -80,6 +80,6 @@
 	</div>
 	
 	{% if user.profile.count_unread_notifications > 0 %}
-	<div id="notification-container">{{ user.profile.count_unread_notifications }}</div>
+	<div id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
 	{% endif %}
 </div><!-- end of #notification-dropdown.dropdown -->
