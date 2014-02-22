@@ -158,13 +158,20 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 /******************************
 	Terms & Conditions Section
 ******************************/ 
-#terms-conditions h1 { text-align: center; margin-bottom: 20px; }
-#terms-conditions h2.section-overview { color: #638d3d; font-size: 22px; margin-top: 50px; }
-#terms-conditions h3.section { margin: 20px 0; }
-#terms-conditions p { margin: 10px 0; }
-#terms-conditions ul li { list-style-type: disc; margin: 0 10px; line-height: 20px;font-weight: 200; font-size: 14px; letter-spacing: 0px; }
-#terms-conditions #copyright { float: right; }
-#terms-conditions #copyright p { text-align: right; }
+#terms-conditions h1, 
+#terms-conditions-fr h1 { text-align: center; margin-bottom: 20px; }
+#terms-conditions h2.section-overview, 
+#terms-conditions-fr h2.section-overview { color: #638d3d; font-size: 22px; margin-top: 50px; }
+#terms-conditions h3.section,
+#terms-conditions-fr h3.section { margin: 20px 0; }
+#terms-conditions p,
+#terms-conditions-fr p { margin: 10px 0; }
+#terms-conditions ul li,
+#terms-conditions-fr ul li { list-style-type: disc; margin: 0 10px; line-height: 20px;font-weight: 200; font-size: 14px; letter-spacing: 0px; }
+#terms-conditions #copyright,
+#terms-conditions-fr #copyright { float: right; }
+#terms-conditions #copyright p,
+#terms-conditions-fr #copyright p { text-align: right; }
 
 /******************************
 	About
