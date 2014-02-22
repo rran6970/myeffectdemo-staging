@@ -308,17 +308,23 @@ div.content.rewards #white-box iframe { margin: 0 190px; }
 
 div.content.rewards #sign-stump { top: 200px; }
 
-#sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 150px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
-#sign-rewards2-fr { width: 294px; height: 59px; position: absolute; z-index: 1000; top: 150px; left: 45px; background: url(../images/french/sign-rewards2.png) no-repeat 0 0; }
+#sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
+#sign-rewards2-fr { width: 294px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 45px; background: url(../images/french/sign-rewards2.png) no-repeat 0 0; }
 
-#sign-cleancreds { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 244px; left: 68px; background: url(../images/sign-cleancreds.png) no-repeat 0 0; }
-#sign-cleancreds-fr { width: 269px; height: 64px; position: absolute; z-index: 1000; top: 233px; left: 58px; background: url(../images/french/sign-cleancreds.png) no-repeat 0 0; }
+#sign-cleancreds-calculation { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 99px; left: 25px; background: url(../images/sign-cleancreds-calculation.png) no-repeat 0 0; }
+#sign-cleancreds-calculation-fr { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 108px; left: 83px; background: url(../images/french/sign-cleancreds-calculation.png) no-repeat 0 0; }
 
-#sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 301px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
-#sign-clean-teams-fr { width: 267px; height: 65px; position: absolute; z-index: 1000; top: 294px; left: 56px; background: url(../images/french/sign-clean-teams.png) no-repeat 0 0; }
+#sign-cleancreds-cheatsheet { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 163px; left: 25px; background: url(../images/sign-cleancreds-cheatsheet.png) no-repeat 0 0; }
+#sign-cleancreds-cheatsheet-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 163px; left: 25px; background: url(../images/french/sign-cleancreds-cheatsheet.png) no-repeat 0 0; }
 
-#sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 355px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
-#sign-individuals-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 355px; left: 62px; background: url(../images/french/sign-individuals.png) no-repeat 0 0; }
+#sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 231px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
+#sign-clean-teams-fr { width: 267px; height: 65px; position: absolute; z-index: 1000; top: 224px; left: 56px; background: url(../images/french/sign-clean-teams.png) no-repeat 0 0; }
+
+#sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
+#sign-individuals-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-individuals.png) no-repeat 0 0; }
+
+#sign-go-back-big.rewards { top: 400px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
+#sign-go-back-big.rewards-fr { top: 400px; left: 62px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
 
 
 /******************************
