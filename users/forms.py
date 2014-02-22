@@ -100,8 +100,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 
 class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('individual', 'Individual / Individu',), ('clean-ambassador', 'Clean Ambassador / Ambassadeur Net',), ('clean-champion', 'Clean Champion / Champion Net',))
-	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher/Enseingnant', 'Teacher',))
-	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting/Affichage du poste de bénévolat', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend/Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website/Site Web', 'Website/Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples',))
+	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
+	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
 	COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
@@ -110,7 +110,7 @@ class RegisterUserForm(forms.ModelForm):
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password / Mot de passe")
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="City / Ville")
-	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province / Province")
+	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province")
 	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
