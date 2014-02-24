@@ -29,17 +29,18 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
-#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 419px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
+#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 327px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
 #notification-container span { display: block; }
 
 .dropdown { position: relative; z-index: 1001; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
 .dropdown#notification-dropdown { top: -5px; }
-.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; }
+.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; z-index: 1002; }
 
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
+.dropdown-menu.profile-dropdown { left: 984px; }
 
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }

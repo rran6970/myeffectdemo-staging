@@ -15,7 +15,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from captcha.fields import CaptchaField
 
 from users.models import PrelaunchEmails
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile, UserSettings
 from userorganization.models import UserOrganization
 
 """
@@ -69,6 +69,14 @@ PROVINCES = (('', 'Please select one...'),
 	('other', 'Other/Autres'),
 )
 
+PROVINCES = (('', 'Please select one...'),
+	('AB', 'AB'), 
+	('BC', 'BC'), 
+)
+
+COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
+YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
+
 class PrelaunchEmailsForm(forms.ModelForm):
 	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
@@ -102,8 +110,7 @@ class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('individual', 'Individual / Individu',), ('clean-ambassador', 'Clean Ambassador / Ambassadeur Net',), ('clean-champion', 'Clean Champion / Champion Net',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
 	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
-	COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
-
+	
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email / Courriel")
@@ -221,52 +228,66 @@ class ProfileForm(forms.ModelForm):
 
 		return cleaned_data
 
-class OrganizationProfileForm(forms.ModelForm):
-	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
-	
-	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
-	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
-	about = forms.CharField(required=False, widget=forms.Textarea())
+class SettingsForm(forms.ModelForm):
+	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
+	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
 
-	
 	# Combines the form with the corresponding model
 	class Meta:
-		model = User
-		exclude = ('username', 'last_login', 'date_joined', 'password')
+		model = UserSettings
+		exclude = ('user')
 
 	def clean(self):
-		cleaned_data = super(OrganizationProfileForm, self).clean()
-		first_name = cleaned_data.get('first_name')
-		last_name = cleaned_data.get('last_name')
-		email = cleaned_data.get('email')
-		organization = cleaned_data.get('organization')
-		password = cleaned_data.get('password')
-		confirm_password = cleaned_data.get('confirm_password')
-		city = cleaned_data.get('city')
-		province = cleaned_data.get('province')
-		website = cleaned_data.get('website')
+		cleaned_data = super(SettingsForm, self).clean()
 
-		if not first_name:
-			raise forms.ValidationError("Please enter your first name")
-		elif not last_name:
-			raise forms.ValidationError("Please enter your last name")
-		# elif not email:
-		# 	raise forms.ValidationError("Please enter a valid email address")
-		# elif not password:
-		# 	raise forms.ValidationError("Please enter a password")
-		elif not organization:
-			raise forms.ValidationError("Please enter your organization")
-		elif not city:
-			raise forms.ValidationError("Please select your city")
-		elif not province:
-			raise forms.ValidationError("Please select your province")
-		elif not website:
-			raise forms.ValidationError("Please enter your website")
+		return cleaned_data
 
-		return cleaned_data	
+# class OrganizationProfileForm(forms.ModelForm):
+# 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	organization = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+	
+# 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
+# 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	website = forms.URLField(required=True, initial="http://", max_length = 128, min_length = 2, widget=forms.TextInput())
+# 	about = forms.CharField(required=False, widget=forms.Textarea())
+
+	
+# 	# Combines the form with the corresponding model
+# 	class Meta:
+# 		model = User
+# 		exclude = ('username', 'last_login', 'date_joined', 'password')
+
+# 	def clean(self):
+# 		cleaned_data = super(OrganizationProfileForm, self).clean()
+# 		first_name = cleaned_data.get('first_name')
+# 		last_name = cleaned_data.get('last_name')
+# 		email = cleaned_data.get('email')
+# 		organization = cleaned_data.get('organization')
+# 		password = cleaned_data.get('password')
+# 		confirm_password = cleaned_data.get('confirm_password')
+# 		city = cleaned_data.get('city')
+# 		province = cleaned_data.get('province')
+# 		website = cleaned_data.get('website')
+
+# 		if not first_name:
+# 			raise forms.ValidationError("Please enter your first name")
+# 		elif not last_name:
+# 			raise forms.ValidationError("Please enter your last name")
+# 		# elif not email:
+# 		# 	raise forms.ValidationError("Please enter a valid email address")
+# 		# elif not password:
+# 		# 	raise forms.ValidationError("Please enter a password")
+# 		elif not organization:
+# 			raise forms.ValidationError("Please enter your organization")
+# 		elif not city:
+# 			raise forms.ValidationError("Please select your city")
+# 		elif not province:
+# 			raise forms.ValidationError("Please select your province")
+# 		elif not website:
+# 			raise forms.ValidationError("Please enter your website")
+
+# 		return cleaned_data	

@@ -30,9 +30,8 @@ from django.views.generic.edit import FormView
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import export_as_csv_action, SendEmail
 
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, OrganizationProfileForm
-from userprofile.models import UserProfile, QRCodeSignups
-from userorganization.models import UserOrganization
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
+from userprofile.models import UserSettings, UserProfile, QRCodeSignups
 
 def upload(ftp, file):
 	ext = os.path.splitext(file)[1]
@@ -305,12 +304,6 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 		if 'uid' in self.kwargs:
 			user_id = self.kwargs['uid']
 
-			try:
-				context['organization'] = UserOrganization.objects.get(user_id=user_id)
-			except Exception, e:
-				print e
-				pass
-
 			context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
 			context['challenges'] = Challenge.objects.filter(user_id=user_id)
 			context['user_profile'] = get_object_or_404(User, id=user_id)
@@ -341,15 +334,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
 
-		try:
-			organization = UserOrganization.objects.get(user=self.request.user)
-		except Exception, e:
-			print e
-			organization = None
-
-		if organization:
-			return HttpResponseRedirect('/users/organization-profile')
-
 		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
@@ -359,8 +343,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
 		user = User.objects.get(id=self.request.user.id)
 		picture = form.cleaned_data['picture']
 
@@ -384,6 +366,48 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.save()
 
 		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+class SettingsView(LoginRequiredMixin, FormView):
+	template_name = "users/settings.html"
+	form_class = SettingsForm
+	success_url = "/users/settings"
+
+	def get_initial(self):
+		settings = self.request.user.profile.settings
+
+		initial = {}
+		initial['communication_language'] = settings.communication_language
+		initial['email_privacy'] = settings.email_privacy
+
+		return initial
+
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		return self.render_to_response(self.get_context_data(form=form))
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form, **kwargs):
+		user = self.request.user
+
+		if form.cleaned_data['email_privacy'] == "True":
+			user.profile.settings.email_privacy = 1
+		else:
+			user.profile.settings.email_privacy = 0
+
+		user.profile.settings.communication_language = form.cleaned_data['communication_language']
+		user.profile.settings.save()
+
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return HttpResponseRedirect('/users/settings/')
 
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"
