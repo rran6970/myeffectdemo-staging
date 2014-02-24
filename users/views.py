@@ -407,7 +407,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
-		return HttpResponseRedirect('/users/settings/')
+		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"
