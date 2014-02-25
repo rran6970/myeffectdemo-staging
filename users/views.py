@@ -167,11 +167,19 @@ class RegisterView(FormView):
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
 
+		lang = u.profile.settings.communication_language
+		
 		# Send registration email to user
-		template = get_template('emails/user_register_success.html')
+		if lang == "English":
+			template = get_template('emails/user_register_success.html')
+			subject = 'My Clean City - Signup Successful'
+		else:
+			template = get_template('emails/french/user_register_success_fr.html')
+			subject = 'My Clean City - Signup Successful'
+		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -273,11 +281,18 @@ class RegisterInviteView(FormView):
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
 
+		
 		# Send registration email to user
-		template = get_template('emails/user_register_success.html')
+		if lang == "English":
+			template = get_template('emails/user_register_success.html')
+			subject = 'My Clean City - Signup Successful'
+		else:
+			template = get_template('emails/french/user_register_success_fr.html')
+			subject = 'My Clean City - Signup Successful'
+		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)

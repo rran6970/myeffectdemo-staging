@@ -80,14 +80,23 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		user.profile.clean_team_member = ctm
 		user.profile.save()
 
+		lang = user.profile.settings.communication_language
+
 		# Send registration email to user
-		template = get_template('emails/clean_team_register.html')
+		if lang == "English":
+			template = get_template('emails/clean_team_register.html')
+			subject = 'My Clean City - Clean Team Signup Successful'
+		else:
+			template = get_template('emails/french/clean_team_register_fr.html')
+			subject = 'My Clean City - Clean Team Signup Successful'
+		
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
 
-		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@mycleancity.org', user.email
+		from_email, to = 'info@mycleancity.org', user.email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
+
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
