@@ -17,7 +17,7 @@
   
   <div class="content">
     <div class="container">
-        <div id="white-box" class="small">
+        <div id="white-box" class="small create-or-request-join">
             <h2>I would like to:</h2>
 
             {% if form.non_field_errors %}
@@ -34,7 +34,8 @@
                     {{ radio.tag }}
                   </label>
                 {% endfor %}
-              </div> 
+              </div>
+
               <input class="btn btn-primary" type="submit" value="Continue" />
             </form>
         </div><!-- /#white-box -->

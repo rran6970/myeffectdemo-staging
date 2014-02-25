@@ -348,28 +348,11 @@ div.content.communication-hub { background: transparent url(../images/communicat
 #sign-resources { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 284px; left: 59px; background: url(../images/sign-resources.png) no-repeat 0 0; }
 #sign-resources-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 284px; left: 59px; background: url(../images/french/sign-resources.png) no-repeat 0 0; }
 
-/*#sign-communication-hub + #white-box,
-#sign-communication-hub-fr + #white-box { width: 375px; left: 9%; height: 494px; }*/
-
 div.content.communication-hub #white-box { left: 30%; width: 843px; }
 div.content.communication-hub #white-box div.tab-pane h1.titles { margin-bottom: 20px; }
 div.content.communication-hub #white-box div.tab-pane#photo-gallery #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; padding: 10px; }
 div.content.communication-hub #white-box div.tab-pane#press a.articles { margin: 0 20px 20px 0; display: block; float: left; }
 div.content.communication-hub #white-box div.tab-pane#press a.articles img { border: 2px solid #4a3c2e; padding: 4px; background: white; border-radius: 5px; display: block; }
-
-/*div.content.communication-hub #white-box.twitter { height: 349px !important; }
-
-div.content.communication-hub #white-box.annoucements { width: 311px; height: 420px; left: 74%; top: -4px; }
-div.content.communication-hub #white-box.annoucements h1.titles { margin-bottom: 10px; }
-div.content.communication-hub #white-box.annoucements img { border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
-
-div.content.communication-hub #white-box.photos { width: 408px; height: 420px; left: 40%; top: -3px; }
-div.content.communication-hub #white-box.photos h1.titles { line-height: 28px; padding-bottom: 10px; }
-div.content.communication-hub #white-box.photos #instafeed { }
-div.content.communication-hub #white-box.photos #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; }
-
-div.content.communication-hub #white-box.resources { height: 81px; top: 438px; overflow: hidden; }
-div.content.communication-hub #white-box.resources * { text-align: center }*/
 
 /******************************
 	White Box
@@ -435,6 +418,16 @@ div.content.communication-hub #white-box.resources * { text-align: center }*/
 #white-box.qr-code-blurb { width: 293px; left: 76%; }
 
 #blurb a { margin: 0 auto; width: 300px; }
+
+/******************************
+	Create or Request Join
+******************************/ 
+#white-box.create-or-request-join input[type="submit"] { margin: 16px auto; }
+
+/******************************
+	Register Clean Team
+******************************/ 
+#white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
 
 /******************************
 	Profile
