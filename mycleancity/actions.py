@@ -7,6 +7,11 @@ from django.http import HttpResponse
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 
+from time import time
+
+def get_upload_file_name(instance, filename):
+    return "%s" % (filename)
+
 def export_as_csv_action(description="Export selected as CSV file",
                          fields=None, exclude=None, header=True):
     """

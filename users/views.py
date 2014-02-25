@@ -33,13 +33,13 @@ from mycleancity.actions import export_as_csv_action, SendEmail
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups
 
-def upload(ftp, file):
-	ext = os.path.splitext(file)[1]
+# def upload(ftp, file):
+# 	ext = os.path.splitext(file)[1]
 	
-	if ext in (".txt", ".htm", ".html", ".jpeg", ".jpg", ".png"):
-		ftp.storlines("STOR " + file, open(file))
-	else:
-		ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
+# 	if ext in (".txt", ".htm", ".html", ".jpeg", ".jpg", ".png"):
+# 		ftp.storlines("STOR " + file, open(file))
+# 	else:
+# 		ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"
