@@ -69,11 +69,6 @@ PROVINCES = (('', 'Please select one...'),
 	('other', 'Other/Autres'),
 )
 
-PROVINCES = (('', 'Please select one...'),
-	('AB', 'AB'), 
-	('BC', 'BC'), 
-)
-
 COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
 
