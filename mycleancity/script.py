@@ -54,5 +54,4 @@ def add_qrcodes_to_all_user_profiles():
 
 			print "No profile for %s: CREATED" % user_profile.user.email
 
-
 # from mycleancity.script import *; add_qrcodes_to_all_user_profiles()

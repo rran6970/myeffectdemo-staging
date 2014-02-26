@@ -86,8 +86,6 @@ class UserQRCode(models.Model):
 
 	qr_code.allow_tags = True
 
-# from userprofile.models import *; qr = UserQRCode(data='http://www.google.ca/'); qr.save()
-
 def userqrcode_pre_save(sender, instance, **kwargs):    
 	if not instance.pk:
 		instance._QRCODE = True
@@ -114,7 +112,7 @@ def userqrcode_post_save(sender, instance, **kwargs):
 		image.save(image_buffer, format='JPEG')
 		image_buffer.seek(0)
 
-		# # Here we use django file storage system to save the image.
+		# Here we use django file storage system to save the image.
 		file_name = 'UrlQR_%s.jpg' % instance.id
 		file_object = File(image_buffer, file_name)
 		content_file = ContentFile(file_object.read())
@@ -126,7 +124,6 @@ def userqrcode_post_save(sender, instance, **kwargs):
 		k = Key(bucket)
 		k.key = 'qr_code/%s' % (file_name)
 		k.set_contents_from_string(content_file.read())
-		# user.profile.picture = k.key
 		instance.qr_image.save(k.key, content_file, save=True)
 	 
 models.signals.pre_save.connect(userqrcode_pre_save, sender=UserQRCode)
