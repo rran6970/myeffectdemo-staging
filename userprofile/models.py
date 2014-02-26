@@ -39,6 +39,100 @@ class UserSettings(models.Model):
 		super(UserSettings, self).save(*args, **kwargs)
 
 """
+Name:           QRCodeSignups
+Date created:   Jan 9, 2013
+Description:    Used to keep track of all of the signups through the QR Code URL
+"""
+class QRCodeSignups(models.Model):
+	user = models.OneToOneField(User)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+	class Meta:
+		verbose_name_plural = u'QR Code Signups'
+
+	def __unicode__(self):
+		return u'QR Code Signups : %s' % self.user.username
+
+	def save(self, *args, **kwargs):
+		super(QRCodeSignups, self).save(*args, **kwargs)
+
+"""
+Name:           UserQRCode
+Date created:   Jan 9, 2013
+Description:    A QR Code of each user
+"""
+class UserQRCode(models.Model):
+	user = models.OneToOneField(User)
+	data = models.CharField(max_length=60, blank=True, null=True, default="")
+	qr_image = models.ImageField(
+		upload_to=get_upload_file_name,
+		height_field="qr_image_height",
+		width_field="qr_image_width",
+		null=True,
+		blank=True,
+		editable=False
+	)
+	qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
+	qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
+
+	class Meta:
+		verbose_name_plural = u'User QR Codes'
+
+	def __unicode__(self):
+		return u'User QR Code: %s' % self.user.username
+
+	def qr_code(self):
+		return '%s' % self.qr_image.url
+
+	qr_code.allow_tags = True
+
+# from userprofile.models import *; qr = UserQRCode(data='http://www.google.ca/'); qr.save()
+
+def userqrcode_pre_save(sender, instance, **kwargs):    
+	if not instance.pk:
+		instance._QRCODE = True
+	else:
+		if hasattr(instance, '_QRCODE'):
+			instance._QRCODE = False
+		else:
+			instance._QRCODE = True
+
+def userqrcode_post_save(sender, instance, **kwargs):
+	if instance._QRCODE:
+		instance._QRCODE = False
+
+		if instance.qr_image:
+			instance.qr_image.delete()
+		
+		qr = QRCode(4, QRErrorCorrectLevel.L)
+		qr.addData(instance.data)
+		qr.make()
+		image = qr.makeImage()
+
+		# Save image to string buffer
+		image_buffer = StringIO()
+		image.save(image_buffer, format='JPEG')
+		image_buffer.seek(0)
+
+		# # Here we use django file storage system to save the image.
+		file_name = 'UrlQR_%s.jpg' % instance.id
+		file_object = File(image_buffer, file_name)
+		content_file = ContentFile(file_object.read())
+
+		content_file.open()
+
+		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+		bucket = conn.get_bucket(settings.AWS_BUCKET)
+		k = Key(bucket)
+		k.key = 'qr_code/%s' % (file_name)
+		k.set_contents_from_string(content_file.read())
+		# user.profile.picture = k.key
+		instance.qr_image.save(k.key, content_file, save=True)
+	 
+models.signals.pre_save.connect(userqrcode_pre_save, sender=UserQRCode)
+models.signals.post_save.connect(userqrcode_post_save, sender=UserQRCode)
+
+"""
 Name:           UserProfile
 Date created:   Sept 8, 2013
 Description:    Used as an extension to the User model.
@@ -60,6 +154,7 @@ class UserProfile(models.Model):
 	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
 	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
 	settings = models.OneToOneField(UserSettings, null=True)
+	qr_code = models.OneToOneField(UserQRCode, null=True)
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'
@@ -134,95 +229,12 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:  
        profile, created = UserProfile.objects.get_or_create(user=instance) 
        settings, created = UserSettings.objects.get_or_create(user=instance)
+       qr_code, created = UserQRCode.objects.get_or_create(user=instance, data='%s' % (profile.user.id))
+
        profile.settings = UserSettings.objects.latest('id')
+       profile.qr_code = UserQRCode.objects.latest('id')
+
        profile.save()
-
-"""
-Name:           QRCodeSignups
-Date created:   Jan 9, 2013
-Description:    Used to keep track of all of the signups through the QR Code URL
-"""
-class QRCodeSignups(models.Model):
-	user = models.OneToOneField(User)
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
-	class Meta:
-		verbose_name_plural = u'QR Code Signups'
-
-	def __unicode__(self):
-		return u'QR Code Signups : %s' % self.user.username
-
-	def save(self, *args, **kwargs):
-		super(QRCodeSignups, self).save(*args, **kwargs)
-
-"""
-Name:           QRCodeSignups
-Date created:   Jan 9, 2013
-Description:    Used to keep track of all of the signups through the QR Code URL
-"""
-class UrlQRCode(models.Model):
-	url = models.URLField()
-	qr_image = models.ImageField(
-		upload_to=get_upload_file_name,
-		height_field="qr_image_height",
-		width_field="qr_image_width",
-		null=True,
-		blank=True,
-		editable=False
-	)
-	qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
-	qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
-
-	def qr_code(self):
-		return '%s' % self.qr_image.url
-    
-	qr_code.allow_tags = True
-
-# from userprofile.models import *; qr = UrlQRCode(url='http://www.google.ca/'); qr.save()
-
-def urlqrcode_pre_save(sender, instance, **kwargs):    
-	if not instance.pk:
-		instance._QRCODE = True
-	else:
-		if hasattr(instance, '_QRCODE'):
-			instance._QRCODE = False
-		else:
-			instance._QRCODE = True
-
-def urlqrcode_post_save(sender, instance, **kwargs):
-	if instance._QRCODE:
-		instance._QRCODE = False
-
-		if instance.qr_image:
-			instance.qr_image.delete()
-		
-		qr = QRCode(4, QRErrorCorrectLevel.L)
-		qr.addData(instance.url)
-		qr.make()
-		image = qr.makeImage()
-
-		# Save image to string buffer
-		image_buffer = StringIO()
-		image.save(image_buffer, format='JPEG')
-		image_buffer.seek(0)
-
-		# # Here we use django file storage system to save the image.
-		file_name = 'UrlQR_%s.jpg' % instance.id
-		file_object = File(image_buffer, file_name)
-		content_file = ContentFile(file_object.read())
-
-		content_file.open()
-
-		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-		bucket = conn.get_bucket(settings.AWS_BUCKET)
-		k = Key(bucket)
-		k.key = 'qr_code/%s' % (file_name)
-		k.set_contents_from_string(content_file.read())
-		# user.profile.picture = k.key
-		instance.qr_image.save(k.key, content_file, save=True)
-	 
-models.signals.pre_save.connect(urlqrcode_pre_save, sender=UrlQRCode)
-models.signals.post_save.connect(urlqrcode_post_save, sender=UrlQRCode)
 
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
