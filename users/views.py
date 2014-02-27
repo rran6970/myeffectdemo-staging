@@ -31,15 +31,7 @@ from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import export_as_csv_action, SendEmail
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
-from userprofile.models import UserSettings, UserProfile, QRCodeSignups
-
-def upload(ftp, file):
-	ext = os.path.splitext(file)[1]
-	
-	if ext in (".txt", ".htm", ".html", ".jpeg", ".jpg", ".png"):
-		ftp.storlines("STOR " + file, open(file))
-	else:
-		ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
+from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"
@@ -423,6 +415,16 @@ class SettingsView(LoginRequiredMixin, FormView):
 		context['form'] = form
 
 		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+class QRCodeView(TemplateView):
+	template_name = "users/qr_code.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(QRCodeView, self).get_context_data(**kwargs)
+			
+		context['qr_code'] = UserQRCode.objects.get(user=self.request.user)
+
+		return context
 
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"

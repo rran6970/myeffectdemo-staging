@@ -19,6 +19,10 @@ class QRCodeSignupsAdmin(admin.ModelAdmin):
     search_fields = ['user__id']
     actions = [export_as_csv_action("CSV Export")]
 
+class UserQRCodeAdmin(admin.ModelAdmin):
+	list_display = ('user', 'data', 'qr_code')
+
+admin.site.register(UserQRCode, UserQRCodeAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(UserSettings, UserSettingsAdmin)
 admin.site.register(QRCodeSignups, QRCodeSignupsAdmin)

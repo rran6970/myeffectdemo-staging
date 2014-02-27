@@ -389,6 +389,11 @@ div.content.communication-hub #white-box div.tab-pane#press a.articles img { bor
 #white-box.login p { text-align: center; }
 
 /******************************
+	Login
+******************************/ 
+#white-box.qr-code { width: 410px; height: 410px; left: 36%; overflow-y: scroll; padding: 0; }
+
+/******************************
 	Register
 ******************************/ 
 #white-box.register-join-team { width: 678px; left: 24%; }
