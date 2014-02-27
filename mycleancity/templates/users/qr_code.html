@@ -1,0 +1,31 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - QR Code {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign login" id="sign-go-back"></div></a>
+        <div id="white-box" class="qr-code">
+            <img src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
