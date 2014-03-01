@@ -18,4 +18,4 @@ django-storages==1.1.8
 boto==2.17.0
 django-extensions==1.2.5
 django-simple-captcha==0.4.1
-pyqrnative==0.1.4
+qrcode==4.0.4
