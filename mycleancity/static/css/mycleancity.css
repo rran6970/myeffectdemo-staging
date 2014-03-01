@@ -16,7 +16,8 @@ div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; marg
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
-[class^="icon-"], [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
+[class^="icon-"], 
+[class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
 
 a { color: #00aeef; }
 a.menu-items { font-weight: 500; font-size: 19px; color: white; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
@@ -391,7 +392,8 @@ div.content.communication-hub #white-box div.tab-pane#press a.articles img { bor
 /******************************
 	Login
 ******************************/ 
-#white-box.qr-code { width: 410px; height: 410px; left: 36%; overflow-y: scroll; padding: 0; }
+#white-box.qr-code { width: 410px; height: 298px; left: 34%%; overflow-y: scroll; padding: 0; }
+#white-box.qr-code img { display: block; width: 290px; height: 290px; margin: 0 auto; }
 
 /******************************
 	Register

@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
  
-from PyQRNative import *
+import qrcode
 
 from cStringIO import StringIO
 
@@ -69,8 +69,7 @@ class UserQRCode(models.Model):
 		height_field="qr_image_height",
 		width_field="qr_image_width",
 		null=True,
-		blank=True,
-		editable=False
+		blank=True
 	)
 	qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
 	qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
@@ -85,6 +84,8 @@ class UserQRCode(models.Model):
 		return '%s' % self.qr_image.url
 
 	qr_code.allow_tags = True
+
+# from userprofile.models import *; user = User.objects.get(id=196); qr = UserQRCode(data='http://hakstudio.com/', user=user); qr.save()
 
 def userqrcode_pre_save(sender, instance, **kwargs):    
 	if not instance.pk:
@@ -102,22 +103,25 @@ def userqrcode_post_save(sender, instance, **kwargs):
 		if instance.qr_image:
 			instance.qr_image.delete()
 		
-		qr = QRCode(4, QRErrorCorrectLevel.L)
-		qr.addData(instance.data)
+		qr = qrcode.QRCode(
+			version=1,
+			error_correction=qrcode.constants.ERROR_CORRECT_L,
+			box_size=12,
+			border=2,
+		)
+		qr.add_data(instance.data)
 		qr.make()
-		image = qr.makeImage()
+		image = qr.make_image()
 
 		# Save image to string buffer
 		image_buffer = StringIO()
-		image.save(image_buffer, format='JPEG')
+		image.save(image_buffer, kind='JPEG')
 		image_buffer.seek(0)
 
 		# Here we use django file storage system to save the image.
-		file_name = 'UrlQR_%s.jpg' % instance.id
+		file_name = 'UserQR_%s_%s.jpg' % (instance.user.id, instance.id)
 		file_object = File(image_buffer, file_name)
 		content_file = ContentFile(file_object.read())
-
-		content_file.open()
 
 		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
 		bucket = conn.get_bucket(settings.AWS_BUCKET)
