@@ -1,6 +1,7 @@
-from mycleancity.actions import export_as_csv_action
-
 from django.contrib import admin
+from django.contrib.sites.models import Site
+
+from mycleancity.actions import export_as_csv_action
 
 from users.models import *
 
@@ -10,3 +11,4 @@ class PrelaunchEmailsAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
     
 admin.site.register(PrelaunchEmails, PrelaunchEmailsAdmin)
+admin.site.register(Site)

@@ -13,10 +13,9 @@ from itertools import chain
 
 from time import time
 
+from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
-def get_upload_file_name(instance, filename):
-	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
 """
 Name:           CleanTeamLevel

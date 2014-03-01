@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<uid>\d+)/?$', ProfilePublicView.as_view()),
     url(r'^profile/?$', ProfileView.as_view()),  
     url(r'^settings/?$', SettingsView.as_view()),  
+    url(r'^qrcode/?$', QRCodeView.as_view()),  
 
     url(r'^/?$', PrelaunchView.as_view()),
 )

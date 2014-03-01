@@ -4,8 +4,7 @@ from django.db.models.signals import post_save
 
 from time import time
 
-def get_upload_file_name(instance, filename):
-	return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
+from mycleancity.actions import *
 
 """
 Name:           UserOrganization
