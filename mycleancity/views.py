@@ -2,6 +2,8 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 from django.conf import settings
+from django.contrib.auth import authenticate, login, logout, SESSION_KEY
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import EmailMessage
 from django.core.servers.basehttp import FileWrapper
 
@@ -18,6 +20,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.forms import ContactForm
+
+from django.contrib.auth.models import User
 
 import os
 
@@ -85,3 +89,18 @@ def download_file(request):
 	# TODO: Fix this so there is a redirect, as well as a link to download
 	# return HttpResponseRedirect('/clean-team/level-progress/')
 	return HttpResponseRedirect(url)
+
+@user_passes_test(lambda u: (u.is_staff))
+def su(request, username, redirect_url='/members/welcome'):
+    su_user = get_object_or_404(User, username=username)
+    if su_user.is_active:
+        request.session[SESSION_KEY] = su_user.id
+        request.session["su_old_id"] = request.user.id
+        return HttpResponseRedirect(redirect_url)
+
+def su_exit(request, redirect_url='/admin/'):
+	if request.session.get('su_old_id', False):
+		request.session[SESSION_KEY] = request.session["su_old_id"]
+		return HttpResponseRedirect(redirect_url)
+
+	return HttpResponseRedirect('/')

@@ -9,8 +9,10 @@ from users.views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-	url(r'^admin/', include(admin.site.urls)),
+	(r'^admin/', include(admin.site.urls)),
+	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+	(r'^su/(?P<username>.*)/$', 'mycleancity.views.su', {'redirect_url': '/'}),
+	(r'^suexit/$', 'mycleancity.views.su_exit', {'redirect_url': '/admin/'}),
 
 	url(r'^captcha/', include('captcha.urls')),
 	
