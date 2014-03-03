@@ -165,9 +165,9 @@ class UserProfile(models.Model):
 
 	def is_clean_ambassador(self, status="approved"):
 		try:
-			ctm = CleanTeamMember.objects.get(user=self.user)
+			# ctm = CleanTeamMember.objects.get(user=self.user)
 
-			return True if ctm.role=="clean-ambassador" and ctm.status==status else False
+			return True if self.clean_team_member.role=="clean-ambassador" and self.clean_team_member.status==status else False
 		except Exception, e:
 			print e
 			return False
@@ -194,11 +194,11 @@ class UserProfile(models.Model):
 			return False
 
 		try:
-			ctm = CleanTeamMember.objects.get(user=self.user)
+			# ctm = CleanTeamMember.objects.get(user=self.user)
 
-			if ctm.status == "removed":
+			if self.clean_team_member.status == "removed":
 				return False
-			if ctm.status == "pending":
+			if self.clean_team_member.status == "pending":
 				return False
 
 		except Exception, e:

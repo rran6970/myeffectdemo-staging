@@ -146,7 +146,7 @@ class RegisterView(FormView):
 		u.save()
 
 		today = date.today()
-		feb_24 = date(2014, 02, 24)
+		feb_24 = date(2014, 03, 19)
 
 		if today <= feb_24:
 			u.profile.add_clean_creds(50)
@@ -250,29 +250,21 @@ class RegisterInviteView(FormView):
 		u.profile.save()
 		u.save()	
 
+		today = date.today()
+		feb_24 = date(2014, 03, 19)
+
+		if today <= feb_24:
+			u.profile.add_clean_creds(50)
+
 		invite = CleanTeamInvite.objects.get(token=form.cleaned_data['token'])
 		
-		if invite.role == "clean-champion":
-			clean_champion = CleanChampion()				
-			clean_champion.becomeCleanChampion(u, invite.clean_team)
-
-		elif invite.role == "clean-ambassador":
-			ctm = CleanTeamMember()
-			ctm.user = u
-			ctm.clean_team = invite.clean_team
-			ctm.role = invite.role
-			ctm.status = "approved"
-			ctm.save()
-
-			u.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-			u.profile.save()
-
-		invite.acceptInvite()
+		invite.acceptInvite(u)
 		invite.save()
 
 		user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
 		auth.login(self.request, user)
 
+		lang = u.profile.settings.communication_language
 		
 		# Send registration email to user
 		if lang == "English":
