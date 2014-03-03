@@ -1,7 +1,12 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 
+from cleanteams.models import *
 from userprofile.models import *
 
+# To run this script:
+# from mycleancity.script import *; add_settings_to_all_user_profiles()
 def add_settings_to_all_user_profiles():
 	users = User.objects.all()
 
@@ -27,8 +32,9 @@ def add_settings_to_all_user_profiles():
 
 			print "No profile for %s: CREATED" % user_profile.user.email
 
-# from mycleancity.script import *; add_settings_to_all_user_profiles()
 
+# To run this script:
+# from mycleancity.script import *; add_qrcodes_to_all_user_profiles()
 def add_qrcodes_to_all_user_profiles():
 	users = User.objects.all()
 
@@ -54,4 +60,99 @@ def add_qrcodes_to_all_user_profiles():
 
 			print "No profile for %s: CREATED" % user_profile.user.email
 
-# from mycleancity.script import *; add_qrcodes_to_all_user_profiles()
+
+# CAUTION: VERY DANGEROUS SCRIPT
+# To run this script:
+# from mycleancity.script import *; add_clean_creds_to_earlybirds()
+def add_clean_creds_to_earlybirds():
+	users = User.objects.all()
+
+	for user in users:
+		print user.email
+		user.profile.clean_creds = 0
+		print "!!!CleanCreds reset!!!"
+		early_bird_date = date(2014, 03, 19)
+
+		if user.date_joined.date() <= early_bird_date:
+			print "Joined before: %s" %(str(early_bird_date))
+			user.profile.add_clean_creds(50)
+			user.profile.save()
+			print "Total CleanCreds: %s" %(str(user.profile.clean_creds))
+		else:
+			print "Joined on: %s" % (str(user.date_joined.date()))
+			print "Total CleanCreds: %s" %(str(user.profile.clean_creds))
+		print "--------------------------"
+
+
+# CAUTION: VERY DANGEROUS SCRIPT
+# To run this script:
+# from mycleancity.script import *; add_clean_creds_to_clean_champions()
+def add_clean_creds_to_clean_champions():
+	users = User.objects.all()
+
+	for user in users:
+		print user.email
+		clean_champions = CleanChampion.objects.filter(user=user)
+
+		clean_creds = 0
+		for clean_champion in clean_champions:
+			clean_creds += 20
+		
+		print "Clean Champion in %s teams" % (str(clean_creds/20))
+		print "Total CleanCreds to be added: %s" % (str(clean_creds))
+		user.profile.add_clean_creds(clean_creds)
+		user.profile.save()
+		print "--------------------------"
+
+
+# CAUTION: VERY DANGEROUS SCRIPT
+# To run this script:
+# from mycleancity.script import *; add_clean_creds_to_clean_ambassadors()
+def add_clean_creds_to_clean_ambassadors():
+	users = User.objects.all()
+
+	for user in users:
+		print user.email
+		clean_ambassadors = CleanTeamMember.objects.filter(user=user)
+
+		counter = 0
+		for clean_ambassador in clean_ambassadors:
+			if clean_ambassador.role == "clean-ambassador" and clean_ambassador.status == "approved":
+				counter += 1
+
+				print "Clean Ambassador in %s team" % (str(counter))
+				print "Total CleanCreds added: %s" % (str(50))
+				user.profile.add_clean_creds(50)
+				user.profile.save()
+				print "--------------------------"
+
+
+# CAUTION: VERY DANGEROUS SCRIPT
+# To run this script:
+# from mycleancity.script import *; add_clean_creds_to_clean_teams()
+def add_clean_creds_to_clean_teams():
+	clean_teams = CleanTeam.objects.all()
+
+	for clean_team in clean_teams:
+		print clean_team.name
+		clean_champions = CleanChampion.objects.filter(clean_team=clean_team)
+
+		clean_creds = 0
+		for clean_champion in clean_champions:
+			clean_creds += 5
+
+		print "Total Clean Champions: %s" %(str(clean_creds/5))
+		print "Total CleanCreds: %s" %(str(clean_creds))
+		clean_team.clean_creds = clean_creds
+		clean_team.save()
+		print "--------------------------"
+
+
+# CAUTION: VERY DANGEROUS SCRIPT
+# To run this script:
+# from mycleancity.script import *; execute_all_clean_cred_adding_functions()
+def execute_all_clean_cred_adding_functions():
+	add_clean_creds_to_earlybirds()
+	add_clean_creds_to_clean_champions()
+	add_clean_creds_to_clean_ambassadors()
+	add_clean_creds_to_clean_teams()

@@ -62,6 +62,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 			ct.logo = k.key
 
 		ct.save()
+		ct.add_team_clean_creds(50)
 		ct.level_up()
 
 		try:
@@ -78,6 +79,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
+		user.profile.add_clean_creds(50)
 		user.profile.save()
 
 		lang = user.profile.settings.communication_language
@@ -383,7 +385,7 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		context = super(CleanTeamMembersView, self).get_context_data(**kwargs)
 		user = self.request.user
 
-		ct = CleanTeamMember.objects.get(user=user)
+		ct = user.profile.clean_team_member
 		cas = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
 		ccs = CleanChampion.objects.filter(clean_team=ct.clean_team)
 		# ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)

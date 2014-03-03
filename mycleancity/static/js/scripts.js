@@ -121,10 +121,13 @@ function ajaxQuickUnreadNotification(e)
         data: form.serialize(),
         success: function (data) {
             element.closest("li").addClass("unread");
+            element.removeClass("notification-mark-unread");
+            element.addClass("notification-mark-read");
+            element.text("Make unread");
 
-            var notification_number = parseInt($("#notification-container").html());
+            var notification_number = parseInt($("#notification-container span").html());
             notification_number = notification_number + 1;
-            $("#notification-container").html(notification_number);
+            $("#notification-container span").html(notification_number);
         },
         error: function(data) {}
     });
@@ -144,14 +147,17 @@ function ajaxQuickReadNotification(e)
         data: form.serialize(),
         success: function (data) {
             element.closest("li").removeClass("unread");
+            element.removeClass("notification-mark-read");
+            element.addClass("notification-mark-unread");
+            element.text("Make read");
 
-            var notification_number = parseInt($("#notification-container").html());
+            var notification_number = parseInt($("#notification-container span").html());
             notification_number = notification_number - 1;
 
             if (notification_number == 0)
-                $("#notification-container").hide();   
+                $("#notification-container span").hide();   
             else
-                $("#notification-container").html(notification_number);
+                $("#notification-container span").html(notification_number);
         },
         error: function(data) {}
     });

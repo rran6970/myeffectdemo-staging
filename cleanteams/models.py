@@ -220,6 +220,7 @@ class CleanTeamMember(models.Model):
 
 		self.user = user
 		self.clean_team = selected_team
+		self.role = "clean-ambassador"
 		self.status = "approved"
 		self.save()
 
@@ -239,7 +240,6 @@ class CleanTeamMember(models.Model):
 			except Exception, e:
 				print e
 
-		self.clean_team.add_team_clean_creds(10)
 		self.user.profile.add_clean_creds(50)
 
 	def approveCleanAmbassador(self, notification=True):
@@ -261,7 +261,6 @@ class CleanTeamMember(models.Model):
 			except Exception, e:
 				print e
 
-		self.clean_team.add_team_clean_creds(10)
 		self.user.profile.add_clean_creds(50)
 
 	def removedCleanAmbassador(self):
@@ -384,7 +383,15 @@ class CleanTeamInvite(models.Model):
 
 	# Checks if User is already registered before accpeting the invite
 	# Returns False if not accepted
-	def acceptInvite(self, notification=True):
+	def acceptInvite(self, user, notification=True):
+		if self.role == "clean-champion":
+			clean_champion = CleanChampion()				
+			clean_champion.becomeCleanChampion(user, self.clean_team)
+
+		elif self.role == "clean-ambassador":
+			ctm = CleanTeamMember()
+			ctm.becomeCleanAmbassador(user, self.clean_team)
+
 		emails = User.objects.filter(email=self.email).count()
 
 		if emails > 0:
