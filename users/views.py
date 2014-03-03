@@ -146,9 +146,9 @@ class RegisterView(FormView):
 		u.save()
 
 		today = date.today()
-		feb_24 = date(2014, 03, 19)
+		early_bird_date = date(2014, 03, 19)
 
-		if today <= feb_24:
+		if today <= early_bird_date:
 			u.profile.add_clean_creds(50)
 
 		if 'qrcode' in self.kwargs:
@@ -251,9 +251,9 @@ class RegisterInviteView(FormView):
 		u.save()	
 
 		today = date.today()
-		feb_24 = date(2014, 03, 19)
+		early_bird_date = date(2014, 03, 19)
 
-		if today <= feb_24:
+		if today <= early_bird_date:
 			u.profile.add_clean_creds(50)
 
 		invite = CleanTeamInvite.objects.get(token=form.cleaned_data['token'])
