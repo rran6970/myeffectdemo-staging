@@ -20,6 +20,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.forms import ContactForm
+from cleanteams.models import CleanTeamLevelTask
 
 from django.contrib.auth.models import User
 
@@ -82,9 +83,11 @@ def download_file(request):
 	k = bucket.get_key(filename)
 	url = k.generate_url(6000)
 
-	if filename == "welcome_package.pdf":
-		task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
-		request.user.profile.clean_team_member.clean_team.complete_level_task(task)
+	if filename == "downloadable/Welcome_package_cgd.pdf":
+		if request.user.profile.clean_team_member:
+			if request.user.profile.clean_team_member.clean_team.level.name == "Seedling":
+				task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
+				request.user.profile.clean_team_member.clean_team.complete_level_task(task)
 
 	# TODO: Fix this so there is a redirect, as well as a link to download
 	# return HttpResponseRedirect('/clean-team/level-progress/')

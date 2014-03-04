@@ -82,6 +82,13 @@ class CleanTeam(models.Model):
 			level = self.level.next_level
 
 		self.level = level
+
+		# Add rewards for certain badges
+		if level.name == "Sapling":
+			self.clean_creds += 100
+		elif level.name == "Tree":
+			self.clean_creds += 200
+
 		self.save()
 
 		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
@@ -189,6 +196,27 @@ class CleanChampion(models.Model):
 						user_notification.create_notification("cc_joined", member.user, name_strings)
 			except Exception, e:
 				print e
+
+		if self.clean_team.level.name == "Sprout":
+			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+
+			if count_ccs > 2:
+				task = CleanTeamLevelTask.objects.get(name="3_ccs")
+				self.clean_team.complete_level_task(task)
+
+		elif self.clean_team.level.name == "Sapling":
+			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+
+			if count_ccs > 9:
+				task = CleanTeamLevelTask.objects.get(name="10_ccs")
+				self.clean_team.complete_level_task(task)
+
+		elif self.clean_team.level.name == "Tree":
+			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+
+			if count_ccs > 19:
+				task = CleanTeamLevelTask.objects.get(name="20_ccs")
+				self.clean_team.complete_level_task(task)
 
 		self.clean_team.add_team_clean_creds(5)
 		self.user.profile.add_clean_creds(20)
@@ -494,6 +522,7 @@ class CleanTeamLevelTask(models.Model):
 	clean_team_level = models.ForeignKey(CleanTeamLevel)
 	name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
 	description = models.TextField(blank=True, null=True, default="")
+	link = models.URLField(blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team Level Task'
@@ -522,3 +551,44 @@ class CleanTeamLevelProgress(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamLevelProgress, self).save(*args, **kwargs)
+
+
+"""
+Name:           LeaderReferral
+Date created:   Mar 4, 2014
+Description:    When Clean Teams refer leaders
+"""
+class LeaderReferral(models.Model):
+	first_name = models.CharField(max_length=60, blank=False, default="")
+	last_name = models.CharField(max_length=60, blank=False, default="")
+	email = models.CharField(max_length=60, blank=False, default="")
+	organization = models.CharField(max_length=60, blank=False, default="")
+	title = models.CharField(max_length=60, blank=False, default="")
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	clean_team = models.ForeignKey(CleanTeam, null=True)
+	user = models.ForeignKey(User, null=True)
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Leader Referrals'
+
+	def __unicode__(self):
+		return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
+
+	def new_referral(self, user, form, clean_team):
+		self.first_name = form.cleaned_data['first_name']
+		self.last_name = form.cleaned_data['last_name']
+		self.email = form.cleaned_data['email']
+		self.organization = form.cleaned_data['organization']
+		self.title = form.cleaned_data['title']
+
+		self.user = user
+		self.clean_team = clean_team
+
+		self.save()
+
+		if self.clean_team.level.name == "Sapling":
+			task = CleanTeamLevelTask.objects.get(name="refer_teacher")
+			self.clean_team.complete_level_task(task)
+
+	def save(self, *args, **kwargs):
+		super(LeaderReferral, self).save(*args, **kwargs)

@@ -38,13 +38,22 @@ class CleanTeamInviteAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamLevelTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'clean_team_level', 'description')
+    list_display = ('id', 'clean_team_level', 'description', 'link')
     search_fields = ['user', 'clean_team_level', 'description']
     actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamLevelProgressAdmin(admin.ModelAdmin):
     list_display = ('id', 'clean_team', 'level_task', 'completed')
     search_fields = ['clean_team', 'level_task', 'completed']
+    actions = ['complete_tasks', export_as_csv_action("CSV Export")]    
+
+    def complete_tasks(self, request, queryset):
+        for row in queryset:
+            row.clean_team.complete_level_task(row.level_task)
+
+class LeaderReferralAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name', 'email', 'organization', 'title', 'clean_team', 'user')
+    search_fields = ['user', 'email', 'organization']
     actions = [export_as_csv_action("CSV Export")]
 
 admin.site.register(CleanTeamLevel, CleanTeamLevelAdmin)
@@ -55,3 +64,4 @@ admin.site.register(CleanChampion, CleanChampionAdmin)
 admin.site.register(CleanTeamInvite, CleanTeamInviteAdmin)
 admin.site.register(CleanTeamLevelTask, CleanTeamLevelTaskAdmin)
 admin.site.register(CleanTeamLevelProgress, CleanTeamLevelProgressAdmin)
+admin.site.register(LeaderReferral, LeaderReferralAdmin)

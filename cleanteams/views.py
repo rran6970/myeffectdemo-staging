@@ -21,8 +21,8 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral
 from challenges.models import Challenge
 
 from notifications.models import Notification
@@ -117,25 +117,21 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 	success_url = "mycleancity/index.html"
 
 	def get_initial(self):
-		if 'ctid' in self.kwargs:
-			ctid = self.kwargs['ctid']
-
-		try:
-			clean_team = CleanTeam.objects.get(id=ctid)
-		except Exception, e:
-			print e
-			return HttpResponseRedirect(u'/clean-team/%s' %(ctid))
-
 		initial = {}
-		initial['name'] = clean_team.name
-		initial['website'] = clean_team.website
-		initial['twitter'] = clean_team.twitter
-		# initial['logo'] = clean_team.logo
-		initial['about'] = clean_team.about
-		initial['region'] = clean_team.region
-		initial['team_type'] = clean_team.team_type
-		initial['group'] = clean_team.group
-		initial['clean_team_id'] = clean_team.id
+
+		if self.request.user.profile.clean_team_member:
+			clean_team = self.request.user.profile.clean_team_member.clean_team
+
+			
+			initial['name'] = clean_team.name
+			initial['website'] = clean_team.website
+			initial['twitter'] = clean_team.twitter
+			# initial['logo'] = clean_team.logo
+			initial['about'] = clean_team.about
+			initial['region'] = clean_team.region
+			initial['team_type'] = clean_team.team_type
+			initial['group'] = clean_team.group
+			initial['clean_team_id'] = clean_team.id
 
 		return initial
 
@@ -184,7 +180,6 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 				task = CleanTeamLevelTask.objects.get(name="ct_description")
 				clean_team.uncomplete_level_task(task)
 
-		if clean_team.level.name == "Seedling":
 			if clean_team.twitter:
 				task = CleanTeamLevelTask.objects.get(name="ct_twitter")
 				clean_team.complete_level_task(task)
@@ -193,6 +188,14 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 				clean_team.uncomplete_level_task(task)
 
 		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
+
+	def get_context_data(self, **kwargs):
+		context = super(EditCleanTeamView, self).get_context_data(**kwargs)
+		
+		if not self.request.user.profile.clean_team_member:	
+			context = None
+
+		return context
 
 class CreateOrRequest(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/create_team_or_join.html"
@@ -255,7 +258,7 @@ class LevelProgressView(TemplateView):
 
 		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
 		tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
-	
+
 		context['tasks'] = tasks
 		context['clean_team'] = clean_team
 		context['user'] = user
@@ -415,10 +418,11 @@ class PostMessageView(LoginRequiredMixin, FormView):
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
-		clean_team = self.request.user.profile.clean_team_member.clean_team
+		user = self.request.user
+		clean_team = user.profile.clean_team_member.clean_team
 
 		clean_team_post = CleanTeamPost()
-		clean_team_post.newPost(self.request.user, form, clean_team)
+		clean_team_post.newPost(user, form, clean_team)
 
 		return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
 
@@ -433,7 +437,7 @@ class PostMessageView(LoginRequiredMixin, FormView):
 class InviteView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/invite.html"
 	form_class = InviteForm
-	success_url = "cleanteams/invite.html"
+	success_url = "clean-team/invite.html"
 
 	def get_initial(self):
 		initial = {}
@@ -540,6 +544,32 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 
 		user = self.request.user
 		context['user'] = user
+
+		return context
+
+class LeaderReferralView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/leader_referral.html"
+	form_class = LeaderReferralForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		print form.errors
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		user = self.request.user
+		clean_team = user.profile.clean_team_member.clean_team
+
+		leader_referral = LeaderReferral()
+		leader_referral.new_referral(user, form, clean_team)
+
+		return HttpResponseRedirect('/clean-team/level-progress')
+
+	def get_context_data(self, **kwargs):
+		context = super(LeaderReferralView, self).get_context_data(**kwargs)
 
 		return context
 

@@ -4,7 +4,7 @@ import math
 from django.db import models
 from django.contrib.auth.models import User
 
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask
 
 from notifications.models import Notification, UserNotification
 
@@ -82,6 +82,17 @@ class Challenge(models.Model):
 			for member in members_list:
 				user_notification = UserNotification()
 				user_notification.create_notification("challenge_posted", member.user, name_strings, link_strings)
+
+		if self.clean_team.level.name == "Sprout":
+			task = CleanTeamLevelTask.objects.get(name="1_challenge")
+			self.clean_team.complete_level_task(task)
+
+		elif self.clean_team.level.name == "Sapling":
+			count_challenges = self.objects.filter(clean_team=self.clean_team).count()
+
+			if count_challenges > 4:
+				task = CleanTeamLevelTask.objects.get(name="5_challenges")
+				self.clean_team.complete_level_task(task)
 
 	def get_challenge_total_clean_creds(self, total_hours):
 		return int(self.clean_creds_per_hour * total_hours)

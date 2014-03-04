@@ -53,6 +53,7 @@
   "pk": 1, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": "/download/?filename=Welcome_package_cgd.pdf", 
     "name": "download_welcome_package", 
     "clean_team_level": 1, 
     "description": "Download welcome package"
@@ -62,6 +63,7 @@
   "pk": 5, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "ct_description", 
     "clean_team_level": 1, 
     "description": "Add a profile description to your Clean Team"
@@ -71,6 +73,7 @@
   "pk": 6, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "ct_twitter", 
     "clean_team_level": 1, 
     "description": "Add Twitter account to your Clean Team profile"
@@ -80,6 +83,7 @@
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "invite_5_mcc", 
     "clean_team_level": 1, 
     "description": "Invite at least 5 friends to My Clean City"
@@ -89,33 +93,37 @@
   "pk": 9, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "1_challenge", 
     "clean_team_level": 2, 
-    "description": "Task coming soon"
+    "description": "Post 1st Challenge"
   }
 },
 {
   "pk": 11, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "3_ccs", 
     "clean_team_level": 2, 
-    "description": "Task coming soon"
+    "description": "Recruit 3 Clean Champions"
   }
 },
 {
   "pk": 12, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": "https://twitter.com/intent/user?screen_name=MyCleanCity1", 
     "name": "follow_twitter", 
     "clean_team_level": 2, 
-    "description": "Task coming soon"
+    "description": "Follow My Clean City on Twitter"
   }
 },
 {
   "pk": 13, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "5_challenges", 
     "clean_team_level": 3, 
     "description": "Create 5 Challenges"
@@ -125,6 +133,7 @@
   "pk": 14, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "10_ccs", 
     "clean_team_level": 3, 
     "description": "Recruit 10 Clean Champions"
@@ -134,24 +143,27 @@
   "pk": 16, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": "/clean-team/leader-referral", 
     "name": "refer_teacher", 
     "clean_team_level": 3, 
-    "description": "Refer an interested Teacher or Youth Group leader, city hall counselor"
+    "description": "Refer an interested teacher, youth group leader or city hall counselor"
   }
 },
 {
   "pk": 17, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "2_national_challenges_signup", 
     "clean_team_level": 4, 
-    "description": "Sign up for at least 2 national challenges"
+    "description": "Sign up for at least 2 national Challenges"
   }
 },
 {
   "pk": 18, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "20_ccs", 
     "clean_team_level": 4, 
     "description": "Recruit 20 Clean Champions "
@@ -161,6 +173,7 @@
   "pk": 19, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "link": null, 
     "name": "mcc_presentation", 
     "clean_team_level": 4, 
     "description": "Make a My Clean City presentation"

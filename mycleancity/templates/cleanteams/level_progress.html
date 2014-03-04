@@ -38,9 +38,15 @@
                       {% endif %}
                     </td>
                     <td class="description">
-                      <p>
-                        {{ task.level_task.description }}
-                      </p>
+                      {% if task.level_task.link %}
+                        {% if task.level_task.name == "follow_twitter" %}
+                          <a href="https://twitter.com/MyCleanCity1" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @MyCleanCity1</a>
+                        {% else %}
+                          <p><a href="{{ task.level_task.link }}">{{ task.level_task.description }}</a></p>
+                        {% endif %}
+                      {% else %}
+                        <p>{{ task.level_task.description }}</p>
+                      {% endif %}
                     </td>
                   </tr>
                   {% endfor %}
@@ -55,7 +61,6 @@
                       <p><h2>More tasks to come</h2></p>
                     </td>
                   </tr>
-                  
                 {% endif %}
               </tbody>
             </table><!-- /.table.table-hover -->

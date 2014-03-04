@@ -76,7 +76,14 @@ $(function(){
 
     // Challenge survey update score in real time
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
+
+    // $(".twitter-follow-button").on("click", followTwitterCallback);
 });
+
+// function followTwitterCallback(e)
+// {
+//     alert('asdf');
+// }
 
 var challenge_survey_score = 0;
 

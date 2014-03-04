@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from django.core.files.images import get_image_dimensions
 
-from cleanteams.models import CleanTeam, CleanTeamInvite
+from cleanteams.models import CleanTeam, CleanTeamInvite, LeaderReferral
 
 CLEAN_TEAM_TYPES = (('', 'Please select one...'),
 	('independent', 'Independent'), 
@@ -148,5 +148,33 @@ class PostMessageForm(forms.Form):
 
 		if not message:
 			raise forms.ValidationError("Please enter a message")
+
+		return cleaned_data
+
+class LeaderReferralForm(forms.ModelForm):
+	email = forms.EmailField(widget=forms.TextInput())
+
+	class Meta:
+		model = LeaderReferral
+		exclude = ('clean_team', 'user', 'timestamp')
+
+	def clean(self):
+		cleaned_data = super(LeaderReferralForm, self).clean()
+		first_name = cleaned_data.get('first_name')
+		last_name = cleaned_data.get('last_name')
+		email = cleaned_data.get('email')
+		organization = cleaned_data.get('organization')
+		title = cleaned_data.get('title')
+
+		if not first_name:
+			raise forms.ValidationError("Please enter a first name")
+		if not last_name:
+			raise forms.ValidationError("Please enter a last name")
+		if not email:
+			raise forms.ValidationError("Please enter a valid email")
+		if not organization:
+			raise forms.ValidationError("Please enter a organization")
+		if not title:
+			raise forms.ValidationError("Please enter a title")
 
 		return cleaned_data
