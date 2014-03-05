@@ -53,6 +53,7 @@
   "pk": 1, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": "/download/?filename=Welcome_package_cgd.pdf", 
     "name": "download_welcome_package", 
     "clean_team_level": 1, 
@@ -63,6 +64,7 @@
   "pk": 5, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "ct_description", 
     "clean_team_level": 1, 
@@ -73,6 +75,7 @@
   "pk": 6, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "ct_twitter", 
     "clean_team_level": 1, 
@@ -83,6 +86,7 @@
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "invite_5_mcc", 
     "clean_team_level": 1, 
@@ -93,6 +97,7 @@
   "pk": 9, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "1_challenge", 
     "clean_team_level": 2, 
@@ -103,6 +108,7 @@
   "pk": 11, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "3_ccs", 
     "clean_team_level": 2, 
@@ -113,6 +119,7 @@
   "pk": 12, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": "https://twitter.com/intent/user?screen_name=MyCleanCity1", 
     "name": "follow_twitter", 
     "clean_team_level": 2, 
@@ -123,6 +130,7 @@
   "pk": 13, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "5_challenges", 
     "clean_team_level": 3, 
@@ -133,6 +141,7 @@
   "pk": 14, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "10_ccs", 
     "clean_team_level": 3, 
@@ -143,6 +152,7 @@
   "pk": 16, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": true, 
     "link": "/clean-team/leader-referral", 
     "name": "refer_teacher", 
     "clean_team_level": 3, 
@@ -153,6 +163,7 @@
   "pk": 17, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "2_national_challenges_signup", 
     "clean_team_level": 4, 
@@ -163,6 +174,7 @@
   "pk": 18, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
+    "approval_required": false, 
     "link": null, 
     "name": "20_ccs", 
     "clean_team_level": 4, 
@@ -173,7 +185,8 @@
   "pk": 19, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "link": null, 
+    "approval_required": true, 
+    "link": "/clean-team/send-presentation", 
     "name": "mcc_presentation", 
     "clean_team_level": 4, 
     "description": "Make a My Clean City presentation"

@@ -3,9 +3,6 @@ import ftplib
 import os
 import tempfile
 
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
-
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -21,13 +18,13 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
 from challenges.models import Challenge
 
 from notifications.models import Notification
 
-from mycleancity.actions import export_as_csv_action, SendEmail
+from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
 class RegisterCleanTeamView(LoginRequiredMixin, FormView):
@@ -52,14 +49,10 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ct.team_type = form.cleaned_data['team_type']
 		ct.group = form.cleaned_data['group']
 
-		# TODO: Move to models
 		if logo:
-			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-			bucket = conn.get_bucket(settings.AWS_BUCKET)
-			k = Key(bucket)
-			k.key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
-			k.set_contents_from_string(form.cleaned_data['logo'].read())
-			ct.logo = k.key
+			key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
+			uploadFile = UploadFileToS3()
+			ct.logo = uploadFile.upload(key, logo)
 
 		ct.save()
 		ct.add_team_clean_creds(50)
@@ -161,14 +154,10 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		
 		logo = form.cleaned_data['logo']
 
-		# TODO: Move to models
 		if logo:
-			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-			bucket = conn.get_bucket(settings.AWS_BUCKET)
-			k = Key(bucket)
-			k.key = 'uploads/ct_logo_%s_%s' % (str(self.request.user.id), logo)
-			k.set_contents_from_string(form.cleaned_data['logo'].read())
-			clean_team.logo = k.key
+			key = 'uploads/ct_logo_%s_%s' % (str(self.request.user.id), logo)
+			uploadFile = UploadFileToS3()
+			clean_team.logo = uploadFile.upload(key, logo)
 
 		clean_team.save()
 
@@ -570,6 +559,32 @@ class LeaderReferralView(LoginRequiredMixin, FormView):
 
 	def get_context_data(self, **kwargs):
 		context = super(LeaderReferralView, self).get_context_data(**kwargs)
+
+		return context
+
+class CleanTeamPresentationView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/clean_team_presentation.html"
+	form_class = CleanTeamPresentationForm
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		print form.errors
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		user = self.request.user
+		clean_team = user.profile.clean_team_member.clean_team
+
+		presentation = CleanTeamPresentation()
+		presentation.new_submission(user, form, clean_team)
+
+		return HttpResponseRedirect('/clean-team/level-progress')
+
+	def get_context_data(self, **kwargs):
+		context = super(CleanTeamPresentationView, self).get_context_data(**kwargs)
 
 		return context
 

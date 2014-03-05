@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from django.core.files.images import get_image_dimensions
 
-from cleanteams.models import CleanTeam, CleanTeamInvite, LeaderReferral
+from cleanteams.models import CleanTeam, CleanTeamInvite, LeaderReferral, CleanTeamPresentation
 
 CLEAN_TEAM_TYPES = (('', 'Please select one...'),
 	('independent', 'Independent'), 
@@ -176,5 +176,24 @@ class LeaderReferralForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a organization")
 		if not title:
 			raise forms.ValidationError("Please enter a title")
+
+		return cleaned_data
+
+class CleanTeamPresentationForm(forms.ModelForm):
+	presentation = forms.FileField()
+
+	class Meta:
+		model = CleanTeamPresentation
+		exclude = ('clean_team', 'user', 'timestamp')
+
+	def clean(self):
+		cleaned_data = super(CleanTeamPresentationForm, self).clean()
+		title = cleaned_data.get('title')
+		presentation = cleaned_data.get('presentation')
+		
+		if not title:
+			raise forms.ValidationError("Please enter a title")
+		if not presentation:
+			raise forms.ValidationError("Please provide a presentation")
 
 		return cleaned_data

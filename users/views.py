@@ -3,9 +3,6 @@ import ftplib
 import os
 import tempfile
 
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
-
 from challenges.models import Challenge
 from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
 
@@ -28,7 +25,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
-from mycleancity.actions import export_as_csv_action, SendEmail
+from mycleancity.actions import *
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
@@ -353,14 +350,10 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
 
-		# TODO: Move to models
-		if picture:			
-			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-			bucket = conn.get_bucket(settings.AWS_BUCKET)
-			k = Key(bucket)
-			k.key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
-			k.set_contents_from_string(form.cleaned_data['picture'].read())
-			user.profile.picture = k.key
+		if picture:		
+			key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
+			uploadFile = UploadFileToS3()
+			user.profile.picture = uploadFile.upload(key, picture)
 
 		user.profile.save()
 

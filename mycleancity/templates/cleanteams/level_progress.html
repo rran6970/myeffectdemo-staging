@@ -47,6 +47,11 @@
                       {% else %}
                         <p>{{ task.level_task.description }}</p>
                       {% endif %}
+                      {% if task.approval_requested %}
+                        <div class="success">
+                          <p>Our team has received your submission. Once we approved it, we will mark this task completed.</p>
+                        </div>
+                      {% endif %}
                     </td>
                   </tr>
                   {% endfor %}

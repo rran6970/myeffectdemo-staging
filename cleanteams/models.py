@@ -2,6 +2,7 @@ import random
 import string
 
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.mail import EmailMessage
 
 from django.db import models
@@ -15,7 +16,6 @@ from time import time
 
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
-
 
 """
 Name:           CleanTeamLevel
@@ -120,14 +120,29 @@ class CleanTeam(models.Model):
 				print e
 
 	def complete_level_task(self, task):
-		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)			
-		level_progress.completed = True
+		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)	
+
+		# Check if the task is already requesting an approval
+		if level_progress.approval_requested:
+			level_progress.approval_requested = False
+			level_progress.completed = True
+		elif task.approval_required:
+			level_progress.submit_for_approval()
+		else:
+			level_progress.completed = True
+
 		level_progress.save()
 
 		self.check_if_level_up()
 
 	def uncomplete_level_task(self, task):
-		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)			
+		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)	
+
+		if level_progress.level_task.approval_required:
+			level_progress.approval_requested = True
+		else:
+			level_progress.approval_requested = False
+
 		level_progress.completed = False
 		level_progress.save()
 
@@ -523,6 +538,7 @@ class CleanTeamLevelTask(models.Model):
 	name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
 	description = models.TextField(blank=True, null=True, default="")
 	link = models.URLField(blank=True, null=True)
+	approval_required = models.BooleanField(default=0)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team Level Task'
@@ -541,6 +557,7 @@ Description:    The tasks each Clean Team has completed per level
 class CleanTeamLevelProgress(models.Model):
 	clean_team = models.ForeignKey(CleanTeam)
 	level_task = models.ForeignKey(CleanTeamLevelTask)
+	approval_requested = models.BooleanField(default=0)
 	completed = models.BooleanField(default=0)
 
 	class Meta:
@@ -549,9 +566,13 @@ class CleanTeamLevelProgress(models.Model):
 	def __unicode__(self):
 		return u'%s - %s' % (self.clean_team, self.level_task)
 
+	def submit_for_approval(self):
+		self.approval_requested = True
+		self.completed = False
+		self.save()
+
 	def save(self, *args, **kwargs):
 		super(CleanTeamLevelProgress, self).save(*args, **kwargs)
-
 
 """
 Name:           LeaderReferral
@@ -592,3 +613,42 @@ class LeaderReferral(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(LeaderReferral, self).save(*args, **kwargs)
+
+"""
+Name:           CleanTeamPresentation
+Date created:   Mar 5, 2014
+Description:    When Clean Teams submits a presentation
+"""
+class CleanTeamPresentation(models.Model):
+	title = models.CharField(max_length=60, blank=False, default="")
+	presentation = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	clean_team = models.ForeignKey(CleanTeam, null=True)
+	user = models.ForeignKey(User, null=True)
+
+	class Meta:
+		verbose_name_plural = u'Clean Team Presentation'
+
+	def __unicode__(self):
+		return u'%s by %s' % (self.title, self.clean_team.name)
+
+	def new_submission(self, user, form, clean_team):
+		self.title = form.cleaned_data['title']
+		presentation = form.cleaned_data['presentation']
+
+		self.user = user
+		self.clean_team = clean_team
+
+		if presentation:
+			key = 'presentations/ct_presentation_%s_%s' % (str(self.clean_team.id), presentation)
+			uploadFile = UploadFileToS3()
+			self.presentation = uploadFile.upload(key, presentation)
+
+		self.save()
+
+		if self.clean_team.level.name == "Tree":
+			task = CleanTeamLevelTask.objects.get(name="mcc_presentation")
+			self.clean_team.complete_level_task(task)
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamPresentation, self).save(*args, **kwargs)

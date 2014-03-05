@@ -111,7 +111,7 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .error { background-color: #f2dede; border: 1px solid #EDAAA8; }
 .error p, .error li { color: #b94a48 !important; }
 
-.success { background-color: #E3FCEA; border: 1px solid #74E05F; }
+.success { background-color: #E3FCEA; border: 1px solid #74E05F; padding: 10px; }
 .success p, .success li { color: #1DB800 !important; }
 
 .warning { background-color: #fcf8e3; border: 1px solid #F5D49D; }
