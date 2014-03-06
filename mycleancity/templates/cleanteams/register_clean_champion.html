@@ -29,23 +29,19 @@
 
             <div class="table-container">
               <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th class="action"><h2>Actions</h2></th>
-                    <th class="team"><h2>Team</h2></th>
-                  </tr>
-                </thead>
                 <tbody>
                   {% for team in form.team.field.queryset %}
+                  {% if not user.profile.clean_team_member.clean_team == team %}
                   <tr>
-                    <td class="action">
-                      <form action="/clean-team/register-clean-champion/" method="post" enctype="multipart/form-data">{% csrf_token %}
-                        <input type="hidden" name="team" value="{{ team.id }}" />
-                        <input type="submit" class="btn btn-primary" value="Select" />
-                      </form>
-                    </td>
                     <td class="team">
-                      <a href="/clean-team/{{ team.id }}">{{ team.name }}</a>
+                      <a href="/clean-team/{{ team.id }}">
+                        {% if team.logo %}
+                          <img src="{{ MEDIA_URL }}{{ team.logo }}" alt="" class="profile-pic-42x42" />
+                        {% else %}
+                          <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic-42x42" />
+                        {% endif %}
+                        {{ team.name }}
+                      </a>
                     </td>
                     <td class="role">
                       {% for clean_champion in clean_champions %}
@@ -54,7 +50,14 @@
                         {% endif %}
                       {% endfor %}
                     </td>
+                    <td class="action">
+                      <form action="/clean-team/register-clean-champion/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <input type="hidden" name="team" value="{{ team.id }}" />
+                        <input type="submit" class="btn btn-primary" value="Select" />
+                      </form>
+                    </td>
                   </tr>
+                  {% endif %}
                   {% endfor %}
                 </tbody>
               </table><!-- /.table.table-hover -->

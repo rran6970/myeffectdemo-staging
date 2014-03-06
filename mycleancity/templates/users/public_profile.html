@@ -55,9 +55,9 @@
           {% endif %}
 
           {% if user_profile.profile.picture %}
-            <img style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ user_profile.profile.picture }}" alt="" class="profile-pic" />
+            <img src="{{ MEDIA_URL }}{{ user_profile.profile.picture }}" alt="" class="profile-pic profile-pic-124x124" />
           {% else %}
-            <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic" />
+            <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
           {% endif %}
           
           

@@ -349,7 +349,6 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 
 		try:
 			clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
-			print clean_champion
 		except Exception, e:
 			print e
 			clean_champion = CleanChampion()
