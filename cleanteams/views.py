@@ -115,7 +115,6 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 		if self.request.user.profile.clean_team_member:
 			clean_team = self.request.user.profile.clean_team_member.clean_team
 
-			
 			initial['name'] = clean_team.name
 			initial['website'] = clean_team.website
 			initial['twitter'] = clean_team.twitter

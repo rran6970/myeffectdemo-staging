@@ -18,7 +18,8 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="qr-code">
-            <img src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
+          <h1>User ID: {{ user.id }}</h1>
+          <img src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

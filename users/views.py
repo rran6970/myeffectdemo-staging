@@ -4,7 +4,7 @@ import os
 import tempfile
 
 from challenges.models import Challenge
-from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
+from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
 
 from datetime import date
 
@@ -16,7 +16,6 @@ from django.core.context_processors import csrf
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.core.mail import EmailMessage
-
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
@@ -427,3 +426,14 @@ class LeaderboardView(TemplateView):
 		context['leaders'] = leaders
 		context['user'] = self.request.user
 		return context
+
+def follow_on_twitter(request):
+	if request.method == "POST" and request.is_ajax:
+		user = request.user
+
+		if user.profile.has_clean_team():
+			if user.profile.clean_team_member.clean_team.level.name == "Sprout":
+				task = CleanTeamLevelTask.objects.get(name="follow_twitter")
+				user.profile.clean_team_member.clean_team.complete_level_task(task)
+
+	return HttpResponse(True)

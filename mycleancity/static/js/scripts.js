@@ -77,13 +77,23 @@ $(function(){
     // Challenge survey update score in real time
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
 
-    // $(".twitter-follow-button").on("click", followTwitterCallback);
+    twttr.events.bind('follow', followTwitterCallback);
 });
 
-// function followTwitterCallback(e)
-// {
-//     alert('asdf');
-// }
+function followTwitterCallback(e)
+{
+    $.ajax({
+        type: 'POST',
+        url: '/users/follow-twitter/',
+        data: { 'csrfmiddlewaretoken': 'EkBkAdchkoJkyRmajrCvW1E3PoT99rmh' },
+        success: function (data) {
+            location.reload();
+        },
+        error: function(data) {
+            console.log(data)
+        }
+    });
+}
 
 var challenge_survey_score = 0;
 

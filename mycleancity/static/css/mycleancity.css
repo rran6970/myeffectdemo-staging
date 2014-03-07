@@ -399,7 +399,8 @@ div.content.communication-hub #white-box div.tab-pane#resources a.downloadables 
 /******************************
 	Login
 ******************************/ 
-#white-box.qr-code { width: 410px; height: 298px; left: 34%%; overflow-y: scroll; padding: 0; }
+#white-box.qr-code { width: 410px; height: 353px; left: 34%%; overflow-y: scroll; padding: 0; }
+#white-box.qr-code h1 { text-align: center; margin-top: 20px; }
 #white-box.qr-code img { display: block; width: 290px; height: 290px; margin: 0 auto; }
 
 /******************************
