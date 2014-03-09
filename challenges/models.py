@@ -31,7 +31,7 @@ class Challenge(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	last_updated_by = models.ForeignKey(User, related_name='user_last_updated_by')
 	clean_creds_per_hour = models.IntegerField(default=0)
-	complete = models.BooleanField(default=False, verbose_name='Confirms the Challenge is created')
+	national_challenge = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -53,6 +53,7 @@ class Challenge(models.Model):
 		self.country = form['country']
 		self.description = form['description']
 		self.host_organization = form['host_organization']
+		self.national_challenge = form['national_challenge']
 		self.clean_team = user.profile.clean_team_member.clean_team
 		self.save()
 
@@ -88,7 +89,7 @@ class Challenge(models.Model):
 			self.clean_team.complete_level_task(task)
 
 		elif self.clean_team.level.name == "Sapling":
-			count_challenges = self.objects.filter(clean_team=self.clean_team).count()
+			count_challenges = Challenge.objects.filter(clean_team=self.clean_team).count()
 
 			if count_challenges > 4:
 				task = CleanTeamLevelTask.objects.get(name="5_challenges")

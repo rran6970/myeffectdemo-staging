@@ -63,6 +63,7 @@ class NewChallengeForm(forms.Form):
 		self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 		self.fields['host_organization'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (optional)")
+		self.fields['national_challenge'] = forms.BooleanField(label="This is a National Challenge", required=False)
 		self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	def clean(self):
@@ -78,6 +79,7 @@ class NewChallengeForm(forms.Form):
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
 		host_organization = cleaned_data.get("host_organization")
+		national_challenge = cleaned_data.get("national_challenge")
 		challenge_id = cleaned_data.get("challenge_id")
 
 		if not title:
@@ -114,6 +116,7 @@ class EditChallengeForm(forms.ModelForm):
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 	host_organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (if applicable)")
+	national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
 	challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	class Meta:
@@ -133,6 +136,7 @@ class EditChallengeForm(forms.ModelForm):
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
 		host_organization = cleaned_data.get("host_organization")
+		national_challenge = cleaned_data.get("national_challenge")
 		challenge_id = cleaned_data.get("challenge_id")
 
 		if not title:

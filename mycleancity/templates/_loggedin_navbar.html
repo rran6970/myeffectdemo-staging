@@ -79,12 +79,12 @@
 	</div>
 	
 	{% if user.profile.count_unread_notifications > 0 %}
-	<div style="left: initial; right: 108px;" id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
+	<div style="left: initial; right: 123px;" id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
 	{% endif %}
 </div><!-- end of #notification-dropdown.dropdown -->
 
 <a href="#" data-toggle="dropdown" class="menu-items menu-items-right">{{ user.first_name }}<b class="caret"></b></a>
-<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">	
+<ul class="dropdown-menu profile-dropdown" style="left: 981px;" role="menu" aria-labelledby="dLabel">	
 	<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
 	<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>
 	<li><a href="/users/settings/" class="menu-items">Settings</a></li>

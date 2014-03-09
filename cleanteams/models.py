@@ -53,6 +53,7 @@ class CleanTeam(models.Model):
 	group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
 	clean_creds = models.IntegerField(default=0)
 	level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
+	admin = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name_plural = u'Clean Team'

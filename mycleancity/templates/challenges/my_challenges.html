@@ -25,6 +25,9 @@
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
+						{% if challenge.national_challenge %}
+						<img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
+						{% endif %}
 						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
 
 						<div class="links">
@@ -51,7 +54,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="clear"></div>
 				{% endfor %}
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
