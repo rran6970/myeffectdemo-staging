@@ -12,6 +12,8 @@ $(function(){
     $(".notification-mark-read").on('click', ajaxQuickReadNotification);
     $(".notification-mark-unread").on('click', ajaxQuickUnreadNotification);
 
+    $(".youtube-popup").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+
     $(".popup-image").colorbox({
         speed: 250,
         inline: true, 

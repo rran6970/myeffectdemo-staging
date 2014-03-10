@@ -135,7 +135,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/sign-register2.png) no-repeat 0 0; }
 #sign-register-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/french/sign-register2.png) no-repeat 0 0; }
 
-#sign-learn-more { width: 234px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 68px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
+#sign-learn-more { width: 295px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 33px; background: url(../images/sign-learn-more.png) no-repeat 0 0; }
 #sign-learn-more-fr { width: 296px; height: 57px; position: absolute; z-index: 1000; top: 112px; left: 43px; background: url(../images/french/sign-learn-more.png) no-repeat 0 0; }
 
 #sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
