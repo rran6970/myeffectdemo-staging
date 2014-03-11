@@ -10,6 +10,9 @@ class ChallengeAdmin(admin.ModelAdmin):
     search_fields = ['title', 'user__id', 'user__first_name', 'user__last_name', 'user__organization']
     actions = [export_as_csv_action("CSV Export")]
 
+class ChallengeQRCodeAdmin(admin.ModelAdmin):
+    list_display = ('data', 'qr_image')
+
 class UserChallengeAdmin(admin.ModelAdmin):
     list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours', 'total_clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
@@ -46,6 +49,7 @@ class UserChallengeSurveyAnswersAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 admin.site.register(Challenge, ChallengeAdmin)
+admin.site.register(ChallengeQRCode, ChallengeQRCodeAdmin)
 admin.site.register(UserChallenge, UserChallengeAdmin)
 admin.site.register(CleanGrid, CleanGridAdmin)
 admin.site.register(ChallengeQuestion, ChallengeQuestionAdmin)

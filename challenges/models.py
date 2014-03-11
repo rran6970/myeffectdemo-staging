@@ -1,14 +1,115 @@
 import datetime
 import math
+import qrcode
 
-from django.db import models
+from cStringIO import StringIO
+
 from django.contrib.auth.models import User
+from django.core.files import File
+from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
+from django.db import models
+from django.db.models.signals import post_save
 
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask
 
+from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
 from itertools import chain
+
+"""
+Name:           ChallengeQRCode
+Date created:   March 10, 2014
+Description:    A QR Code of each Challenge.
+"""
+class ChallengeQRCode(models.Model):
+	data = models.CharField(max_length=60, blank=True, null=True, default="")
+	qr_image = models.ImageField(
+		upload_to=get_upload_file_name,
+		height_field="qr_image_height",
+		width_field="qr_image_width",
+		null=True,
+		blank=True
+	)
+	qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
+	qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
+
+	class Meta:
+		verbose_name_plural = u'Challenge QR Codes'
+
+	def __unicode__(self):
+		return u'Challenge QR Code: %s' % self.data
+
+	def qr_code(self):
+		return '%s' % self.qr_image.url
+
+	qr_code.allow_tags = True
+
+def challengeqrcode_pre_save(sender, instance, **kwargs):    
+	if not instance.pk:
+		instance._QRCODE = True
+	else:
+		if hasattr(instance, '_QRCODE'):
+			instance._QRCODE = False
+		else:
+			instance._QRCODE = True
+
+def challengeqrcode_post_save(sender, instance, **kwargs):
+	if instance._QRCODE:
+		instance._QRCODE = False
+
+		if instance.qr_image:
+			instance.qr_image.delete()
+		
+		qr = qrcode.QRCode(
+			version=1,
+			error_correction=qrcode.constants.ERROR_CORRECT_L,
+			box_size=12,
+			border=2,
+		)
+		qr.add_data(instance.data)
+		qr.make()
+		image = qr.make_image()
+
+		# Save image to string buffer
+		image_buffer = StringIO()
+		image.save(image_buffer, kind='JPEG')
+		image_buffer.seek(0)
+
+		# Here we use django file storage system to save the image.
+		file_name = 'ChallengeQR_%s.jpg' % (instance.id)
+		file_object = File(image_buffer, file_name)
+		content_file = ContentFile(file_object.read())
+
+		key = 'qr_code/%s' % (file_name)
+		uploadFile = UploadFileToS3()
+		path = uploadFile.upload(key, content_file)
+
+		instance.qr_image.save(path, content_file, save=True)
+	 
+models.signals.pre_save.connect(challengeqrcode_pre_save, sender=ChallengeQRCode)
+models.signals.post_save.connect(challengeqrcode_post_save, sender=ChallengeQRCode)
+
+"""
+Name:           ChallengeType
+Date created:   Mar 10, 2014
+Description:    The type of Challenge.
+"""
+class ChallengeType(models.Model):
+	name = models.CharField(max_length=60, blank=False, verbose_name="Name")	
+	description = models.TextField(blank=False, default="")
+	challenge_type = models.CharField(max_length=60, blank=False, verbose_name="Challenge Type", default="")	
+
+	class Meta:
+		verbose_name_plural = u'Challenge Types'
+
+	def __unicode__(self):
+		return u'%s' % self.name
+
+	def save(self, *args, **kwargs):
+		super(ChallengeType, self).save(*args, **kwargs)
+
 """
 Name:           Challenge
 Date created:   Sept 8, 2013
@@ -32,6 +133,8 @@ class Challenge(models.Model):
 	last_updated_by = models.ForeignKey(User, related_name='user_last_updated_by')
 	clean_creds_per_hour = models.IntegerField(default=0)
 	national_challenge = models.BooleanField(default=False)
+	type = models.ForeignKey(ChallengeType, default=1)
+	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -54,6 +157,10 @@ class Challenge(models.Model):
 		self.description = form['description']
 		self.host_organization = form['host_organization']
 		self.national_challenge = form['national_challenge']
+		
+		if form['type']:
+			self.type = form['type']
+		
 		self.clean_team = user.profile.clean_team_member.clean_team
 		self.save()
 
@@ -100,6 +207,15 @@ class Challenge(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(Challenge, self).save(*args, **kwargs)
+
+def create_challenge(sender, instance, created, **kwargs):  
+    if created:  
+       qr_code, created = ChallengeQRCode.objects.get_or_create(data='%s' % (instance.id))
+       instance.qr_code = qr_code
+
+       instance.save()
+
+post_save.connect(create_challenge, sender=Challenge) 
 
 """
 Name:           UserChallenge

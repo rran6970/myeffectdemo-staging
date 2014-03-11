@@ -184,7 +184,7 @@
         <h1><a href="/challenges/{{ challenge.id }}/">{{ challenge.title }}</a></h1>
         <span class="date-time">{{ challenge.event_date }} {{ challenge.event_time }}</span>
         <p>{{ challenge.description|slice:":255" }}</p>
-        <p class="clean-creds"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hour:&nbsp;{{ challenge.clean_creds_per_hour }}</span></p>
+        <p class="clean-creds"><span class="bold">{{ challenge.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span class="bold">{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
       </div>
     {% endfor %}
   </div>

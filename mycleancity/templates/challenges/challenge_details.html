@@ -37,7 +37,6 @@
         	{% endif %}
         	<div class="clear"></div>
         	
-
 			<table>
         {% if challenge.host_organization %}
           <tr>
@@ -54,7 +53,7 @@
 					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></h2></td>
+					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
 				</tr>
 			</table>
 		

@@ -292,7 +292,7 @@ class CleanTeamView(TemplateView):
 			context['cas'] = cas
 			context['ccs'] = ccs
 			context['posts'] = posts
-			context['challenges'] = Challenge.objects.filter(clean_team_id=ctid)
+			context['challenges'] = Challenge.objects.filter(clean_team_id=ctid).order_by("event_date")
 
 		context['user'] = self.request.user
 

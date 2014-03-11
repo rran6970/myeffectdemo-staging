@@ -217,15 +217,15 @@ function ajaxCheckInCheckOut(e)
         success: function (data) {
             btn = form.find("#confirm-btn");
 
-            if (btn.val() == "Check In")
+            if (data)
+            {
+                btn.before(data);
+                btn.hide();
+            }
+            else if (btn.val() == "Check In")
             {
                 btn.val("Check Out");
                 btn.addClass("dark");
-            }
-            else if (data)
-            {
-                btn.before(data + " Hours");
-                btn.hide();
             }
             else
             {

@@ -37,7 +37,7 @@
       					<a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
       					
                 <span class="hosted-by">
-                  <h2>Hosted by:</h2><span>&nbsp;<a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span>
+                  <h2>Created by:</h2><span>&nbsp;<a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span>
                 </span>
 
                 <span class="date">
@@ -47,7 +47,7 @@
       						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
       					</span>
       					<span class="clean-creds">
-      						<h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>/hr</h2>
+      						<h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
       					</span>
       					<p>{{ challenge.description|slice:":130" }}...</p>
       				</div>
