@@ -1,6 +1,8 @@
 import datetime
 import math
 import qrcode
+import random
+import string
 
 from cStringIO import StringIO
 
@@ -133,7 +135,7 @@ class Challenge(models.Model):
 	last_updated_by = models.ForeignKey(User, related_name='user_last_updated_by')
 	clean_creds_per_hour = models.IntegerField(default=0)
 	national_challenge = models.BooleanField(default=False)
-	type = models.ForeignKey(ChallengeType, default=1)
+	type = models.ForeignKey(ChallengeType, blank=True, null=True, default=1)
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
 	token = models.CharField(max_length=20, blank=True)
 

@@ -270,12 +270,12 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.description = form.cleaned_data['description']
 		challenge.host_organization = form.cleaned_data['host_organization']
 		
-		challenge.type = ChallengeType.object.get(id=1)
-		# if form.cleaned_data['type'] is not None:
-		# 	# challenge.type = form.cleaned_data['type']
-		# 	print True
-		# else:
-		# 	print False
+		if form.cleaned_data['type'] is not None:
+			challenge.type = form.cleaned_data['type']
+			print True
+		else:
+			challenge.type = ChallengeType.objects.get(id=1)
+			print False
 			
 		challenge.national_challenge = form.cleaned_data['national_challenge']
 		challenge.last_updated_by = self.request.user
