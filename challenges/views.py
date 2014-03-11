@@ -46,7 +46,53 @@ def participate_in_challenge(request):
 
 			print e
 
+		if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
+			count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
+
+			if count_challenges > 1:
+				task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
+				self.clean_team.complete_level_task(task)
+
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
+
+@login_required
+def one_time_check_in(request, cid, token):
+	try:
+		challenge = Challenge.objects.get(id=cid, token=token)
+
+		user = request.user
+		userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge_id=cid)
+		challenge = userchallenge.challenge
+
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		total_clean_creds = challenge.clean_creds_per_hour
+
+		userchallenge.time_in = now
+		userchallenge.time_out = now
+		userchallenge.total_hours = 0
+		userchallenge.total_clean_creds = total_clean_creds
+		userchallenge.save()
+
+		# Add CleanCreds to individual
+		user.profile.add_clean_creds(total_clean_creds)
+
+		# Add CleanCreds to Clean Teams if applicable
+		clean_champions = CleanChampion.objects.filter(user=user)
+
+		for clean_champion in clean_champions:
+			if clean_champion.status == "approved":
+				clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+				
+		# Clean Ambassador
+		if user.profile.is_clean_ambassador():
+			user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+		
+		# Clean Team posting challenge	
+		challenge.clean_team.add_team_clean_creds(total_clean_creds)
+	except Exception, e:
+		print e
+
+	return HttpResponseRedirect('/challenges/my-challenges')
 
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:
@@ -198,6 +244,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
 		initial['host_organization'] = challenge.host_organization
+		initial['type'] = challenge.type
 		initial['national_challenge'] = challenge.national_challenge
 		initial['challenge_id'] = challenge.id
 
@@ -222,6 +269,14 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
 		challenge.host_organization = form.cleaned_data['host_organization']
+		
+		challenge.type = ChallengeType.object.get(id=1)
+		# if form.cleaned_data['type'] is not None:
+		# 	# challenge.type = form.cleaned_data['type']
+		# 	print True
+		# else:
+		# 	print False
+			
 		challenge.national_challenge = form.cleaned_data['national_challenge']
 		challenge.last_updated_by = self.request.user
 		challenge.save()

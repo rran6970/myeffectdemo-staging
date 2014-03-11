@@ -521,8 +521,9 @@ div.content.my-challenges { background: url(../images/challenge-centre-bg.png) n
 div.content.my-challenges #white-box div.challenges { position: relative; margin-bottom: 27px; padding: 20px; background-color: white; border: 1px solid #CCC; /*margin: 20px 0;*/ border-bottom: 1px solid #abd78c; vertical-align: middle; }
 div.content.my-challenges #white-box div.challenges h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; margin-bottom: 12px; }
 
-div.content.my-challenges #white-box div.challenges div.links { width: 112px; float: right; }
+div.content.my-challenges #white-box div.challenges div.links { width: 112px; float: right; position: relative; top: -29px; }
 div.content.my-challenges #white-box div.challenges div.links a { display: block; margin: 7px 0; }
+div.content.my-challenges #white-box div.challenges div.links a.view-challenge-qrcode img { display: block; height: 60px; width: 60px; }
 
 div.content.my-challenges #white-box div.challenges div.details { }
 div.content.my-challenges #white-box div.challenges div.details div.title { margin-left: 10px; display: block; }

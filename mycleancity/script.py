@@ -1,8 +1,12 @@
+import math
+
 from datetime import date
 
 from django.contrib.auth.models import User
 
+from challenges.models import *
 from cleanteams.models import *
+from mycleancity.actions import *
 from userprofile.models import *
 
 # To run this script:
@@ -60,6 +64,39 @@ def add_qrcodes_to_all_user_profiles():
 
 			print "No profile for %s: CREATED" % user_profile.user.email
 
+
+# To run this script:
+# from mycleancity.script import *; add_qrcodes_to_all_challenges()
+def add_qrcodes_to_all_challenges():
+	challenges = Challenge.objects.all()
+	site_url = current_site_url()
+
+	for challenge in challenges:
+		try:
+			qr_code, created = ChallengeQRCode.objects.get_or_create(data='%schallenges/one-time-check-in/%s/%s' % (site_url, challenge.id, challenge.token))
+
+			if created:
+				challenge.qr_code = ChallengeQRCode.objects.latest('id')
+				print "Created QR Code for %s" % challenge.title
+
+			challenge.save()
+
+		except Exception, e:
+			print e
+
+
+# To run this script:
+# from mycleancity.script import *; add_tokens_to_all_challenges()
+def add_tokens_to_all_challenges():
+	challenges = Challenge.objects.all()
+	char_set = string.ascii_lowercase + string.digits
+
+	for challenge in challenges:
+		token = ''.join(random.sample(char_set*20,20))
+
+		challenge.token = token
+		challenge.save()
+	
 
 # CAUTION: VERY DANGEROUS SCRIPT
 # To run this script:

@@ -119,11 +119,12 @@ class EditChallengeForm(forms.ModelForm):
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 	host_organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (if applicable)")
 	national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
+	type = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 	challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	class Meta:
 		model = Challenge
-		exclude = ('user', 'clean_team', 'clean_creds_per_hour', 'last_updated_by')
+		exclude = ('user', 'clean_team', 'clean_creds_per_hour', 'last_updated_by', 'qr_code', 'token')
 
 	def clean(self):
 		cleaned_data = super(EditChallengeForm, self).clean()

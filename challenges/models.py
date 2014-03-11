@@ -24,7 +24,7 @@ Date created:   March 10, 2014
 Description:    A QR Code of each Challenge.
 """
 class ChallengeQRCode(models.Model):
-	data = models.CharField(max_length=60, blank=True, null=True, default="")
+	data = models.CharField(max_length=100, blank=True, null=True, default="")
 	qr_image = models.ImageField(
 		upload_to=get_upload_file_name,
 		height_field="qr_image_height",
@@ -135,6 +135,7 @@ class Challenge(models.Model):
 	national_challenge = models.BooleanField(default=False)
 	type = models.ForeignKey(ChallengeType, default=1)
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
+	token = models.CharField(max_length=20, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -161,6 +162,8 @@ class Challenge(models.Model):
 		if form['type']:
 			self.type = form['type']
 		
+		char_set = string.ascii_lowercase + string.digits
+		self.token = ''.join(random.sample(char_set*20,20))
 		self.clean_team = user.profile.clean_team_member.clean_team
 		self.save()
 
@@ -209,11 +212,12 @@ class Challenge(models.Model):
 		super(Challenge, self).save(*args, **kwargs)
 
 def create_challenge(sender, instance, created, **kwargs):  
-    if created:  
-       qr_code, created = ChallengeQRCode.objects.get_or_create(data='%s' % (instance.id))
-       instance.qr_code = qr_code
+	if created:
+		site_url = current_site_url()
+		qr_code, created = ChallengeQRCode.objects.get_or_create(data='%schallenges/one-time-check-in/%s/%s' % (site_url, instance.id, instance.token))
+		instance.qr_code = qr_code
 
-       instance.save()
+		instance.save()
 
 post_save.connect(create_challenge, sender=Challenge) 
 

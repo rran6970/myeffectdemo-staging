@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^my-challenges/?$', MyChallengesView.as_view()),
 	# url(r'^confirm-participants/?$', 'challenges.views.confirm_participants'),
 	url(r'^survey-update-score/?$', 'challenges.views.survey_update_score'),
+	url(r'^one-time-check-in/(?P<cid>\d+)/(?P<token>\w+)/?$', 'challenges.views.one_time_check_in', name="one_time_check_in"),
 	url(r'^check-in-check-out/?$', 'challenges.views.check_in_check_out'),
 	url(r'^participate/?$', 'challenges.views.participate_in_challenge'),
 )
