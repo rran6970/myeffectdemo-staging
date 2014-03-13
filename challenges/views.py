@@ -1,9 +1,12 @@
 import datetime
+import json
 
+from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 
@@ -16,6 +19,7 @@ from challenges.forms import *
 from challenges.models import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
+from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
 def survey_update_score(request):
@@ -93,6 +97,45 @@ def one_time_check_in(request, cid, token):
 		print e
 
 	return HttpResponseRedirect('/challenges/my-challenges')
+
+def search_for_challenges(request):
+	
+	query = request.GET['query']
+	national_challenges = request.GET['national_challenges']
+
+	print query
+
+	if national_challenges == "true":
+		if not query:
+			challenges = Challenge.objects.filter(Q(national_challenge=True)).values()[:10]
+		else:
+			challenges = Challenge.objects.filter(Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).values()[:10]
+	else:
+		challenges = Challenge.objects.filter(Q(title__icontains=query) | Q(city__icontains=query)).values()[:10]
+
+	challenge_dict = {}
+
+	for c in challenges:
+		pk = c['id']
+		type = c['type_id']
+		clean_team = c['clean_team_id']
+
+		clean_team = CleanTeam.objects.get(id=clean_team)
+		logo = "%s%s" % (settings.MEDIA_URL, clean_team.logo)
+
+		if type == 2:
+			title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, c['title'], c['city'], c['province'], c['clean_creds_per_hour'])
+		else:
+			title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, c['title'], c['city'], c['province'], c['clean_creds_per_hour'])
+		
+		challenge_dict[pk] = title
+
+	challenges_json = json.dumps(challenge_dict, indent=4, separators=(',', ': '))
+
+	if challenges_json:
+		return HttpResponse(challenges_json)
+			
+	return HttpResponse("No results found")
 
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:

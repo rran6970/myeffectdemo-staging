@@ -30,21 +30,41 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
-#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 327px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
+#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 113px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
 #notification-container span { display: block; }
 
 .profile-pic-124x124 { border-radius: 4px; border: 2px solid #4a3c2e; margin-right: 10px; height: 124px; width: 124px; }
 .profile-pic-42x42 { border-radius: 4px; border: 1px solid #4a3c2e; margin-right: 10px; height: 42px; width: 42px; }
 
+#search-container { position: absolute; z-index: 1001; right: 213px; top: 14px; width: 274px; }
+#search-container > input[type="text"] { width: 250px; padding: 8px; font-size: 14px; border: 1px solid #7E7E7E; }
+#search-container > input[type="text"]:focus { box-shadow: none !important; border: 1px solid #7E7E7E !important; }
+#search-container > input[type="text"] + .glyphicon-search { }
+#search-container .input-group-btn button { width: 55px; height: 34px; }
+#search-container ul.dropdown-menu { left: -184px; top: 34px; border: 1px solid #BBB; }
+#search-container ul.dropdown-menu li { min-width: 168px; }
+#search-container ul.dropdown-menu li span { display: block; padding: 12px 16px; border-bottom: 1px solid #E0E0E0; text-decoration: none; min-width: 237px; }
+#search-container ul.dropdown-menu li span input[type="checkbox"] { float: left; margin-right: 9px; }
+
+#search-container .search-result-dropdown { display: none; left: 56px; top: 35px; width: 248px; padding: 10px; }
+#search-container .search-result-dropdown ul { margin: 0; max-height: 200px; border: 1px solid #BBB; overflow: scroll; }
+#search-container .search-result-dropdown ul li { border-bottom: 1px solid #E0E0E0; }
+#search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #B9B3AE; } 
+#search-container .search-result-dropdown ul li a div {  }
+#search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; }
+#search-container .search-result-dropdown #view-all-challenges { display: block; text-align: center; padding: 10px 10px 0; font-size: 12px; } 
+
+.glyphicon-chevron-down { font-size: 10px; margin-left: 5px; top: 0px; }
+
 .dropdown { position: relative; z-index: 1001; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
 .dropdown#notification-dropdown { top: -5px; }
-.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; z-index: 1002; min-width: 130px; }
+.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; z-index: 1002; min-width: 160px; }
 
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
-.dropdown-menu.profile-dropdown { left: 890px; }
+.dropdown-menu.profile-dropdown { left: 1108px; }
 
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
