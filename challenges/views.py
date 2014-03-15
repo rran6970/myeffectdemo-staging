@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 
 from django.utils.timezone import utc
 
@@ -98,44 +98,18 @@ def one_time_check_in(request, cid, token):
 
 	return HttpResponseRedirect('/challenges/my-challenges')
 
-def search_for_challenges(request):
+def dropdown_search_for_challenges(request):
 	
-	query = request.GET['query']
+	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
 
-	print query
+	challenges = Challenge.search_challenges(query, national_challenges, 10)
+	challenges_json = Challenge.search_results_to_json(challenges)
 
-	if national_challenges == "true":
-		if not query:
-			challenges = Challenge.objects.filter(Q(national_challenge=True)).values()[:10]
-		else:
-			challenges = Challenge.objects.filter(Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).values()[:10]
-	else:
-		challenges = Challenge.objects.filter(Q(title__icontains=query) | Q(city__icontains=query)).values()[:10]
-
-	challenge_dict = {}
-
-	for c in challenges:
-		pk = c['id']
-		type = c['type_id']
-		clean_team = c['clean_team_id']
-
-		clean_team = CleanTeam.objects.get(id=clean_team)
-		logo = "%s%s" % (settings.MEDIA_URL, clean_team.logo)
-
-		if type == 2:
-			title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, c['title'], c['city'], c['province'], c['clean_creds_per_hour'])
-		else:
-			title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, c['title'], c['city'], c['province'], c['clean_creds_per_hour'])
-		
-		challenge_dict[pk] = title
-
-	challenges_json = json.dumps(challenge_dict, indent=4, separators=(',', ': '))
-
-	if challenges_json:
+	if challenges_json != "{}":
 		return HttpResponse(challenges_json)
 			
-	return HttpResponse("No results found")
+	return HttpResponse(False)
 
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:
@@ -225,10 +199,23 @@ def check_in_check_out(request):
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challenge_centre.html"
 
+	def get(self, request, *args, **kwargs):
+		query = ""
+		national_challenges = False
+		
+		if 'q' in request.GET:
+			query = request.GET['q']
+		
+		if 'national_challenges' in request.GET:
+			national_challenges = request.GET['national_challenges']
+
+		challenges = Challenge.search_challenges(query, national_challenges)			
+
+		return render(request, self.template_name, {'challenges': challenges})
+
 	def get_context_data(self, **kwargs):
 		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
-		context['challenges'] = Challenge.objects.all()[:10]
-		context['user'] = self.request.user
+		context['challenges'] = Challenge.objects.all()
 
 		return context
 

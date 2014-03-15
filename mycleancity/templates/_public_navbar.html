@@ -35,7 +35,7 @@
 		</ul>
 	</div><!-- end of #user-dropdown.dropdown -->
 
-	<a href="#" data-toggle="dropdown" class="menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
+	<a data-toggle="dropdown" class="menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
 	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">	
 		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
 		<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>
@@ -88,15 +88,15 @@
 		{% endif %}
 	</div><!-- end of #notification-dropdown.dropdown -->
 
-	<form>{% csrf_token %}
+	<form action="" method="get" id="search-form">
 		<div id="search-container" class="input-group">
 	      <div class="input-group-btn">
 	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
-				<li><span><input type="checkbox" id="national-challenge-checkbox" /><label for="">National challenges only</label></span></li>
+				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National challenges only</label></span></li>
 	        </ul>
 	      </div><!-- /btn-group -->
-	      <input autocomplete="off" id="search-box" type="text" class="form-control" placeholder="Search for challenges..." />
+	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Search for challenges..." />
 	      <div class="dropdown-menu search-result-dropdown">
 				<ul role="menu" aria-labelledby="dLabel">
 					<li>
@@ -105,7 +105,7 @@
 						</a>
 					</li>
 				</ul>
-				<a id="view-all-challenges" href="/challenges/">View all results</a>
+				<a id="view-all-challenges" href="">View all results</a>
 			</div><!-- end of #search-result-dropdown.dropdown -->
     	</div><!-- /input-group -->
     </form>

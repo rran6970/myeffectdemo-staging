@@ -1,4 +1,5 @@
 import datetime
+import json
 import math
 import qrcode
 import random
@@ -11,6 +12,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save
 
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask
@@ -209,6 +211,53 @@ class Challenge(models.Model):
 
 	def get_challenge_total_clean_creds(self, total_hours):
 		return int(self.clean_creds_per_hour * total_hours)
+
+	@staticmethod
+	def search_challenges(query, national_challenges=False, limit=False):
+		today = datetime.datetime.now()
+
+		if national_challenges == "true" or national_challenges == "on":
+			if limit:
+				if not query:
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))[:limit]
+				else:
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+			else:
+				if not query:
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))
+				else:
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))
+		else:
+			if limit:
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+			else:
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))
+
+		return challenges
+
+	@staticmethod
+	def search_results_to_json(challenges):
+		challenge_dict = {}
+
+		for c in challenges:
+			pk = c.id
+			type = c.type.id
+			clean_team = c.clean_team.id
+
+			clean_team = CleanTeam.objects.get(id=clean_team)
+			logo = "%s%s" % (settings.MEDIA_URL, clean_team.logo)
+
+			if type == 2:
+				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+			else:
+				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+			
+			if c.national_challenge:
+				title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"
+
+			challenge_dict[pk] = title
+
+		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 
 	def save(self, *args, **kwargs):
 		super(Challenge, self).save(*args, **kwargs)

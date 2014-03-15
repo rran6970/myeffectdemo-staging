@@ -51,8 +51,9 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #search-container .search-result-dropdown ul li { border-bottom: 1px solid #E0E0E0; }
 #search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #B9B3AE; } 
 #search-container .search-result-dropdown ul li a div {  }
-#search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; }
-#search-container .search-result-dropdown #view-all-challenges { display: block; text-align: center; padding: 10px 10px 0; font-size: 12px; } 
+#search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; position: relative; }
+#search-container .search-result-dropdown #view-all-challenges { display: none; text-align: center; padding: 10px 10px 0; font-size: 12px; } 
+#search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 179px; width: 50px; }
 
 .glyphicon-chevron-down { font-size: 10px; margin-left: 5px; top: 0px; }
 
@@ -518,7 +519,8 @@ div.content.challenge-centre { background: url(../images/challenge-centre-bg.png
 
 div.content.challenge-centre #white-box { width: 734px; height: 400px; left: 39%; }
 div.content.challenge-centre #white-box p { padding: 0; }
-div.content.challenge-centre #white-box div.challenges { margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
+div.content.challenge-centre #white-box div.challenges { position: relative; margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
+div.content.challenge-centre #white-box div.challenges img.badge-icon { position: absolute; left: 600px; top: -15px; }
 
 div.content.challenge-centre #white-box div.challenges a.team-picture { display: block; float: left; margin-right: 20px; }
 div.content.challenge-centre #white-box div.challenges a.team-picture img { display: block; border-radius: 4px; border: 2px solid #4a3c2e; }

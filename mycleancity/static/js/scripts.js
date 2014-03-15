@@ -101,10 +101,10 @@ function showSearchResults(e, search_box)
     var search_result_list = $(".search-result-dropdown ul");
     var value = search_box.val();
     var national_challenges = $("#national-challenge-checkbox").is(':checked');
-    // console.log(national_challenges);
 
-    search_result_list.empty();
-    search_result_list.append("<li><a><div style='text-align: center'><img src='{{ STATIC_URL }}images/loading.gif' /></div></a></li>");
+    var challenge_url = '/challenges/?q=';
+    $("#view-all-challenges").attr('href', challenge_url + value);
+    $("#search-form").attr('action', challenge_url + value);
 
     if(value || national_challenges == true)
     {
@@ -112,8 +112,7 @@ function showSearchResults(e, search_box)
             type: 'GET',
             url: '/challenges/search/',
             data: { 
-                'csrfmiddlewaretoken': 'DAcrAKVwSdo0BMqJRuE3fwI3ucE8mEax',
-                'query': value,
+                'q': value,
                 'national_challenges': national_challenges
             },
             beforeSend: function()
@@ -122,13 +121,22 @@ function showSearchResults(e, search_box)
             },
             success: function (data) {
                 search_result_list.empty();
-                var json = JSON.parse(data);                
 
-                for (var key in json){
-                    var id = key;
-                    var title = json[key];
-                    search_result_list.append("<li><a href='/challenges/" + id + "/'>" + title + "</a></li>")
+                if (data != "False")
+                {
+                    var json = JSON.parse(data);                
+
+                    for (var key in json){
+                        var id = key;
+                        var title = json[key];
+                        search_result_list.append("<li><a href='/challenges/" + id + "/'>" + title + "</a></li>")
+                    }    
                 }
+                else
+                {
+                    search_result_list.append("<li><a>No results found</a></li>")
+                }
+                
             },
             error: function(data) {
                 console.log(data);
