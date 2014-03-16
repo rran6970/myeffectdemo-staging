@@ -13,7 +13,7 @@ class CleanTeamLevelAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class CleanTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'website', 'clean_creds', 'level')
+    list_display = ('id', 'name', 'website', 'clean_creds', 'level', 'admin')
     search_fields = ['name', 'level']
     actions = [export_as_csv_action("CSV Export")]
 

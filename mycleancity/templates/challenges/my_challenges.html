@@ -25,12 +25,19 @@
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
+						{% if challenge.national_challenge %}
+						<img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-62x45.png" alt="National Challenge" />
+						{% endif %}
 						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
 
 						<div class="links">
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 							<div class="clear"></div>
 							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit Challenge</a>
+
+							{% if challenge.type.challenge_type == "one-time" %}
+							<a class="view-challenge-qrcode popup-image" href="#view-challenge-qrcode-{{ challenge.id }}"><img src="{{ MEDIA_URL }}{{ challenge.qr_code.qr_image }}" alt="" /></a>
+							{% endif %}
 						</div>
 						
 						<div class="details">
@@ -47,11 +54,10 @@
 							</div>
 
 							<div class="title">
-								<p><span>{{ challenge.clean_creds_per_hour }}&nbsp;</span><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></p>
+								<p><span>{{ challenge.clean_creds_per_hour }}&nbsp;</span><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
 							</div>
 						</div>
 					</div>
-					<div class="clear"></div>
 				{% endfor %}
 			{% else %}
 				<p>There are no challenges that you've posted.</p>
@@ -118,6 +124,15 @@
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+
+<div class="popup-container">
+	{% for challenge in posted_challenges %}
+	<div id="view-challenge-qrcode-{{ challenge.id }}">
+		<h1>{{ challenge.title }}</h1>
+		<img src="{{ MEDIA_URL }}{{ challenge.qr_code.qr_image }}" alt="" />
+	</div>
+	{% endfor %}
+</div>
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

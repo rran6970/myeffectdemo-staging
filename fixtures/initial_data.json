@@ -194,6 +194,24 @@
 },
 {
   "pk": 1, 
+  "model": "challenges.challengetype", 
+  "fields": {
+    "challenge_type": "hourly", 
+    "name": "Hourly", 
+    "description": "This would be the numbers of hours * CleanCreds/hour"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.challengetype", 
+  "fields": {
+    "challenge_type": "one-time", 
+    "name": "One Time", 
+    "description": "One time scan in via QR code"
+  }
+},
+{
+  "pk": 1, 
   "model": "challenges.cleangrid", 
   "fields": {
     "name": "LAN", 

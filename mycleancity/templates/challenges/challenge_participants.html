@@ -19,39 +19,62 @@
     <div class="container">
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign challenge-participants" id="sign-go-back"></div></a>
         <div id="white-box" class="challenge-participants">
-        	<h1>{{ challenge.title }}</h1>
-				{% csrf_token %}
-				<h1>{% with participants|first as challenge %}{{ challenge.challenge.title }}{% endwith %}</h1>
+        	{% with participants|first as challenge %}
+				<h1>{{ challenge.challenge.title }}</h1>
 				<table>
 					<tr>
 						<td class="name"><h2>Participant</h2></td>
 						<td class="participated"></td>
 					</tr>
-					{% for participant in participants %}
-						<tr>
-							<td class="name">
-								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
-							</td>
-							<td class="participated">
-								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
-									{% csrf_token %}
-									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
-									<input type="hidden" name="cid" value="{{ cid }}">
-									
-									{% if participant.time_in %}
-										{% if participant.time_out %}
-											{{ participant.total_hours }} Hours
+					{% if challenge.challenge.type.challenge_type == "hourly" %}
+						{% for participant in participants %}
+							<tr>
+								<td class="name">
+									<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								</td>
+								<td class="participated">
+									<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
+										{% csrf_token %}
+										<input type="hidden" name="uid" value="{{ participant.user.id }}" />
+										<input type="hidden" name="cid" value="{{ cid }}">
+										{% if participant.time_in %}
+											{% if participant.time_out %}
+												{{ participant.total_hours }} Hours<br/>
+												{{ participant.total_clean_creds }} <span class="green bold">Clean</span><span class="blue bold">Creds</span>
+											{% else %}
+												<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
+											{% endif %}
 										{% else %}
-											<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
+											<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
 										{% endif %}
-									{% else %}
-										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
-									{% endif %}
-								</form>
-							</td>
-						</tr>
-					{% endfor %}
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					{% else %}
+						{% for participant in participants %}
+							<tr>
+								<td class="name">
+									<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								</td>
+								<td class="participated">
+									<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
+										{% csrf_token %}
+										<input type="hidden" name="uid" value="{{ participant.user.id }}" />
+										<input type="hidden" name="cid" value="{{ cid }}">
+										
+										{% if participant.time_out %}
+											Confirmed
+										{% else %}
+											<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
+										{% endif %}
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
 				</table>
+			{% endwith %}
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

@@ -55,7 +55,7 @@ class QRCodeSignups(models.Model):
 
 """
 Name:           UserQRCode
-Date created:   Jan 9, 2013
+Date created:   Jan 9, 2014
 Description:    A QR Code of each user
 """
 class UserQRCode(models.Model):

@@ -1,11 +1,14 @@
 import datetime
+import json
 
+from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 
 from django.utils.timezone import utc
 
@@ -16,6 +19,7 @@ from challenges.forms import *
 from challenges.models import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from userprofile.models import UserProfile
+from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
 def survey_update_score(request):
@@ -46,7 +50,66 @@ def participate_in_challenge(request):
 
 			print e
 
+		if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
+			count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
+
+			if count_challenges > 1:
+				task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
+				self.clean_team.complete_level_task(task)
+
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
+
+@login_required
+def one_time_check_in(request, cid, token):
+	try:
+		challenge = Challenge.objects.get(id=cid, token=token)
+
+		user = request.user
+		userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge_id=cid)
+		challenge = userchallenge.challenge
+
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		total_clean_creds = challenge.clean_creds_per_hour
+
+		userchallenge.time_in = now
+		userchallenge.time_out = now
+		userchallenge.total_hours = 0
+		userchallenge.total_clean_creds = total_clean_creds
+		userchallenge.save()
+
+		# Add CleanCreds to individual
+		user.profile.add_clean_creds(total_clean_creds)
+
+		# Add CleanCreds to Clean Teams if applicable
+		clean_champions = CleanChampion.objects.filter(user=user)
+
+		for clean_champion in clean_champions:
+			if clean_champion.status == "approved":
+				clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+				
+		# Clean Ambassador
+		if user.profile.is_clean_ambassador():
+			user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+		
+		# Clean Team posting challenge	
+		challenge.clean_team.add_team_clean_creds(total_clean_creds)
+	except Exception, e:
+		print e
+
+	return HttpResponseRedirect('/challenges/my-challenges')
+
+def dropdown_search_for_challenges(request):
+	
+	query = request.GET['q']
+	national_challenges = request.GET['national_challenges']
+
+	challenges = Challenge.search_challenges(query, national_challenges, 10)
+	challenges_json = Challenge.search_results_to_json(challenges)
+
+	if challenges_json != "{}":
+		return HttpResponse(challenges_json)
+			
+	return HttpResponse(False)
 
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:
@@ -55,28 +118,57 @@ def check_in_check_out(request):
 
 		try:
 			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
-			user = User.objects.get(id=userchallenge.user_id)
-			challenge = Challenge.objects.get(id=cid)
+			user = userchallenge.user
+			challenge = userchallenge.challenge
 
-			if not userchallenge.time_in:
+			if challenge.type.challenge_type == "hourly":
+				if not userchallenge.time_in:
+					now = datetime.datetime.utcnow().replace(tzinfo=utc)
+
+					userchallenge.time_in = now
+					userchallenge.save()
+				else:
+					# Get current time and time out time
+					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
+					userchallenge.time_out = now
+
+					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+					time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+
+					diff = now_str - time_in_str
+					total_hours = (diff.days * 24) + (diff.seconds // 3600)
+
+					total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
+
+					userchallenge.total_hours = total_hours
+					userchallenge.total_clean_creds = total_clean_creds
+					userchallenge.save()
+
+					# Add CleanCreds to individual
+					user.profile.add_clean_creds(total_clean_creds)
+
+					# Add CleanCreds to Clean Teams if applicable
+					clean_champions = CleanChampion.objects.filter(user=user)
+
+					for clean_champion in clean_champions:
+						if clean_champion.status == "approved":
+							clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+							
+					# Clean Ambassador
+					if user.profile.is_clean_ambassador():
+						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+					
+					# Clean Team posting challenge	
+					challenge.clean_team.add_team_clean_creds(total_clean_creds)
+
+					return HttpResponse("%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds)), content_type="text/html")
+			else:
 				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				total_clean_creds = challenge.clean_creds_per_hour
 
 				userchallenge.time_in = now
-				userchallenge.save()
-			else:
-				# Get current time and time out time
-				now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
 				userchallenge.time_out = now
-
-				now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
-				time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
-
-				diff = now_str - time_in_str
-				total_hours = (diff.days * 24) + (diff.seconds // 3600)
-
-				total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
-
-				userchallenge.total_hours = total_hours
+				userchallenge.total_hours = 0
 				userchallenge.total_clean_creds = total_clean_creds
 				userchallenge.save()
 
@@ -91,14 +183,13 @@ def check_in_check_out(request):
 						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
 						
 				# Clean Ambassador
-				if user.profile.clean_team_member:
-					if user.profile.is_clean_ambassador or user.profile.clean_team_member.status == "approved":
-						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+				if user.profile.is_clean_ambassador():
+					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 				
 				# Clean Team posting challenge	
 				challenge.clean_team.add_team_clean_creds(total_clean_creds)
 
-				return HttpResponse(total_hours)
+				return HttpResponse('Confirmed', content_type="text/html")
 
 		except Exception, e:
 			print e
@@ -108,10 +199,23 @@ def check_in_check_out(request):
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challenge_centre.html"
 
+	def get(self, request, *args, **kwargs):
+		query = ""
+		national_challenges = False
+		
+		if 'q' in request.GET:
+			query = request.GET['q']
+		
+		if 'national_challenges' in request.GET:
+			national_challenges = request.GET['national_challenges']
+
+		challenges = Challenge.search_challenges(query, national_challenges)			
+
+		return render(request, self.template_name, {'challenges': challenges})
+
 	def get_context_data(self, **kwargs):
 		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
-		context['challenges'] = Challenge.objects.all()[:10]
-		context['user'] = self.request.user
+		context['challenges'] = Challenge.objects.all()
 
 		return context
 
@@ -170,6 +274,8 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
 		initial['host_organization'] = challenge.host_organization
+		initial['type'] = challenge.type
+		initial['national_challenge'] = challenge.national_challenge
 		initial['challenge_id'] = challenge.id
 
 		return initial
@@ -193,6 +299,15 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
 		challenge.host_organization = form.cleaned_data['host_organization']
+		
+		if form.cleaned_data['type'] is not None:
+			challenge.type = form.cleaned_data['type']
+			print True
+		else:
+			challenge.type = ChallengeType.objects.get(id=1)
+			print False
+			
+		challenge.national_challenge = form.cleaned_data['national_challenge']
 		challenge.last_updated_by = self.request.user
 		challenge.save()
 
@@ -261,7 +376,7 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 		if self.request.user.profile.is_clean_ambassador():
 			try:
 				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
-				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team)
+				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_date")
 			except Exception, e:
 				print e
 				pass

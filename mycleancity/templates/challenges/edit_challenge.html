@@ -25,6 +25,7 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
+            {{form.errors}}
 
 			{% if form %}
 			<form action="" method="post">{% csrf_token %}
@@ -50,9 +51,19 @@
 	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
 	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
 	                </tr>
+	                {% if user.profile.clean_team_member.clean_team.admin %}
+	                <tr>
+	                	<td>{{ form.type.label_tag }} {{ form.type }}</td>
+	                </tr>
+	                {% endif %}
 	                <tr>
 	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>
 	                </tr>
+	                {% if user.profile.clean_team_member.clean_team.admin %}
+	                <tr>
+	                	<td colspan="2">{{ form.national_challenge }} {{ form.national_challenge.label_tag }}</td>
+	                </tr>
+	                {% endif %}
 	            </table>
 	            <input class="btn btn-primary" type="submit" value="Update Challenge" />
         	</form>

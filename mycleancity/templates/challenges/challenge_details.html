@@ -23,6 +23,9 @@
     <div class="container">
     	<div id="sign-challenge-overview"></div>
         <div id="white-box">
+          {% if challenge.national_challenge %}
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
+          {% endif %}
         	<h2>{{ challenge.title }}</h2>
         	<div class="clear"></div>
         	<a id="learn-more" class="popup-600" href="#challenge-description">Learn more</a>
@@ -34,7 +37,6 @@
         	{% endif %}
         	<div class="clear"></div>
         	
-
 			<table>
         {% if challenge.host_organization %}
           <tr>
@@ -51,7 +53,7 @@
 					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
 				<tr>
-					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hr</span></h2></td>
+					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
 				</tr>
 			</table>
 		

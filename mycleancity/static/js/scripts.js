@@ -50,6 +50,20 @@ $(function(){
     });
     $(".popover-btn").popover({ placement:"right", html:true });  
 
+    // Search box
+    var search_box = $('#search-box');
+    $('#search-box')
+        .data('timeout', null)
+        .keyup(function(){
+            clearTimeout($(this).data('timeout'));
+            $(this).data('timeout', setTimeout(function(e){
+                showSearchResults(e, search_box)
+            }, 500));
+    });
+    $("#national-challenge-checkbox").on("click", function(e){
+        showSearchResults(e, search_box);
+    });
+    
     // $('form.participation-forms').on('submit', ajaxParticipation);
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
@@ -81,6 +95,61 @@ $(function(){
 
     twttr.events.bind('follow', followTwitterCallback);
 });
+
+
+function showSearchResults(e, search_box)
+{
+    var search_result_dropdown = $(".search-result-dropdown");
+    var search_result_list = $(".search-result-dropdown ul");
+    var value = search_box.val();
+    var national_challenges = $("#national-challenge-checkbox").is(':checked');
+
+    var challenge_url = '/challenges/?q=';
+    $("#view-all-challenges").attr('href', challenge_url + value);
+    $("#search-form").attr('action', challenge_url + value);
+
+    if(value || national_challenges == true)
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/challenges/search/',
+            data: { 
+                'q': value,
+                'national_challenges': national_challenges
+            },
+            beforeSend: function()
+            {
+                search_result_dropdown.fadeIn("fast");
+            },
+            success: function (data) {
+                search_result_list.empty();
+
+                if (data != "False")
+                {
+                    var json = JSON.parse(data);                
+
+                    for (var key in json){
+                        var id = key;
+                        var title = json[key];
+                        search_result_list.append("<li><a href='/challenges/" + id + "/'>" + title + "</a></li>")
+                    }    
+                }
+                else
+                {
+                    search_result_list.append("<li><a>No results found</a></li>")
+                }
+                
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+    else
+    {
+        search_result_dropdown.fadeOut("fast");
+    }
+}
 
 function followTwitterCallback(e)
 {
@@ -219,15 +288,15 @@ function ajaxCheckInCheckOut(e)
         success: function (data) {
             btn = form.find("#confirm-btn");
 
-            if (btn.val() == "Check In")
+            if (data)
+            {
+                btn.before(data);
+                btn.hide();
+            }
+            else if (btn.val() == "Check In")
             {
                 btn.val("Check Out");
                 btn.addClass("dark");
-            }
-            else if (data)
-            {
-                btn.before(data + " Hours");
-                btn.hide();
             }
             else
             {

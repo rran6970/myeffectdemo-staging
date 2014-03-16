@@ -20,7 +20,7 @@ div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; po
 [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
 
 a { color: #00aeef; }
-a.menu-items { font-weight: 500; font-size: 19px; color: white; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #333; }
+a.menu-items { font-weight: 500; font-size: 15px; color: white; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #444; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
 a.menu-items:hover { text-decoration: none; color: #000; }
@@ -30,21 +30,42 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
-#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 327px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
+#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 113px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
 #notification-container span { display: block; }
 
 .profile-pic-124x124 { border-radius: 4px; border: 2px solid #4a3c2e; margin-right: 10px; height: 124px; width: 124px; }
 .profile-pic-42x42 { border-radius: 4px; border: 1px solid #4a3c2e; margin-right: 10px; height: 42px; width: 42px; }
 
+#search-container { position: absolute; z-index: 1001; right: 213px; top: 14px; width: 274px; }
+#search-container > input[type="text"] { width: 250px; padding: 8px; font-size: 14px; border: 1px solid #7E7E7E; }
+#search-container > input[type="text"]:focus { box-shadow: none !important; border: 1px solid #7E7E7E !important; }
+#search-container > input[type="text"] + .glyphicon-search { }
+#search-container .input-group-btn button { width: 55px; height: 34px; }
+#search-container ul.dropdown-menu { left: -184px; top: 34px; border: 1px solid #BBB; }
+#search-container ul.dropdown-menu li { min-width: 168px; }
+#search-container ul.dropdown-menu li span { display: block; padding: 12px 16px; border-bottom: 1px solid #E0E0E0; text-decoration: none; min-width: 237px; }
+#search-container ul.dropdown-menu li span input[type="checkbox"] { float: left; margin-right: 9px; }
+
+#search-container .search-result-dropdown { display: none; left: 56px; top: 35px; width: 248px; padding: 10px; }
+#search-container .search-result-dropdown ul { margin: 0; max-height: 200px; border: 1px solid #BBB; overflow: scroll; }
+#search-container .search-result-dropdown ul li { border-bottom: 1px solid #E0E0E0; }
+#search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #B9B3AE; } 
+#search-container .search-result-dropdown ul li a div {  }
+#search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; position: relative; }
+#search-container .search-result-dropdown #view-all-challenges { display: none; text-align: center; padding: 10px 10px 0; font-size: 12px; } 
+#search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 179px; width: 50px; }
+
+.glyphicon-chevron-down { font-size: 10px; margin-left: 5px; top: 0px; }
+
 .dropdown { position: relative; z-index: 1001; }
 .dropdown .caret { border-top: 4px solid white; }
 .dropdown a:hover, .dropdown a:active { text-decoration: none; background: transparent; }
 .dropdown#notification-dropdown { top: -5px; }
-.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; z-index: 1002; }
+.dropdown-menu { background: url(../images/1x1-white.png) repeat 0 0; left: 437px; top: 40px; padding: 0; z-index: 1002; min-width: 160px; }
 
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
-.dropdown-menu.profile-dropdown { left: 868px; }
+.dropdown-menu.profile-dropdown { left: 1108px; }
 
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
@@ -60,8 +81,8 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .dropdown-menu.notification-dropdown a { display: block; text-align: center; margin-top: 10px; }
 
 .dropdown-menu li { width: auto; outline: none; }
-.dropdown-menu li a { font-size: 15px; margin: 0; padding: 15px 20px; text-shadow: none; border-bottom: 1px solid #CBE4B9; }
-.dropdown-menu li a:hover { background: transparent; color: #999; }
+.dropdown-menu li a { font-size: 12px; margin: 0; padding: 12px 16px; text-shadow: none; border-bottom: 1px solid #E0E0E0; text-decoration: none; }
+.dropdown-menu li a:hover, { background: transparent; color: #999; }
 
 .bootstrap-timepicker table td input { width: 50px; }
 .bootstrap-timepicker.dropdown-menu.open { width: 202px; }
@@ -484,8 +505,9 @@ div.content.communication-hub #white-box div.tab-pane#resources a.downloadables 
 ******************************/ 
 #white-box.new-challenge { width: 512px; left: 30%; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
-#white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
 #white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }
+#white-box.new-challenge #id_national_challenge { float: left; margin-right: 5px; }
 
 /******************************
 	Challenge Centre
@@ -497,7 +519,8 @@ div.content.challenge-centre { background: url(../images/challenge-centre-bg.png
 
 div.content.challenge-centre #white-box { width: 734px; height: 400px; left: 39%; }
 div.content.challenge-centre #white-box p { padding: 0; }
-div.content.challenge-centre #white-box div.challenges { margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
+div.content.challenge-centre #white-box div.challenges { position: relative; margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
+div.content.challenge-centre #white-box div.challenges img.badge-icon { position: absolute; left: 600px; top: -15px; }
 
 div.content.challenge-centre #white-box div.challenges a.team-picture { display: block; float: left; margin-right: 20px; }
 div.content.challenge-centre #white-box div.challenges a.team-picture img { display: block; border-radius: 4px; border: 2px solid #4a3c2e; }
@@ -517,24 +540,12 @@ div.content.challenge-centre #white-box div.challenges a:hover { color: #86b45c 
 div.content.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-my-challenges { width: 444px; height: 101px; position: relative; left: 33%; background: url(../images/sign-my-challenges.png) no-repeat 0 0; }
 
-div.content.my-challenges #white-box.posted-challenges { width: 578px; height: 400px; left: 50%; }
-
-div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; }
-div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
-div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
-div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
-div.content.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; }
-div.content.my-challenges #white-box.user-challenges .table tr td.total-clean-creds { text-align: center; }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; font-size: 12px; }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info a h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; }
-
-
-div.content.my-challenges #white-box div.challenges { margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; margin: 20px 0; border-bottom: 1px solid #abd78c; vertical-align: middle; }
+div.content.my-challenges #white-box div.challenges { position: relative; margin-bottom: 27px; padding: 20px; background-color: white; border: 1px solid #CCC; /*margin: 20px 0;*/ border-bottom: 1px solid #abd78c; vertical-align: middle; }
 div.content.my-challenges #white-box div.challenges h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; margin-bottom: 12px; }
 
-div.content.my-challenges #white-box div.challenges div.links { width: 112px; float: right; }
+div.content.my-challenges #white-box div.challenges div.links { width: 112px; float: right; position: relative; top: -29px; }
 div.content.my-challenges #white-box div.challenges div.links a { display: block; margin: 7px 0; }
+div.content.my-challenges #white-box div.challenges div.links a.view-challenge-qrcode img { display: block; height: 60px; width: 60px; }
 
 div.content.my-challenges #white-box div.challenges div.details { }
 div.content.my-challenges #white-box div.challenges div.details div.title { margin-left: 10px; display: block; }
@@ -547,6 +558,22 @@ div.content.my-challenges #white-box div.challenges span.status h2 { display: bl
 div.content.my-challenges #white-box div.challenges p { padding: 0; }
 div.content.my-challenges #white-box div.challenges a:hover { color: #86b45c !important; }
 
+div.content.my-challenges #white-box.posted-challenges { width: 578px; height: 400px; left: 50%; }
+div.content.my-challenges #white-box.posted-challenges .badge-icon { display: block; position: absolute; top: -17px;right: -14px; z-index: 1000; }
+div.content.my-challenges #white-box.posted-challenges h1 { margin-bottom: 20px; }
+
+div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; }
+div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
+div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
+div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
+div.content.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; }
+div.content.my-challenges #white-box.user-challenges .table tr td.total-clean-creds { text-align: center; }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; font-size: 12px; }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info a h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; }
+
+[id*="view-challenge-qrcode-"] { padding: 20px; text-align: center; }
+
 /******************************
 	Challenge Page
 ******************************/ 
@@ -554,6 +581,7 @@ div.content.challenge-overview { background: url(../images/challenge-centre-bg.p
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 415px; left: 11%; }
 div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; }
+div.content.challenge-overview #white-box img { float: right; }
 div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
 div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
@@ -659,10 +687,12 @@ div.table-container #invitees-table tr td.roles {  }
 #clean-team-members-list p { font-size: 14px; }
 #clean-team-members-list p #badge-icon { width: 62px; }
 
-#clean-team-challenges-list div.challenge { margin: 20px; padding: 20px; border: 1px solid #AAA; }
+#clean-team-challenges-list div.challenge { margin: 30px 20px 20px; padding: 20px; border: 1px solid #AAA; position: relative; }
 #clean-team-challenges-list div.challenge h1 { font-size: 18px; }
+#clean-team-challenges-list div.challenge h1 a { font-weight: 900; }
 #clean-team-challenges-list div.challenge span.date-time { display: block; margin-top: 10px; }
 #clean-team-challenges-list div.challenge p { margin-top: 10px; }
+#clean-team-challenges-list div.challenge .badge-icon { display: block; position: absolute; top: -21px; right: -32px; z-index: 1000; }
 
 #white-box.clean-team-profile { width: 733px; left: 37%; padding-right: 0; }
 #white-box.clean-team-profile h2 { font-weight: 700; width: 350px; float: left; }
