@@ -176,6 +176,8 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
+#footer #footer-nav { float: left; }
+#footer #footer-nav ul li { float: left; margin-right: 10px; }
 #footer p.copyright { float: right; padding-right: 30px; padding-bottom: 20px; }
 #footer #hak-studio { width: 305px; float: right; text-align: center; }
 #footer #hak-studio a { display: block; }
