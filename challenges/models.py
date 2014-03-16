@@ -28,7 +28,7 @@ Date created:   March 10, 2014
 Description:    A QR Code of each Challenge.
 """
 class ChallengeQRCode(models.Model):
-	data = models.CharField(max_length=100, blank=True, null=True, default="")
+	data = models.CharField(max_length=200, blank=True, null=True, default="")
 	qr_image = models.ImageField(
 		upload_to=get_upload_file_name,
 		height_field="qr_image_height",
