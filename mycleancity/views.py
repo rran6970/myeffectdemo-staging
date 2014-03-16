@@ -83,12 +83,21 @@ def download_file(request):
 	k = bucket.get_key(filename)
 	url = k.generate_url(6000)
 
+<<<<<<< HEAD
 	if filename == "downloadable/Welcome_package_cgd.pdf":
 		if request.user.is_active:
+=======
+	if request.user.is_active:
+		if filename == "MCC_welcome_package_FR.pdf" or filename == "Welcome_package_cgd.pdf":
+>>>>>>> staging
 			if request.user.profile.clean_team_member:
 				if request.user.profile.clean_team_member.clean_team.level.name == "Seedling":
 					task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
 					request.user.profile.clean_team_member.clean_team.complete_level_task(task)
+<<<<<<< HEAD
+=======
+
+>>>>>>> staging
 
 	# TODO: Fix this so there is a redirect, as well as a link to download
 	# return HttpResponseRedirect('/clean-team/level-progress/')
