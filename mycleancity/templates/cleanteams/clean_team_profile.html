@@ -51,9 +51,9 @@
           <div class="info" id="right-side">
             
             {% if clean_team.logo %}
-              <img style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic" />
+              <img src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic profile-pic-124x124" />
             {% else %}
-              <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" class="profile-pic" />
+              <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
             {% endif %}
 
             <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
@@ -149,9 +149,9 @@
                   <div class="post">
                     
                     {% if post.user.profile.picture %}
-                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="notification-image" />
+                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="profile-pic-42x42" />
                     {% else %}
-                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="notification-image" />
+                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic-42x42" />
                     {% endif %}
 
                     <p class="user"><a href="/users/profile/{{ post.user.id }}">{{ post.user.get_full_name }}</a></p>
@@ -178,11 +178,13 @@
     <!-- Challenges -->
     {% for challenge in challenges %}
       <div class="challenge">
+        {% if challenge.national_challenge %}
+          <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
+        {% endif %}
         <h1><a href="/challenges/{{ challenge.id }}/">{{ challenge.title }}</a></h1>
         <span class="date-time">{{ challenge.event_date }} {{ challenge.event_time }}</span>
         <p>{{ challenge.description|slice:":255" }}</p>
-        <p class="clean-creds"><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>/hour:&nbsp;{{ challenge.clean_creds_per_hour }}</span></p>
-        
+        <p class="clean-creds"><span class="bold">{{ challenge.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span class="bold">{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
       </div>
     {% endfor %}
   </div>

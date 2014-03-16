@@ -28,6 +28,11 @@
                   <tr>
                     <td class="team">                          
                       <a href="{{ team.id }}">
+                        {% if team.logo %}
+                          <img src="{{ MEDIA_URL }}{{ team.logo }}" alt="" class="profile-pic-42x42" />
+                        {% else %}
+                          <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic-42x42" />
+                        {% endif %}
                         {{ team.name }}
                       </a>
                     </td>

@@ -3,11 +3,8 @@ import ftplib
 import os
 import tempfile
 
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
-
 from challenges.models import Challenge
-from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite
+from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
 
 from datetime import date
 
@@ -19,7 +16,6 @@ from django.core.context_processors import csrf
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.core.mail import EmailMessage
-
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
@@ -28,7 +24,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from mycleancity.mixins import LoginRequiredMixin
-from mycleancity.actions import export_as_csv_action, SendEmail
+from mycleancity.actions import *
 
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
@@ -353,14 +349,10 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
 
-		# TODO: Move to models
-		if picture:			
-			conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-			bucket = conn.get_bucket(settings.AWS_BUCKET)
-			k = Key(bucket)
-			k.key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
-			k.set_contents_from_string(form.cleaned_data['picture'].read())
-			user.profile.picture = k.key
+		if picture:		
+			key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
+			uploadFile = UploadFileToS3()
+			user.profile.picture = uploadFile.upload(key, picture)
 
 		user.profile.save()
 
@@ -434,3 +426,14 @@ class LeaderboardView(TemplateView):
 		context['leaders'] = leaders
 		context['user'] = self.request.user
 		return context
+
+def follow_on_twitter(request):
+	if request.method == "POST" and request.is_ajax:
+		user = request.user
+
+		if user.profile.has_clean_team():
+			if user.profile.clean_team_member.clean_team.level.name == "Sprout":
+				task = CleanTeamLevelTask.objects.get(name="follow_twitter")
+				user.profile.clean_team_member.clean_team.complete_level_task(task)
+
+	return HttpResponse(True)

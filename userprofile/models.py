@@ -11,9 +11,6 @@ import qrcode
 
 from cStringIO import StringIO
 
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
-
 from mycleancity.actions import *
 from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
@@ -58,7 +55,7 @@ class QRCodeSignups(models.Model):
 
 """
 Name:           UserQRCode
-Date created:   Jan 9, 2013
+Date created:   Jan 9, 2014
 Description:    A QR Code of each user
 """
 class UserQRCode(models.Model):
@@ -123,12 +120,11 @@ def userqrcode_post_save(sender, instance, **kwargs):
 		file_object = File(image_buffer, file_name)
 		content_file = ContentFile(file_object.read())
 
-		conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-		bucket = conn.get_bucket(settings.AWS_BUCKET)
-		k = Key(bucket)
-		k.key = 'qr_code/%s' % (file_name)
-		k.set_contents_from_string(content_file.read())
-		instance.qr_image.save(k.key, content_file, save=True)
+		key = 'qr_code/%s' % (file_name)
+		uploadFile = UploadFileToS3()
+		path = uploadFile.upload(key, content_file)
+
+		instance.qr_image.save(path, content_file, save=True)
 	 
 models.signals.pre_save.connect(userqrcode_pre_save, sender=UserQRCode)
 models.signals.post_save.connect(userqrcode_post_save, sender=UserQRCode)

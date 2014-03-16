@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^leaderboard/?$', LeaderboardView.as_view()),
     url(r'^leaderboard/fr/?', TemplateView.as_view(template_name="mycleancity/french/leaderboard_fr.html")),
     
+    url(r'^follow-twitter/?$', 'users.views.follow_on_twitter'),
     url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
     url(r'^register/?$', RegisterView.as_view()),
     url(r'^profile/(?P<uid>\d+)/?$', ProfilePublicView.as_view()),

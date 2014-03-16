@@ -1,0 +1,48 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Clean City - Clean Team Presentation {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <div id="white-box" class="leader-referral small">
+          <h1>Clean Team Presentation</h1>
+          <p class="subtitle">Send your presentation using the form below.</p>
+          
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <table>
+              <tr>
+                <td>{{ form.title.label_tag }} {{ form.title }}</td>
+                <td>{{ form.presentation.label_tag }} {{ form.presentation }}</td>
+              </tr>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Send Presentation" />
+          </form>
+            
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

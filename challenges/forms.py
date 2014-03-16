@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from challenges.models import Challenge, UserChallenge, ChallengeQuestion, QuestionAnswer
+from challenges.models import Challenge, ChallengeType, UserChallenge, ChallengeQuestion, QuestionAnswer
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -63,6 +63,8 @@ class NewChallengeForm(forms.Form):
 		self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 		self.fields['host_organization'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (optional)")
+		self.fields['national_challenge'] = forms.BooleanField(label="This is a National Challenge", required=False)
+		self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 		self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	def clean(self):
@@ -78,6 +80,8 @@ class NewChallengeForm(forms.Form):
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
 		host_organization = cleaned_data.get("host_organization")
+		national_challenge = cleaned_data.get("national_challenge")
+		type = cleaned_data.get("type")
 		challenge_id = cleaned_data.get("challenge_id")
 
 		if not title:
@@ -114,11 +118,13 @@ class EditChallengeForm(forms.ModelForm):
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 	host_organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (if applicable)")
+	national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
+	type = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 	challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	class Meta:
 		model = Challenge
-		exclude = ('user', 'clean_team', 'clean_creds_per_hour', 'last_updated_by')
+		exclude = ('user', 'clean_team', 'clean_creds_per_hour', 'last_updated_by', 'qr_code', 'token')
 
 	def clean(self):
 		cleaned_data = super(EditChallengeForm, self).clean()
@@ -133,6 +139,7 @@ class EditChallengeForm(forms.ModelForm):
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
 		host_organization = cleaned_data.get("host_organization")
+		national_challenge = cleaned_data.get("national_challenge")
 		challenge_id = cleaned_data.get("challenge_id")
 
 		if not title:

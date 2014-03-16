@@ -29,23 +29,32 @@
           {% endif %}
 
           <div class="table-container">
-            <table class="table table-hover">
-              <tbody>
-                {% for team in form.team.field.queryset %}
-                <tr>
-                  <td class="team">                          
-                    {{ team.name }}
-                  </td>
-                  <td class="action">
-                    <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
-                      <input type="hidden" name="team" value="{{ team.id }}" />
-                      <input type="submit" class="btn btn-primary" value="Select" />
-                    </form>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table><!-- /.table.table-hover -->
+            {% if user.profile.has_clean_team %}
+              <h2>You are already part of a Clean Team.</h2>
+            {% else %}
+              <table class="table table-hover">
+                <tbody>
+                  {% for team in form.team.field.queryset %}
+                  <tr>
+                    <td class="team">
+                      {% if team.logo %}
+                        <img src="{{ MEDIA_URL }}{{ team.logo }}" alt="" class="profile-pic-42x42" />
+                      {% else %}
+                        <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic-42x42" />
+                      {% endif %}
+                      {{ team.name }}
+                    </td>
+                    <td class="action">
+                      <form action="/clean-team/register-request-join/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <input type="hidden" name="team" value="{{ team.id }}" />
+                        <input type="submit" class="btn btn-primary" value="Select" />
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table><!-- /.table.table-hover -->
+            {% endif %}
           </div><!-- /.table-container -->
           
       </div><!-- /#white-box -->
