@@ -1,25 +1,45 @@
-
-
 <a href="/" class="menu-items menu-items-left">English</a>
 {% if user.is_active %}
-	<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
+	<a href="/users/leaderboard" class="menu-items menu-items-left">Tableau des meneurs</a>
 
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<b class="caret"></b></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Défis<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
-			<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
+			<li><a href="/challenges" class="menu-items menu-items-left">Centre des défis</a></li>
 			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Post Challenge</a></li>
 			{% endif %}
-			<li><a href="/challenges/my-challenges/" class="menu-items">My Challenges</a></li>
+			<li><a href="/challenges/my-challenges/" class="menu-items">Mes défis</a></li>
+		</ul>
+	</div><!-- end of #user-dropdown.dropdown -->
+
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Équipe VillePropre<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
+			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
+			<li><a href="/clean-team/members" class="menu-items">Membres</a></li>
+			{% endif %}
+			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
+			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Profil de l'équipe</a></li>
+			{% endif %}
+			{% if not user.profile.has_clean_team %}
+			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
+			{% else %}
+			<li><a href="/clean-team/level-progress" class="menu-items">Level Progress</a></li>
+			<li><a href="/clean-team/edit/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Modifier Équipe VillePropre</a></li>
+			<li><a href="/clean-team/invite" class="menu-items">Inviter des nouveaux membres</a></li>
+			<li><a href="/clean-team/post-message/" class="menu-items">Afficher un message</a></li>
+			{% endif %}
+			<li><a href="/clean-team/register-clean-champion" class="menu-items">Être une Étoile Ville Propre</a></li>
+			<li><a href="/clean-team/" class="menu-items">Toutes les Équipes VillePropre</a></li>
 		</ul>
 	</div><!-- end of #user-dropdown.dropdown -->
 
 	<a data-toggle="dropdown" class="menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
 	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">	
-		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
-		<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>
-		<li><a href="/users/settings/" class="menu-items">Settings</a></li>
+		<li><a href="/users/profile/{{ user.id }}" class="menu-items">Mon profile</a></li>
+		<li><a href="/users/profile/" class="menu-items">Modifier mon profil</a></li>
+		<li><a href="/users/settings/" class="menu-items">Paramètres</a></li>
 		<li><a href="/users/logout" class="menu-items">Déconnexion</a></li>
 	</ul>
 
@@ -87,8 +107,8 @@
 				</ul>
 				<a id="view-all-challenges" href="">View all results</a>
 			</div><!-- end of #search-result-dropdown.dropdown -->
-		</div><!-- /input-group -->
-	</form>
+    	</div><!-- /input-group -->
+    </form>
 
 {% else %}
 <a href="/contact" class="menu-items menu-items-right">Contactez-nous </a>

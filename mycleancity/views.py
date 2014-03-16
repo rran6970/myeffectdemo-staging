@@ -84,7 +84,7 @@ def download_file(request):
 	url = k.generate_url(6000)
 
 	if request.user.is_active:
-		if filename == "MCC_welcome_package_FR.pdf" or filename == "Welcome_package_cgd":
+		if filename == "MCC_welcome_package_FR.pdf" or filename == "Welcome_package_cgd.pdf":
 			if request.user.profile.clean_team_member:
 				if request.user.profile.clean_team_member.clean_team.level.name == "Seedling":
 					task = CleanTeamLevelTask.objects.get(name="download_welcome_package")
