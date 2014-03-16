@@ -264,11 +264,14 @@ class Challenge(models.Model):
 
 def create_challenge(sender, instance, created, **kwargs):  
 	if created:
-		site_url = current_site_url()
-		qr_code, created = ChallengeQRCode.objects.get_or_create(data='%schallenges/one-time-check-in/%s/%s' % (site_url, instance.id, instance.token))
-		instance.qr_code = qr_code
+		if instance.type.challenge_type == "one-time":
+			site_url = current_site_url()
+			
+			qr_code, created = ChallengeQRCode.objects.get_or_create(data='%schallenges/one-time-check-in/%s/%s' % (site_url, instance.id, instance.token))
+		
+			instance.qr_code = qr_code
 
-		instance.save()
+			instance.save()
 
 post_save.connect(create_challenge, sender=Challenge) 
 

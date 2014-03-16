@@ -572,6 +572,8 @@ div.content.my-challenges #white-box.user-challenges .table div.challenge-info s
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info a h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; }
 
+[id*="view-challenge-qrcode-"] { padding: 20px; text-align: center; }
+
 /******************************
 	Challenge Page
 ******************************/ 
