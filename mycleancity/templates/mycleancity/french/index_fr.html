@@ -24,11 +24,11 @@
     {% if user.is_authenticated %}
       <div id="sign-user">
         <div class="left"></div>
-        <div class="sign-content">WELCOME {{ user.first_name|upper }}</div>
+        <div class="sign-content">BIENVENUE {{ user.first_name|upper }}</div>
         <div class="right"></div>
       </div><!-- /#sign-user -->
-      <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile"></div></a>
-      <a href="/challenges/my-challenges"><div class="sign" id="sign-my-challenges2"></div></a>
+      <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile-fr"></div></a>
+      <a href="/challenges/my-challenges"><div class="sign" id="sign-my-challenges2-fr"></div></a>
     {% else %}
       <div id="sign-learn-more-fr"></div>
       <a href="/register"><div class="sign" id="sign-register-fr"></div></a>
