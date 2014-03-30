@@ -20,7 +20,7 @@ from django.views.generic.edit import FormView
 
 from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
-from challenges.models import Challenge
+from challenges.models import Challenge, UserChallenge
 
 from notifications.models import Notification
 
@@ -264,6 +264,8 @@ class CleanTeamView(TemplateView):
 
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
+			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
+
 			cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
 			ccs = CleanChampion.objects.filter(clean_team_id=ctid)
 			posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
@@ -287,12 +289,29 @@ class CleanTeamView(TemplateView):
 			except Exception, e:
 				print e
 
+			
+			try:
+				user_challenges = UserChallenge.objects.filter(user=self.request.user, challenge__clean_team_id=ctid)
+				user_challenges_list = UserChallenge.objects.filter(user=self.request.user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+			except Exception, e:
+				user_challenges = []
+				user_challenges_list = []
+
+			challenges = Challenge.objects.filter(clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by("event_date")
+
+			challenge_dict = {}
+
+			for challenge in challenges:
+				challenge_dict[challenge.id] = ["not-particpating", challenge]
+
+			for user_challenge in user_challenges:
+				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
+
+			context['challenges'] = challenge_dict
 			context['page_url'] = self.request.get_full_path()
-			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 			context['cas'] = cas
 			context['ccs'] = ccs
 			context['posts'] = posts
-			context['challenges'] = Challenge.objects.filter(clean_team_id=ctid).order_by("event_date")
 
 		context['user'] = self.request.user
 
