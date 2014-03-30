@@ -219,6 +219,34 @@ class ChallengesFeedView(TemplateView):
 
 		return context
 
+class HMVoucherView(LoginRequiredMixin, FormView):
+	template_name = "challenges/voucher_code.html"
+	form_class = UserVoucherForm
+	success_url = "mycleancity/index.html"
+
+	def get(self, request, *args, **kwargs):
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+
+		return self.render_to_response(self.get_context_data(form=form))
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+
+		voucher = form.cleaned_data['voucher']
+		user = self.request.user
+
+		challenge = Challenge.objects.get(id=134)
+		challenge.claim_voucher(user, voucher)
+
+		return HttpResponseRedirect(u'/challenges/my-challenges/')
+
 class NewChallengeView(LoginRequiredMixin, FormView):
 	template_name = "challenges/new_challenge.html"
 	form_class = NewChallengeForm

@@ -18,6 +18,11 @@ class UserChallengeAdmin(admin.ModelAdmin):
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
     actions = [export_as_csv_action("CSV Export")]
 
+class UserVoucherAdmin(admin.ModelAdmin):
+    list_display = ('id', 'voucher', 'user')
+    search_fields = ['user__id', 'user__first_name', 'user__last_name', 'voucher']
+    actions = [export_as_csv_action("CSV Export")]
+
 class CleanGridAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'value')
     search_fields = ['name']
@@ -51,6 +56,7 @@ class UserChallengeSurveyAnswersAdmin(admin.ModelAdmin):
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(ChallengeQRCode, ChallengeQRCodeAdmin)
 admin.site.register(UserChallenge, UserChallengeAdmin)
+admin.site.register(UserVoucher, UserVoucherAdmin)
 admin.site.register(CleanGrid, CleanGridAdmin)
 admin.site.register(ChallengeQuestion, ChallengeQuestionAdmin)
 admin.site.register(ChallengeQuestionType, ChallengeQuestionTypeAdmin)

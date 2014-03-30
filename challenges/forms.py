@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from challenges.models import Challenge, ChallengeType, UserChallenge, ChallengeQuestion, QuestionAnswer
+from challenges.models import Challenge, UserVoucher, ChallengeType, UserChallenge, ChallengeQuestion, QuestionAnswer
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -23,6 +23,29 @@ PROVINCES = (('', 'Please select one...'),
 	('SA', 'SA'),
 	('YU', 'YU'),
 )
+
+class UserVoucherForm(forms.Form):
+	voucher = forms.CharField(required=True, max_length=60, min_length=2, label="Voucher Code", widget=forms.TextInput())
+
+	class Meta:
+		model = UserVoucher
+		exclude = ('user')
+
+	def clean(self):
+		cleaned_data = super(UserVoucherForm, self).clean()
+		voucher_code = cleaned_data.get("voucher")
+
+		try:
+			voucher = UserVoucher.objects.get(voucher=voucher_code)
+		except Exception, e:
+			raise forms.ValidationError(u"Invalid voucher code")
+
+		try:
+			voucher = UserVoucher.objects.get(voucher=voucher_code, user__isnull=True)
+		except Exception, e:
+			raise forms.ValidationError(u"Voucher code is already claimed")
+
+		return cleaned_data
 
 class NewChallengeForm(forms.Form):
 
@@ -104,7 +127,6 @@ class NewChallengeForm(forms.Form):
 			raise forms.ValidationError("Please enter a description")
 
 		return cleaned_data
-
 
 class EditChallengeForm(forms.ModelForm):
 	title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())

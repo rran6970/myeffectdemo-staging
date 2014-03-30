@@ -15,6 +15,8 @@ from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
 
+from django.utils.timezone import utc
+
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask
 
 from mycleancity.actions import *
@@ -259,6 +261,49 @@ class Challenge(models.Model):
 
 		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 
+	# from challenges.models import *; user = User.objects.get(id=133); challenge = Challenge.objects.get(id=134); challenge.claim_voucher(user, "CA097051")
+	def claim_voucher(self, user, voucher):
+		if not user.profile.smartphone:
+			try:
+				voucher = UserVoucher.objects.get(voucher=voucher, user__isnull=True)
+				voucher.user = user
+				voucher.save()
+
+				userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self)
+				challenge = userchallenge.challenge
+
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				total_clean_creds = challenge.clean_creds_per_hour
+
+				userchallenge.time_in = now
+				userchallenge.time_out = now
+				userchallenge.total_hours = 0
+				userchallenge.total_clean_creds = total_clean_creds
+				userchallenge.save()
+
+				# Add CleanCreds to individual
+				user.profile.add_clean_creds(total_clean_creds)
+
+				# Add CleanCreds to Clean Teams if applicable
+				clean_champions = CleanChampion.objects.filter(user=user)
+
+				for clean_champion in clean_champions:
+					if clean_champion.status == "approved":
+						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+						
+				# Clean Ambassador
+				if user.profile.is_clean_ambassador():
+					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+				
+				# Clean Team posting challenge	
+				challenge.clean_team.add_team_clean_creds(total_clean_creds)
+
+				return True
+			except Exception, e:
+				print e
+
+		return False
+
 	def save(self, *args, **kwargs):
 		super(Challenge, self).save(*args, **kwargs)
 
@@ -295,6 +340,21 @@ class UserChallenge(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(UserChallenge, self).save(*args, **kwargs)
+
+"""
+Name:           UserVoucher
+Date created:   Mar 29, 2014
+Description:    
+"""
+class UserVoucher(models.Model):
+	voucher = models.CharField(max_length=60, blank=False, unique=True, verbose_name="Voucher")	
+	user = models.ForeignKey(User, null=True, blank=True)
+
+	class Meta:
+		verbose_name_plural = u'Voucher Codes for the H&M Challenge'
+
+	def save(self, *args, **kwargs):
+		super(UserVoucher, self).save(*args, **kwargs)
 
 """
 Name:           CleanGrid
