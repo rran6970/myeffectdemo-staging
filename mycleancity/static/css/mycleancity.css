@@ -366,17 +366,20 @@ div.content.communication-hub { background: transparent url(../images/communicat
 #sign-communication-hub { width: 295px; height: 59px; position: absolute; z-index: 1000; top: 26px; left: 41px; background: url(../images/sign-communication-hub.png) no-repeat 0 0; }
 #sign-communication-hub-fr { width: 295px; height: 59px; position: absolute; z-index: 1000; top: 26px; left: 41px; background: url(../images/french/sign-communication-hub.png) no-repeat 0 0; }
 
-#sign-social-media { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 105px; left: 59px; background: url(../images/sign-social-media.png) no-repeat 0 0; }
-#sign-social-media-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 105px; left: 59px; background: url(../images/french/sign-social-media.png) no-repeat 0 0; }
+#sign-social-media { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 90px; left: 59px; background: url(../images/sign-social-media.png) no-repeat 0 0; }
+#sign-social-media-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 90px; left: 59px; background: url(../images/french/sign-social-media.png) no-repeat 0 0; }
 
-#sign-press { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 164px; left: 75px; background: url(../images/sign-press.png) no-repeat 0 0; }
-#sign-press-fr { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 164px; left: 75px; background: url(../images/french/sign-press.png) no-repeat 0 0; }
+#sign-press { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 148px; left: 75px; background: url(../images/sign-press.png) no-repeat 0 0; }
+#sign-press-fr { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 148px; left: 75px; background: url(../images/french/sign-press.png) no-repeat 0 0; }
 
-#sign-photo-gallery { width: 248px; height: 54px; position: absolute; z-index: 1000; top: 224px; left: 60px; background: url(../images/sign-photo-gallery.png) no-repeat 0 0; }
-#sign-photo-gallery-fr { width: 355px; height: 69px; position: absolute; z-index: 1000; top: 220px; left: 18px; background: url(../images/french/sign-photo-gallery.png) no-repeat 0 0; }
+#sign-photo-gallery { width: 248px; height: 54px; position: absolute; z-index: 1000; top: 204px; left: 60px; background: url(../images/sign-photo-gallery.png) no-repeat 0 0; }
+#sign-photo-gallery-fr { width: 355px; height: 69px; position: absolute; z-index: 1000; top: 201px; left: 18px; background: url(../images/french/sign-photo-gallery.png) no-repeat 0 0; }
 
-#sign-resources { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 284px; left: 59px; background: url(../images/sign-resources.png) no-repeat 0 0; }
-#sign-resources-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 284px; left: 59px; background: url(../images/french/sign-resources.png) no-repeat 0 0; }
+#sign-resources { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 59px; background: url(../images/sign-resources.png) no-repeat 0 0; }
+#sign-resources-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 59px; background: url(../images/french/sign-resources.png) no-repeat 0 0; }
+
+#sign-announcements { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 59px; background: url(../images/sign-announcements.png) no-repeat 0 0; }
+#sign-announcements-fr { width: 214px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 82px; background: url(../images/french/sign-announcements.png) no-repeat 0 0; }
 
 div.content.communication-hub #white-box { left: 30%; width: 843px; }
 div.content.communication-hub #white-box div.tab-pane h1.titles { margin-bottom: 20px; }
@@ -387,6 +390,10 @@ div.content.communication-hub #white-box div.tab-pane#resources a.downloadables 
 
 div.content.communication-hub #white-box div.tab-pane#press a.articles img,
 div.content.communication-hub #white-box div.tab-pane#resources a.downloadables img { border: 2px solid #4a3c2e; padding: 4px; background: white; border-radius: 5px; display: block; }
+
+div.content.communication-hub #white-box div.tab-pane#announcements div { margin-bottom: 30px; }
+div.content.communication-hub #white-box div.tab-pane#announcements div a {  }
+div.content.communication-hub #white-box div.tab-pane#announcements div img { background-color: white; padding: 10px; border: 2px solid #4a3c2e; }
 
 /******************************
 	White Box
