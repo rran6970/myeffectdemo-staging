@@ -46,13 +46,18 @@
                     </tr>
                     <tr>
                         <td>{{ form.email.label_tag }} {{ form.email }}</td>
-                    </tr>
-                    <tr>
                         <td>{{ form.twitter.label_tag }} {{ form.twitter }}</td>
-                        <td>{{ form.picture.label_tag }} {{ form.picture }}</td>
                     </tr>
                     <tr>
-                      <td colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
+                        <td colspan="2">
+                          {{ form.picture.label_tag }} {{ form.picture }}
+                          <div class="message-box warning">
+                            <p>Accepted images include: JPGs, JPEGs, PNGs, and must be smaller than 2MB.</p>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-top: 10px;" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                     </tr>
                 </table>
                 <input class="btn btn-primary" type="submit" value="Update" />

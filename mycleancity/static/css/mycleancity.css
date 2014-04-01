@@ -480,11 +480,11 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 /******************************
 	Profile
 ******************************/ 
-#white-box.profile { width: 512px; left: 45%; }
+#white-box.profile { width: 560px; left: 45%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
 #white-box.profile table tr td.clean-creds { font-size: 18px; padding: 10px 0; }
-#white-box.profile textarea { width: 453px; height: 200px; }
+#white-box.profile textarea { width: 500px; height: 200px; }
 #white-box.profile + #badge-icon {  }
 
 /******************************
