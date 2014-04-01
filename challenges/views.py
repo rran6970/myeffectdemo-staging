@@ -61,42 +61,26 @@ def participate_in_challenge(request):
 
 @login_required
 def one_time_check_in(request, cid, token):
-	try:
-		challenge = Challenge.objects.get(id=cid, token=token)
-
-		user = request.user
-		userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge_id=cid)
-		challenge = userchallenge.challenge
-
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
-		total_clean_creds = challenge.clean_creds_per_hour
-
-		userchallenge.time_in = now
-		userchallenge.time_out = now
-		userchallenge.total_hours = 0
-		userchallenge.total_clean_creds = total_clean_creds
-		userchallenge.save()
-
-		# Add CleanCreds to individual
-		user.profile.add_clean_creds(total_clean_creds)
-
-		# Add CleanCreds to Clean Teams if applicable
-		clean_champions = CleanChampion.objects.filter(user=user)
-
-		for clean_champion in clean_champions:
-			if clean_champion.status == "approved":
-				clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-				
-		# Clean Ambassador
-		if user.profile.is_clean_ambassador():
-			user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
-		
-		# Clean Team posting challenge	
-		challenge.clean_team.add_team_clean_creds(total_clean_creds)
-	except Exception, e:
-		print e
-
+	user = request.user
+	
+	challenge = get_object_or_404(Challenge, id=cid)
+	challenge.one_time_check_in_with_token(user, token)
+	
 	return HttpResponseRedirect('/challenges/my-challenges')
+
+@login_required
+def check_in_check_out(request):
+	if request.method == "POST" and request.is_ajax:
+		cid = request.POST['cid']
+		uid = request.POST['uid']
+
+		challenge = get_object_or_404(Challenge, id=cid)
+		response = challenge.check_in_check_out(uid)
+
+		if response:
+			return HttpResponse(response, content_type="text/html")
+
+		return HttpResponse('')
 
 def dropdown_search_for_challenges(request):
 	
@@ -110,91 +94,6 @@ def dropdown_search_for_challenges(request):
 		return HttpResponse(challenges_json)
 			
 	return HttpResponse(False)
-
-def check_in_check_out(request):
-	if request.method == "POST" and request.is_ajax:
-		cid = request.POST['cid']
-		uid = request.POST['uid']
-
-		try:
-			userchallenge = UserChallenge.objects.get(user_id=uid, challenge_id=cid)
-			user = userchallenge.user
-			challenge = userchallenge.challenge
-
-			if challenge.type.challenge_type == "hourly":
-				if not userchallenge.time_in:
-					now = datetime.datetime.utcnow().replace(tzinfo=utc)
-
-					userchallenge.time_in = now
-					userchallenge.save()
-				else:
-					# Get current time and time out time
-					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
-					userchallenge.time_out = now
-
-					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
-					time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
-
-					diff = now_str - time_in_str
-					total_hours = (diff.days * 24) + (diff.seconds // 3600)
-
-					total_clean_creds = challenge.get_challenge_total_clean_creds(total_hours)
-
-					userchallenge.total_hours = total_hours
-					userchallenge.total_clean_creds = total_clean_creds
-					userchallenge.save()
-
-					# Add CleanCreds to individual
-					user.profile.add_clean_creds(total_clean_creds)
-
-					# Add CleanCreds to Clean Teams if applicable
-					clean_champions = CleanChampion.objects.filter(user=user)
-
-					for clean_champion in clean_champions:
-						if clean_champion.status == "approved":
-							clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-							
-					# Clean Ambassador
-					if user.profile.is_clean_ambassador():
-						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
-					
-					# Clean Team posting challenge	
-					challenge.clean_team.add_team_clean_creds(total_clean_creds)
-
-					return HttpResponse("%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds)), content_type="text/html")
-			else:
-				now = datetime.datetime.utcnow().replace(tzinfo=utc)
-				total_clean_creds = challenge.clean_creds_per_hour
-
-				userchallenge.time_in = now
-				userchallenge.time_out = now
-				userchallenge.total_hours = 0
-				userchallenge.total_clean_creds = total_clean_creds
-				userchallenge.save()
-
-				# Add CleanCreds to individual
-				user.profile.add_clean_creds(total_clean_creds)
-
-				# Add CleanCreds to Clean Teams if applicable
-				clean_champions = CleanChampion.objects.filter(user=user)
-
-				for clean_champion in clean_champions:
-					if clean_champion.status == "approved":
-						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-						
-				# Clean Ambassador
-				if user.profile.is_clean_ambassador():
-					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
-				
-				# Clean Team posting challenge	
-				challenge.clean_team.add_team_clean_creds(total_clean_creds)
-
-				return HttpResponse('Confirmed', content_type="text/html")
-
-		except Exception, e:
-			print e
-
-		return HttpResponse('')
 
 class ChallengesFeedView(TemplateView):
 	template_name = "challenges/challenge_centre.html"
@@ -338,30 +237,18 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 	template_name = "challenges/challenge_participants.html"
 
-	def get(self, request, *args, **kwargs):
-		challenge = None
-
-		if 'cid' in self.kwargs:
-			cid = self.kwargs['cid']
-		else:
-			return HttpResponseRedirect('/challenges/my-challenges/')
-
-		try:
-			challenge = Challenge.objects.get(id=cid, clean_team=self.request.user.profile.clean_team_member.clean_team)
-		except Exception, e:
-			print e
-			return HttpResponseRedirect('/challenges/my-challenges/')			
-
-		return self.render_to_response(self.get_context_data())
-
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeParticipantsView, self).get_context_data(**kwargs)
 
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
+			challenge = get_object_or_404(Challenge, id=cid)
 
-			context['participants'] = UserChallenge.objects.filter(challenge_id=cid)
+			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+
+			context['participants'] = participants
 			context['cid'] = cid
+			context['challenge'] = challenge
 
 		return context
 
@@ -371,18 +258,14 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		# print self.request.user.profile.is_clean_ambassador()
-
 		if self.request.user.profile.is_clean_ambassador():
 			try:
 				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
 				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_date")
 			except Exception, e:
 				print e
-				pass
 
-		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user)
-		
+		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user).order_by("time_in")
 		context['user'] = self.request.user
 
 		return context
@@ -408,8 +291,9 @@ class ChallengeView(TemplateView):
 				print e
 				pass
 			
-			context['participants'] = UserChallenge.objects.filter(challenge=challenge)
+			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
 			
+			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user
