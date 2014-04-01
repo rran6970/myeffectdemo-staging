@@ -5,7 +5,7 @@
 	<div class="dropdown">
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Défis<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
-			<li><a href="/challenges" class="menu-items menu-items-left">Centre des défis</a></li>
+			<li><a href="/challenges" class="menu-items">Centre des défis</a></li>
 			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Afficher un défi</a></li>
 			{% endif %}

@@ -5,7 +5,7 @@
 	<div class="dropdown">
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Challenges<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
-			<li><a href="/challenges" class="menu-items menu-items-left">Challenge Centre</a></li>
+			<li><a href="/challenges" class="menu-items">Challenge Centre</a></li>
 			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Post Challenge</a></li>
 			{% endif %}
@@ -92,7 +92,7 @@
 	<form action="" method="get" id="search-form">
 		<div id="search-container" class="input-group">
 	      <div class="input-group-btn">
-	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
+	        <button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
 				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National challenges only</label></span></li>
 	        </ul>
