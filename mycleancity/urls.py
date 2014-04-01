@@ -4,7 +4,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 from mycleancity.views import *
+from api.views import *
 from users.views import *
+from userorganization.views import *
+from challenges.views import *
 
 admin.autodiscover()
 
@@ -52,7 +55,37 @@ urlpatterns = patterns('',
 	url(r'^$', TemplateView.as_view(template_name="mycleancity/index.html")),
 
 	url(r'^download/$', 'mycleancity.views.download_file'),
-)
+	
+	#webservices
+	url(r'^api/webservices/login/$', 'api.api.login_user'),
+    url(r'^api/webservices/register/$', "api.api.registration"),
+	url(r'^api/webservices/studenteditprofile/$', "api.api.student_edit_profile"),
+	url(r'^api/webservices/updateuser/$', "api.api.update_user"),
+	url(r'^api/webservices/listchallenge/$', "api.api.list_challenge"),
+	url(r'^api/webservices/listparticipants/$', "api.api.list_participants"),
+	url(r'^api/webservices/addcleanteam/$', "api.api.add_cleanteam"),
+	url(r'^api/webservices/listteam/$', "api.api.list_team"),
+	url(r'^api/webservices/jointeam/$', "api.api.join_team"),
+	url(r'^api/webservices/inviteuser/$', "api.api.invite_user"),
+	url(r'^api/webservices/pendinglist/$', "api.api.pending_list"),
+	url(r'^api/webservices/approvedlist/$', "api.api.approved_list"),
+	url(r'^api/webservices/joinchampionteam/$', "api.api.joinchampion_team"),
+	url(r'^api/webservices/listnotification/$', "api.api.list_notification"),
+	url(r'^api/webservices/countnotification/$', "api.api.count_notification"),
+	url(r'^api/webservices/uploadpicture/$', "api.api.upload_picture"),
+	url(r'^api/webservices/viewparticipants/$', "api.api.view_participants"),
+	url(r'^api/webservices/qrcodeuserchallenge/$', "api.api.qrcode_userchallenge"),
+	url(r'^api/webservices/mychallenge/$', "api.api.my_challenge"),
+	url(r'^api/webservices/checkin/$', "api.api.check_in"),
+	url(r'^api/webservices/checkout/$', "api.api.check_out"),
+	url(r'^api/webservices/search/$', "api.api.search"),
+	url(r'^api/webservices/makemeread/$', "api.api.make_me_read"),
+	url(r'^api/webservices/participatechallenge/$', "api.api.participate_challenge"),
+	url(r'^api/webservices/onetimech/$', "api.api.onetime_ch"),
+	url(r'^api/webservices/newsfeeds/$', "api.api.newsfeeds"),
+	url(r'^api/webservices/cleanteamview/$', "api.api.cleanteam_view"),
+	url(r'^api/webservices/teamchallenge/$', "api.api.team_challenge"),
+	)
 
 handler404 = 'mycleancity.views.error404'
 handler500 = 'mycleancity.views.error404'
