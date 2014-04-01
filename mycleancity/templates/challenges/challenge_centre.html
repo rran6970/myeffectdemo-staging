@@ -46,9 +46,11 @@
                 <span class="date">
                   <h2>Date:</h2><span>&nbsp;{{ challenge.event_date }}</span>
                 </span>
+                {% if challenge.city %}
       					<span class="location">
       						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
       					</span>
+                {% endif %}
       					<span class="clean-creds">
       						<h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
       					</span>
