@@ -34,7 +34,7 @@
 		</ul>
 	</div><!-- end of .dropdown -->
 
-	<a data-toggle="dropdown" class="menu-items menu-items-right">{{ user.first_name }}<b class="caret"></b></a>
+	<a data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
 	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">	
 		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
 		<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>

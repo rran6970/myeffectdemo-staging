@@ -15,8 +15,9 @@ $(function(){
     $('.dropdown-menu input, .dropdown-menu label').click(function(e) {
         e.stopPropagation();
     });
+    
     $("body").click(function(){
-      $(".dropdown-menu ").fadeOut();
+      $(".search-result-dropdown").fadeOut()
     });
 
     $(".youtube-popup").colorbox({iframe:true, innerWidth:640, innerHeight:390});
