@@ -214,6 +214,119 @@ class Challenge(models.Model):
 	def get_challenge_total_clean_creds(self, total_hours):
 		return int(self.clean_creds_per_hour * total_hours)
 
+	def one_time_check_in_with_token(self, user, token):
+		try:
+			userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
+			
+			now = datetime.datetime.utcnow().replace(tzinfo=utc)
+			total_clean_creds = self.clean_creds_per_hour
+
+			userchallenge.time_in = now
+			userchallenge.time_out = now
+			userchallenge.total_hours = 0
+			userchallenge.total_clean_creds = total_clean_creds
+			userchallenge.save()
+
+			# Add CleanCreds to individual
+			user.profile.add_clean_creds(total_clean_creds)
+
+			# Add CleanCreds to Clean Teams if applicable
+			clean_champions = CleanChampion.objects.filter(user=user)
+
+			for clean_champion in clean_champions:
+				if clean_champion.status == "approved":
+					clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+					
+			# Clean Ambassador
+			if user.profile.is_clean_ambassador():
+				user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+			
+			# Clean Team posting challenge	
+			self.clean_team.add_team_clean_creds(total_clean_creds)
+		except Exception, e:
+			print e
+	
+	def check_in_check_out(self, uid):
+		try:
+			if self.type.challenge_type == "hourly":
+				userchallenge = UserChallenge.objects.get(user_id=uid, challenge=self)
+				user = userchallenge.user
+
+				if not userchallenge.time_in:
+					now = datetime.datetime.utcnow().replace(tzinfo=utc)
+
+					userchallenge.time_in = now
+					userchallenge.save()
+				else:
+					# Get current time and time out time
+					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
+					userchallenge.time_out = now
+
+					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+					time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+
+					diff = now_str - time_in_str
+					total_hours = (diff.days * 24) + (diff.seconds // 3600)
+
+					total_clean_creds = self.get_challenge_total_clean_creds(total_hours)
+
+					userchallenge.total_hours = total_hours
+					userchallenge.total_clean_creds = total_clean_creds
+					userchallenge.save()
+
+					# Add CleanCreds to individual
+					user.profile.add_clean_creds(total_clean_creds)
+
+					# Add CleanCreds to Clean Teams if applicable
+					clean_champions = CleanChampion.objects.filter(user=user)
+
+					for clean_champion in clean_champions:
+						if clean_champion.status == "approved":
+							clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+							
+					# Clean Ambassador
+					if user.profile.is_clean_ambassador():
+						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+					
+					# Clean Team posting challenge	
+					self.clean_team.add_team_clean_creds(total_clean_creds)
+
+					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
+			else:
+				userchallenge, created = UserChallenge.objects.get_or_create(user_id=uid, challenge=self, time_in__isnull=True)
+				user = userchallenge.user
+
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				total_clean_creds = self.clean_creds_per_hour
+
+				userchallenge.time_in = now
+				userchallenge.time_out = now
+				userchallenge.total_hours = 0
+				userchallenge.total_clean_creds = total_clean_creds
+				userchallenge.save()
+
+				# Add CleanCreds to individual
+				user.profile.add_clean_creds(total_clean_creds)
+
+				# Add CleanCreds to Clean Teams if applicable
+				clean_champions = CleanChampion.objects.filter(user=user)
+
+				for clean_champion in clean_champions:
+					if clean_champion.status == "approved":
+						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+						
+				# Clean Ambassador
+				if user.profile.is_clean_ambassador():
+					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+				
+				# Clean Team posting challenge	
+				self.clean_team.add_team_clean_creds(total_clean_creds)
+
+				return "Confirmed"
+
+		except Exception, e:
+			print e
+	
 	@staticmethod
 	def search_challenges(query, national_challenges=False, limit=False):
 		today = datetime.datetime.now()

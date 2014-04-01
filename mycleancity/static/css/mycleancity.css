@@ -575,12 +575,12 @@ div.content.my-challenges #white-box.posted-challenges .badge-icon { display: bl
 div.content.my-challenges #white-box.posted-challenges h1 { margin-bottom: 20px; }
 
 div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; }
-div.content.my-challenges #white-box.user-challenges div.table-container { border: none; }
+div.content.my-challenges #white-box.user-challenges div.table-container { border: none; overflow: initial; }
 div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
 div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
-div.content.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; }
+div.content.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; padding-right: 0 !important; }
 div.content.my-challenges #white-box.user-challenges .table tr td.total-clean-creds { text-align: center; }
-div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; margin-left: 10px; font-size: 12px; }
+div.content.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; font-size: 12px; }
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
 div.content.my-challenges #white-box.user-challenges .table div.challenge-info a h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; }
 
@@ -652,6 +652,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box p { font-weight: 400; }
 #white-box.challenge-participants table tr td { }
 #white-box.challenge-participants table tr td.name { width: 600px; }
+#white-box.challenge-participants table tr td.name span { display: block; }
 #white-box.challenge-participants table tr td.participated { width: 250px; text-align: center; padding: 0; }
 #white-box.challenge-participants h1 { font-weight: 900; }
 #white-box.challenge-participants table { margin-bottom: 30px; }
