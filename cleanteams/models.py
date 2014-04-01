@@ -236,6 +236,34 @@ class CleanChampion(models.Model):
 
 		self.clean_team.add_team_clean_creds(5)
 		self.user.profile.add_clean_creds(20)
+		
+    #def becomeCleanChampionNew(self, user,userid, selected_team):
+	def becomeCleanChampionNew(self,user,userid,selected_team):
+		self.user_id = userid
+		self.clean_team_id = selected_team
+		self.status = "approved"
+		self.save()
+		
+        # Send notifications
+		notification = Notification.objects.get(notification_type="cc_joined")
+		# The names that will go in the notification message template
+		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+		name_strings = [full_name, self.clean_team.name]
+
+		users_to_notify_str = notification.users_to_notify
+		users_to_notify = users_to_notify_str.split(', ')
+
+		# Notify all of the Users that have the roles within users_to_notify
+		for role in users_to_notify:
+			#print self.clean_team_id
+			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+
+			for member in clean_team_members:
+				user_notification = UserNotification()
+				user_notification.create_notification("cc_joined", member.user, name_strings)
+
+		self.clean_team.add_team_clean_creds(5)
+		self.user.profile.add_clean_creds(20)		
 
 """
 Name:           CleanTeamMember
