@@ -251,7 +251,6 @@ class Challenge(models.Model):
 			if self.type.challenge_type == "hourly":
 				userchallenge = UserChallenge.objects.get(user_id=uid, challenge=self)
 				user = userchallenge.user
-				# challenge = userchallenge.challenge
 
 				if not userchallenge.time_in:
 					now = datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -296,7 +295,6 @@ class Challenge(models.Model):
 			else:
 				userchallenge, created = UserChallenge.objects.get_or_create(user_id=uid, challenge=self, time_in__isnull=True)
 				user = userchallenge.user
-				# challenge = userchallenge.challenge
 
 				now = datetime.datetime.utcnow().replace(tzinfo=utc)
 				total_clean_creds = self.clean_creds_per_hour
