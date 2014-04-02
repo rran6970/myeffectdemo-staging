@@ -28,9 +28,9 @@
               <table>
               {% for leader in leaders %}
                 {% if forloop.counter|divisibleby:2 %}
-                <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
+                <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
                 {% else %}
-                <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
+                <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
                 {% endif %}
               {% endfor %}
               </table>

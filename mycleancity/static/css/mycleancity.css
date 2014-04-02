@@ -632,6 +632,8 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #board table { margin-top: 10px; width: 100%; } 
 #board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
 #board table tr td.entry { padding-top: 5px; } 
+#board table tr td.entry span.name a { color: inherit; } 
+#board table tr td.entry span.name a:hover { text-decoration: underline; }
 #board table tr td span.cleancreds { display: block; float: right; }
 .blue { color: #00aeef !important; } 
 .green { color: #83c156 !important; } 
