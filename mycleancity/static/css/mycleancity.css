@@ -592,7 +592,7 @@ div.content.my-challenges #white-box.user-challenges .table div.challenge-info a
 div.content.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 415px; left: 11%; }
-div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; }
+div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; width: 360px; }
 div.content.challenge-overview #white-box img { float: right; }
 div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
 div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
