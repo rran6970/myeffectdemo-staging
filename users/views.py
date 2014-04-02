@@ -416,7 +416,7 @@ class LeaderboardView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(LeaderboardView, self).get_context_data(**kwargs)
 
-		leaders = UserProfile.objects.filter(clean_creds__gte=1).order_by('-clean_creds')[:10]
+		leaders = UserProfile.objects.filter(clean_creds__gte=1, user__is_superuser=False, user__is_staff=False).order_by('-clean_creds')[:10]
 		
 		context['leaders'] = leaders
 		context['user'] = self.request.user
