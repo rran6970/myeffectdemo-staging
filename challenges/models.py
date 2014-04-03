@@ -359,12 +359,33 @@ class Challenge(models.Model):
 			clean_team = c.clean_team.id
 
 			clean_team = CleanTeam.objects.get(id=clean_team)
-			logo = "%s%s" % (settings.MEDIA_URL, clean_team.logo)
+
+			if clean_team.logo:
+				logo = "<img class='profile-pic-42x42' src='%s%s' alt="" />" % (settings.MEDIA_URL, clean_team.logo)
+			else:
+				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic-42x42' />" % (settings.STATIC_URL)
+
+			limit = 22
+
+			if len(c.title) > limit:
+				challenge_title = "%s..." % limiter(c.title, limit)
+			else:
+				challenge_title = c.title
+
+			city = c.city if c.city else ""
+			province = c.province if c.province else ""
 
 			if type == 2:
-				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+				clean_creds_per_hour = "<br/><strong>%s</strong><span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
 			else:
-				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+
+			title = "%s<div>%s<br/>%s&nbsp;%s%s</div>" % (logo, challenge_title, city, province, clean_creds_per_hour)
+
+			# if type == 2:
+			# 	title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, challenge_title, c.city, c.province, c.clean_creds_per_hour)
+			# else:
+			# 	title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, challenge_title, c.city, c.province, c.clean_creds_per_hour)
 			
 			if c.national_challenge:
 				title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"

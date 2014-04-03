@@ -11,6 +11,12 @@ from django.template.loader import get_template
 
 from time import time
 
+def limiter(x, limit):
+    for i in range(len(x)):
+        if i >= limit:
+            break
+    return x[:i]
+
 def get_upload_file_name(instance, filename):
     return "%s" % (filename)
 
