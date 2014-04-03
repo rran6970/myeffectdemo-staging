@@ -24,48 +24,25 @@
         <div id="brown-box">
           <div id="board">
             <h1>LEADER BOARD</h1>
-            {# if user.is_authenticated #}
-            {% if false %}
+            {% if user.is_authenticated %}
               <table>
               {% for leader in leaders %}
                 {% if forloop.counter|divisibleby:2 %}
-                <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
+                <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
                 {% else %}
-                <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name">{{ leader.user.first_name }} {{ leader.user.last_name }}</span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
+                <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
                 {% endif %}
               {% endfor %}
               </table>
             {% else %}
               <h2>See who is leading the nation in <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a>. Who is our top Clean Team? Our individual national champs? Let the challenge begin April 1st</h2>
             {% endif %}
-
-            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
-            <script>
-              var myCountdown2 = new Countdown({
-                year: 2014,
-                month: 4, 
-                day: 1,
-                hour: 0,
-                ampm: "am",
-                minute: 0,
-                width: 475, 
-                height: 50, 
-                padding   : 1.5,
-                rangeHi   : "month",
-                rangeLo   : "second",
-                numbers: {
-                  font  : "Arial",
-                  color : "#FFFFFF",
-                  bkgd  : "#000"
-                }
-              });
-            </script>
           </div>
           <div class="clear"></div>
           <div id="sign-leaderboard">
             {% if user.is_authenticated %}
               {% if not user.profile.is_organization %}
-                <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user_profile.clean_creds }}</span></h1>
+                <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
               {% endif %}
             {% else %}
               <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>

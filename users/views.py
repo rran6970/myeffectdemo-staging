@@ -3,10 +3,12 @@ import ftplib
 import os
 import tempfile
 
-from challenges.models import Challenge
+from challenges.models import Challenge, UserChallenge
 from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
 
 from datetime import date
+
+from django.db.models import Sum
 
 from django.conf import settings
 from django.contrib import auth
@@ -299,8 +301,16 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 		if 'uid' in self.kwargs:
 			user_id = self.kwargs['uid']
 
+			user_challenges = UserChallenge.objects.filter(user_id=user_id)#.values('user').annotate(total_hours=Sum('total_hours'))[0]
+
+			total_hours = 0
+			for u in user_challenges:
+				total_hours += u.total_hours
+
 			context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
-			context['challenges'] = Challenge.objects.filter(user_id=user_id)
+			# context['challenges'] = Challenge.objects.filter(user_id=user_id)
+			
+			context['total_hours'] = total_hours
 			context['user_profile'] = get_object_or_404(User, id=user_id)
 
 		context['user'] = self.request.user
@@ -416,13 +426,8 @@ class LeaderboardView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(LeaderboardView, self).get_context_data(**kwargs)
 
-		leaders = UserProfile.objects.filter(clean_creds__gte=1).order_by('-clean_creds')[:8]
-		user_profile = None
-
-		if self.request.user.is_authenticated():
-			user_profile = UserProfile.objects.get(user=self.request.user)
-
-		context['user_profile'] = user_profile
+		leaders = UserProfile.objects.filter(clean_creds__gte=1, user__is_superuser=False, user__is_staff=False).order_by('-clean_creds')[:10]
+		
 		context['leaders'] = leaders
 		context['user'] = self.request.user
 		return context

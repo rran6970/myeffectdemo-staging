@@ -50,12 +50,13 @@ def participate_in_challenge(request):
 
 			print e
 
-		if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
-			count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
+		if request.user.profile.has_clean_team():
+			if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
+				count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
 
-			if count_challenges > 1:
-				task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
-				self.clean_team.complete_level_task(task)
+				if count_challenges > 1:
+					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
+					self.clean_team.complete_level_task(task)
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 

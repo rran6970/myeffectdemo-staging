@@ -592,7 +592,7 @@ div.content.my-challenges #white-box.user-challenges .table div.challenge-info a
 div.content.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 415px; left: 11%; }
-div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; }
+div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; width: 360px; }
 div.content.challenge-overview #white-box img { float: right; }
 div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
 div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
@@ -627,11 +627,13 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
 #brown-box h2 { font-size: 22px; font-weight: 900; }
 
-#board { padding: 20px; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
+#board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
 #board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
 #board table { margin-top: 10px; width: 100%; } 
 #board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
 #board table tr td.entry { padding-top: 5px; } 
+#board table tr td.entry span.name a { color: inherit; } 
+#board table tr td.entry span.name a:hover { text-decoration: underline; }
 #board table tr td span.cleancreds { display: block; float: right; }
 .blue { color: #00aeef !important; } 
 .green { color: #83c156 !important; } 

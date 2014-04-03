@@ -48,6 +48,10 @@
             <span class="clean-creds">
               <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
             </span>
+            <div class="field">
+              <p class="title">Total Hours:</p>
+              <p class="text">{{ total_hours }}</p>
+            </div>
           </div><!-- /.info -->
           
           {% if user.id == user_profile.id %}
