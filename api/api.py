@@ -281,11 +281,14 @@ def list_participants(request):
 	participants = UserChallenge.objects.filter(challenge_id=cid)
 	jsonvalue=[]
 	for each in participants:
-		if each.time_in:
-			status=1
-		else:
-			status = 0
-		jsonvalue.append({'status':status,'id':each.user_id,'hours':each.total_hours,'firstname':each.user.first_name,'lastname':each.user.last_name})
+		challenge = each.challenge
+		type = challenge.type.challenge_type
+		time_in = str(each.time_in)
+		time_out = str(each.time_out)
+		hours   = each.total_hours
+		total_clean_creds = each.total_clean_creds
+		
+		jsonvalue.append({'hours':hours,'total_clean_creds':total_clean_creds,'type':type,'time_in':time_in,'time_out':time_out,'id':each.user_id,'hours':each.total_hours,'firstname':each.user.first_name,'lastname':each.user.last_name})
 	response_base.response['status'] = 1
 	response_base.response['data'] = jsonvalue	
 	#response_base.response['data']=[ {'id':each.user_id,'hours':each.total_hours,'firstname':each.user.first_name,'lastname':each.user.last_name} for each in participants ]
@@ -588,11 +591,48 @@ def check_in(request):
 	response_base = ResponseDic()
 	try:
 		user_challenge = UserChallenge.objects.get(user_id=request_obj.params['userid'],challenge_id=request_obj.params['challengeid'])
-		now = datetime.datetime.now()
-		user_challenge.time_in = now
-		user_challenge.save()
-		response_base.response['status'] = 1
+		user = user_challenge.user
+		challenge = user_challenge.challenge
+		cleancredaperhour = challenge.clean_creds_per_hour
+		#print challenge
+		time_in = user_challenge.time_in
+		if time_in:
+			now = datetime.datetime.utcnow().replace(tzinfo=utc)
+			timediff = (now -  time_in).total_seconds()
+			hours = timediff // 3600
+			user_challenge.time_out = now
+			user_challenge.total_hours = hours
+			total_clean_creds  = hours*cleancredaperhour
+			user_challenge.total_clean_creds = total_clean_creds
+			user_challenge.save()
+			
+			
+			# Add CleanCreds to individual
+			user.profile.add_clean_creds(total_clean_creds)
+
+			# Add CleanCreds to Clean Teams if applicable
+			clean_champions = CleanChampion.objects.filter(user=user)
+
+			for clean_champion in clean_champions:
+				if clean_champion.status == "approved":
+					clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
+					
+			# Clean Ambassador
+			if user.profile.is_clean_ambassador():
+				user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+			
+			# Clean Team posting challenge	
+			challenge.clean_team.add_team_clean_creds(total_clean_creds)
+			response_base.response['status'] = 1
+			response_base.response['hours'] = hours
+			response_base.response['total_clean_creds'] = total_clean_creds
+		else:	
+			now = datetime.datetime.now()
+			user_challenge.time_in = now
+			user_challenge.save()
+			response_base.response['status'] = 1
 	except Exception,e:
+		print e
 		response_base.response['status'] = 0
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
