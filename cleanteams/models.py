@@ -61,9 +61,31 @@ class CleanTeam(models.Model):
 	def __unicode__(self):
 		return u'Clean Team: %s' % self.name
 
-	def add_team_clean_creds(self, amount):
+	def add_team_clean_creds(self, amount, notification=True):
 		self.clean_creds += amount
 		self.save()
+
+		if notification:
+			try:
+				# Send notifications
+				notification = Notification.objects.get(notification_type="clean_team_add_clean_creds")
+				# The names that will go in the notification message template
+				name_strings = [self.name, amount]
+				link_strings = [str(self.id)]
+
+				users_to_notify_str = notification.users_to_notify
+				users_to_notify = users_to_notify_str.split(', ')
+				print users_to_notify
+
+				# Notify all of the Users that have the roles within users_to_notify
+				for role in users_to_notify:
+					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self, status="approved")
+
+					for member in clean_team_members:
+						user_notification = UserNotification()
+						user_notification.create_notification("clean_team_add_clean_creds", member.user, name_strings, link_strings)
+			except Exception, e:
+				print e
 
 	# Checks if all of the tasks within the Clean Teams level is complete.
 	# If so, they are leveled up.
@@ -284,7 +306,6 @@ class CleanTeamMember(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamMember, self).save(*args, **kwargs)
-
 
 	# By pass the requestBecomeCleanAmbassador() and approveCleanAmbassador()
 	def becomeCleanAmbassador(self, user, selected_team, notification=True):

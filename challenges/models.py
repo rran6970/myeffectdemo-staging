@@ -193,7 +193,6 @@ class Challenge(models.Model):
 
 			if role == "clean-champion":
 				clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
-
 				members_list = list(chain(clean_team_members, clean_champions))
 
 			for member in members_list:

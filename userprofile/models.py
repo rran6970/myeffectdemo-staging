@@ -215,9 +215,22 @@ class UserProfile(models.Model):
 		count = UserNotification.objects.filter(user=self.user).count()
 		return count
 
-	def add_clean_creds(self, amount):
+	def add_clean_creds(self, amount, notification=True):
 		self.clean_creds += amount
 		self.save()
+
+		if notification:
+			try:
+				# Send notifications
+				notification = Notification.objects.get(notification_type="user_add_clean_creds")
+				# The names that will go in the notification message template
+				name_strings = [amount]
+				link_strings = [str(self.user.id)]
+			
+				user_notification = UserNotification()
+				user_notification.create_notification("user_add_clean_creds", self.user, name_strings, link_strings)
+			except Exception, e:
+				print e
 
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)
