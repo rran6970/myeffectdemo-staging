@@ -197,7 +197,7 @@
   "model": "challenges.challengetype", 
   "fields": {
     "challenge_type": "hourly", 
-    "name": "Hourly", 
+    "name": "Hourly CleanCreds", 
     "description": "This would be the numbers of hours * CleanCreds/hour"
   }
 },
@@ -206,7 +206,7 @@
   "model": "challenges.challengetype", 
   "fields": {
     "challenge_type": "one-time", 
-    "name": "One Time", 
+    "name": "One Time CleanCreds", 
     "description": "One time scan in via QR code"
   }
 },
@@ -695,6 +695,30 @@
     "notification_type": "level_up", 
     "message": "Congratulations, {0} has just leveled up to {1}!", 
     "description": "A Clean Team has just leveled up"
+  }
+},
+{
+  "pk": 10, 
+  "model": "notifications.notification", 
+  "fields": {
+    "name": "Add CleanCreds to User", 
+    "users_to_notify": "individual-user", 
+    "link": "/users/profile/{0}", 
+    "notification_type": "user_add_clean_creds", 
+    "message": "Congratulations, you just earned {0} CleanCreds!", 
+    "description": "CleanCreds have been added to a User"
+  }
+},
+{
+  "pk": 11, 
+  "model": "notifications.notification", 
+  "fields": {
+    "name": "Add CleanCreds to Clean Teams", 
+    "users_to_notify": "clean-ambassador", 
+    "link": "/clean-team/{0}", 
+    "notification_type": "clean_team_add_clean_creds", 
+    "message": "Congratulations, {0} just earned {1} CleanCreds!", 
+    "description": "CleanCreds have been added to a Clean Team"
   }
 }
 ]
