@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from django.template import Context, RequestContext
 from django.core.mail import EmailMessage
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode,UserSettings
-from challenges.models import Challenge, UserChallenge, ChallengeQRCode
+from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQRCode
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevel
 from notifications.models import UserNotification
 import json,urlparse,random,string, base64,datetime
@@ -53,6 +53,7 @@ def login_user(request):
 			"""
 			role=""
 			cleanteamname =""
+			cleanteamid = ""
 			try:
 				#role = user.cleanteammember_set.values_list('role',flat=True).get()
 				role_array    = CleanTeamMember.objects.get(user_id=user.id,status="approved")
