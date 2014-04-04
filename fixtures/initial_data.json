@@ -65,7 +65,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/edit/", 
     "name": "ct_description", 
     "clean_team_level": 1, 
     "description": "Add a profile description to your Clean Team"
@@ -76,7 +76,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/edit/", 
     "name": "ct_twitter", 
     "clean_team_level": 1, 
     "description": "Add Twitter account to your Clean Team profile"
@@ -87,7 +87,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/invite", 
     "name": "invite_5_mcc", 
     "clean_team_level": 1, 
     "description": "Invite at least 5 friends to My Clean City"
@@ -98,7 +98,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/challenges/new-challenge/", 
     "name": "1_challenge", 
     "clean_team_level": 2, 
     "description": "Post 1st Challenge"
@@ -109,7 +109,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/invite", 
     "name": "3_ccs", 
     "clean_team_level": 2, 
     "description": "Recruit 3 Clean Champions"
@@ -131,7 +131,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/challenges/new-challenge/", 
     "name": "5_challenges", 
     "clean_team_level": 3, 
     "description": "Create 5 Challenges"
@@ -142,7 +142,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/invite", 
     "name": "10_ccs", 
     "clean_team_level": 3, 
     "description": "Recruit 10 Clean Champions"
@@ -164,7 +164,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/challenges/?national_challenges=on&q=", 
     "name": "2_national_challenges_signup", 
     "clean_team_level": 4, 
     "description": "Sign up for at least 2 national Challenges"
@@ -175,7 +175,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "approval_required": false, 
-    "link": null, 
+    "link": "/clean-team/invite", 
     "name": "20_ccs", 
     "clean_team_level": 4, 
     "description": "Recruit 20 Clean Champions "
