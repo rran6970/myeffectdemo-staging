@@ -19,7 +19,7 @@ class UserChallengeAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class UserVoucherAdmin(admin.ModelAdmin):
-    list_display = ('id', 'voucher', 'user')
+    list_display = ('id', 'voucher', 'user', 'challenge', 'clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'voucher']
     actions = [export_as_csv_action("CSV Export")]
 

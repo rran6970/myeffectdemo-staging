@@ -161,16 +161,17 @@ class UserProfile(models.Model):
 
 	def is_clean_ambassador(self, status="approved"):
 		try:
-			# ctm = CleanTeamMember.objects.get(user=self.user)
-
 			return True if self.clean_team_member.role=="clean-ambassador" and self.clean_team_member.status==status else False
 		except Exception, e:
 			print e
 			return False
 
-	def is_clean_champion(self, clean_team):
+	def is_clean_champion(self, clean_team=None):
 		try:
-			clean_champion = CleanChampion.objects.get(user=self.user, clean_team=clean_team)
+			if clean_team:
+				clean_champion = CleanChampion.objects.get(user=self.user, clean_team=clean_team)
+			else:
+				clean_champion = CleanChampion.objects.filter(user=self.user)[0]
 
 			return True if clean_champion.status=="approved" else False
 		except Exception, e:
@@ -185,6 +186,8 @@ class UserProfile(models.Model):
 			print e
 			return False
 
+	# TODO: Should check if they are part of a Clean Team as 
+	# 		either a Clean Champion or Clean Ambassador
 	def has_clean_team(self):
 		if not self.clean_team_member:
 			return False
@@ -231,6 +234,22 @@ class UserProfile(models.Model):
 				user_notification.create_notification("user_add_clean_creds", self.user, name_strings, link_strings)
 			except Exception, e:
 				print e
+
+	def add_clean_creds_to_individual_and_teams(self, amount, notification=True):
+		# Add CleanCreds to individual
+		self.add_clean_creds(amount, notification)
+
+		# Clean Champion
+		if self.is_clean_champion():
+			clean_champions = CleanChampion.objects.filter(user=self.user)	
+			
+			for clean_champion in clean_champions:
+				if clean_champion.status == "approved":
+					clean_champion.clean_team.add_team_clean_creds(amount, notification)
+
+		# Clean Ambassador
+		if self.is_clean_ambassador():
+			self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)	
 
 	def save(self, *args, **kwargs):
 		super(UserProfile, self).save(*args, **kwargs)

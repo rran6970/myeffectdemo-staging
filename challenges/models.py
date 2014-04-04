@@ -227,19 +227,7 @@ class Challenge(models.Model):
 			userchallenge.total_clean_creds = total_clean_creds
 			userchallenge.save()
 
-			# Add CleanCreds to individual
-			user.profile.add_clean_creds(total_clean_creds)
-
-			# Add CleanCreds to Clean Teams if applicable
-			clean_champions = CleanChampion.objects.filter(user=user)
-
-			for clean_champion in clean_champions:
-				if clean_champion.status == "approved":
-					clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-					
-			# Clean Ambassador
-			if user.profile.is_clean_ambassador():
-				user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+			user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 			
 			# Clean Team posting challenge	
 			self.clean_team.add_team_clean_creds(total_clean_creds)
@@ -274,21 +262,10 @@ class Challenge(models.Model):
 					userchallenge.total_clean_creds = total_clean_creds
 					userchallenge.save()
 
-					# Add CleanCreds to individual
-					user.profile.add_clean_creds(total_clean_creds)
+					# Add CleanCreds
+					user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 
-					# Add CleanCreds to Clean Teams if applicable
-					clean_champions = CleanChampion.objects.filter(user=user)
-
-					for clean_champion in clean_champions:
-						if clean_champion.status == "approved":
-							clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-							
-					# Clean Ambassador
-					if user.profile.is_clean_ambassador():
-						user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
-					
-					# Clean Team posting challenge	
+					# Clean Team posting challenge		
 					self.clean_team.add_team_clean_creds(total_clean_creds)
 
 					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
@@ -305,19 +282,8 @@ class Challenge(models.Model):
 				userchallenge.total_clean_creds = total_clean_creds
 				userchallenge.save()
 
-				# Add CleanCreds to individual
-				user.profile.add_clean_creds(total_clean_creds)
-
-				# Add CleanCreds to Clean Teams if applicable
-				clean_champions = CleanChampion.objects.filter(user=user)
-
-				for clean_champion in clean_champions:
-					if clean_champion.status == "approved":
-						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-						
-				# Clean Ambassador
-				if user.profile.is_clean_ambassador():
-					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
+				# Add CleanCreds
+				user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 				
 				# Clean Team posting challenge	
 				self.clean_team.add_team_clean_creds(total_clean_creds)
@@ -397,48 +363,6 @@ class Challenge(models.Model):
 
 		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 
-	def claim_voucher(self, user, voucher):
-		if not user.profile.smartphone:
-			try:
-				voucher = UserVoucher.objects.get(voucher=voucher, user__isnull=True)
-				voucher.user = user
-				voucher.save()
-
-				userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self)
-				challenge = userchallenge.challenge
-
-				now = datetime.datetime.utcnow().replace(tzinfo=utc)
-				total_clean_creds = challenge.clean_creds_per_hour
-
-				userchallenge.time_in = now
-				userchallenge.time_out = now
-				userchallenge.total_hours = 0
-				userchallenge.total_clean_creds = total_clean_creds
-				userchallenge.save()
-
-				# Add CleanCreds to individual
-				user.profile.add_clean_creds(total_clean_creds)
-
-				# Add CleanCreds to Clean Teams if applicable
-				clean_champions = CleanChampion.objects.filter(user=user)
-
-				for clean_champion in clean_champions:
-					if clean_champion.status == "approved":
-						clean_champion.clean_team.add_team_clean_creds(total_clean_creds)
-						
-				# Clean Ambassador
-				if user.profile.is_clean_ambassador():
-					user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
-				
-				# Clean Team posting challenge	
-				challenge.clean_team.add_team_clean_creds(total_clean_creds)
-
-				return True
-			except Exception, e:
-				print e
-
-		return False
-
 	def save(self, *args, **kwargs):
 		super(Challenge, self).save(*args, **kwargs)
 
@@ -484,9 +408,24 @@ Description:
 class UserVoucher(models.Model):
 	voucher = models.CharField(max_length=60, blank=False, unique=True, verbose_name="Voucher")	
 	user = models.ForeignKey(User, null=True, blank=True)
+	challenge = models.ForeignKey(Challenge, null=True, blank=True)
+	clean_creds = models.IntegerField(default=0)
 
 	class Meta:
-		verbose_name_plural = u'Voucher Codes for the H&M Challenge'
+		verbose_name_plural = u'Voucher Codes'
+
+	def claim_voucher(self, user):
+		if self.voucher:	
+			self.user = user
+
+			if self.challenge:
+				self.challenge.one_time_check_in_with_token(user, self.challenge.token)
+			elif self.clean_creds:
+				user.profile.add_clean_creds_to_individual_and_teams(self.clean_creds)
+
+			self.save()
+
+		return False
 
 	def save(self, *args, **kwargs):
 		super(UserVoucher, self).save(*args, **kwargs)

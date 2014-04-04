@@ -19,4 +19,5 @@ urlpatterns = patterns('',
 	url(r'^participate/?$', 'challenges.views.participate_in_challenge'),
 	url(r'^search/?$', 'challenges.views.dropdown_search_for_challenges'),
 	url(r'^hm-voucher/?$', HMVoucherView.as_view()),
+	url(r'^shuttlerock-voucher/?$', ShuttleRockVoucherView.as_view()),
 )
