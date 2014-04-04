@@ -321,7 +321,8 @@ class ChallengeView(TemplateView):
 				pass
 			
 			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
-			
+
+			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
 

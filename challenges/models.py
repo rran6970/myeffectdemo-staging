@@ -142,6 +142,7 @@ class Challenge(models.Model):
 	type = models.ForeignKey(ChallengeType, blank=True, null=True, default=1)
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
 	token = models.CharField(max_length=20, blank=True)
+	promote_top = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -193,7 +194,6 @@ class Challenge(models.Model):
 
 			if role == "clean-champion":
 				clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
-
 				members_list = list(chain(clean_team_members, clean_champions))
 
 			for member in members_list:
@@ -334,19 +334,19 @@ class Challenge(models.Model):
 		if national_challenges == "true" or national_challenges == "on":
 			if limit:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))[:limit]
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 		else:
 			if limit:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 
 		return challenges
 
@@ -354,27 +354,49 @@ class Challenge(models.Model):
 	def search_results_to_json(challenges):
 		challenge_dict = {}
 
+		count = 0
 		for c in challenges:
 			pk = c.id
 			type = c.type.id
 			clean_team = c.clean_team.id
 
 			clean_team = CleanTeam.objects.get(id=clean_team)
-			logo = "%s%s" % (settings.MEDIA_URL, clean_team.logo)
+			list_start = "<li><a href='/challenges/%s/'>" % (pk)
+			list_end = "</a></li>"
+
+			if clean_team.logo:
+				logo = "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, clean_team.logo)
+			else:
+				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic-42x42' />" % (settings.STATIC_URL)
+
+			limit = 22
+
+			if len(c.title) > limit:
+				challenge_title = "%s..." % limiter(c.title, limit)
+			else:
+				challenge_title = c.title
+
+			city = c.city if c.city else ""
+			province = c.province if c.province else ""
 
 			if type == 2:
-				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span></div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
 			else:
-				title = "<img class='profile-pic-42x42' src='%s' alt="" /><div>%s<br/>%s, %s<br/><strong>%s</strong> <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr</div>" % (logo, c.title, c.city, c.province, c.clean_creds_per_hour)
+				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+
+			title = "%s<div>%s<br/>%s&nbsp;%s%s</div>" % (logo, challenge_title, city, province, clean_creds_per_hour)
 			
 			if c.national_challenge:
 				title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"
 
-			challenge_dict[pk] = title
+			li = "%s%s%s" % (list_start, title, list_end)
+
+			challenge_dict[count] = li
+			count += 1
+
 
 		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 
-	# from challenges.models import *; user = User.objects.get(id=133); challenge = Challenge.objects.get(id=134); challenge.claim_voucher(user, "CA097051")
 	def claim_voucher(self, user, voucher):
 		if not user.profile.smartphone:
 			try:

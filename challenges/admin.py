@@ -6,7 +6,7 @@ from mycleancity.actions import export_as_csv_action
 from users.models import *
 
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'clean_team', 'title', 'timestamp', 'event_date', 'event_time', 'clean_creds_per_hour', 'national_challenge')
+    list_display = ('id', 'user', 'clean_team', 'title', 'timestamp', 'event_date', 'event_time', 'clean_creds_per_hour', 'national_challenge', 'promote_top')
     search_fields = ['title', 'user__id', 'user__first_name', 'user__last_name', 'user__organization']
     actions = [export_as_csv_action("CSV Export")]
 
