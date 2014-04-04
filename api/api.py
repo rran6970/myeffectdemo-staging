@@ -53,6 +53,7 @@ def login_user(request):
 			"""
 			role=""
 			cleanteamname =""
+			cleanteamid=""
 			try:
 				#role = user.cleanteammember_set.values_list('role',flat=True).get()
 				role_array    = CleanTeamMember.objects.get(user_id=user.id,status="approved")
@@ -576,7 +577,8 @@ def my_challenge(request):
 			,'time_in':str(each.time_in)
 			,'time_out':str(each.time_out)
 			,'type_id':challengearray.type_id
-			,'qr_code':qrimage})	
+			,'qr_code':qrimage
+			,'last_updated_by_id':challengearray.last_updated_by_id})	
 		response_base.response['status'] = 1
 		response_base.response['teamstatus'] = 0
 		response_base.response['data'] = jsonvalue	
