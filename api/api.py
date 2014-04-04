@@ -51,7 +51,7 @@ def login_user(request):
 				role =""
 				cleanteamname=""
 			"""
-			cleanteamid = ""
+			#cleanteamid = ""
 			role=""
 			cleanteamname =""
 			
