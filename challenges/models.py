@@ -333,7 +333,6 @@ class Challenge(models.Model):
 
 		if national_challenges == "true" or national_challenges == "on":
 			if limit:
-				print 1
 				if not query:
 					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
 				else:
@@ -362,9 +361,11 @@ class Challenge(models.Model):
 			clean_team = c.clean_team.id
 
 			clean_team = CleanTeam.objects.get(id=clean_team)
+			list_start = "<li><a href='/challenges/%s/'>" % (pk)
+			list_end = "</a></li>"
 
 			if clean_team.logo:
-				logo = "<img class='profile-pic-42x42' src='%s%s' alt="" />" % (settings.MEDIA_URL, clean_team.logo)
+				logo = "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, clean_team.logo)
 			else:
 				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic-42x42' />" % (settings.STATIC_URL)
 
@@ -388,8 +389,11 @@ class Challenge(models.Model):
 			if c.national_challenge:
 				title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"
 
-			challenge_dict[count] = title
+			li = "%s%s%s" % (list_start, title, list_end)
+
+			challenge_dict[count] = li
 			count += 1
+
 
 		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 

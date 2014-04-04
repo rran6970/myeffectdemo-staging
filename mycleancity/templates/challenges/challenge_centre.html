@@ -31,9 +31,9 @@
                 {% endif %}
                 <a class="team-picture" href="/challenges/{{ challenge.id }}/">
                   {% if challenge.clean_team.logo %}
-                    <img style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ challenge.clean_team.logo }}" alt="" />
+                    <img class="profile-pic" style="width: 124px; height: 124px;" src="{{ MEDIA_URL }}{{ challenge.clean_team.logo }}" alt="" />
                   {% else %}
-                    <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" />
+                    <img class="profile-pic" src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" />
                   {% endif %}
                 </a>
 
