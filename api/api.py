@@ -51,10 +51,8 @@ def login_user(request):
 				role =""
 				cleanteamname=""
 			"""
-			cleanteamid = ""
 			role=""
 			cleanteamname =""
-			
 			try:
 				#role = user.cleanteammember_set.values_list('role',flat=True).get()
 				role_array    = CleanTeamMember.objects.get(user_id=user.id,status="approved")
