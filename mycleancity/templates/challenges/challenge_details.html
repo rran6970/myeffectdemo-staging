@@ -81,16 +81,16 @@
 
         <div id="participants-box">
         	<h1>Participants</h1>
-        	<p>Total: {{ participants|length }}</p>
+        	<p>Total: {{ count }}</p>
 
     			{% for participant in participants %}
     				<div class="participants">
     					<a href="/users/profile/{{ participant.user.id }}">
 
                 {% if participant.user.profile.picture %}
-                  <img src="{{ MEDIA_URL }}{{ participant.user.profile.picture }}" alt="" />
+                  <img class="profile-pic" src="{{ MEDIA_URL }}{{ participant.user.profile.picture }}" alt="" />
                 {% else %}
-                  <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                  <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
                 {% endif %}
                 <p>{{ participant.user.get_full_name }}</p>
     					</a>

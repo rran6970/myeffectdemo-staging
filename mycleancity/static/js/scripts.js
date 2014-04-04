@@ -137,9 +137,9 @@ function showSearchResults(e, search_box)
                     var json = JSON.parse(data);                
 
                     for (var key in json){
-                        var id = key;
+                        // var id = key;
                         var title = json[key];
-                        search_result_list.append("<li><a href='/challenges/" + id + "/'>" + title + "</a></li>")
+                        search_result_list.append(title)
                     }    
                 }
                 else

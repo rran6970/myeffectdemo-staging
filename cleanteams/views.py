@@ -1,3 +1,4 @@
+import datetime
 import urllib
 import ftplib
 import os
@@ -8,6 +9,8 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.core.mail import EmailMessage
+
+from django.db.models import Q
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
@@ -288,7 +291,6 @@ class CleanTeamView(TemplateView):
 				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
-
 			
 			try:
 				user_challenges = UserChallenge.objects.filter(user=self.request.user, challenge__clean_team_id=ctid)
@@ -297,12 +299,15 @@ class CleanTeamView(TemplateView):
 				user_challenges = []
 				user_challenges_list = []
 
-			challenges = Challenge.objects.filter(clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by("event_date")
+			today = datetime.datetime.now()
+			challenges = Challenge.objects.filter(Q(event_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_date')
 
 			challenge_dict = {}
 
+			count = 0
 			for challenge in challenges:
-				challenge_dict[challenge.id] = ["not-particpating", challenge]
+				challenge_dict[count] = ["not-particpating", challenge]
+				count += 1
 
 			for user_challenge in user_challenges:
 				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]

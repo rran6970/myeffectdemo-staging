@@ -1,3 +1,5 @@
+import os
+
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
@@ -23,8 +25,6 @@ from mycleancity.forms import ContactForm
 from cleanteams.models import CleanTeamLevelTask
 
 from django.contrib.auth.models import User
-
-import os
 
 def error404(request):
 	return render_to_response('mycleancity/404.html')
@@ -84,7 +84,7 @@ def download_file(request):
 	url = k.generate_url(6000)
 
 	if request.user.is_active:
-		if filename == "MCC_welcome_package_FR.pdf" or filename == "Welcome_package_cgd.pdf":
+		if filename == "downloadable/MCC_welcome_package_FR.pdf" or filename == "downloadable/Welcome_package_cgd.pdf":
 			if request.user.profile.has_clean_team():
 				if request.user.profile.clean_team_member.clean_team.level.name == "Seedling":
 					task = CleanTeamLevelTask.objects.get(name="download_welcome_package")

@@ -149,9 +149,9 @@
                   <div class="post">
                     
                     {% if post.user.profile.picture %}
-                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="profile-pic-42x42" />
+                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="profile-pic profile-pic-42x42" />
                     {% else %}
-                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic-42x42" />
+                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
                     {% endif %}
 
                     <p class="user"><a href="/users/profile/{{ post.user.id }}">{{ post.user.get_full_name }}</a></p>
