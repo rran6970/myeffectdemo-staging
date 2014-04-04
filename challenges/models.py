@@ -142,6 +142,7 @@ class Challenge(models.Model):
 	type = models.ForeignKey(ChallengeType, blank=True, null=True, default=1)
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
 	token = models.CharField(max_length=20, blank=True)
+	promote_top = models.BooleanField(default=False)
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -332,20 +333,21 @@ class Challenge(models.Model):
 
 		if national_challenges == "true" or national_challenges == "on":
 			if limit:
+				print 1
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))[:limit]
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True))
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query))
+					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 		else:
 			if limit:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))[:limit]
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query))
+				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 
 		return challenges
 
@@ -353,6 +355,7 @@ class Challenge(models.Model):
 	def search_results_to_json(challenges):
 		challenge_dict = {}
 
+		count = 0
 		for c in challenges:
 			pk = c.id
 			type = c.type.id
@@ -385,11 +388,11 @@ class Challenge(models.Model):
 			if c.national_challenge:
 				title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"
 
-			challenge_dict[pk] = title
+			challenge_dict[count] = title
+			count += 1
 
 		return json.dumps(challenge_dict, indent=4, separators=(',', ': '))
 
-	# from challenges.models import *; user = User.objects.get(id=133); challenge = Challenge.objects.get(id=134); challenge.claim_voucher(user, "CA097051")
 	def claim_voucher(self, user, voucher):
 		if not user.profile.smartphone:
 			try:
