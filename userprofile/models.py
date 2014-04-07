@@ -177,14 +177,6 @@ class UserProfile(models.Model):
 		except Exception, e:
 			print e
 			return False
-		
-	def is_organization(self):
-		try:
-			organization = UserOrganization.objects.get(user=self.user)
-			return True
-		except Exception, e:
-			print e
-			return False
 
 	# TODO: Should check if they are part of a Clean Team as 
 	# 		either a Clean Champion or Clean Ambassador

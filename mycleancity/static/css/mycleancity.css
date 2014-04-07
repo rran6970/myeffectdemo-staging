@@ -622,20 +622,24 @@ div.content.challenge-overview #participate-btn { float: right; }
 ******************************/ 
 div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; } 
 
-#brown-box #stage_jbeeb_3 { top: 38px !important; }
+.brown-box #stage_jbeeb_3 { top: 38px !important; }
 
-#brown-box { float: right; margin-right: 100px; text-shadow: 1px 1px 3px #111; }
-#brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
-#brown-box h2 { font-size: 22px; font-weight: 900; }
+.brown-box.individuals { float: left; margin-left: 62px; text-shadow: 1px 1px 3px #111; }
+.brown-box.clean-teams { float: right; margin-right: 50px; text-shadow: 1px 1px 3px #111; }
+.brown-box.clean-teams #badge-icon { height: 36px; }
 
-#board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
-#board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
-#board table { margin-top: 10px; width: 100%; } 
-#board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
-#board table tr td.entry { padding-top: 5px; } 
-#board table tr td.entry span.name a { color: inherit; } 
-#board table tr td.entry span.name a:hover { text-decoration: underline; }
-#board table tr td span.cleancreds { display: block; float: right; }
+.brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
+.brown-box h2 { font-size: 22px; font-weight: 900; }
+
+.board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
+.board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
+.board table { margin-top: 10px; width: 100%; } 
+.board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
+.board table tr td.entry { padding-top: 5px; } 
+.board table tr td.entry span.name a { color: inherit; } 
+.board table tr td.entry span.name a:hover { text-decoration: underline; }
+.board table tr td span.cleancreds { display: block; float: right; }
+
 .blue { color: #00aeef !important; } 
 .green { color: #83c156 !important; } 
 .red { color: #EB0900 !important; } 
