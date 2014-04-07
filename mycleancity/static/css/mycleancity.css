@@ -95,6 +95,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .tooltip-inner span.description strong.title { display: block; margin-bottom: 3px; font-size: 17px; }
 
 .badge-join { display: block; text-align: center; }
+.badge-join img { border: none !important; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big-fr { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
@@ -340,8 +341,20 @@ div.content.rewards #white-box ol li { list-style: decimal; }
 div.content.rewards #white-box ul { margin-left: 18px; }
 div.content.rewards #white-box ul li { list-style: disc; } 
 div.content.rewards #white-box iframe { margin: 0 190px; }
+div.content.rewards #white-box img { border: 1px solid #C4C4C4; }
 
 div.content.rewards #sign-stump { top: 200px; }
+
+div.content.rewards #white-box table.rewards-table td.reward { padding-bottom: 20px; }
+div.content.rewards #white-box table.rewards-table td.reward img { text-align: center; margin: 0 auto; display: block; }
+div.content.rewards #white-box table.rewards-table td.reward span.title { display: block; text-align: center; margin-top: 20px; font-size: 15px; }
+
+div.content.rewards #white-box table.grand-prize-table tr { display: block; padding-top: 30px; }
+div.content.rewards #white-box table.grand-prize-table tr td { vertical-align: top; }
+div.content.rewards #white-box table.grand-prize-table tr td img { width: 200px; }
+
+div.content.rewards #white-box #grand-prize-title { margin: 30px 0; }
+div.content.rewards #white-box #grand-prize-title img { display: block; margin: 0 auto; }
 
 #sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
 #sign-rewards2-fr { width: 294px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 45px; background: url(../images/french/sign-rewards2.png) no-repeat 0 0; }
@@ -358,7 +371,10 @@ div.content.rewards #sign-stump { top: 200px; }
 #sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
 #sign-individuals-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-individuals.png) no-repeat 0 0; }
 
-#sign-go-back-big.rewards { top: 400px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
+#sign-grand-prize { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/sign-grand-prize.png) no-repeat 0 0; }
+#sign-grand-prize-fr { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/french/sign-grand-prize.png) no-repeat 0 0; }
+
+#sign-go-back-big.rewards { top: 424px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big.rewards-fr { top: 400px; left: 62px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
 
 
