@@ -53,6 +53,7 @@ def login_user(request):
 			"""
 			role=""
 			cleanteamname =""
+			cleanteamid=""
 			try:
 				#role = user.cleanteammember_set.values_list('role',flat=True).get()
 				role_array    = CleanTeamMember.objects.get(user_id=user.id,status="approved")
@@ -576,7 +577,8 @@ def my_challenge(request):
 			,'time_in':str(each.time_in)
 			,'time_out':str(each.time_out)
 			,'type_id':challengearray.type_id
-			,'qr_code':qrimage})	
+			,'qr_code':qrimage
+			,'last_updated_by_id':challengearray.last_updated_by_id})	
 		response_base.response['status'] = 1
 		response_base.response['teamstatus'] = 0
 		response_base.response['data'] = jsonvalue	
@@ -704,6 +706,18 @@ def search(request):
 			cteamarray  = CleanTeam.objects.get(id=ct_id)
 			ctname  = cteamarray.name
 			org = each.host_organization
+			qr_id = each.qr_code_id
+			if qr_id:
+				try:
+					#print "&"*30
+					qrarray = ChallengeQRCode.objects.get(id=qr_id)
+					#print unicode(qrarray.qr_image)
+					qrimage = unicode(qrarray.qr_image)
+				except Exception,e:
+					print e
+					qrimage = ""
+			else:
+				qrimage = ""
 			jsonvalue.append({'country':each.country
 			,'ctname':ctname
 			,'title':each.title
@@ -712,7 +726,10 @@ def search(request):
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
 			,'province':each.province,'id':each.id
-			,'description':each.description})
+			,'description':each.description
+			,'clean_creds_per_hour':each.clean_creds_per_hour
+			,'type_id':each.type_id
+			,'qr_code':qrimage})
 		
 		response_base.response['status'] = 1
 		#challenges = {"adress":challenge.title}
