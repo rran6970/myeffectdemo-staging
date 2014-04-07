@@ -706,6 +706,18 @@ def search(request):
 			cteamarray  = CleanTeam.objects.get(id=ct_id)
 			ctname  = cteamarray.name
 			org = each.host_organization
+			qr_id = each.qr_code_id
+			if qr_id:
+				try:
+					#print "&"*30
+					qrarray = ChallengeQRCode.objects.get(id=qr_id)
+					#print unicode(qrarray.qr_image)
+					qrimage = unicode(qrarray.qr_image)
+				except Exception,e:
+					print e
+					qrimage = ""
+			else:
+				qrimage = ""
 			jsonvalue.append({'country':each.country
 			,'ctname':ctname
 			,'title':each.title
@@ -714,7 +726,10 @@ def search(request):
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
 			,'province':each.province,'id':each.id
-			,'description':each.description})
+			,'description':each.description
+			,'clean_creds_per_hour':each.clean_creds_per_hour
+			,'type_id':each.type_id
+			,'qr_code':qrimage})
 		
 		response_base.response['status'] = 1
 		#challenges = {"adress":challenge.title}
