@@ -61,7 +61,7 @@ class ContactPageView(FormView):
 
 		subject_line, from_email, to = subject, email, 'info@mycleancity.org'
 
-		mail = EmailMessage(subject, content, from_email, [to])
+		mail = EmailMessage(subject, message, from_email, [to])
 		mail.content_subtype = "html"
 		mail.send()
 

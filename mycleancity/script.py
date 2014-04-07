@@ -1,4 +1,5 @@
 import math
+import re
 import string
 
 from datetime import date
@@ -9,6 +10,16 @@ from challenges.models import *
 from cleanteams.models import *
 from mycleancity.actions import *
 from userprofile.models import *
+
+# To run this script:
+# from mycleancity.script import *; generate_random_voucher_codes(10)
+def generate_random_voucher_codes(number):
+	for x in range(0, number):
+		string = ''.join(random.choice('0123456789ABCDEF') for i in range(16))
+		string = re.sub("(.{4})", "\\1-", string, 0, re.DOTALL)
+		result = string[:-1]
+
+		print "%s. %s" % (x, result)
 
 # To run this script:
 # from mycleancity.script import *; add_settings_to_all_user_profiles()
