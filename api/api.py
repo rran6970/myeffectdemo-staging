@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from django.template import Context, RequestContext
 from django.core.mail import EmailMessage
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode,UserSettings
-from challenges.models import Challenge, UserChallenge, ChallengeQRCode
+from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQRCode
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevel
 from notifications.models import UserNotification
 import json,urlparse,random,string, base64,datetime
@@ -254,6 +254,9 @@ def list_challenge(request):
 			,'ctname':ctname
 			,'title':each.title
 			,'org':each.host_organization
+			,'address1':each.address1
+			,'address2':each.address2
+			,'postal_code':each.postal_code
 			,'city':each.city
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
@@ -855,6 +858,9 @@ def newsfeeds(request):
 			,'ctname':ctname
 			,'title':each.title
 			,'org':each.host_organization
+			,'address1':each.address1
+			,'address2':each.address2
+			,'postal_code':each.postal_code
 			,'city':each.city
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
