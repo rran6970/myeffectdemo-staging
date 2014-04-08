@@ -617,7 +617,7 @@ div.content.challenge-overview #white-box img { float: right; }
 div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
 div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
-div.content.challenge-overview #white-box table { margin: 30px 0; }
+div.content.challenge-overview #white-box table { margin: 10px 0 30px; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }
 div.content.challenge-overview #white-box table tr td p { font-size: 15px; }
 div.content.challenge-overview #white-box table tr td span.titles { font-weight: 700; font-size: 16px; }
@@ -666,7 +666,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .center { text-align: center !important; }
 
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
-#sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 40px; color: #83c156; top: 54px; left: 25px }
+#sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 33px; color: #83c156; top: 57px; left: 25px }
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
 #sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
