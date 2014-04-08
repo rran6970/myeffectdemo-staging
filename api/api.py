@@ -19,11 +19,7 @@ from django.template.loader import get_template
 from django.template import Context, RequestContext
 from django.core.mail import EmailMessage
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode,UserSettings
-<<<<<<< HEAD
-from challenges.models import Challenge, UserChallenge, ChallengeCategory, ChallengeQRCode
-=======
 from challenges.models import Challenge, UserChallenge,  ChallengeQRCode
->>>>>>> origin/master
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevel
 from notifications.models import UserNotification
 import json,urlparse,random,string, base64,datetime
@@ -174,6 +170,7 @@ def student_edit_profile(request):
 	user = User.objects.get(id=request_obj.params['userid'])
 	role=""
 	cleanteamname =""
+	cleanteamid=""
 	try:
 		#role = user.cleanteammember_set.values_list('role',flat=True).get()
 		role_array    = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
@@ -185,13 +182,14 @@ def student_edit_profile(request):
 			champarray = CleanChampion.objects.get(user_id=request_obj.params['userid'])
 			role = "clean-champion"
 		except Exception,e:
-			role = ""
+			print e
+			role = "Individual"
 		
 	try:
 		cleanteamid  = user.cleanteammember_set.values_list('clean_team_id',flat=True).get()
 		cleanteamArray  = CleanTeam.objects.get(id=cleanteamid)
 		cleanteamname  = cleanteamArray.name
-	except exception,e:
+	except Exception,e:
 		cleanteamname =""
 	#print cleanteamname
 	#print user_profile.picture
