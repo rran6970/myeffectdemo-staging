@@ -254,6 +254,9 @@ def list_challenge(request):
 			,'ctname':ctname
 			,'title':each.title
 			,'org':each.host_organization
+			,'address1':each.address1
+			,'address2':each.address2
+			,'postal_code':each.postal_code
 			,'city':each.city
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
@@ -855,6 +858,9 @@ def newsfeeds(request):
 			,'ctname':ctname
 			,'title':each.title
 			,'org':each.host_organization
+			,'address1':each.address1
+			,'address2':each.address2
+			,'postal_code':each.postal_code
 			,'city':each.city
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
