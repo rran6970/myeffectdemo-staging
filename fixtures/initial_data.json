@@ -377,7 +377,7 @@
     "question_number": 6, 
     "question": "Does the challenge involve reducing consumption of (select all that apply)", 
     "answer_type": 2, 
-    "required": true
+    "required": false
   }
 },
 {
