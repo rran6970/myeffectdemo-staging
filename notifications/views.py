@@ -26,6 +26,14 @@ class NotificationsFeedView(TemplateView):
 
 		return context
 
+def read_all_notifications(request):
+	user_notifications = UserNotification.objects.filter(user=request.user)
+
+	for n in user_notifications:
+		n.read_notification()
+			
+	return HttpResponseRedirect('/notifications/')
+
 def read_notification(request):
 	if request.method == 'POST' and request.is_ajax:	
 		nid = request.POST['nid']

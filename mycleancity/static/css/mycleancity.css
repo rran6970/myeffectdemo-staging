@@ -95,6 +95,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .tooltip-inner span.description strong.title { display: block; margin-bottom: 3px; font-size: 17px; }
 
 .badge-join { display: block; text-align: center; }
+.badge-join img { border: none !important; }
 
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big-fr { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
@@ -163,8 +164,8 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-students { width: 191px; height: 52px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/sign-students.png) no-repeat 0 0; }
 #sign-students-fr { width: 204px; height: 54px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/french/sign-students.png) no-repeat 0 0; }
 
-#sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
-#sign-my-profile-fr { width: 207px; height: 56px; position: absolute; z-index: 1000; top: 247px; left: 125px; background: url(../images/french/sign-my-profile.png) no-repeat 0 0; }
+#sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 217px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
+#sign-my-profile-fr { width: 207px; height: 56px; position: absolute; z-index: 1000; top: 217px; left: 125px; background: url(../images/french/sign-my-profile.png) no-repeat 0 0; }
 
 #sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
 #sign-organizations-fr { width: 254px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 62px; background: url(../images/french/sign-organizations.png) no-repeat 0 0; }
@@ -172,9 +173,12 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-rewards { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 356px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-rewards-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 356px; left: 113px; background: url(../images/french/sign-rewards.png) no-repeat 0 0; }
 
-#sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-rewards3 { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
+#sign-rewards3-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/french/sign-rewards.png) no-repeat 0 0; }
+
+#sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
-#sign-my-challenges2-fr { width: 208px; height: 54px; position: absolute; z-index: 1000; top: 300px; left: 51px; background: url(../images/french/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-my-challenges2-fr { width: 208px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
 #footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
@@ -337,8 +341,20 @@ div.content.rewards #white-box ol li { list-style: decimal; }
 div.content.rewards #white-box ul { margin-left: 18px; }
 div.content.rewards #white-box ul li { list-style: disc; } 
 div.content.rewards #white-box iframe { margin: 0 190px; }
+div.content.rewards #white-box img { border: 1px solid #C4C4C4; }
 
 div.content.rewards #sign-stump { top: 200px; }
+
+div.content.rewards #white-box table.rewards-table td.reward { padding-bottom: 20px; }
+div.content.rewards #white-box table.rewards-table td.reward img { text-align: center; margin: 0 auto; display: block; }
+div.content.rewards #white-box table.rewards-table td.reward span.title { display: block; text-align: center; margin-top: 20px; font-size: 15px; }
+
+div.content.rewards #white-box table.grand-prize-table tr { display: block; padding-top: 30px; }
+div.content.rewards #white-box table.grand-prize-table tr td { vertical-align: top; }
+div.content.rewards #white-box table.grand-prize-table tr td img { width: 200px; }
+
+div.content.rewards #white-box #grand-prize-title { margin: 30px 0; }
+div.content.rewards #white-box #grand-prize-title img { display: block; margin: 0 auto; }
 
 #sign-rewards2 { width: 225px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 67px; background: url(../images/sign-rewards2.png) no-repeat 0 0; }
 #sign-rewards2-fr { width: 294px; height: 59px; position: absolute; z-index: 1000; top: 25px; left: 45px; background: url(../images/french/sign-rewards2.png) no-repeat 0 0; }
@@ -355,7 +371,10 @@ div.content.rewards #sign-stump { top: 200px; }
 #sign-individuals { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-individuals.png) no-repeat 0 0; }
 #sign-individuals-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-individuals.png) no-repeat 0 0; }
 
-#sign-go-back-big.rewards { top: 400px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
+#sign-grand-prize { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/sign-grand-prize.png) no-repeat 0 0; }
+#sign-grand-prize-fr { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/french/sign-grand-prize.png) no-repeat 0 0; }
+
+#sign-go-back-big.rewards { top: 424px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big.rewards-fr { top: 400px; left: 62px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
 
 
@@ -622,20 +641,24 @@ div.content.challenge-overview #participate-btn { float: right; }
 ******************************/ 
 div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; } 
 
-#brown-box #stage_jbeeb_3 { top: 38px !important; }
+.brown-box #stage_jbeeb_3 { top: 38px !important; }
 
-#brown-box { float: right; margin-right: 100px; text-shadow: 1px 1px 3px #111; }
-#brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
-#brown-box h2 { font-size: 22px; font-weight: 900; }
+.brown-box.individuals { float: left; margin-left: 62px; text-shadow: 1px 1px 3px #111; }
+.brown-box.clean-teams { float: right; margin-right: 50px; text-shadow: 1px 1px 3px #111; }
+.brown-box.clean-teams #badge-icon { height: 36px; }
 
-#board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
-#board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
-#board table { margin-top: 10px; width: 100%; } 
-#board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
-#board table tr td.entry { padding-top: 5px; } 
-#board table tr td.entry span.name a { color: inherit; } 
-#board table tr td.entry span.name a:hover { text-decoration: underline; }
-#board table tr td span.cleancreds { display: block; float: right; }
+.brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
+.brown-box h2 { font-size: 22px; font-weight: 900; }
+
+.board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
+.board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
+.board table { margin-top: 10px; width: 100%; } 
+.board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
+.board table tr td.entry { padding-top: 5px; } 
+.board table tr td.entry span.name a { color: inherit; } 
+.board table tr td.entry span.name a:hover { text-decoration: underline; }
+.board table tr td span.cleancreds { display: block; float: right; }
+
 .blue { color: #00aeef !important; } 
 .green { color: #83c156 !important; } 
 .red { color: #EB0900 !important; } 
@@ -772,6 +795,7 @@ div.table-container #invitees-table tr td.roles {  }
 ******************************/ 
 #white-box.all-notifications { width: 356px; max-height: 500px; left: 36%; }
 #white-box.all-notifications h1 { margin-bottom: 15px; }
+#white-box.all-notifications a { display: block; margin-bottom: 15px; }
 
 #white-box.all-notifications table tr td.notification:hover { opacity: 0.80; }
 #white-box.all-notifications table tr td.notification a { display: block; width: 100%; height: 100%; }

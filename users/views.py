@@ -28,6 +28,7 @@ from django.views.generic.edit import FormView
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
 
+from cleanteams.models import CleanTeam
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
@@ -426,9 +427,11 @@ class LeaderboardView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(LeaderboardView, self).get_context_data(**kwargs)
 
-		leaders = UserProfile.objects.filter(clean_creds__gte=1, user__is_superuser=False, user__is_staff=False).order_by('-clean_creds')[:10]
+		individual_leaders = UserProfile.objects.filter(clean_creds__gte=1, user__is_superuser=False, user__is_staff=False).order_by('-clean_creds')[:10]
+		clean_team_leaders = CleanTeam.objects.filter(clean_creds__gte=1, admin=False).order_by('-clean_creds')[:10]
 		
-		context['leaders'] = leaders
+		context['individual_leaders'] = individual_leaders
+		context['clean_team_leaders'] = clean_team_leaders
 		context['user'] = self.request.user
 		return context
 

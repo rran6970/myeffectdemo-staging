@@ -21,35 +21,72 @@
   
   <div class="content leadership-board">
     <div class="container">
-        <div id="brown-box">
-          <div id="board">
-            <h1>LEADER BOARD</h1>
-            {% if user.is_authenticated %}
-              <table>
-              {% for leader in leaders %}
-                {% if forloop.counter|divisibleby:2 %}
-                <tr><td class="entry blue"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
-                {% else %}
-                <tr><td class="entry green"><span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span> <span class="cleancreds">{{ leader.clean_creds }}</span></td></tr>
-                {% endif %}
-              {% endfor %}
-              </table>
-            {% else %}
-              <h2>See who is leading the nation in <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a>. Who is our top Clean Team? Our individual national champs? Let the challenge begin April 1st</h2>
-            {% endif %}
-          </div>
-          <div class="clear"></div>
-          <div id="sign-leaderboard">
-            {% if user.is_authenticated %}
-              {% if not user.profile.is_organization %}
-                <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
-              {% endif %}
-            {% else %}
-              <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
-            {% endif %}
-          </div>   
-        </div><!-- /#brown-box -->
+      <div class="brown-box individuals">
+        <div class="board">
+          <h1>TOP CLEAN AGENTS</h1>
+          {% if user.is_authenticated %}
+            <table>
+            {% for leader in individual_leaders %}
+              <tr>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span>
+                </td>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="cleancreds">{{ leader.clean_creds }}</span>
+                </td>
+              </tr>
+            {% endfor %}
+            </table>
+          {% else %}
+            <h2>See who is leading the nation in <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a>. Who is our top Clean Team? Our individual national champs? Let the challenge begin.</h2>
+          {% endif %}
+        </div><!-- /.brown-box -->
         <div class="clear"></div>
+        <div id="sign-leaderboard">
+          {% if user.is_authenticated %}
+              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
+          {% else %}
+            <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
+          {% endif %}
+        </div>   
+      </div><!-- /.brown-box.individuals -->
+
+      <div class="brown-box clean-teams">
+        <div class="board">
+          <h1>TOP CLEAN TEAMS</h1>
+          {% if user.is_authenticated %}
+            <table>
+            {% for leader in clean_team_leaders %}
+              <tr>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <img id="badge-icon" src="{{ STATIC_URL }}{{ leader.level.badge }}" alt="Badge Level" />                  
+                </td>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/clean-team/{{ leader.id }}">{{ leader.name|slice:":255" }}</a></span>
+                </td>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="cleancreds">{{ leader.clean_creds }}</span>
+                </td>
+              </tr>
+            {% endfor %}
+            </table>
+          {% else %}
+            <h2>See who is leading the nation in <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a>. Who is our top Clean Team? Our individual national champs? Let the challenge begin.</h2>
+          {% endif %}
+        </div><!-- /.brown-box -->
+        <div class="clear"></div>
+        <div id="sign-leaderboard">
+          {% if user.is_authenticated %}
+            {% if user.profile.is_clean_ambassador %}
+              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_team_member.clean_team.clean_creds }}</span></h1>
+            {% endif %}
+          {% else %}
+            <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
+          {% endif %}
+        </div>   
+      </div><!-- /.brown-box.clean-teams -->
+
+      <div class="clear"></div>
         
     </div><!-- /.container -->
   </div><!-- /.about -->
