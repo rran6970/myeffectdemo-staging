@@ -547,10 +547,14 @@ def my_challenge(request):
 	response_base = ResponseDic()
 	userid = request_obj.params['userid']
 	try:
-		challenge = UserChallenge.objects.filter(user_id=userid)
+		Uchallenge = UserChallenge.objects.filter(user_id=userid)
 		jsonvalue =[]
-		for each in challenge:		
+		for each in Uchallenge:		
 			challengeid = each.challenge_id
+			ChallengesInstance  = each.challenge
+			CTeam  = ChallengesInstance.clean_team
+			ctname     = CTeam.name
+			#print ctname
 			challengearray  = Challenge.objects.get(id=challengeid)
 			qr_id = challengearray.qr_code_id
 			if qr_id:
@@ -572,6 +576,7 @@ def my_challenge(request):
 			,'address1':challengearray.address1
 			,'address2':challengearray.address2
 			,'city':challengearray.city
+			,'ctname':ctname
 			,'province':challengearray.province
 			,'postal_code':challengearray.postal_code
 			,'country':challengearray.country
@@ -727,6 +732,9 @@ def search(request):
 			,'ctname':ctname
 			,'title':each.title
 			,'org':each.host_organization
+			,'address1':each.address1
+			,'address2':each.address2
+			,'postal_code':each.postal_code
 			,'city':each.city
 			,'eventdate':str(each.event_date)
 			,'eventtime':str(each.event_time)
