@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - New Challenge {% endblock %}
+{% block title %} My Clean City - New #CleanAct {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -10,16 +10,16 @@
 
 <div class="wrapper public">
   <div class="clouds"></div>
-  
+
   {% include "_loggedin_navbar.html" %}
 
   <a href="/" class="logo"></a>
-  
+
   <div class="content">
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>Challenge Survey Questions</h2>
+            <h2><span class="bold green">#Clean</span><span class="bold blue">Acts</span> Survey Questions</h2>
             <span class="subtitle">Please fill out our survey to calculate the <span class="green bold">Clean</span><span class="blue bold">Creds</span>/hr</span>
 
 			{% if form.non_field_errors %}
@@ -36,8 +36,8 @@
 				{{ form.question_5.label_tag }} {{ form.question_5 }} {{ form.question_5.errors }}
 				{{ form.question_6.label_tag }} {{ form.question_6 }} {{ form.question_6.errors }}
 
-				<h2 style="margin-top: 50px;">Create Challenge</h2>
-	            <span class="subtitle">Fill out the fields below to create your Challenge</span>
+				<h2 style="margin-top: 50px;">Create <span class="bold green">#Clean</span><span class="bold blue">Act</span></h2>
+	            <span class="subtitle">Fill out the fields below to create your <span class="bold green">#Clean</span><span class="bold blue">Act</span></span>
 
 	            <table>
 	                <tr>

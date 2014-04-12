@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Challenge Centre {% endblock %}
+{% block title %} My Clean City - My #CleanActs {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -10,18 +10,18 @@
 
 <div class="wrapper public">
   <div class="clouds"></div>
-  
+
   {% include "_loggedin_navbar.html" %}
 
   <a href="/" class="logo"></a>
-  
+
   <div class="content my-challenges">
     <div class="container">
       	<div id="sign-my-challenges"></div>
 
       	{% if user.profile.is_clean_ambassador %}
         <div id="white-box" class="posted-challenges">
-			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted Challenges</h1>
+			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted <span class="bold green">#Clean</span><span class="bold blue">Acts</span></h1>
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
@@ -33,13 +33,13 @@
 						<div class="links">
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 							<div class="clear"></div>
-							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit Challenge</a>
+							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit #CleanActs</a>
 
 							{% if challenge.type.challenge_type == "one-time" %}
 							<a class="view-challenge-qrcode popup-image" href="#view-challenge-qrcode-{{ challenge.id }}"><img src="{{ MEDIA_URL }}{{ challenge.qr_code.qr_image }}" alt="" /></a>
 							{% endif %}
 						</div>
-						
+
 						<div class="details">
 							<div class="title">
 								<p><span>Last updated by:</span>&nbsp;{{ challenge.last_updated_by.first_name }} {{ challenge.last_updated_by.last_name }}</p>
@@ -60,21 +60,21 @@
 					</div>
 				{% endfor %}
 			{% else %}
-				<p>There are no challenges that you've posted.</p>
+				<p>There are no <span class="bold green">#Clean</span><span class="bold blue">Acts</span> that you've posted.</p>
 			{% endif %}
         </div><!-- /#white-box -->
 		{% endif %}
-	
-        <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
-        	<h1>{{ user.first_name }}'s Challenges</h1>
-			{% if user_challenges %}
-				
+
+      <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
+      	<h1>{{ user.first_name }}'s <span class="bold green">#Clean</span><span class="bold blue">Acts</span></h1>
+
+			  {% if user_challenges %}
 				<div class="table-container">
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Status</th>
-								<th>Challenge</th>
+								<th><span class="bold green">#Clean</span><span class="bold blue">Acts</span></th>
 								<th>Hours</th>
 								<th><span class="green bold">Clean</span><span class="blue bold">Creds</span></th>
 							</tr>
@@ -101,7 +101,7 @@
 										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
 										{% else %}
 										<span class="total-hours">Not checked in</span>
-										{% endif %}									
+										{% endif %}
 									</div>
 								</td>
 								<td class="total-hours">
@@ -115,12 +115,12 @@
 						</tbody>
 					</table><!-- /.table.table-hover -->
 				</div><!-- /.table-container -->
-				
+
 			{% else %}
-				<p style="text-align: center;">There are no challenges you are partcipating in.</p>
+				<p style="text-align: center;">There are no <span class="bold green">#Clean</span><span class="bold blue">Acts</span> you are partcipating in.</p>
 			{% endif %}
-        </div><!-- /#white-box -->
-        
+      </div><!-- /#white-box -->
+
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

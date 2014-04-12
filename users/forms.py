@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#coding: utf8 
+#coding: utf8
 import os
 
 import datetime
@@ -53,8 +53,8 @@ def country_is_valid(country):
 SCHOOLS = (('', 'Please select one...'),('Elementary Student', 'Elementary Student'), ('High School Student', 'High School Student'), ('Post Secondary Student', 'Post Secondary Student'))
 
 PROVINCES = (('', 'Please select one...'),
-	('AB', 'AB'), 
-	('BC', 'BC'), 
+	('AB', 'AB'),
+	('BC', 'BC'),
 	('MB', 'MB'),
 	('NB', 'NB'),
 	('NF', 'NF'),
@@ -105,7 +105,7 @@ class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('individual', 'Clean Agent / Agent VillePropre',), ('clean-ambassador', 'Clean Ambassador / Ambassadeur Net',), ('clean-champion', 'Clean Champion / Champion Net',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
 	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
-	
+
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email / Courriel")
@@ -122,7 +122,7 @@ class RegisterUserForm(forms.ModelForm):
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = CaptchaField()
-	
+
 	# Combines the form with the corresponding model
 	class Meta:
 		model = User
@@ -187,7 +187,7 @@ class ProfileForm(forms.ModelForm):
 	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	picture = forms.ImageField(required=False, label="Profile Picture")
-	
+
 	# Combines the form with the corresponding model
 	class Meta:
 		model = User

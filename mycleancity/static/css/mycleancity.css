@@ -16,7 +16,7 @@ div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; marg
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
-[class^="icon-"], 
+[class^="icon-"],
 [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
 
 a { color: #00aeef; }
@@ -30,7 +30,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
 #notification-icon:hover { background-position: bottom; bottom }
-#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 127px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; } 
+#notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 127px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; }
 #notification-container span { display: block; }
 
 .profile-pic { border-radius: 4px; border: 1px solid #C4C4C4; }
@@ -50,10 +50,10 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #search-container .search-result-dropdown { display: none; left: 56px; top: 35px; width: 248px; padding: 10px; }
 #search-container .search-result-dropdown ul { margin: 0; max-height: 200px; border: 1px solid #BBB; overflow-y: scroll; overflow-x: hidden; }
 #search-container .search-result-dropdown ul li { border-bottom: 1px solid #E0E0E0; }
-#search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #E4E4E4; } 
+#search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #E4E4E4; }
 #search-container .search-result-dropdown ul li a div {  }
 #search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; position: relative; }
-#search-container .search-result-dropdown #view-all-challenges { display: none; text-align: center; padding: 10px 10px 0; font-size: 12px; } 
+#search-container .search-result-dropdown #view-all-challenges { display: none; text-align: center; padding: 10px 10px 0; font-size: 12px; }
 #search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 179px; width: 50px; }
 
 .glyphicon-chevron-down { font-size: 10px; margin-left: 5px; top: 0px; }
@@ -71,9 +71,9 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
 .dropdown-menu.notification-dropdown ul li {  }
-.dropdown-menu.notification-dropdown ul li a { cursor: pointer; display: block; width: 300px;  height: 70px; padding: 10px; margin: 0; border-bottom: none; } 
-.dropdown-menu.notification-dropdown ul li a.notification-mark-read, 
-.dropdown-menu.notification-dropdown ul li a.notification-mark-unread { cursor: pointer; display: block; font-size: 10px; height: 23px; padding: 0; margin: 0; border-bottom: 1px solid #DDD; } 
+.dropdown-menu.notification-dropdown ul li a { cursor: pointer; display: block; width: 300px;  height: 70px; padding: 10px; margin: 0; border-bottom: none; }
+.dropdown-menu.notification-dropdown ul li a.notification-mark-read,
+.dropdown-menu.notification-dropdown ul li a.notification-mark-unread { cursor: pointer; display: block; font-size: 10px; height: 23px; padding: 0; margin: 0; border-bottom: 1px solid #DDD; }
 .dropdown-menu.notification-dropdown ul li a:hover { opacity: 0.90; }
 .dropdown-menu.notification-dropdown ul li.unread { background: url(../images/1x1-green.png) repeat 0 0 !important; /*background-color: #A5FFA1 !important;*/ }
 .dropdown-menu.notification-dropdown ul li a img.notification-image { float: left; margin-right: 10px; border: 1px solid #4a3c2e; border-radius: 2px; height: 42px; width: 42px; }
@@ -145,14 +145,14 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #buildings-fr { width: 346px; height: 144px; position: absolute; z-index: 995; top: 81px; left: 588px; background: transparent url(../images/french/buildings.png) no-repeat 0 0; }
 
 #buildings-link { display: block; width: 346px; height: 144px; position: absolute; z-index: 999; top: 81px; left: 588px; }
-#buildings-link:hover + div { content: ""; background-position: 0 bottom !important; } 
+#buildings-link:hover + div { content: ""; background-position: 0 bottom !important; }
 
 #sign-stump { width: 46px; height: 346px; position: absolute; z-index: 999; top: 144px; left: 159px; background: transparent url(../images/sign-stump.png) no-repeat 0 0; }
 #sign-stump-long { width: 46px; height: 486px; position: absolute; z-index: 999; top: 62px; left: 159px; background: transparent url(../images/sign-stump-long.png) no-repeat 0 0; }
 
 #sign-user { min-width: 275px; height: 57px; position: absolute; z-index: 1000; top: 142px; left: 39px; }
-#sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; } 
-#sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; } 
+#sign-user .left { width: 20px; height: 52px; background: url(../images/sign-left-side.png) no-repeat 0 0; }
+#sign-user .right { width: 20px; height: 52px; background: url(../images/sign-right-side.png) no-repeat 0 0; }
 #sign-user .sign-content { min-width: 236px; color: #83c156; float: left; padding-top: 10px; font-weight: 600; text-align: center; height: 57px; font-size: 27px; text-shadow: 1px 1px 4px #0C2218; background: url(../images/sign-backing.png) repeat-x 0 -2px; }
 
 #sign-register { width: 210px; height: 50px; position: absolute; z-index: 1000; top: 193px; left: 101px; background: url(../images/sign-register2.png) no-repeat 0 0; }
@@ -165,7 +165,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-students-fr { width: 204px; height: 54px; position: absolute; z-index: 1000; top: 246px; left: 125px; background: url(../images/french/sign-students.png) no-repeat 0 0; }
 
 #sign-my-profile { width: 207px; height: 52px; position: absolute; z-index: 1000; top: 217px; left: 125px; background: url(../images/sign-my-profile.png) no-repeat 0 0; }
-#sign-my-profile-fr { width: 207px; height: 56px; position: absolute; z-index: 1000; top: 217px; left: 125px; background: url(../images/french/sign-my-profile.png) no-repeat 0 0; }
+#sign-my-profile-fr { width: 207px; height: 55px; position: absolute; z-index: 1000; top: 217px; left: 125px; background: url(../images/french/sign-my-profile.png) no-repeat 0 0; }
 
 #sign-organizations { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 32px; background: url(../images/sign-organizations.png) no-repeat 0 0; }
 #sign-organizations-fr { width: 254px; height: 54px; position: absolute; z-index: 1000; top: 298px; left: 62px; background: url(../images/french/sign-organizations.png) no-repeat 0 0; }
@@ -176,9 +176,9 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #sign-rewards3 { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-rewards3-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/french/sign-rewards.png) no-repeat 0 0; }
 
-#sign-my-challenges2 { width: 280px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-my-challenges2 { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
-#sign-my-challenges2-fr { width: 208px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-my-challenges2-fr { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-challenges2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
 #footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
@@ -194,10 +194,10 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 /******************************
 	Terms & Conditions Section
-******************************/ 
-#terms-conditions h1, 
+******************************/
+#terms-conditions h1,
 #terms-conditions-fr h1 { text-align: center; margin-bottom: 20px; }
-#terms-conditions h2.section-overview, 
+#terms-conditions h2.section-overview,
 #terms-conditions-fr h2.section-overview { color: #638d3d; font-size: 22px; margin-top: 50px; }
 #terms-conditions h3.section,
 #terms-conditions-fr h3.section { margin: 20px 0; }
@@ -212,7 +212,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 /******************************
 	About
-******************************/ 	
+******************************/
 div.content { background: transparent url(../images/about-bg.png) no-repeat center center; height: 551px; }
 div.content.about ul.nav.nav-tabs { border: none; margin-left: 250px; position: relative; top: 24px; }
 div.content.about ul.nav.nav-tabs li { background: transparent; }
@@ -222,8 +222,8 @@ div.content.about ul.nav.nav-tabs li.active a { background-color: #A88460; color
 div.content.about #white-box { left: 30%; width: 700px; /*height: 350px;*/ }
 div.content.about #white-box h1 { font-weight: 800; }
 div.content.about #white-box h2 { font-weight: 500; color: #638d3d; margin-top: 23px; }
-div.content.about #white-box h3 { font-weight: 500; color: #638d3d; } 
-div.content.about #white-box ol li { list-style: decimal; } 
+div.content.about #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content.about #white-box ol li { list-style: decimal; }
 div.content.about #white-box iframe { margin-left: 120px; }
 
 #sign-about { width: 234px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 81px; background: url(../images/sign-about.png) no-repeat 0 0; }
@@ -248,14 +248,14 @@ div.content.about #white-box iframe { margin-left: 120px; }
 
 /******************************
 	Students Page
-******************************/ 
+******************************/
 div.content.student #white-box { left: 30%; width: 850px; }
 div.content.student #white-box h1 { font-weight: 800; }
 div.content.student #white-box h2 { font-weight: 500; color: #638d3d; }
-div.content.student #white-box h3 { font-weight: 500; color: #638d3d; } 
-div.content.student #white-box ol li { list-style: decimal; } 
+div.content.student #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content.student #white-box ol li { list-style: decimal; }
 div.content.student #white-box ul { margin-left: 18px; }
-div.content.student #white-box ul li { list-style: disc; } 
+div.content.student #white-box ul li { list-style: disc; }
 div.content.student #white-box iframe { margin: 0 190px; }
 
 #kelly-img { display: block; float: left; border: 1px solid #000; margin: 9px 20px 20px 0; }
@@ -284,14 +284,14 @@ div.tab-pane#why-mcc #overview-infographic-thumbnail img { width: 300px; display
 
 /******************************
 	Organizations Page
-******************************/ 
+******************************/
 div.content.organization #white-box { left: 30%; width: 828px; }
 div.content.organization #white-box h1 { font-weight: 800; }
 div.content.organization #white-box h2 { font-weight: 500; color: #638d3d; }
-div.content.organization #white-box h3 { font-weight: 500; color: #638d3d; } 
-div.content.organization #white-box ol li { list-style: decimal; } 
+div.content.organization #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content.organization #white-box ol li { list-style: decimal; }
 div.content.organization #white-box ul { margin-left: 18px; }
-div.content.organization #white-box ul li { list-style: disc; } 
+div.content.organization #white-box ul li { list-style: disc; }
 div.content.organization #white-box iframe { margin: 0 190px; }
 div.content.organization #sign-stump { top: 210px; }
 
@@ -333,14 +333,14 @@ div.supported-by div.row { margin: 20px auto; width: 900px; }
 
 /******************************
 	Rewards Page
-******************************/ 
+******************************/
 div.content.rewards #white-box { left: 30%; width: 700px; }
 div.content.rewards #white-box h1 { font-weight: 800; }
 div.content.rewards #white-box h2 { font-weight: 500; color: #638d3d; }
-div.content.rewards #white-box h3 { font-weight: 500; color: #638d3d; } 
-div.content.rewards #white-box ol li { list-style: decimal; } 
+div.content.rewards #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content.rewards #white-box ol li { list-style: decimal; margin: 14px 0; }
 div.content.rewards #white-box ul { margin-left: 18px; }
-div.content.rewards #white-box ul li { list-style: disc; } 
+div.content.rewards #white-box ul li { list-style: disc; }
 div.content.rewards #white-box iframe { margin: 0 190px; }
 div.content.rewards #white-box img { border: 1px solid #C4C4C4; }
 
@@ -381,7 +381,7 @@ div.content.rewards #white-box #grand-prize-title img { display: block; margin: 
 
 /******************************
 	Communication Hub
-******************************/ 	
+******************************/
 div.content.communication-hub { background: transparent url(../images/communication-hub-bg.png) no-repeat 80% 0; height: 548px; }
 
 #sign-communication-hub { width: 295px; height: 59px; position: absolute; z-index: 1000; top: 26px; left: 41px; background: url(../images/sign-communication-hub.png) no-repeat 0 0; }
@@ -419,7 +419,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	White Box
-******************************/ 
+******************************/
 #white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: scroll; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
 #white-box h2 { margin-bottom: 12px; }
 #white-box p, #white-box h2 { color: #638d3d; }
@@ -428,7 +428,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 #white-box .left { float: left; width: 150px; }
 #white-box .right { float: right; }
 #white-box .right form input { display: block; width: 300px; }
-#white-box .right form input[type="submit"] { width: 320px; } 
+#white-box .right form input[type="submit"] { width: 320px; }
 #white-box .right form textarea { width: 300px; height: 170px; }
 #white-box table tr td { padding: 5px 20px 0 0; }
 #white-box .tab-titles { color: #00aeef !important; margin-bottom: 10px; }
@@ -438,14 +438,14 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Contact
-******************************/ 
+******************************/
 #white-box.contact { width: 340px; height: 482px; left: 36%; }
 #white-box.contact textarea { width: 275px; height: 100px; }
 #white-box.contact input[type="text"], #white-box.login input[type="password"] { width: 275px; }
 
 /******************************
 	Login
-******************************/ 
+******************************/
 #white-box.login { width: 356px; height: 340px; left: 36%; overflow-y: scroll; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
@@ -453,14 +453,14 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Login
-******************************/ 
+******************************/
 #white-box.qr-code { width: 410px; height: 353px; left: 34%%; overflow-y: scroll; padding: 0; }
 #white-box.qr-code h1 { text-align: center; margin-top: 20px; }
 #white-box.qr-code img { display: block; width: 290px; height: 290px; margin: 0 auto; }
 
 /******************************
 	Register
-******************************/ 
+******************************/
 #white-box.register-join-team { width: 678px; left: 24%; }
 #white-box.register-join-team .btn.btn-primary { padding-top: 10px; }
 #white-box.register-join-team .table .action { text-align: center; width: 151px; vertical-align: middle; }
@@ -491,17 +491,17 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Create or Request Join
-******************************/ 
+******************************/
 #white-box.create-or-request-join input[type="submit"] { margin: 16px auto; }
 
 /******************************
 	Register Clean Team
-******************************/ 
+******************************/
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
 
 /******************************
 	Profile
-******************************/ 
+******************************/
 #white-box.profile { width: 560px; left: 45%; }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
@@ -511,7 +511,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Public Profile
-******************************/ 
+******************************/
 #white-box.public-profile { width: 478px; left: 45%; }
 #white-box.public-profile img.profile-pic { display: block; margin-top: 10px; margin-right: 16px; float: right; }
 #white-box.public-profile span.edit-profile-link { position: relative; left: 40px; top: 5px; }
@@ -525,7 +525,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Challenge Survey
-******************************/ 
+******************************/
 #white-box.challenge-survey { width: 712px; left: 22%; height: 433px; }
 #white-box.challenge-survey textarea { width: 453px; height: 200px; }
 #white-box.challenge-survey input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto; }
@@ -536,7 +536,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	New Challenge
-******************************/ 
+******************************/
 #white-box.new-challenge { width: 512px; left: 30%; }
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
@@ -545,7 +545,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 
 /******************************
 	Challenge Centre
-******************************/ 
+******************************/
 div.content.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
@@ -570,7 +570,7 @@ div.content.challenge-centre #white-box div.challenges a:hover { color: #86b45c 
 
 /******************************
 	My Challenges Page
-******************************/ 
+******************************/
 div.content.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-my-challenges { width: 444px; height: 101px; position: relative; left: 33%; background: url(../images/sign-my-challenges.png) no-repeat 0 0; }
 
@@ -610,7 +610,7 @@ div.content.my-challenges #white-box.user-challenges .table div.challenge-info a
 
 /******************************
 	Challenge Page
-******************************/ 
+******************************/
 div.content.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
 #sign-challenge-overview { width: 500px; height: 101px; margin: 0 auto; /*position: relative; left: 41%;*/ background: url(../images/sign-challenge-overview.png) no-repeat 0 0; }
 div.content.challenge-overview #white-box { width: 530px; height: 415px; left: 11%; }
@@ -623,13 +623,13 @@ div.content.challenge-overview #white-box table { margin: 10px 0 30px; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }
 div.content.challenge-overview #white-box table tr td p { font-size: 15px; }
 div.content.challenge-overview #white-box table tr td span.titles { font-weight: 700; font-size: 16px; }
-div.content.challenge-overview #white-box table tr td h2.clean-creds-per-hour { margin-top: 10px; } 
+div.content.challenge-overview #white-box table tr td h2.clean-creds-per-hour { margin-top: 10px; }
 div.content.challenge-overview #white-box input[type="submit"] { font-size: 16px; margin: 0 auto; }
 div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; }
 
 div.content.challenge-overview #participants-box { position: absolute; width: 375px; height: 415px; overflow: scroll; z-index: 1000; left: 54%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 div.content.challenge-overview #participants-box h1 { font-weight: 900; }
-div.content.challenge-overview #participants-box div.participants { margin: 7px; width: 89px; min-height: 94px; float: left; text-align: center; } 
+div.content.challenge-overview #participants-box div.participants { margin: 7px; width: 89px; min-height: 94px; float: left; text-align: center; }
 div.content.challenge-overview #participants-box div.participants a img { margin: 0 auto 6px; display: block; border-radius: 4px;width: 42px; height: 42px; }
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
@@ -640,8 +640,8 @@ div.content.challenge-overview #participate-btn { float: right; }
 
 /******************************
 	Leaderboard Page
-******************************/ 
-div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; } 
+******************************/
+div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; }
 
 .brown-box #stage_jbeeb_3 { top: 38px !important; }
 
@@ -653,17 +653,17 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .brown-box h2 { font-size: 22px; font-weight: 900; }
 
 .board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
-.board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; } 
-.board table { margin-top: 10px; width: 100%; } 
-.board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; } 
-.board table tr td.entry { padding-top: 5px; } 
-.board table tr td.entry span.name a { color: inherit; } 
+.board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; }
+.board table { margin-top: 10px; width: 100%; }
+.board table tr td { text-shadow: 1px 1px 3px #111; list-style-type: decimal; font-size: 25px; margin-top: 10px; }
+.board table tr td.entry { padding-top: 5px; }
+.board table tr td.entry span.name a { color: inherit; }
 .board table tr td.entry span.name a:hover { text-decoration: underline; }
 .board table tr td span.cleancreds { display: block; float: right; }
 
-.blue { color: #00aeef !important; } 
-.green { color: #83c156 !important; } 
-.red { color: #EB0900 !important; } 
+.blue { color: #00aeef !important; }
+.green { color: #83c156 !important; }
+.red { color: #EB0900 !important; }
 .bold { font-weight: 800 !important; }
 .center { text-align: center !important; }
 
@@ -676,7 +676,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 
 /******************************
 	Challenge Participants Page
-******************************/ 
+******************************/
 #white-box p { font-weight: 400; }
 #white-box.challenge-participants table tr td { }
 #white-box.challenge-participants table tr td.name { width: 600px; }
@@ -690,7 +690,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 
 /******************************
 	Clean Team Members Page
-******************************/ 
+******************************/
 #white-box p { font-weight: 400; }
 #white-box.team-members-ca { width: 685px; left: 17%; }
 #white-box.team-members-ca #team-name {  }
@@ -704,7 +704,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 
 /******************************
 	Invite Page
-******************************/ 
+******************************/
 #white-box p { font-weight: 400; }
 #white-box.invite { width: 685px; left: 9%; }
 
@@ -714,14 +714,14 @@ div.table-container #invitees-table tr td.roles {  }
 
 /******************************
 	Invite Response Page
-******************************/ 
+******************************/
 #white-box.invite-response {  }
 #white-box.invite-response form { width: 400px; margin: 0 auto; }
 #white-box.invite-response form input[type="submit"] { width: 300px; margin: 20px auto; }
 
 /******************************
 	Clean Team Page
-******************************/ 
+******************************/
 #clean-team-members-list.popup { width: 100%; left: 35%; }
 
 #clean-team-members-list { width: 240px; left: 35%; }
@@ -755,7 +755,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile span.edit-clean-team-link { position: relative; left: 22px; top: 5px; }
 #white-box.clean-team-profile img.profile-pic { /*margin-right: 58px;*/ }
-#white-box.clean-team-profile img.profile-pic + #badge-icon { display: block; 
+#white-box.clean-team-profile img.profile-pic + #badge-icon { display: block;
 	position: absolute; top: 120px; right: 133px; z-index: 1000; }
 #white-box.clean-team-profile div.clean-creds { margin-top: 160px; text-align: center; }
 #white-box.clean-team-profile div.clean-creds p { font-size: 20px; }
@@ -771,7 +771,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 /************************************************************
 	Clean Team Level Progress Page
-************************************************************/ 
+************************************************************/
 #white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; overflow-y: hidden;  }
 #white-box.clean-team-progress #badge-icon { display: block; float: left; }
 #white-box.clean-team-progress h1 { position: relative; top: 13px; left: 10px; }
@@ -783,18 +783,18 @@ div.table-container #invitees-table tr td.roles {  }
 
 /************************************************************
 	Clean Team Leader Referral Page
-************************************************************/ 
+************************************************************/
 #white-box.leader-referral { }
 
 /******************************
 	All Clean Teams Page
-******************************/ 
+******************************/
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 20px; }
 
 /******************************
 	All Notifications Page
-******************************/ 
+******************************/
 #white-box.all-notifications { width: 356px; max-height: 500px; left: 36%; }
 #white-box.all-notifications h1 { margin-bottom: 15px; }
 #white-box.all-notifications a { display: block; margin-bottom: 15px; }
@@ -806,13 +806,13 @@ div.table-container #invitees-table tr td.roles {  }
 
 /******************************
 	Twitter Feed
-******************************/ 
+******************************/
 #tweets { float: left; overflow: hidden; }
 #tweets ul li { display: block; width: 240px; margin: 0 27px; position:relative; float: left; word-wrap: break-word;  }
 
 /******************************
 	Countdown
-******************************/ 
+******************************/
 div[id^='box_jbeeb_'] { display: none; }
 
 div[id^='container_jbeeb_'] { background-color: transparent !important; }
@@ -820,7 +820,7 @@ div[id^='textbox_jbeeb_'] { color: #638d3d !important; font-weight: bold; }
 
 /******************************
 	Table
-******************************/ 
+******************************/
 div.table-container { border: 2px solid #abd78c; padding: 10px; border-radius: 5px; height: 100%; overflow-y: scroll; }
 div.table-container table { }
 div.table-container table tr th { padding: 14px 15px !important; border-bottom: 1px solid #abd78c; }
