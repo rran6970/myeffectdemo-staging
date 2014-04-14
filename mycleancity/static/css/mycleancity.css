@@ -97,6 +97,8 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .badge-join { display: block; text-align: center; }
 .badge-join img { border: none !important; }
 
+div.signs.nav-tabs { border: none; }
+
 #sign-go-back-big { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big-fr { width: 206px; height: 54px; position: absolute; z-index: 9999; top: -25px; left: 325px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
 
