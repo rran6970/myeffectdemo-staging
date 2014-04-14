@@ -446,13 +446,21 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 /******************************
 	Login
 ******************************/
-#white-box.login { width: 356px; height: 340px; left: 36%; overflow-y: scroll; }
+#white-box.login { width: 356px; height: 332px; left: 36%; overflow-y: scroll; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
-#white-box.login p { text-align: center; }
+#white-box.login p { text-align: center; font-size: 15px; }
 
 /******************************
-	Login
+	Password Reset
+******************************/
+#white-box.password-reset { width: 356px; height: 332px; left: 36%; overflow-y: scroll; }
+#white-box.password-reset input[type="text"], #white-box.password-reset input[type="password"] { width: 295px; }
+#white-box.password-reset input[type="submit"] { width: 296px; font-size: 16px; }
+#white-box.password-reset p { text-align: center; font-size: 15px; }
+
+/******************************
+	QR Code
 ******************************/
 #white-box.qr-code { width: 410px; height: 353px; left: 34%%; overflow-y: scroll; padding: 0; }
 #white-box.qr-code h1 { text-align: center; margin-top: 20px; }

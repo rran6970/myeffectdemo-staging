@@ -19,11 +19,17 @@ urlpatterns = patterns('',
 
 	url(r'^captcha/', include('captcha.urls')),
 	
+	url(r'^users/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'users.views.reset_confirm', name='reset_confirm'),
+	url(r'^users/reset-sent/$', TemplateView.as_view(template_name="users/password_reset_sent.html")),
+	# url(r'^users/password_reset/$', 'users.views.reset', name='password_reset'),
+	
+	url(r'^users/reset/$', 'users.views.password_reset', {'post_reset_redirect' : '/users/reset-sent/', 'template_name' : 'users/password_reset_form.html', 'email_template_name' : 'emails/reset_email.html'}, name="password_reset"),
+
 	url(r'^clean-team/', include('cleanteams.urls')),
 	url(r'^challenges/', include('challenges.urls')),
 	url(r'^cleancreds/', include('cleancreds.urls')),
 	url(r'^notifications/', include('notifications.urls')),
-	url(r'^users/', include('users.urls')),
+	url(r'^users/', include('users.urls', namespace="users")),
 
 	url(r'^coming-soon/', TemplateView.as_view(template_name="mycleancity/coming_soon.html")),
 	url(r'^register-success/?', RegisterSuccessView.as_view()),

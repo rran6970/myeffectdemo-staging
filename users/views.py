@@ -3,17 +3,15 @@ import ftplib
 import os
 import tempfile
 
-from challenges.models import Challenge, UserChallenge
-from cleanteams.models import CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
-
 from datetime import date
 
 from django.db.models import Sum
-
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.views import password_reset, password_reset_confirm
+from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -25,12 +23,33 @@ from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
+from challenges.models import Challenge, UserChallenge
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
+
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
 
-from cleanteams.models import CleanTeam
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm, CustomPasswordResetForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
+
+from django.contrib.auth.views import password_reset as django_password_reset
+
+def reset_confirm(request, uidb36=None, token=None):
+    return password_reset_confirm(request, template_name='users/password_reset_confirm.html',
+        uidb36=uidb36, token=token, post_reset_redirect='/users/login')
+
+# def password_reset(request):
+#     return password_reset(request, template_name='users/password_reset_form.html',
+#         email_template_name='emails/reset_email.html',
+#         subject_template_name='emails/reset_subject.txt',
+#         post_reset_redirect='/users/reset-sent/')
+
+def password_reset(*args, **kwargs):
+	"""
+		Overriding the Email Password Resert Forms Save to be able to send HTML email
+	"""
+	kwargs['password_reset_form'] = CustomPasswordResetForm
+	return django_password_reset(*args, **kwargs)
 
 class LoginPageView(TemplateView):
 	template_name = "users/login.html"

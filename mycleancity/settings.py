@@ -126,7 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django_extensions',
-    'captcha', 
+    'captcha',
     'cleancreds',
     'cleanteams',
     'challenges',
@@ -184,6 +184,8 @@ LOGIN_REDIRECT_URL = '/users/profile/'
 
 EMAIL_HOST = 'srv46.hosting24.com'
 EMAIL_HOST_USER = 'info@mycleancity.org'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = 'cleanAdmin1'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
