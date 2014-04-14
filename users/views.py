@@ -34,16 +34,6 @@ from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRC
 
 from django.contrib.auth.views import password_reset as django_password_reset
 
-def reset_confirm(request, uidb36=None, token=None):
-    return password_reset_confirm(request, template_name='users/password_reset_confirm.html',
-        uidb36=uidb36, token=token, post_reset_redirect='/users/login')
-
-# def password_reset(request):
-#     return password_reset(request, template_name='users/password_reset_form.html',
-#         email_template_name='emails/reset_email.html',
-#         subject_template_name='emails/reset_subject.txt',
-#         post_reset_redirect='/users/reset-sent/')
-
 def password_reset(*args, **kwargs):
 	"""
 		Overriding the Email Password Resert Forms Save to be able to send HTML email

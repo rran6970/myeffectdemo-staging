@@ -23,7 +23,7 @@ class CustomPasswordResetForm(PasswordResetForm):
 	"""
 	    Overriding the Email Password Resert Forms Save to be able to send HTML email
 	"""
-	def save(self, domain_override=None, email_template_name='emails/reset_email.html', use_https=False, token_generator=default_token_generator, request=None, email_subject_name='emails/reset_subject.txt', **kwargs):
+	def save(self, domain_override=None, email_template_name='registration/reset_email.html', use_https=False, token_generator=default_token_generator, request=None, email_subject_name='registration/reset_subject.txt', **kwargs):
 		from django.core.mail import EmailMultiAlternatives
 		from django.utils.html import strip_tags
 		from django.template.loader import render_to_string
