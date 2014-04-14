@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from challenges.views import *
 
 urlpatterns = patterns('',
-	url(r'^/?$', ChallengesFeedView.as_view()),
+	url(r'^/?$', ChallengeCentreView.as_view()),
 	url(r'^fr/?', TemplateView.as_view(template_name="mycleancity/french/challenge_centre_fr.html")),
 
 	url(r'^(?P<cid>\d+)/?$', ChallengeView.as_view()),

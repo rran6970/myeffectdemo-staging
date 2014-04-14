@@ -300,7 +300,7 @@ class CleanTeamView(TemplateView):
 				user_challenges_list = []
 
 			today = datetime.datetime.now()
-			challenges = Challenge.objects.filter(Q(event_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_date')
+			challenges = Challenge.objects.filter(Q(event_start_date__gte=today), Q(event_end_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
 
 			challenge_dict = {}
 

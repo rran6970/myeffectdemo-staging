@@ -29,6 +29,11 @@ div.clear { clear: both; }
 div.left { float: left; }
 div.right { float: right; }
 
+::-webkit-scrollbar { opacity: 0.8; width: 5px; }
+::-webkit-scrollbar-track { background-color: #CAF8A8; border-left: 1px solid #9BCA71; }
+::-webkit-scrollbar-thumb { background-color: #83c156; }
+::-webkit-scrollbar-thumb:hover { background-color: #aaa; }
+
 .gray-italic-subtitle { color: #AAA !important; font-style: italic !important; font-size: 13px !important; }
 .subtitle-blue { color: #00aeef !important; }
 

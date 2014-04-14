@@ -260,8 +260,8 @@ def list_challenge(request):
 			,'address2':each.address2
 			,'postal_code':each.postal_code
 			,'city':each.city
-			,'eventdate':str(each.event_date)
-			,'eventtime':str(each.event_time)
+			,'eventdate':str(each.event_start_date)
+			,'eventtime':str(each.event_start_time)
 			,'province':each.province,'id':each.id
 			,'description':each.description
 			,'clean_creds_per_hour':each.clean_creds_per_hour
@@ -570,8 +570,8 @@ def my_challenge(request):
 				qrimage = ""
 			jsonvalue.append({'title':challengearray.title
 			,'description':challengearray.description
-			,'event_date':str(challengearray.event_date)
-			,'eventtime':str(challengearray.event_time)
+			,'event_date':str(challengearray.event_start_date)
+			,'eventtime':str(challengearray.event_start_time)
 			,'id':challengearray.id
 			,'address1':challengearray.address1
 			,'address2':challengearray.address2
@@ -736,8 +736,8 @@ def search(request):
 			,'address2':each.address2
 			,'postal_code':each.postal_code
 			,'city':each.city
-			,'eventdate':str(each.event_date)
-			,'eventtime':str(each.event_time)
+			,'eventdate':str(each.event_start_date)
+			,'eventtime':str(each.event_start_time)
 			,'province':each.province,'id':each.id
 			,'description':each.description
 			,'clean_creds_per_hour':each.clean_creds_per_hour
@@ -872,8 +872,8 @@ def newsfeeds(request):
 			,'address2':each.address2
 			,'postal_code':each.postal_code
 			,'city':each.city
-			,'eventdate':str(each.event_date)
-			,'eventtime':str(each.event_time)
+			,'eventdate':str(each.event_start_date)
+			,'eventtime':str(each.event_start_time)
 			,'province':each.province,'id':each.id
 			,'description':each.description
 			,'clean_creds_per_hour':each.clean_creds_per_hour
@@ -944,8 +944,8 @@ def team_challenge(request):
 				qrimage = ""
 			jsonvalue.append({'title':each.title
 			,'description':each.description
-			,'event_date':str(each.event_date)
-			,'eventtime':str(each.event_time)
+			,'event_date':str(each.event_start_date)
+			,'eventtime':str(each.event_start_time)
 			,'id':each.id
 			,'address1':each.address1
 			,'address2':each.address2

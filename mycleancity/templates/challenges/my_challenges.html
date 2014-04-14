@@ -46,8 +46,13 @@
 							</div>
 
 							<div class="title">
-								<p><span>Date:</span>&nbsp;{{ challenge.event_date }}</p>
+								<p><span>Starts:</span>&nbsp;{{ challenge.event_start_date }} at {{ challenge.event_start_time }}</span></p>
 							</div>
+							<div class="title">
+								<p><span>Ends:</span>&nbsp;{{ challenge.event_end_date }} at {{ challenge.event_end_time }}</span></p>
+							</div>
+
+
 
 							<div class="title">
 								<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>

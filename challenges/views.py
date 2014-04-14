@@ -96,7 +96,7 @@ def dropdown_search_for_challenges(request):
 			
 	return HttpResponse(False)
 
-class ChallengesFeedView(TemplateView):
+class ChallengeCentreView(TemplateView):
 	template_name = "challenges/challenge_centre.html"
 
 	def get(self, request, *args, **kwargs):
@@ -109,12 +109,12 @@ class ChallengesFeedView(TemplateView):
 		if 'national_challenges' in request.GET:
 			national_challenges = request.GET['national_challenges']
 
-		challenges = Challenge.search_challenges(query, national_challenges)			
+		challenges = Challenge.search_challenges(query, national_challenges)	
 
 		return render(request, self.template_name, {'challenges': challenges})
 
 	def get_context_data(self, **kwargs):
-		context = super(ChallengesFeedView, self).get_context_data(**kwargs)
+		context = super(ChallengeCentreView, self).get_context_data(**kwargs)
 		context['challenges'] = Challenge.objects.all()
 
 		return context
@@ -226,8 +226,10 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		initial = {}
 		initial['title'] = challenge.title
-		initial['event_date'] = challenge.event_date
-		initial['event_time'] = challenge.event_time
+		initial['event_start_date'] = challenge.event_start_date
+		initial['event_start_time'] = challenge.event_start_time
+		initial['event_end_date'] = challenge.event_end_date
+		initial['event_end_time'] = challenge.event_end_time
 		initial['address1'] = challenge.address1
 		initial['address2'] = challenge.address2
 		initial['city'] = challenge.city
@@ -251,8 +253,10 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		challenge = Challenge.objects.get(id=form.cleaned_data['challenge_id'])
 		challenge.title = form.cleaned_data['title']
-		challenge.event_date = form.cleaned_data['event_date']
-		challenge.event_time = form.cleaned_data['event_time']
+		challenge.event_start_date = form.cleaned_data['event_start_date']
+		challenge.event_start_time = form.cleaned_data['event_start_time']
+		challenge.event_end_date = form.cleaned_data['event_end_date']
+		challenge.event_end_time = form.cleaned_data['event_end_time']
 		challenge.address1 = form.cleaned_data['address1']
 		challenge.address2 = form.cleaned_data['address2']
 		challenge.city = form.cleaned_data['city']
@@ -264,10 +268,8 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		
 		if form.cleaned_data['type'] is not None:
 			challenge.type = form.cleaned_data['type']
-			print True
 		else:
 			challenge.type = ChallengeType.objects.get(id=1)
-			print False
 			
 		challenge.national_challenge = form.cleaned_data['national_challenge']
 		challenge.last_updated_by = self.request.user
@@ -324,7 +326,7 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 		if self.request.user.profile.is_clean_ambassador():
 			try:
 				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
-				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_date")
+				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
 			except Exception, e:
 				print e
 

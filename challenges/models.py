@@ -123,8 +123,10 @@ Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
 	title = models.CharField(max_length=60, blank=False, verbose_name="Title")	
-	event_date = models.DateField(blank=True, null=True)
-	event_time = models.TimeField(blank=True, null=True)
+	event_start_date = models.DateField(blank=True, null=True)
+	event_start_time = models.TimeField(blank=True, null=True)
+	event_end_date = models.DateField(blank=True, null=True)
+	event_end_time = models.TimeField(blank=True, null=True)
 	address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")
 	address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
 	city = models.CharField(max_length=60, blank=True, verbose_name='City')
@@ -154,8 +156,10 @@ class Challenge(models.Model):
 		self.user = user
 		self.last_updated_by = user
 		self.title = form['title']
-		self.event_date = form['event_date']
-		self.event_time = form['event_time']
+		self.event_start_date = form['event_start_date']
+		self.event_start_time = form['event_start_time']
+		self.event_end_date = form['event_end_date']
+		self.event_end_time = form['event_end_time']
 		self.address1 = form['address1']
 		self.address2 = form['address2']
 		self.city = form['city']
@@ -300,19 +304,19 @@ class Challenge(models.Model):
 		if national_challenges == "true" or national_challenges == "on":
 			if limit:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
+					challenges = Challenge.objects.filter(Q(event_start_date__gte=today), Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
+					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
+					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
 				else:
-					challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 		else:
 			if limit:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
+				challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
-				challenges = Challenge.objects.filter(Q(event_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+				challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 
 		return challenges
 

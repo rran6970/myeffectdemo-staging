@@ -46,7 +46,10 @@
           <td><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
         </tr>
 				<tr>
-					<td><span class="titles">Date:</span> {{ challenge.event_date }} {{ challenge.event_time }}</td>
+					<td><span class="titles">Starts:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }}</td>
+        </tr>
+        <tr> 
+          <td><span class="titles">Ends:</span> {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>          
 				</tr>
 				<tr>
 					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>

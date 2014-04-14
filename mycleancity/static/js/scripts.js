@@ -1,7 +1,10 @@
 $(function(){  
     $(".btn").button();
 	$(".dropdown-toggle").dropdown();
-	$(".timepicker").timepicker();
+	$(".timepicker").timepicker({
+        'defaultTime': false,
+        'showMeridian': false
+    });
 	$(".datepicker").datepicker({
 		'format': 'yyyy-mm-dd'
 	}).on('changeDate', function(event){
@@ -145,8 +148,7 @@ function showSearchResults(e, search_box)
                 else
                 {
                     search_result_list.append("<li><a>No results found</a></li>")
-                }
-                
+                }  
             },
             error: function(data) {
                 console.log(data);

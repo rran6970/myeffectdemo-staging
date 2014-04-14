@@ -76,8 +76,10 @@ class NewChallengeForm(forms.Form):
 				self.fields['question_%s' % question.question_number].widget.attrs['disabled'] = True
 
 		self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-		self.fields['event_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-		self.fields['event_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+		self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
+		self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+		self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
+		self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
 		self.fields['address1'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['city'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -93,8 +95,10 @@ class NewChallengeForm(forms.Form):
 	def clean(self):
 		cleaned_data = super(NewChallengeForm, self).clean()
 		title = cleaned_data.get("title")
-		event_date = cleaned_data.get("event_date")
-		event_time = cleaned_data.get("event_time")
+		event_start_date = cleaned_data.get("event_start_date")
+		event_start_time = cleaned_data.get("event_start_time")
+		event_end_date = cleaned_data.get("event_end_date")
+		event_end_time = cleaned_data.get("event_end_time")
 		address1 = cleaned_data.get("address1")
 		address2 = cleaned_data.get("address2")
 		city = cleaned_data.get("city")
@@ -109,10 +113,14 @@ class NewChallengeForm(forms.Form):
 
 		if not title:
 			raise forms.ValidationError("Please enter a title")
-		elif not event_date:
-			raise forms.ValidationError("Please enter an event date")
-		elif not event_time:
-			raise forms.ValidationError("Please enter an event time")
+		elif not event_start_date:
+			raise forms.ValidationError("Please enter a starting event date")
+		elif not event_start_time:
+			raise forms.ValidationError("Please enter a starting event time")
+		elif not event_end_date:
+			raise forms.ValidationError("Please enter an ending event date")
+		elif not event_end_time:
+			raise forms.ValidationError("Please enter an ending event time")
 		elif not address1:
 			raise forms.ValidationError("Please enter an address")
 		elif not city:
@@ -130,8 +138,10 @@ class NewChallengeForm(forms.Form):
 
 class EditChallengeForm(forms.ModelForm):
 	title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	event_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-	event_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+	event_start_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
+	event_start_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+	event_end_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
+	event_end_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
 	address1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 	address2 = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -151,8 +161,10 @@ class EditChallengeForm(forms.ModelForm):
 	def clean(self):
 		cleaned_data = super(EditChallengeForm, self).clean()
 		title = cleaned_data.get("title")
-		event_date = cleaned_data.get("event_date")
-		event_time = cleaned_data.get("event_time")
+		event_start_date = cleaned_data.get("event_start_date")
+		event_start_time = cleaned_data.get("event_start_time")
+		event_end_date = cleaned_data.get("event_end_date")
+		event_end_time = cleaned_data.get("event_end_time")
 		address1 = cleaned_data.get("address1")
 		address2 = cleaned_data.get("address2")
 		city = cleaned_data.get("city")
@@ -166,10 +178,14 @@ class EditChallengeForm(forms.ModelForm):
 
 		if not title:
 			raise forms.ValidationError("Please enter a title")
-		elif not event_date:
-			raise forms.ValidationError("Please enter an event date")
-		elif not event_time:
-			raise forms.ValidationError("Please enter an event time")
+		elif not event_start_date:
+			raise forms.ValidationError("Please enter a starting event date")
+		elif not event_start_time:
+			raise forms.ValidationError("Please enter a starting event time")
+		elif not event_end_date:
+			raise forms.ValidationError("Please enter an ending event date")
+		elif not event_end_time:
+			raise forms.ValidationError("Please enter an ending event time")
 		elif not address1:
 			raise forms.ValidationError("Please enter an address")
 		elif not city:

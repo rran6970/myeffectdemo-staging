@@ -43,49 +43,32 @@
                   <h2>Created by:</h2><span>&nbsp;<a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span>
                 </span>
 
-                <span class="date">
-                  <h2>Date:</h2><span>&nbsp;{{ challenge.event_date }}</span>
+                <span class="clean-creds">
+                  <h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
                 </span>
+
+                <span class="date">
+                  <h2>Starts:</h2><span>&nbsp;{{ challenge.event_start_date }} at {{ challenge.event_start_time }}</span>
+                </span>
+                <span class="date">
+                  <h2>Ends:</h2><span>&nbsp;{{ challenge.event_end_date }} at {{ challenge.event_end_time }}</span>
+                </span>
+                
                 {% if challenge.city %}
       					<span class="location">
       						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
       					</span>
                 {% endif %}
-      					<span class="clean-creds">
-      						<h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
-      					</span>
-      					<p>{{ challenge.description|slice:":130" }}...</p>
+      					
+                <div class="clear"></div>
+
+      					<p>{{ challenge.description|slice:":180" }}...</p>
       				</div>
       			{% endfor %}
           {% else %}
             <p>
               Are you up for our National Clean Challenge? Join My Clean City and get involved in your community one <a href="http://twitter.com/#CleanActs" target="_blank"><span class="bold blue">#Clean</span><span class="bold green">Act</span></a> at a time.<br/><br/><a href="http://twitter.com/@MyCleanCity1" target="_blank">Follow us</a> so you don't miss the big reveal.
             </p>
-            <br/><br/>
-            <div class="challenges">
-              <!-- <h1 style="text-align: center;">Challenge One - Coming Spring 2014</h1> -->
-            </div>
-            <script type="text/javascript" src="{{ STATIC_URL }}js/countdown.js"></script>
-            <script>
-              var myCountdown2 = new Countdown({
-                year: 2014,
-                month: 4, 
-                day: 1,
-                hour: 0,
-                ampm: "am",
-                minute: 0,
-                width: 475, 
-                height: 50, 
-                padding   : 1.5,
-                rangeHi   : "month",
-                rangeLo   : "second",
-                numbers: {
-                  font  : "Arial",
-                  color : "#FFFFFF",
-                  bkgd  : "#000"
-                }
-              });
-            </script>
           {% endif %}
 			
         </div><!-- /#white-box -->
