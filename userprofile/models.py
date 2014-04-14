@@ -147,7 +147,7 @@ class UserProfile(models.Model):
 	school_type = models.CharField(max_length=30, blank=True, default="High School")
 	age = models.CharField(max_length=30, blank=True, default="17-21")
 	smartphone = models.BooleanField(default=0)
-	clean_team_member = models.ForeignKey(CleanTeamMember, null=True)
+	clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
 	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
 	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
 	settings = models.OneToOneField(UserSettings, null=True)

@@ -140,7 +140,7 @@ class Challenge(models.Model):
 	clean_creds_per_hour = models.IntegerField(default=0)
 	national_challenge = models.BooleanField(default=False)
 	type = models.ForeignKey(ChallengeType, blank=True, null=True, default=1)
-	qr_code = models.OneToOneField(ChallengeQRCode, null=True)
+	qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
 	token = models.CharField(max_length=20, blank=True)
 	promote_top = models.BooleanField(default=False)
 
