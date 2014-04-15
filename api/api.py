@@ -167,6 +167,7 @@ def student_edit_profile(request):
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 	user_profile = UserProfile.objects.get(user_id=request_obj.params['userid'])
+	total_hours = user_profile.get_total_hours()
 	user = User.objects.get(id=request_obj.params['userid'])
 	role=""
 	cleanteamname =""
@@ -197,7 +198,7 @@ def student_edit_profile(request):
 	
 	#print picture
 	#response_base.response['data'] = {'email':user.email,'firstname': user.first_name,'lastname':user.last_name,'twitter':user_profile.twitter,'city':user_profile.city,'cleancreds':user_profile.clean_creds,'school':user_profile.school_type,'about':user_profile.about,'role':role,'team':cleanteamname}
-	response_base.response['data'] = {'email':user.email,'firstname': user.first_name,'lastname':user.last_name,'twitter':user_profile.twitter,'city':user_profile.city,'cleancreds':user_profile.clean_creds,'school':user_profile.school_type,'about':user_profile.about,'role':role,'team':cleanteamname,'picture':picture}
+	response_base.response['data'] = {'email':user.email,'firstname': user.first_name,'lastname':user.last_name,'twitter':user_profile.twitter,'city':user_profile.city,'cleancreds':user_profile.clean_creds, 'totalhours': total_hours, 'school':user_profile.school_type,'about':user_profile.about,'role':role,'team':cleanteamname,'picture':picture}
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
 def update_user(request):

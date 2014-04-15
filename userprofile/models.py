@@ -12,6 +12,7 @@ import qrcode
 from cStringIO import StringIO
 
 from mycleancity.actions import *
+from challenges.models import Challenge, UserChallenge
 from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
@@ -158,6 +159,19 @@ class UserProfile(models.Model):
 
 	def __unicode__(self):
 		return u'UserProfile: %s' % self.user.username
+
+	def get_total_hours(self):
+		user_challenges = UserChallenge.objects.filter(user=self.user)
+
+		print user_challenges
+
+		total_hours = 0
+		for u in user_challenges:
+			total_hours += u.total_hours
+
+		print total_hours
+
+		return total_hours
 
 	def is_clean_ambassador(self, status="approved"):
 		try:

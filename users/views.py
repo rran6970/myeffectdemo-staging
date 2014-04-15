@@ -311,14 +311,10 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 		if 'uid' in self.kwargs:
 			user_id = self.kwargs['uid']
 
-			user_challenges = UserChallenge.objects.filter(user_id=user_id)#.values('user').annotate(total_hours=Sum('total_hours'))[0]
-
-			total_hours = 0
-			for u in user_challenges:
-				total_hours += u.total_hours
+			user = User.objects.get(id=user_id)
+			total_hours = user.profile.get_total_hours()
 
 			context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
-			# context['challenges'] = Challenge.objects.filter(user_id=user_id)
 			
 			context['total_hours'] = total_hours
 			context['user_profile'] = get_object_or_404(User, id=user_id)
