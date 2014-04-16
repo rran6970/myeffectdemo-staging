@@ -3,6 +3,7 @@ import urllib
 import ftplib
 import os
 import tempfile
+import re
 
 from django.conf import settings
 from django.contrib import auth
@@ -468,8 +469,16 @@ class InviteView(LoginRequiredMixin, FormView):
 		role = form.cleaned_data['role']
 		uri = self.request.build_absolute_uri()
 
-		invite = CleanTeamInvite()
-		invite.inviteUsers(user, role, email, uri)
+		emails = re.split(',', email)
+
+		for e in emails:
+			e = e.strip()
+
+			if e == "":
+				continue
+
+			invite = CleanTeamInvite()
+			invite.inviteUsers(user, role, e, uri)
 
 		return HttpResponseRedirect('/clean-team/invite')
 

@@ -713,7 +713,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 
 #white-box.team-members-cc { width: 270px; left: 73%; }
 
-#white-box.invite-form { left: 66%; width: 337px; }
+#white-box.invite-form { left: 66%; width: 360px; }
 #white-box.invite-form input[type="text"] { width: 270px; }
 #white-box.invite-form input[type="submit"] { margin: 10px auto; }
 
@@ -726,6 +726,9 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 div.table-container #invitees-table tr td.members { width: 300px; }
 div.table-container #invitees-table tr td.status {  }
 div.table-container #invitees-table tr td.roles {  }
+
+#white-box.invite-form .subtitle { display: block; margin-bottom: 20px; margin-left: 0 !important; }
+#clean-team-members-list table tr td textarea { width: 300px; }
 
 /******************************
 	Invite Response Page

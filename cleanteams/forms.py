@@ -96,7 +96,7 @@ ROLE_CHOICES = (
 )
 
 class InviteForm(forms.Form):
-	email = forms.CharField(required=True, max_length=128, widget=forms.TextInput())
+	email = forms.CharField(required=True, max_length=128, widget=forms.Textarea)
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
@@ -114,23 +114,28 @@ class InviteForm(forms.Form):
 		if not email:
 			raise forms.ValidationError("Please enter an email")
 
-		try:
-			u = User.objects.get(email=email)
+		emails = re.split(',', email)
 
-			if role == 'clean-ambassador':
-				if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
-					raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (email, u.profile.clean_team_member.clean_team.name))
+		for invite_email in emails:
+			invite_email = invite_email.strip()
 
-			if role == 'clean-champion':
-				if u.profile.is_clean_champion(clean_team_id):
-					raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (email))	
-		except User.DoesNotExist, e:
-			print e
+			try:
+				u = User.objects.get(email=invite_email)
 
-		e = CleanTeamInvite.objects.filter(email=email, role=role, clean_team_id=clean_team_id).count()
+				if role == 'clean-ambassador':
+					if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
+						raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 
-		if e > 0:
-			raise forms.ValidationError("Already invited for that role")
+				if role == 'clean-champion':
+					if u.profile.is_clean_champion(clean_team_id):
+						raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))	
+			except User.DoesNotExist, e:
+				print e
+
+			error = CleanTeamInvite.objects.filter(email=invite_email, role=role, clean_team_id=clean_team_id).count()
+
+			if error > 0:
+				raise forms.ValidationError("%s is already invited for that role" %(invite_email))
 
 		return cleaned_data
 
