@@ -41,16 +41,6 @@ def login_user(request):
         user = authenticate(username=request_obj.params['username'], password=request_obj.params["password"])
 		
         if user:
-			"""
-			try:
-				role = user.cleanteammember_set.values_list('role',flat=True).get()
-				clid  = user.cleanteammember_set.values_list('clean_team_id',flat=True).get()
-				cleanteamArray = CleanTeam.objects.get(id=clid)
-				cleanteamname  =cleanteamArray.name
-			except Exception,e:
-				role =""
-				cleanteamname=""
-			"""
 			role=""
 			cleanteamname =""
 			cleanteamid=""
