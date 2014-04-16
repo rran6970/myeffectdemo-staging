@@ -196,12 +196,14 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
+		print "invalid"
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
 		return self.render_to_response(context)
 
 	def form_valid(self, form, **kwargs):
+		print "valid"
 		challenge = Challenge()
 		challenge.new_challenge(self.request.user, form.cleaned_data)
 
@@ -237,7 +239,13 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['country'] = challenge.country
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
-		initial['host_organization'] = challenge.host_organization
+	
+		initial['organization'] = challenge.organization
+		initial['contact_first_name'] = challenge.contact_first_name
+		initial['contact_last_name'] = challenge.contact_last_name
+		initial['contact_phone'] = challenge.contact_phone
+		initial['contact_email'] = challenge.contact_email
+
 		initial['type'] = challenge.type
 		initial['national_challenge'] = challenge.national_challenge
 		initial['challenge_id'] = challenge.id
@@ -264,7 +272,12 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		challenge.province = form.cleaned_data['province']
 		challenge.country = form.cleaned_data['country']
 		challenge.description = form.cleaned_data['description']
-		challenge.host_organization = form.cleaned_data['host_organization']
+		
+		challenge.organization = form.cleaned_data['organization']
+		challenge.contact_first_name = form.cleaned_data['contact_first_name']
+		challenge.contact_last_name = form.cleaned_data['contact_last_name']
+		challenge.contact_phone = form.cleaned_data['contact_phone']
+		challenge.contact_email = form.cleaned_data['contact_email']
 		
 		if form.cleaned_data['type'] is not None:
 			challenge.type = form.cleaned_data['type']

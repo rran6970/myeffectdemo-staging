@@ -122,7 +122,7 @@ Date created:   Sept 8, 2013
 Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
-	title = models.CharField(max_length=60, blank=False, verbose_name="Title")	
+	title = models.CharField(max_length=60, blank=False, verbose_name="Title")
 	event_start_date = models.DateField(blank=True, null=True)
 	event_start_time = models.TimeField(blank=True, null=True)
 	event_end_date = models.DateField(blank=True, null=True)
@@ -134,7 +134,6 @@ class Challenge(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")
-	host_organization = models.TextField(blank=True, null=True, default="")
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam, blank=True, null=True, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -145,6 +144,12 @@ class Challenge(models.Model):
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
 	token = models.CharField(max_length=20, blank=True)
 	promote_top = models.BooleanField(default=False)
+
+	organization = models.CharField(max_length=60, blank=False, verbose_name="Organization Name")
+	contact_first_name = models.CharField(max_length=60, blank=False, verbose_name="Contact First Name")
+	contact_last_name = models.CharField(max_length=60, blank=False, verbose_name="Contact Last Name")
+	contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
+	contact_email = models.CharField(max_length=60, blank=False, verbose_name="Contact Email")
 
 	class Meta:
 		verbose_name_plural = u'Challenges'
@@ -167,9 +172,14 @@ class Challenge(models.Model):
 		self.province = form['province']
 		self.country = form['country']
 		self.description = form['description']
-		self.host_organization = form['host_organization']
 		self.national_challenge = form['national_challenge']
 		
+		self.organization = form['organization']
+		self.contact_first_name = form['contact_first_name']
+		self.contact_last_name = form['contact_last_name']
+		self.contact_phone = form['contact_phone']
+		self.contact_email = form['contact_email']
+
 		if form['type']:
 			self.type = form['type']
 		
@@ -382,6 +392,25 @@ def create_challenge(sender, instance, created, **kwargs):
 			instance.save()
 
 post_save.connect(create_challenge, sender=Challenge) 
+
+"""
+Name:           ChallengeHostContact
+Date created:   April 16, 2014
+Description:    The host contact information for each Challenge.
+"""
+# class ChallengeHostContact(models.Model):
+# 	challenge = models.ForeignKey(Challenge)
+# 	organization = models.CharField(max_length=60, blank=False, verbose_name="Organization Name")
+# 	first_name = models.CharField(max_length=60, blank=False, verbose_name="Contact First Name")
+# 	last_name = models.CharField(max_length=60, blank=False, verbose_name="Contact Last Name")
+# 	phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
+# 	email = models.CharField(max_length=60, blank=False, verbose_name="Contact Email")
+
+# 	class Meta:
+# 		verbose_name_plural = u'Challenge Host Contacts'
+
+# 	def save(self, *args, **kwargs):
+# 		super(ChallengeHostContact, self).save(*args, **kwargs)
 
 """
 Name:           UserChallenge

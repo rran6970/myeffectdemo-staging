@@ -110,6 +110,9 @@ $(function(){
         question_5.prop('disabled', false);
     }
 
+    // Post Challenge host is Clean Team
+    $("#id_host_is_clean_team").on("click", hostIsCleanTeam);
+
     // Challenge survey enable/disable question 5 based on answer from question 4
     $("#id_question_4_3").on("click", enabledDisableQuestion5);
 
@@ -208,6 +211,16 @@ function ajaxChallengeSurveyUpdateScore(e)
         },
         error: function(data) {}
     });
+}
+
+function hostIsCleanTeam(e)
+{
+    var checkbox = $(this)
+
+    if (checkbox.is(':checked'))
+        alert('checked');
+    else
+        alert('not checked');
 }
 
 function enabledDisableQuestion5(e)
