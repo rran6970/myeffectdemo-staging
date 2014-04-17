@@ -1,5 +1,6 @@
 import urllib
 import ftplib
+import json
 import os
 import tempfile
 
@@ -11,6 +12,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import password_reset, password_reset_confirm
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.core.files.storage import default_storage
@@ -34,27 +36,26 @@ from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRC
 
 from django.contrib.auth.views import password_reset as django_password_reset
 
+def get_user_json(request):
+	if request.is_ajax:
+		uid = request.GET['uid']
+		
+		try:
+			user = User.objects.get(id=uid)
+			
+			serialized_obj = serializers.serialize('json', [ user, ])
+			return HttpResponse(serialized_obj)
+		except Exception, e:
+			print e
+
+	return HttpResponse('')
+
 def password_reset(*args, **kwargs):
 	"""
 		Overriding the Email Password Resert Forms Save to be able to send HTML email
 	"""
 	kwargs['password_reset_form'] = CustomPasswordResetForm
 	return django_password_reset(*args, **kwargs)
-
-class LoginPageView(TemplateView):
-	template_name = "users/login.html"
-
-	def get_context_data(self, **kwargs):
-		context = super(LoginPageView, self).get_context_data(**kwargs)
-
-		if 'next' in self.request.GET:
-			next_url = urllib.quote(self.request.GET['next'])
-			print next_url
-			context['next_url'] = next_url
-		else:
-			print "not there"
-			
-		return context
 
 def auth_view(request):
 	c = {}
@@ -86,6 +87,21 @@ def logout(request):
 
 def register_success(request):
 	return render_to_response('register_success.html')
+
+class LoginPageView(TemplateView):
+	template_name = "users/login.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(LoginPageView, self).get_context_data(**kwargs)
+
+		if 'next' in self.request.GET:
+			next_url = urllib.quote(self.request.GET['next'])
+			print next_url
+			context['next_url'] = next_url
+		else:
+			print "not there"
+			
+		return context
 
 class PrelaunchView(FormView):
 	template_name = "mycleancity/landing.html"	

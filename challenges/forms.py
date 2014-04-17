@@ -89,11 +89,11 @@ class NewChallengeForm(forms.Form):
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 		
 		self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
-		self.fields['organization'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
-		self.fields['contact_first_name'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
-		self.fields['contact_last_name'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
-		self.fields['contact_phone'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Phone number")
-		self.fields['contact_email'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
+		self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
+		self.fields['contact_first_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
+		self.fields['contact_last_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
+		self.fields['contact_phone'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Phone number")
+		self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 		
 		self.fields['national_challenge'] = forms.BooleanField(label="This is a National Challenge", required=False)
 		self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())

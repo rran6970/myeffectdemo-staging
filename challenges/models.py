@@ -394,25 +394,6 @@ def create_challenge(sender, instance, created, **kwargs):
 post_save.connect(create_challenge, sender=Challenge) 
 
 """
-Name:           ChallengeHostContact
-Date created:   April 16, 2014
-Description:    The host contact information for each Challenge.
-"""
-# class ChallengeHostContact(models.Model):
-# 	challenge = models.ForeignKey(Challenge)
-# 	organization = models.CharField(max_length=60, blank=False, verbose_name="Organization Name")
-# 	first_name = models.CharField(max_length=60, blank=False, verbose_name="Contact First Name")
-# 	last_name = models.CharField(max_length=60, blank=False, verbose_name="Contact Last Name")
-# 	phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
-# 	email = models.CharField(max_length=60, blank=False, verbose_name="Contact Email")
-
-# 	class Meta:
-# 		verbose_name_plural = u'Challenge Host Contacts'
-
-# 	def save(self, *args, **kwargs):
-# 		super(ChallengeHostContact, self).save(*args, **kwargs)
-
-"""
 Name:           UserChallenge
 Date created:   Sept 8, 2013
 Description:    Will be used to keep track of all of the Users partcipating 

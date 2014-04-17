@@ -196,14 +196,12 @@ class NewChallengeView(LoginRequiredMixin, FormView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 	def form_invalid(self, form, **kwargs):
-		print "invalid"
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
 		return self.render_to_response(context)
 
 	def form_valid(self, form, **kwargs):
-		print "valid"
 		challenge = Challenge()
 		challenge.new_challenge(self.request.user, form.cleaned_data)
 

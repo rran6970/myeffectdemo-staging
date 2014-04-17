@@ -1,6 +1,9 @@
 $(function(){  
     $(".btn").button();
 
+    // Phone number vaidator mask
+    $(".phone-number").inputmask("9{1,3}-9{1,3}-9{1,4}");
+
     // Javascript to enable link to tab
     var url = document.location.toString();
     if (url.match('#')) {
@@ -98,7 +101,7 @@ $(function(){
         }
         else
         {
-            $("#clean-team-group-td").fadeOut();   
+            $("#clean-team-group-td").fadeOut();
         }
     });
 
@@ -110,8 +113,10 @@ $(function(){
         question_5.prop('disabled', false);
     }
 
-    // Post Challenge host is Clean Team
+    // Posted Challenge host is Clean Team
     $("#id_host_is_clean_team").on("click", hostIsCleanTeam);
+
+    $("#id_clean_ambassadors").on("change", populateMainContactInfo);
 
     // Challenge survey enable/disable question 5 based on answer from question 4
     $("#id_question_4_3").on("click", enabledDisableQuestion5);
@@ -122,6 +127,36 @@ $(function(){
     twttr.events.bind('follow', followTwitterCallback);
 });
 
+function populateMainContactInfo(e)
+{
+    var uid = $(this).val();
+    
+    $.ajax({
+        type: 'GET',
+        url: '/users',
+        data: { 
+            'uid': uid,
+        },
+        success: function (data) {
+            var json = JSON.parse(data);                
+
+            for (var key in json){
+                var user = json[key]["fields"];
+                var first_name = user.first_name
+                var last_name = user.last_name
+                var email = user.email
+
+                $("#id_contact_first_name").val(first_name);
+                $("#id_contact_last_name").val(last_name);
+                $("#id_contact_email").val(email);
+            }    
+            
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+}
 
 function showSearchResults(e, search_box)
 {
@@ -215,17 +250,46 @@ function ajaxChallengeSurveyUpdateScore(e)
 
 function hostIsCleanTeam(e)
 {
-    var checkbox = $(this)
+    var checkbox = $(this);
 
     if (checkbox.is(':checked'))
-        alert('checked');
+    {
+        var clean_team_name = $("#pre_loaded_clean_team_name").val();
+        var first_name = $("#pre_loaded_first_name").val();
+        var last_name = $("#pre_loaded_last_name").val();
+        var email = $("#pre_loaded_email").val();
+
+        $("#id_organization").val(clean_team_name);
+        $("#id_organization").attr("readonly", "readonly");
+
+        $("#id_contact_first_name").val(first_name);
+        $("#id_contact_first_name").attr("readonly", "readonly");
+
+        $("#id_contact_last_name").val(last_name);
+        $("#id_contact_last_name").attr("readonly", "readonly");
+
+        $("#id_contact_email").val(email);
+        $("#id_contact_email").attr("readonly", "readonly");
+    }
     else
-        alert('not checked');
+    {
+        $("#id_organization").val("");
+        $("#id_organization").removeAttr("readonly");
+
+        $("#id_contact_first_name").val("");
+        $("#id_contact_first_name").removeAttr("readonly");
+
+        $("#id_contact_last_name").val("");
+        $("#id_contact_last_name").removeAttr("readonly");
+
+        $("#id_contact_email").val("");
+        $("#id_contact_email").removeAttr("readonly");
+    }    
 }
 
 function enabledDisableQuestion5(e)
 {
-    var checkbox = $(this)
+    var checkbox = $(this);
 
     if (checkbox.is(':checked'))
         $("input[name='question_5']").prop('disabled', false);

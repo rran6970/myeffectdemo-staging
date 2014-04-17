@@ -246,7 +246,7 @@ div.content.about #white-box iframe { margin-left: 120px; }
 /******************************
 	White Box
 ******************************/
-#white-box .subtitle { font-size: 15px; margin-left: 20px; color: #7DA35A; }
+#white-box .subtitle { font-size: 15px; color: #7DA35A; }
 
 /******************************
 	Students Page
@@ -508,6 +508,11 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 	Register Clean Team
 ******************************/
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
+
+/******************************
+	Clean Team Main Contact
+******************************/
+#white-box.main-contact .subtitle { display: block; margin: 20px 0; }
 
 /******************************
 	Profile

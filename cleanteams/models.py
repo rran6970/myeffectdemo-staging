@@ -55,6 +55,9 @@ class CleanTeam(models.Model):
 	level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
 	admin = models.BooleanField(default=False)
 
+	contact_user = models.ForeignKey(User)
+	contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
+
 	class Meta:
 		verbose_name_plural = u'Clean Team'
 
@@ -185,6 +188,17 @@ class CleanTeam(models.Model):
 			cc = CleanChampion.objects.filter(clean_team=self, status="approved").count()
 
 			return ca + cc
+
+	def update_main_contact(self, form):
+		try:
+			clean_ambassador = form['clean_ambassadors']
+			clean_ambassador_user = User.objects.get(id=clean_ambassador)
+
+			self.contact_user = clean_ambassador_user
+			self.contact_phone = form['contact_phone']
+			self.save()
+		except Exception, e:
+			print e
 
 	def save(self, *args, **kwargs):
 		super(CleanTeam, self).save(*args, **kwargs)
