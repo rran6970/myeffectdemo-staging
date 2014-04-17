@@ -22,7 +22,7 @@
               <td>
               	<p>Hey {{ email }},</p>
 
-                <p>You've been invited to join My Clean City by {{ user.first_name }} {{ user.last_name }} on the {{ user.profile.clean_team_member.clean_team.name }} as a {{ role }}</p>
+                <p>You've been invited to join My Clean City by {{ user.first_name }} {{ user.last_name }} and become a {{ role }} of {{ user.profile.clean_team_member.clean_team.name }}.</p>
                 
         			  <p><a href="{{ full_uri }}">Accept the invite.</a></p>
 
