@@ -86,7 +86,6 @@ YEAR_IN_SCHOOL_CHOICES = (
     ('SR', 'Senior'),
 )
 class EditCleanTeamMainContact(forms.Form):
-	# clean_ambassadors = forms.ChoiceField(required=True, label="Clean ambassadors")
 	contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="First name")
 	contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
 	contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
@@ -96,10 +95,9 @@ class EditCleanTeamMainContact(forms.Form):
 	def __init__(self, clean_team=None, request=None, *args, **kwargs):
 		super(EditCleanTeamMainContact, self).__init__(*args, **kwargs)
 		
-		# print clean_team.name
 		# Prepopulate the Clean Ambassador drop down
-		ctm_queryset = CleanTeamMember.objects.filter(clean_team_id=clean_team)
-		self.fields["clean_ambassadors"] = forms.ChoiceField(label="Clean Ambassadors", choices=[(o.user.id, str(o.user.profile.get_full_name())) for o in ctm_queryset])
+		ctm_queryset = CleanTeamMember.objects.filter(clean_team=clean_team)
+		self.fields["clean_ambassadors"] = forms.ChoiceField(label="Clean Ambassadors", widget=None, choices=[(o.user.id, str(o.user.profile.get_full_name())) for o in ctm_queryset])
 
 	def clean(self):
 		cleaned_data = super(EditCleanTeamMainContact, self).clean()

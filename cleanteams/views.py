@@ -20,7 +20,7 @@ from django.template.loader import get_template
 
 from django.views.generic import *
 from django.views.generic.base import View
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
@@ -50,7 +50,6 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
-		print form.errors
 
 		return self.render_to_response(context)
 
@@ -127,9 +126,10 @@ class CleanTeamMainContactView(LoginRequiredMixin, FormView):
 	form_class = EditCleanTeamMainContact
 	success_url = "mycleancity/index.html"
 
-	def get_initial(self, clean_team_member):
+	def get_initial(self, clean_team_member=None):
 		initial = {}
 
+		clean_team_member = self.request.user.profile.clean_team_member
 		if clean_team_member:
 			clean_team = clean_team_member.clean_team
 			contact_user = clean_team.contact_user
@@ -144,20 +144,23 @@ class CleanTeamMainContactView(LoginRequiredMixin, FormView):
 		return initial
 
 	# Initialize the form with initial values
-	def get_form(self, form_class):	
+	def get_form_kwargs(self):	
 		clean_team_member = self.request.user.profile.clean_team_member
-
-		return form_class(
-			clean_team=clean_team_member.clean_team,
-			initial=self.get_initial(clean_team_member)
-		)
+		kwargs = {
+			"initial": self.get_initial(clean_team_member),
+			"clean_team": clean_team_member.clean_team
+		}
+		if self.request.method in ("POST", "PUT"):
+			kwargs.update({
+				"data": self.request.POST,
+				"files": self.request.FILES
+			})
+		return kwargs
 
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
 
-		print form.is_bound
-		print form.errors
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
