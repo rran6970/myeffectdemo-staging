@@ -246,7 +246,7 @@ div.content.about #white-box iframe { margin-left: 120px; }
 /******************************
 	White Box
 ******************************/
-#white-box .subtitle { font-size: 15px; margin-left: 20px; color: #7DA35A; }
+#white-box .subtitle { font-size: 15px; color: #7DA35A; }
 
 /******************************
 	Students Page
@@ -510,6 +510,11 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
 
 /******************************
+	Clean Team Main Contact
+******************************/
+#white-box.main-contact .subtitle { display: block; margin: 20px 0; }
+
+/******************************
 	Profile
 ******************************/
 #white-box.profile { width: 560px; left: 45%; }
@@ -552,6 +557,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
 #white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }
 #white-box.new-challenge #id_national_challenge { float: left; margin-right: 5px; }
+#white-box.new-challenge #host_is_clean_team_container { margin-bottom: 20px; }
 
 /******************************
 	Challenge Centre

@@ -20,9 +20,9 @@ from django.template.loader import get_template
 
 from django.views.generic import *
 from django.views.generic.base import View
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm
+from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
 from challenges.models import Challenge, UserChallenge
 
@@ -36,6 +36,17 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 	form_class = RegisterCleanTeamForm
 	success_url = "mycleancity/index.html"
 
+	def get_initial(self):
+		initial = {}
+
+		user = self.request.user
+
+		initial['contact_first_name'] = self.request.user.first_name
+		initial['contact_last_name'] = self.request.user.last_name
+		initial['contact_email'] = self.request.user.email
+
+		return initial
+
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
@@ -47,11 +58,13 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		logo = form.cleaned_data['logo']
 
 		ct = CleanTeam()
-		ct.user = user
 		ct.name = form.cleaned_data['name']
 		ct.region = form.cleaned_data['region']
 		ct.team_type = form.cleaned_data['team_type']
 		ct.group = form.cleaned_data['group']
+
+		ct.contact_user = user
+		ct.contact_phone = form.cleaned_data['contact_phone']
 
 		if logo:
 			key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
@@ -107,6 +120,59 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		send_email.send(template, content, subject, from_email, to)
 
 		return HttpResponseRedirect('/clean-team/invite/')
+
+class CleanTeamMainContactView(LoginRequiredMixin, FormView):
+	template_name = "cleanteams/main_contact.html"
+	form_class = EditCleanTeamMainContact
+	success_url = "mycleancity/index.html"
+
+	def get_initial(self, clean_team_member=None):
+		initial = {}
+
+		clean_team_member = self.request.user.profile.clean_team_member
+		if clean_team_member:
+			clean_team = clean_team_member.clean_team
+			contact_user = clean_team.contact_user
+
+			initial['contact_first_name'] = contact_user.first_name
+			initial['contact_last_name'] = contact_user.last_name
+			initial['contact_email'] = contact_user.email
+			initial['contact_phone'] = clean_team.contact_phone
+			initial['clean_ambassadors'] = clean_team.contact_user.id
+			initial['clean_team_id'] = clean_team.id
+
+		return initial
+
+	# Initialize the form with initial values
+	def get_form_kwargs(self):	
+		clean_team_member = self.request.user.profile.clean_team_member
+		kwargs = {
+			"initial": self.get_initial(clean_team_member),
+			"clean_team": clean_team_member.clean_team
+		}
+		if self.request.method in ("POST", "PUT"):
+			kwargs.update({
+				"data": self.request.POST,
+				"files": self.request.FILES
+			})
+		return kwargs
+
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		context['form'] = form
+
+		return self.render_to_response(context)
+
+	def form_valid(self, form):
+		clean_team_id = form.cleaned_data['clean_team_id']
+
+		try:
+			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+			clean_team_member.clean_team.update_main_contact(form.cleaned_data)
+		except Exception, e:
+			print e
+		
+		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 
 class EditCleanTeamView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/edit_clean_team.html"

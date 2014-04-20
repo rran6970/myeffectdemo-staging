@@ -87,7 +87,14 @@ class NewChallengeForm(forms.Form):
 		self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
-		self.fields['host_organization'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (optional)")
+		
+		self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
+		self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
+		self.fields['contact_first_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
+		self.fields['contact_last_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
+		self.fields['contact_phone'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Phone number")
+		self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
+		
 		self.fields['national_challenge'] = forms.BooleanField(label="This is a National Challenge", required=False)
 		self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 		self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -106,12 +113,28 @@ class NewChallengeForm(forms.Form):
 		country = cleaned_data.get("country")
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
-		host_organization = cleaned_data.get("host_organization")
+
+		organization = cleaned_data.get("organization")
+		contact_first_name = cleaned_data.get("contact_first_name")
+		contact_last_name = cleaned_data.get("contact_last_name")
+		contact_phone = cleaned_data.get("contact_phone")
+		contact_email = cleaned_data.get("contact_email")
+
 		national_challenge = cleaned_data.get("national_challenge")
 		type = cleaned_data.get("type")
 		challenge_id = cleaned_data.get("challenge_id")
 
-		if not title:
+		if not organization:
+			raise forms.ValidationError("Please enter a host organization")
+		elif not contact_first_name:
+			raise forms.ValidationError("Please enter a contact first name")
+		elif not contact_last_name:
+			raise forms.ValidationError("Please enter a contact last name")
+		elif not contact_phone:
+			raise forms.ValidationError("Please enter a contact phone number")
+		elif not contact_email:
+			raise forms.ValidationError("Please enter a contact email")
+		elif not title:
 			raise forms.ValidationError("Please enter a title")
 		elif not event_start_date:
 			raise forms.ValidationError("Please enter a starting event date")
@@ -133,7 +156,7 @@ class NewChallengeForm(forms.Form):
 			raise forms.ValidationError("Please enter a postal code")	
 		elif not description:
 			raise forms.ValidationError("Please enter a description")
-
+		
 		return cleaned_data
 
 class EditChallengeForm(forms.ModelForm):
@@ -150,6 +173,14 @@ class EditChallengeForm(forms.ModelForm):
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 	host_organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (if applicable)")
+
+	host_is_clean_team = forms.BooleanField(required=False)
+	organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
+	contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
+	contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
+	contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Phone number")
+	contact_email = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
+
 	national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
 	type = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 	challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -172,11 +203,27 @@ class EditChallengeForm(forms.ModelForm):
 		country = cleaned_data.get("country")
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
-		host_organization = cleaned_data.get("host_organization")
+		
+		organization = cleaned_data.get("organization")
+		contact_first_name = cleaned_data.get("contact_first_name")
+		contact_last_name = cleaned_data.get("contact_last_name")
+		contact_phone = cleaned_data.get("contact_phone")
+		contact_email = cleaned_data.get("contact_email")
+
 		national_challenge = cleaned_data.get("national_challenge")
 		challenge_id = cleaned_data.get("challenge_id")
 
-		if not title:
+		if not organization:
+			raise forms.ValidationError("Please enter a host organization")
+		elif not contact_first_name:
+			raise forms.ValidationError("Please enter a contact first name")
+		elif not contact_last_name:
+			raise forms.ValidationError("Please enter a contact last name")
+		elif not contact_phone:
+			raise forms.ValidationError("Please enter a contact phone number")
+		elif not contact_email:
+			raise forms.ValidationError("Please enter a contact email")
+		elif not title:
 			raise forms.ValidationError("Please enter a title")
 		elif not event_start_date:
 			raise forms.ValidationError("Please enter a starting event date")

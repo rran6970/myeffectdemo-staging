@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from django.core.files.images import get_image_dimensions
 
-from cleanteams.models import CleanTeam, CleanTeamInvite, LeaderReferral, CleanTeamPresentation
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation
 
 CLEAN_TEAM_TYPES = (('', 'Please select one...'),
 	('independent', 'Independent'), 
@@ -26,10 +26,15 @@ class RegisterCleanTeamForm(forms.ModelForm):
 	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
+	contact_first_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="First name")
+	contact_last_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
+	contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
+	contact_email = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Email address")
+	
 	# Combines the form with the corresponding model
 	class Meta:
 		model = CleanTeam
-		exclude = ('clean_creds', 'level')
+		exclude = ('clean_creds', 'level', 'contact_user')
 
 	def clean(self):
 		cleaned_data = super(RegisterCleanTeamForm, self).clean()
@@ -41,7 +46,13 @@ class RegisterCleanTeamForm(forms.ModelForm):
 		region = cleaned_data.get('region')
 		team_type = cleaned_data.get('team_type')
 		group = cleaned_data.get('group')
+		contact_phone = cleaned_data.get('contact_phone')
 		clean_team_id = cleaned_data.get('clean_team_id')
+
+		contact_first_name = cleaned_data.get("contact_first_name")
+		contact_last_name = cleaned_data.get("contact_last_name")
+		contact_phone = cleaned_data.get("contact_phone")
+		contact_email = cleaned_data.get("contact_email")
 
 		if not name:
 			raise forms.ValidationError("Please enter your Clean Team's name")
@@ -49,6 +60,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:
 			raise forms.ValidationError("Please select the type of team")
+		elif not contact_phone:
+			raise forms.ValidationError("Please enter a contact phone number")
 
 		if logo:
 			if logo._size > 2*1024*1024:
@@ -63,6 +76,36 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
 		if CleanTeam.objects.filter(name=name) and not clean_team_id:
 			raise forms.ValidationError(u'%s already exists' % name)
+
+		return cleaned_data
+
+YEAR_IN_SCHOOL_CHOICES = (
+    ('FR', 'Freshman'),
+    ('SO', 'Sophomore'),
+    ('JR', 'Junior'),
+    ('SR', 'Senior'),
+)
+class EditCleanTeamMainContact(forms.Form):
+	contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="First name")
+	contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
+	contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
+	contact_email = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Email address")
+	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
+
+	def __init__(self, clean_team=None, request=None, *args, **kwargs):
+		super(EditCleanTeamMainContact, self).__init__(*args, **kwargs)
+		
+		# Prepopulate the Clean Ambassador drop down
+		ctm_queryset = CleanTeamMember.objects.filter(clean_team=clean_team)
+		self.fields["clean_ambassadors"] = forms.ChoiceField(label="Clean Ambassadors", widget=None, choices=[(o.user.id, str(o.user.profile.get_full_name())) for o in ctm_queryset])
+
+	def clean(self):
+		cleaned_data = super(EditCleanTeamMainContact, self).clean()
+		
+		contact_phone = cleaned_data.get("contact_phone")
+
+		if not contact_phone:
+			raise forms.ValidationError("Please enter a contact phone number")
 
 		return cleaned_data
 

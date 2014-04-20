@@ -20,6 +20,7 @@
       <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
       <div id="white-box" class="small new-clean-team">
           <h2>Create a new Clean Team</h2>
+          <span class="subtitle">Please provide the information for your Clean Team</span>
 
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -41,6 +42,21 @@
                       <td id="clean-team-group-td" style="display: none;">{{ form.group.label_tag }} {{ form.group }}</td>
                   </tr>
               </table>
+
+              <h2 style="margin-top: 50px;">Main Contact Information</h2>
+              <span class="subtitle">The primary contact of your Clean Team</span>
+              
+              <table>
+                  <tr>
+                      <td>{{ form.contact_first_name.label_tag }} {{ form.contact_first_name }}</td>
+                      <td>{{ form.contact_last_name.label_tag }} {{ form.contact_last_name }}</td>
+                  </tr>
+                  <tr>
+                      <td>{{ form.contact_email.label_tag }} {{ form.contact_email }}</td>
+                      <td>{{ form.contact_phone.label_tag }} {{ form.contact_phone }}</td>
+                  </tr>
+              </table>
+
               <input class="btn btn-primary" type="submit" value="Register" />
           </form>
       </div><!-- /#white-box -->

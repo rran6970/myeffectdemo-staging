@@ -19,17 +19,41 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>Update {{ form.title.value }}</h2>
+            <h1>Update {{ form.title.value }}</h1>
 			{% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
             {% endif %}
-            {{form.errors}}
 
 			{% if form %}
 			<form action="" method="post">{% csrf_token %}
 				{{ form.challenge_id }}
+
+	            <span class="subtitle">Please provide the contact information of host</span>
+				
+				<div id="host_is_clean_team_container">
+					{{ form.host_is_clean_team }} <span>{{ user.profile.clean_team_member.clean_team.name }} is hosting this <span class="bold green">#Clean</span><span class="bold blue">Act</span></span>
+				</div>
+
+				<table>
+					<tr>
+						<td>{{ form.organization.label_tag }}{{ form.organization }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>{{ form.contact_first_name.label_tag }}{{ form.contact_first_name }}</td>
+						<td>{{ form.contact_last_name.label_tag }}{{ form.contact_last_name }}</td>
+					</tr>
+					<tr>
+						<td>{{ form.contact_email.label_tag }}{{ form.contact_email }}</td>
+						<td>{{ form.contact_phone.label_tag }}{{ form.contact_phone }}</td>
+					</tr>
+				</table>
+
+				<h2 style="margin-top: 50px;">Create <span class="bold green">#Clean</span><span class="bold blue">Act</span></h2>
+	            <span class="subtitle">Fill out the fields below to create your <span class="bold green">#Clean</span><span class="bold blue">Act</span></span>
+
 	            <table>
 	                <tr>
 	                    <td>{{ form.title.label_tag }} {{ form.title }}</td>
