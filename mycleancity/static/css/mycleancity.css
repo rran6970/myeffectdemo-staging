@@ -657,7 +657,8 @@ div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
 div.content.challenge-overview #participate-btn { float: right; }
 
-#challenge-description {  }
+#main-contact-container { margin-top: 20px; }
+#main-contact-container h2 { margin-bottom: 10px; }
 
 /******************************
 	Leaderboard Page

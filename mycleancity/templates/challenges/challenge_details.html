@@ -43,7 +43,11 @@
           </tr>
         {% endif %}
         <tr>
-          <td><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
+          <td><span class="titles">Created by:</span> <span class="bold"><a class="popup-600" href="{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
+        </tr>
+        <tr>
+          <td><span class="titles">Main Contact:</span> <span class="bold">
+            <a class="popup-600" href="#challenge-description">{{ challenge.clean_team.contact_user.profile.get_full_name }}</a></span></td>
         </tr>
 				<tr>
 					<td><span class="titles">Starts:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }}</td>
@@ -106,14 +110,37 @@
     			{% endfor %}
         </div>
     </div><!-- /.container -->
-  </div><!-- /.about -->
+
+    <div class="popup-container">
+      <div id="challenge-description" class="popup">
+        <p>{{ challenge.description }}</p>
+        <div id="main-contact-container">
+          <h2>Main Contact</h2>
+          <table class="table">
+            <tr>
+              <td><span class="titles">Name:</span> <span class="bold">
+                {{ challenge.clean_team.contact_user.profile.get_full_name }}
+              </td>
+            </tr>
+            <tr>
+              <td><span class="titles">Email address:</span> <span class="bold">
+                <a href="mailto:{{ challenge.clean_team.contact_user.email }}">{{ challenge.clean_team.contact_user.email }}</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="titles">Phone number:</span> <span class="bold">
+                {{ challenge.clean_team.contact_phone }}
+              </td>
+            </tr>
+          </table>
+        </div><!-- end of .main-contact -->
+      </div><!-- end of #challenge-description -->
+    </div><!-- end of .popup-container -->  
+
+  </div><!-- /.challenge-overview -->
 </div> <!-- /.wrapper -->
 
-<div class="popup-container">
-  <div id="challenge-description" class="popup">
-    <p>{{ challenge.description }}</p>
-  </div><!-- end of #challenge-description -->
-</div><!-- end of .popup-container -->
+
 {% include "_footer_navbar.html" %}
 
 {% endblock %}
