@@ -204,6 +204,20 @@ def add_clean_creds_to_clean_teams():
 		print "--------------------------"
 
 
+# To run this script:
+# from mycleancity.script import *; make_first_ca_main_contact()
+def make_first_ca_main_contact():
+	clean_team_members = CleanTeamMember.objects.raw("SELECT * FROM cleanteams_cleanteammember GROUP BY cleanteams_cleanteammember.clean_team_id")
+
+	for clean_team_member in clean_team_members:
+		clean_team = clean_team_member.clean_team
+		
+		print "%s found on %s" % (clean_team_member.user.first_name, clean_team.name)
+		clean_team.contact_user = clean_team_member.user
+		clean_team.save()
+
+		print "%s main contact changed to %s" % (clean_team.name, clean_team_member.user.first_name)
+
 # CAUTION: VERY DANGEROUS SCRIPT
 # To run this script:
 # from mycleancity.script import *; execute_all_clean_cred_adding_functions()

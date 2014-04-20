@@ -50,11 +50,9 @@
             <a class="popup-600" href="#challenge-description">{{ challenge.clean_team.contact_user.profile.get_full_name }}</a></span></td>
         </tr>
 				<tr>
-					<td><span class="titles">Starts:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }}</td>
+					<td><span class="titles">Date and time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
         </tr>
-        <tr> 
-          <td><span class="titles">Ends:</span> {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>          
-				</tr>
+        
 				<tr>
 					<td><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
 				</tr>
