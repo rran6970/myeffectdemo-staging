@@ -20,7 +20,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 	website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
 	logo = forms.ImageField(required=False)
 	about = forms.CharField(required=False, widget=forms.Textarea())
-	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
 	region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
 	team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
 	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
@@ -62,6 +62,57 @@ class RegisterCleanTeamForm(forms.ModelForm):
 			raise forms.ValidationError("Please select the type of team")
 		elif not contact_phone:
 			raise forms.ValidationError("Please enter a contact phone number")
+
+		if logo:
+			if logo._size > 2*1024*1024:
+				raise forms.ValidationError("Image file must be smaller than 2MB")
+
+			w, h = get_image_dimensions(logo)
+
+			if w != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
+			if h != 124:
+				raise forms.ValidationError("The image is supposed to be 124px X 124px")
+
+		if CleanTeam.objects.filter(name=name) and not clean_team_id:
+			raise forms.ValidationError(u'%s already exists' % name)
+
+		return cleaned_data
+
+class EditCleanTeamForm(forms.ModelForm):
+	name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+	website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
+	logo = forms.ImageField(required=False)
+	about = forms.CharField(required=False, widget=forms.Textarea())
+	twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+	region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+	team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
+	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
+	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
+	
+	# Combines the form with the corresponding model
+	class Meta:
+		model = CleanTeam
+		exclude = ('clean_creds', 'level', 'contact_user', 'contact_phone')
+
+	def clean(self):
+		cleaned_data = super(EditCleanTeamForm, self).clean()
+		name = cleaned_data.get('name')
+		website = cleaned_data.get('website')
+		logo = cleaned_data.get('logo')
+		about = cleaned_data.get('about')
+		twitter = cleaned_data.get('twitter')
+		region = cleaned_data.get('region')
+		team_type = cleaned_data.get('team_type')
+		group = cleaned_data.get('group')
+		clean_team_id = cleaned_data.get('clean_team_id')
+
+		if not name:
+			raise forms.ValidationError("Please enter your Clean Team's name")
+		elif not region:
+			raise forms.ValidationError("Please enter your region")
+		elif not team_type:
+			raise forms.ValidationError("Please select the type of team")
 
 		if logo:
 			if logo._size > 2*1024*1024:

@@ -22,7 +22,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
+from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
 from challenges.models import Challenge, UserChallenge
 
@@ -176,7 +176,7 @@ class CleanTeamMainContactView(LoginRequiredMixin, FormView):
 
 class EditCleanTeamView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/edit_clean_team.html"
-	form_class = RegisterCleanTeamForm
+	form_class = EditCleanTeamForm
 	success_url = "mycleancity/index.html"
 
 	def get_initial(self):
