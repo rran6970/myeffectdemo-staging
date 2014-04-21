@@ -768,10 +768,10 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile div.info#right-side { width: 247px; float: right; border: none; padding: 0; }
 #white-box.clean-team-profile div.info#right-side .profile-pic { display: block; margin-top: 10px; margin-right: 63px; float: right; }
 
-#white-box.clean-team-profile div.info#about { height: 200px; overflow-y: scroll;  }
+#white-box.clean-team-profile div.info#about { width: 440px; height: 200px; overflow-y: scroll;  }
 
 /* Wall */
-#white-box.clean-team-profile div.info#wall { padding: 0 20px 20px 0; height: 400px; overflow-y: scroll; border-bottom: none; }
+#white-box.clean-team-profile div.info#wall { width: 440px; padding: 0 20px 20px 0; height: 400px; overflow-y: scroll; border-bottom: none; }
 #white-box.clean-team-profile div.info#wall div.post { display: block; border-bottom: 1px solid #B2DB95; min-height: 74px; padding: 10px;}
 #white-box.clean-team-profile div.info#wall div.post p.user { padding: 0; font-weight: 600; }
 #white-box.clean-team-profile div.info#wall div.post p.timestamp { padding: 0; }
