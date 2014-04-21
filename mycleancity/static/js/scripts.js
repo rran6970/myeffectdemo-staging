@@ -213,10 +213,12 @@ function showSearchResults(e, search_box)
 
 function followTwitterCallback(e)
 {
+    var csrf_token = $("input[name='csrfmiddlewaretoken']").val();
+
     $.ajax({
         type: 'POST',
         url: '/users/follow-twitter/',
-        data: { 'csrfmiddlewaretoken': 'EkBkAdchkoJkyRmajrCvW1E3PoT99rmh' },
+        data: { 'csrfmiddlewaretoken': csrf_token },
         success: function (data) {
             location.reload();
         },
