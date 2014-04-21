@@ -314,19 +314,19 @@ class Challenge(models.Model):
 		if national_challenges == "true" or national_challenges == "on":
 			if limit:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_start_date__gte=today), Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
+					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
 				else:
-					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
+					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
 				if not query:
-					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
+					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
 				else:
-					challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 		else:
 			if limit:
-				challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
+				challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
 			else:
-				challenges = Challenge.objects.filter(Q(event_start_date__lte=today), Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+				challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
 
 		return challenges
 
