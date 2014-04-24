@@ -238,6 +238,9 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 		initial['postal_code'] = challenge.postal_code
 		initial['description'] = challenge.description
 	
+		if challenge.organization == self.request.user.profile.clean_team_member.clean_team.name:
+			initial['host_is_clean_team'] = True
+			
 		initial['organization'] = challenge.organization
 		initial['contact_first_name'] = challenge.contact_first_name
 		initial['contact_last_name'] = challenge.contact_last_name
