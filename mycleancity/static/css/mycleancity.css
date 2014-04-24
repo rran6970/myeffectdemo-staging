@@ -115,6 +115,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
 #sign-go-back.clean-team-members { left: 181px; }
+#sign-go-back.edit-clean-team { left: 347px; }
 #sign-go-back.invite { left: 78px; }
 #sign-go-back-big.about,
 #sign-go-back-big-fr.about { left: 32px; top: 386px; }
@@ -793,6 +794,13 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
 
 #white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
+
+/************************************************************
+	Edit Clean Team
+************************************************************/
+#white-box.edit-clean-team { width: 512px; left: 30%; }
+/* Setting the Clean Team Edit about to a fixed width; it was giving issues */
+#clean-team-edit-about .yui-editor-container#id_about_container { width: 450px !important; } 
 
 /************************************************************
 	Clean Team Level Progress Page

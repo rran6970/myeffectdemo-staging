@@ -14,11 +14,14 @@
   {% include "_loggedin_navbar.html" %}
   
   <a href="/" class="logo"></a>
-  
+
+  {% load wysiwyg %}
+  {% wysiwyg_setup %}
+
   <div class="content">
     <div class="container">
-      <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
-      <div id="white-box" class="small">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign edit-clean-team" id="sign-go-back"></div></a>
+      <div id="white-box" class="edit-clean-team">
           <h2>Edit Clean Team</h2>
 
           {% if form.non_field_errors %}
@@ -46,7 +49,7 @@
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
+                    <td id="clean-team-edit-about" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                 </tr>
             </table>
             <input class="btn btn-primary" type="submit" value="Update Clean Team" />
@@ -54,6 +57,7 @@
       </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
+  {% wysiwyg_editor "id_about" %}
 </div> <!-- /.wrapper -->
 {% include "_footer_navbar.html" %}
 

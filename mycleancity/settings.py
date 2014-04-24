@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django_extensions',
+    'django_wysiwyg',
     'captcha',
     'cleancreds',
     'cleanteams',
@@ -189,6 +190,8 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = 'cleanAdmin1'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
+
+DJANGO_WYSIWYG_FLAVOR = 'yui'
 
 AWS_ACCESS_KEY_ID = 'AKIAIKQOZZOLGYLTP37A'
 AWS_SECRET_ACCESS_KEY = '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'

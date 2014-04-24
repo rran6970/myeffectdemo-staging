@@ -82,6 +82,15 @@ input[readonly="readonly"]:focus { outline: 0 !important; box-shadow: none !impo
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th { background-color: #E8FFE8; }
 
+/** WYSIWYG Editor **/
+.yui-editor-container { width: auto !important; margin-bottom: 23px; }
+
+.yui-skin-sam .yui-editor-container { border: 1px solid #cccccc !important; }
+.yui-skin-sam .yui-toolbar-container { border: none !important; }
+.yui-skin-sam .yui-toolbar-container .yui-toolbar-subcont { border-bottom: 1px solid #cccccc !important; }
+.yui-skin-sam .yui-toolbar-container .first-child { border: 1px solid #cccccc; }
+
+
 /** Bootstrap button **/
 a.btn { padding-top: 12px; }
 .button { font-size: 14px; padding: 12px 20px; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; text-align: center; }
