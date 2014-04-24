@@ -15,6 +15,9 @@
   
   <a href="/" class="logo"></a>
   
+  {% load wysiwyg %}
+  {% wysiwyg_setup %}
+
   <div class="content">
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
@@ -39,6 +42,7 @@
       </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
+  {% wysiwyg_editor "id_message" %}
 </div> <!-- /.wrapper -->
 {% include "_footer_navbar.html" %}
 

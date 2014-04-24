@@ -33,7 +33,7 @@
 						<div class="links">
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 							<div class="clear"></div>
-							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit #CleanActs</a>
+							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit #CleanAct</a>
 
 							{% if challenge.type.challenge_type == "one-time" %}
 							<a class="view-challenge-qrcode popup-image" href="#view-challenge-qrcode-{{ challenge.id }}"><img src="{{ MEDIA_URL }}{{ challenge.qr_code.qr_image }}" alt="" /></a>
