@@ -172,13 +172,12 @@ class EditChallengeForm(forms.ModelForm):
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
-	host_organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization (if applicable)")
 
 	host_is_clean_team = forms.BooleanField(required=False)
 	organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
 	contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
 	contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
-	contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Phone number")
+	contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
 	contact_email = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 
 	national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
