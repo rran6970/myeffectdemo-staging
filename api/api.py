@@ -189,8 +189,10 @@ def student_edit_profile(request):
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 
-	user = request.user
-	user_profile = request.user.profile
+	userid = request_obj.params['userid']
+
+	user = User.objects.get(id=userid)
+	user_profile = user.profile
 	
 	total_hours = user_profile.get_total_hours()
 
@@ -243,6 +245,76 @@ def update_user(request):
 	response_base.response['status'] = 1
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
+
+def get_challenge(request):
+	request_obj = GenericRequest(request)
+	request_obj.parse_request_params()
+	response_base = ResponseDic()
+		
+	challenge_id = request_obj.params['cid']
+	jsonvalue = []
+
+	try:
+		challenge = Challenge.objects.get(id=challenge_id)
+
+		response_base.response['status'] = 1
+		response_base.response['data'] = {
+			'title':challenge.title, 
+			'eventstartdate':str(challenge.event_start_date),
+			'eventstarttime':str(challenge.event_start_time),
+			'eventenddate':str(challenge.event_end_date),
+			'eventendtime':str(challenge.event_end_time),
+			'address1':challenge.address1,
+			'address2':challenge.address2,
+			'city':challenge.city,
+			'province':challenge.province,
+			'postalcode':challenge.postal_code,
+			'country':challenge.country,
+			'description':challenge.description,
+			'userid':challenge.user.id,
+			'cleanteamid':challenge.clean_team.id,
+			'cleanteamname':challenge.clean_team.name,
+			'cleancredsperhour':challenge.clean_creds_per_hour,
+			'nationalchallenge':challenge.national_challenge,
+			'type':challenge.type.challenge_type,
+			'qrcode':challenge.qr_code.qr_image.url,
+			'organization':challenge.organization,
+			'contactfirstname':challenge.contact_first_name,
+			'contactlastname':challenge.contact_last_name,
+			'contactphone':challenge.contact_phone,
+			'contactemail':challenge.contact_email
+		}
+
+		participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (challenge_id))
+
+		print participants
+		participants_json = []
+
+		for participant in participants:
+			user = participant.user
+
+			if user.profile.picture:
+				picture = user.profile.picture
+			else:
+				picture = 0
+		
+			participants_json.append({
+				'uid':user.id,
+				'pic':unicode(picture),
+				'firstname':user.first_name,
+				'lastname':user.last_name
+			})
+
+		response_base.response['participants_data'] = participants_json
+
+	except Exception, e:
+		print e
+		response_base.response['status'] = 0
+
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	
+	return HttpResponse(data, mimetype="text/javascript")
+
 def list_challenge(request):
     #print "#"*30
 	request_obj = GenericRequest(request)
@@ -260,7 +332,8 @@ def list_challenge(request):
 		query = ""
 		national_challenges = "false"
 		challenge = Challenge.search_challenges(query, national_challenges)
-		jsonvalue =[]
+		jsonvalue = []
+
 		for each in challenge:
 			ct_id = each.clean_team_id
 			qr_id = each.qr_code_id
@@ -281,7 +354,6 @@ def list_challenge(request):
 			jsonvalue.append({'country':each.country
 			,'ctname':ctname
 			,'title':each.title
-			,'org':each.host_organization
 			,'address1':each.address1
 			,'address2':each.address2
 			,'postal_code':each.postal_code
@@ -303,6 +375,7 @@ def list_challenge(request):
 		response_base.response['status'] = 0
   	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
+
 def list_participants(request):
 	#print "######"
 	request_obj = GenericRequest(request)
@@ -934,8 +1007,10 @@ def cleanteam_view(request):
 		level_id  = ctarray.level_id
 		ctlarray = CleanTeamLevel.objects.get(id=level_id)
 		badge  = unicode(ctlarray.badge)
+		
 		response_base.response['status'] = 1
 		response_base.response['data'] = {'name': ctarray.name, 'website': ctarray.website,'logo':unicode(ctarray.logo),'clean_creds':ctarray.clean_creds,'about':ctarray.about,'twitter':ctarray.twitter,'region':ctarray.region,'team_type':ctarray.team_type,'badge':badge}	
+		
 		try:
 			challengePost = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])
 			jsonvalue =[]
@@ -955,13 +1030,17 @@ def cleanteam_view(request):
 	
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
+
 def team_challenge(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
-	teamid = request_obj.params['teamid']
+
+	user = request.user
+	clean_team = request.user.profile.clean_team_member.clean_team
+	
 	try:
-		challenge = Challenge.objects.filter(clean_team_id=teamid)
+		challenge = Challenge.objects.filter(clean_team=clean_team)
 		jsonvalue =[]
 		for each in challenge:		
 			#challengeid = each.challenge_id
@@ -980,8 +1059,6 @@ def team_challenge(request):
 				qrimage = ""
 			jsonvalue.append({'title':each.title
 			,'description':each.description
-			,'event_date':str(each.event_start_date)
-			,'eventtime':str(each.event_start_time)
 			,'id':each.id
 			,'address1':each.address1
 			,'address2':each.address2
@@ -989,8 +1066,8 @@ def team_challenge(request):
 			,'province':each.province
 			,'postal_code':each.postal_code
 			,'country':each.country
-			,'host_organization':each.host_organization
 			,'cleanperhour':each.clean_creds_per_hour
+			,'nationalchallenges':each.national_challenge
 			,'total_hours':"0"
 			,'total_clean_creds':"0"
 			,'time_in':"0"
