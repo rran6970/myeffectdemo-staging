@@ -166,13 +166,9 @@ class UserProfile(models.Model):
 	def get_total_hours(self):
 		user_challenges = UserChallenge.objects.filter(user=self.user)
 
-		print user_challenges
-
 		total_hours = 0
 		for u in user_challenges:
 			total_hours += u.total_hours
-
-		print total_hours
 
 		return total_hours
 

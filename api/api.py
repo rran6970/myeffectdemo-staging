@@ -9,7 +9,7 @@ from datetime import date
 from django.conf import settings
 from django.utils.timezone import utc
 from .utils import remove_cache, check_post, GenericRequest, clean_inputs, ResponseDic, send_server_error, send_server_forbidden
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
@@ -18,13 +18,26 @@ from django.contrib.auth.models import User
 from django.template.loader import get_template
 from django.template import Context, RequestContext
 from django.core.mail import EmailMessage
-from userprofile.models import UserProfile, QRCodeSignups, UserQRCode,UserSettings
+from userprofile.models import UserProfile, QRCodeSignups, UserQRCode, UserSettings
 from challenges.models import Challenge, UserChallenge,  ChallengeQRCode
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevel
 from notifications.models import UserNotification
 import json,urlparse,random,string, base64,datetime
+
 def nikhil(request):
 	return HttpResponse('test')
+
+#@remove_cache
+#@check_post
+def logout_user(request):
+	response_base = ResponseDic()
+	
+	logout(request)
+	response_base.response['status'] = 1
+
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	return HttpResponse(data, mimetype="text/javascript")
+
 #@remove_cache
 #@check_post
 @csrf_exempt
@@ -151,46 +164,68 @@ def registration(request):
 	
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response)) 
     return HttpResponse(data, mimetype="text/javascript")
-def student_edit_profile(request):
-	#print "#"*30
+
+def qrcode(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
-	user_profile = UserProfile.objects.get(user_id=request_obj.params['userid'])
+
+	user = request.user
+
+	try:
+		qr_code = UserQRCode.objects.get(user=user)
+	except Exception, e:
+		qr_code = None
+
+	qr_code = unicode(qr_code.qr_image)
+	
+	response_base.response['data'] = {'qrcode':qr_code}
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	
+	return HttpResponse(data, mimetype="text/javascript")
+
+def student_edit_profile(request):
+	request_obj = GenericRequest(request)
+	request_obj.parse_request_params()
+	response_base = ResponseDic()
+
+	user = request.user
+	user_profile = request.user.profile
+	
 	total_hours = user_profile.get_total_hours()
-	user = User.objects.get(id=request_obj.params['userid'])
-	role=""
-	cleanteamname =""
-	cleanteamid=""
+
+	role = ""
+	cleanteamname = ""
+	cleanteamid = ""
+
 	try:
-		#role = user.cleanteammember_set.values_list('role',flat=True).get()
-		role_array    = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
+		role_array = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
 		role  = role_array.role
+		role = "clean-ambassador"
 		
 	except Exception,e:
-		
-		try:
-			champarray = CleanChampion.objects.get(user_id=request_obj.params['userid'])
+		if user_profile.is_clean_champion():
 			role = "clean-champion"
-		except Exception,e:
-			print e
-			role = "Individual"
+		else:
+			role = "individual"
 		
 	try:
-		cleanteamid  = user.cleanteammember_set.values_list('clean_team_id',flat=True).get()
-		cleanteamArray  = CleanTeam.objects.get(id=cleanteamid)
-		cleanteamname  = cleanteamArray.name
-	except Exception,e:
-		cleanteamname =""
-	#print cleanteamname
-	#print user_profile.picture
+		cleanteamid = user.cleanteammember_set.values_list('clean_team_id', flat=True).get()
+		cleanteamArray = CleanTeam.objects.get(id=cleanteamid)
+		cleanteamname = cleanteamArray.name
+	except Exception, e:
+		cleanteamname = ""
+
 	picture = unicode(user_profile.picture)
 	
 	#print picture
 	#response_base.response['data'] = {'email':user.email,'firstname': user.first_name,'lastname':user.last_name,'twitter':user_profile.twitter,'city':user_profile.city,'cleancreds':user_profile.clean_creds,'school':user_profile.school_type,'about':user_profile.about,'role':role,'team':cleanteamname}
+
 	response_base.response['data'] = {'email':user.email,'firstname': user.first_name,'lastname':user.last_name,'twitter':user_profile.twitter,'city':user_profile.city,'cleancreds':user_profile.clean_creds, 'totalhours': total_hours, 'school':user_profile.school_type,'about':user_profile.about,'role':role,'team':cleanteamname,'picture':picture}
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	
 	return HttpResponse(data, mimetype="text/javascript")
+
 def update_user(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
@@ -423,22 +458,27 @@ def joinchampion_team(request):
     response_base.response['status'] = 1	
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
     return HttpResponse(data, mimetype="text/javascript")
+
 def list_notification(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
     response_base = ResponseDic()
-    userid = request_obj.params['userid']
+    user = request.user
+
     try:
-		un = UserNotification.objects.filter(user=userid).order_by('-timestamp')
-		uncount = UserNotification.objects.filter(user=userid,read=0).order_by('-timestamp').count()
+		un = UserNotification.objects.filter(user=user).order_by('-timestamp')
+		uncount = UserNotification.objects.filter(user=user,read=0).order_by('-timestamp').count()
 		response_base.response['data']= [ {'message':each.message,'datetime':str(each.timestamp),'read':each.read,'id':each.id} for each in un ]
 		response_base.response['status'] = 1
 		response_base.response['count'] = uncount
     except Exception,e:
         print e
         response_base.response['status'] = 0
+    
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+    
     return HttpResponse(data, mimetype="text/javascript")
+
 def count_notification(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
@@ -536,9 +576,10 @@ def my_challenge(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
-	userid = request_obj.params['userid']
+	user = request.user
+
 	try:
-		Uchallenge = UserChallenge.objects.filter(user_id=userid)
+		Uchallenge = UserChallenge.objects.filter(user=user)
 		jsonvalue =[]
 		for each in Uchallenge:		
 			challengeid = each.challenge_id
@@ -571,7 +612,11 @@ def my_challenge(request):
 			,'province':challengearray.province
 			,'postal_code':challengearray.postal_code
 			,'country':challengearray.country
-			,'host_organization':challengearray.host_organization
+			,'organization':challengearray.organization
+			,'contact_first_name':challengearray.contact_first_name
+			,'contact_last_name':challengearray.contact_last_name
+			,'contact_phone':challengearray.contact_phone
+			,'contact_email':challengearray.contact_email
 			,'cleanperhour':challengearray.clean_creds_per_hour
 			,'total_hours':each.total_hours
 			,'total_clean_creds':each.total_clean_creds
