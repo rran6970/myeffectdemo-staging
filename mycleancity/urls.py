@@ -64,8 +64,10 @@ urlpatterns = patterns('',
 	
 	#webservices
 	url(r'^api/webservices/login/$', 'api.api.login_user'),
+	url(r'^api/webservices/logout/$', 'api.api.logout_user'),
     url(r'^api/webservices/register/$', "api.api.registration"),
 	url(r'^api/webservices/studenteditprofile/$', "api.api.student_edit_profile"),
+	url(r'^api/webservices/qrcode/$', "api.api.qrcode"),
 	url(r'^api/webservices/updateuser/$', "api.api.update_user"),
 	url(r'^api/webservices/listchallenge/$', "api.api.list_challenge"),
 	url(r'^api/webservices/listparticipants/$', "api.api.list_participants"),
