@@ -252,13 +252,15 @@ def get_challenge(request):
 	response_base = ResponseDic()
 		
 	challenge_id = request_obj.params['cid']
-	jsonvalue = []
+	challenge_json = []
+	participants_json = []
+	user_challenge_json = []
 
 	try:
 		challenge = Challenge.objects.get(id=challenge_id)
 
-		response_base.response['status'] = 1
-		response_base.response['data'] = {
+		challenge_json = {
+			'id':challenge.id, 
 			'title':challenge.title, 
 			'eventstartdate':str(challenge.event_start_date),
 			'eventstarttime':str(challenge.event_start_time),
@@ -277,40 +279,56 @@ def get_challenge(request):
 			'cleancredsperhour':challenge.clean_creds_per_hour,
 			'nationalchallenge':challenge.national_challenge,
 			'type':challenge.type.challenge_type,
-			'qrcode':challenge.qr_code.qr_image.url,
 			'organization':challenge.organization,
 			'contactfirstname':challenge.contact_first_name,
 			'contactlastname':challenge.contact_last_name,
 			'contactphone':challenge.contact_phone,
 			'contactemail':challenge.contact_email
 		}
+	except Exception, e:
+		print e
+		response_base.response['status'] = 0
+	
+	try:
+		user_challenge = UserChallenge.objects.get(challenge=challenge, user=request.user)
+		
+		user_challenge_json = {
+			'id':user_challenge.id,
+			'timestamp':str(user_challenge.timestamp),
+			'time_in':user_challenge.time_in,
+			'time_out':user_challenge.time_out,
+			'total_hours':user_challenge.total_hours,
+			'total_clean_creds':user_challenge.total_clean_creds
+		}
+	except Exception, e:
+		print e
 
+	try:
 		participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (challenge_id))
 
-		print participants
-		participants_json = []
-
 		for participant in participants:
-			user = participant.user
+			u = participant.user
 
-			if user.profile.picture:
-				picture = user.profile.picture
+			if u.profile.picture:
+				picture = u.profile.picture
 			else:
 				picture = 0
 		
 			participants_json.append({
-				'uid':user.id,
+				'uid':u.id,
 				'pic':unicode(picture),
-				'firstname':user.first_name,
-				'lastname':user.last_name
+				'firstname':u.first_name,
+				'lastname':u.last_name
 			})
-
-		response_base.response['participants_data'] = participants_json
-
+	
+		response_base.response['status'] = 1
 	except Exception, e:
 		print e
 		response_base.response['status'] = 0
 
+	response_base.response['user_challenge_data'] = user_challenge_json
+	response_base.response['participants_data'] = participants_json
+	response_base.response['data'] = challenge_json
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")
@@ -872,19 +890,36 @@ def make_me_read(request):
 	response_base.response['status'] = 1
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
+
 def participate_challenge(request):
-	request_obj = GenericRequest(request)
-	request_obj.parse_request_params()
-	response_base = ResponseDic()
-	userid = request_obj.params['userid']
-	challengeid = request_obj.params['challengeid']
-	userchallenge = UserChallenge()
-	userchallenge.challenge_id = challengeid
-	userchallenge.user_id = userid
-	userchallenge.save()
+	if request.is_ajax:
+		request_obj = GenericRequest(request)
+		request_obj.parse_request_params()
+		response_base = ResponseDic()
+
+		user = request.user
+		cid = request_obj.params['cid']
+		challenge = Challenge.objects.get(id=cid)
+
+		# # userid = request_obj.params['userid']
+		# challengeid = request_obj.params['challengeid']
+		# userchallenge = UserChallenge()
+		# userchallenge.challenge_id = challengeid
+		# userchallenge.user = user
+		# userchallenge.save()
+
+		try:
+			user_challenge = UserChallenge.objects.get(user=user, challenge=challenge)
+		except Exception, e:
+			user_challenge = UserChallenge(user=request.user)
+			user_challenge.challenge = challenge
+			user_challenge.save()
+
 	response_base.response['status'] = 1
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	
 	return HttpResponse(data, mimetype="text/javascript")
+
 def onetime_ch(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
