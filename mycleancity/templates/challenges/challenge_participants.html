@@ -55,19 +55,16 @@
 						<tr>
 							<td class="name">
 								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								{% if participant.time_in %}
 								<span>Last Checked In: {{ participant.time_in }}</span>
+								{% endif %}
 							</td>
 							<td class="participated">
 								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
 									{% csrf_token %}
 									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
 									<input type="hidden" name="cid" value="{{ cid }}">
-									
-									<!-- {% if participant.time_out %}
-										Confirmed
-									{% else %}
-										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
-									{% endif %} -->
+
 									<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
 								</form>
 							</td>
