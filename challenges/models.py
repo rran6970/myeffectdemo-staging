@@ -309,6 +309,40 @@ class Challenge(models.Model):
 
 		except Exception, e:
 			print e
+
+	def participate_in_challenge(self, user):
+		if self.clean_team_only:
+			if user.profile.is_clean_ambassador():
+				clean_team = user.profile.clean_team_member.clean_team
+
+				try:
+					clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=clean_team, challenge=self)
+				except Exception, e:
+					clean_team_challenge = CleanTeamChallenge(clean_team=clean_team)
+					clean_team_challenge.challenge = self
+					clean_team_challenge.save()
+
+					print e
+		else:
+			try:
+				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
+			except Exception, e:
+				user_challenge = UserChallenge(user=user)
+				user_challenge.challenge = self
+				user_challenge.save()
+
+				print e
+
+		if user.profile.is_clean_ambassador():
+			if user.profile.clean_team_member.clean_team.level.name == "Tree":
+				count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
+				count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
+
+				total_challenges = count_user_challenges + count_clean_team_challenges
+
+				if total_challenges > 1:
+					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
+					self.clean_team.complete_level_task(task)
 	
 	@staticmethod
 	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):

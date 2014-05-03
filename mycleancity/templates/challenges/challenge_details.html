@@ -26,7 +26,11 @@
           {% if challenge.national_challenge %}
             <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
           {% endif %}
-        	<h2>{{ challenge.title }}</h2>
+        	<h1 class="bold">{{ challenge.title }}</h1>
+          <div class="clear"></div>
+          {% if challenge.clean_team_only %}
+            <span class="clean-team-only bold"><h2>Clean Teams Only</h2></span>
+          {% endif %}
         	<div class="clear"></div>
 
         	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
@@ -74,25 +78,43 @@
       <div class="clear"></div>
 
 			{% if user.is_authenticated %}
-				{% if user_challenge %}
-					<input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
-				{% else %}
-					<form action="/challenges/participate/" method="post">
-						{% csrf_token %}
-						<input type="hidden" name="cid" value="{{ challenge.id }}">
-						<input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
-					</form>
-				{% endif %}
+        {% if challenge.clean_team_only %}
+  				{% if user.profile.is_clean_ambassador %}
+            {% if user_challenge %}
+              <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+            {% else %}
+              <form action="/challenges/participate/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="cid" value="{{ challenge.id }}">
+                <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate with your Clean Team" />
+              </form>
+            {% endif %}
+          {% else %}
+            <a id="participate-btn" class="btn btn-primary btn-block" href="/clean-team/create-or-request/">Create Clean Team</a>
+          {% endif %}
+        {% else %}
+          {% if user_challenge %}
+            <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+          {% else %}
+            <form action="/challenges/participate/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="cid" value="{{ challenge.id }}">
+              <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
+            </form>
+          {% endif %}
+        {% endif %}
 			{% else %}
 				<a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
 			{% endif %}
 
-        </div><!-- /#white-box -->
+      </div><!-- /#white-box -->
 
-        <div id="participants-box">
-        	<h1>Participants</h1>
-        	<p>Total: {{ count }}</p>
+      <div id="participants-box">
+      	<h1>Participants</h1>
 
+      	<p>Total: {{ count }}</p>
+
+        {% if not challenge.clean_team_only %}
     			{% for participant in participants %}
     				<div class="participants">
     					<a href="/users/profile/{{ participant.user.id }}">
@@ -106,7 +128,23 @@
     					</a>
             </div>
     			{% endfor %}
-        </div>
+        {% else %}
+          {% for participant in participants %}
+            <div class="participants">
+              <a href="/clean-team/{{ participant.clean_team.id }}">
+
+                {% if participant.clean_team.logo %}
+                  <img class="profile-pic" src="{{ MEDIA_URL }}{{ participant.clean_team.logo }}" alt="" />
+                {% else %}
+                  <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                {% endif %}
+                <p>{{ participant.clean_team.name }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+      </div>
     </div><!-- /.container -->
 
     <div class="popup-container">

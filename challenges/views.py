@@ -39,24 +39,10 @@ def survey_update_score(request):
 def participate_in_challenge(request):
 	if request.method == 'POST':
 		cid = request.POST['cid']
+		user = request.user
+
 		challenge = Challenge.objects.get(id=cid)
-		
-		try:
-			user_challenge = UserChallenge.objects.get(user=request.user, challenge=challenge)
-		except Exception, e:
-			user_challenge = UserChallenge(user=request.user)
-			user_challenge.challenge = challenge
-			user_challenge.save()
-
-			print e
-
-		if request.user.profile.has_clean_team():
-			if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
-				count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
-
-				if count_challenges > 1:
-					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
-					self.clean_team.complete_level_task(task)
+		challenge.participate_in_challenge(user)
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -366,16 +352,26 @@ class ChallengeView(TemplateView):
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
 			challenge = get_object_or_404(Challenge, id=cid)
-			
+			user = self.request.user
+
 			context['challenge'] = challenge
 			
-			try:
-				context['user_challenge'] = UserChallenge.objects.get(user=self.request.user, challenge=challenge)
-			except Exception, e:
-				print e
-				pass
-			
-			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+			if challenge.clean_team_only:
+				if user.is_active:
+					if user.profile.is_clean_ambassador():
+						try:
+							context['user_challenge'] = CleanTeamChallenge.objects.get(clean_team=user.profile.clean_team_member.clean_team, challenge=challenge)
+						except Exception, e:
+							print e
+
+				participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (cid))
+			else:
+				try:
+					context['user_challenge'] = UserChallenge.objects.get(user=user, challenge=challenge)
+				except Exception, e:
+					print e
+
+				participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
 
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
