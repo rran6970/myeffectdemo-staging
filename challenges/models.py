@@ -344,6 +344,32 @@ class Challenge(models.Model):
 					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
 					self.clean_team.complete_level_task(task)
 	
+	def is_participating(self, user):
+		if self.clean_team_only:
+			if user.is_active:
+				if user.profile.is_clean_ambassador():
+					try:
+						clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=user.profile.clean_team_member.clean_team, challenge=self)
+						return clean_team_challenge
+					except Exception, e:
+						print e
+						return False
+		else:
+			try:
+				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
+				return user_challenge
+			except Exception, e:
+				print e
+				return False
+
+	def get_participants(self):
+		if self.clean_team_only:
+			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+		else:
+			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
+
+		return participants
+
 	@staticmethod
 	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
 		today = datetime.datetime.now()

@@ -182,6 +182,11 @@
             <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
           {% endif %}
           <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
+
+          {% if challenge.1.clean_team_only %}
+            <span class="clean-team-only"><h2 class="bold">Clean Teams Only</h2></span>
+          {% endif %}
+
           <p class="date-time">
             <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
           </p>

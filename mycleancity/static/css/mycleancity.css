@@ -759,7 +759,9 @@ div.table-container #invitees-table tr td.roles {  }
 
 #clean-team-challenges-list div.challenge { margin: 30px 20px 20px; padding: 20px; border: 1px solid #AAA; position: relative; }
 #clean-team-challenges-list div.challenge h1 { font-size: 18px; }
-#clean-team-challenges-list div.challenge h1 a { font-weight: 900; }
+#clean-team-challenges-list div.challenge h1 a { font-weight: 900; font-size: 26px; }
+#clean-team-challenges-list div.challenge .clean-team-only { }
+#clean-team-challenges-list div.challenge .clean-team-only h2 { font-size: 15px; }
 #clean-team-challenges-list div.challenge p.date-time { display: block; margin-top: 10px; font-weight: bold; }
 #clean-team-challenges-list div.challenge p { margin-top: 10px; }
 #clean-team-challenges-list div.challenge .badge-icon { display: block; position: absolute; top: -21px; right: -32px; z-index: 1000; }

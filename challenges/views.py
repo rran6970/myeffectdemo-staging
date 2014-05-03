@@ -22,6 +22,7 @@ from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
+@login_required
 def survey_update_score(request):
 	if request.is_ajax:
 		aid = request.GET['aid']
@@ -36,6 +37,7 @@ def survey_update_score(request):
 
 	return HttpResponse('')
 
+@login_required
 def participate_in_challenge(request):
 	if request.method == 'POST':
 		cid = request.POST['cid']
@@ -354,25 +356,11 @@ class ChallengeView(TemplateView):
 			challenge = get_object_or_404(Challenge, id=cid)
 			user = self.request.user
 
-			context['challenge'] = challenge
+			user_challenge = challenge.is_participating(user)
+			participants = challenge.get_participants()
 			
-			if challenge.clean_team_only:
-				if user.is_active:
-					if user.profile.is_clean_ambassador():
-						try:
-							context['user_challenge'] = CleanTeamChallenge.objects.get(clean_team=user.profile.clean_team_member.clean_team, challenge=challenge)
-						except Exception, e:
-							print e
-
-				participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (cid))
-			else:
-				try:
-					context['user_challenge'] = UserChallenge.objects.get(user=user, challenge=challenge)
-				except Exception, e:
-					print e
-
-				participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
-
+			context['challenge'] = challenge
+			context['user_challenge'] = user_challenge
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
