@@ -87,8 +87,9 @@ def dropdown_search_for_challenges(request):
 	
 	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
+	clean_team_only = request.GET['clean_team_only']
 
-	challenges = Challenge.search_challenges(query, national_challenges, 10)
+	challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
 	challenges_json = Challenge.search_results_to_json(challenges)
 
 	if challenges_json != "{}":
@@ -102,6 +103,7 @@ class ChallengeCentreView(TemplateView):
 	def get(self, request, *args, **kwargs):
 		query = ""
 		national_challenges = False
+		clean_team_only = False
 		
 		if 'q' in request.GET:
 			query = request.GET['q']
@@ -109,7 +111,10 @@ class ChallengeCentreView(TemplateView):
 		if 'national_challenges' in request.GET:
 			national_challenges = request.GET['national_challenges']
 
-		challenges = Challenge.search_challenges(query, national_challenges)	
+		if 'clean_team_only' in request.GET:
+			clean_team_only = request.GET['clean_team_only']
+
+		challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)	
 
 		return render(request, self.template_name, {'challenges': challenges})
 

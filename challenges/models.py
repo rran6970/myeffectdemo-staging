@@ -1,6 +1,7 @@
 import datetime
 import json
 import math
+import operator
 import qrcode
 import random
 import string
@@ -144,6 +145,8 @@ class Challenge(models.Model):
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
 	token = models.CharField(max_length=20, blank=True)
 	promote_top = models.BooleanField(default=False)
+
+	clean_team_only = models.BooleanField(default=False)
 
 	organization = models.CharField(max_length=60, blank=False, verbose_name="Organization Name")
 	contact_first_name = models.CharField(max_length=60, blank=False, verbose_name="Contact First Name")
@@ -308,25 +311,23 @@ class Challenge(models.Model):
 			print e
 	
 	@staticmethod
-	def search_challenges(query, national_challenges=False, limit=False):
+	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
 		today = datetime.datetime.now()
 
+		predicates = Q(event_end_date__gte=today)
+
 		if national_challenges == "true" or national_challenges == "on":
-			if limit:
-				if not query:
-					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')[:limit]
-				else:
-					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
-			else:
-				if not query:
-					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True)).order_by('-promote_top')
-				else:
-					challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(national_challenge=True), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+			predicates.add(Q(national_challenge=True), predicates.connector)
+
+		if clean_team_only == "true" or clean_team_only == "on":
+			predicates.add(Q(clean_team_only=True), predicates.connector)
+
+		predicates.add(Q(title__icontains=query) | Q(city__icontains=query), predicates.connector)
+
+		if limit:
+			challenges = Challenge.objects.filter(predicates).order_by('-promote_top')[:limit]
 		else:
-			if limit:
-				challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')[:limit]
-			else:
-				challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(title__icontains=query) | Q(city__icontains=query)).order_by('-promote_top')
+			challenges = Challenge.objects.filter(predicates).order_by('-promote_top')
 
 		return challenges
 
@@ -347,7 +348,7 @@ class Challenge(models.Model):
 			if clean_team.logo:
 				logo = "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, clean_team.logo)
 			else:
-				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic-42x42' />" % (settings.STATIC_URL)
+				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
 
 			limit = 22
 
@@ -413,6 +414,27 @@ class UserChallenge(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(UserChallenge, self).save(*args, **kwargs)
+
+"""
+Name:           CleanTeamChallenge
+Date created:   May 2, 2014
+Description:    Will be used to keep track of all of the Clean Teams partcipating 
+				within a challenge.
+"""
+class CleanTeamChallenge(models.Model):
+	challenge = models.ForeignKey(Challenge)
+	clean_team = models.ForeignKey(CleanTeam)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	time_in	= models.DateTimeField(blank=True, null=True)
+	time_out = models.DateTimeField(blank=True, null=True)
+	total_hours = models.IntegerField(default=0)
+	total_clean_creds = models.IntegerField(default=0)
+
+	class Meta:
+		verbose_name_plural = u'Challenges clean teams participated in'
+
+	def save(self, *args, **kwargs):
+		super(CleanTeamChallenge, self).save(*args, **kwargs)
 
 """
 Name:           UserVoucher
