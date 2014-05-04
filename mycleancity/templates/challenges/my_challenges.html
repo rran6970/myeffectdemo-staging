@@ -22,6 +22,7 @@
       	{% if user.profile.is_clean_ambassador %}
         <div id="white-box" class="posted-challenges">
 			<h1>{{ user.profile.clean_team_member.clean_team.name }} Posted <span class="bold green">#Clean</span><span class="bold blue">Acts</span></h1>
+	
 			{% if posted_challenges %}
 				{% for challenge in posted_challenges %}
 					<div class="challenges">
@@ -70,10 +71,13 @@
         </div><!-- /#white-box -->
 		{% endif %}
 
-      <div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
-      	<h1>{{ user.first_name }}'s <span class="bold green">#Clean</span><span class="bold blue">Acts</span></h1>
-
-			  {% if user_challenges %}
+      	<div id="white-box" class="user-challenges" {% if not user.profile.is_clean_ambassador %}style="left: 30%; width: 600px;"{% endif %}>
+	      	<h1>{{ user.first_name }}'s <span class="bold green">#Clean</span><span class="bold blue">Acts</span></h1>
+			
+			<div class="title">
+				<p><span>Total Hours:</span>&nbsp;{{ total_hours }}</span></p>
+			</div>
+			{% if user_challenges %}
 				<div class="table-container">
 					<table class="table table-hover">
 						<thead>
@@ -117,6 +121,41 @@
 								</td>
 							</tr>
 							{% endfor %}
+
+							{% if clean_team_challenges %}
+							{% for challenge in clean_team_challenges %}
+							<tr>
+								<td class="icon">
+									{% if challenge.time_out %}
+									<img title="Challenge is complete" class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+									{% else %}
+										{% if challenge.time_in %}
+										<img title="You are checked in to a challenge"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
+										{% else %}
+										<img title="Challenge not started yet" class="status-icon" src="{{ STATIC_URL }}images/32x32-red-circle.png" alt="" />
+										{% endif %}
+									{% endif %}
+								</td>
+								<td class="challenge">
+									<div class="challenge-info">
+										<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title }}</h1></a>
+
+										{% if challenge.time_in %}
+										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
+										{% else %}
+										<span class="total-hours">Not checked in</span>
+										{% endif %}
+									</div>
+								</td>
+								<td class="total-hours">
+									{{ challenge.total_hours }} hours
+								</td>
+								<td class="total-clean-creds">
+									{{ challenge.total_clean_creds }}
+								</td>
+							</tr>
+							{% endfor %}
+							{% endif %}
 						</tbody>
 					</table><!-- /.table.table-hover -->
 				</div><!-- /.table-container -->
@@ -124,7 +163,7 @@
 			{% else %}
 				<p style="text-align: center;">There are no <span class="bold green">#Clean</span><span class="bold blue">Acts</span> you are partcipating in.</p>
 			{% endif %}
-      </div><!-- /#white-box -->
+      	</div><!-- /#white-box -->
 
     </div><!-- /.container -->
   </div><!-- /.about -->

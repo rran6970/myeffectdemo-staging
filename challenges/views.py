@@ -48,6 +48,7 @@ def participate_in_challenge(request):
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
+# This is only called through the QR Code scanning...I think
 @login_required
 def one_time_check_in(request, cid, token):
 	user = request.user
@@ -60,11 +61,13 @@ def one_time_check_in(request, cid, token):
 @login_required
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:
-		cid = request.POST['cid']
-		uid = request.POST['uid']
+		challenge_id = request.POST['challenge_id']
+		participant_id = request.POST['participant_id']
 
-		challenge = get_object_or_404(Challenge, id=cid)
-		response = challenge.check_in_check_out(uid)
+		challenge = get_object_or_404(Challenge, id=challenge_id)
+		response = challenge.check_in_check_out(participant_id)
+
+		print response
 
 		if response:
 			return HttpResponse(response, content_type="text/html")
@@ -316,7 +319,7 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 			cid = self.kwargs['cid']
 			challenge = get_object_or_404(Challenge, id=cid)
 
-			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+			participants = challenge.get_participants_to_check_in()
 
 			context['participants'] = participants
 			context['cid'] = cid
@@ -330,15 +333,22 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		if self.request.user.profile.is_clean_ambassador():
+		user = self.request.user
+
+		if user.profile.is_clean_ambassador():
 			try:
-				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
+				ctm = CleanTeamMember.objects.get(user=user, role="clean-ambassador", status="approved")
 				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
 			except Exception, e:
 				print e
 
-		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user).order_by("time_in")
-		context['user'] = self.request.user
+			clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
+			context['clean_team_challenges'] = clean_team_challenges
+
+		user_challenges = UserChallenge.objects.filter(user=user).order_by("time_in")
+
+		context['total_hours'] = user.profile.get_total_hours()
+		context['user_challenges'] = user_challenges
 
 		return context
 

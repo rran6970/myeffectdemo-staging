@@ -232,75 +232,103 @@ class Challenge(models.Model):
 		return int(self.clean_creds_per_hour * total_hours)
 
 	def one_time_check_in_with_token(self, user, token):
-		try:
-			userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
-			
-			now = datetime.datetime.utcnow().replace(tzinfo=utc)
-			total_clean_creds = self.clean_creds_per_hour
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		total_clean_creds = self.clean_creds_per_hour
 
-			userchallenge.time_in = now
-			userchallenge.time_out = now
-			userchallenge.total_hours = 0
-			userchallenge.total_clean_creds = total_clean_creds
-			userchallenge.save()
+		if self.clean_team_only:
+			try:
+				participant = user.profile.clean_team_member.clean_team
+				clean_team_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team=participant, challenge=self, time_in__isnull=True)
+					
+				clean_team_challenge.time_in = now
+				clean_team_challenge.time_out = now
+				clean_team_challenge.total_hours = 0
+				clean_team_challenge.total_clean_creds = total_clean_creds
+				clean_team_challenge.save()
 
-			user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
-			
-			# Clean Team posting challenge	
-			self.clean_team.add_team_clean_creds(total_clean_creds)
-		except Exception, e:
-			print e
-	
-	def check_in_check_out(self, uid):
-		try:
-			if self.type.challenge_type == "hourly":
-				userchallenge = UserChallenge.objects.get(user_id=uid, challenge=self)
-				user = userchallenge.user
+				# TODO: Add CleanCreds to CAs and CCs
+				
+				# Clean Team posting challenge	
+				self.clean_team.add_team_clean_creds(total_clean_creds)
+			except Exception, e:
+				print e
+		else:
+			try:
 
-				if not userchallenge.time_in:
-					now = datetime.datetime.utcnow().replace(tzinfo=utc)
-
-					userchallenge.time_in = now
-					userchallenge.save()
-				else:
-					# Get current time and time out time
-					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
-					userchallenge.time_out = now
-
-					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
-					time_in_str = datetime.datetime.strptime(str(userchallenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
-
-					diff = now_str - time_in_str
-					total_hours = (diff.days * 24) + (diff.seconds // 3600)
-
-					total_clean_creds = self.get_challenge_total_clean_creds(total_hours)
-
-					userchallenge.total_hours = total_hours
-					userchallenge.total_clean_creds = total_clean_creds
-					userchallenge.save()
-
-					# Add CleanCreds
-					user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
-
-					# Clean Team posting challenge		
-					self.clean_team.add_team_clean_creds(total_clean_creds)
-
-					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
-			else:
-				userchallenge, created = UserChallenge.objects.get_or_create(user_id=uid, challenge=self, time_in__isnull=True)
-				user = userchallenge.user
-
-				now = datetime.datetime.utcnow().replace(tzinfo=utc)
-				total_clean_creds = self.clean_creds_per_hour
-
+				userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
+					
 				userchallenge.time_in = now
 				userchallenge.time_out = now
 				userchallenge.total_hours = 0
 				userchallenge.total_clean_creds = total_clean_creds
 				userchallenge.save()
 
-				# Add CleanCreds
 				user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
+				
+				# Clean Team posting challenge	
+				self.clean_team.add_team_clean_creds(total_clean_creds)
+			except Exception, e:
+				print e
+	
+	def check_in_check_out(self, participant_id):
+		try:
+			if self.type.challenge_type == "hourly":
+
+				if self.clean_team_only:
+					participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+				else:
+					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+
+				if not participant_challenge.time_in:
+					now = datetime.datetime.utcnow().replace(tzinfo=utc)
+
+					participant_challenge.time_in = now
+					participant_challenge.save()
+				else:
+					# Get current time and time out time
+					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
+					participant_challenge.time_out = now
+
+					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+					time_in_str = datetime.datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+
+					diff = now_str - time_in_str
+					total_hours = (diff.days * 24) + (diff.seconds // 3600)
+
+					total_clean_creds = self.get_challenge_total_clean_creds(total_hours)
+
+					participant_challenge.total_hours = total_hours
+					participant_challenge.total_clean_creds = total_clean_creds
+					participant_challenge.save()
+
+					# Add CleanCreds
+					if hasattr(participant_challenge, 'user'):
+						user = participant_challenge.user
+						user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
+
+					# Clean Team posting challenge		
+					self.clean_team.add_team_clean_creds(total_clean_creds)
+
+					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
+			else:
+				if self.clean_team_only:
+					participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_in__isnull=True)
+				else:
+					participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_in__isnull=True)
+
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				total_clean_creds = self.clean_creds_per_hour
+
+				participant_challenge.time_in = now
+				participant_challenge.time_out = now
+				participant_challenge.total_hours = 0
+				participant_challenge.total_clean_creds = total_clean_creds
+				participant_challenge.save()
+
+				# Add CleanCreds
+				if hasattr(participant_challenge, 'user'):
+					user = participant_challenge.user
+					user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 				
 				# Clean Team posting challenge	
 				self.clean_team.add_team_clean_creds(total_clean_creds)
@@ -369,6 +397,16 @@ class Challenge(models.Model):
 			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
 
 		return participants
+
+	def get_participants_to_check_in(self):
+		if self.clean_team_only:
+			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id, challenge_id, max(time_in) AS time_in FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+
+			return participants
+		else:
+			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
+
+			return participants
 
 	@staticmethod
 	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
