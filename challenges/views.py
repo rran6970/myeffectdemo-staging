@@ -249,6 +249,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		initial['type'] = challenge.type
 		initial['national_challenge'] = challenge.national_challenge
+		initial['clean_team_only'] = challenge.clean_team_only
 		initial['challenge_id'] = challenge.id
 
 		return initial
@@ -286,6 +287,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 			challenge.type = ChallengeType.objects.get(id=1)
 			
 		challenge.national_challenge = form.cleaned_data['national_challenge']
+		challenge.clean_team_only = form.cleaned_data['clean_team_only']
 		challenge.last_updated_by = self.request.user
 		challenge.save()
 

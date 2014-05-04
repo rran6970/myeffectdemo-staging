@@ -176,6 +176,7 @@ class Challenge(models.Model):
 		self.country = form['country']
 		self.description = form['description']
 		self.national_challenge = form['national_challenge']
+		self.clean_team_only = form['clean_team_only']
 		
 		self.organization = form['organization']
 		self.contact_first_name = form['contact_first_name']

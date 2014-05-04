@@ -95,7 +95,8 @@ class NewChallengeForm(forms.Form):
 		self.fields['contact_phone'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
 		self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 		
-		self.fields['national_challenge'] = forms.BooleanField(label="This is a National Challenge", required=False)
+		self.fields['national_challenge'] = forms.BooleanField(label="This is a National CleanAct", required=False)
+		self.fields['clean_team_only'] = forms.BooleanField(label="This is only for Clean Teams", required=False)
 		self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
 		self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
@@ -121,6 +122,7 @@ class NewChallengeForm(forms.Form):
 		contact_email = cleaned_data.get("contact_email")
 
 		national_challenge = cleaned_data.get("national_challenge")
+		clean_team_only = cleaned_data.get("clean_team_only")
 		type = cleaned_data.get("type")
 		challenge_id = cleaned_data.get("challenge_id")
 
