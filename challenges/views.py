@@ -44,7 +44,14 @@ def participate_in_challenge(request):
 		user = request.user
 
 		challenge = Challenge.objects.get(id=cid)
-		challenge.participate_in_challenge(user)
+
+		if 'staples_store' in request.POST:
+			staples_store = request.POST['staples_store']
+			staples_store = StaplesStores.objects.get(id=staples_store)
+
+			challenge.participate_in_challenge(user, staples_store)
+		else:	
+			challenge.participate_in_challenge(user)
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -361,20 +368,32 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 class ChallengeView(TemplateView):
 	template_name = "challenges/challenge_details.html"	
 
-	def get_object(self):
-		return get_object_or_404(User, pk=self.request.user.id)
-
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeView, self).get_context_data(**kwargs)
 
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
-			challenge = get_object_or_404(Challenge, id=cid)
+			challenge = get_object_or_404(Challenge, Q(url=cid) | Q(id=cid))
 			user = self.request.user
 
 			user_challenge = challenge.is_participating(user)
 			participants = challenge.get_participants()
 			
+			# Only for the Staples CleanAct, have to find a more efficient way
+			if challenge.url == "staples-cleanact":
+				# staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False)
+				staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
+
+				for s in staples_challenge:
+					print s
+
+				staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge)
+
+				for store in staples_stores:
+					print store
+
+				context['staples_stores'] = staples_stores
+
 			context['challenge'] = challenge
 			context['user_challenge'] = user_challenge
 			context['count'] = sum(1 for participant in participants)
@@ -382,4 +401,5 @@ class ChallengeView(TemplateView):
 			context['page_url'] = self.request.get_full_path()
 
 		context['user'] = self.request.user
+
 		return context

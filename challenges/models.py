@@ -145,6 +145,7 @@ class Challenge(models.Model):
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
 	token = models.CharField(max_length=20, blank=True)
 	promote_top = models.BooleanField(default=False)
+	url = models.CharField(max_length=60, blank=True, null=True, unique=True, verbose_name="URL")
 
 	clean_team_only = models.BooleanField(default=False)
 
@@ -366,7 +367,8 @@ class Challenge(models.Model):
 		except Exception, e:
 			print e
 
-	def participate_in_challenge(self, user):
+	# Have to remove staples_store parameter only there for the Staples CleanAct
+	def participate_in_challenge(self, user, staples_store=None):
 		if self.clean_team_only:
 			if user.profile.is_clean_ambassador():
 				clean_team = user.profile.clean_team_member.clean_team
@@ -379,6 +381,14 @@ class Challenge(models.Model):
 					clean_team_challenge.save()
 
 					print e
+
+				# Staples CleanAct stuff
+				if self.url == "staples-cleanact":
+					staples_challenge = StaplesChallenge()
+					staples_challenge.challenge = self
+					staples_challenge.clean_team = clean_team
+					staples_challenge.staples_store = staples_store
+					staples_challenge.save()
 		else:
 			try:
 				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
@@ -561,6 +571,52 @@ class CleanTeamChallenge(models.Model):
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamChallenge, self).save(*args, **kwargs)
+
+"""
+Name:           StaplesStores
+Date created:   May 4, 2014
+Description:    
+"""
+
+class StaplesStores(models.Model):
+	store_no = models.IntegerField(default=0, unique=True)
+	district = models.IntegerField(default=0)
+	store_name = models.CharField(max_length=60, blank=False, verbose_name="Store Name")
+	address = models.CharField(max_length=60, blank=False, verbose_name="Store Address")
+	city = models.CharField(max_length=60, blank=False, verbose_name="City")
+	province = models.CharField(max_length=60, blank=False, verbose_name="Province")
+	postal_code = models.CharField(max_length=60, blank=False, verbose_name="Postal Code")
+	telephone = models.CharField(max_length=60, blank=False, verbose_name="Telephone")
+	fax = models.CharField(max_length=60, blank=False, verbose_name="Fax")
+	gm = models.CharField(max_length=60, blank=False, verbose_name="General Manager")
+
+	def __unicode__(self):
+		return u'Staples: %s at %s' % (self.store_no, self.store_name)
+
+	class Meta:
+		verbose_name_plural = u'Staples Stores'
+
+	def save(self, *args, **kwargs):
+		super(StaplesStores, self).save(*args, **kwargs)
+
+"""
+Name:           StaplesChallenge
+Date created:   May 4, 2014
+Description:    
+"""
+class StaplesChallenge(models.Model):
+	challenge = models.ForeignKey(Challenge, null=True, blank=True)
+	clean_team = models.ForeignKey(CleanTeam, null=True, blank=True)
+	staples_store = models.ForeignKey(StaplesStores, null=True, blank=True)
+
+	def __unicode__(self):
+		return u'%s selected %s' % (self.clean_team, self.staples_store)
+
+	class Meta:
+		verbose_name_plural = u'Staples Challenge Entries'
+
+	def save(self, *args, **kwargs):
+		super(StaplesChallenge, self).save(*args, **kwargs)
 
 """
 Name:           UserVoucher
