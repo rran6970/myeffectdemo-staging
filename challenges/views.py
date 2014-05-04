@@ -65,9 +65,13 @@ def check_in_check_out(request):
 		participant_id = request.POST['participant_id']
 
 		challenge = get_object_or_404(Challenge, id=challenge_id)
-		response = challenge.check_in_check_out(participant_id)
 
-		print response
+		if 'manual_clean_creds' in request.POST and 'manual_hours' in request.POST:
+			manual_clean_creds = int(request.POST['manual_clean_creds'])
+			manual_hours = int(request.POST['manual_hours'])
+			response = challenge.check_in_check_out(participant_id, manual_clean_creds, manual_hours)
+		else:
+			response = challenge.check_in_check_out(participant_id)
 
 		if response:
 			return HttpResponse(response, content_type="text/html")

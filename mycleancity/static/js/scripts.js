@@ -1,6 +1,9 @@
 $(function(){  
     $(".btn").button();
 
+    // Number field validator mask
+    // $(".number-field").inputmask("9{3}");
+
     // Phone number vaidator mask
     $(".phone-number").inputmask("9{1,3}-9{1,3}-9{1,4}");
 
@@ -419,6 +422,11 @@ function ajaxCheckInCheckOut(e)
             {
                 btn.val("Check Out");
                 btn.addClass("dark");
+            }
+            else if (btn.val() == "Add")
+            {
+                btn.before(data);
+                btn.hide();
             }
             else
             {

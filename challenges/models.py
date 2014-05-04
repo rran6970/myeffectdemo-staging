@@ -254,7 +254,6 @@ class Challenge(models.Model):
 				print e
 		else:
 			try:
-
 				userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
 					
 				userchallenge.time_in = now
@@ -270,7 +269,7 @@ class Challenge(models.Model):
 			except Exception, e:
 				print e
 	
-	def check_in_check_out(self, participant_id):
+	def check_in_check_out(self, participant_id, manual_clean_creds=0, manual_hours=0):
 		try:
 			if self.type.challenge_type == "hourly":
 
@@ -310,7 +309,35 @@ class Challenge(models.Model):
 					self.clean_team.add_team_clean_creds(total_clean_creds)
 
 					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
+			
+			elif self.type.challenge_type == "manual":
+
+				if self.clean_team_only:
+					participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+				else:
+					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				# total_clean_creds = self.clean_creds_per_hour
+
+				participant_challenge.time_in = now
+				participant_challenge.time_out = now
+				participant_challenge.total_hours = manual_hours
+				participant_challenge.total_clean_creds = manual_clean_creds
+				participant_challenge.save()
+
+				# Add CleanCreds
+				if hasattr(participant_challenge, 'user'):
+					user = participant_challenge.user
+					user.profile.add_clean_creds_to_individual_and_teams(manual_clean_creds)
+				
+				# Clean Team posting challenge	
+				self.clean_team.add_team_clean_creds(manual_clean_creds)
+
+				return "Confirmed"
+			
 			else:
+
 				if self.clean_team_only:
 					participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_in__isnull=True)
 				else:
