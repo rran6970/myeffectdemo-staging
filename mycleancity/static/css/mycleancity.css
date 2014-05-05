@@ -53,6 +53,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #E4E4E4; }
 #search-container .search-result-dropdown ul li a div {  }
 #search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; position: relative; }
+#search-container .search-result-dropdown ul li a:hover { background-color: #ECFFDF; }
 #search-container .search-result-dropdown #view-all-challenges { text-align: center; margin-top: 10px; padding: 10px 10px 0; font-size: 12px; }
 #search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 179px; width: 50px; }
 
@@ -665,7 +666,7 @@ div.content.challenge-overview #participants-box div.participants a img { float:
 div.content.challenge-overview #participants-box .participants-list { margin: 10px; }
 div.content.challenge-overview #participants-box .participants-list li a { display: block; margin: 10px 0; }
 div.content.challenge-overview #participants-box .participants-list li a span {  }
-div.content.challenge-overview #participants-box .participants-list li a img { border-radius: 4px; width: 42px; height: 42px; }
+div.content.challenge-overview #participants-box .participants-list li a img { margin-right: 10px; border-radius: 4px; width: 42px; height: 42px; }
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
@@ -769,8 +770,10 @@ div.table-container #invitees-table tr td.roles {  }
 #clean-team-members-list.popup { width: 100%; left: 35%; }
 
 #clean-team-members-list { width: 240px; left: 35%; }
-#clean-team-members-list p { font-size: 14px; }
-#clean-team-members-list p #badge-icon { width: 62px; }
+#clean-team-members-list ul {  }
+#clean-team-members-list ul li { font-size: 14px; margin: 10px; }
+#clean-team-members-list ul li .profile-pic { height: 42px; width: 42px; }
+#clean-team-members-list ul li .badge-icon { width: 62px; }
 
 #clean-team-challenges-list div.challenge { margin: 30px 20px 20px; padding: 20px; border: 1px solid #AAA; position: relative; }
 #clean-team-challenges-list div.challenge h1 { font-size: 18px; }

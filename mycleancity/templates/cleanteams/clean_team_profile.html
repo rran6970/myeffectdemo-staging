@@ -216,30 +216,44 @@
 
   <div id="clean-team-members-list" class="popup">
     <!-- Clean Ambassadors -->
+    <ul>
     {% for member in cas %}
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
-          <p>
+          <li>
           {% if member.role == "clean-ambassador" %}
-            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            {% if member.user.profile.picture %}
+              <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
+            {% else %}
+              <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+            {% endif %}
             <a href="/users/profile/{{ member.user.id }}">{{ member.user.first_name }} {{ member.user.last_name }}</a>
           {% endif %}
-        </p>
+        </li>
         {% endif %}
       {% endif %}
     {% endfor %}
+    </ul>
 
     <!-- Clean Champions -->
+    <ul>
     {% for member in ccs %}
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
-          <p>          
-            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+          <li>        
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+            {% if member.user.profile.picture %}
+              <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
+            {% else %}
+              <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+            {% endif %}
             <a href="/users/profile/{{ member.user.id }}">{{ member.user.first_name }} {{ member.user.last_name }}</
-          </p>
+          </li>
         {% endif %}
       {% endif %}
     {% endfor %}
+    </ul>
   </div><!-- end of #clean-team-members-list -->
 </div>
 {% include "_footer_navbar.html" %}
