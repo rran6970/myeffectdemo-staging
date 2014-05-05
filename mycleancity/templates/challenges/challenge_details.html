@@ -28,6 +28,14 @@
           {% endif %}
         	<h1 class="bold">{{ challenge.title }}</h1>
           <div class="clear"></div>
+            
+          {% if error %}
+            <div class="message-box error">
+             <p>{{ error }}</p>
+            </div>
+          {% endif %}
+
+          <div class="clear"></div>
           {% if challenge.clean_team_only %}
             <span class="clean-team-only bold"><h2>Clean Teams Only</h2></span>
           {% endif %}
@@ -80,6 +88,14 @@
           {% if challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
               {% if user_challenge %}
+                {% if participating_store %}
+                  <h2>Participating with</h2>
+                  <div class="clear"></div>
+                  <p>Store {{ participating_store.staples_store.store_no }} - {{ participating_store.staples_store.store_name }}
+                    <br>
+                  {{ participating_store.staples_store.address }} {{ participating_store.staples_store.city }}
+                  </p>
+                {% endif %}
                 <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
               {% else %}
                 <form action="/challenges/participate/" method="post">

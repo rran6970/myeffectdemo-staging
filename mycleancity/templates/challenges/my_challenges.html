@@ -53,8 +53,6 @@
 								<p><span>Ends:</span>&nbsp;{{ challenge.event_end_date }} at {{ challenge.event_end_time }}</span></p>
 							</div>
 
-
-
 							<div class="title">
 								<p><span>Location:</span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</p>
 							</div>
@@ -105,7 +103,6 @@
 								<td class="challenge">
 									<div class="challenge-info">
 										<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title }}</h1></a>
-
 										{% if challenge.time_in %}
 										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
 										{% else %}
@@ -139,11 +136,19 @@
 								<td class="challenge">
 									<div class="challenge-info">
 										<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title }}</h1></a>
-
-										{% if challenge.time_in %}
-										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
+												
+										{% if challenge.challenge.url == "staples-cleanact" %}
+											<span>
+												Store {{ staples_challenge.staples_store.store_no }} - {{ staples_challenge.staples_store.store_name }}
+                    							<br/>
+                  								{{ staples_challenge.staples_store.address }} {{ staples_challenge.staples_store.city }}
+											</span>
 										{% else %}
-										<span class="total-hours">Not checked in</span>
+											{% if challenge.time_in %}
+											<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
+											{% else %}
+											<span class="total-hours">Not checked in</span>
+											{% endif %}
 										{% endif %}
 									</div>
 								</td>

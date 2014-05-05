@@ -49,7 +49,10 @@ def participate_in_challenge(request):
 			staples_store = request.POST['staples_store']
 			staples_store = StaplesStores.objects.get(id=staples_store)
 
-			challenge.participate_in_challenge(user, staples_store)
+			participate = challenge.participate_in_challenge(user, staples_store)
+
+			if not participate:
+				return HttpResponseRedirect('/challenges/%s/?error=store_taken' % str(cid))
 		else:	
 			challenge.participate_in_challenge(user)
 
@@ -350,7 +353,6 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
-
 		user = self.request.user
 
 		if user.profile.is_clean_ambassador():
@@ -363,6 +365,13 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 			clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
 			context['clean_team_challenges'] = clean_team_challenges
 
+			try:
+				staples_challenge = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+				print staples_challenge
+				context['staples_challenge'] = staples_challenge
+			except Exception, e:
+				print e
+		
 		user_challenges = UserChallenge.objects.filter(user=user).order_by("time_in")
 
 		context['total_hours'] = user.profile.get_total_hours()
@@ -381,13 +390,19 @@ class ChallengeView(TemplateView):
 			challenge = get_object_or_404(Challenge, Q(url=cid) | Q(id=cid))
 			user = self.request.user
 
-			user_challenge = challenge.is_participating(user)
+			if 'error' in self.request.GET:
+				context['error'] = "That store is already taken, please select another."
+
+			user_challenge = challenge.get_participating_challenge(user)
 			participants = challenge.get_participants()
 			
 			# Only for the Staples CleanAct, have to find a more efficient way
 			if challenge.url == "staples-cleanact":	
-				staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
-				staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge)
+				staples_challenge_participants = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
+				staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge_participants)
+
+				if user_challenge:
+					context['participating_store'] = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
 
 				context['staples_stores'] = staples_stores
 
