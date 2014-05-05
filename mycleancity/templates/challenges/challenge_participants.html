@@ -29,13 +29,22 @@
 					{% for participant in participants %}
 						<tr>
 							<td class="name">
+								{% if challenge.clean_team_only %}
+								<a href="/clean-team/{{ participant.clean_team.id }}">{{ participant.clean_team.name }}</a>
+								{% else %}
 								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								{% endif %}
 							</td>
 							<td class="participated">
 								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
 									{% csrf_token %}
-									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
-									<input type="hidden" name="cid" value="{{ cid }}">
+									{% if challenge.clean_team_only %}
+									<input type="hidden" name="participant_id" value="{{ participant.clean_team.id }}" />
+									{% else %}
+									<input type="hidden" name="participant_id" value="{{ participant.user.id }}" />
+									{% endif %}
+
+									<input type="hidden" name="challenge_id" value="{{ cid }}">
 									{% if participant.time_in %}
 										{% if participant.time_out %}
 											{{ participant.total_hours }} Hours<br/>
@@ -50,7 +59,49 @@
 							</td>
 						</tr>
 					{% endfor %}
-				{% else %}
+				{% endif %}
+
+				{% if challenge.type.challenge_type == "manual" %}
+					{% for participant in participants %}
+						<tr>
+							<td class="name">
+								{% if challenge.clean_team_only %}
+								<a href="/clean-team/{{ participant.clean_team.id }}">{{ participant.clean_team.name }}</a>
+								{% else %}
+								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								{% endif %}
+							</td>
+							<td class="participated">
+								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
+									{% csrf_token %}
+									{% if challenge.clean_team_only %}
+									<input type="hidden" name="participant_id" value="{{ participant.clean_team.id }}" />
+									{% else %}
+									<input type="hidden" name="participant_id" value="{{ participant.user.id }}" />
+									{% endif %}
+
+									<input type="hidden" name="challenge_id" value="{{ cid }}">
+
+
+									<div class="clean-cred-adding">
+										<input type="text" class="number-field" id="add-hours-text" name="manual_hours" value="{% if participant.time_out %}{{ participant.total_hours }}{% endif %}" />
+										<span>Total Hours</span>
+									
+										<div class="clear"></div>
+									
+										<input type="text" class="number-field" id="add-clean-creds-text" name="manual_clean_creds" placeholder="" value="{% if participant.time_out %}{{ participant.total_clean_creds }}{% endif %}" />
+										<span><span class="bold green">#Clean</span><span class="bold blue">Acts</span></span>
+									
+										<div class="clear"></div>
+										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Add" />
+									</div>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+
+				{% if challenge.type.challenge_type == "one-time" %}
 					{% for participant in participants %}
 						<tr>
 							<td class="name">
@@ -60,14 +111,13 @@
 							<td class="participated">
 								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
 									{% csrf_token %}
-									<input type="hidden" name="uid" value="{{ participant.user.id }}" />
-									<input type="hidden" name="cid" value="{{ cid }}">
-									
-									<!-- {% if participant.time_out %}
-										Confirmed
+									{% if challenge.clean_team_only %}
+									<input type="hidden" name="participant_id" value="{{ participant.clean_team.id }}" />
 									{% else %}
-										<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
-									{% endif %} -->
+									<input type="hidden" name="participant_id" value="{{ participant.user.id }}" />
+									{% endif %}
+
+									<input type="hidden" name="challenge_id" value="{{ cid }}">
 									<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />
 								</form>
 							</td>

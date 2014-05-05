@@ -1,6 +1,9 @@
 $(function(){  
     $(".btn").button();
 
+    // Number field validator mask
+    // $(".number-field").inputmask("9{3}");
+
     // Phone number vaidator mask
     $(".phone-number").inputmask("9{1,3}-9{1,3}-9{1,4}");
 
@@ -14,6 +17,11 @@ $(function(){
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
     })
+
+    // Prevents selecting of checkbox to close search dropdown
+    $("input[type='checkbox']").on("click", function(){
+        return;
+    });
 
 	$(".dropdown-toggle").dropdown();
 	$(".timepicker").timepicker({
@@ -87,6 +95,9 @@ $(function(){
             }, 500));
     });
     $("#national-challenge-checkbox").on("click", function(e){
+        showSearchResults(e, search_box);
+    });
+    $("#clean-team-only-checkbox").on("click", function(e){
         showSearchResults(e, search_box);
     });
     
@@ -164,19 +175,32 @@ function showSearchResults(e, search_box)
     var search_result_list = $(".search-result-dropdown ul");
     var value = search_box.val();
     var national_challenges = $("#national-challenge-checkbox").is(':checked');
+    var clean_team_only = $("#clean-team-only-checkbox").is(':checked');
 
-    var challenge_url = '/challenges/?q=';
-    $("#view-all-challenges").attr('href', challenge_url + value);
-    $("#search-form").attr('action', challenge_url + value);
+    var challenge_url = '/challenges/?q=' + value;
 
-    if(value || national_challenges == true)
+    if (national_challenges != "")
+    {
+        challenge_url += '&national_challenges=on';
+    }
+
+    if (clean_team_only != "")
+    {
+        challenge_url += '&clean_team_only=on';
+    }
+
+    $("#view-all-challenges").attr('href', challenge_url);
+    $("#search-form").attr('action', challenge_url);
+
+    if(value || national_challenges == true || clean_team_only == true)
     {
         $.ajax({
             type: 'GET',
             url: '/challenges/search/',
             data: { 
                 'q': value,
-                'national_challenges': national_challenges
+                'national_challenges': national_challenges,
+                'clean_team_only': clean_team_only
             },
             beforeSend: function()
             {
@@ -398,6 +422,11 @@ function ajaxCheckInCheckOut(e)
             {
                 btn.val("Check Out");
                 btn.addClass("dark");
+            }
+            else if (btn.val() == "Add")
+            {
+                btn.before(data);
+                btn.hide();
             }
             else
             {
