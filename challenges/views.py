@@ -331,6 +331,11 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
 			challenge = get_object_or_404(Challenge, id=cid)
+			user = self.request.user
+
+			if challenge.clean_team != user.profile.clean_team_member.clean_team:
+				context = None
+				return context
 
 			participants = challenge.get_participants_to_check_in()
 
@@ -380,17 +385,9 @@ class ChallengeView(TemplateView):
 			participants = challenge.get_participants()
 			
 			# Only for the Staples CleanAct, have to find a more efficient way
-			if challenge.url == "staples-cleanact":
-				# staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False)
+			if challenge.url == "staples-cleanact":	
 				staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
-
-				for s in staples_challenge:
-					print s
-
 				staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge)
-
-				for store in staples_stores:
-					print store
 
 				context['staples_stores'] = staples_stores
 
@@ -399,7 +396,5 @@ class ChallengeView(TemplateView):
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
-
-		context['user'] = self.request.user
 
 		return context
