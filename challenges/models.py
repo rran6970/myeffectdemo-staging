@@ -373,6 +373,18 @@ class Challenge(models.Model):
 			if user.profile.is_clean_ambassador():
 				clean_team = user.profile.clean_team_member.clean_team
 
+				# Staples CleanAct stuff
+				if self.url == "staples-cleanact":
+					try:
+						staples_challenge = StaplesChallenge.objects.get(staples_store=staples_store)
+						return False
+					except Exception, e:
+						staples_challenge = StaplesChallenge()
+						staples_challenge.challenge = self
+						staples_challenge.clean_team = clean_team
+						staples_challenge.staples_store = staples_store
+						staples_challenge.save()
+
 				try:
 					clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=clean_team, challenge=self)
 				except Exception, e:
@@ -380,15 +392,7 @@ class Challenge(models.Model):
 					clean_team_challenge.challenge = self
 					clean_team_challenge.save()
 
-					print e
-
-				# Staples CleanAct stuff
-				if self.url == "staples-cleanact":
-					staples_challenge = StaplesChallenge()
-					staples_challenge.challenge = self
-					staples_challenge.clean_team = clean_team
-					staples_challenge.staples_store = staples_store
-					staples_challenge.save()
+					print e				
 		else:
 			try:
 				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
@@ -409,8 +413,10 @@ class Challenge(models.Model):
 				if total_challenges > 1:
 					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
 					self.clean_team.complete_level_task(task)
+		
+		return True
 	
-	def is_participating(self, user):
+	def get_participating_challenge(self, user):
 		if self.clean_team_only:
 			if user.is_active:
 				if user.profile.is_clean_ambassador():
@@ -577,7 +583,6 @@ Name:           StaplesStores
 Date created:   May 4, 2014
 Description:    
 """
-
 class StaplesStores(models.Model):
 	store_no = models.IntegerField(default=0, unique=True)
 	district = models.IntegerField(default=0)
@@ -614,6 +619,12 @@ class StaplesChallenge(models.Model):
 
 	class Meta:
 		verbose_name_plural = u'Staples Challenge Entries'
+
+	@staticmethod
+	def get_participating_store(clean_team):
+		staples_challenge = StaplesChallenge.objects.get(clean_team=clean_team)
+
+		return staples_challenge
 
 	def save(self, *args, **kwargs):
 		super(StaplesChallenge, self).save(*args, **kwargs)
