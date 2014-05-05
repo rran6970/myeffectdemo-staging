@@ -134,7 +134,7 @@
     "link": "/challenges/new-challenge/", 
     "name": "5_challenges", 
     "clean_team_level": 3, 
-    "description": "Create 5 Challenges"
+    "description": "Create 5 CleanActs"
   }
 },
 {
@@ -208,6 +208,15 @@
     "challenge_type": "one-time", 
     "name": "One Time CleanCreds", 
     "description": "One time scan in via QR code"
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.challengetype", 
+  "fields": {
+    "challenge_type": "manual", 
+    "name": "Manual CleanCreds", 
+    "description": "Manually add CleanCreds"
   }
 },
 {

@@ -6,7 +6,7 @@ from mycleancity.actions import export_as_csv_action
 from users.models import *
 
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'clean_team', 'title', 'timestamp', 'event_start_date', 'event_start_time', 'clean_creds_per_hour', 'national_challenge', 'promote_top')
+    list_display = ('id', 'user', 'clean_team', 'title', 'timestamp', 'event_start_date', 'event_start_time', 'clean_creds_per_hour', 'national_challenge', 'promote_top', 'clean_team_only', 'url')
     search_fields = ['title', 'user__id', 'user__first_name', 'user__last_name', 'user__organization']
     actions = [export_as_csv_action("CSV Export")]
 
@@ -15,6 +15,11 @@ class ChallengeQRCodeAdmin(admin.ModelAdmin):
 
 class UserChallengeAdmin(admin.ModelAdmin):
     list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours', 'total_clean_creds')
+    search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
+    actions = [export_as_csv_action("CSV Export")]
+
+class CleanTeamChallengeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'challenge', 'clean_team', 'timestamp', 'time_in', 'time_out', 'total_hours', 'total_clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
     actions = [export_as_csv_action("CSV Export")]
 
@@ -55,6 +60,7 @@ class UserChallengeSurveyAnswersAdmin(admin.ModelAdmin):
 
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(ChallengeQRCode, ChallengeQRCodeAdmin)
+admin.site.register(CleanTeamChallenge, CleanTeamChallengeAdmin)
 admin.site.register(UserChallenge, UserChallengeAdmin)
 admin.site.register(UserVoucher, UserVoucherAdmin)
 admin.site.register(CleanGrid, CleanGridAdmin)

@@ -22,6 +22,7 @@ from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
+@login_required
 def survey_update_score(request):
 	if request.is_ajax:
 		aid = request.GET['aid']
@@ -36,30 +37,25 @@ def survey_update_score(request):
 
 	return HttpResponse('')
 
+@login_required
 def participate_in_challenge(request):
 	if request.method == 'POST':
 		cid = request.POST['cid']
+		user = request.user
+
 		challenge = Challenge.objects.get(id=cid)
-		
-		try:
-			user_challenge = UserChallenge.objects.get(user=request.user, challenge=challenge)
-		except Exception, e:
-			user_challenge = UserChallenge(user=request.user)
-			user_challenge.challenge = challenge
-			user_challenge.save()
 
-			print e
+		if 'staples_store' in request.POST:
+			staples_store = request.POST['staples_store']
+			staples_store = StaplesStores.objects.get(id=staples_store)
 
-		if request.user.profile.has_clean_team():
-			if request.user.profile.clean_team_member.clean_team.level.name == "Tree":
-				count_challenges = UserChallenge.objects.filter(user=request.user, challenge__national_challenge=True).count()
-
-				if count_challenges > 1:
-					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
-					self.clean_team.complete_level_task(task)
+			challenge.participate_in_challenge(user, staples_store)
+		else:	
+			challenge.participate_in_challenge(user)
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
+# This is only called through the QR Code scanning...I think
 @login_required
 def one_time_check_in(request, cid, token):
 	user = request.user
@@ -72,11 +68,17 @@ def one_time_check_in(request, cid, token):
 @login_required
 def check_in_check_out(request):
 	if request.method == "POST" and request.is_ajax:
-		cid = request.POST['cid']
-		uid = request.POST['uid']
+		challenge_id = request.POST['challenge_id']
+		participant_id = request.POST['participant_id']
 
-		challenge = get_object_or_404(Challenge, id=cid)
-		response = challenge.check_in_check_out(uid)
+		challenge = get_object_or_404(Challenge, id=challenge_id)
+
+		if 'manual_clean_creds' in request.POST and 'manual_hours' in request.POST:
+			manual_clean_creds = int(request.POST['manual_clean_creds'])
+			manual_hours = int(request.POST['manual_hours'])
+			response = challenge.check_in_check_out(participant_id, manual_clean_creds, manual_hours)
+		else:
+			response = challenge.check_in_check_out(participant_id)
 
 		if response:
 			return HttpResponse(response, content_type="text/html")
@@ -87,8 +89,9 @@ def dropdown_search_for_challenges(request):
 	
 	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
+	clean_team_only = request.GET['clean_team_only']
 
-	challenges = Challenge.search_challenges(query, national_challenges, 10)
+	challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
 	challenges_json = Challenge.search_results_to_json(challenges)
 
 	if challenges_json != "{}":
@@ -102,6 +105,7 @@ class ChallengeCentreView(TemplateView):
 	def get(self, request, *args, **kwargs):
 		query = ""
 		national_challenges = False
+		clean_team_only = False
 		
 		if 'q' in request.GET:
 			query = request.GET['q']
@@ -109,7 +113,10 @@ class ChallengeCentreView(TemplateView):
 		if 'national_challenges' in request.GET:
 			national_challenges = request.GET['national_challenges']
 
-		challenges = Challenge.search_challenges(query, national_challenges)	
+		if 'clean_team_only' in request.GET:
+			clean_team_only = request.GET['clean_team_only']
+
+		challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)	
 
 		return render(request, self.template_name, {'challenges': challenges})
 
@@ -249,6 +256,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
 		initial['type'] = challenge.type
 		initial['national_challenge'] = challenge.national_challenge
+		initial['clean_team_only'] = challenge.clean_team_only
 		initial['challenge_id'] = challenge.id
 
 		return initial
@@ -286,6 +294,7 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 			challenge.type = ChallengeType.objects.get(id=1)
 			
 		challenge.national_challenge = form.cleaned_data['national_challenge']
+		challenge.clean_team_only = form.cleaned_data['clean_team_only']
 		challenge.last_updated_by = self.request.user
 		challenge.save()
 
@@ -322,8 +331,13 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
 			challenge = get_object_or_404(Challenge, id=cid)
+			user = self.request.user
 
-			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+			if challenge.clean_team != user.profile.clean_team_member.clean_team:
+				context = None
+				return context
+
+			participants = challenge.get_participants_to_check_in()
 
 			context['participants'] = participants
 			context['cid'] = cid
@@ -337,44 +351,50 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(MyChallengesView, self).get_context_data(**kwargs)
 
-		if self.request.user.profile.is_clean_ambassador():
+		user = self.request.user
+
+		if user.profile.is_clean_ambassador():
 			try:
-				ctm = CleanTeamMember.objects.get(user=self.request.user, role="clean-ambassador", status="approved")
+				ctm = CleanTeamMember.objects.get(user=user, role="clean-ambassador", status="approved")
 				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
 			except Exception, e:
 				print e
 
-		context['user_challenges'] = UserChallenge.objects.filter(user=self.request.user).order_by("time_in")
-		context['user'] = self.request.user
+			clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
+			context['clean_team_challenges'] = clean_team_challenges
+
+		user_challenges = UserChallenge.objects.filter(user=user).order_by("time_in")
+
+		context['total_hours'] = user.profile.get_total_hours()
+		context['user_challenges'] = user_challenges
 
 		return context
 
 class ChallengeView(TemplateView):
 	template_name = "challenges/challenge_details.html"	
 
-	def get_object(self):
-		return get_object_or_404(User, pk=self.request.user.id)
-
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeView, self).get_context_data(**kwargs)
 
 		if 'cid' in self.kwargs:
 			cid = self.kwargs['cid']
-			challenge = get_object_or_404(Challenge, id=cid)
-			
-			context['challenge'] = challenge
-			
-			try:
-				context['user_challenge'] = UserChallenge.objects.get(user=self.request.user, challenge=challenge)
-			except Exception, e:
-				print e
-				pass
-			
-			participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+			challenge = get_object_or_404(Challenge, Q(url=cid) | Q(id=cid))
+			user = self.request.user
 
+			user_challenge = challenge.is_participating(user)
+			participants = challenge.get_participants()
+			
+			# Only for the Staples CleanAct, have to find a more efficient way
+			if challenge.url == "staples-cleanact":	
+				staples_challenge = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
+				staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge)
+
+				context['staples_stores'] = staples_stores
+
+			context['challenge'] = challenge
+			context['user_challenge'] = user_challenge
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
 
-		context['user'] = self.request.user
 		return context
