@@ -23,6 +23,16 @@ class CleanTeamChallengeAdmin(admin.ModelAdmin):
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
     actions = [export_as_csv_action("CSV Export")]
 
+class StaplesStoresAdmin(admin.ModelAdmin):
+    list_display = ('id', 'store_no', 'district', 'store_name', 'gm')
+    search_fields = ['store_no', 'district', 'store_name']
+    actions = [export_as_csv_action("CSV Export")]
+
+class StaplesChallengeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'challenge', 'clean_team', 'staples_store')
+    search_fields = ['challenge', 'clean_team']
+    actions = [export_as_csv_action("CSV Export")]
+
 class UserVoucherAdmin(admin.ModelAdmin):
     list_display = ('id', 'voucher', 'user', 'challenge', 'clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'voucher']
@@ -59,6 +69,8 @@ class UserChallengeSurveyAnswersAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 admin.site.register(Challenge, ChallengeAdmin)
+admin.site.register(StaplesStores, StaplesStoresAdmin)
+admin.site.register(StaplesChallenge, StaplesChallengeAdmin)
 admin.site.register(ChallengeQRCode, ChallengeQRCodeAdmin)
 admin.site.register(CleanTeamChallenge, CleanTeamChallengeAdmin)
 admin.site.register(UserChallenge, UserChallengeAdmin)
