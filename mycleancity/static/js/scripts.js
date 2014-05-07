@@ -23,6 +23,13 @@ $(function(){
         return;
     });
 
+    $("[data-toggle='tab']").on("click", function(){
+        var link = $(this);
+        var url = link.attr("href");
+
+        window.history.pushState("string", "Title", url);
+    });
+
 	$(".dropdown-toggle").dropdown();
 	$(".timepicker").timepicker({
         'defaultTime': false,
