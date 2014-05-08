@@ -229,8 +229,7 @@ def get_user_profile(request):
 	total_hours = user_profile.get_total_hours()
 
 	role = ""
-	cleanteamname = ""
-	cleanteamid = ""
+	clean_team_name = ""
 
 	try:
 		role_array = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
@@ -244,11 +243,9 @@ def get_user_profile(request):
 			role = "individual"
 		
 	try:
-		cleanteamid = user.cleanteammember_set.values_list('clean_team_id', flat=True).get()
-		cleanteamArray = CleanTeam.objects.get(id=cleanteamid)
-		cleanteamname = cleanteamArray.name
+		clean_team_name = user.cleanteammember.clean_team.name
 	except Exception, e:
-		cleanteamname = ""
+		clean_team_name = ""
 
 	picture = unicode(user_profile.picture)
 	
@@ -263,11 +260,11 @@ def get_user_profile(request):
 		'school':user_profile.school_type,
 		'about':user_profile.about,
 		'role':role,
-		'team':cleanteamname,
+		'team':clean_team_name,
 		'picture':picture
 	}
+
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
-	
 	return HttpResponse(data, mimetype="text/javascript")
 
 def update_user(request):
@@ -1314,28 +1311,42 @@ def cleanteam_view(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
+	
 	try:
-		ctarray = CleanTeam.objects.get(id=request_obj.params['ctid'])
-		level_id  = ctarray.level_id
-		ctlarray = CleanTeamLevel.objects.get(id=level_id)
-		badge  = unicode(ctlarray.badge)
+		clean_team = CleanTeam.objects.get(id=request_obj.params['ctid'])
+		badge  = unicode(clean_team.level.badge)
 		
 		response_base.response['status'] = 1
-		response_base.response['data'] = {'name': ctarray.name, 'website': ctarray.website,'logo':unicode(ctarray.logo),'clean_creds':ctarray.clean_creds,'about':ctarray.about,'twitter':ctarray.twitter,'region':ctarray.region,'team_type':ctarray.team_type,'badge':badge}	
+		response_base.response['data'] = {
+			'name': clean_team.name, 
+			'website': clean_team.website,
+			'logo':unicode(clean_team.logo),
+			'clean_creds':clean_team.clean_creds,
+			'about':clean_team.about,
+			'twitter':clean_team.twitter,
+			'region':clean_team.region,
+			'team_type':clean_team.team_type,
+			'badge':badge
+		}
 		
-		try:
-			challengePost = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])
-			jsonvalue =[]
-			for each in challengePost:
-				userid = each.user_id
-				user = User.objects.get(id=userid)
-				jsonvalue.append({'timedate':str(each.timestamp)
-				,'message':each.message
+		challenge_post = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])
+		posts_json = []
+
+		for post in challenge_post:
+			user = post.user
+
+			timestamp = str(datetime.datetime.strptime(str(post.timestamp)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			posts_json.append({
+				'timedate':str(timestamp)
+				,'userid':post.user.id
+				,'message':post.message
 				,'firstname':user.first_name
-				,'lastname':user.last_name})
-			response_base.response['postdata'] = jsonvalue	
-		except Exception,e:	
-			response_base.response['status'] = 0
+				,'lastname':user.last_name
+				,'pic':unicode(user.profile.picture)
+			})
+
+		response_base.response['posts'] = posts_json	
 	except Exception,e:
 		print e
 		response_base.response['status'] = 0
