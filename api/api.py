@@ -299,42 +299,68 @@ def get_challenge(request):
 	participants_json = []
 	user_challenge_json = []
 
-	try:
-		challenge = Challenge.objects.get(id=challenge_id)
-
-		challenge_json = {
-			'id':challenge.id, 
-			'title':challenge.title, 
-			'eventstartdate':str(challenge.event_start_date),
-			'eventstarttime':str(challenge.event_start_time),
-			'eventenddate':str(challenge.event_end_date),
-			'eventendtime':str(challenge.event_end_time),
-			'address1':challenge.address1,
-			'address2':challenge.address2,
-			'city':challenge.city,
-			'province':challenge.province,
-			'postalcode':challenge.postal_code,
-			'country':challenge.country,
-			'description':challenge.description,
-			'userid':challenge.user.id,
-			'cleanteamid':challenge.clean_team.id,
-			'cleanteamname':challenge.clean_team.name,
-			'cleancredsperhour':challenge.clean_creds_per_hour,
-			'nationalchallenge':challenge.national_challenge,
-			'cleanteamonly':challenge.clean_team_only,
-			'url':challenge.url,
-			'type':challenge.type.challenge_type,
-			'organization':challenge.organization,
-			'contactfirstname':challenge.contact_first_name,
-			'contactlastname':challenge.contact_last_name,
-			'contactphone':challenge.contact_phone,
-			'contactemail':challenge.contact_email
-		}
-	except Exception, e:
-		print e
-		response_base.response['status'] = 0
-	
+	challenge = Challenge.objects.get(id=challenge_id)
 	user_challenge = challenge.get_participating_challenge(user)
+	
+	challenge_json = {
+		'id':challenge.id, 
+		'title':challenge.title, 
+		'eventstartdate':str(challenge.event_start_date),
+		'eventstarttime':str(challenge.event_start_time),
+		'eventenddate':str(challenge.event_end_date),
+		'eventendtime':str(challenge.event_end_time),
+		'address1':challenge.address1,
+		'address2':challenge.address2,
+		'city':challenge.city,
+		'province':challenge.province,
+		'postalcode':challenge.postal_code,
+		'country':challenge.country,
+		'description':challenge.description,
+		'userid':challenge.user.id,
+		'cleanteamid':challenge.clean_team.id,
+		'cleanteamname':challenge.clean_team.name,
+		'cleancredsperhour':challenge.clean_creds_per_hour,
+		'nationalchallenge':challenge.national_challenge,
+		'cleanteamonly':challenge.clean_team_only,
+		'url':challenge.url,
+		'type':challenge.type.challenge_type,
+		'organization':challenge.organization,
+		'contactfirstname':challenge.contact_first_name,
+		'contactlastname':challenge.contact_last_name,
+		'contactphone':challenge.contact_phone,
+		'contactemail':challenge.contact_email
+	}
+
+	# Only for the Staples CleanAct, have to find a more efficient way
+	if challenge.url == "staples-cleanact":	
+		staples_challenge_participants = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
+		staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge_participants)
+
+		if user_challenge:
+			participating_store = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+
+			participating_store_json = {
+				'id': participating_store.id,
+				'storeno': participating_store.staples_store.store_no,
+				'storename': participating_store.staples_store.store_name,
+				'address': participating_store.staples_store.address,
+				'city': participating_store.staples_store.city
+			}
+
+			response_base.response['participating_store_data'] = participating_store_json
+
+		staples_stores_json = []
+		for store in staples_stores:
+			store_json = {
+				'id': store.id,
+				'storeno': store.store_no,
+				'storename': store.store_name,
+				'address': store.address,
+				'city': store.city,
+			}
+			staples_stores_json.append(store_json)
+
+		response_base.response['staples_stores_data'] = staples_stores_json
 
 	if user_challenge:
 		user_challenge_json = {
@@ -352,7 +378,6 @@ def get_challenge(request):
 		for participant in participants:
 			if challenge.clean_team_only:
 				ct = participant.clean_team
-				print ct.name
 				participant_id = ct.id
 				name = ct.name
 
@@ -377,7 +402,7 @@ def get_challenge(request):
 				'name':name,
 			})
 
-		response_base.response['status'] = 1
+	response_base.response['status'] = 1
 
 	response_base.response['user_challenge_data'] = user_challenge_json
 	response_base.response['participants_data'] = participants_json
@@ -1133,12 +1158,16 @@ def participate_challenge(request):
 		cid = request_obj.params['cid']
 		challenge = Challenge.objects.get(id=cid)
 
-		try:
-			user_challenge = UserChallenge.objects.get(user=user, challenge=challenge)
-		except Exception, e:
-			user_challenge = UserChallenge(user=request.user)
-			user_challenge.challenge = challenge
-			user_challenge.save()
+		if 'staples_store' in request_obj.params:
+			staples_store = request_obj.params['staples_store']
+			staples_store = StaplesStores.objects.get(id=staples_store)
+
+			participate = challenge.participate_in_challenge(user, staples_store)	
+
+			if not participate:
+				response_base.response['storetaken'] = True
+		else:	
+			challenge.participate_in_challenge(user)
 
 	response_base.response['status'] = 1
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
