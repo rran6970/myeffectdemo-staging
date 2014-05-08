@@ -369,50 +369,55 @@ class Challenge(models.Model):
 
 	# Have to remove staples_store parameter only there for the Staples CleanAct
 	def participate_in_challenge(self, user, staples_store=None):
-		if self.clean_team_only:
+		try:
+			if self.clean_team_only:
+				if user.profile.is_clean_ambassador():
+					clean_team = user.profile.clean_team_member.clean_team
+
+					# Staples CleanAct stuff
+					if self.url == "staples-cleanact":
+						staples_challenge = StaplesChallenge.objects.filter(staples_store=staples_store)
+
+						if staples_challenge.count() == 0:
+							staples_challenge = StaplesChallenge()
+							staples_challenge.challenge = self
+							staples_challenge.clean_team = clean_team
+							staples_challenge.staples_store = staples_store
+							staples_challenge.save()
+						else:
+							return False
+
+					clean_team_challenge = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge=self)
+
+					if clean_team_challenge.count() == 0:
+						clean_team_challenge = CleanTeamChallenge(clean_team=clean_team)
+						clean_team_challenge.challenge = self
+						clean_team_challenge.save()
+					else:
+						return False			
+			else:
+				user_challenge = UserChallenge.objects.filter(user=user, challenge=self)
+
+				if user_challenge.count() == 0:
+					user_challenge = UserChallenge(user=user)
+					user_challenge.challenge = self
+					user_challenge.save()
+				else:
+					return False
+
 			if user.profile.is_clean_ambassador():
-				clean_team = user.profile.clean_team_member.clean_team
+				if user.profile.clean_team_member.clean_team.level.name == "Tree":
+					count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
+					count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
 
-				# Staples CleanAct stuff
-				if self.url == "staples-cleanact":
-					try:
-						staples_challenge = StaplesChallenge.objects.get(staples_store=staples_store)
-						return False
-					except Exception, e:
-						staples_challenge = StaplesChallenge()
-						staples_challenge.challenge = self
-						staples_challenge.clean_team = clean_team
-						staples_challenge.staples_store = staples_store
-						staples_challenge.save()
+					total_challenges = count_user_challenges + count_clean_team_challenges
 
-				try:
-					clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=clean_team, challenge=self)
-				except Exception, e:
-					clean_team_challenge = CleanTeamChallenge(clean_team=clean_team)
-					clean_team_challenge.challenge = self
-					clean_team_challenge.save()
+					if total_challenges > 1:
+						task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
+						self.clean_team.complete_level_task(task)
 
-					print e				
-		else:
-			try:
-				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
-			except Exception, e:
-				user_challenge = UserChallenge(user=user)
-				user_challenge.challenge = self
-				user_challenge.save()
-
-				print e
-
-		if user.profile.is_clean_ambassador():
-			if user.profile.clean_team_member.clean_team.level.name == "Tree":
-				count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
-				count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
-
-				total_challenges = count_user_challenges + count_clean_team_challenges
-
-				if total_challenges > 1:
-					task = CleanTeamLevelTask.objects.get(name="2_national_challenges_signup")
-					self.clean_team.complete_level_task(task)
+		except Exception, e:
+			raise e
 		
 		return True
 	

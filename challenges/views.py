@@ -125,7 +125,7 @@ class ChallengeCentreView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeCentreView, self).get_context_data(**kwargs)
-		context['challenges'] = Challenge.objects.all()
+		context['challenges'] = Challenge.objects.all().order_by('-promote_top')
 
 		return context
 
