@@ -478,14 +478,13 @@ def list_participants(request):
 	response_base = ResponseDic()
 
 	cid = request_obj.params['challenge_id']
-	participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+	challenge = Challenge.objects.get(id=cid)
+	participants = challenge.get_participants()
 
-	jsonvalue = []
 	challenge_json = []
+	participants_json = []
 
 	try:
-		challenge = Challenge.objects.get(id=cid)
-
 		challenge_json = {
 			'id':challenge.id, 
 			'title':challenge.title, 
@@ -518,34 +517,52 @@ def list_participants(request):
 		print e
 		response_base.response['status'] = 0
 
-	for each in participants:
-		challenge = each.challenge
-		type = challenge.type.challenge_type
-		time_in = str(each.time_in)
-		time_out = str(each.time_out)
-		hours = each.total_hours
-		total_clean_creds = each.total_clean_creds
 
-		if time_in != 'None':
-			time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+	if participants:
+		for participant in participants:
+			time_in = str(participant.time_in)
+			time_out = str(participant.time_out)
+			hours = participant.total_hours
+			total_clean_creds = participant.total_clean_creds
 
-		if time_out != 'None':
-			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
-		
-		jsonvalue.append({
-			'hours':hours,
-			'totalcleancreds':total_clean_creds,
-			'type':type,
-			'timein':time_in,
-			'timeout':time_out,
-			'userid':each.user_id,
-			'hours':each.total_hours,
-			'firstname':each.user.first_name,
-			'lastname':each.user.last_name
-		})
+			if time_in != 'None':
+				time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			if time_out != 'None':
+				time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			if challenge.clean_team_only:
+				ct = participant.clean_team
+				participant_id = ct.id
+				name = ct.name
+
+				if ct.logo:
+					picture = ct.logo
+				else:
+					picture = 0
+			else:
+				u = participant.user
+				participant_id = u.id
+				name = "%s %s" % (u.first_name, u.last_name)
+
+				if u.profile.picture:
+					picture = u.profile.picture
+				else:
+					picture = 0
+
+			participants_json.append({
+				'id':participant_id,
+				'pic':unicode(picture),
+				'name':name,
+				'hours':hours,
+				'totalcleancreds':total_clean_creds,
+				'timein':time_in,
+				'timeout':time_out,
+				'hours':hours,
+			})
 
 	response_base.response['status'] = 1
-	response_base.response['data'] = jsonvalue	
+	response_base.response['data'] = participants_json	
 	response_base.response['challenge_data'] = challenge_json	
 	
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
@@ -976,10 +993,16 @@ def check_in_check_out(request):
 
 		user = request.user
 		cid = request_obj.params['cid']
-		uid = request_obj.params['uid']
+		participant_id = request_obj.params['participant_id']
 
 		challenge = get_object_or_404(Challenge, id=cid)
-		response = challenge.check_in_check_out(uid)
+
+		if 'manual_clean_creds' in request_obj.params and 'manual_hours' in request_obj.params:
+			manual_clean_creds = int(request_obj.params['manual_clean_creds'])
+			manual_hours = int(request_obj.params['manual_hours'])
+			response = challenge.check_in_check_out(participant_id, manual_clean_creds, manual_hours)
+		else:
+			response = challenge.check_in_check_out(participant_id)
 
 		if response:
 			response_base.response['html'] = response
