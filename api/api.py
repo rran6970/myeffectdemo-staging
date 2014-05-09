@@ -1098,60 +1098,41 @@ def search(request):
 
 	query = request_obj.params['q']
 	national_challenges = request_obj.params['national_challenges']
-
-	if national_challenges == "0":
-		national_challenges = "false"
-	else:	
-		national_challenges = "true"
+	clean_team_only = request_obj.params['clean_team_only']
 	
-	#print national_challenges	
-	
-	challenges = Challenge.search_challenges(query, national_challenges, 10)
-	print challenges
+	challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
 	
 	if challenges:
-		jsonvalue = []
+		challenges_json = []
 
-		for each in challenges:
-			ct_id = each.clean_team_id
-			cteamarray  = CleanTeam.objects.get(id=ct_id)
-			ctname  = cteamarray.name
+		for challenge in challenges:
+			clean_team_name  = challenge.clean_team.name
 
-			qr_id = each.qr_code_id
-
-			if qr_id:
-				try:
-					#print "&"*30
-					qrarray = ChallengeQRCode.objects.get(id=qr_id)
-					#print unicode(qrarray.qr_image)
-					qrimage = unicode(qrarray.qr_image)
-				except Exception,e:
-					print e
-					qrimage = ""
-			else:
-				qrimage = ""
-
-			jsonvalue.append({
-				'country':each.country
-				,'ctname':ctname
-				,'title':each.title
-				,'address1':each.address1
-				,'address2':each.address2
-				,'postal_code':each.postal_code
-				,'city':each.city
-				,'eventdate':str(each.event_start_date)
-				,'eventtime':str(each.event_start_time)
-				,'province':each.province,'id':each.id
-				,'description':each.description
-				,'clean_creds_per_hour':each.clean_creds_per_hour
-				,'type_id':each.type_id
+			challenges_json.append({
+				'title':challenge.title
+				,'country':challenge.country
+				,'cleanteam':clean_team_name
+				,'address1':challenge.address1
+				,'address2':challenge.address2
+				,'postal_code':challenge.postal_code
+				,'city':challenge.city
+				,'eventdate':str(challenge.event_start_date)
+				,'eventtime':str(challenge.event_start_time)
+				,'province':challenge.province,'id':challenge.id
+				,'description':challenge.description
+				,'nationalchallenge':challenge.national_challenge
+				,'cleanteamonly':challenge.clean_team_only
+				,'cleanteamname':challenge.clean_team.name
+				,'cleancredsperhour':challenge.clean_creds_per_hour
+				,'url':challenge.url
+				,'type':challenge.type.challenge_type
 			})
 		
+		response_base.response['challenges'] = challenges_json
 		response_base.response['status'] = 1
 	else:
 		response_base.response['status'] = 0
 	
-	response_base.response['data'] = jsonvalue
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")		
