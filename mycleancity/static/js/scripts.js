@@ -412,32 +412,41 @@ function ajaxReadNotification(e)
 function ajaxCheckInCheckOut(e)
 {       
     var form = $(this);
+    button = form.find("#confirm-btn");
 
     $.ajax({
         type: form.attr('method'),
         url: form.attr('action'),
         data: form.serialize(),
-        success: function (data) {
-            btn = form.find("#confirm-btn");
-
+        beforeSend: function() {            
+            var loading = $("<img class='loading' src='" + window.static_url + "images/loading-25x25.gif' />");
+            button.before(loading);
+            button.hide();
+        },
+        success: function (data) {            
             if (data)
             {
-                btn.before(data);
-                btn.hide();
+                form.find(".loading").hide();
+                button.before(data);
+                button.hide();
             }
-            else if (btn.val() == "Check In")
+            else if (button.val() == "Check In")
             {
-                btn.val("Check Out");
-                btn.addClass("dark");
+                form.find(".loading").hide();
+                button.show();
+                button.val("Check Out");
+                button.addClass("dark");
             }
-            else if (btn.val() == "Add")
+            else if (button.val() == "Add")
             {
-                btn.before(data);
-                btn.hide();
+                button.before(data);
+                button.hide();
             }
             else
             {
-                btn.val("Check In");
+                form.find(".loading").hide();
+                button.show();
+                button.val("Check In");
             }
         },
         error: function(data) {}

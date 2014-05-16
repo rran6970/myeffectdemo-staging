@@ -89,7 +89,6 @@ def check_in_check_out(request):
 		return HttpResponse('')
 
 def dropdown_search_for_challenges(request):
-	
 	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
 	clean_team_only = request.GET['clean_team_only']

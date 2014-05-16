@@ -186,7 +186,10 @@ def qrcode(request):
 
 	qr_code = unicode(qr_code.qr_image)
 	
-	response_base.response['data'] = {'qrcode':qr_code}
+	response_base.response['data'] = {
+		'qrcode':qr_code,
+		'userid':user.id
+	}
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")
@@ -698,7 +701,7 @@ def joinchampion_team(request):
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
     return HttpResponse(data, mimetype="text/javascript")
 
-def list_notification(request):
+def list_notifications(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
     response_base = ResponseDic()
@@ -706,10 +709,17 @@ def list_notification(request):
 
     try:
 		un = UserNotification.objects.filter(user=user).order_by('-timestamp')
-		uncount = UserNotification.objects.filter(user=user,read=0).order_by('-timestamp').count()
-		response_base.response['data']= [ {'message':each.message,'datetime':str(each.timestamp),'read':each.read,'id':each.id} for each in un ]
+
+		response_base.response['data']= [{
+			'message':each.message,
+			'datetime':str(each.timestamp),
+			'read':each.read,
+			'type':each.notification.notification_type,
+			'link':each.link,
+			'id':each.id
+		} for each in un ]
+		
 		response_base.response['status'] = 1
-		response_base.response['count'] = uncount
     except Exception,e:
         print e
         response_base.response['status'] = 0
@@ -718,21 +728,38 @@ def list_notification(request):
     
     return HttpResponse(data, mimetype="text/javascript")
 
-def count_notification(request):
+def count_notifications(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
     response_base = ResponseDic()
-    userid = request_obj.params['userid']
+    user = request.user
+
     try:
-        uncount = UserNotification.objects.filter(user=userid).order_by('-timestamp').count()
-        #print uncount
-        response_base.response['data']= {'count':uncount}
+        count = user.profile.count_unread_notifications()
+        response_base.response['count'] = count
         response_base.response['status'] = 1
     except Exception,e:
         print e
         response_base.response['status'] = 0
+    
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
     return HttpResponse(data, mimetype="text/javascript")	
+
+def read_notification(request):
+	request_obj = GenericRequest(request)
+	request_obj.parse_request_params()
+	response_base = ResponseDic()
+
+	nid = request_obj.params['nid']
+	
+	user_notification = UserNotification.objects.get(id=nid)
+	user_notification.read_notification()
+	
+	response_base.response['status'] = 1
+
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	return HttpResponse(data, mimetype="text/javascript")
+
 @csrf_exempt	
 def upload_picture(request):
 	print "@"*30
@@ -982,6 +1009,24 @@ def challenge_centre(request):
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")	
 
+def one_time_check_in(request):
+	if request.is_ajax:
+		request_obj = GenericRequest(request)
+		request_obj.parse_request_params()
+		response_base = ResponseDic()
+		
+		user = request.user
+		cid = request_obj.params['cid']
+		token = request_obj.params['token']
+		
+		challenge = get_object_or_404(Challenge, id=cid)
+		challenge.one_time_check_in_with_token(user, token)
+		
+	response_base.response['status'] = 1
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+		
+	return HttpResponse(data, mimetype="text/javascript")
+
 def check_in_check_out(request):
 	if request.is_ajax:
 		request_obj = GenericRequest(request)
@@ -1136,18 +1181,6 @@ def search(request):
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")		
-
-def make_me_read(request):
-	request_obj = GenericRequest(request)
-	request_obj.parse_request_params()
-	response_base = ResponseDic()
-	notid = request_obj.params['notid']
-	usernotification = 	UserNotification.objects.get(id=notid)
-	usernotification.read =1
-	usernotification.save()
-	response_base.response['status'] = 1
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
-	return HttpResponse(data, mimetype="text/javascript")
 
 def participate_challenge(request):
 	if request.is_ajax:
