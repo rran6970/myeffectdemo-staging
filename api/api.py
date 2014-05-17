@@ -28,8 +28,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import utc
 
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode, UserSettings
-from challenges.models import Challenge, UserChallenge,  ChallengeQRCode
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevel
+from challenges.models import *
+from cleanteams.models import *
 from notifications.models import UserNotification
 
 import json,urlparse,random,string, base64,datetime
@@ -186,7 +186,10 @@ def qrcode(request):
 
 	qr_code = unicode(qr_code.qr_image)
 	
-	response_base.response['data'] = {'qrcode':qr_code}
+	response_base.response['data'] = {
+		'qrcode':qr_code,
+		'userid':user.id
+	}
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")
@@ -229,8 +232,7 @@ def get_user_profile(request):
 	total_hours = user_profile.get_total_hours()
 
 	role = ""
-	cleanteamname = ""
-	cleanteamid = ""
+	clean_team_name = ""
 
 	try:
 		role_array = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
@@ -244,11 +246,9 @@ def get_user_profile(request):
 			role = "individual"
 		
 	try:
-		cleanteamid = user.cleanteammember_set.values_list('clean_team_id', flat=True).get()
-		cleanteamArray = CleanTeam.objects.get(id=cleanteamid)
-		cleanteamname = cleanteamArray.name
+		clean_team_name = user.cleanteammember.clean_team.name
 	except Exception, e:
-		cleanteamname = ""
+		clean_team_name = ""
 
 	picture = unicode(user_profile.picture)
 	
@@ -263,11 +263,11 @@ def get_user_profile(request):
 		'school':user_profile.school_type,
 		'about':user_profile.about,
 		'role':role,
-		'team':cleanteamname,
+		'team':clean_team_name,
 		'picture':picture
 	}
+
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
-	
 	return HttpResponse(data, mimetype="text/javascript")
 
 def update_user(request):
@@ -293,47 +293,76 @@ def get_challenge(request):
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 		
+	user = request.user
 	challenge_id = request_obj.params['cid']
 	challenge_json = []
 	participants_json = []
 	user_challenge_json = []
 
-	try:
-		challenge = Challenge.objects.get(id=challenge_id)
-
-		challenge_json = {
-			'id':challenge.id, 
-			'title':challenge.title, 
-			'eventstartdate':str(challenge.event_start_date),
-			'eventstarttime':str(challenge.event_start_time),
-			'eventenddate':str(challenge.event_end_date),
-			'eventendtime':str(challenge.event_end_time),
-			'address1':challenge.address1,
-			'address2':challenge.address2,
-			'city':challenge.city,
-			'province':challenge.province,
-			'postalcode':challenge.postal_code,
-			'country':challenge.country,
-			'description':challenge.description,
-			'userid':challenge.user.id,
-			'cleanteamid':challenge.clean_team.id,
-			'cleanteamname':challenge.clean_team.name,
-			'cleancredsperhour':challenge.clean_creds_per_hour,
-			'nationalchallenge':challenge.national_challenge,
-			'type':challenge.type.challenge_type,
-			'organization':challenge.organization,
-			'contactfirstname':challenge.contact_first_name,
-			'contactlastname':challenge.contact_last_name,
-			'contactphone':challenge.contact_phone,
-			'contactemail':challenge.contact_email
-		}
-	except Exception, e:
-		print e
-		response_base.response['status'] = 0
+	challenge = Challenge.objects.get(id=challenge_id)
+	user_challenge = challenge.get_participating_challenge(user)
 	
-	try:
-		user_challenge = UserChallenge.objects.get(challenge=challenge, user=request.user)
+	challenge_json = {
+		'id':challenge.id, 
+		'title':challenge.title, 
+		'eventstartdate':str(challenge.event_start_date),
+		'eventstarttime':str(challenge.event_start_time),
+		'eventenddate':str(challenge.event_end_date),
+		'eventendtime':str(challenge.event_end_time),
+		'address1':challenge.address1,
+		'address2':challenge.address2,
+		'city':challenge.city,
+		'province':challenge.province,
+		'postalcode':challenge.postal_code,
+		'country':challenge.country,
+		'description':challenge.description,
+		'userid':challenge.user.id,
+		'cleanteamid':challenge.clean_team.id,
+		'cleanteamname':challenge.clean_team.name,
+		'cleancredsperhour':challenge.clean_creds_per_hour,
+		'nationalchallenge':challenge.national_challenge,
+		'cleanteamonly':challenge.clean_team_only,
+		'url':challenge.url,
+		'type':challenge.type.challenge_type,
+		'organization':challenge.organization,
+		'contactfirstname':challenge.contact_first_name,
+		'contactlastname':challenge.contact_last_name,
+		'contactphone':challenge.contact_phone,
+		'contactemail':challenge.contact_email
+	}
 
+	# Only for the Staples CleanAct, have to find a more efficient way
+	if challenge.url == "staples-cleanact":	
+		staples_challenge_participants = StaplesChallenge.objects.filter(clean_team__isnull=False).values_list('staples_store', flat=True)
+		staples_stores = StaplesStores.objects.all().exclude(id__in=staples_challenge_participants)
+
+		if user_challenge:
+			participating_store = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+
+			participating_store_json = {
+				'id': participating_store.id,
+				'storeno': participating_store.staples_store.store_no,
+				'storename': participating_store.staples_store.store_name,
+				'address': participating_store.staples_store.address,
+				'city': participating_store.staples_store.city
+			}
+
+			response_base.response['participating_store_data'] = participating_store_json
+
+		staples_stores_json = []
+		for store in staples_stores:
+			store_json = {
+				'id': store.id,
+				'storeno': store.store_no,
+				'storename': store.store_name,
+				'address': store.address,
+				'city': store.city,
+			}
+			staples_stores_json.append(store_json)
+
+		response_base.response['staples_stores_data'] = staples_stores_json
+
+	if user_challenge:
 		user_challenge_json = {
 			'id':user_challenge.id,
 			'timestamp':str(user_challenge.timestamp),
@@ -342,31 +371,38 @@ def get_challenge(request):
 			'total_hours':user_challenge.total_hours,
 			'total_clean_creds':user_challenge.total_clean_creds
 		}
-	except Exception, e:
-		print e
 
-	try:
-		participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (challenge_id))
+	participants = challenge.get_participants()
 
+	if participants:
 		for participant in participants:
-			u = participant.user
+			if challenge.clean_team_only:
+				ct = participant.clean_team
+				participant_id = ct.id
+				name = ct.name
 
-			if u.profile.picture:
-				picture = u.profile.picture
+				if ct.logo:
+					picture = ct.logo
+				else:
+					picture = 0
+			
 			else:
-				picture = 0
-		
+				u = participant.user
+				participant_id = u.id
+				name = "%s %s" % (u.first_name, u.last_name)
+
+				if u.profile.picture:
+					picture = u.profile.picture
+				else:
+					picture = 0
+
 			participants_json.append({
-				'uid':u.id,
+				'id':participant_id,
 				'pic':unicode(picture),
-				'firstname':u.first_name,
-				'lastname':u.last_name
+				'name':name,
 			})
-	
-		response_base.response['status'] = 1
-	except Exception, e:
-		print e
-		response_base.response['status'] = 0
+
+	response_base.response['status'] = 1
 
 	response_base.response['user_challenge_data'] = user_challenge_json
 	response_base.response['participants_data'] = participants_json
@@ -442,14 +478,13 @@ def list_participants(request):
 	response_base = ResponseDic()
 
 	cid = request_obj.params['challenge_id']
-	participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (cid))
+	challenge = Challenge.objects.get(id=cid)
+	participants = challenge.get_participants()
 
-	jsonvalue = []
 	challenge_json = []
+	participants_json = []
 
 	try:
-		challenge = Challenge.objects.get(id=cid)
-
 		challenge_json = {
 			'id':challenge.id, 
 			'title':challenge.title, 
@@ -469,6 +504,8 @@ def list_participants(request):
 			'cleanteamname':challenge.clean_team.name,
 			'cleancredsperhour':challenge.clean_creds_per_hour,
 			'nationalchallenge':challenge.national_challenge,
+			'cleanteamonly':challenge.clean_team_only,
+			'url':challenge.url,
 			'type':challenge.type.challenge_type,
 			'organization':challenge.organization,
 			'contactfirstname':challenge.contact_first_name,
@@ -480,34 +517,52 @@ def list_participants(request):
 		print e
 		response_base.response['status'] = 0
 
-	for each in participants:
-		challenge = each.challenge
-		type = challenge.type.challenge_type
-		time_in = str(each.time_in)
-		time_out = str(each.time_out)
-		hours = each.total_hours
-		total_clean_creds = each.total_clean_creds
 
-		if time_in != 'None':
-			time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+	if participants:
+		for participant in participants:
+			time_in = str(participant.time_in)
+			time_out = str(participant.time_out)
+			hours = participant.total_hours
+			total_clean_creds = participant.total_clean_creds
 
-		if time_out != 'None':
-			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
-		
-		jsonvalue.append({
-			'hours':hours,
-			'totalcleancreds':total_clean_creds,
-			'type':type,
-			'timein':time_in,
-			'timeout':time_out,
-			'userid':each.user_id,
-			'hours':each.total_hours,
-			'firstname':each.user.first_name,
-			'lastname':each.user.last_name
-		})
+			if time_in != 'None':
+				time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			if time_out != 'None':
+				time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			if challenge.clean_team_only:
+				ct = participant.clean_team
+				participant_id = ct.id
+				name = ct.name
+
+				if ct.logo:
+					picture = ct.logo
+				else:
+					picture = 0
+			else:
+				u = participant.user
+				participant_id = u.id
+				name = "%s %s" % (u.first_name, u.last_name)
+
+				if u.profile.picture:
+					picture = u.profile.picture
+				else:
+					picture = 0
+
+			participants_json.append({
+				'id':participant_id,
+				'pic':unicode(picture),
+				'name':name,
+				'hours':hours,
+				'totalcleancreds':total_clean_creds,
+				'timein':time_in,
+				'timeout':time_out,
+				'hours':hours,
+			})
 
 	response_base.response['status'] = 1
-	response_base.response['data'] = jsonvalue	
+	response_base.response['data'] = participants_json	
 	response_base.response['challenge_data'] = challenge_json	
 	
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
@@ -646,7 +701,7 @@ def joinchampion_team(request):
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
     return HttpResponse(data, mimetype="text/javascript")
 
-def list_notification(request):
+def list_notifications(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
     response_base = ResponseDic()
@@ -654,10 +709,17 @@ def list_notification(request):
 
     try:
 		un = UserNotification.objects.filter(user=user).order_by('-timestamp')
-		uncount = UserNotification.objects.filter(user=user,read=0).order_by('-timestamp').count()
-		response_base.response['data']= [ {'message':each.message,'datetime':str(each.timestamp),'read':each.read,'id':each.id} for each in un ]
+
+		response_base.response['data']= [{
+			'message':each.message,
+			'datetime':str(each.timestamp),
+			'read':each.read,
+			'type':each.notification.notification_type,
+			'link':each.link,
+			'id':each.id
+		} for each in un ]
+		
 		response_base.response['status'] = 1
-		response_base.response['count'] = uncount
     except Exception,e:
         print e
         response_base.response['status'] = 0
@@ -666,21 +728,38 @@ def list_notification(request):
     
     return HttpResponse(data, mimetype="text/javascript")
 
-def count_notification(request):
+def count_notifications(request):
     request_obj = GenericRequest(request)
     request_obj.parse_request_params()
     response_base = ResponseDic()
-    userid = request_obj.params['userid']
+    user = request.user
+
     try:
-        uncount = UserNotification.objects.filter(user=userid).order_by('-timestamp').count()
-        #print uncount
-        response_base.response['data']= {'count':uncount}
+        count = user.profile.count_unread_notifications()
+        response_base.response['count'] = count
         response_base.response['status'] = 1
     except Exception,e:
         print e
         response_base.response['status'] = 0
+    
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
     return HttpResponse(data, mimetype="text/javascript")	
+
+def read_notification(request):
+	request_obj = GenericRequest(request)
+	request_obj.parse_request_params()
+	response_base = ResponseDic()
+
+	nid = request_obj.params['nid']
+	
+	user_notification = UserNotification.objects.get(id=nid)
+	user_notification.read_notification()
+	
+	response_base.response['status'] = 1
+
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	return HttpResponse(data, mimetype="text/javascript")
+
 @csrf_exempt	
 def upload_picture(request):
 	print "@"*30
@@ -759,37 +838,38 @@ def qrcode_userchallenge(request):
 		
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")
-def my_challenge(request):
+def my_challenges(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 	user = request.user
 
-	try:
-		Uchallenge = UserChallenge.objects.filter(user=user)
-		jsonvalue = []
+	user_challenges_json = []
+	clean_team_challenges_json = []
+	staples_challenge_json = []
 
-		for each in Uchallenge:		
-			challengeid = each.challenge_id
-			ChallengesInstance  = each.challenge
-			CTeam  = ChallengesInstance.clean_team
-			ctname     = CTeam.name
-			
-			challengearray  = Challenge.objects.get(id=challengeid)
-			qr_id = challengearray.qr_code_id
+	if user.profile.is_clean_ambassador():
+		clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
 
-			if qr_id:
-				try:
-					qrarray = ChallengeQRCode.objects.get(id=qr_id)
-					qrimage = unicode(qrarray.qr_image)
-				except Exception,e:
-					print e
-					qrimage = ""
-			else:
-				qrimage = ""
+		try:
+			staples_challenge = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+			store_address = "%s %s" % (staples_challenge.staples_store.address, staples_challenge.staples_store.city)
 
-			time_in = each.time_in
-			time_out = each.time_out
+			staples_challenge_json.append({
+				'id':staples_challenge.id
+				,'storeno':staples_challenge.staples_store.store_no 
+				,'storename':staples_challenge.staples_store.store_name
+				,'storeaddress': store_address
+			})
+			response_base.response['staplesstore'] = staples_challenge_json
+		except Exception, e:
+			print e
+
+		for clean_team_challenge in clean_team_challenges:
+			challenge = clean_team_challenge.challenge
+
+			time_in = clean_team_challenge.time_in
+			time_out = clean_team_challenge.time_out
 
 			if time_in != None:
 				time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
@@ -797,43 +877,155 @@ def my_challenge(request):
 			if time_out != None:
 				time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
 
-			jsonvalue.append({
-				'title':challengearray.title
-				,'description':challengearray.description
-				,'event_date':str(challengearray.event_start_date)
-				,'event_time':str(challengearray.event_start_time)
-				,'id':challengearray.id
-				,'address1':challengearray.address1
-				,'address2':challengearray.address2
-				,'city':challengearray.city
-				,'ctname':ctname
-				,'province':challengearray.province
-				,'postal_code':challengearray.postal_code
-				,'country':challengearray.country
-				,'organization':challengearray.organization
-				,'contact_first_name':challengearray.contact_first_name
-				,'contact_last_name':challengearray.contact_last_name
-				,'contact_phone':challengearray.contact_phone
-				,'contact_email':challengearray.contact_email
-				,'cleanperhour':challengearray.clean_creds_per_hour
-				,'total_hours':each.total_hours
-				,'total_clean_creds':each.total_clean_creds
-				,'time_in':time_in
-				,'time_out':time_out
-				,'type_id':challengearray.type_id
-				,'qr_code':qrimage
-				,'last_updated_by_id':challengearray.last_updated_by_id
+			clean_team_challenges_json.append({
+				'id':challenge.id
+				,'title':challenge.title
+				,'description':challenge.description
+				,'eventdate':str(challenge.event_start_date)
+				,'eventtime':str(challenge.event_start_time)
+				,'address1':challenge.address1
+				,'address2':challenge.address2
+				,'city':challenge.city
+				,'cleanteam':challenge.clean_team.name
+				,'province':challenge.province
+				,'postalcode':challenge.postal_code
+				,'country':challenge.country
+				,'organization':challenge.organization
+				,'contactfirstname':challenge.contact_first_name
+				,'contactlastname':challenge.contact_last_name
+				,'contactphone':challenge.contact_phone
+				,'contactemail':challenge.contact_email
+				,'cleanteamonly':challenge.clean_team_only
+				,'challengeurl':challenge.url
+				,'cleanperhour':challenge.clean_creds_per_hour
+				,'totalhours':clean_team_challenge.total_hours
+				,'totalcleancreds':clean_team_challenge.total_clean_creds
+				,'timein':time_in
+				,'timeout':time_out
+				,'type':challenge.type.challenge_type
 			})
+	
+	user_challenges = UserChallenge.objects.filter(user=user).order_by("time_in")
 
-		response_base.response['status'] = 1
-		response_base.response['teamstatus'] = 0
-		response_base.response['data'] = jsonvalue	
-		response_base.response['totalhours'] = user.profile.get_total_hours()	
-	except Exception,e:
-		print e
-		response_base.response['status'] = 0
+	for user_challenge in user_challenges:
+		challenge = user_challenge.challenge
+
+		time_in = user_challenge.time_in
+		time_out = user_challenge.time_out
+
+		if time_in != None:
+			time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+
+		if time_out != None:
+			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
+
+		user_challenges_json.append({
+			'id':challenge.id
+			,'title':challenge.title
+			,'description':challenge.description
+			,'eventdate':str(challenge.event_start_date)
+			,'eventtime':str(challenge.event_start_time)
+			,'address1':challenge.address1
+			,'address2':challenge.address2
+			,'city':challenge.city
+			,'cleanteam':challenge.clean_team.name
+			,'province':challenge.province
+			,'postalcode':challenge.postal_code
+			,'country':challenge.country
+			,'organization':challenge.organization
+			,'contactfirstname':challenge.contact_first_name
+			,'contactlastname':challenge.contact_last_name
+			,'contactphone':challenge.contact_phone
+			,'contactemail':challenge.contact_email
+			,'cleanteamonly':challenge.clean_team_only
+			,'challengeurl':challenge.url
+			,'cleanperhour':challenge.clean_creds_per_hour
+			,'totalhours':user_challenge.total_hours
+			,'totalcleancreds':user_challenge.total_clean_creds
+			,'timein':time_in
+			,'timeout':time_out
+			,'type':challenge.type.challenge_type
+		})
+
+	response_base.response['status'] = 1
+	response_base.response['user_challenges'] = user_challenges_json
+	response_base.response['clean_team_challenges'] = clean_team_challenges_json
+	response_base.response['totalhours'] = user.profile.get_total_hours()
+	
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")	
+
+def challenge_centre(request):
+	request_obj = GenericRequest(request)
+	request_obj.parse_request_params()
+	response_base = ResponseDic()
+		
+	if 'q' in request_obj.params:
+		query = request_obj.params['q']
+	else:
+		query = ""
+		
+	if 'national_challenges' in request_obj.params:
+		national_challenges = request_obj.params['national_challenges']
+	else:
+		national_challenges = False
+	
+	if 'clean_team_only' in request_obj.params:
+		clean_team_only = request_obj.params['clean_team_only']
+	else:
+		clean_team_only = False
+	
+	challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
+	jsonvalue = []
+
+	for challenge in challenges:
+		jsonvalue.append({
+			'title':challenge.title
+			,'description':challenge.description
+			,'id':challenge.id
+			,'eventstartdate':str(challenge.event_start_date)
+			,'eventstarttime':str(challenge.event_start_time)
+			,'eventenddate':str(challenge.event_end_date)
+			,'eventendtime':str(challenge.event_end_time)
+			,'address1':challenge.address1
+			,'address2':challenge.address2
+			,'city':challenge.city
+			,'province':challenge.province
+			,'postal_code':challenge.postal_code
+			,'country':challenge.country
+			,'cleanperhour':challenge.clean_creds_per_hour
+			,'nationalchallenge':challenge.national_challenge
+			,'cleanteamonly':challenge.clean_team_only
+			,'url':challenge.url
+			,'typeid':challenge.type_id
+			,'cleanteamid':challenge.clean_team.id
+			,'cleanteamname':challenge.clean_team.name
+			,'cleanteamlogo':unicode(challenge.clean_team.logo)
+		})
+	
+	response_base.response['status'] = 1
+	response_base.response['data'] = jsonvalue
+
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	return HttpResponse(data, mimetype="text/javascript")	
+
+def one_time_check_in(request):
+	if request.is_ajax:
+		request_obj = GenericRequest(request)
+		request_obj.parse_request_params()
+		response_base = ResponseDic()
+		
+		user = request.user
+		cid = request_obj.params['cid']
+		token = request_obj.params['token']
+		
+		challenge = get_object_or_404(Challenge, id=cid)
+		challenge.one_time_check_in_with_token(user, token)
+		
+	response_base.response['status'] = 1
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+		
+	return HttpResponse(data, mimetype="text/javascript")
 
 def check_in_check_out(request):
 	if request.is_ajax:
@@ -843,10 +1035,16 @@ def check_in_check_out(request):
 
 		user = request.user
 		cid = request_obj.params['cid']
-		uid = request_obj.params['uid']
+		participant_id = request_obj.params['participant_id']
 
 		challenge = get_object_or_404(Challenge, id=cid)
-		response = challenge.check_in_check_out(uid)
+
+		if 'manual_clean_creds' in request_obj.params and 'manual_hours' in request_obj.params:
+			manual_clean_creds = int(request_obj.params['manual_clean_creds'])
+			manual_hours = int(request_obj.params['manual_hours'])
+			response = challenge.check_in_check_out(participant_id, manual_clean_creds, manual_hours)
+		else:
+			response = challenge.check_in_check_out(participant_id)
 
 		if response:
 			response_base.response['html'] = response
@@ -945,75 +1143,44 @@ def search(request):
 
 	query = request_obj.params['q']
 	national_challenges = request_obj.params['national_challenges']
-
-	if national_challenges == "0":
-		national_challenges = "false"
-	else:	
-		national_challenges = "true"
+	clean_team_only = request_obj.params['clean_team_only']
 	
-	#print national_challenges	
-	
-	challenges = Challenge.search_challenges(query, national_challenges, 10)
-	print challenges
+	challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
 	
 	if challenges:
-		jsonvalue = []
+		challenges_json = []
 
-		for each in challenges:
-			ct_id = each.clean_team_id
-			cteamarray  = CleanTeam.objects.get(id=ct_id)
-			ctname  = cteamarray.name
+		for challenge in challenges:
+			clean_team_name  = challenge.clean_team.name
 
-			qr_id = each.qr_code_id
-
-			if qr_id:
-				try:
-					#print "&"*30
-					qrarray = ChallengeQRCode.objects.get(id=qr_id)
-					#print unicode(qrarray.qr_image)
-					qrimage = unicode(qrarray.qr_image)
-				except Exception,e:
-					print e
-					qrimage = ""
-			else:
-				qrimage = ""
-
-			jsonvalue.append({
-				'country':each.country
-				,'ctname':ctname
-				,'title':each.title
-				,'address1':each.address1
-				,'address2':each.address2
-				,'postal_code':each.postal_code
-				,'city':each.city
-				,'eventdate':str(each.event_start_date)
-				,'eventtime':str(each.event_start_time)
-				,'province':each.province,'id':each.id
-				,'description':each.description
-				,'clean_creds_per_hour':each.clean_creds_per_hour
-				,'type_id':each.type_id
+			challenges_json.append({
+				'title':challenge.title
+				,'country':challenge.country
+				,'cleanteam':clean_team_name
+				,'address1':challenge.address1
+				,'address2':challenge.address2
+				,'postal_code':challenge.postal_code
+				,'city':challenge.city
+				,'eventdate':str(challenge.event_start_date)
+				,'eventtime':str(challenge.event_start_time)
+				,'province':challenge.province,'id':challenge.id
+				,'description':challenge.description
+				,'nationalchallenge':challenge.national_challenge
+				,'cleanteamonly':challenge.clean_team_only
+				,'cleanteamname':challenge.clean_team.name
+				,'cleancredsperhour':challenge.clean_creds_per_hour
+				,'url':challenge.url
+				,'type':challenge.type.challenge_type
 			})
 		
+		response_base.response['challenges'] = challenges_json
 		response_base.response['status'] = 1
 	else:
 		response_base.response['status'] = 0
 	
-	response_base.response['data'] = jsonvalue
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	
 	return HttpResponse(data, mimetype="text/javascript")		
-
-def make_me_read(request):
-	request_obj = GenericRequest(request)
-	request_obj.parse_request_params()
-	response_base = ResponseDic()
-	notid = request_obj.params['notid']
-	usernotification = 	UserNotification.objects.get(id=notid)
-	usernotification.read =1
-	usernotification.save()
-	response_base.response['status'] = 1
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
-	return HttpResponse(data, mimetype="text/javascript")
 
 def participate_challenge(request):
 	if request.is_ajax:
@@ -1025,12 +1192,16 @@ def participate_challenge(request):
 		cid = request_obj.params['cid']
 		challenge = Challenge.objects.get(id=cid)
 
-		try:
-			user_challenge = UserChallenge.objects.get(user=user, challenge=challenge)
-		except Exception, e:
-			user_challenge = UserChallenge(user=request.user)
-			user_challenge.challenge = challenge
-			user_challenge.save()
+		if 'staples_store' in request_obj.params:
+			staples_store = request_obj.params['staples_store']
+			staples_store = StaplesStores.objects.get(id=staples_store)
+
+			participate = challenge.participate_in_challenge(user, staples_store)	
+
+			if not participate:
+				response_base.response['storetaken'] = True
+		else:	
+			challenge.participate_in_challenge(user)
 
 	response_base.response['status'] = 1
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
@@ -1154,28 +1325,42 @@ def cleanteam_view(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
+	
 	try:
-		ctarray = CleanTeam.objects.get(id=request_obj.params['ctid'])
-		level_id  = ctarray.level_id
-		ctlarray = CleanTeamLevel.objects.get(id=level_id)
-		badge  = unicode(ctlarray.badge)
+		clean_team = CleanTeam.objects.get(id=request_obj.params['ctid'])
+		badge  = unicode(clean_team.level.badge)
 		
 		response_base.response['status'] = 1
-		response_base.response['data'] = {'name': ctarray.name, 'website': ctarray.website,'logo':unicode(ctarray.logo),'clean_creds':ctarray.clean_creds,'about':ctarray.about,'twitter':ctarray.twitter,'region':ctarray.region,'team_type':ctarray.team_type,'badge':badge}	
+		response_base.response['data'] = {
+			'name': clean_team.name, 
+			'website': clean_team.website,
+			'logo':unicode(clean_team.logo),
+			'clean_creds':clean_team.clean_creds,
+			'about':clean_team.about,
+			'twitter':clean_team.twitter,
+			'region':clean_team.region,
+			'team_type':clean_team.team_type,
+			'badge':badge
+		}
 		
-		try:
-			challengePost = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])
-			jsonvalue =[]
-			for each in challengePost:
-				userid = each.user_id
-				user = User.objects.get(id=userid)
-				jsonvalue.append({'timedate':str(each.timestamp)
-				,'message':each.message
+		challenge_post = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])
+		posts_json = []
+
+		for post in challenge_post:
+			user = post.user
+
+			timestamp = str(datetime.datetime.strptime(str(post.timestamp)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			posts_json.append({
+				'timedate':str(timestamp)
+				,'userid':post.user.id
+				,'message':post.message
 				,'firstname':user.first_name
-				,'lastname':user.last_name})
-			response_base.response['postdata'] = jsonvalue	
-		except Exception,e:	
-			response_base.response['status'] = 0
+				,'lastname':user.last_name
+				,'pic':unicode(user.profile.picture)
+			})
+
+		response_base.response['posts'] = posts_json	
 	except Exception,e:
 		print e
 		response_base.response['status'] = 0
@@ -1193,44 +1378,49 @@ def team_challenge(request):
 	
 	try:
 		challenge = Challenge.objects.filter(clean_team=clean_team)
-		jsonvalue =[]
-		for each in challenge:		
-			#challengeid = each.challenge_id
-			#challengearray  = Challenge.objects.get(id=challengeid)
+		jsonvalue = []
+		for each in challenge:
 			qr_id = each.qr_code_id
+
 			if qr_id:
 				try:
-					#print "&"*30
 					qrarray = ChallengeQRCode.objects.get(id=qr_id)
-					#print unicode(qrarray.qr_image)
 					qrimage = unicode(qrarray.qr_image)
 				except Exception,e:
 					print e
 					qrimage = ""
 			else:
 				qrimage = ""
-			jsonvalue.append({'title':each.title
-			,'description':each.description
-			,'id':each.id
-			,'address1':each.address1
-			,'address2':each.address2
-			,'city':each.city
-			,'province':each.province
-			,'postal_code':each.postal_code
-			,'country':each.country
-			,'cleanperhour':each.clean_creds_per_hour
-			,'nationalchallenges':each.national_challenge
-			,'total_hours':"0"
-			,'total_clean_creds':"0"
-			,'time_in':"0"
-			,'time_out':"0"
-			,'type_id':each.type_id
-			,'qr_code':qrimage})	
+
+			jsonvalue.append({
+				'title':each.title
+				,'description':each.description
+				,'id':each.id
+				,'address1':each.address1
+				,'address2':each.address2
+				,'city':each.city
+				,'province':each.province
+				,'postal_code':each.postal_code
+				,'country':each.country
+				,'cleanperhour':each.clean_creds_per_hour
+				,'nationalchallenges':each.national_challenge
+				,'cleanteamonly':each.clean_team_only
+				,'url':each.url
+				,'total_hours':"0"
+				,'total_clean_creds':"0"
+				,'time_in':"0"
+				,'time_out':"0"
+				,'type_id':each.type_id
+				,'qr_code':qrimage
+			})
+
 		response_base.response['status'] = 1
 		response_base.response['teamstatus'] = 1
-		response_base.response['data'] = jsonvalue	
+		response_base.response['data'] = jsonvalue
 	except Exception,e:
 		print e
 		response_base.response['status'] = 0
+	
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+
 	return HttpResponse(data, mimetype="text/javascript")	

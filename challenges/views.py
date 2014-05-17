@@ -89,7 +89,6 @@ def check_in_check_out(request):
 		return HttpResponse('')
 
 def dropdown_search_for_challenges(request):
-	
 	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
 	clean_team_only = request.GET['clean_team_only']
@@ -125,7 +124,7 @@ class ChallengeCentreView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ChallengeCentreView, self).get_context_data(**kwargs)
-		context['challenges'] = Challenge.objects.all()
+		context['challenges'] = Challenge.objects.all().order_by('-promote_top')
 
 		return context
 

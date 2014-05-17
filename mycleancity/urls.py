@@ -62,7 +62,7 @@ urlpatterns = patterns('',
 
 	url(r'^download/$', 'mycleancity.views.download_file'),
 	
-	#webservices
+	# Webservices
 	url(r'^api/webservices/login/$', 'api.api.login_user'),
 	url(r'^api/webservices/logout/$', 'api.api.logout_user'),
     url(r'^api/webservices/register/$', "api.api.registration"),
@@ -80,17 +80,23 @@ urlpatterns = patterns('',
 	url(r'^api/webservices/pendinglist/$', "api.api.pending_list"),
 	url(r'^api/webservices/approvedlist/$', "api.api.approved_list"),
 	url(r'^api/webservices/joinchampionteam/$', "api.api.joinchampion_team"),
-	url(r'^api/webservices/listnotification/$', "api.api.list_notification"),
-	url(r'^api/webservices/countnotification/$', "api.api.count_notification"),
+
+	url(r'^api/webservices/listnotifications/$', "api.api.list_notifications"),
+	url(r'^api/webservices/countnotifications/$', "api.api.count_notifications"),
+	
 	url(r'^api/webservices/uploadpicture/$', "api.api.upload_picture"),
 	url(r'^api/webservices/viewparticipants/$', "api.api.view_participants"),
+	
 	url(r'^api/webservices/qrcodeuserchallenge/$', "api.api.qrcode_userchallenge"),
-	url(r'^api/webservices/mychallenge/$', "api.api.my_challenge"),
+	url(r'^api/webservices/mychallenges/$', "api.api.my_challenges"),
+	url(r'^api/webservices/challengecentre/$', "api.api.challenge_centre"),
+	url(r'^api/webservices/onetimecheckin/$', "api.api.one_time_check_in"),
 	url(r'^api/webservices/checkincheckout/$', "api.api.check_in_check_out"),
 	url(r'^api/webservices/checkin/$', "api.api.check_in"),
 	url(r'^api/webservices/checkout/$', "api.api.check_out"),
 	url(r'^api/webservices/search/$', "api.api.search"),
-	url(r'^api/webservices/makemeread/$', "api.api.make_me_read"),
+	
+	url(r'^api/webservices/readnotification/$', "api.api.read_notification"),
 	url(r'^api/webservices/participatechallenge/$', "api.api.participate_challenge"),
 	url(r'^api/webservices/onetimech/$', "api.api.onetime_ch"),
 	url(r'^api/webservices/newsfeeds/$', "api.api.newsfeeds"),
