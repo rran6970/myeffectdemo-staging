@@ -143,6 +143,15 @@ $(function(){
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
 
     twttr.events.bind('follow', followTwitterCallback);
+
+    // Clean Team invite button
+    $("#send-invite-form").on("submit", function(){
+        var button = $("#send-invite-form").find("#send-invite-button");
+        button.prop('disabled', 'disabled');
+        button.val('Sending...');
+
+        return true;
+    });
 });
 
 function populateMainContactInfo(e)

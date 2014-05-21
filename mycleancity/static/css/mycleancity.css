@@ -758,6 +758,8 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.invite-form .subtitle { display: block; margin-bottom: 20px; margin-left: 0 !important; }
 #clean-team-members-list table tr td textarea { width: 300px; }
 
+#send-invite-button {}
+
 /******************************
 	Invite Response Page
 ******************************/

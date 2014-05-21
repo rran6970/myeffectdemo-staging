@@ -79,7 +79,7 @@
         <span class="subtitle">Separate each email address with a comma</span>
 
         <div id="clean-team-members-list">
-          <form autocomplete="off" action="/clean-team/invite" method="post">{% csrf_token %}
+          <form id="send-invite-form" autocomplete="off" action="/clean-team/invite" method="post">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
               <tr>
@@ -89,7 +89,7 @@
                 <td>{{ form.role.label_tag }} {{ form.role }}</td>
               </tr>
               <tr>
-                <td><input type="submit" value="Send Invite" class="btn btn-primary"></td>
+                <td><input id="send-invite-button" type="submit" value="Send Invite" class="btn btn-primary"></td>
               </tr>
             </table>
           </form>    
