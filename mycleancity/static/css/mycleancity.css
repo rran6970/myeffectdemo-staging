@@ -111,7 +111,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.challenge-survey { left: 245px; }
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
-#sign-go-back.contact { left: 424px; }
+#sign-go-back.contact { left: 398px; }
 #sign-go-back.register { left: 373px; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
@@ -195,6 +195,7 @@ div.signs.nav-tabs { border: none; }
 #footer #hak-studio { width: 305px; float: right; text-align: center; }
 #footer #hak-studio a { display: block; }
 #footer #kelly-effect { width: 288px; margin: 0 auto; text-align: center; }
+#footer .issues { margin: 34px 0 10px 25px; }
 
 /******************************
 	Terms & Conditions Section
@@ -443,9 +444,9 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 /******************************
 	Contact
 ******************************/
-#white-box.contact { width: 340px; height: 482px; left: 36%; }
-#white-box.contact textarea { width: 275px; height: 100px; }
-#white-box.contact input[type="text"], #white-box.login input[type="password"] { width: 275px; }
+#white-box.contact { width: 400px; height: 482px; left: 34%; }
+#white-box.contact textarea { width: 335px; height: 100px; }
+#white-box.contact input[type="text"], #white-box.login input[type="password"] { width: 335px; }
 
 /******************************
 	Login
