@@ -752,7 +752,11 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.invite { width: 685px; left: 9%; }
 
 div.table-container #invitees-table tr td.members { width: 300px; }
-div.table-container #invitees-table tr td.status {  }
+
+div.table-container #invitees-table tr td.status { text-align: center; cursor: pointer; }
+div.table-container #invitees-table tr td.status .resend-invite-button { display: block; text-align: center; } 
+div.table-container #invitees-table tr td.status .resend-sent { display: block; text-align: center; } 
+
 div.table-container #invitees-table tr td.roles {  }
 
 #white-box.invite-form .subtitle { display: block; margin-bottom: 20px; margin-left: 0 !important; }

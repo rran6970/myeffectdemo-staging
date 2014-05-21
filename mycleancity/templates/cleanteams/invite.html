@@ -33,6 +33,12 @@
                 </td>
                 <td class="status">
                   {{ invitee.status }}
+                  {% if invitee.status == "pending" %}
+                    <form class="resend-invite-form" action="/clean-team/resend-invite/" method="post">{% csrf_token %}
+                      <input type="hidden" name="invite_id" value="{{ invitee.id }}" />
+                      <input class="submit-link resend-invite-button" type="submit" value="Resend Invite" />
+                    </form>
+                  {% endif %}
                 </td>
                 <td class="roles">
                   {% if invitee.role == "clean-ambassador" %}
