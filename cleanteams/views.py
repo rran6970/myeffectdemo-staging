@@ -512,6 +512,19 @@ class PostMessageView(LoginRequiredMixin, FormView):
 
 		return context
 
+def resend_invite(request):
+	if request.method == 'POST' and request.is_ajax:	
+		invite_id = request.POST['invite_id']
+		uri = request.build_absolute_uri()
+		
+		try:
+			invite = CleanTeamInvite.objects.get(id=invite_id)
+			invite.resendInvite(uri)
+		except Exception, e:
+			raise e
+			
+	return HttpResponse("success")
+
 class InviteView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/invite.html"
 	form_class = InviteForm
@@ -544,7 +557,7 @@ class InviteView(LoginRequiredMixin, FormView):
 				continue
 
 			invite = CleanTeamInvite()
-			invite.inviteUsers(user, role, e, uri)
+			invite.inviteUser(user, role, e, uri)
 
 		return HttpResponseRedirect('/clean-team/invite')
 

@@ -190,7 +190,7 @@ ROLE_CHOICES = (
 )
 
 class InviteForm(forms.Form):
-	email = forms.CharField(required=True, max_length=128, widget=forms.Textarea)
+	email = forms.CharField(required=True, widget=forms.Textarea)
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 

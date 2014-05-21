@@ -6,6 +6,7 @@ from cleanteams.views import *
 urlpatterns = patterns('',
 	url(r'^invite/?$', InviteView.as_view()),
 	url(r'^invite/(?P<token>\w+)/?$', 'cleanteams.views.invite_check'),
+	url(r'^resend-invite/?$', 'cleanteams.views.resend_invite'),
 	url(r'^invite-response/(?P<token>\w+)/?$', InviteResponseView.as_view()),
 	# url(r'^invite/(?P<token>\w+)/?$', 'cleanteams.views.accept_invite'),
 	url(r'^post-message/?$', PostMessageView.as_view()),

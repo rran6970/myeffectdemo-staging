@@ -426,14 +426,14 @@ class Challenge(models.Model):
 			if user.is_active:
 				if user.profile.is_clean_ambassador():
 					try:
-						clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=user.profile.clean_team_member.clean_team, challenge=self)
+						clean_team_challenge = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team, challenge=self)[0]
 						return clean_team_challenge
 					except Exception, e:
 						print e
 						return False
 		else:
 			try:
-				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
+				user_challenge = UserChallenge.objects.filter(user=user, challenge=self)[0]
 				return user_challenge
 			except Exception, e:
 				print e
