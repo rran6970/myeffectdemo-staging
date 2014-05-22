@@ -128,7 +128,7 @@ class ChallengeCentreView(TemplateView):
 
 		return context
 
-class ShuttleRockVoucherView(LoginRequiredMixin, FormView):
+class VoucherView(LoginRequiredMixin, FormView):
 	template_name = "challenges/voucher_code.html"
 	form_class = UserVoucherForm
 	success_url = "mycleancity/index.html"
@@ -151,11 +151,8 @@ class ShuttleRockVoucherView(LoginRequiredMixin, FormView):
 		voucher_code = form.cleaned_data['voucher']
 		user = self.request.user
 
-		try:
-			voucher = UserVoucher.objects.get(voucher=voucher_code, user__isnull=True)
-			voucher.claim_voucher(user)
-		except Exception, e:
-			raise e
+		voucher = Voucher.objects.get(voucher=voucher_code)
+		voucher.claim_voucher(user)
 
 		return HttpResponseRedirect(u'/users/profile/%s' % (user.id))
 
