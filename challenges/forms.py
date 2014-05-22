@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
-from challenges.models import Challenge, UserVoucher, ChallengeType, UserChallenge, ChallengeQuestion, QuestionAnswer
+from challenges.models import *
 
 PROVINCES = (('', 'Please select one...'),
 	('AB', 'AB'), 
@@ -35,15 +35,15 @@ class UserVoucherForm(forms.Form):
 		cleaned_data = super(UserVoucherForm, self).clean()
 		voucher_code = cleaned_data.get("voucher")
 
+		voucher = None
+
 		try:
-			voucher = UserVoucher.objects.get(voucher=voucher_code)
+			voucher = Voucher.objects.get(voucher=voucher_code)
 		except Exception, e:
 			raise forms.ValidationError(u"Invalid voucher code")
 
-		try:
-			voucher = UserVoucher.objects.get(voucher=voucher_code, user__isnull=True)
-		except Exception, e:
-			raise forms.ValidationError(u"Voucher code is already claimed")
+		if voucher.claims_made >= voucher.claims_allowed:
+			raise forms.ValidationError(u"Voucher code has already been claimed the maximum number of times")
 
 		return cleaned_data
 
