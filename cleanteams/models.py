@@ -532,7 +532,7 @@ class CleanTeamInvite(models.Model):
 
 		return False
 
-	def inviteUsers(self, user, role, email, uri, notification=True):
+	def inviteUser(self, user, role, email, uri, notification=True):
 		char_set = string.ascii_lowercase + string.digits
 		token = ''.join(random.sample(char_set*20,20))
 		full_uri = u'%s/%s' % (uri, token)
@@ -585,6 +585,18 @@ class CleanTeamInvite(models.Model):
 		content = Context({ 'user': user, 'email': email, 'role': role, 'full_uri': full_uri })
 
 		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', email
+
+		send_email = SendEmail()
+		send_email.send(template, content, subject, from_email, to)
+
+	def resendInvite(self, uri):
+		full_uri = u'%s/%s' % (uri, self.token)
+
+		# Send invite email to email address
+		template = get_template('emails/email_invite_join.html')
+		content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
+
+		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', self.email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)

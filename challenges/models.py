@@ -426,14 +426,14 @@ class Challenge(models.Model):
 			if user.is_active:
 				if user.profile.is_clean_ambassador():
 					try:
-						clean_team_challenge = CleanTeamChallenge.objects.get(clean_team=user.profile.clean_team_member.clean_team, challenge=self)
+						clean_team_challenge = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team, challenge=self)[0]
 						return clean_team_challenge
 					except Exception, e:
 						print e
 						return False
 		else:
 			try:
-				user_challenge = UserChallenge.objects.get(user=user, challenge=self)
+				user_challenge = UserChallenge.objects.filter(user=user, challenge=self)[0]
 				return user_challenge
 			except Exception, e:
 				print e
@@ -635,31 +635,55 @@ class StaplesChallenge(models.Model):
 		super(StaplesChallenge, self).save(*args, **kwargs)
 
 """
+Name:           Voucher
+Date created:   May 21, 2014
+Description:    
+"""
+class Voucher(models.Model):
+	voucher = models.CharField(max_length=60, blank=False, unique=True, verbose_name="Voucher")	
+	challenge = models.ForeignKey(Challenge, null=True, blank=True)
+	clean_creds = models.IntegerField(default=0)
+	claims_allowed = models.IntegerField(default=0)
+	claims_made = models.IntegerField(default=0)
+
+	class Meta:
+		verbose_name_plural = u'Voucher Codes'
+
+	def __unicode__(self):
+		return u'Voucher: %s' %(self.voucher)
+
+	def claim_voucher(self, user):
+		user_voucher, created = UserVoucher.objects.get_or_create(voucher=self, user=user)		
+
+		if created:
+			if self.claims_made < self.claims_allowed:
+				self.claims_made += 1
+				self.save()
+
+				if self.challenge:
+					self.challenge.one_time_check_in_with_token(user, self.challenge.token)
+				elif self.clean_creds:
+					user.profile.add_clean_creds_to_individual_and_teams(self.clean_creds)
+
+				return True
+
+		return False
+
+	def save(self, *args, **kwargs):
+		super(Voucher, self).save(*args, **kwargs)
+
+"""
 Name:           UserVoucher
 Date created:   Mar 29, 2014
 Description:    
 """
 class UserVoucher(models.Model):
-	voucher = models.CharField(max_length=60, blank=False, unique=True, verbose_name="Voucher")	
+	voucher = models.ForeignKey(Voucher, null=True, blank=True)
 	user = models.ForeignKey(User, null=True, blank=True)
-	challenge = models.ForeignKey(Challenge, null=True, blank=True)
-	clean_creds = models.IntegerField(default=0)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:
-		verbose_name_plural = u'Voucher Codes'
-
-	def claim_voucher(self, user):
-		if self.voucher:	
-			self.user = user
-
-			if self.challenge:
-				self.challenge.one_time_check_in_with_token(user, self.challenge.token)
-			elif self.clean_creds:
-				user.profile.add_clean_creds_to_individual_and_teams(self.clean_creds)
-
-			self.save()
-
-		return False
+		verbose_name_plural = u'User claimed voucher codes'
 
 	def save(self, *args, **kwargs):
 		super(UserVoucher, self).save(*args, **kwargs)

@@ -143,7 +143,40 @@ $(function(){
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
 
     twttr.events.bind('follow', followTwitterCallback);
+
+    // Clean Team invite button
+    $("#send-invite-form").on("submit", function(){
+        var button = $("#send-invite-form").find("#send-invite-button");
+        button.prop('disabled', 'disabled');
+        button.val('Sending...');
+
+        return true;
+    });
+
+    $(".resend-invite-form").on("submit", resendInvite);
 });
+
+function resendInvite(e)
+{
+    var form = $(this);
+    var button = $(this).find(".resend-invite-button");
+    button.after("<span class='resend-sent'>Sent</span>");
+    button.hide();
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+            
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+    return false;
+}
 
 function populateMainContactInfo(e)
 {

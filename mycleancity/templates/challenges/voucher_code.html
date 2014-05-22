@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Shuttlerock Voucher Code {% endblock %}
+{% block title %} My Clean City - Voucher Code {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,10 +19,10 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>Shuttlerock Voucher Code</h2>
-            <span class="subtitle">Enter your Shuttlerock Voucher Code to claim your <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</span>
+            <h2>Voucher Code</h2>
+            <span class="subtitle">Enter your voucher code to claim your <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</span>
 
-			{% if form.non_field_errors %}
+			       {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
