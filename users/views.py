@@ -432,11 +432,21 @@ class SettingsView(LoginRequiredMixin, FormView):
 
 		return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 
-class QRCodeView(TemplateView):
+class QRCodeView(LoginRequiredMixin, TemplateView):
 	template_name = "users/qr_code.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(QRCodeView, self).get_context_data(**kwargs)
+			
+		context['qr_code'] = UserQRCode.objects.get(user=self.request.user)
+
+		return context
+
+class PrintableCardView(LoginRequiredMixin, TemplateView):
+	template_name = "users/printable_card.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(PrintableCardView, self).get_context_data(**kwargs)
 			
 		context['qr_code'] = UserQRCode.objects.get(user=self.request.user)
 

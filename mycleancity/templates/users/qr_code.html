@@ -20,6 +20,8 @@
         <div id="white-box" class="qr-code">
           <h1>Member ID: {{ user.id }}</h1>
           <img src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
+
+          <a class="btn btn-primary" href="/users/printable-card/">View printable card</a>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
