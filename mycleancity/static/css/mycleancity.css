@@ -474,11 +474,13 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 /******************************
 	Printable Member ID
 ******************************/
-#member-card-background { width: 415px; height: 278px; background: url(../images/membership-card.png) no-repeat 0 0; }
-#member-card-background img { width: 126px; display: block; position: relative; top: 92px; left: 28px; }
-#member-card-background .name-container { width: 200px; float: right; margin-right: 40px; }
-#member-card-background h1.full-name { color: white; font-weight: 400; font-size: 22px; }
-#member-card-background h1.user-id { color: white; font-size: 16px; }
+#member-card { } 
+#member-card #member-card-background { width: 415px; height: 278px; position: absolute; }
+#member-card #qr-code { width: 126px; display: block; position: relative; top: 92px; left: 28px; }
+#member-card #details { width: 415px; height: 278px; }
+#member-card #details .name-container { width: 200px; float: right; margin-right: 40px; position: relative; }
+#member-card #details .name-container h1.full-name { color: white; font-weight: 400; font-size: 22px; }
+#member-card #details .name-container h1.user-id { color: white; font-size: 16px; }
 
 /******************************
 	Register
