@@ -467,9 +467,18 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 /******************************
 	QR Code
 ******************************/
-#white-box.qr-code { width: 410px; height: 353px; left: 34%%; overflow-y: scroll; padding: 0; }
+#white-box.qr-code { width: 410px; left: 34%; overflow-y: scroll; padding: 0; }
 #white-box.qr-code h1 { text-align: center; margin-top: 20px; }
 #white-box.qr-code img { display: block; width: 290px; height: 290px; margin: 0 auto; }
+
+/******************************
+	Printable Member ID
+******************************/
+#member-card-background { width: 415px; height: 278px; background: url(../images/membership-card.png) no-repeat 0 0; }
+#member-card-background img { width: 126px; display: block; position: relative; top: 92px; left: 28px; }
+#member-card-background .name-container { width: 200px; float: right; margin-right: 40px; }
+#member-card-background h1.full-name { color: white; font-weight: 400; font-size: 22px; }
+#member-card-background h1.user-id { color: white; font-size: 16px; }
 
 /******************************
 	Register
