@@ -20,6 +20,7 @@
         
         <div id="point-meter">
           <div class="meter-container">
+            {% if user.is_authenticated %}
             {% if clean_team == user.profile.clean_team_member.clean_team %}
             <!-- <div class="your-team-box">
               {% if clean_team.logo %}
@@ -40,6 +41,7 @@
                 </div>
               </a>
             {% endfor %}
+            {% endif %}
             {% endif %}
   
             <div class="meter-filling"></div>
