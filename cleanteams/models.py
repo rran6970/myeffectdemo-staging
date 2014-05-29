@@ -64,6 +64,78 @@ class CleanTeam(models.Model):
 	def __unicode__(self):
 		return u'Clean Team: %s' % self.name
 
+	def get_pixels_for_leading_teams(self, clean_creds):
+		height = 0
+
+		if (clean_creds <= 250):
+			difference = 75
+			max = 250
+
+			divisor = max/difference
+			height = clean_creds/divisor
+			height -= 30
+		elif (clean_creds <= 1000):
+			difference = 67
+			max = 1000
+
+			divisor = max/difference
+			
+			height = clean_creds/divisor
+			height += difference
+			height -= 30
+		elif (clean_creds <= 3000):
+			difference = 67
+			max = 3000
+
+			divisor = max/difference
+			
+			height = clean_creds/divisor
+			height += (difference + 75)
+			height -= 15
+		elif (clean_creds <= 5000):
+			difference = 67
+			max = 5000
+
+			divisor = max/difference
+			
+			height = clean_creds/divisor
+			height += (difference + 140)
+			height -= 35
+		elif (clean_creds <= 10000):
+			difference = 67
+			max = 10000
+
+			divisor = parseFloat(max/difference).toFixed(4);
+			
+			height = clean_creds/divisor;
+			height += (difference + 208);
+			height -= 40
+		elif (clean_creds <= 15000):
+			difference = 67
+			max = 15000
+
+			divisor = max/difference
+			
+			height = clean_creds/divisor
+			height += (difference + 285)
+			height -= 13
+		elif (clean_creds > 15000):
+			height = 419
+			height -= 5
+
+		return height
+
+	def get_leading_teams(self):
+		clean_teams = CleanTeam.objects.filter(clean_creds__gt=self.clean_creds)[:3]
+		clean_teams_list = []
+
+		for clean_team in clean_teams:
+			pixels = self.get_pixels_for_leading_teams(clean_team.clean_creds)
+			clean_team_array = [clean_team, pixels]
+			clean_teams_list.append(clean_team_array)
+
+		return clean_teams_list
+
 	def add_team_clean_creds(self, amount, notification=True):
 		self.clean_creds += amount
 		self.save()
@@ -78,7 +150,6 @@ class CleanTeam(models.Model):
 
 				users_to_notify_str = notification.users_to_notify
 				users_to_notify = users_to_notify_str.split(', ')
-				print users_to_notify
 
 				# Notify all of the Users that have the roles within users_to_notify
 				for role in users_to_notify:

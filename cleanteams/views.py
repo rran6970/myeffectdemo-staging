@@ -379,6 +379,9 @@ class CleanTeamView(TemplateView):
 			for user_challenge in user_challenges:
 				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
 
+			leading_teams = self.request.user.profile.clean_team_member.clean_team.get_leading_teams()
+
+			context['leading_teams'] = leading_teams
 			context['challenges'] = challenge_dict
 			context['page_url'] = self.request.get_full_path()
 			context['cas'] = cas

@@ -36,6 +36,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .profile-pic { border-radius: 4px; border: 1px solid #C4C4C4; }
 .profile-pic-124x124 { margin-right: 10px; height: 124px; width: 124px; }
 .profile-pic-42x42 { margin-right: 10px; height: 42px; width: 42px; }
+.profile-pic-50x50 { margin-right: 10px; height: 50px; width: 50px; }
 
 #search-container { position: absolute; z-index: 1001; right: 213px; top: 14px; width: 274px; }
 #search-container > input[type="text"] { width: 250px; padding: 8px; font-size: 14px; border: 1px solid #7E7E7E; }
@@ -835,6 +836,21 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
 
 #white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
+
+#point-meter { width: 400px; float: left; position: absolute; top: -25px; margin-left: 30px; }
+
+#point-meter .meter-container { position: relative; }
+#point-meter .meter-container .frame { height: 470px; width: 276px; background: url(../images/point-meter/meter-frame.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; } 
+#point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background: url(../images/point-meter/meter-filling-1x60.png) repeat-y 0 0; margin-left: 161px; bottom: 16px; }
+
+#point-meter .meter-container .your-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 80px; height: 63px; background: url(../images/point-meter/your-team-box-80x63.png) no-repeat 0 0; z-index: 999; bottom: 118px; }
+#point-meter .meter-container .your-team-box img.profile-pic { position: relative; left: 23px; top: 5px; box-shadow: none; border-radius: 0; }
+
+#point-meter .meter-container .other-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 70px; height: 54px; background: url(../images/point-meter/other-team-box-70x54.png) no-repeat 0 0; z-index: 999; bottom: 218px; }
+#point-meter .meter-container .other-team-box img.profile-pic { position: relative; left: 22px; top: 6px; box-shadow: none; border-radius: 0; }
+
+#point-meter .sign-point-meter-bottom { width: 405px; height: 65px; background: url(../images/point-meter/bottom.png) no-repeat 0 0; }
+#point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 26px; color: #83c156; top: 16px; left: 24px; }
 
 /************************************************************
 	Edit Clean Team
