@@ -21,21 +21,21 @@
         <div id="point-meter">
           <div class="meter-container">
             {% if clean_team == user.profile.clean_team_member.clean_team %}
-            <div class="your-team-box">
+            <!-- <div class="your-team-box">
               {% if clean_team.logo %}
                 <img src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic profile-pic-50x50" />
               {% else %}
                 <img class="profile-pic profile-pic-50x50" src="{{ STATIC_URL }}images/default-team-pic-50x50.png" alt="" />
               {% endif %}
-            </div>
+            </div> -->
             
             {% for team in leading_teams %}
               <a href="/clean-team/{{ team.0.id }}">
                 <div class="other-team-box" style="bottom: {{ team.1 }}px;">
                 {% if team.0.logo %}
-                  <img class="profile-pic profile-pic-42x42" src="{{ MEDIA_URL }}{{ team.0.logo }}" alt="" />
+                  <img rel="tooltip" data-placement="right" title="{{ team.0.name }}" class="profile-pic profile-pic-42x42" src="{{ MEDIA_URL }}{{ team.0.logo }}" alt="" />
                 {% else %}                
-                   <img class="profile-pic profile-pic-42x42" src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" />
+                  <img rel="tooltip" data-placement="right" title="{{ team.0.name }}" class="profile-pic profile-pic-42x42" src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" />
                 {% endif %}
                 </div>
               </a>

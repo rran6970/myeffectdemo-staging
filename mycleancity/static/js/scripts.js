@@ -1,6 +1,8 @@
 $(function(){  
     $(".btn").button();
 
+    $("[rel='tooltip']").tooltip();
+
     // Number field validator mask
     // $(".number-field").inputmask("9{3}");
 
