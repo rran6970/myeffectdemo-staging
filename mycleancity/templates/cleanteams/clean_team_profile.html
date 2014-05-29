@@ -18,33 +18,16 @@
   <div class="content">
     <div class="container">
 
-        {% if clean_team.clean_creds < 250 %}
-        <img src="{{ STATIC_URL }}images/clean-team-tree-stage-0.png" alt="Tree Level" id="tree-progress">
-        {% else %}
-          {% if clean_team.clean_creds < 1000 %}
-          <img src="{{ STATIC_URL }}images/clean-team-tree-stage-1.png" alt="Tree Level" id="tree-progress">
-          {% else %}
-            {% if clean_team.clean_creds < 3000 %}
-            <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
-            {% else %}
-              {% if clean_team.clean_creds < 3000 %}
-              <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
-              {% else %}
-                {% if clean_team.clean_creds < 5000 %}
-                <img src="{{ STATIC_URL }}images/clean-team-tree-stage-3.png" alt="Tree Level" id="tree-progress">
-                {% else %}
-                  {% if clean_team.clean_creds < 10000 %}
-                  <img src="{{ STATIC_URL }}images/clean-team-tree-stage-4.png" alt="Tree Level" id="tree-progress">
-                  {% else %}
-                    {% if clean_team.clean_creds > 9999 %}
-                    <img src="{{ STATIC_URL }}images/clean-team-tree-stage-5.png" alt="Tree Level" id="tree-progress">
-                    {% endif %}
-                  {% endif %}
-                {% endif %}
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
+        <div id="point-meter">
+          <div class="meter-container">
+            <div class="meter-filling"></div>
+            <div class="frame"></div>
+          </div>
+      
+          <div class="sign-point-meter-bottom">
+              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+          </div>   
+        </div><!-- /.point-meter -->
         
         <div id="white-box" class="public-profile clean-team-profile">
           
@@ -260,4 +243,6 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+  <script src="{{ STATIC_URL }}js/point-meter.js"></script>
+{% endblock %}
