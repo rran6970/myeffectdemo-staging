@@ -105,7 +105,7 @@ class CleanTeam(models.Model):
 			difference = 67
 			max = 10000
 
-			divisor = parseFloat(max/difference).toFixed(4);
+			divisor = (max/difference).toFixed(4);
 			
 			height = clean_creds/divisor;
 			height += (difference + 208);
