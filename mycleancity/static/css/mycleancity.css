@@ -882,7 +882,7 @@ div.table-container #invitees-table tr td.roles {  }
 	Twitter Feed
 ******************************/
 #tweets { float: left; overflow: hidden; }
-#tweets ul li { display: block; width: 240px; margin: 0 27px; position:relative; float: left; word-wrap: break-word;  }
+#tweets ul li { display: block; width: 232px; margin: 0 27px; position:relative; float: left; word-wrap: break-word;  }
 
 /******************************
 	Countdown
