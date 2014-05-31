@@ -389,7 +389,9 @@ class CleanTeamView(TemplateView):
 			context['cas'] = cas
 			context['ccs'] = ccs
 			context['posts'] = posts
-			context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
+
+			if user.is_authenticated():
+				context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
 
 		context['user'] = user
 
