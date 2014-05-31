@@ -17,35 +17,43 @@
   
   <div class="content">
     <div class="container">
-
-        {% if clean_team.clean_creds < 250 %}
-        <img src="{{ STATIC_URL }}images/clean-team-tree-stage-0.png" alt="Tree Level" id="tree-progress">
-        {% else %}
-          {% if clean_team.clean_creds < 1000 %}
-          <img src="{{ STATIC_URL }}images/clean-team-tree-stage-1.png" alt="Tree Level" id="tree-progress">
-          {% else %}
-            {% if clean_team.clean_creds < 3000 %}
-            <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
-            {% else %}
-              {% if clean_team.clean_creds < 3000 %}
-              <img src="{{ STATIC_URL }}images/clean-team-tree-stage-2.png" alt="Tree Level" id="tree-progress">
-              {% else %}
-                {% if clean_team.clean_creds < 5000 %}
-                <img src="{{ STATIC_URL }}images/clean-team-tree-stage-3.png" alt="Tree Level" id="tree-progress">
-                {% else %}
-                  {% if clean_team.clean_creds < 10000 %}
-                  <img src="{{ STATIC_URL }}images/clean-team-tree-stage-4.png" alt="Tree Level" id="tree-progress">
-                  {% else %}
-                    {% if clean_team.clean_creds > 9999 %}
-                    <img src="{{ STATIC_URL }}images/clean-team-tree-stage-5.png" alt="Tree Level" id="tree-progress">
-                    {% endif %}
-                  {% endif %}
-                {% endif %}
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
         
+        <div id="point-meter">
+          <div class="meter-container">
+            {% if user.is_authenticated %}
+            {% if clean_team == user.profile.clean_team_member.clean_team %}
+            <div class="your-team-box" style="bottom: {{ pixels }}px;">
+              {% if clean_team.logo %}
+                <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic profile-pic-50x50" />
+              {% else %}
+                <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" class="profile-pic profile-pic-50x50" src="{{ STATIC_URL }}images/default-team-pic-50x50.png" alt="" />
+              {% endif %}
+            </div>
+            
+            {% for team in leading_teams %}
+              <a href="/clean-team/{{ team.0.id }}">
+                <div class="other-team-box" style="bottom: {{ team.1 }}px;">
+                {% if team.0.logo %}
+                  <img rel="tooltip" data-placement="right" title="{{ team.0.name }}" class="profile-pic profile-pic-42x42" src="{{ MEDIA_URL }}{{ team.0.logo }}" alt="" />
+                {% else %}                
+                  <img rel="tooltip" data-placement="right" title="{{ team.0.name }}" class="profile-pic profile-pic-42x42" src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" />
+                {% endif %}
+                </div>
+              </a>
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+  
+            <div class="meter-filling"></div>
+            <div class="frame"></div>
+          </div>
+      
+          <div class="sign-point-meter-bottom">
+              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+          </div>   
+        </div><!-- /.point-meter -->
+        
+
         <div id="white-box" class="public-profile clean-team-profile">
           
           <div class="info" id="right-side">
@@ -260,4 +268,6 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+  <script src="{{ STATIC_URL }}js/point-meter.js"></script>
+{% endblock %}

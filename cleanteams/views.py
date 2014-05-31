@@ -331,6 +331,7 @@ class CleanTeamView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(CleanTeamView, self).get_context_data(**kwargs)
+		user = self.request.user
 
 		if 'ctid' in self.kwargs:
 			ctid = self.kwargs['ctid']
@@ -341,27 +342,27 @@ class CleanTeamView(TemplateView):
 			posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
 
 			try:
-				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=self.request.user)
+				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=user)
 				context['clean_champion'] = clean_champion
 			except Exception, e:
 				print e
 
 			try:
-				invite = CleanTeamInvite.objects.get(email=self.request.user.email, clean_team_id=ctid)
+				invite = CleanTeamInvite.objects.get(email=user.email, clean_team_id=ctid)
 				context['invite'] = invite
 			except Exception, e:
 				print e
 
 			try:
 				# TODO: Need to pass this to the template
-				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=self.request.user, status="approved", role="clean-ambassador")
+				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="clean-ambassador")
 				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
 			
 			try:
-				user_challenges = UserChallenge.objects.filter(user=self.request.user, challenge__clean_team_id=ctid)
-				user_challenges_list = UserChallenge.objects.filter(user=self.request.user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+				user_challenges = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid)
+				user_challenges_list = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
 			except Exception, e:
 				user_challenges = []
 				user_challenges_list = []
@@ -379,13 +380,18 @@ class CleanTeamView(TemplateView):
 			for user_challenge in user_challenges:
 				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
 
+			if self.request.user.is_authenticated():
+				leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
+				context['leading_teams'] = leading_teams
+
 			context['challenges'] = challenge_dict
 			context['page_url'] = self.request.get_full_path()
 			context['cas'] = cas
 			context['ccs'] = ccs
 			context['posts'] = posts
+			context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
 
-		context['user'] = self.request.user
+		context['user'] = user
 
 		return context
 

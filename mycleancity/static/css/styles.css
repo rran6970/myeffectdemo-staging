@@ -139,3 +139,5 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 
 .popup-container { display: none; }
 .popup { padding: 20px; }
+
+.tooltip { min-width: 100px; }
