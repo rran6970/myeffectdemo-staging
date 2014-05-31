@@ -841,7 +841,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 #point-meter .meter-container { position: relative; }
 #point-meter .meter-container .frame { height: 470px; width: 276px; background: url(../images/point-meter/meter-frame.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; } 
-#point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background: url(../images/point-meter/meter-filling-1x60.png) repeat-y 0 0; margin-left: 161px; bottom: 16px; }
+#point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background: url(../images/point-meter/meter-filling-1x60.png) repeat-y 0 0; margin-left: 161px; bottom: 16px; border-top-left-radius: 30px; border-top-right-radius: 32px; border-top: 1px solid #004711; }
 
 #point-meter .meter-container .your-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 80px; height: 63px; background: url(../images/point-meter/your-team-box-80x63.png) no-repeat 0 0; z-index: 999; bottom: 118px; }
 #point-meter .meter-container .your-team-box img.profile-pic { position: relative; left: 23px; top: 5px; box-shadow: none; border-radius: 0; }
