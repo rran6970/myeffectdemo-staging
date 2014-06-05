@@ -145,7 +145,7 @@ class Challenge(models.Model):
 	qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
 	token = models.CharField(max_length=20, blank=True)
 	promote_top = models.BooleanField(default=False)
-	url = models.CharField(max_length=60, blank=True, null=True, unique=True, verbose_name="URL")
+	url = models.CharField(max_length=60, blank=True, null=True, verbose_name="URL")
 
 	clean_team_only = models.BooleanField(default=False)
 
