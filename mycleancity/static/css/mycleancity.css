@@ -821,6 +821,9 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-profile div.info#wall div.post p.message { left: 52px; position: relative; width: 365px; }
 #white-box.clean-team-profile div.info#wall div.post img { float: left; margin-top: 0; margin-right: 10px; }
 
+#white-box.clean-team-profile div.info#wall #show-post-message-box { margin-bottom: 1px; width: 400px; }
+#post-message-container { display: none; position: absolute; background: transparent url(../images/1x1-white.png) repeat 0 0; padding: 20px; border: 2px solid #505050; top: 59px; left: 300px; z-index: 1000; }
+
 #white-box.clean-team-profile span.edit-clean-team-link { position: relative; left: 22px; top: 5px; }
 #white-box.clean-team-profile img.profile-pic { /*margin-right: 58px;*/ }
 #white-box.clean-team-profile img.profile-pic + #badge-icon { display: block;

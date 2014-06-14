@@ -148,10 +148,16 @@
           </div><!-- /.info -->
 
           <div class="info" id="wall">
-            <div class="field about">
+            <div class="field">
               <p class="title">Posts</p>
               <div class="clear"></div>
+    
+              <!-- <button class="btn btn-primary" id="show-post-message-box">Post A Message</button> -->
+              <input id="show-post-message-box" type="text" placeholder="Post a message..." />
 
+              <div class="clear"></div>
+
+              <div class="posts">
               {% if posts %}
                 {% for post in posts %}
                   <div class="post">
@@ -173,10 +179,21 @@
               {% else %}
                 <p class="messsage">No recent posts</p>
               {% endif %}
+              </div>
             </div>
           </div><!-- /.info -->
 
         </div><!-- /#white-box -->
+  
+        <div id="post-message-container">
+          <form autocomplete="off" action="/clean-team/post-message" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+            <textarea name="message" id="" cols="30" rows="10"></textarea>
+            <input id="post-message-btn" class="btn btn-primary" type="submit" value="Post Message" />
+          </form>
+        </div>
+
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->
@@ -264,6 +281,7 @@
     </ul>
   </div><!-- end of #clean-team-members-list -->
 </div>
+
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

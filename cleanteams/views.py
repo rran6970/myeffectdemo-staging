@@ -504,9 +504,10 @@ class PostMessageView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		user = self.request.user
 		clean_team = user.profile.clean_team_member.clean_team
+		message = form.cleaned_data['message']
 
 		clean_team_post = CleanTeamPost()
-		clean_team_post.newPost(user, form, clean_team)
+		clean_team_post.newPost(user, message, clean_team)
 
 		return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
 
@@ -517,6 +518,19 @@ class PostMessageView(LoginRequiredMixin, FormView):
 		context['user'] = user
 
 		return context
+
+def post_message_ajax(request):
+	if request.method == 'POST' and request.is_ajax:	
+		user = request.user
+		message = request.POST['message']
+		ctid = request.POST['ctid']
+		
+		clean_team = get_object_or_404(CleanTeam, id=ctid)
+
+		clean_team_post = CleanTeamPost()
+		post = clean_team_post.newPost(user, message, clean_team)
+
+	return HttpResponse(post)
 
 def resend_invite(request):
 	if request.method == 'POST' and request.is_ajax:	

@@ -1,5 +1,6 @@
 import random
 import string
+import json
 
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -9,6 +10,7 @@ from django.db import models
 from django.db.models import Count
 from django.template import Context
 from django.template.loader import get_template
+from django.template.defaultfilters import date
 
 from itertools import chain
 
@@ -501,10 +503,10 @@ class CleanTeamPost(models.Model):
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
 
-	def newPost(self, user, form, clean_team, notification=True):
+	def newPost(self, user, message, clean_team, notification=True):
 		self.user = user
 		self.clean_team = clean_team
-		self.message = form.cleaned_data['message']
+		self.message = message
 
 		self.save()
 
@@ -535,6 +537,22 @@ class CleanTeamPost(models.Model):
 						user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
 			except Exception, e:
 				print e
+
+		post_string = "<div class='post'>";
+
+		if self.user.profile.picture:
+			post_string += "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, self.user.profile.picture)
+		else:
+			post_string += "<img src='%simages/default-profile-pic-42x42.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
+		
+		post_string += "<p class='user'><a href='/users/profile/%s'>%s</a></p>" % (self.user.id, self.user.profile.get_full_name())
+		# post_string += "<p class='timestamp'>%s</p>" % date(self.timestamp, "F j, Y, g:i a")
+		post_string += "<p class='timestamp'>Just now</p>"
+		post_string += "<div class='clear'></div>"
+		post_string += "<p class='message'>" + message + "</p></div>"
+		post_string += "<div class='clear'></div>"
+
+		return json.dumps(post_string, indent=4, separators=(',', ': '))
 
 	def save(self, *args, **kwargs):
 		super(CleanTeamPost, self).save(*args, **kwargs)

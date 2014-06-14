@@ -156,6 +156,18 @@ $(function(){
     });
 
     $(".resend-invite-form").on("submit", resendInvite);
+
+    // Show post message box on Clean Team Profile
+    $("#show-post-message-box").on("focus", function(){
+        $("#post-message-container").fadeIn(500).show();
+        $("#post-message-container form textarea").focus();
+    });
+
+    $("#post-message-container form textarea").on("blur", function(){
+        $("#post-message-container").fadeOut(500);
+    });
+
+    $("#post-message-container form").on("submit", postMessage);
 });
 
 function resendInvite(e)
@@ -203,12 +215,39 @@ function populateMainContactInfo(e)
                 $("#id_contact_last_name").val(last_name);
                 $("#id_contact_email").val(email);
             }    
-            
         },
         error: function(data) {
             console.log(data);
         }
     });
+}
+
+function postMessage(e)
+{
+    var form = $(this);
+    var textfield = form.find("textarea");
+
+    var message = textfield.val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/clean-team/post-message-ajax',
+        data: form.serialize(),
+        success: function (data) {
+            textfield.val("");
+            $("#post-message-container").hide().fadeOut(1000);
+
+            var post = $(data);
+            var posts = $("#wall .posts");
+
+            posts.prepend(post);
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+    return false;
 }
 
 function showSearchResults(e, search_box)
