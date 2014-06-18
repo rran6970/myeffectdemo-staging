@@ -13,7 +13,8 @@ from django.contrib.auth import authenticate
 from django.core.files.images import get_image_dimensions
 from django.forms.extras.widgets import SelectDateWidget
 
-from captcha.fields import CaptchaField
+# from captcha.fields import CaptchaField
+from captcha.fields import ReCaptchaField
 
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile, UserSettings
@@ -157,7 +158,7 @@ class RegisterUserForm(forms.ModelForm):
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
-	captcha = CaptchaField()
+	captcha = ReCaptchaField()
 
 	# Combines the form with the corresponding model
 	class Meta:

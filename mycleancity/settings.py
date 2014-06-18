@@ -1,7 +1,7 @@
 # Django settings for mycleancity project.
 import os
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -196,7 +196,11 @@ DJANGO_WYSIWYG_FLAVOR = 'yui'
 AWS_ACCESS_KEY_ID = 'AKIAIKQOZZOLGYLTP37A'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_BUCKET = 'mycleancityproduction'
-# AWS_BUCKET = 'mycleancitystaging'
+AWS_BUCKET = 'mycleancitystaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET
 MEDIA_URL = S3_URL
+
+RECAPTCHA_PUBLIC_KEY = '6LeIfvUSAAAAAGddGYNmYm9U13roiQ-OhlF-eVv1'
+RECAPTCHA_PRIVATE_KEY = '6LeIfvUSAAAAAGIXuvxqEFgWtU9cczLI91vf4m-G'
+RECAPTCHA_USE_SSL = True
