@@ -86,6 +86,9 @@
 	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
 	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
 	                </tr>
+	                <tr>
+	                	<td colspan="2">{{ form.link.label_tag }} {{ form.link }}</td>
+	                </tr>
 	                {% if user.profile.clean_team_member.clean_team.admin %}
 	                <tr>
 	                	<td>{{ form.type.label_tag }} {{ form.type }}</td>

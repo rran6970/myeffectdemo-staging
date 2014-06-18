@@ -135,6 +135,7 @@ class Challenge(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, verbose_name='Country')
 	description = models.TextField(blank=False, default="")
+	link = models.CharField(max_length=200, blank=True, null=True, verbose_name="Link")
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam, blank=True, null=True, default=-1)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -176,6 +177,7 @@ class Challenge(models.Model):
 		self.province = form['province']
 		self.country = form['country']
 		self.description = form['description']
+		self.link = form['link']
 		self.national_challenge = form['national_challenge']
 		self.clean_team_only = form['clean_team_only']
 		

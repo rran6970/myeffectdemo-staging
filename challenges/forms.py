@@ -80,13 +80,14 @@ class NewChallengeForm(forms.Form):
 		self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
 		self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
 		self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
-		self.fields['address1'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-		self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+		self.fields['address1'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
+		self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
 		self.fields['city'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['province'] = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
 		self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
+		self.fields['link'] = forms.URLField(required=False, min_length=2, label="External link")
 		
 		self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
 		self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
@@ -114,6 +115,7 @@ class NewChallengeForm(forms.Form):
 		country = cleaned_data.get("country")
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
+		link = cleaned_data.get("link")
 
 		organization = cleaned_data.get("organization")
 		contact_first_name = cleaned_data.get("contact_first_name")
@@ -174,6 +176,7 @@ class EditChallengeForm(forms.ModelForm):
 	postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 	description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
+	link = forms.URLField(required=False, min_length=2, label="External link")
 
 	host_is_clean_team = forms.BooleanField(required=False)
 	organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
@@ -204,6 +207,7 @@ class EditChallengeForm(forms.ModelForm):
 		country = cleaned_data.get("country")
 		postal_code = cleaned_data.get("postal_code")
 		description = cleaned_data.get("description")
+		link = cleaned_data.get("link")
 		
 		organization = cleaned_data.get("organization")
 		contact_first_name = cleaned_data.get("contact_first_name")
