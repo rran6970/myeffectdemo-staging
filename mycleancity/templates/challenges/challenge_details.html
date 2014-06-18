@@ -62,12 +62,19 @@
               <a class="popup-600" href="#challenge-description">{{ challenge.contact_first_name }} {{ challenge.contact_last_name }}</a></span></td>
           </tr>
   				<tr>
-  					<td colspan="2"><span class="titles">Date and Time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
+  					<td colspan="2"><span class="titles">Date and time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
           </tr>
           
   				<tr>
   					<td colspan="2"><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
   				</tr>
+          
+          {% if challenge.link %}
+          <tr>
+            <td colspan="2"><a href="{{ challenge.link }}" target="_blank">External Link</a></td>
+          </tr>
+          {% endif %}
+
   				<tr>
   					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
             <td><div class="fb-like" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>

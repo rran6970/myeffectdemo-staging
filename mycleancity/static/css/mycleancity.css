@@ -571,6 +571,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
 #white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }
+#white-box.new-challenge #id_link { width: 425px; }
 #white-box.new-challenge #id_national_challenge,
 #white-box.new-challenge #id_clean_team_only { float: left; margin-right: 5px; }
 #white-box.new-challenge #host_is_clean_team_container { margin-bottom: 20px; }
