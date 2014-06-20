@@ -30,9 +30,13 @@
 						<tr>
 							<td class="name">
 								{% if challenge.clean_team_only %}
-								<a href="/clean-team/{{ participant.clean_team.id }}">{{ participant.clean_team.name }}</a>
+									<a href="/clean-team/{{ participant.clean_team.id }}">{{ participant.clean_team.name }}</a>
 								{% else %}
-								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+									<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}<br/>
+									</a>
+									{% if participant.user.profile.emergency_phone %}
+									<span>Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
+									{% endif %}
 								{% endif %}
 							</td>
 							<td class="participated">
