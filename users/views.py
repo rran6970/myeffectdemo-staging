@@ -351,6 +351,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['last_name'] = user.last_name
 		initial['email'] = user.email
 		initial['about'] = user.profile.about
+		initial['emergency_phone'] = user.profile.emergency_phone
 
 		if user.profile.twitter:
 			initial['twitter'] = user.profile.twitter
@@ -380,6 +381,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		# user.profile.dob = form.cleaned_data['dob']
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
+		user.profile.emergency_phone = form.cleaned_data['emergency_phone']
 
 		if picture:		
 			key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)

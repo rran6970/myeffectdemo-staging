@@ -223,7 +223,8 @@ class ProfileForm(forms.ModelForm):
 	about = forms.CharField(required=False, widget=forms.Textarea())
 	twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	picture = forms.ImageField(required=False, label="Profile Picture")
+	emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
+	picture = forms.ImageField(required=False, label="Profile picture")
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -238,6 +239,7 @@ class ProfileForm(forms.ModelForm):
 		about = cleaned_data.get("about")
 		twitter = cleaned_data.get("twitter")
 		school_type = cleaned_data.get("school_type")
+		emergency_phone = cleaned_data.get("emergency_phone")
 		picture = cleaned_data.get("picture")
 
 		if not first_name:
