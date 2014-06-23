@@ -122,7 +122,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back-big.about,
 #sign-go-back-big-fr.about { left: 32px; top: 386px; }
 #sign-go-back-big.communication-hub,
-#sign-go-back-big-fr.communication-hub { left: 32px; top: 430px; }
+#sign-go-back-big-fr.communication-hub { left: 32px; top: 370px; }
 
 #sign-go-back-big.students,
 #sign-go-back-big-fr.students { left: 32px; top: 445px; }
@@ -402,11 +402,11 @@ div.content.communication-hub { background: transparent url(../images/communicat
 #sign-press { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 75px; background: url(../images/sign-press.png) no-repeat 0 0; }
 #sign-press-fr { width: 216px; height: 54px; position: absolute; z-index: 1000; top: 210px; left: 75px; background: url(../images/french/sign-press.png) no-repeat 0 0; }
 
-#sign-social-hub { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 80px; background: url(../images/sign-social-hub.png) no-repeat 0 0; }
-#sign-social-hub-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 59px; background: url(../images/french/sign-social-hub.png) no-repeat 0 0; }
+#sign-social-hub { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 59px; background: url(../images/sign-social-hub.png) no-repeat 0 0; }
+#sign-social-hub-fr { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 59px; background: url(../images/french/sign-social-hub.png) no-repeat 0 0; }
 
-#sign-announcements { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 59px; background: url(../images/sign-announcements.png) no-repeat 0 0; }
-#sign-announcements-fr { width: 214px; height: 54px; position: absolute; z-index: 1000; top: 323px; left: 82px; background: url(../images/french/sign-announcements.png) no-repeat 0 0; }
+#sign-announcements { width: 245px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 80px; background: url(../images/sign-announcements.png) no-repeat 0 0; }
+#sign-announcements-fr { width: 214px; height: 54px; position: absolute; z-index: 1000; top: 264px; left: 80px; background: url(../images/french/sign-announcements.png) no-repeat 0 0; }
 
 
 div.content.communication-hub #white-box { left: 30%; width: 843px; }
