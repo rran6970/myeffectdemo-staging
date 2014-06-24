@@ -13,7 +13,8 @@ from django.contrib.auth import authenticate
 from django.core.files.images import get_image_dimensions
 from django.forms.extras.widgets import SelectDateWidget
 
-from captcha.fields import CaptchaField
+# from captcha.fields import CaptchaField
+from captcha.fields import ReCaptchaField
 
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile, UserSettings
@@ -157,7 +158,7 @@ class RegisterUserForm(forms.ModelForm):
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
-	captcha = CaptchaField()
+	captcha = ReCaptchaField()
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -222,7 +223,8 @@ class ProfileForm(forms.ModelForm):
 	about = forms.CharField(required=False, widget=forms.Textarea())
 	twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	picture = forms.ImageField(required=False, label="Profile Picture")
+	emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
+	picture = forms.ImageField(required=False, label="Profile picture")
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -237,6 +239,7 @@ class ProfileForm(forms.ModelForm):
 		about = cleaned_data.get("about")
 		twitter = cleaned_data.get("twitter")
 		school_type = cleaned_data.get("school_type")
+		emergency_phone = cleaned_data.get("emergency_phone")
 		picture = cleaned_data.get("picture")
 
 		if not first_name:

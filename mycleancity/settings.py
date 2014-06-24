@@ -200,3 +200,7 @@ AWS_BUCKET = 'mycleancityproduction'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET
 MEDIA_URL = S3_URL
+
+RECAPTCHA_PUBLIC_KEY = '6LeIfvUSAAAAAGddGYNmYm9U13roiQ-OhlF-eVv1'
+RECAPTCHA_PRIVATE_KEY = '6LeIfvUSAAAAAGIXuvxqEFgWtU9cczLI91vf4m-G'
+RECAPTCHA_USE_SSL = True
