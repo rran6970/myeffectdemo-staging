@@ -17,8 +17,6 @@ urlpatterns = patterns('',
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	(r'^su/(?P<username>.*)/$', 'mycleancity.views.su', {'redirect_url': '/'}),
 	(r'^suexit/$', 'mycleancity.views.su_exit', {'redirect_url': '/admin/'}),
-
-	url(r'^captcha/', include('captcha.urls')),
 	
 	url(r'^user/password/reset/$', 'users.views.password_reset', {'post_reset_redirect' : '/user/password/reset/done/'}, name="password_reset"),
 	url(r'^user/password/reset/done/$', 'django.contrib.auth.views.password_reset_done'),
