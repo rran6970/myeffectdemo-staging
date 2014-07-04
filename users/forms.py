@@ -154,6 +154,7 @@ class RegisterUserForm(forms.ModelForm):
 	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
+	receive_newsletters = forms.BooleanField(required=False)
 	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
@@ -178,6 +179,7 @@ class RegisterUserForm(forms.ModelForm):
 		role = cleaned_data.get('role')
 		age = cleaned_data.get('age')
 		uea = cleaned_data.get('uea')
+		receive_newsletters = cleaned_data.get('receive_newsletters')
 		captcha = cleaned_data.get('captcha')
 		token = cleaned_data.get('token')
 
@@ -265,6 +267,7 @@ class ProfileForm(forms.ModelForm):
 class SettingsForm(forms.ModelForm):
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
+	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="occasionally receive newsletters?")
 
 	# Combines the form with the corresponding model
 	class Meta:

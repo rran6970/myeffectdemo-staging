@@ -25,6 +25,7 @@ Description:    All of the settings for each UserProfile.
 class UserSettings(models.Model):
 	user = models.OneToOneField(User, null=True)
 	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
+	receive_newsletters = models.BooleanField(default=0)
 	email_privacy = models.BooleanField(default=0)
 
 	class Meta:
