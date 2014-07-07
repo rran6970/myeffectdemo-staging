@@ -602,6 +602,9 @@ div.content.challenge-centre { background: url(../images/challenge-centre-bg.png
 #sign-challenge-centre { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/sign-challenge-centre.png) no-repeat 0 0; }
 #sign-challenge-centre-fr { width: 444px; height: 101px; position: relative; left: 41%; background: url(../images/french/sign-challenge-centre.png) no-repeat 0 0; }
 
+div.content.challenge-centre #white-box.message { float: left; width: 420px; position: static; margin-left: 20px; }
+div.content.challenge-centre #white-box.message p { margin-bottom: 10px; }
+
 div.content.challenge-centre #white-box { width: 734px; height: 400px; left: 39%; }
 div.content.challenge-centre #white-box p { padding: 0; }
 div.content.challenge-centre #white-box div.challenges { position: relative; margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
