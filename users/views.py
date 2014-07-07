@@ -165,6 +165,7 @@ class RegisterView(FormView):
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
+		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
 		u.profile.settings.save()
 		u.profile.save()
 		u.save()
@@ -264,6 +265,7 @@ class RegisterInviteView(FormView):
 	        form.cleaned_data['email'],
 	        form.cleaned_data['password']
 	    )
+	
 		u.first_name = form.cleaned_data['first_name']
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
@@ -271,8 +273,11 @@ class RegisterInviteView(FormView):
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
+		u.profile.settings.communication_language = form.cleaned_data['communication_language']
+		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
+		u.profile.settings.save()
 		u.profile.save()
-		u.save()	
+		u.save()
 
 		today = date.today()
 		early_bird_date = date(2014, 03, 19)
@@ -304,7 +309,6 @@ class RegisterInviteView(FormView):
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
-
 
 		# Send notification email to administrator
 		template = get_template('emails/register_email_notification.html')
@@ -403,6 +407,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		initial = {}
 		initial['communication_language'] = settings.communication_language
 		initial['email_privacy'] = settings.email_privacy
+		initial['receive_newsletters'] = settings.receive_newsletters
 
 		return initial
 
@@ -425,6 +430,11 @@ class SettingsView(LoginRequiredMixin, FormView):
 			user.profile.settings.email_privacy = 1
 		else:
 			user.profile.settings.email_privacy = 0
+		
+		if form.cleaned_data['receive_newsletters'] == "True":
+			user.profile.settings.receive_newsletters = 1
+		else:
+			user.profile.settings.receive_newsletters = 0
 
 		user.profile.settings.communication_language = form.cleaned_data['communication_language']
 		user.profile.settings.save()
