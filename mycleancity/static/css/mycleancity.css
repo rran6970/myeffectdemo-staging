@@ -125,10 +125,10 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back-big-fr.communication-hub { left: 32px; top: 370px; }
 
 #sign-go-back-big.students,
-#sign-go-back-big-fr.students { left: 32px; top: 445px; }
+#sign-go-back-big-fr.students { left: 32px; top: 484px; }
 
 #sign-go-back-big.organizations,
-#sign-go-back-big-fr.organizations { left: 46px; top: 410px; }
+#sign-go-back-big-fr.organizations { left: 46px; top: 450px; }
 
 #grass-1 { width: 849px; height: 647px; position: relative; z-index: 998; top: -132px; left: -216px; background: transparent url(../images/grass-1.png) no-repeat 0 0; }
 #grass-2 { width: 546px; height: 302px; position: relative; z-index: 996; top: -595px; left: 240px; background: transparent url(../images/grass-2.png) no-repeat 0 0; }
@@ -275,23 +275,31 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #sign-students2 { width: 212px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 73px; background: url(../images/sign-students2.png) no-repeat 0 0; }
 #sign-students2-fr { width: 212px; height: 59px; position: absolute; z-index: 1000; top: 14px; left: 73px; background: url(../images/french/sign-students2.png) no-repeat 0 0; }
 
-#sign-why-mcc { width: 277px; height: 50px; position: absolute; z-index: 1000; top: 99px; left: 68px; background: url(../images/sign-why-mcc.png) no-repeat 0 0; }
+#sign-why-mcc { width: 277px; height: 50px; position: absolute; z-index: 1000; top: 84px; left: 68px; background: url(../images/sign-why-mcc.png) no-repeat 0 0; }
 #sign-why-mcc-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-why-mcc.png) no-repeat 0 0; }
 
-#sign-get-started { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 157px; left: 50px; background: url(../images/sign-get-started.png) no-repeat 0 0; }
+#sign-volunteer-tracking { width: 354px; height: 68px; position: absolute; z-index: 1000; top: 135px; left: 31px; background: url(../images/sign-volunteer-tracking.png) no-repeat 0 0; }
+#sign-volunteer-tracking-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-volunteer-tracking.png) no-repeat 0 0; }
+
+#sign-get-started { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 197px; left: 50px; background: url(../images/sign-get-started.png) no-repeat 0 0; }
 #sign-get-started-fr { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 165px; left: 62px; background: url(../images/french/sign-get-started.png) no-repeat 0 0; }
 
-#sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 225px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
+#sign-ambassador { width: 349px; height: 58px; position: absolute; z-index: 1000; top: 252px; left: 30px; background: url(../images/sign-ambassador.png) no-repeat 0 0; }
 #sign-ambassador-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-ambassador.png) no-repeat 0 0; }
 
-#sign-get-rewarded { width: 275px; height: 54px; position: absolute; z-index: 1000; top: 289px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
+#sign-create-team { width: 256px; height: 54px; position: absolute; z-index: 1000; top: 314px; left: 60px; background: url(../images/sign-create-team.png) no-repeat 0 0; }
+#sign-create-team-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-create-team.png) no-repeat 0 0; }
+
+#sign-get-rewarded { width: 250px; height: 54px; position: absolute; z-index: 1000; top: 371px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
 #sign-get-rewarded-fr { width: 258px; height: 54px; position: absolute; z-index: 1000; top: 296px; left: 62px; background: url(../images/french/sign-get-rewarded.png) no-repeat 0 0; }
 
-#sign-go-viral { width: 225px; height: 53px; position: absolute; z-index: 1000; top: 350px; left: 65px; background: url(../images/sign-go-viral.png) no-repeat 0 0; }
+#sign-go-viral { width: 225px; height: 53px; position: absolute; z-index: 1000; top: 427px; left: 65px; background: url(../images/sign-go-viral.png) no-repeat 0 0; }
 #sign-go-viral-fr { width: 261px; height: 58px; position: absolute; z-index: 1000; top: 357px; left: 65px; background: url(../images/french/sign-go-viral.png) no-repeat 0 0; }
 
 div.tab-pane#why-mcc #overview-infographic-thumbnail { width: 300px; float: right; margin-left: 20px; }
 div.tab-pane#why-mcc #overview-infographic-thumbnail img { width: 300px; display: block; }
+
+div.tab-pane#volunteer-tracking #overview-infographic-thumbnail img { width: 300px; display: block; border: 3px solid #3B2313; }
 
 /******************************
 	Organizations Page
@@ -314,21 +322,24 @@ div.content.organization #sign-stump { top: 210px; }
 #sign-student-nonprofits { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 84px; left: 66px; background: url(../images/sign-student-nonprofits.png) no-repeat 0 0; }
 #sign-student-nonprofits-fr { width: 350px; height: 68px; position: absolute; z-index: 1000; top: 84px; left: 24px; background: url(../images/french/sign-student-nonprofits.png) no-repeat 0 0; }
 
-#sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 140px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
+#sign-schools { width: 214px; height: 54px; position: absolute; z-index: 1000; top: 136px; left: 85px; background: url(../images/sign-schools.png) no-repeat 0 0; }
+#sign-schools-fr { width: 350px; height: 68px; position: absolute; z-index: 1000; top: 84px; left: 24px; background: url(../images/french/sign-student-nonprofits.png) no-repeat 0 0; }
+
+#sign-municipalities { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 192px; left: 66px; background: url(../images/sign-municipalities.png) no-repeat 0 0; }
 #sign-municipalities-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 150px; left: 66px; background: url(../images/french/sign-municipalities.png) no-repeat 0 0; }
 
-#sign-corporate-leaders { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 196px; left: 62px; background: url(../images/sign-corporate-leaders.png) no-repeat 0 0; }
+#sign-corporate-leaders { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 250px; left: 62px; background: url(../images/sign-corporate-leaders.png) no-repeat 0 0; }
 #sign-corporate-leaders-fr { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 208px; left: 62px; background: url(../images/french/sign-corporate-leaders.png) no-repeat 0 0; }
 
 #sign-our-value { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 260px; left: 88px; background: url(../images/sign-our-value.png) no-repeat 0 0; }
 
-#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
+#sign-why-partner { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 306px; left: 88px; background: url(../images/sign-why-partner.png) no-repeat 0 0; }
 #sign-why-partner-fr { width: 347px; height: 69px; position: absolute; z-index: 1000; top: 263px; left: 28px; background: url(../images/french/sign-why-partner.png) no-repeat 0 0; }
 
 /*#sign-impact { width: 175px; height: 54px; position: absolute; z-index: 1000; top: 205px; left: 105px; background: url(../images/sign-impact.png) no-repeat 0 0; }*/
 
-#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 329px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
-#sign-our-supporters-fr { width: 302px; height: 54px; position: absolute; z-index: 1000; top: 329px; left: 60px; background: url(../images/french/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters { width: 302px; height: 52px; position: absolute; z-index: 1000; top: 365px; left: 60px; background: url(../images/sign-our-supporters.png) no-repeat 0 0; }
+#sign-our-supporters-fr { width: 302px; height: 54px; position: absolute; z-index: 1000; top: 365px; left: 60px; background: url(../images/french/sign-our-supporters.png) no-repeat 0 0; }
 
 table.supporters-table tr td { padding: 10px !important; }
 table.supporters-table tr td a { display: block; padding: 10px; background-color: white; border: 1px solid #C4C4C4; }

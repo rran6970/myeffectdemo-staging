@@ -20,8 +20,10 @@
         <div class="signs nav-tabs">
           <a href="#students" data-toggle="tab"><div class="sign" id="sign-students2"></div></a>
           <a href="#why-mcc" data-toggle="tab"><div class="sign" id="sign-why-mcc"></div></a>
+          <a href="#volunteer-tracking" data-toggle="tab"><div class="sign" id="sign-volunteer-tracking"></div></a>
           <a href="#get-started" data-toggle="tab"><div class="sign" id="sign-get-started"></div></a>
           <a href="#ambassador" data-toggle="tab"><div class="sign" id="sign-ambassador"></div></a>
+          <a href="#create-team" data-toggle="tab"><div class="sign" id="sign-create-team"></div></a>
           <a href="#get-rewarded" data-toggle="tab"><div class="sign" id="sign-get-rewarded"></div></a>
           <a href="#go-viral" data-toggle="tab"><div class="sign" id="sign-go-viral"></div></a>
           <a href="#" onclick="history.go(-1); return false;"><div class="sign students" id="sign-go-back-big"></div></a>
@@ -94,6 +96,44 @@
 
               <p><span class="bold">Redeem</span> – Cash in your <span class="bold green">Clean</span><span class="bold blue">Creds</span> for awesome rewards including gift cards, prize packs, and leadership opportunities</p>
             </div>
+
+            <div class="clear"></div>
+          </div>
+
+          <div class="tab-pane active" id="volunteer-tracking">
+            <h1 class="tab-titles">Volunteer Tracking</h1>
+            <p>
+              Are you tired of carrying around your volunteer tracking papers? Misplacing your signatures and trying to keep all your activities straight to track your hours?
+            </p>
+
+            <p>
+              My Clean City is leading a movement for YOUth to upgrade volunteering to the 21st century. With our mobile app you can effortlessly track all your activities and hours with a simple scan of a smartphone. 
+            </p>  
+            <p>Best part is, our activities are <span class="blue">100% verified and don't rely on self-reporting.</span></p> 
+
+            <div class="right">
+              <div id="overview-infographic-thumbnail">
+                <a class="popup-image" href="#infographic-mobile-app"><img src="{{ STATIC_URL }}images/infographic-mobile-app.png" alt="" /></a>
+              </div>
+            </div>
+
+            <div class="left" style="width: 400px;">
+              <h2 class="subtitle-blue">What does this mean?</h2>
+              
+              <p>You participate our volunteer challenges called CleanActs, track all your hours with our mobile app and <span class="green">simply press PRINT from your web browser.</span></p>
+              
+              <p><span class="blue bold">PRESTO</span> your summer work all laid out on a clean piece of paper ready to be submitted to your school on a silver platter.</p>
+            
+              <p>
+                Already have volunteer opportunities that aren't included as <span class="green bold">#Clean</span><span class="blue bold">Acts</span> in our <a href="/challenges/">Challenge Centre</a>? Email us the details and your volunteer coordinator contact at <a href="mailto:referrals@mycleancity.org">referrals@mycleancity.org</a>
+              </p>
+            </div>
+
+            <div class="clear"></div>
+            
+            <p>
+              Don’t forget to to <a href="/register/">register</a> and download the My Clean City App for <a href="https://play.google.com/store/search?q=pub:My%20Clean%20City" target="_blank">Android</a> or <a href="https://itunes.apple.com/us/app/my-clean-city-app/id880287683?ls=1&mt=8" target="_blank">iPhone</a> to start tracking those hours!
+            </p>
 
             <div class="clear"></div>
           </div>
@@ -212,6 +252,37 @@
             </p>
           </div>
 
+          <div class="tab-pane" id="create-team">
+            <h1 class="tab-titles">Create a Team</h1>
+
+            <h2 class="subtitle-blue">Want to lead a Clean Team?</h2>
+            
+            <p>
+              Every Clean Team starts off as a seed. As your team grows to create <span class="bold green">#Clean</span><span class="bold blue">Acts</span> and recruit peers to sign up as Clean Champions you move up levels from sprout, to sapling to tree and all the way to full bloom. Special privileges are unlocked along the way, you earn more responsibility as a My Clean City leader and if you hit full bloom you will receive national recognition including an exclusive invite to My Clean City's official executive team.
+            </p>
+
+            <img src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="" />
+            <img src="{{ STATIC_URL }}images/badge-level-2-75x59.png" alt="" />
+            <img src="{{ STATIC_URL }}images/badge-level-3-75x63.png" alt="" />
+            <img src="{{ STATIC_URL }}images/badge-level-4-75x73.png" alt="" />
+            <img src="{{ STATIC_URL }}images/badge-level-5-75x73.png" alt="" />
+
+            <h2 class="subtitle-blue">What are some privileges to look forward to?</h2>
+
+            <ul>
+              <li>$1000 Staples Gift Card Grand Prize</li>
+              <li>Represent My Clean City at events and in media</li>
+              <li>Receive special rewards and opportunities with corporate leaders</li>
+              <li>Unlock bonus <span class="green bold">Clean</span><span class="blue bold">Creds</span> and multipliers to use with your <span class="bold green">#Clean</span><span class="bold blue">Acts</span> and more!</li>
+            </ul>
+
+            <p>
+              Start building your Clean Team to learn about all of the exciting opportunities we have in store for you!
+            </p>
+
+            <p class="center"><a href="/register/">Register</a> to be an ambassador to <span class="bold">earn 50 bonus</span> <span class="green bold">Clean</span><span class="blue bold">Creds</span>.</p>
+          </div>  
+
           <div class="tab-pane" id="ambassador">
             <h1 class="tab-titles">Become an Ambassador</h1>
 
@@ -292,6 +363,9 @@
 </div> <!-- /.wrapper -->
 
 <div class="popup-container">
+  <div id="infographic-mobile-app" class="popup">
+    <img src="{{ STATIC_URL }}images/infographic-mobile-app.png" alt="" />
+  </div>
   <div id="infographic-overview" class="popup">
     <img src="{{ STATIC_URL }}images/infographic-overview.png" alt="" />
   </div>
