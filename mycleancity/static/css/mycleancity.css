@@ -507,8 +507,8 @@ div.content.communication-hub #white-box div.tab-pane#announcements div img { ba
 #white-box.register .tooltip.left { width: 300px !important; }
 #white-box.register .tooltip-arrow { display: none; }
 
-#white-box.register #id_uea, #white-box.register #id_smartphone { float: left; }
-#white-box.register #id_uea + label, #white-box.register #id_smartphone + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
+#white-box.register #id_uea, #white-box.register #id_smartphone, #white-box.register #id_receive_newsletters { float: left; }
+#white-box.register #id_uea + label, #white-box.register #id_smartphone + label, #white-box.register #id_receive_newsletters + label { margin-top: -3px; margin-left: 18px; /*width: 400px;*/ }
 
 #white-box.qr-code-blurb { width: 293px; left: 76%; }
 
