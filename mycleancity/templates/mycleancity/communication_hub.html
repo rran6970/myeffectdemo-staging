@@ -17,102 +17,104 @@
   
   <div class="content communication-hub">
     <div class="container">
-        <div id="sign-communication-hub"></div>
-        
-        <!-- <a href="#social-media" data-toggle="tab"><div class="sign" id="sign-social-hub"></div></a> -->
-        <a href="#resources" data-toggle="tab"><div class="sign" id="sign-resources"></div></a>
-        <a href="#press" data-toggle="tab"><div class="sign" id="sign-press"></div></a>
-        <a href="#contest" data-toggle="tab"><div class="sign" id="sign-contest"></div></a>
-        <a href="#announcements" data-toggle="tab"><div class="sign" id="sign-announcements"></div></a>
-        <a href="#" onclick="history.go(-1); return false;"><div class="sign communication-hub" id="sign-go-back-big"></div></a>
-        <div id="sign-stump-long"></div>
-        
-        <div id="white-box" class="tab-content">
-<!--           <div class="tab-pane active" id="social-media">
-            <iframe width="725" height="542" src="https://social.mycleancity.org/widget/d2lkdGg9NDgyJmhlaWdodD00MjQmbnVtX3Bob3Rvcz0xMiZ0aHVtYm5haWxfc2l6ZT1tZWRpdW0mYm9hcmRfaWQ9bXktY2xlYW4taC1tLWNpdHktcGhvdG8tY29udGVzdCZzb3J0X29yZGVyPXBvcHVsYXI=" frameborder="0"></iframe>
-          </div> -->
+      <div id="sign-communication-hub"></div>
+      
+      <!-- <a href="#social-media" data-toggle="tab"><div class="sign" id="sign-social-hub"></div></a> -->
+      <a href="#resources" data-toggle="tab"><div class="sign" id="sign-resources"></div></a>
+      <a href="#press" data-toggle="tab"><div class="sign" id="sign-press"></div></a>
+      <a href="#contest" data-toggle="tab"><div class="sign" id="sign-contest"></div></a>
+      <a href="#announcements" data-toggle="tab"><div class="sign" id="sign-announcements"></div></a>
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign communication-hub" id="sign-go-back-big"></div></a>
+      <div id="sign-stump-long"></div>
+      
+      <div id="white-box" class="tab-content">
+        <div class="tab-pane active" id="resources">
+          <h1 class="titles">Resources</h1>
+          
+          <a class="downloadables" href="/download/?filename=hm-poster-2.pdf" target="_blank">
+            <img src="{{ STATIC_URL }}images/resources/hm-school-poster.jpg" alt=""/>
+            <h2>Printable Poster</h2>
+          </a>
 
-          <div class="tab-pane active" id="resources">
-            <h1 class="titles">Resources</h1>
+          <a class="downloadables" href="/download/?filename=Welcome_package_cgd.pdf" target="_blank">
+            <img src="{{ STATIC_URL }}images/resources/welcome-package.jpg" alt=""/>
+            <h2>Welcome Guide</h2>
+          </a>
+
+          <a class="downloadables" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf" target="_blank">
+            <img src="{{ STATIC_URL }}images/resources/ymca.jpg" alt=""/>
+            <h2>YMCA Environmental Guide</h2>
+          </a>
+
+          <a class="downloadables" href="/download/?filename=Host_Organization_letter.docx" target="_blank">
+            <img src="{{ STATIC_URL }}images/resources/organization-letter.jpg" alt=""/>
+            <h2>Clean Team letter template for event organization outreach</h2>
+          </a>
+        </div>
+
+        <div class="tab-pane" id="press">
+          <h1 class="titles">Press</h1>
+
+          <a class="articles" href="http://thestarfish.ca/home/2014/4/kelly-lovell-is-uniting-youth-with-the-environmental-sector" target="_blank"><img src="{{ STATIC_URL }}images/press/starfish.jpg" alt=""/></a>
+
+          <a class="articles" href="https://www.linkedin.com/today/post/article/20140512183204-25364847-inspiring-impact-innovator-kelly-lovell-turning-volunteer-work-into-volunteer-play" target="_blank"><img src="{{ STATIC_URL }}images/press/linkedin.jpg" alt=""/></a>
+
+          <a class="articles" href="/download/?filename=MCC_[FINAL]_MR.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/press-April8.jpg" alt=""/></a>
+
+          <a class="articles" href="/download/?filename=HM_TO_PARTNER_WITH_MY_CLEAN_CITY.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/hm-partner.jpg" alt=""/></a>
+
+          <a class="articles" href="/download/?filename=0-2.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/teenage-youth.jpg" alt=""/></a>
+
+          <a class="articles" href="/download/?filename=Toronto_Star_Conscious_Clipping_February_27.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/toronto-star.jpg" alt=""/></a>
+
+          <a class="articles" href="http://fashion.answers.com/fashion-industry/hm-encourages-volunteerism-recycling-clothing" target="_blank"><img src="{{ STATIC_URL }}images/press/fashion-answers.jpg" alt=""/></a>
+
+          <a class="articles" href="http://theconcordian.com/2014/04/a-powerhouse-entrepreneur-wants-to-turn-montreal-into-a-clean-city/" target="_blank"><img src="{{ STATIC_URL }}images/press/concordian.jpg" alt=""/></a>
+
+          <a class="articles" href="http://www.greenlearning.ca/news/annual-solar-oven-challenge-partners-my-clean-city" target="_blank"><img src="{{ STATIC_URL }}images/press/green-learning.jpg" alt=""/></a>
+
+          <a class="articles" href="http://www.kidzworld.com/article/28806-teenage-youth-launches-rewards-program-to-build-sustainable-communities-in-canada" target="_blank"><img src="{{ STATIC_URL }}images/press/kidz-world.jpg" alt=""/></a>
+        </div>
+        
+        <div class="tab-pane" id="contest">
+          <h1 class="titles">Contests</h1>
+          <iframe width="725" height="542" src="https://social.mycleancity.org/widget/d2lkdGg9MzY0JmhlaWdodD00MjQmbnVtX3Bob3Rvcz05JnRodW1ibmFpbF9zaXplPW1lZGl1bSZib2FyZF9pZD1teWNsZWFuaG0mc29ydF9vcmRlcj1wb3B1bGFy" frameborder="0"></iframe>
+          <iframe width="725" height="542" src="https://social.mycleancity.org/widget/d2lkdGg9MzY0JmhlaWdodD00MjQmbnVtX3Bob3Rvcz05JnRodW1ibmFpbF9zaXplPW1lZGl1bSZib2FyZF9pZD12b2x1bnRlZXJwbGF5LWNvbnRlc3Qmc29ydF9vcmRlcj1wb3B1bGFy" frameborder="0"></iframe>
+        </div>
+
+        <div class="tab-pane" id="announcements">
+          <h1 class="titles">Announcements</h1>
+
+          <div>
             
-            <a class="downloadables" href="/download/?filename=hm-poster-2.pdf" target="_blank">
-              <img src="{{ STATIC_URL }}images/resources/hm-school-poster.jpg" alt=""/>
-              <h2>Printable Poster</h2>
-            </a>
-
-            <a class="downloadables" href="/download/?filename=Welcome_package_cgd.pdf" target="_blank">
-              <img src="{{ STATIC_URL }}images/resources/welcome-package.jpg" alt=""/>
-              <h2>Welcome Guide</h2>
-            </a>
-
-            <a class="downloadables" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf" target="_blank">
-              <img src="{{ STATIC_URL }}images/resources/ymca.jpg" alt=""/>
-              <h2>YMCA Environmental Guide</h2>
-            </a>
-
-            <a class="downloadables" href="/download/?filename=Host_Organization_letter.docx" target="_blank">
-              <img src="{{ STATIC_URL }}images/resources/organization-letter.jpg" alt=""/>
-              <h2>Clean Team letter template for event organization outreach</h2>
-            </a>
-
-            <!-- <h2><a target="_blank" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf">YMCA Environmental Guide</a></h2> -->
+            <h2 class="subtitle-blue bold">My Clean City Summer Challenge is Launched!</h2>
+            <p>
+              Volunteer in your community and earn <span class="green bold">Clean</span><span class="blue bold">Creds</span> from July 1st - August 31st to be eligible for our grand prizes. A luxury trip to NYC, Staples &amp; H&amp;M gift card prize packs, and over $10,000 of more gift cards to give away!
+              <a href="/register">Join today</a> and become our Top Champions!
+            </p>
           </div>
 
-          <div class="tab-pane" id="press">
-            <h1 class="titles">Press</h1>
-
-            <a class="articles" href="http://thestarfish.ca/home/2014/4/kelly-lovell-is-uniting-youth-with-the-environmental-sector" target="_blank"><img src="{{ STATIC_URL }}images/press/starfish.jpg" alt=""/></a>
-
-            <a class="articles" href="https://www.linkedin.com/today/post/article/20140512183204-25364847-inspiring-impact-innovator-kelly-lovell-turning-volunteer-work-into-volunteer-play" target="_blank"><img src="{{ STATIC_URL }}images/press/linkedin.jpg" alt=""/></a>
-
-            <a class="articles" href="/download/?filename=MCC_[FINAL]_MR.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/press-April8.jpg" alt=""/></a>
-
-            <a class="articles" href="/download/?filename=HM_TO_PARTNER_WITH_MY_CLEAN_CITY.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/hm-partner.jpg" alt=""/></a>
-
-            <a class="articles" href="/download/?filename=0-2.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/teenage-youth.jpg" alt=""/></a>
-
-            <a class="articles" href="/download/?filename=Toronto_Star_Conscious_Clipping_February_27.pdf" target="_blank"><img src="{{ STATIC_URL }}images/press/toronto-star.jpg" alt=""/></a>
-
-            <a class="articles" href="http://fashion.answers.com/fashion-industry/hm-encourages-volunteerism-recycling-clothing" target="_blank"><img src="{{ STATIC_URL }}images/press/fashion-answers.jpg" alt=""/></a>
-
-            <a class="articles" href="http://theconcordian.com/2014/04/a-powerhouse-entrepreneur-wants-to-turn-montreal-into-a-clean-city/" target="_blank"><img src="{{ STATIC_URL }}images/press/concordian.jpg" alt=""/></a>
-
-            <a class="articles" href="http://www.greenlearning.ca/news/annual-solar-oven-challenge-partners-my-clean-city" target="_blank"><img src="{{ STATIC_URL }}images/press/green-learning.jpg" alt=""/></a>
-
-            <a class="articles" href="http://www.kidzworld.com/article/28806-teenage-youth-launches-rewards-program-to-build-sustainable-communities-in-canada" target="_blank"><img src="{{ STATIC_URL }}images/press/kidz-world.jpg" alt=""/></a>
+          <div>
+            <a style="width: 200px;" href="http://www.greenlivingshow.ca/" target="_blank"><img src="{{ STATIC_URL }}images/gls2014-773x254.jpg" alt="GLS" /></a>
+            <p>
+              My Clean City is proud to be partnering with the 2014 Green Living Show, be sure to check out our booth from April 25-27th at the Direct Energy Centre, TO and catch our founder, Kelly Lovell's keynote at the Youth Day opening ceremonies!
+            </p>
           </div>
           
-          <div class="tab-pane" id="contest">
-            <h1 class="titles">Contests</h1>
-            <iframe width="725" height="542" src="https://social.mycleancity.org/widget/d2lkdGg9NDgyJmhlaWdodD00MjQmbnVtX3Bob3Rvcz0xMiZ0aHVtYm5haWxfc2l6ZT1tZWRpdW0mYm9hcmRfaWQ9bXktY2xlYW4taC1tLWNpdHktcGhvdG8tY29udGVzdCZzb3J0X29yZGVyPXBvcHVsYXI=" frameborder="0"></iframe>
-            <iframe width="725" height="542" src="https://mycleancity.shuttlerock.com/widget/d2lkdGg9NDgyJmhlaWdodD01NDImbnVtX3Bob3Rvcz0xNiZ0aHVtYm5haWxfc2l6ZT1tZWRpdW0mYm9hcmRfaWQ9Y2xlYW50ZWFtY29udGVzdCZzb3J0X29yZGVyPWxhdGVzdA==" frameborder="0"></iframe>
-          </div>
+          <div>
+            <img src="{{ STATIC_URL }}images/staples-851x315.jpg" alt="" />
+            <p>
+              My Clean City is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!
+            </p>
+            <p>
+              Be sure to share the opportunity with your friends, My Clean City will be watching for leaders who trend #RFE and we may even award some special surprises!
 
-          <div class="tab-pane" id="announcements">
-            <h1 class="titles">Announcements</h1>
-
-            <div>
-              <a style="width: 200px;" href="http://www.greenlivingshow.ca/" target="_blank"><img src="{{ STATIC_URL }}images/gls2014-773x254.jpg" alt="GLS" /></a>
-              <p>
-                My Clean City is proud to be partnering with the 2014 Green Living Show, be sure to check out our booth from April 25-27th at the Direct Energy Centre, TO and catch our founder, Kelly Lovell's keynote at the Youth Day opening ceremonies!
-              </p>
-            </div>
-
-            <div>
-              <img src="{{ STATIC_URL }}images/staples-851x315.jpg" alt="" />
-              <p>
-                My Clean City is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!
-              </p>
-              <p>
-                Be sure to share the opportunity with your friends, My Clean City will be watching for leaders who trend #RFE and we may even award some special surprises!
-
-                <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
-                <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
-              </p>
-            </div>            
-          </div>
-        </div><!-- /#white-box -->
-
+              <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
+            </p>
+          </div>            
+        </div>
+      </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
 </div> <!-- /.wrapper -->

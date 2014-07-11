@@ -20,6 +20,9 @@
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign challenge-participants" id="sign-go-back"></div></a>
         <div id="white-box" class="challenge-participants">
 			<h1>{{ challenge.title }}</h1>
+
+			<span class="gray-italic-subtitle">In the event of an emergency, please click on a partcipant to view their emergency contact number. If they do not have one, none will appear beneath their name.</span>
+
 			<table>
 				<tr>
 					<td class="name"><h2>Participant</h2></td>
@@ -34,8 +37,9 @@
 								{% else %}
 									<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}<br/>
 									</a>
+
 									{% if participant.user.profile.emergency_phone %}
-									<span>Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
+									<span id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
 									{% endif %}
 								{% endif %}
 							</td>
@@ -72,7 +76,11 @@
 								{% if challenge.clean_team_only %}
 								<a href="/clean-team/{{ participant.clean_team.id }}">{{ participant.clean_team.name }}</a>
 								{% else %}
-								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+									<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+
+									{% if participant.user.profile.emergency_phone %}
+									<span id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
+									{% endif %}
 								{% endif %}
 							</td>
 							<td class="participated">
@@ -110,6 +118,9 @@
 							<td class="name">
 								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
 								<span>Last Checked In: {{ participant.time_in }}</span>
+								{% if participant.user.profile.emergency_phone %}
+								<span id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
+								{% endif %}
 							</td>
 							<td class="participated">
 								<form class="participation-forms" action="/challenges/check-in-check-out/" method="post">
@@ -136,4 +147,6 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+	<script src="{{ STATIC_URL }}js/challenge-participants.js"></script>
+{% endblock %}
