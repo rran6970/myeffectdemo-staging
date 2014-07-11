@@ -750,9 +750,11 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 	Challenge Participants Page
 ******************************/
 #white-box p { font-weight: 400; }
+#white-box.challenge-participants span.gray-italic-subtitle { display: block; margin: 10px 0; }
 #white-box.challenge-participants table tr td { }
 #white-box.challenge-participants table tr td.name { width: 530px; }
 #white-box.challenge-participants table tr td.name span { display: block; }
+#white-box.challenge-participants table tr td.name #emergency-number { display: none; }
 #white-box.challenge-participants table tr td.participated { width: 250px; text-align: center; padding: 0; }
 #white-box.challenge-participants h1 { font-weight: 900; }
 #white-box.challenge-participants table { margin-bottom: 30px; }
