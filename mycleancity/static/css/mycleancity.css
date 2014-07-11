@@ -296,7 +296,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #sign-go-viral { width: 225px; height: 53px; position: absolute; z-index: 1000; top: 427px; left: 65px; background: url(../images/sign-go-viral.png) no-repeat 0 0; }
 #sign-go-viral-fr { width: 261px; height: 58px; position: absolute; z-index: 1000; top: 357px; left: 65px; background: url(../images/french/sign-go-viral.png) no-repeat 0 0; }
 
-div.tab-pane#why-mcc #overview-infographic-thumbnail { width: 300px; float: right; margin-left: 20px; }
+div.tab-pane#why-mcc #overview-infographic-thumbnail { width: 300px; float: right; margin-left: 20px; margin-top: 206px; }
 div.tab-pane#why-mcc #overview-infographic-thumbnail img { width: 300px; display: block; }
 
 div.tab-pane#volunteer-tracking #overview-infographic-thumbnail img { width: 300px; display: block; border: 3px solid #3B2313; }
