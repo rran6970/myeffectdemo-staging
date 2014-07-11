@@ -422,6 +422,39 @@ class Challenge(models.Model):
 			raise e
 		
 		return True
+
+	def can_unparticipate(self, user):
+		if self.clean_team_only:
+			already_participated = True if CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count() > 1 else False
+
+			if not already_participated:
+				try:
+					clean_team_challenge = CleanTeamChallenge.objects.get(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
+					return False if clean_team_challenge.time_in else True
+				except Exception, e:
+					print e
+		else:
+			already_participated = True if UserChallenge.objects.filter(challenge=self, user=user).count() > 1 else False
+
+			if not already_participated:
+				try:
+					user_challenge = UserChallenge.objects.get(challenge=self, user=user)
+					return False if user_challenge.time_in else True
+				except Exception, e:
+					print e
+			
+		return False
+
+	def unparticipate_in_challenge(self, user):
+		if self.can_unparticipate(user):
+			if self.clean_team_only:
+				clean_team_challenge = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
+				clean_team_challenge.delete()
+			else:
+				user_challenge = UserChallenge.objects.get(challenge=self, user=user)
+				user_challenge.delete()
+
+		return False
 	
 	def get_participating_challenge(self, user):
 		if self.clean_team_only:
