@@ -58,6 +58,17 @@ def participate_in_challenge(request):
 
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
+@login_required
+def unparticipate_in_challenge(request):
+	if request.method == 'POST':
+		cid = request.POST['cid']
+		user = request.user
+
+		challenge = Challenge.objects.get(id=cid)
+		challenge.unparticipate_in_challenge(user)
+
+	return HttpResponseRedirect('/challenges/%s' % str(cid))
+
 # This is only called through the QR Code scanning...I think
 @login_required
 def one_time_check_in(request, cid, token):
@@ -406,6 +417,7 @@ class ChallengeView(TemplateView):
 
 			context['challenge'] = challenge
 			context['user_challenge'] = user_challenge
+			context['can_unparticipate'] = challenge.can_unparticipate(user)
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()

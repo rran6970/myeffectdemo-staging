@@ -57,10 +57,12 @@
           <tr>
             <td colspan="2"><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
           </tr>
+          {% if challenge.contact_first_name %}
           <tr>
             <td colspan="2"><span class="titles">Main Contact:</span> <span class="bold">
               <a class="popup-600" href="#challenge-description">{{ challenge.contact_first_name }} {{ challenge.contact_last_name }}</a></span></td>
           </tr>
+          {% endif %}
   				<tr>
   					<td colspan="2"><span class="titles">Date and time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
           </tr>
@@ -103,7 +105,15 @@
                   {{ participating_store.staples_store.address }} {{ participating_store.staples_store.city }}
                   </p>
                 {% endif %}
-                <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+                {% if can_unparticipate %}
+                  <form action="/challenges/unparticipate/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="cid" value="{{ challenge.id }}">
+                    <input id="participate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
+                  </form>
+                {% else %}
+                  <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+                {% endif %}                
               {% else %}
                 <form action="/challenges/participate/" method="post">
                   {% csrf_token %}
@@ -127,7 +137,15 @@
             {% endif %}
           {% else %}
             {% if user_challenge %}
-              <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+              {% if can_unparticipate %}
+                <form action="/challenges/unparticipate/" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="cid" value="{{ challenge.id }}">
+                  <input id="participate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
+                </form>
+              {% else %}
+                <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+              {% endif %}
             {% else %}
               <form action="/challenges/participate/" method="post">
                 {% csrf_token %}
