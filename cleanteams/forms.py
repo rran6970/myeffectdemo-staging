@@ -185,8 +185,8 @@ class InviteResponseForm(forms.Form):
 	token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-	('clean-ambassador', 'Clean Ambassador'), 
 	('clean-champion', 'Clean Champion'),
+	('clean-ambassador', 'Clean Ambassador'), 
 )
 
 class InviteForm(forms.Form):
