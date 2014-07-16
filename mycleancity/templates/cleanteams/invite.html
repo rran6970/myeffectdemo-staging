@@ -49,22 +49,6 @@
                     {% endif %}
                   {% endif %}
                 </td>
-                <!-- <td class="actions">
-                  <form class="members-forms" action="/clean-team/member-action/" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="uid" value="{{ ca.user.id }}" />
-                    <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                    
-                    {% if ca.status == "pending" %}
-                      <input type="hidden" id="action" name="action" value="approve" />
-                      <input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
-                    {% endif %}
-                    {% if ca.status == "approved" %}
-                      <input type="hidden" id="action" name="action" value="remove" />
-                      <input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
-                    {% endif %}
-                  </form>
-                </td> -->
               </tr>
               
             {% endfor %}
