@@ -467,6 +467,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 #white-box.contact { width: 400px; height: 482px; left: 34%; }
 #white-box.contact textarea { width: 335px; height: 100px; }
 #white-box.contact input[type="text"], #white-box.login input[type="password"] { width: 335px; }
+#white-box.contact form div.padding-20 #id_receive_newsletters { float: left; margin-right: 10px; }
 
 /******************************
 	Login
