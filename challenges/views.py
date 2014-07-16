@@ -402,7 +402,10 @@ class ChallengeView(TemplateView):
 			if 'error' in self.request.GET:
 				context['error'] = "That store is already taken, please select another."
 
-			user_challenge = challenge.get_participating_challenge(user)
+			if user.is_authenticated():
+				user_challenge = challenge.get_participating_challenge(user)
+				context['can_unparticipate'] = challenge.can_unparticipate(user)
+
 			participants = challenge.get_participants()
 			
 			# Only for the Staples CleanAct, have to find a more efficient way
@@ -412,12 +415,11 @@ class ChallengeView(TemplateView):
 
 				if user_challenge:
 					context['participating_store'] = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+					context['user_challenge'] = user_challenge
 
 				context['staples_stores'] = staples_stores
 
 			context['challenge'] = challenge
-			context['user_challenge'] = user_challenge
-			context['can_unparticipate'] = challenge.can_unparticipate(user)
 			context['count'] = sum(1 for participant in participants)
 			context['participants'] = participants
 			context['page_url'] = self.request.get_full_path()
