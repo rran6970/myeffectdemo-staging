@@ -444,8 +444,9 @@ class CleanTeamMember(models.Model):
 		self.user.profile.add_clean_creds(50)
 
 	def removedCleanAmbassador(self):
-		self.status = "removed"
-		self.save()
+		self.user.profile.clean_team_member = None
+		self.user.profile.save()
+		self.delete()
 
 	def requestBecomeCleanAmbassador(self, user, selected_team, notification=True):
 		self.user = user

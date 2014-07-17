@@ -584,6 +584,7 @@ function ajaxApproveMember(e)
     	    {
                 action_btn.hide();
                 action_btn.closest("td").prev().text("removed");
+                action_btn.closest("tr").fadeOut("1000");
     	    }
         },
         error: function(data) {}
