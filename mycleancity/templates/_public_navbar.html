@@ -6,7 +6,7 @@
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">#CleanActs<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
 			<li><a href="/challenges" class="menu-items">Challenge Centre</a></li>
-			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.has_clean_team %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Post #CleanActs</a></li>
 			{% endif %}
 			<li><a href="/challenges/my-challenges/" class="menu-items">My #CleanActs</a></li>
@@ -19,16 +19,14 @@
 			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
 			<li><a href="/clean-team/members" class="menu-items">Members</a></li>
 			{% endif %}
-			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.has_clean_team %}
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
-			{% endif %}
-			{% if not user.profile.has_clean_team %}
-			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
-			{% else %}
 			<li><a href="/clean-team/level-progress" class="menu-items">Level Progress</a></li>
 			<li><a href="/clean-team/edit/" class="menu-items">Edit Clean Team</a></li>
 			<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>
 			<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>
+			{% else %}
+			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
 			{% endif %}
 			<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
 			<li><a href="/clean-team/" class="menu-items">All Clean Teams</a></li>

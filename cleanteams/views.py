@@ -380,10 +380,15 @@ class CleanTeamView(TemplateView):
 			for user_challenge in user_challenges:
 				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
 
+			print user.is_authenticated()
+			print user.profile.is_clean_ambassador()
+
 			if user.is_authenticated():
-				leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
-				context['leading_teams'] = leading_teams
-				context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
+				if user.profile.is_clean_ambassador():
+					print 1
+					leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
+					context['leading_teams'] = leading_teams
+					context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
 
 			context['challenges'] = challenge_dict
 			context['page_url'] = self.request.get_full_path()
