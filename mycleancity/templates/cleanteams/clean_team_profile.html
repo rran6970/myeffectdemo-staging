@@ -155,7 +155,9 @@
               <div class="clear"></div>
     
               <!-- <button class="btn btn-primary" id="show-post-message-box">Post A Message</button> -->
+              {% if user.is_active %}
               <input id="show-post-message-box" type="text" placeholder="Post a message..." />
+              {% endif %}
 
               <div class="clear"></div>
 
