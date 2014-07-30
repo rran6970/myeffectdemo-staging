@@ -625,7 +625,11 @@ class CleanTeamInvite(models.Model):
 	def inviteUser(self, user, role, email, uri, notification=True):
 		char_set = string.ascii_lowercase + string.digits
 		token = ''.join(random.sample(char_set*20,20))
-		full_uri = u'%s/%s' % (uri, token)
+		invite_full_uri = u'%s/%s' % (uri, token)
+		unsubscribe_full_uri = u'%s/unsubscribe/' % (uri)
+
+		print invite_full_uri
+		print unsubscribe_full_uri
 
 		self.clean_team = user.profile.clean_team_member.clean_team
 		self.user = user
@@ -672,12 +676,16 @@ class CleanTeamInvite(models.Model):
 
 		# Send invite email to email address
 		template = get_template('emails/email_invite_join.html')
-		content = Context({ 'user': user, 'email': email, 'role': role, 'full_uri': full_uri })
+		content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
 
 		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
+
+	def unsubscribe(self):
+		self.status = "declined"
+		self.save()
 
 	def resendInvite(self, uri):
 		full_uri = u'%s/%s' % (uri, self.token)

@@ -569,6 +569,8 @@ class InviteView(LoginRequiredMixin, FormView):
 		role = form.cleaned_data['role']
 		uri = self.request.build_absolute_uri()
 
+		print uri
+
 		emails = re.split(',', email)
 
 		for e in emails:
@@ -591,6 +593,13 @@ class InviteView(LoginRequiredMixin, FormView):
 		context['user'] = self.request.user
 
 		return context
+
+# Coming from the invite email
+def unsubscribe(request, token):
+	invite = CleanTeamInvite.objects.get(token=token)
+	invite.unsubscribe()
+
+	return render_to_response('mycleancity/unsubscribe.html', context_instance=RequestContext(request))
 
 class InviteResponseView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/invite_response.html"
