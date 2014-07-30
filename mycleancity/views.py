@@ -95,6 +95,10 @@ def download_file(request):
 	# return HttpResponseRedirect('/clean-team/level-progress/')
 	return HttpResponseRedirect(url)
 
+# Coming from the invite email
+def unsubscribe(request):
+	return render_to_response('mycleancity/unsubscribe.html', context_instance=RequestContext(request))
+
 @user_passes_test(lambda u: (u.is_staff))
 def su(request, username, redirect_url='/members/welcome'):
     su_user = get_object_or_404(User, username=username)
