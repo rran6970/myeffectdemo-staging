@@ -59,6 +59,7 @@ urlpatterns = patterns('',
 	url(r'^$', TemplateView.as_view(template_name="mycleancity/index.html")),
 
 	url(r'^download/$', 'mycleancity.views.download_file'),
+	url(r'^unsubscribe/?$', TemplateView.as_view(template_name="mycleancity/unsubscribe.html")),
 	
 	# Webservices
 	url(r'^api/webservices/login/$', 'api.api.login_user'),
