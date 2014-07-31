@@ -532,7 +532,7 @@ class Challenge(models.Model):
 			else:
 				logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
 
-			limit = 22
+			limit = 30
 
 			if len(c.title) > limit:
 				challenge_title = "%s..." % limiter(c.title, limit)
