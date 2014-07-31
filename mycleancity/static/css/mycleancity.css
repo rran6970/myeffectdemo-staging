@@ -48,7 +48,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #search-container ul.dropdown-menu li span { display: block; padding: 12px 16px; border-bottom: 1px solid #E0E0E0; text-decoration: none; min-width: 237px; }
 #search-container ul.dropdown-menu li span input[type="checkbox"] { float: left; margin-right: 9px; }
 
-#search-container .search-result-dropdown { display: none; left: 56px; top: 35px; width: 248px; padding: 10px; text-align: center; }
+#search-container .search-result-dropdown { display: none; left: -49px; top: 35px; width: 352px; padding: 10px; text-align: center; }
 #search-container .search-result-dropdown ul { margin: 0 0 8px; text-align: left; max-height: 200px; border: 1px solid #DADADA; overflow-y: scroll; overflow-x: hidden; }
 #search-container .search-result-dropdown ul li { border-bottom: 1px solid #E0E0E0; }
 #search-container .search-result-dropdown ul li a img.profile-pic-42x42 { float: left; border-color: #E4E4E4; }
@@ -56,7 +56,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 #search-container .search-result-dropdown ul li a { display: block; border: 0; padding: 14px; position: relative; }
 #search-container .search-result-dropdown ul li a:hover { background: url(../images/1x1-green.png) repeat 0 0 !important; }
 #search-container .search-result-dropdown #view-all-challenges { text-align: center; margin-top: 10px; padding: 10px 10px 0; font-size: 12px; }
-#search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 179px; width: 50px; }
+#search-container .search-result-dropdown ul li a img.badge-icon { position: absolute; top: 36px; left: 265px; width: 50px; }
 
 .glyphicon-chevron-down { font-size: 10px; margin-left: 5px; top: 0px; }
 
