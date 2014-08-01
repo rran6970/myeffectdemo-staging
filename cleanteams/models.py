@@ -628,9 +628,6 @@ class CleanTeamInvite(models.Model):
 		invite_full_uri = u'%s/%s' % (uri, token)
 		unsubscribe_full_uri = u'%s/unsubscribe/' % (uri)
 
-		print invite_full_uri
-		print unsubscribe_full_uri
-
 		self.clean_team = user.profile.clean_team_member.clean_team
 		self.user = user
 		self.email = str(email)
@@ -674,11 +671,15 @@ class CleanTeamInvite(models.Model):
 		elif role == "clean-champion":
 			role = "Clean Champion"
 
+		print email
+		# from django.core.mail import send_mail
+		# send_mail('test', 'test', 'zee@hakstudio.com', [email])
+
 		# Send invite email to email address
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
 
-		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', email
+		subject, from_email, to = 'My Clean City - Invite to join', settings.DEFAULT_FROM_EMAIL, email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -690,11 +691,14 @@ class CleanTeamInvite(models.Model):
 	def resendInvite(self, uri):
 		full_uri = u'%s/%s' % (uri, self.token)
 
+		# from django.core.mail import send_mail
+		# send_mail('test', 'test', 'zee@hakstudio.com', [email])
+
 		# Send invite email to email address
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
 
-		subject, from_email, to = 'My Clean City - Invite to join', 'info@mycleancity.org', self.email
+		subject, from_email, to = 'My Clean City - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
