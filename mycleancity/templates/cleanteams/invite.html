@@ -69,7 +69,7 @@
         <span class="subtitle">Separate each email address with a comma</span>
 
         <div id="clean-team-members-list">
-          <form id="send-invite-form" autocomplete="off" action="/clean-team/invite" method="post">{% csrf_token %}
+          <form id="send-invite-form" autocomplete="off" method="post">{% csrf_token %}
             {{ form.clean_team_id }}
             <table>
               <tr>

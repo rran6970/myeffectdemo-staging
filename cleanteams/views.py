@@ -569,7 +569,7 @@ class InviteView(LoginRequiredMixin, FormView):
 		role = form.cleaned_data['role']
 		uri = self.request.build_absolute_uri()
 
-		print uri
+		print email
 
 		emails = re.split(',', email)
 
