@@ -87,7 +87,7 @@ class NewChallengeForm(forms.Form):
 		self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
 		self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
-		self.fields['link'] = forms.URLField(required=False, min_length=2, label="External link")
+		self.fields['link'] = forms.CharField(required=False, min_length=2, label="External link")
 		
 		self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
 		self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")

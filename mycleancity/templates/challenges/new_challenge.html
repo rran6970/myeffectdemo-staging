@@ -30,6 +30,11 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
+            {% if form.errors %}
+              <div class="message-box error">
+              {{ form.errors }}
+              </div>
+            {% endif %}
 
 			<form autocomplete="off" action="" method="post">{% csrf_token %}
 				{{ form.question_1.label_tag }} {{ form.question_1 }} {{ form.question_1.errors }}
