@@ -267,7 +267,7 @@ class ProfileForm(forms.ModelForm):
 class SettingsForm(forms.ModelForm):
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
-	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Occasionally receive newsletters?")
+	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Clean City email communications")
 
 	# Combines the form with the corresponding model
 	class Meta:
