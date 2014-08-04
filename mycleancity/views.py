@@ -48,9 +48,19 @@ class ContactPageView(FormView):
 	success_url = "mycleancity/index.html"
 	form_class = ContactForm
 
+	def get_initial(self):
+		initial = {}
+
+		if 'subject' in self.request.GET:
+			subject = self.request.GET.get('subject','')
+			initial['subject'] = subject
+
+		return initial
+
 	def form_invalid(self, form, **kwargs):
 		context = self.get_context_data(**kwargs)
 		context['form'] = form
+
 		return self.render_to_response(context)
 
 	def form_valid(self, form):
