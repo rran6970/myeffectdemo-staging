@@ -183,13 +183,14 @@ LOGIN_URL = '/users/login/'
 LOGOUT_URL = '/users/logout/'
 LOGIN_REDIRECT_URL = '/users/profile/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'srv46.hosting24.com'
 EMAIL_HOST_USER = 'info@mycleancity.org'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = 'cleanAdmin1'
+EMAIL_HOST_PASSWORD = 'qloXeISKCh'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 
