@@ -144,6 +144,12 @@ class VoucherView(LoginRequiredMixin, FormView):
 	form_class = UserVoucherForm
 	success_url = "mycleancity/index.html"
 
+	def get_initial(self):
+		initial = {}
+		initial['user_id'] = self.request.user.id
+
+		return initial
+
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
