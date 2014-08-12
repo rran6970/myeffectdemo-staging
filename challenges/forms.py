@@ -26,6 +26,7 @@ PROVINCES = (('', 'Please select one...'),
 
 class UserVoucherForm(forms.Form):
 	voucher = forms.CharField(required=True, max_length=60, min_length=2, label="Voucher Code", widget=forms.TextInput())
+	user_id = forms.CharField(required=True, max_length=60, widget=forms.HiddenInput())
 
 	class Meta:
 		model = UserVoucher
@@ -34,6 +35,7 @@ class UserVoucherForm(forms.Form):
 	def clean(self):
 		cleaned_data = super(UserVoucherForm, self).clean()
 		voucher_code = cleaned_data.get("voucher")
+		user_id = cleaned_data.get("user_id")
 
 		voucher = None
 
@@ -41,6 +43,11 @@ class UserVoucherForm(forms.Form):
 			voucher = Voucher.objects.get(voucher=voucher_code)
 		except Exception, e:
 			raise forms.ValidationError(u"Invalid voucher code")
+
+		user = User.objects.get(id=user_id)
+
+		if voucher.has_already_claimed(user):
+			raise forms.ValidationError(u"Sorry but you've already claimed that voucher code")
 
 		if voucher.claims_made >= voucher.claims_allowed:
 			raise forms.ValidationError(u"Voucher code has already been claimed the maximum number of times")
