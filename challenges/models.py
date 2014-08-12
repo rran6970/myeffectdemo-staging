@@ -687,13 +687,23 @@ class Voucher(models.Model):
 	def __unicode__(self):
 		return u'Voucher: %s' %(self.voucher)
 
-	def claim_voucher(self, user):
-		user_voucher, created = UserVoucher.objects.get_or_create(voucher=self, user=user)		
+	# Checks if the user has already claimed the voucher code before
+	def has_already_claimed(self, user):
+		try:
+			user_voucher = UserVoucher.objects.get(voucher=self, user=user)
+		except Exception, e:
+			return False
+	
+		return True
 
-		if created:
+	def claim_voucher(self, user):
+		if not self.has_already_claimed(user):
 			if self.claims_made < self.claims_allowed:
 				self.claims_made += 1
 				self.save()
+
+				user_voucher = UserVoucher(voucher=self, user=user)
+				user_voucher.save()
 
 				if self.challenge:
 					self.challenge.one_time_check_in_with_token(user, self.challenge.token)

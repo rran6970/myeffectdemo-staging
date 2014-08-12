@@ -28,12 +28,13 @@
               </div>
             {% endif %}
 			
-			<form autocomplete="off" action="" method="post">{% csrf_token %}
+          <form autocomplete="off" action="" method="post">{% csrf_token %}
 				      <table>
 	                <tr>
 	                    <td>{{ form.voucher.label_tag }} {{ form.voucher }}</td>
 	                </tr>
 	            </table>
+              {{ form.user_id }}
 	            <input class="btn btn-primary" type="submit" value="Claim CleanCreds" />
         	</form>
         </div><!-- /#white-box -->
