@@ -43,6 +43,13 @@ class HomePageView(TemplateView):
 		
 		return context
 
+class PrivacyPolicyView(TemplateView):
+	template_name = "mycleancity/privacy.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(PrivacyPolicyView, self).get_context_data(**kwargs)
+		return context
+
 class ContactPageView(FormView):
 	template_name = "mycleancity/contact.html"
 	success_url = "mycleancity/index.html"

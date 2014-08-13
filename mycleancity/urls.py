@@ -54,6 +54,7 @@ urlpatterns = patterns('',
 	url(r'^media-hub/?', TemplateView.as_view(template_name="mycleancity/communication_hub.html")),
 
 	url(r'^contact/?', ContactPageView.as_view()),
+	url(r'^privacy/?', PrivacyPolicyView.as_view()),
 	url(r'^claim-voucher/?$', VoucherView.as_view()),
 
 	url(r'^fr/$', TemplateView.as_view(template_name="mycleancity/french/index_fr.html")),
