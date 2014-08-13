@@ -213,7 +213,7 @@ div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: wh
 #terms-conditions h3.section,
 #terms-conditions-fr h3.section { margin: 20px 0; }
 #terms-conditions p,
-#terms-conditions-fr p { margin: 10px 0; }
+#terms-conditions-fr p { margin: 10px 0; text-align: left; }
 #terms-conditions ul li,
 #terms-conditions-fr ul li { list-style-type: disc; margin: 0 10px; line-height: 20px;font-weight: 200; font-size: 14px; letter-spacing: 0px; }
 #terms-conditions #copyright,
