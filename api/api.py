@@ -32,7 +32,7 @@ from challenges.models import *
 from cleanteams.models import *
 from notifications.models import UserNotification
 
-import json,urlparse,random,string, base64,datetime
+import json,urlparse,random,string, base64, datetime
 
 #@remove_cache
 #@check_post
@@ -919,6 +919,14 @@ def my_challenges(request):
 		if time_out != None:
 			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
 
+		time_between = None
+
+		if time_in:
+			now = datetime.datetime.utcnow().replace(tzinfo=utc)
+			today = datetime.datetime.today()
+			
+			time_between = hours_between(now.strftime("%Y-%m-%d %H:%M:%S"), time_in)
+
 		user_challenges_json.append({
 			'id':challenge.id
 			,'title':challenge.title
@@ -944,6 +952,7 @@ def my_challenges(request):
 			,'totalcleancreds':user_challenge.total_clean_creds
 			,'timein':time_in
 			,'timeout':time_out
+			,'timebetween':time_between
 			,'type':challenge.type.challenge_type
 		})
 

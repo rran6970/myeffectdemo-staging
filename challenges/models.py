@@ -236,7 +236,7 @@ class Challenge(models.Model):
 		return int(self.clean_creds_per_hour * total_hours)
 
 	def one_time_check_in_with_token(self, user, token):
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		now = datetime.utcnow().replace(tzinfo=utc)
 		total_clean_creds = self.clean_creds_per_hour
 
 		if self.clean_team_only:
@@ -283,17 +283,17 @@ class Challenge(models.Model):
 					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
 
 				if not participant_challenge.time_in:
-					now = datetime.datetime.utcnow().replace(tzinfo=utc)
+					now = datetime.utcnow().replace(tzinfo=utc)
 
 					participant_challenge.time_in = now
 					participant_challenge.save()
 				else:
 					# Get current time and time out time
-					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
+					now = str(datetime.utcnow().replace(tzinfo=utc))
 					participant_challenge.time_out = now
 
-					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
-					time_in_str = datetime.datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+					now_str = datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+					time_in_str = datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 					diff = now_str - time_in_str
 					total_hours = (diff.days * 24) + (diff.seconds // 3600)
@@ -321,7 +321,7 @@ class Challenge(models.Model):
 				else:
 					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
 
-				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				now = datetime.utcnow().replace(tzinfo=utc)
 				# total_clean_creds = self.clean_creds_per_hour
 
 				participant_challenge.time_in = now
@@ -347,7 +347,7 @@ class Challenge(models.Model):
 				else:
 					participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_in__isnull=True)
 
-				now = datetime.datetime.utcnow().replace(tzinfo=utc)
+				now = datetime.utcnow().replace(tzinfo=utc)
 				total_clean_creds = self.clean_creds_per_hour
 
 				participant_challenge.time_in = now
@@ -494,7 +494,7 @@ class Challenge(models.Model):
 
 	@staticmethod
 	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
-		today = datetime.datetime.now()
+		today = datetime.now()
 
 		predicates = Q(event_end_date__gte=today)
 

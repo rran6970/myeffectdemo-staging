@@ -1,7 +1,7 @@
 # Django settings for mycleancity project.
 import os
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -170,7 +170,7 @@ LOGGING = {
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -197,7 +197,7 @@ DJANGO_WYSIWYG_FLAVOR = 'yui'
 AWS_ACCESS_KEY_ID = 'AKIAIKQOZZOLGYLTP37A'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_BUCKET = 'mycleancityproduction'
-# AWS_BUCKET = 'mycleancitystaging'
+AWS_BUCKET = 'mycleancitystaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET
 MEDIA_URL = S3_URL
