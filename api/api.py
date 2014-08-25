@@ -1,13 +1,16 @@
 import urllib
 import ftplib
 import os
+import pytz
 import tempfile
+import json, urlparse, random, string, base64, datetime, time
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 from datetime import date
 from django.conf import settings
+from pytz import timezone
 
 from .utils import remove_cache, check_post, GenericRequest, clean_inputs, ResponseDic, send_server_error, send_server_forbidden
 
@@ -31,8 +34,6 @@ from userprofile.models import UserProfile, QRCodeSignups, UserQRCode, UserSetti
 from challenges.models import *
 from cleanteams.models import *
 from notifications.models import UserNotification
-
-import json,urlparse,random,string, base64, datetime
 
 #@remove_cache
 #@check_post
@@ -913,8 +914,17 @@ def my_challenges(request):
 		time_in = user_challenge.time_in
 		time_out = user_challenge.time_out
 
+		local_time = None
+
 		if time_in != None:
 			time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
+
+			datetime_obj = datetime.datetime.strptime(time_in, "%Y-%m-%d %H:%M:%S")
+			datetime_obj_utc = datetime_obj.replace(tzinfo=timezone('UTC'))
+
+			local_tz = pytz.timezone('America/Toronto')
+			local_time = local_tz.normalize(datetime_obj_utc.astimezone(local_tz))
+			local_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
 
 		if time_out != None:
 			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
@@ -950,7 +960,7 @@ def my_challenges(request):
 			,'cleanperhour':challenge.clean_creds_per_hour
 			,'totalhours':user_challenge.total_hours
 			,'totalcleancreds':user_challenge.total_clean_creds
-			,'timein':time_in
+			,'timein':local_time
 			,'timeout':time_out
 			,'timebetween':time_between
 			,'type':challenge.type.challenge_type

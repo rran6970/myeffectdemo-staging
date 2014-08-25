@@ -283,13 +283,13 @@ class Challenge(models.Model):
 					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
 
 				if not participant_challenge.time_in:
-					now = datetime.utcnow().replace(tzinfo=utc)
+					now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
 					participant_challenge.time_in = now
 					participant_challenge.save()
 				else:
 					# Get current time and time out time
-					now = str(datetime.utcnow().replace(tzinfo=utc))
+					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
 					participant_challenge.time_out = now
 
 					now_str = datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
