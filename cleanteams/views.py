@@ -287,6 +287,10 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 				return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
 		
 		context['user'] = self.request.user
+
+		if self.request.flavour == "mobile":
+			self.template_name = "users/mobile/create_team_or_join.html"
+
 		return context
 
 class ViewAllCleanTeams(TemplateView):

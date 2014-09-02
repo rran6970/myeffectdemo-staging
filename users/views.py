@@ -228,6 +228,9 @@ class RegisterView(FormView):
 		context['page_url'] = self.request.get_full_path()
 		context['user'] = self.request.user
 
+		if self.request.flavour == "full":
+			self.template_name = "users/mobile/register.html"
+
 		return context	
 
 # TODO: Pretty much a copy and paste of RegisterView,

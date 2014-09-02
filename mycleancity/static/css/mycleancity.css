@@ -11,10 +11,32 @@ div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 
 
 div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
 
-div.wrapper.public a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
+div.wrapper.public a.logo,
 div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
+
+div.container.mobile-view  {
+	-webkit-font-smoothing: antialiased;
+    
+    /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+    background: -webkit-gradient(linear, 0 50%, 0 0, from(#00afef), to(#ebf7fe)) !important;
+    background: -webkit-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+    background: -moz-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+    background: -o-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+    background: linear-gradient(#00afef 0%, #ebf7fe 50%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00afef', endColorstr='#ebf7fe',GradientType=0 ) !important; /* IE6-9 */
+
+    background-image: url('../images/login-bottombg.png');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 100% auto;
+	height: 100%;
+	background-attachment: fixed;
+	overflow: hidden;
+}
+div.container.mobile-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
+div.container.mobile-view #white-box { margin: 0; padding: 15px; position: static; width: auto; }
 
 [class^="icon-"],
 [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
@@ -535,9 +557,31 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 #blurb a { margin: 0 auto; width: 300px; }
 
 /******************************
+	Register Mobile
+******************************/
+div.container#mobile-register-view #white-box form { /*margin: 0 auto; width: 216px;*/ }
+div.container#mobile-register-view #white-box form input[type="text"],
+div.container#mobile-register-view #white-box form input[type="password"],
+div.container#mobile-register-view #white-box form select { width: 100%; }
+div.container#mobile-register-view #white-box form input[type="submit"] { width: 100%; margin: 10px 0 0; }
+div.container#mobile-register-view #white-box form .text { text-align: center; margin-top: 20px; }
+div.container#mobile-register-view #white-box form #register-table span { padding-top: 10px; display: block; width: 95%; text-wrap: normal; }
+div.container#mobile-register-view #white-box form #id_uea, 
+div.container#mobile-register-view #white-box form #id_smartphone, 
+div.container#mobile-register-view #white-box form #id_receive_newsletters { float: left; margin-right: 10px; }
+
+/******************************
 	Create or Request Join
 ******************************/
 #white-box.create-or-request-join input[type="submit"] { margin: 16px auto; }
+
+/************************************************************
+	Create or Request Join Mobile
+************************************************************/
+div.container#mobile-create-or-request-join {  } 
+div.container#mobile-create-or-request-join .btn-group { width: 100%; margin: 0 auto; }
+div.container#mobile-create-or-request-join .btn-radio-group { width: 100%; }
+div.container#mobile-create-or-request-join input[type="submit"] { margin: 16px auto; }
 
 /******************************
 	Register Clean Team
