@@ -289,7 +289,7 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 		context['user'] = self.request.user
 
 		if self.request.flavour == "mobile":
-			self.template_name = "users/mobile/create_team_or_join.html"
+			self.template_name = "cleanteams/mobile/create_team_or_join.html"
 
 		return context
 
@@ -433,6 +433,9 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 		
 		context['user'] = user
 
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/register_request_join.html"
+
 		return context
 
 class RegisterCleanChampionView(LoginRequiredMixin, FormView):
@@ -464,6 +467,9 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		
 		context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
 		context['user'] = user
+
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/register_clean_champion.html"
 
 		return context
 

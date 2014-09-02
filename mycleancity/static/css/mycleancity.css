@@ -584,6 +584,11 @@ div.container#mobile-create-or-request-join .btn-radio-group { width: 100%; }
 div.container#mobile-create-or-request-join input[type="submit"] { margin: 16px auto; }
 
 /******************************
+	Register Clean Team Mobile
+******************************/
+div.container#register-join-team {  }
+
+/******************************
 	Register Clean Team
 ******************************/
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
