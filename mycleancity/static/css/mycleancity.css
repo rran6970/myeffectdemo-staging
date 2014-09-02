@@ -12,6 +12,7 @@ div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 
 div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
 
 div.wrapper.public a.logo,
+#mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
 div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-295x221.png) no-repeat 0 0; position: relative; z-index: 1; }
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
