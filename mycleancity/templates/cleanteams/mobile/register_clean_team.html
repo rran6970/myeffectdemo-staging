@@ -1,0 +1,67 @@
+{% extends '_public_mobile_base.html' %}
+
+{% block title %} My Clean City - Register Clean Team Mobile {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mobile-view" id="register-clean-team">            
+  <a href="/" class="logo"></a> 
+      
+  <div id="white-box">
+    <h2>Create a new Clean Team</h2>
+    <span class="subtitle">Please provide the information for your Clean Team</span>
+
+    {% if form.non_field_errors %}
+      <div class="message-box error">
+      {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <form autocomplete="off" action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.name.label_tag }} {{ form.name }}</td>
+            </tr>
+            <tr>
+              <td>{{ form.region.label_tag }} {{ form.region }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+            </tr>
+            <tr>
+              <td id="clean-team-group-td" style="display: none;">{{ form.group.label_tag }} {{ form.group }}</td>
+            </tr>
+        </table>
+
+        <h2 style="margin-top: 50px;">Main Contact Information</h2>
+        <span class="subtitle">The primary contact of your Clean Team</span>
+        
+        <table>
+            <tr>
+              <td>{{ form.contact_first_name.label_tag }} {{ form.contact_first_name }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.contact_last_name.label_tag }} {{ form.contact_last_name }}</td>
+            </tr>
+            <tr>
+              <td>{{ form.contact_email.label_tag }} {{ form.contact_email }}</td>
+            </tr>
+            <tr>
+              <td>{{ form.contact_phone.label_tag }} {{ form.contact_phone }}</td>
+            </tr>
+        </table>
+
+        <input class="btn btn-primary" type="submit" value="Register" />
+    </form>
+  </div>
+</div>
+
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

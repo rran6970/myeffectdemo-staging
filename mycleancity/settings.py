@@ -92,9 +92,19 @@ SECRET_KEY = 'jf7or6lcqbm#6s*y$1^9@zv$i$9b)uq+^1*1d3ig_v)8y=hah&'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django_mobile.context_processors.flavour',
+    'django.contrib.auth.context_processors.auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,8 +113,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'mycleancity.urls'
@@ -126,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django_extensions',
+    'django_mobile',
     'django_wysiwyg',
     'captcha',
     'cleancreds',
