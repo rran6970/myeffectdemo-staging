@@ -29,6 +29,8 @@ urlpatterns = patterns('',
 	url(r'^notifications/', include('notifications.urls')),
 	url(r'^users/', include('users.urls', namespace="users")),
 
+	url(r'^terms/', TemplateView.as_view(template_name="mycleancity/mobile/terms.html")),
+
 	url(r'^coming-soon/', TemplateView.as_view(template_name="mycleancity/coming_soon.html")),
 	url(r'^register-success/?', RegisterSuccessView.as_view()),
 	url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),

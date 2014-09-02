@@ -1,0 +1,66 @@
+{% extends '_public_mobile_base.html' %}
+
+{% block title %} My Clean City - Register Clean Team Mobile {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mobile-view" id="register-join-team">            
+  <a href="/" class="logo"></a> 
+      
+  <div id="white-box">
+    <h1>Be a Clean Champion</h1>
+    <p class="subtitle">Select a Clean Team to sponsor</p>
+
+    {% if false %}
+      <div class="message-box error">
+      
+      </div>
+    {% endif %}
+
+    <div class="table-container">
+      <table class="table table-hover">
+        <tbody>
+          {% for team in form.team.field.queryset %}
+          {% if not user.profile.clean_team_member.clean_team == team %}
+          <tr>
+            <td class="team">
+              <a href="/clean-team/{{ team.id }}">
+                {% if team.logo %}
+                  <img src="{{ MEDIA_URL }}{{ team.logo }}" alt="" class="profile-pic-42x42" />
+                {% else %}
+                  <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic-42x42" />
+                {% endif %}
+                {{ team.name }}
+              </a>
+            </td>
+            <td class="role">
+              {% for clean_champion in clean_champions %}
+                {% if team == clean_champion.clean_team %}
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Clean Champion" />
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td class="action">
+              <form action="/clean-team/register-clean-champion/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <input type="hidden" name="team" value="{{ team.id }}" />
+                <input type="submit" class="btn btn-primary" value="Select" />
+              </form>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table><!-- /.table.table-hover -->
+    </div><!-- /.table-container -->
+  </div>
+</div>
+
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

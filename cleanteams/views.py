@@ -121,6 +121,14 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 		return HttpResponseRedirect('/clean-team/invite/')
 
+	def get_context_data(self, **kwargs):
+		context = super(RegisterCleanTeamView, self).get_context_data(**kwargs)
+
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/register_clean_team.html"
+
+		return context
+
 class CleanTeamMainContactView(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/main_contact.html"
 	form_class = EditCleanTeamMainContact
@@ -287,6 +295,10 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 				return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
 		
 		context['user'] = self.request.user
+
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/create_team_or_join.html"
+
 		return context
 
 class ViewAllCleanTeams(TemplateView):
@@ -429,6 +441,9 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 		
 		context['user'] = user
 
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/register_request_join.html"
+
 		return context
 
 class RegisterCleanChampionView(LoginRequiredMixin, FormView):
@@ -460,6 +475,9 @@ class RegisterCleanChampionView(LoginRequiredMixin, FormView):
 		
 		context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
 		context['user'] = user
+
+		if self.request.flavour == "mobile":
+			self.template_name = "cleanteams/mobile/register_clean_champion.html"
 
 		return context
 
