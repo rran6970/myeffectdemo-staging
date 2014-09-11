@@ -235,6 +235,12 @@ class Challenge(models.Model):
 	def get_challenge_total_clean_creds(self, total_hours):
 		return int(self.clean_creds_per_hour * total_hours)
 
+	def check_out_all(self):
+		user_challenges = UserChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+
+		for user_challenge in user_challenges:
+			user_challenge.challenge.check_in_check_out(user_challenge.user.id)
+
 	def one_time_check_in_with_token(self, user, token):
 		now = datetime.utcnow().replace(tzinfo=utc)
 		total_clean_creds = self.clean_creds_per_hour
@@ -292,8 +298,8 @@ class Challenge(models.Model):
 					now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
 					participant_challenge.time_out = now
 
-					now_str = datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
-					time_in_str = datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
+					now_str = datetime.datetime.strptime(str(now)[:19], "%Y-%m-%d %H:%M:%S")
+					time_in_str = datetime.datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 					diff = now_str - time_in_str
 					total_hours = (diff.days * 24) + (diff.seconds // 3600)
@@ -321,7 +327,7 @@ class Challenge(models.Model):
 				else:
 					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
 
-				now = datetime.utcnow().replace(tzinfo=utc)
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
 				# total_clean_creds = self.clean_creds_per_hour
 
 				participant_challenge.time_in = now
@@ -347,7 +353,7 @@ class Challenge(models.Model):
 				else:
 					participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_in__isnull=True)
 
-				now = datetime.utcnow().replace(tzinfo=utc)
+				now = datetime.datetime.utcnow().replace(tzinfo=utc)
 				total_clean_creds = self.clean_creds_per_hour
 
 				participant_challenge.time_in = now
@@ -367,7 +373,7 @@ class Challenge(models.Model):
 				return "Confirmed"
 
 		except Exception, e:
-			print e
+			raise e
 
 	# Have to remove staples_store parameter only there for the Staples CleanAct
 	def participate_in_challenge(self, user, staples_store=None):
@@ -425,16 +431,19 @@ class Challenge(models.Model):
 
 	def can_unparticipate(self, user):
 		if self.clean_team_only:
-			already_participated = True if CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count() > 1 else False
+			if user.profile.is_clean_ambassador():
+				count = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count()
+				already_participated = True if count > 1 else False
 
-			if not already_participated:
-				try:
-					clean_team_challenge = CleanTeamChallenge.objects.get(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
-					return False if clean_team_challenge.time_in else True
-				except Exception, e:
-					print e
+				if not already_participated:
+					try:
+						clean_team_challenge = CleanTeamChallenge.objects.get(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
+						return False if clean_team_challenge.time_in else True
+					except Exception, e:
+						print e
 		else:
-			already_participated = True if UserChallenge.objects.filter(challenge=self, user=user).count() > 1 else False
+			count = UserChallenge.objects.filter(challenge=self, user=user).count()
+			already_participated = True if count > 1 else False
 
 			if not already_participated:
 				try:
@@ -494,7 +503,7 @@ class Challenge(models.Model):
 
 	@staticmethod
 	def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
-		today = datetime.now()
+		today = datetime.datetime.now()
 
 		predicates = Q(event_end_date__gte=today)
 

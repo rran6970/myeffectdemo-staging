@@ -99,6 +99,14 @@ def check_in_check_out(request):
 
 		return HttpResponse('')
 
+@login_required
+def check_out_all(request):
+	challenge_id = request.POST['challenge_id']
+	challenge = get_object_or_404(Challenge, id=challenge_id)
+	challenge.check_out_all()
+
+	return HttpResponseRedirect('/challenges/participants/%s/' % (challenge_id))
+
 def dropdown_search_for_challenges(request):
 	query = request.GET['q']
 	national_challenges = request.GET['national_challenges']
