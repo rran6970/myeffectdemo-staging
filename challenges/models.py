@@ -236,10 +236,16 @@ class Challenge(models.Model):
 		return int(self.clean_creds_per_hour * total_hours)
 
 	def check_out_all(self):
-		user_challenges = UserChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+		if self.clean_team_only:
+			clean_team_challenges = CleanTeamChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
 
-		for user_challenge in user_challenges:
-			user_challenge.challenge.check_in_check_out(user_challenge.user.id)
+			for clean_team_challenge in clean_team_challenges:
+				clean_team_challenge.challenge.check_in_check_out(clean_team_challenge.clean_team.id)
+		else:
+			user_challenges = UserChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+
+			for user_challenge in user_challenges:
+				user_challenge.challenge.check_in_check_out(user_challenge.user.id)
 
 	def one_time_check_in_with_token(self, user, token):
 		now = datetime.utcnow().replace(tzinfo=utc)
