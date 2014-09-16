@@ -1028,6 +1028,19 @@ def challenge_centre(request):
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")	
 
+def check_out_all(request):
+	if request.is_ajax:
+		request_obj = GenericRequest(request)
+		request_obj.parse_request_params()
+		response_base = ResponseDic()
+		
+		cid = request_obj.params['cid']
+
+		challenge = get_object_or_404(Challenge, id=cid)
+		challenge.check_out_all()
+
+	return HttpResponse(data, mimetype="text/javascript")
+
 def one_time_check_in(request):
 	if request.is_ajax:
 		request_obj = GenericRequest(request)
@@ -1036,7 +1049,6 @@ def one_time_check_in(request):
 		
 		user = request.user
 		cid = request_obj.params['cid']
-		token = request_obj.params['token']
 		
 		challenge = get_object_or_404(Challenge, id=cid)
 		challenge.one_time_check_in_with_token(user, token)
