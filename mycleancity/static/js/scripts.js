@@ -55,6 +55,28 @@ $(function(){
       $(".search-result-dropdown").fadeOut()
     });
 
+    $(".iframe").colorbox({
+        open:true, 
+        iframe:true, 
+        width:"80%", 
+        height:"80%", 
+        overlayClose: false,
+        escKey: false
+    });
+    // $("#relaunch-signup-link").colorbox({
+    //     iframe: true,
+    //     open: true,
+    //     inline: true, 
+    //     speed: 250,
+    //     width: "80%",
+    //     height: "80%",
+    //     scrolling: true,
+    //     opacity: 0.7,
+    //     fadeOut: 200,
+    //     overlayClose: false,
+    //     escKey: false
+    // });
+
     $(".youtube-popup").colorbox({iframe:true, innerWidth:640, innerHeight:390});
 
     $(".popup-image").colorbox({

@@ -115,6 +115,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
+	join = forms.BooleanField(label="I'd like to join the My Clean City team", required=False)
 
 	# Combines the form with the corresponding model
 	class Meta:

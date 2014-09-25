@@ -12,6 +12,7 @@ class PrelaunchEmails(models.Model):
 	postal_code = models.CharField(max_length = 7, blank=False)
 	school_type = models.CharField(max_length = 30, blank=False, default="High School")
 	ambassador = models.BooleanField()
+	join = models.BooleanField()
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 	class Meta:

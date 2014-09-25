@@ -485,6 +485,13 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 #white-box.tab-content div.tab-pane ul li span.titles { font-weight: bold !important; }
 
 /******************************
+    Relaunch sign up popup
+******************************/
+/*#relaunch-signup form div.field-container { margin-bottom: 10px; } 
+#relaunch-signup form div.field-container input { display: block; }
+#relaunch-signup form div.field-container input[type="checkbox"] { float: left; margin-right: 10px; }*/
+
+/******************************
 	Contact
 ******************************/
 #white-box.contact { width: 400px; height: 482px; left: 34%; }
