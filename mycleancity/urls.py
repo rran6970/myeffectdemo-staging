@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	url(r'^user/password/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', {'post_reset_redirect' : '/user/password/done/'}),
 	url(r'^user/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
 
-	url(r'^relaunch-signup/$', 'mycleancity.view.relaunch_signup'),
+	# url(r'^relaunch-signup/$', 'mycleancity.view.relaunch_signup'),
 
 	url(r'^clean-team/', include('cleanteams.urls')),
 	url(r'^challenges/', include('challenges.urls')),
