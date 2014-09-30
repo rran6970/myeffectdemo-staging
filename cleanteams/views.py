@@ -104,7 +104,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
 
-		from_email, to = 'info@mycleancity.org', user.email
+		from_email, to = 'info@myeffect.ca', user.email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -114,7 +114,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': user.email })
 
-		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
+		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
