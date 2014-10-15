@@ -45,8 +45,15 @@
 									</a>
 
 									{% if participant.user.profile.emergency_phone %}
-									<span id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
+									<span class="bold" id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
 									{% endif %}
+								{% endif %}
+
+								{% if participant.time_in %}
+									<span>Last check in on {{ participant.time_in }}</span>
+								{% endif %}
+								{% if participant.time_out %}
+									<span>Last check out on {{ participant.time_out }}</span>
 								{% endif %}
 							</td>
 							<td class="participated">
@@ -59,10 +66,10 @@
 									{% endif %}
 
 									<input type="hidden" name="challenge_id" value="{{ cid }}">
+									
 									{% if participant.time_in %}
 										{% if participant.time_out %}
-											{{ participant.total_hours }} Hours<br/>
-											{{ participant.total_clean_creds }} <span class="green bold">Clean</span><span class="blue bold">Creds</span>
+											<input type="submit" id="confirm-btn" class="btn btn-primary" value="Check In" />	
 										{% else %}
 											<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out" />
 										{% endif %}

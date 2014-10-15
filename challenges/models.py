@@ -289,10 +289,15 @@ class Challenge(models.Model):
 		try:
 			if self.type.challenge_type == "hourly":
 
+				# if self.clean_team_only:
+				# 	participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+				# else:
+				# 	participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+
 				if self.clean_team_only:
-					participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+					participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_out__isnull=True)
 				else:
-					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+					participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_out__isnull=True)
 
 				if not participant_challenge.time_in:
 					now = datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -499,11 +504,41 @@ class Challenge(models.Model):
 
 	def get_participants_to_check_in(self):
 		if self.clean_team_only:
-			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id, challenge_id, max(time_in) AS time_in FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+			# participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id, challenge_id, max(time_in) AS time_in FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+
+			sql = ("SELECT ctc.id, cleanteams_cleanteam.name, ctc.challenge_id, ctc.clean_team_id, ctc.timestamp, ctc.time_in, ctc.time_out, ctc.total_hours, ctc.total_clean_creds "
+				"FROM challenges_cleanteamchallenge ctc "
+				"INNER JOIN("
+				"SELECT id, clean_team_id, max(timestamp) ts "
+				"FROM challenges_cleanteamchallenge "
+				"WHERE challenge_id = %s "
+				"GROUP BY clean_team_id"
+				") ij ON ctc.clean_team_id = ij.clean_team_id AND ctc.timestamp = ts "
+				"JOIN cleanteams_cleanteam ON cleanteams_cleanteam.id = ctc.clean_team_id "
+				"WHERE ctc.challenge_id = %s "
+				"GROUP BY ctc.clean_team_id, ctc.challenge_id "
+				"ORDER BY cleanteams_cleanteam.name"
+			) % (self.id, self.id)
+
+			participants = CleanTeamChallenge.objects.raw(sql)
 
 			return participants
 		else:
-			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
+			sql = ("SELECT uc.id, auth_user.first_name, auth_user.last_name, uc.challenge_id, uc.user_id, uc.timestamp, uc.time_in, uc.time_out, uc.total_hours, uc.total_clean_creds "
+				"FROM challenges_userchallenge uc "
+				"INNER JOIN("
+				"SELECT id, user_id, max(timestamp) ts "
+				"FROM challenges_userchallenge "
+				"WHERE challenge_id = %s "
+				"GROUP BY user_id"
+				") ij ON uc.user_id = ij.user_id AND uc.timestamp = ts "
+				"JOIN auth_user ON auth_user.id = uc.user_id "
+				"WHERE uc.challenge_id = %s "
+				"GROUP BY uc.user_id, uc.challenge_id "
+				"ORDER BY auth_user.first_name"
+			) % (self.id, self.id)
+
+			participants = UserChallenge.objects.raw(sql)
 
 			return participants
 
