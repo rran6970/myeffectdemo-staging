@@ -1,5 +1,6 @@
 import csv
 import datetime
+import decimal
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -112,3 +113,8 @@ class UploadFileToS3(object):
         k.set_contents_from_string(file.read())
 
         return k.key
+
+def decimal_default(obj):
+    if isinstance(obj, decimal.Decimal):
+        return float(obj)
+    raise TypeError

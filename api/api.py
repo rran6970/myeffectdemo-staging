@@ -3,7 +3,9 @@ import ftplib
 import os
 import pytz
 import tempfile
-import json, urlparse, random, string, base64, datetime, time
+import urlparse, random, string, base64, datetime, time
+
+import simplejson as json
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -29,6 +31,8 @@ from django.template import Context, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import utc
+
+from mycleancity.actions import *
 
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode, UserSettings
 from challenges.models import *
@@ -448,6 +452,7 @@ def list_challenge(request):
 			cteamarray  = CleanTeam.objects.get(id=ct_id)
 			ctname  = cteamarray.name
 			org = each.host_organization
+
 			jsonvalue.append({'country':each.country
 			,'ctname':ctname
 			,'title':each.title
@@ -518,7 +523,6 @@ def list_participants(request):
 		print e
 		response_base.response['status'] = 0
 
-
 	if participants:
 		for participant in participants:
 			time_in = str(participant.time_in)
@@ -558,15 +562,14 @@ def list_participants(request):
 				'hours':hours,
 				'totalcleancreds':total_clean_creds,
 				'timein':time_in,
-				'timeout':time_out,
-				'hours':hours,
+				'timeout':time_out
 			})
 
 	response_base.response['status'] = 1
 	response_base.response['data'] = participants_json	
 	response_base.response['challenge_data'] = challenge_json	
 	
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	return HttpResponse(data, mimetype="text/javascript")
 
 def add_cleanteam(request):

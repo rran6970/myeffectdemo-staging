@@ -1,3 +1,5 @@
+from __future__ import division
+
 import datetime
 import json
 import math
@@ -313,9 +315,17 @@ class Challenge(models.Model):
 					time_in_str = datetime.datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 					diff = now_str - time_in_str
-					total_hours = (diff.days * 24) + (diff.seconds // 3600)
+					days = (diff.days * 24)
+					hours = (diff.seconds // 3600)
+					remaining_minutes = ((diff.seconds % 3600) / 60) /60
 
+					total_hours = round((days + hours + remaining_minutes), 2)
 					total_clean_creds = self.get_challenge_total_clean_creds(total_hours)
+
+					print total_hours
+					# print days
+					# print hours
+					# print remaining_minutes
 
 					participant_challenge.total_hours = total_hours
 					participant_challenge.total_clean_creds = total_clean_creds
@@ -637,8 +647,8 @@ class UserChallenge(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	time_in	= models.DateTimeField(blank=True, null=True)
 	time_out = models.DateTimeField(blank=True, null=True)
-	total_hours = models.IntegerField(default=0)
-	total_clean_creds = models.IntegerField(default=0)
+	total_hours = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+	total_clean_creds = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'
@@ -658,8 +668,8 @@ class CleanTeamChallenge(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	time_in	= models.DateTimeField(blank=True, null=True)
 	time_out = models.DateTimeField(blank=True, null=True)
-	total_hours = models.IntegerField(default=0)
-	total_clean_creds = models.IntegerField(default=0)
+	total_hours = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+	total_clean_creds = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges clean teams participated in'
