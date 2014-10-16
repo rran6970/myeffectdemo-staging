@@ -504,8 +504,6 @@ class Challenge(models.Model):
 
 	def get_participants_to_check_in(self):
 		if self.clean_team_only:
-			# participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id, challenge_id, max(time_in) AS time_in FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
-
 			sql = ("SELECT ctc.id, cleanteams_cleanteam.name, ctc.challenge_id, ctc.clean_team_id, ctc.timestamp, ctc.time_in, ctc.time_out, ctc.total_hours, ctc.total_clean_creds "
 				"FROM challenges_cleanteamchallenge ctc "
 				"INNER JOIN("

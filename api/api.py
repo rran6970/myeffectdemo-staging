@@ -796,32 +796,41 @@ def upload_picture(request):
 	response_base.response['status'] = 1
 	data = [{"status":"1"}]
 	return HttpResponse(data, mimetype="text/javascript")
+
 def view_participants(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 	chid = request_obj.params['chid']
-	challenge = UserChallenge.objects.filter(challenge_id=chid)
-	jsonvalue =[]
-	for each in challenge:		
+	challenge = get_object_or_404(Challenge, id=cid)
+	participants = challenge.get_participants_to_check_in()
+	# challenge = UserChallenge.objects.filter(challenge_id=chid)
+	jsonvalue = []
+
+	for each in participants:		
 		userid = each.user_id
 		#print user_id
 		uprofilearray  = UserProfile.objects.get(user_id=userid)
 		picture  = uprofilearray.picture
+		
 		if picture:
 			picture = picture
 		else:
 			picture =0
+		
 		Userid = uprofilearray.user_id
 		userarray  = User.objects.get(id=Userid)
 		uname   =  userarray.first_name
 		jsonvalue.append({'pic':unicode(picture),'firstname':uname,'uid':Userid})
+
 	#print jsonvalue
 	response_base.response['status'] = 1
 	response_base.response['data'] = jsonvalue
 	#response_base.response['data'] = [ {'title':each.user_id} for each in challenge]
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+
 	return HttpResponse(data, mimetype="text/javascript")
+
 def qrcode_userchallenge(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
@@ -1039,6 +1048,9 @@ def check_out_all(request):
 		challenge = get_object_or_404(Challenge, id=cid)
 		challenge.check_out_all()
 
+	response_base.response['status'] = 1
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+		
 	return HttpResponse(data, mimetype="text/javascript")
 
 def one_time_check_in(request):

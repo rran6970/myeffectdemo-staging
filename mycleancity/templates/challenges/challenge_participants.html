@@ -27,11 +27,13 @@
 				<tr>
 					<td class="name"><h2>Participant</h2></td>
 					<td class="participated">
+						{% if challenge.type.challenge_type == "hourly" %}
 						<form action="/challenges/check-out-all/" method="post">
 							{% csrf_token %}
 							<input type="hidden" name="challenge_id" value="{{ challenge.id }}" />
 							<input type="submit" id="confirm-btn" class="btn btn-primary dark" value="Check Out All" />
 						</form>
+						{% endif %}
 					</td>
 				</tr>
 				{% if challenge.type.challenge_type == "hourly" %}
