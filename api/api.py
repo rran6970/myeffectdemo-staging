@@ -480,7 +480,7 @@ def list_participants(request):
 
 	cid = request_obj.params['challenge_id']
 	challenge = Challenge.objects.get(id=cid)
-	participants = challenge.get_participants()
+	participants = challenge.get_participants_to_check_in()
 
 	challenge_json = []
 	participants_json = []
@@ -797,6 +797,7 @@ def upload_picture(request):
 	data = [{"status":"1"}]
 	return HttpResponse(data, mimetype="text/javascript")
 
+# TODO: May not be using
 def view_participants(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
@@ -809,7 +810,7 @@ def view_participants(request):
 
 	for each in participants:		
 		userid = each.user_id
-		#print user_id
+		print user_id
 		uprofilearray  = UserProfile.objects.get(user_id=userid)
 		picture  = uprofilearray.picture
 		

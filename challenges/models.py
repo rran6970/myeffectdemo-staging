@@ -494,6 +494,7 @@ class Challenge(models.Model):
 				print e
 				return False
 
+	# Shows participants in Challenge Overview page
 	def get_participants(self):
 		if self.clean_team_only:
 			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))

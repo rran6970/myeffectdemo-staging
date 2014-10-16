@@ -21,7 +21,9 @@
         <div id="white-box" class="challenge-participants">
 			<h1>{{ challenge.title }}</h1>
 
-			<span class="gray-italic-subtitle">In the event of an emergency, please click anywhere in the row of a partcipant to view their emergency contact number. If they do not have one, none will appear beneath their name.</span>
+			{% if not challenge.clean_team_only %}
+				<span class="gray-italic-subtitle">In the event of an emergency, please click anywhere in the row of a partcipant to view their emergency contact number. If they do not have one, none will appear beneath their name.</span>
+			{% endif %}
 
 			<table>
 				<tr>
@@ -132,7 +134,10 @@
 						<tr>
 							<td class="name">
 								<a href="/users/profile/{{ participant.user.id }}">{{ participant.user.first_name }} {{ participant.user.last_name }}</a>
+								{% if participant.time_in %}
 								<span>Last Checked In: {{ participant.time_in }}</span>
+								{% endif %}
+								
 								{% if participant.user.profile.emergency_phone %}
 								<span id="emergency-number">Emergency Number: {{ participant.user.profile.emergency_phone }}</span>
 								{% endif %}
