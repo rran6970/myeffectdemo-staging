@@ -1,13 +1,18 @@
 import urllib
 import ftplib
 import os
+import pytz
 import tempfile
+import urlparse, random, string, base64, datetime, time
+
+import simplejson as json
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 from datetime import date
 from django.conf import settings
+from pytz import timezone
 
 from .utils import remove_cache, check_post, GenericRequest, clean_inputs, ResponseDic, send_server_error, send_server_forbidden
 
@@ -27,12 +32,12 @@ from django.shortcuts import render_to_response, get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import utc
 
+from mycleancity.actions import *
+
 from userprofile.models import UserProfile, QRCodeSignups, UserQRCode, UserSettings
 from challenges.models import *
 from cleanteams.models import *
 from notifications.models import UserNotification
-
-import json,urlparse,random,string, base64,datetime
 
 #@remove_cache
 #@check_post
@@ -447,6 +452,7 @@ def list_challenge(request):
 			cteamarray  = CleanTeam.objects.get(id=ct_id)
 			ctname  = cteamarray.name
 			org = each.host_organization
+
 			jsonvalue.append({'country':each.country
 			,'ctname':ctname
 			,'title':each.title
@@ -479,7 +485,7 @@ def list_participants(request):
 
 	cid = request_obj.params['challenge_id']
 	challenge = Challenge.objects.get(id=cid)
-	participants = challenge.get_participants()
+	participants = challenge.get_participants_to_check_in()
 
 	challenge_json = []
 	participants_json = []
@@ -516,7 +522,6 @@ def list_participants(request):
 	except Exception, e:
 		print e
 		response_base.response['status'] = 0
-
 
 	if participants:
 		for participant in participants:
@@ -557,15 +562,14 @@ def list_participants(request):
 				'hours':hours,
 				'totalcleancreds':total_clean_creds,
 				'timein':time_in,
-				'timeout':time_out,
-				'hours':hours,
+				'timeout':time_out
 			})
 
 	response_base.response['status'] = 1
 	response_base.response['data'] = participants_json	
 	response_base.response['challenge_data'] = challenge_json	
 	
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	return HttpResponse(data, mimetype="text/javascript")
 
 def add_cleanteam(request):
@@ -795,32 +799,42 @@ def upload_picture(request):
 	response_base.response['status'] = 1
 	data = [{"status":"1"}]
 	return HttpResponse(data, mimetype="text/javascript")
+
+# TODO: May not be using
 def view_participants(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
 	response_base = ResponseDic()
 	chid = request_obj.params['chid']
-	challenge = UserChallenge.objects.filter(challenge_id=chid)
-	jsonvalue =[]
-	for each in challenge:		
+	challenge = get_object_or_404(Challenge, id=cid)
+	participants = challenge.get_participants_to_check_in()
+	# challenge = UserChallenge.objects.filter(challenge_id=chid)
+	jsonvalue = []
+
+	for each in participants:		
 		userid = each.user_id
-		#print user_id
+		print user_id
 		uprofilearray  = UserProfile.objects.get(user_id=userid)
 		picture  = uprofilearray.picture
+		
 		if picture:
 			picture = picture
 		else:
 			picture =0
+		
 		Userid = uprofilearray.user_id
 		userarray  = User.objects.get(id=Userid)
 		uname   =  userarray.first_name
 		jsonvalue.append({'pic':unicode(picture),'firstname':uname,'uid':Userid})
+
 	#print jsonvalue
 	response_base.response['status'] = 1
 	response_base.response['data'] = jsonvalue
 	#response_base.response['data'] = [ {'title':each.user_id} for each in challenge]
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+
 	return HttpResponse(data, mimetype="text/javascript")
+
 def qrcode_userchallenge(request):
 	request_obj = GenericRequest(request)
 	request_obj.parse_request_params()
@@ -913,11 +927,28 @@ def my_challenges(request):
 		time_in = user_challenge.time_in
 		time_out = user_challenge.time_out
 
+		local_time = None
+
 		if time_in != None:
 			time_in = str(datetime.datetime.strptime(str(time_in)[:19], "%Y-%m-%d %H:%M:%S"))
 
+			datetime_obj = datetime.datetime.strptime(time_in, "%Y-%m-%d %H:%M:%S")
+			datetime_obj_utc = datetime_obj.replace(tzinfo=timezone('UTC'))
+
+			local_tz = pytz.timezone('America/Toronto')
+			local_time = local_tz.normalize(datetime_obj_utc.astimezone(local_tz))
+			local_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
+
 		if time_out != None:
 			time_out = str(datetime.datetime.strptime(str(time_out)[:19], "%Y-%m-%d %H:%M:%S"))
+
+		time_between = None
+
+		if time_in:
+			now = datetime.datetime.utcnow().replace(tzinfo=utc)
+			today = datetime.datetime.today()
+			
+			time_between = hours_between(now.strftime("%Y-%m-%d %H:%M:%S"), time_in)
 
 		user_challenges_json.append({
 			'id':challenge.id
@@ -942,8 +973,9 @@ def my_challenges(request):
 			,'cleanperhour':challenge.clean_creds_per_hour
 			,'totalhours':user_challenge.total_hours
 			,'totalcleancreds':user_challenge.total_clean_creds
-			,'timein':time_in
+			,'timein':local_time
 			,'timeout':time_out
+			,'timebetween':time_between
 			,'type':challenge.type.challenge_type
 		})
 
@@ -1009,6 +1041,22 @@ def challenge_centre(request):
 	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
 	return HttpResponse(data, mimetype="text/javascript")	
 
+def check_out_all(request):
+	if request.is_ajax:
+		request_obj = GenericRequest(request)
+		request_obj.parse_request_params()
+		response_base = ResponseDic()
+		
+		cid = request_obj.params['cid']
+
+		challenge = get_object_or_404(Challenge, id=cid)
+		challenge.check_out_all()
+
+	response_base.response['status'] = 1
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+		
+	return HttpResponse(data, mimetype="text/javascript")
+
 def one_time_check_in(request):
 	if request.is_ajax:
 		request_obj = GenericRequest(request)
@@ -1017,7 +1065,6 @@ def one_time_check_in(request):
 		
 		user = request.user
 		cid = request_obj.params['cid']
-		token = request_obj.params['token']
 		
 		challenge = get_object_or_404(Challenge, id=cid)
 		challenge.one_time_check_in_with_token(user, token)

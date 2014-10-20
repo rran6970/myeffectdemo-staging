@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 #coding: utf8
 import os
-
 import datetime
 import re
+import pytz
+
+from pytz import timezone
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
@@ -269,6 +271,11 @@ class SettingsForm(forms.ModelForm):
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
 	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Clean City email communications")
+	timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
+
+	def __init__(self, *args, **kwargs):
+		super(SettingsForm, self).__init__(*args, **kwargs)
+		self.fields['timezone'].choices = [(tz, tz) for tz in pytz.all_timezones]
 
 	# Combines the form with the corresponding model
 	class Meta:
