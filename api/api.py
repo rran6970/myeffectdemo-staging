@@ -272,7 +272,7 @@ def get_user_profile(request):
 		'picture':picture
 	}
 
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	return HttpResponse(data, mimetype="text/javascript")
 
 def update_user(request):
@@ -412,7 +412,7 @@ def get_challenge(request):
 	response_base.response['user_challenge_data'] = user_challenge_json
 	response_base.response['participants_data'] = participants_json
 	response_base.response['data'] = challenge_json
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	
 	return HttpResponse(data, mimetype="text/javascript")
 
@@ -984,7 +984,7 @@ def my_challenges(request):
 	response_base.response['clean_team_challenges'] = clean_team_challenges_json
 	response_base.response['totalhours'] = user.profile.get_total_hours()
 	
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	return HttpResponse(data, mimetype="text/javascript")	
 
 def challenge_centre(request):
@@ -1412,7 +1412,7 @@ def cleanteam_view(request):
 		print e
 		response_base.response['status'] = 0
 	
-	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
+	data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response, default=decimal_default))
 	return HttpResponse(data, mimetype="text/javascript")
 
 def team_challenge(request):
