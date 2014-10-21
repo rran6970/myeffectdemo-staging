@@ -1379,6 +1379,7 @@ def cleanteam_view(request):
 		
 		response_base.response['status'] = 1
 		response_base.response['data'] = {
+			'id': clean_team.id,
 			'name': clean_team.name, 
 			'website': clean_team.website,
 			'logo':unicode(clean_team.logo),
