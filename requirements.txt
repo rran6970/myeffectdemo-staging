@@ -21,8 +21,5 @@ django-extensions==1.2.5
 qrcode==4.0.4
 django-wysiwyg==0.5.1
 django-recaptcha==1.0
-<<<<<<< HEAD
 django-mobile==0.4.0
-=======
 django-timezone-field==1.0
->>>>>>> feature/timein-fix
