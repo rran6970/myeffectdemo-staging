@@ -17,6 +17,8 @@ from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
+from timezone_field import TimeZoneField
+
 """
 Name:           UserSettings
 Date created:   Feb 15, 2014
@@ -27,6 +29,7 @@ class UserSettings(models.Model):
 	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
 	receive_newsletters = models.BooleanField(default=0)
 	email_privacy = models.BooleanField(default=0)
+	timezone = TimeZoneField(default='America/Toronto')
 
 	class Meta:
 		verbose_name_plural = u'User Settings'

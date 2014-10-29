@@ -1,3 +1,5 @@
+from __future__ import division
+
 import datetime
 import json
 import math
@@ -235,8 +237,20 @@ class Challenge(models.Model):
 	def get_challenge_total_clean_creds(self, total_hours):
 		return int(self.clean_creds_per_hour * total_hours)
 
+	def check_out_all(self):
+		if self.clean_team_only:
+			clean_team_challenges = CleanTeamChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+
+			for clean_team_challenge in clean_team_challenges:
+				clean_team_challenge.challenge.check_in_check_out(clean_team_challenge.clean_team.id)
+		else:
+			user_challenges = UserChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+
+			for user_challenge in user_challenges:
+				user_challenge.challenge.check_in_check_out(user_challenge.user.id)
+
 	def one_time_check_in_with_token(self, user, token):
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		now = datetime.utcnow().replace(tzinfo=utc)
 		total_clean_creds = self.clean_creds_per_hour
 
 		if self.clean_team_only:
@@ -277,10 +291,15 @@ class Challenge(models.Model):
 		try:
 			if self.type.challenge_type == "hourly":
 
+				# if self.clean_team_only:
+				# 	participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+				# else:
+				# 	participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+
 				if self.clean_team_only:
-					participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
+					participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_out__isnull=True)
 				else:
-					participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+					participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_out__isnull=True)
 
 				if not participant_challenge.time_in:
 					now = datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -296,9 +315,17 @@ class Challenge(models.Model):
 					time_in_str = datetime.datetime.strptime(str(participant_challenge.time_in)[:19], "%Y-%m-%d %H:%M:%S")
 
 					diff = now_str - time_in_str
-					total_hours = (diff.days * 24) + (diff.seconds // 3600)
+					days = (diff.days * 24)
+					hours = (diff.seconds // 3600)
+					remaining_minutes = ((diff.seconds % 3600) / 60) /60
 
+					total_hours = round((days + hours + remaining_minutes), 2)
 					total_clean_creds = self.get_challenge_total_clean_creds(total_hours)
+
+					print total_hours
+					# print days
+					# print hours
+					# print remaining_minutes
 
 					participant_challenge.total_hours = total_hours
 					participant_challenge.total_clean_creds = total_clean_creds
@@ -367,7 +394,7 @@ class Challenge(models.Model):
 				return "Confirmed"
 
 		except Exception, e:
-			print e
+			raise e
 
 	# Have to remove staples_store parameter only there for the Staples CleanAct
 	def participate_in_challenge(self, user, staples_store=None):
@@ -425,16 +452,19 @@ class Challenge(models.Model):
 
 	def can_unparticipate(self, user):
 		if self.clean_team_only:
-			already_participated = True if CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count() > 1 else False
+			if user.profile.is_clean_ambassador():
+				count = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count()
+				already_participated = True if count > 1 else False
 
-			if not already_participated:
-				try:
-					clean_team_challenge = CleanTeamChallenge.objects.get(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
-					return False if clean_team_challenge.time_in else True
-				except Exception, e:
-					print e
+				if not already_participated:
+					try:
+						clean_team_challenge = CleanTeamChallenge.objects.get(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
+						return False if clean_team_challenge.time_in else True
+					except Exception, e:
+						print e
 		else:
-			already_participated = True if UserChallenge.objects.filter(challenge=self, user=user).count() > 1 else False
+			count = UserChallenge.objects.filter(challenge=self, user=user).count()
+			already_participated = True if count > 1 else False
 
 			if not already_participated:
 				try:
@@ -474,6 +504,7 @@ class Challenge(models.Model):
 				print e
 				return False
 
+	# Shows participants in Challenge Overview page
 	def get_participants(self):
 		if self.clean_team_only:
 			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
@@ -484,11 +515,39 @@ class Challenge(models.Model):
 
 	def get_participants_to_check_in(self):
 		if self.clean_team_only:
-			participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id, challenge_id, max(time_in) AS time_in FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+			sql = ("SELECT ctc.id, cleanteams_cleanteam.name, ctc.challenge_id, ctc.clean_team_id, ctc.timestamp, ctc.time_in, ctc.time_out, ctc.total_hours, ctc.total_clean_creds "
+				"FROM challenges_cleanteamchallenge ctc "
+				"INNER JOIN("
+				"SELECT id, clean_team_id, max(timestamp) ts "
+				"FROM challenges_cleanteamchallenge "
+				"WHERE challenge_id = %s "
+				"GROUP BY clean_team_id"
+				") ij ON ctc.clean_team_id = ij.clean_team_id AND ctc.timestamp = ts "
+				"JOIN cleanteams_cleanteam ON cleanteams_cleanteam.id = ctc.clean_team_id "
+				"WHERE ctc.challenge_id = %s "
+				"GROUP BY ctc.clean_team_id, ctc.challenge_id "
+				"ORDER BY cleanteams_cleanteam.name"
+			) % (self.id, self.id)
+
+			participants = CleanTeamChallenge.objects.raw(sql)
 
 			return participants
 		else:
-			participants = UserChallenge.objects.raw("SELECT id, user_id, challenge_id, max(time_in) AS time_in FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
+			sql = ("SELECT uc.id, auth_user.first_name, auth_user.last_name, uc.challenge_id, uc.user_id, uc.timestamp, uc.time_in, uc.time_out, uc.total_hours, uc.total_clean_creds "
+				"FROM challenges_userchallenge uc "
+				"INNER JOIN("
+				"SELECT id, user_id, max(timestamp) ts "
+				"FROM challenges_userchallenge "
+				"WHERE challenge_id = %s "
+				"GROUP BY user_id"
+				") ij ON uc.user_id = ij.user_id AND uc.timestamp = ts "
+				"JOIN auth_user ON auth_user.id = uc.user_id "
+				"WHERE uc.challenge_id = %s "
+				"GROUP BY uc.user_id, uc.challenge_id "
+				"ORDER BY auth_user.first_name"
+			) % (self.id, self.id)
+
+			participants = UserChallenge.objects.raw(sql)
 
 			return participants
 
@@ -588,8 +647,8 @@ class UserChallenge(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	time_in	= models.DateTimeField(blank=True, null=True)
 	time_out = models.DateTimeField(blank=True, null=True)
-	total_hours = models.IntegerField(default=0)
-	total_clean_creds = models.IntegerField(default=0)
+	total_hours = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+	total_clean_creds = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges user participated in'
@@ -609,8 +668,8 @@ class CleanTeamChallenge(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	time_in	= models.DateTimeField(blank=True, null=True)
 	time_out = models.DateTimeField(blank=True, null=True)
-	total_hours = models.IntegerField(default=0)
-	total_clean_creds = models.IntegerField(default=0)
+	total_hours = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+	total_clean_creds = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
 	class Meta:
 		verbose_name_plural = u'Challenges clean teams participated in'

@@ -29,37 +29,18 @@ from users.forms import PrelaunchEmailsForm
 
 from django.contrib.auth.models import User
 
-# def relaunch_signup(request):
-# 	if request.method == 'POST':
-# 		first_name = request.POST['first_name']
-# 		email = request.POST['email']
-# 		postal_code = request.POST['postal_code']
-# 		school_type = request.POST['school_type']
-# 		ambassador = request.POST['ambassador']
-# 		join = request.POST['join']
-
-# 		prelaunch_emails = PrelaunchEmails()
-# 		prelaunch_emails.first_name = first_name
-# 		prelaunch_emails.email = email
-# 		prelaunch_emails.postal_code = postal_code
-# 		prelaunch_emails.school_type = school_type
-# 		prelaunch_emails.ambassador = ambassador
-# 		prelaunch_emails.join = join
-# 		prelaunch_emails.save()
-
 def error404(request):
 	return render_to_response('mycleancity/404.html')
 
 class HomePageView(TemplateView):
 	template_name = "mycleancity/index.html"
 
-	# def dispatch(self, request, *args, **kwargs):
-	# 	if request.user.is_authenticated():
-	# 		return HttpResponseRedirect('/challenges')
-	# 	return super(HomePageView, self).dispatch(request, *args, **kwargs)
-
 	def get_context_data(self, **kwargs):
 		context = super(HomePageView, self).get_context_data(**kwargs)
+
+		if self.request.user.is_authenticated():
+			self.template_name = "mycleancity/home.html"
+
 		context['user'] = self.request.user
 		
 		return context

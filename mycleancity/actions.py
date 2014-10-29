@@ -1,4 +1,6 @@
 import csv
+import datetime
+import decimal
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -10,6 +12,16 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 
 from time import time
+
+def hours_between(d1, d2):
+    d1 = datetime.datetime.strptime(d1, "%Y-%m-%d %H:%M:%S")
+    d2 = datetime.datetime.strptime(d2, "%Y-%m-%d %H:%M:%S")
+
+    difference = d1 - d2
+    difference_hours = (difference.days * 24) + (difference.seconds // 3600)
+    difference_hours = (difference.days * 24) + (difference.seconds // 3600)
+
+    return divmod(difference.days * 86400 + difference.seconds, 60)
 
 def limiter(x, limit):
     for i in range(len(x)):
@@ -101,3 +113,8 @@ class UploadFileToS3(object):
         k.set_contents_from_string(file.read())
 
         return k.key
+
+def decimal_default(obj):
+    if isinstance(obj, decimal.Decimal):
+        return float(obj)
+    raise TypeError

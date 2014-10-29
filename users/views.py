@@ -411,6 +411,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		initial['communication_language'] = settings.communication_language
 		initial['email_privacy'] = settings.email_privacy
 		initial['receive_newsletters'] = settings.receive_newsletters
+		initial['timezone'] = settings.timezone
 
 		return initial
 
@@ -439,6 +440,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		else:
 			user.profile.settings.receive_newsletters = 0
 
+		user.profile.settings.timezone = form.cleaned_data['timezone']
 		user.profile.settings.communication_language = form.cleaned_data['communication_language']
 		user.profile.settings.save()
 
