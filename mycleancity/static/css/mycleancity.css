@@ -416,8 +416,8 @@ div.content.rewards #white-box #grand-prize-title img { display: block; margin: 
 #sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 231px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
 #sign-clean-teams-fr { width: 267px; height: 65px; position: absolute; z-index: 1000; top: 224px; left: 56px; background: url(../images/french/sign-clean-teams.png) no-repeat 0 0; }
 
-#sign-clean-champions { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-clean-champions.png) no-repeat 0 0; }
-#sign-clean-champions-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-clean-champions.png) no-repeat 0 0; }
+#sign-catalysts { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-catalysts.png) no-repeat 0 0; }
+#sign-catalysts-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-catalysts.png) no-repeat 0 0; }
 
 #sign-grand-prize { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/sign-grand-prize.png) no-repeat 0 0; }
 #sign-grand-prize-fr { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/french/sign-grand-prize.png) no-repeat 0 0; }
@@ -943,7 +943,7 @@ div.table-container #invitees-table tr td.roles {  }
 #point-meter .meter-container .other-team-box img.profile-pic { position: relative; left: 22px; top: 6px; box-shadow: none; border-radius: 0; }
 
 #point-meter .sign-point-meter-bottom { width: 405px; height: 65px; background: url(../images/point-meter/bottom.png) no-repeat 0 0; }
-#point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 26px; color: #83c156; top: 16px; left: 24px; }
+#point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 26px; color: #83c156; top: 16px; left: 24px; text-align: center; }
 
 /************************************************************
 	Edit Clean Team

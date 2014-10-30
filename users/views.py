@@ -216,8 +216,8 @@ class RegisterView(FormView):
 
 		if form.cleaned_data['role'] == "ambassador":
 			return HttpResponseRedirect('/clean-team/create-or-request/')
-		elif form.cleaned_data['role'] == "clean-champion":
-			return HttpResponseRedirect('/clean-team/register-clean-champion/')
+		elif form.cleaned_data['role'] == "catalyst":
+			return HttpResponseRedirect('/clean-team/register-catalyst/')
 
 		return HttpResponseRedirect('/')
 

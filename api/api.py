@@ -78,7 +78,7 @@ def login_user(request):
 				print e
 				try:
 					champarray = CleanChampion.objects.get(user_id=user.id)
-					role = "clean-champion"
+					role = "catalyst"
 				except Exception,e:
 					print e
 					role = "Individual"
@@ -246,7 +246,7 @@ def get_user_profile(request):
 		
 	except Exception,e:
 		if user_profile.is_clean_champion():
-			role = "clean-champion"
+			role = "catalyst"
 		else:
 			role = "individual"
 		

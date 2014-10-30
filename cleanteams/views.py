@@ -654,7 +654,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 			if response == "accepted":
 				invite.status = "accepted"
 
-				if invite.role == "clean-champion":
+				if invite.role == "catalyst":
 					clean_champion = CleanChampion()				
 					clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
 

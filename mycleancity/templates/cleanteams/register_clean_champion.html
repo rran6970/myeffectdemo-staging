@@ -51,7 +51,7 @@
                       {% endfor %}
                     </td>
                     <td class="action">
-                      <form action="/clean-team/register-clean-champion/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                      <form action="/clean-team/register-catalyst/" method="post" enctype="multipart/form-data">{% csrf_token %}
                         <input type="hidden" name="team" value="{{ team.id }}" />
                         <input type="submit" class="btn btn-primary" value="Select" />
                       </form>

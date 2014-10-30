@@ -215,7 +215,7 @@ class Challenge(models.Model):
 
 			members_list = list(clean_team_members)
 
-			if role == "clean-champion":
+			if role == "catalyst":
 				clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
 				members_list = list(chain(clean_team_members, clean_champions))
 

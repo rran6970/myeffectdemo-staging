@@ -592,10 +592,10 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Challenge posted", 
-    "users_to_notify": "ambassador, clean-champion", 
+    "users_to_notify": "ambassador, catalyst", 
     "link": "/challenges/{0}/", 
     "notification_type": "challenge_posted", 
-    "message": "{0} posted a challenge called {1}", 
+    "message": "{0} posted an Action called {1}", 
     "description": "A Clean Team posts a Challenge"
   }
 },
@@ -604,7 +604,7 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Message posted", 
-    "users_to_notify": "ambassador, clean-champion", 
+    "users_to_notify": "ambassador, catalyst", 
     "link": "/clean-team/{0}", 
     "notification_type": "message_posted", 
     "message": "{0} posted a message on their wall", 
@@ -619,7 +619,7 @@
     "users_to_notify": "ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "cc_joined", 
-    "message": "{0} joined {1} as a Clean Champion!", 
+    "message": "{0} joined {1} as a Catalyst!", 
     "description": "A new Clean Champion has joined a Clean Team"
   }
 },
@@ -655,7 +655,7 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "cc_invite", 
-    "message": "{0} from {1} has invited you to become a Clean Champion", 
+    "message": "{0} from {1} has invited you to become a Catalyst", 
     "description": "A requst is sent to a User for them to become a Clean Champion"
   }
 },

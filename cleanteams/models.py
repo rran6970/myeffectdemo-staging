@@ -254,7 +254,7 @@ class CleanTeam(models.Model):
 	def count_approved_members(self, role=""):
 		if role == "ambassador":
 			return CleanTeamMember.objects.filter(clean_team=self, role=role, status="approved").count()
-		elif role == "clean-champion":
+		elif role == "catalyst":
 			return CleanChampion.objects.filter(clean_team=self, status="approved").count()
 		else:
 			ca = CleanTeamMember.objects.filter(clean_team=self, role="ambassador", status="approved").count()
@@ -528,7 +528,7 @@ class CleanTeamPost(models.Model):
 
 					members_list = list(clean_team_members)
 
-					if role == "clean-champion":
+					if role == "catalyst":
 						clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
 
 						members_list = list(chain(clean_team_members, clean_champions))
@@ -581,7 +581,7 @@ class CleanTeamInvite(models.Model):
 	# Checks if User is already registered before accpeting the invite
 	# Returns False if not accepted
 	def acceptInvite(self, user, notification=True):
-		if self.role == "clean-champion":
+		if self.role == "catalyst":
 			clean_champion = CleanChampion()				
 			clean_champion.becomeCleanChampion(user, self.clean_team)
 
@@ -668,7 +668,7 @@ class CleanTeamInvite(models.Model):
 
 		if role == "ambassador":
 			role = "Clean Ambassador"
-		elif role == "clean-champion":
+		elif role == "catalyst":
 			role = "Clean Champion"
 
 		print email
