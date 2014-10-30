@@ -252,12 +252,12 @@ class CleanTeam(models.Model):
 			return CleanTeamInvite.objects.filter(clean_team=self).count()
 
 	def count_approved_members(self, role=""):
-		if role == "clean-ambassador":
+		if role == "ambassador":
 			return CleanTeamMember.objects.filter(clean_team=self, role=role, status="approved").count()
 		elif role == "clean-champion":
 			return CleanChampion.objects.filter(clean_team=self, status="approved").count()
 		else:
-			ca = CleanTeamMember.objects.filter(clean_team=self, role="clean-ambassador", status="approved").count()
+			ca = CleanTeamMember.objects.filter(clean_team=self, role="ambassador", status="approved").count()
 			cc = CleanChampion.objects.filter(clean_team=self, status="approved").count()
 
 			return ca + cc
@@ -382,7 +382,7 @@ Description:    Users can be part of Clean Teams
 class CleanTeamMember(models.Model):
 	user = models.ForeignKey(User)
 	clean_team = models.ForeignKey(CleanTeam)
-	role = models.CharField(max_length=30, default="clean-ambassador")
+	role = models.CharField(max_length=30, default="ambassador")
 	status = models.CharField(max_length=30, default="pending")
 
 	class Meta:
@@ -400,7 +400,7 @@ class CleanTeamMember(models.Model):
 
 		self.user = user
 		self.clean_team = selected_team
-		self.role = "clean-ambassador"
+		self.role = "ambassador"
 		self.status = "approved"
 		self.save()
 
@@ -452,7 +452,7 @@ class CleanTeamMember(models.Model):
 		self.user = user
 		self.clean_team = selected_team
 		self.status = "pending"
-		self.role = "clean-ambassador"
+		self.role = "ambassador"
 		self.save()
 
 		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
@@ -568,7 +568,7 @@ class CleanTeamInvite(models.Model):
 	clean_team = models.ForeignKey(CleanTeam)
 	user = models.ForeignKey(User)
 	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	role = models.CharField(max_length=30, default="clean-ambassador")
+	role = models.CharField(max_length=30, default="ambassador")
 	status = models.CharField(max_length=30, default="pending")
 	token = models.CharField(max_length=20, blank=True)
 
@@ -585,7 +585,7 @@ class CleanTeamInvite(models.Model):
 			clean_champion = CleanChampion()				
 			clean_champion.becomeCleanChampion(user, self.clean_team)
 
-		elif self.role == "clean-ambassador":
+		elif self.role == "ambassador":
 			ctm = CleanTeamMember()
 			ctm.becomeCleanAmbassador(user, self.clean_team)
 
@@ -647,7 +647,7 @@ class CleanTeamInvite(models.Model):
 				if u:
 					# Send notifications
 					notification_type = "cc_invite"
-					if role == "clean-ambassador":
+					if role == "ambassador":
 						notification_type = "ca_invite"
 						
 					notification = Notification.objects.get(notification_type=notification_type)
@@ -666,7 +666,7 @@ class CleanTeamInvite(models.Model):
 				task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
 				self.clean_team.complete_level_task(task)
 
-		if role == "clean-ambassador":
+		if role == "ambassador":
 			role = "Clean Ambassador"
 		elif role == "clean-champion":
 			role = "Clean Champion"

@@ -6,7 +6,7 @@
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#"> #ActionsPropre<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
 			<li><a href="/challenges" class="menu-items">Centre des défis</a></li>
-			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.clean_team_member.role == "ambassador" %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Afficher un #ActionsPropre</a></li>
 			{% endif %}
 			<li><a href="/challenges/my-challenges/" class="menu-items">Mes #ActionsPropre</a></li>
@@ -16,10 +16,10 @@
 	<div class="dropdown">
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Équipe VillePropre<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
-			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "ambassador" %}
 			<li><a href="/clean-team/members" class="menu-items">Membres</a></li>
 			{% endif %}
-			{% if user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.clean_team_member.role == "ambassador" %}
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Profil de l'équipe</a></li>
 			{% endif %}
 			{% if not user.profile.has_clean_team %}

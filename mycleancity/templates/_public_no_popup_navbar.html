@@ -16,7 +16,7 @@
 	<div class="dropdown">
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Team<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
-			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
+			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "ambassador" %}
 			<li><a href="/clean-team/members" class="menu-items">Members</a></li>
 			{% endif %}
 			{% if user.profile.has_clean_team %}
@@ -28,7 +28,7 @@
 			{% else %}
 			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
-			<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
+			<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Catalyst</a></li>
 			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
 		</ul>
 	</div><!-- end of #user-dropdown.dropdown -->

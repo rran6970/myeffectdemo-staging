@@ -99,7 +99,7 @@
                   <span><a id="view-invite-btn" href="/clean-team/invite-response/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>
                 </div>
               {% else %}
-                <!-- Clean Champion -->
+                <!-- Catalyst -->
                 {% if not clean_champion and not clean_ambassador and not user.profile.clean_team_member.status == "removed" and not user.profile.clean_team_member.status == "pending" %}
                 <form action="/clean-team/cc-join/" method="post">
                   {% csrf_token %}
@@ -109,14 +109,14 @@
                 {% endif %}
 
                 {% if clean_champion %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Clean Champion" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Catalyst" />
                 {% endif %}
 
                 {% if clean_ambassador %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Clean Champion" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Catalyst" />
                 {% endif %}
 
-                <!-- Clean Ambassador -->
+                <!-- Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
                 <form action="/clean-team/ca-request-join/" method="post">
                   {% csrf_token %}
@@ -243,13 +243,13 @@
   </div>
 
   <div id="clean-team-members-list" class="popup">
-    <!-- Clean Ambassadors -->
+    <!-- Ambassadors -->
     <ul>
     {% for member in cas %}
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
           <li>
-          {% if member.role == "clean-ambassador" %}
+          {% if member.role == "ambassador" %}
             <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
             {% if member.user.profile.picture %}
               <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
@@ -264,7 +264,7 @@
     {% endfor %}
     </ul>
 
-    <!-- Clean Champions -->
+    <!-- Catalysts -->
     <ul>
     {% for member in ccs %}
       {% if member.user.is_active %}

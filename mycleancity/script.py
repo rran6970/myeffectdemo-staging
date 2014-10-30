@@ -173,7 +173,7 @@ def add_clean_creds_to_clean_ambassadors():
 
 		counter = 0
 		for clean_ambassador in clean_ambassadors:
-			if clean_ambassador.role == "clean-ambassador" and clean_ambassador.status == "approved":
+			if clean_ambassador.role == "ambassador" and clean_ambassador.status == "approved":
 				counter += 1
 
 				print "Clean Ambassador in %s team" % (str(counter))

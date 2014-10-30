@@ -185,8 +185,8 @@ class InviteResponseForm(forms.Form):
 	token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-	('clean-champion', 'Clean Champion'),
-	('clean-ambassador', 'Clean Ambassador'), 
+	('clean-champion', 'Catalyst'),
+	('ambassador', 'Ambassador'), 
 )
 
 class InviteForm(forms.Form):
@@ -216,7 +216,7 @@ class InviteForm(forms.Form):
 			try:
 				u = User.objects.get(email=invite_email)
 
-				if role == 'clean-ambassador':
+				if role == 'ambassador':
 					if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
 						raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 

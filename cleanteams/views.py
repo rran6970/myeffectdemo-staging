@@ -85,7 +85,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ctm.clean_team = ct
 		ctm.user = user
 		ctm.status = "approved"
-		ctm.role = "clean-ambassador"
+		ctm.role = "ambassador"
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
@@ -367,7 +367,7 @@ class CleanTeamView(TemplateView):
 
 			try:
 				# TODO: Need to pass this to the template
-				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="clean-ambassador")
+				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="ambassador")
 				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
@@ -498,7 +498,7 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		
 		# TODO: HttpResponseRedirect is not working
 		# Check if approved Clean Ambassador
-		if ct.role != "clean-ambassador" or ct.status != "approved":
+		if ct.role != "ambassador" or ct.status != "approved":
 			print "kkkkk"
 			return HttpResponseRedirect("/challenges")
 
@@ -658,7 +658,7 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 					clean_champion = CleanChampion()				
 					clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
 
-				elif invite.role == "clean-ambassador":
+				elif invite.role == "ambassador":
 					try:
 						ctm = CleanTeamMember.objects.get(user=self.request.user)
 					except Exception, e:
