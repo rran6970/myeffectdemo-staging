@@ -599,17 +599,17 @@ div.container#mobile-create-or-request-join .btn-radio-group { width: 100%; }
 div.container#mobile-create-or-request-join input[type="submit"] { margin: 16px auto; }
 
 /******************************
-	Register Clean Team Mobile
+	Register Change Team Mobile
 ******************************/
 div.container#register-join-team {  }
 
 /******************************
-	Register Clean Team
+	Register Change Team
 ******************************/
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
 
 /******************************
-	Clean Team Main Contact
+	Change Team Main Contact
 ******************************/
 #white-box.main-contact .subtitle { display: block; margin: 20px 0; }
 
@@ -834,7 +834,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.challenge-participants table tr td div.clean-cred-adding #confirm-btn { float: right; width: 160px; }
 
 /******************************
-	Clean Team Members Page
+	Change Team Members Page
 ******************************/
 #white-box p { font-weight: 400; }
 #white-box.team-members-ca { width: 685px; left: 17%; }
@@ -874,7 +874,7 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.invite-response form input[type="submit"] { width: 300px; margin: 20px auto; }
 
 /******************************
-	Clean Team Page
+	Change Team Page
 ******************************/
 #clean-team-members-list.popup { width: 100%; left: 35%; }
 
@@ -946,14 +946,14 @@ div.table-container #invitees-table tr td.roles {  }
 #point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 26px; color: #83c156; top: 16px; left: 24px; text-align: center; }
 
 /************************************************************
-	Edit Clean Team
+	Edit Change Team
 ************************************************************/
 #white-box.edit-clean-team { width: 512px; left: 30%; }
-/* Setting the Clean Team Edit about to a fixed width; it was giving issues */
+/* Setting the Change Team Edit about to a fixed width; it was giving issues */
 #clean-team-edit-about .yui-editor-container#id_about_container { width: 450px !important; } 
 
 /************************************************************
-	Clean Team Level Progress Page
+	Change Team Level Progress Page
 ************************************************************/
 #white-box.clean-team-progress { width: 656px; height: 523px; left: 25%; overflow-y: hidden;  }
 #white-box.clean-team-progress #badge-icon { display: block; float: left; }
@@ -965,12 +965,12 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.clean-team-progress table tbody tr td.next_level { text-align: center; }
 
 /************************************************************
-	Clean Team Leader Referral Page
+	Change Team Leader Referral Page
 ************************************************************/
 #white-box.leader-referral { }
 
 /******************************
-	All Clean Teams Page
+	All Change Teams Page
 ******************************/
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 20px; }

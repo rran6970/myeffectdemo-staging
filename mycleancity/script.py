@@ -126,17 +126,17 @@ def add_clean_creds_to_earlybirds():
 	for user in users:
 		print user.email
 		user.profile.clean_creds = 0
-		print "!!!CleanCreds reset!!!"
+		print "!!!ChangeCreds reset!!!"
 		early_bird_date = date(2014, 03, 19)
 
 		if user.date_joined.date() <= early_bird_date:
 			print "Joined before: %s" %(str(early_bird_date))
 			user.profile.add_clean_creds(50)
 			user.profile.save()
-			print "Total CleanCreds: %s" %(str(user.profile.clean_creds))
+			print "Total ChangeCreds: %s" %(str(user.profile.clean_creds))
 		else:
 			print "Joined on: %s" % (str(user.date_joined.date()))
-			print "Total CleanCreds: %s" %(str(user.profile.clean_creds))
+			print "Total ChangeCreds: %s" %(str(user.profile.clean_creds))
 		print "--------------------------"
 
 
@@ -155,7 +155,7 @@ def add_clean_creds_to_clean_champions():
 			clean_creds += 20
 		
 		print "Clean Champion in %s teams" % (str(clean_creds/20))
-		print "Total CleanCreds to be added: %s" % (str(clean_creds))
+		print "Total ChangeCreds to be added: %s" % (str(clean_creds))
 		user.profile.add_clean_creds(clean_creds)
 		user.profile.save()
 		print "--------------------------"
@@ -177,7 +177,7 @@ def add_clean_creds_to_clean_ambassadors():
 				counter += 1
 
 				print "Clean Ambassador in %s team" % (str(counter))
-				print "Total CleanCreds added: %s" % (str(50))
+				print "Total ChangeCreds added: %s" % (str(50))
 				user.profile.add_clean_creds(50)
 				user.profile.save()
 				print "--------------------------"
@@ -198,7 +198,7 @@ def add_clean_creds_to_clean_teams():
 			clean_creds += 5
 
 		print "Total Clean Champions: %s" %(str(clean_creds/5))
-		print "Total CleanCreds: %s" %(str(clean_creds))
+		print "Total ChangeCreds: %s" %(str(clean_creds))
 		clean_team.clean_creds = clean_creds
 		clean_team.save()
 		print "--------------------------"

@@ -117,7 +117,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
-	join = forms.BooleanField(label="I'd like to join the My Clean City team", required=False)
+	join = forms.BooleanField(label="I'd like to join the My Effect team", required=False)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -271,10 +271,10 @@ class ProfileForm(forms.ModelForm):
 		return cleaned_data
 
 class SettingsForm(forms.ModelForm):
-	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
+	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
-	data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Allow My Clean City to share data?")
-	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Clean City email communications")
+	data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Allow My Effect to share data?")
+	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
 	timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
 
 	def __init__(self, *args, **kwargs):

@@ -55,7 +55,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 		contact_email = cleaned_data.get("contact_email")
 
 		if not name:
-			raise forms.ValidationError("Please enter your Clean Team's name")
+			raise forms.ValidationError("Please enter your Change Team's name")
 		elif not region:
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:
@@ -108,7 +108,7 @@ class EditCleanTeamForm(forms.ModelForm):
 		clean_team_id = cleaned_data.get('clean_team_id')
 
 		if not name:
-			raise forms.ValidationError("Please enter your Clean Team's name")
+			raise forms.ValidationError("Please enter your Change Team's name")
 		elif not region:
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:

@@ -192,10 +192,10 @@ class RegisterView(FormView):
 		# Send registration email to user
 		if lang == "English":
 			template = get_template('emails/user_register_success.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		else:
 			template = get_template('emails/french/user_register_success_fr.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -209,7 +209,7 @@ class RegisterView(FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -307,10 +307,10 @@ class RegisterInviteView(FormView):
 		# Send registration email to user
 		if lang == "English":
 			template = get_template('emails/user_register_success.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		else:
 			template = get_template('emails/french/user_register_success_fr.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -323,7 +323,7 @@ class RegisterInviteView(FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)

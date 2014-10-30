@@ -264,9 +264,9 @@ class Challenge(models.Model):
 				clean_team_challenge.total_clean_creds = total_clean_creds
 				clean_team_challenge.save()
 
-				# TODO: Add CleanCreds to CAs and CCs
+				# TODO: Add ChangeCreds to CAs and CCs
 				
-				# Clean Team posting challenge	
+				# Change Team posting challenge	
 				self.clean_team.add_team_clean_creds(total_clean_creds)
 			except Exception, e:
 				print e
@@ -282,7 +282,7 @@ class Challenge(models.Model):
 
 				user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 				
-				# Clean Team posting challenge	
+				# Change Team posting challenge	
 				self.clean_team.add_team_clean_creds(total_clean_creds)
 			except Exception, e:
 				print e
@@ -331,12 +331,12 @@ class Challenge(models.Model):
 					participant_challenge.total_clean_creds = total_clean_creds
 					participant_challenge.save()
 
-					# Add CleanCreds
+					# Add ChangeCreds
 					if hasattr(participant_challenge, 'user'):
 						user = participant_challenge.user
 						user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 
-					# Clean Team posting challenge		
+					# Change Team posting challenge		
 					self.clean_team.add_team_clean_creds(total_clean_creds)
 
 					return "%s Hours<br/>%s <span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (str(total_hours), str(total_clean_creds))
@@ -357,12 +357,12 @@ class Challenge(models.Model):
 				participant_challenge.total_clean_creds = manual_clean_creds
 				participant_challenge.save()
 
-				# Add CleanCreds
+				# Add ChangeCreds
 				if hasattr(participant_challenge, 'user'):
 					user = participant_challenge.user
 					user.profile.add_clean_creds_to_individual_and_teams(manual_clean_creds)
 				
-				# Clean Team posting challenge	
+				# Change Team posting challenge	
 				self.clean_team.add_team_clean_creds(manual_clean_creds)
 
 				return "Confirmed"
@@ -383,12 +383,12 @@ class Challenge(models.Model):
 				participant_challenge.total_clean_creds = total_clean_creds
 				participant_challenge.save()
 
-				# Add CleanCreds
+				# Add ChangeCreds
 				if hasattr(participant_challenge, 'user'):
 					user = participant_challenge.user
 					user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 				
-				# Clean Team posting challenge	
+				# Change Team posting challenge	
 				self.clean_team.add_team_clean_creds(total_clean_creds)
 
 				return "Confirmed"
@@ -659,7 +659,7 @@ class UserChallenge(models.Model):
 """
 Name:           CleanTeamChallenge
 Date created:   May 2, 2014
-Description:    Will be used to keep track of all of the Clean Teams partcipating 
+Description:    Will be used to keep track of all of the Change Teams partcipating 
 				within a challenge.
 """
 class CleanTeamChallenge(models.Model):
@@ -850,7 +850,7 @@ class AnswerType(models.Model):
 Name:           ChallengeQuestion
 Date created:   Feb 3, 2014
 Description:    The questions that need to be answered to determine the
-				CleanCred per hour value.
+				ChangeCred per hour value.
 """
 class ChallengeQuestion(models.Model):
 	question_number = models.IntegerField(default=0)	

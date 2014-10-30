@@ -148,7 +148,7 @@ def registration(request):
 	content = Context({ 'first_name': params['firstname'] })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', params['email']
+	subject, from_email, to = 'My Effect - Signup Successful', 'info@mycleancity.org', params['email']
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
@@ -159,7 +159,7 @@ def registration(request):
 	content = Context({ 'email': params['email'], 'first_name': params['firstname'], 'last_name': params['lastname'], 'student': 'student' })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+	subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
@@ -1125,10 +1125,10 @@ def check_in(request):
 			user_challenge.save()
 			
 			
-			# Add CleanCreds to individual
+			# Add ChangeCreds to individual
 			user.profile.add_clean_creds(total_clean_creds)
 
-			# Add CleanCreds to Clean Teams if applicable
+			# Add ChangeCreds to Change Teams if applicable
 			clean_champions = CleanChampion.objects.filter(user=user)
 
 			for clean_champion in clean_champions:
@@ -1139,7 +1139,7 @@ def check_in(request):
 			if user.profile.is_clean_ambassador():
 				user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 			
-			# Clean Team posting challenge	
+			# Change Team posting challenge	
 			challenge.clean_team.add_team_clean_creds(total_clean_creds)
 			response_base.response['status'] = 1
 			response_base.response['hours'] = hours
@@ -1281,10 +1281,10 @@ def onetime_ch(request):
 		userchallenge.total_clean_creds = total_clean_creds
 		userchallenge.save()
 
-		# Add CleanCreds to individual
+		# Add ChangeCreds to individual
 		user.profile.add_clean_creds(total_clean_creds)
 
-		# Add CleanCreds to Clean Teams if applicable
+		# Add ChangeCreds to Change Teams if applicable
 		clean_champions = CleanChampion.objects.filter(user=user)
 
 		for clean_champion in clean_champions:
@@ -1295,7 +1295,7 @@ def onetime_ch(request):
 		if user.profile.is_clean_ambassador():
 			user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 		
-		# Clean Team posting challenge	
+		# Change Team posting challenge	
 		challenge.clean_team.add_team_clean_creds(total_clean_creds)
 	except Exception, e:
 		print e

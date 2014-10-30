@@ -22,7 +22,7 @@ from notifications.models import Notification, UserNotification
 """
 Name:           CleanTeamLevel
 Date created:   Jan 30, 2014
-Description:    All of the levels each Clean Team can go through
+Description:    All of the levels each Change Team can go through
 """
 class CleanTeamLevel(models.Model):
 	name = models.CharField(max_length=30, null=False, default="Seedling")
@@ -31,7 +31,7 @@ class CleanTeamLevel(models.Model):
 	next_level = models.ForeignKey('self', null=True, blank=True)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Level'
+		verbose_name_plural = u'Change Team Level'
 
 	def __unicode__(self):
 		return u'%s' % self.name
@@ -42,10 +42,10 @@ class CleanTeamLevel(models.Model):
 """
 Name:           CleanTeam
 Date created:   Nov 25, 2013
-Description:    Users can be part of Clean Teams
+Description:    Users can be part of Change Teams
 """
 class CleanTeam(models.Model):
-	name = models.CharField(max_length=60, blank=True, verbose_name='Clean Team Name')
+	name = models.CharField(max_length=60, blank=True, verbose_name='Change Team Name')
 	website = models.URLField(verbose_name = u'Website', default="")
 	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
 	about = models.TextField(blank=True, null=True, default="")
@@ -61,10 +61,10 @@ class CleanTeam(models.Model):
 	contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
 
 	class Meta:
-		verbose_name_plural = u'Clean Team'
+		verbose_name_plural = u'Change Team'
 
 	def __unicode__(self):
-		return u'Clean Team: %s' % self.name
+		return u'Change Team: %s' % self.name
 
 	def get_pixels_for_leading_teams(self, clean_creds):
 		height = 0
@@ -163,7 +163,7 @@ class CleanTeam(models.Model):
 			except Exception, e:
 				print e
 
-	# Checks if all of the tasks within the Clean Teams level is complete.
+	# Checks if all of the tasks within the Change Teams level is complete.
 	# If so, they are leveled up.
 	def check_if_level_up(self):
 		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
@@ -192,7 +192,7 @@ class CleanTeam(models.Model):
 
 		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
 
-		# Create the new tasks the Clean Team must complete
+		# Create the new tasks the Change Team must complete
 		for task in level_tasks:
 			level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
 			level_progress.save()
@@ -279,7 +279,7 @@ class CleanTeam(models.Model):
 """
 Name:           CleanChampion
 Date created:   Dec 30, 2013
-Description:    Users can be part of Clean Teams as Clean Champions
+Description:    Users can be part of Change Teams as Clean Champions
 """
 class CleanChampion(models.Model):
 	user = models.ForeignKey(User)
@@ -377,7 +377,7 @@ class CleanChampion(models.Model):
 """
 Name:           CleanTeamMember
 Date created:   Nov 25, 2013
-Description:    Users can be part of Clean Teams
+Description:    Users can be part of Change Teams
 """
 class CleanTeamMember(models.Model):
 	user = models.ForeignKey(User)
@@ -386,7 +386,7 @@ class CleanTeamMember(models.Model):
 	status = models.CharField(max_length=30, default="pending")
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Member'
+		verbose_name_plural = u'Change Team Member'
 
 	def __unicode__(self):
 		return u'%s is on %s' %(self.user.email, self.clean_team.name)
@@ -490,7 +490,7 @@ class CleanTeamMember(models.Model):
 """
 Name:           CleanTeamPost
 Date created:   Dec 25, 2013
-Description:    The posts on a Clean Team's profile
+Description:    The posts on a Change Team's profile
 """
 class CleanTeamPost(models.Model):
 	clean_team = models.ForeignKey(CleanTeam)
@@ -499,7 +499,7 @@ class CleanTeamPost(models.Model):
 	message = models.TextField(blank=True, null=True, default="")
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Post'
+		verbose_name_plural = u'Change Team Post'
 
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
@@ -573,7 +573,7 @@ class CleanTeamInvite(models.Model):
 	token = models.CharField(max_length=20, blank=True)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Invite'
+		verbose_name_plural = u'Change Team Invite'
 
 	def __unicode__(self):
 		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
@@ -679,7 +679,7 @@ class CleanTeamInvite(models.Model):
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
 
-		subject, from_email, to = 'My Clean City - Invite to join', settings.DEFAULT_FROM_EMAIL, email
+		subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -698,7 +698,7 @@ class CleanTeamInvite(models.Model):
 		template = get_template('emails/email_invite_join.html')
 		content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
 
-		subject, from_email, to = 'My Clean City - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
+		subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -719,7 +719,7 @@ class CleanTeamLevelTask(models.Model):
 	approval_required = models.BooleanField(default=0)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Level Task'
+		verbose_name_plural = u'Change Team Level Task'
 
 	def __unicode__(self):
 		return u'%s: %s' % (self.name, self.description)
@@ -730,7 +730,7 @@ class CleanTeamLevelTask(models.Model):
 """
 Name:           CleanTeamLevelProgress
 Date created:   Jan 30, 2014
-Description:    The tasks each Clean Team has completed per level
+Description:    The tasks each Change Team has completed per level
 """
 class CleanTeamLevelProgress(models.Model):
 	clean_team = models.ForeignKey(CleanTeam)
@@ -739,7 +739,7 @@ class CleanTeamLevelProgress(models.Model):
 	completed = models.BooleanField(default=0)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Level Progress'
+		verbose_name_plural = u'Change Team Level Progress'
 
 	def __unicode__(self):
 		return u'%s - %s' % (self.clean_team, self.level_task)
@@ -755,7 +755,7 @@ class CleanTeamLevelProgress(models.Model):
 """
 Name:           LeaderReferral
 Date created:   Mar 4, 2014
-Description:    When Clean Teams refer leaders
+Description:    When Change Teams refer leaders
 """
 class LeaderReferral(models.Model):
 	first_name = models.CharField(max_length=60, blank=False, default="")
@@ -768,7 +768,7 @@ class LeaderReferral(models.Model):
 	user = models.ForeignKey(User, null=True)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Leader Referrals'
+		verbose_name_plural = u'Change Team Leader Referrals'
 
 	def __unicode__(self):
 		return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
@@ -795,7 +795,7 @@ class LeaderReferral(models.Model):
 """
 Name:           CleanTeamPresentation
 Date created:   Mar 5, 2014
-Description:    When Clean Teams submits a presentation
+Description:    When Change Teams submits a presentation
 """
 class CleanTeamPresentation(models.Model):
 	title = models.CharField(max_length=60, blank=False, default="")
@@ -805,7 +805,7 @@ class CleanTeamPresentation(models.Model):
 	user = models.ForeignKey(User, null=True)
 
 	class Meta:
-		verbose_name_plural = u'Clean Team Presentation'
+		verbose_name_plural = u'Change Team Presentation'
 
 	def __unicode__(self):
 		return u'%s by %s' % (self.title, self.clean_team.name)

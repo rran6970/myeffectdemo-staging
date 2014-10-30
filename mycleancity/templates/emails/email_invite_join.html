@@ -15,30 +15,30 @@
           <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
             <tr>
               <td align="center" valign="top">
-                <a href="/"><img src="http://www.mycleancity.org/static/images/logo-my-effect-yellow-166x200.png" alt="My Clean City" /></a>
+                <a href="/"><img src="http://www.mycleancity.org/static/images/logo-my-effect-yellow-166x200.png" alt="My Effect" /></a>
               </td>
             </tr>
             <tr>
               <td>
               	<p>Hey {{ email }},</p>
 
-                <p>You've been invited to join My Clean City by {{ user.first_name }} {{ user.last_name }} and become a {{ role }} of {{ user.profile.clean_team_member.clean_team.name }}.</p>
+                <p>You've been invited to join My Effect by {{ user.first_name }} {{ user.last_name }} and become a {{ role }} of {{ user.profile.clean_team_member.clean_team.name }}.</p>
                 
         			  <p><a href="{{ invite_full_uri }}">Accept the invite.</a></p>
 
                 <p>Warm Regards,</p>
 
-                <p>My Clean City Team</p>
+                <p>My Effect Team</p>
               </td>
             </tr>
             <tr>
               <td>
-                <p>My Clean City</p>
+                <p>My Effect</p>
                 <p>1061 Queen's Blvd,</p>
                 <p>Kitchener, ON</p>
                 <p>info@mycleancity.org</p>
 
-                <p>You are receiving this email because you were referred by {{ user.profile.clean_team_member.clean_team.name }}. If this has been in error or you would like to stop receiving commercial electronic communications from My Clean City please <a href="{{ unsubscribe_full_uri }}">UNSUBSCRIBE</a>.
+                <p>You are receiving this email because you were referred by {{ user.profile.clean_team_member.clean_team.name }}. If this has been in error or you would like to stop receiving commercial electronic communications from My Effect please <a href="{{ unsubscribe_full_uri }}">UNSUBSCRIBE</a>.
               </td>
             </tr>
           </table>
