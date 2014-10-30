@@ -204,9 +204,9 @@ div.signs.nav-tabs { border: none; }
 #sign-rewards3 { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/sign-rewards.png) no-repeat 0 0; }
 #sign-rewards3-fr { width: 210px; height: 54px; position: absolute; z-index: 1000; top: 326px; left: 113px; background: url(../images/french/sign-rewards.png) no-repeat 0 0; }
 
-#sign-my-challenges2 { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-my-actions2 { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-actions2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
-#sign-my-challenges2-fr { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-challenges2.png) no-repeat 0 0; }
+#sign-my-actions2-fr { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-actions2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
 
 div.tab-pane table.table tr td { padding: 10px !important; font-weight: 400; font-size: 18px; line-height: 25px; }
@@ -700,7 +700,7 @@ div.content.challenge-centre #white-box div.challenges a:hover { color: #86b45c 
 	My Challenges Page
 ******************************/
 div.content.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
-#sign-my-challenges { width: 444px; height: 101px; position: relative; left: 33%; background: url(../images/sign-my-challenges.png) no-repeat 0 0; }
+#sign-my-actions { width: 444px; height: 101px; position: relative; left: 33%; background: url(../images/sign-my-actions.png) no-repeat 0 0; }
 
 div.content.my-challenges #white-box div.challenges { position: relative; margin-bottom: 27px; padding: 20px; background-color: white; border: 1px solid #CCC; /*margin: 20px 0;*/ border-bottom: 1px solid #abd78c; vertical-align: middle; }
 div.content.my-challenges #white-box div.challenges h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; margin-bottom: 12px; }

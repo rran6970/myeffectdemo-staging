@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Edit Clean Team {% endblock %}
+{% block title %} My Clean City - Edit Change Team {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign edit-clean-team" id="sign-go-back"></div></a>
       <div id="white-box" class="edit-clean-team">
-          <h2>Edit Clean Team</h2>
+          <h2>Edit Change Team</h2>
 
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -52,7 +52,7 @@
                     <td id="clean-team-edit-about" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                 </tr>
             </table>
-            <input class="btn btn-primary" type="submit" value="Update Clean Team" />
+            <input class="btn btn-primary" type="submit" value="Update Change Team" />
           </form>
       </div><!-- /#white-box -->
     </div><!-- /.container -->

@@ -37,7 +37,7 @@
 
           <div class="clear"></div>
           {% if challenge.clean_team_only %}
-            <span class="clean-team-only bold"><h2>Clean Teams Only</h2></span>
+            <span class="clean-team-only bold"><h2>Change Teams Only</h2></span>
           {% endif %}
         	<div class="clear"></div>
 
@@ -129,11 +129,11 @@
                     </select>
                   {% endif %}
 
-                  <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate with your Clean Team" />
+                  <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate with your Change Team" />
                 </form>
               {% endif %}
             {% else %}
-              <a id="participate-btn" class="btn btn-primary btn-block" href="/clean-team/create-or-request/">Create Clean Team</a>
+              <a id="participate-btn" class="btn btn-primary btn-block" href="/clean-team/create-or-request/">Create Change Team</a>
             {% endif %}
           {% else %}
             {% if user_challenge %}

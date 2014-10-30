@@ -90,7 +90,7 @@
             </div>
             <a href="#clean-team-members-list" class="popup-600">View Members</a>
             {% if challenges %}
-              <a href="#clean-team-challenges-list" class="popup-600">View Challenges</a>
+              <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
             {% endif %}
 
             {% if user.is_authenticated %}
@@ -104,7 +104,7 @@
                 <form action="/clean-team/cc-join/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                  <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Be a Clean Champion" />
+                  <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Join our Change Team" />
                 </form>
                 {% endif %}
 
@@ -212,7 +212,7 @@
           <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
 
           {% if challenge.1.clean_team_only %}
-            <span class="clean-team-only"><h2 class="bold">Clean Teams Only</h2></span>
+            <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
           {% endif %}
 
           <p class="date-time">

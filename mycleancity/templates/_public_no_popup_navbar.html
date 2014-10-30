@@ -14,7 +14,7 @@
 	</div><!-- end of #user-dropdown.dropdown -->
 
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Clean Team<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Team<span class="glyphicon glyphicon-chevron-down"></span></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "clean-ambassador" %}
 			<li><a href="/clean-team/members" class="menu-items">Members</a></li>
@@ -22,14 +22,14 @@
 			{% if user.profile.has_clean_team %}
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
 			<li><a href="/clean-team/level-progress" class="menu-items">Level Progress</a></li>
-			<li><a href="/clean-team/edit/" class="menu-items">Edit Clean Team</a></li>
+			<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>
 			<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>
 			<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>
 			{% else %}
-			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Clean Team</a></li>
+			<li><a href="/clean-team/create-or-request/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
 			<li><a href="/clean-team/register-clean-champion" class="menu-items">Be a Clean Champion</a></li>
-			<li><a href="/clean-team/" class="menu-items">All Clean Teams</a></li>
+			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
 		</ul>
 	</div><!-- end of #user-dropdown.dropdown -->
 
@@ -94,7 +94,7 @@
 	        <button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
 				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
-				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Clean Team Actions</label></span></li>
+				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Change Team Actions</label></span></li>
 	        </ul>
 	      </div><!-- /btn-group -->
 	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by city or title..." />
