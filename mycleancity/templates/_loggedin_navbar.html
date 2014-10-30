@@ -2,13 +2,13 @@
 
 {% if user.is_active %}
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">#CleanActs<b class="caret"></b></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Actions<b class="caret"></b></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
 			<li><a href="/challenges" class="menu-items">Challenge Centre</a></li>
 			{% if user.profile.has_clean_team %}
-			<li><a href="/challenges/new-challenge/" class="menu-items">Post #CleanActs</a></li>
+			<li><a href="/challenges/new-challenge/" class="menu-items">Post Actions</a></li>
 			{% endif %}
-			<li><a href="/challenges/my-challenges/" class="menu-items">My #CleanActs</a></li>
+			<li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
 		</ul>
 	</div><!-- end of #user-dropdown.dropdown -->
 
@@ -92,11 +92,11 @@
 	      <div class="input-group-btn">
 	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
-				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National #CleanActs only</label></span></li>
-				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Clean Team #CleanActs</label></span></li>
+				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
+				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Clean Team Actions</label></span></li>
 	        </ul>
 	      </div><!-- /btn-group -->
-	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find #CleanActs by city or title..." />
+	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by city or title..." />
 	      <div class="dropdown-menu search-result-dropdown">
 				<ul role="menu" aria-labelledby="dLabel">
 					<li>

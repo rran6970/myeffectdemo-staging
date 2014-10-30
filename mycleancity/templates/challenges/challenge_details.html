@@ -43,7 +43,7 @@
 
         	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
         	<span id="edit-challenge-link">
-        		<a href="/challenges/edit/{{ challenge.id }}/">Edit #CleanAct</a>
+        		<a href="/challenges/edit/{{ challenge.id }}/">Edit Action</a>
         	</span>
         	{% endif %}
         	<div class="clear"></div>
@@ -78,7 +78,7 @@
           {% endif %}
 
   				<tr>
-  					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
+  					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Change</span><span class="blue bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
             <td><div class="fb-like" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
         
         <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a></td>
