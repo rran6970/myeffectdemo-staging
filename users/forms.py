@@ -154,6 +154,8 @@ class RegisterUserForm(forms.ModelForm):
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="City / Ville")
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province")
 	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
+	student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student ID")
+	school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name")
 	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
@@ -161,6 +163,7 @@ class RegisterUserForm(forms.ModelForm):
 	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
+	data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
 
@@ -270,6 +273,7 @@ class ProfileForm(forms.ModelForm):
 class SettingsForm(forms.ModelForm):
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
+	data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Allow My Clean City to share data?")
 	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Clean City email communications")
 	timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
 

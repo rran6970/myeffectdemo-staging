@@ -29,6 +29,7 @@ class UserSettings(models.Model):
 	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
 	receive_newsletters = models.BooleanField(default=0)
 	email_privacy = models.BooleanField(default=0)
+	data_privacy = models.BooleanField(default=0)
 	timezone = TimeZoneField(default='America/Toronto')
 
 	class Meta:
@@ -149,7 +150,9 @@ class UserProfile(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	clean_creds = models.IntegerField(default=0)
+	student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
 	school_type = models.CharField(max_length=30, blank=True, default="High School")
+	school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
 	age = models.CharField(max_length=30, blank=True, default="17-21")
 	smartphone = models.BooleanField(default=0)
 	emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")

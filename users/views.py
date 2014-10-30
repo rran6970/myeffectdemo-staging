@@ -161,11 +161,14 @@ class RegisterView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
+		u.profile.student_id = form.cleaned_data['student_id']
+		u.profile.school_name = form.cleaned_data['school_name']
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
 		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
+		u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
 		u.profile.settings.save()
 		u.profile.save()
 		u.save()
@@ -273,11 +276,14 @@ class RegisterInviteView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
+		u.profile.student_id = form.cleaned_data['student_id']
+		u.profile.school_name = form.cleaned_data['school_name']
 		u.profile.age = form.cleaned_data['age']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
 		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
+		u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
 		u.profile.settings.save()
 		u.profile.save()
 		u.save()
@@ -410,6 +416,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		initial = {}
 		initial['communication_language'] = settings.communication_language
 		initial['email_privacy'] = settings.email_privacy
+		initial['data_privacy'] = settings.data_privacy
 		initial['receive_newsletters'] = settings.receive_newsletters
 		initial['timezone'] = settings.timezone
 
@@ -430,6 +437,11 @@ class SettingsView(LoginRequiredMixin, FormView):
 	def form_valid(self, form, **kwargs):
 		user = self.request.user
 
+		if form.cleaned_data['data_privacy'] == "True":
+			user.profile.settings.data_privacy = 1
+		else:
+			user.profile.settings.data_privacy = 0
+			
 		if form.cleaned_data['email_privacy'] == "True":
 			user.profile.settings.email_privacy = 1
 		else:
