@@ -4,6 +4,7 @@ Jinja2==2.7.1
 Markdown==2.5.1
 MarkupSafe==0.18
 MySQL-python==1.2.4
+-e hg+https://bitbucket.org/etienned/pil-2009-raclette/#egg=PIL
 South==0.8.2
 Werkzeug==0.9.4
 boto==2.17.0
