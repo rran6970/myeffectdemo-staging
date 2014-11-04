@@ -21,7 +21,7 @@ class UserOrganizationAdmin(admin.ModelAdmin):
 			content = Context({ 'first_name': row.user.first_name })
 			content = template.render(content)
 
-			subject, from_email, to = 'My Clean City - Approval Successful', 'info@mycleancity.org', row.user.email
+			subject, from_email, to = 'My Effect - Approval Successful', 'info@mycleancity.org', row.user.email
 
 			mail = EmailMessage(subject, content, from_email, [to])
 			mail.content_subtype = "html"

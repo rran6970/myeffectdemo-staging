@@ -78,7 +78,7 @@ def login_user(request):
 				print e
 				try:
 					champarray = CleanChampion.objects.get(user_id=user.id)
-					role = "clean-champion"
+					role = "catalyst"
 				except Exception,e:
 					print e
 					role = "Individual"
@@ -148,7 +148,7 @@ def registration(request):
 	content = Context({ 'first_name': params['firstname'] })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', params['email']
+	subject, from_email, to = 'My Effect - Signup Successful', 'info@mycleancity.org', params['email']
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
@@ -159,7 +159,7 @@ def registration(request):
 	content = Context({ 'email': params['email'], 'first_name': params['firstname'], 'last_name': params['lastname'], 'student': 'student' })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+	subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
@@ -242,11 +242,11 @@ def get_user_profile(request):
 	try:
 		role_array = CleanTeamMember.objects.get(user_id=request_obj.params['userid'],status="approved")
 		role  = role_array.role
-		role = "clean-ambassador"
+		role = "ambassador"
 		
 	except Exception,e:
 		if user_profile.is_clean_champion():
-			role = "clean-champion"
+			role = "catalyst"
 		else:
 			role = "individual"
 		
@@ -425,7 +425,7 @@ def list_challenge(request):
 		
 	#print user_id
 	try:
-		#ctm = CleanTeamMember.objects.get(user_id=user_id, role="clean-ambassador", status="approved")
+		#ctm = CleanTeamMember.objects.get(user_id=user_id, role="ambassador", status="approved")
 		#challenge = Challenge.objects.filter(clean_team_id=ctm.clean_team_id)
 		#print "ctm.clean_team_id",ctm.clean_team_id
 		#print chanllege
@@ -597,7 +597,7 @@ def add_cleanteam(request):
         ctm.clean_team_id = team_id
         ctm.user_id = userid
         ctm.status = "approved"
-        ctm.role = "clean-ambassador"
+        ctm.role = "ambassador"
         ctm.save()
         user = User.objects.get(id=userid)
         #id = user.cleanteammember_set.values_list('id',flat=True).get()
@@ -629,7 +629,7 @@ def join_team(request):
     ctm = CleanTeamMember()
     ctm.user_id = request_obj.params['userid']
     ctm.clean_team_id  = request_obj.params['teamid']
-    ctm.role = "clean-ambassador"
+    ctm.role = "ambassador"
     ctm.status = "pending"	
     if ctm.user_id:
         ctm.save()
@@ -645,7 +645,7 @@ def invite_user(request):
     response_base = ResponseDic()
     userid = request_obj.params['userid']
     try:
-        ctm = CleanTeamMember.objects.get(user_id=userid, role="clean-ambassador", status="approved")
+        ctm = CleanTeamMember.objects.get(user_id=userid, role="ambassador", status="approved")
         #user = request.user
         cleanteam_id = ctm.clean_team_id
         #print cleanteam_id
@@ -694,7 +694,7 @@ def joinchampion_team(request):
     cc.becomeCleanChampionNew(user,userid, team)
     """ctm.user_id = request_obj.params['userid']
     ctm.clean_team_id  = request_obj.params['teamid']
-    ctm.role = "clean-ambassador"
+    ctm.role = "ambassador"
     ctm.status = "pending"	
     if ctm.user_id:
         ctm.save()
@@ -1125,10 +1125,10 @@ def check_in(request):
 			user_challenge.save()
 			
 			
-			# Add CleanCreds to individual
+			# Add ChangeCreds to individual
 			user.profile.add_clean_creds(total_clean_creds)
 
-			# Add CleanCreds to Clean Teams if applicable
+			# Add ChangeCreds to Change Teams if applicable
 			clean_champions = CleanChampion.objects.filter(user=user)
 
 			for clean_champion in clean_champions:
@@ -1139,7 +1139,7 @@ def check_in(request):
 			if user.profile.is_clean_ambassador():
 				user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 			
-			# Clean Team posting challenge	
+			# Change Team posting challenge	
 			challenge.clean_team.add_team_clean_creds(total_clean_creds)
 			response_base.response['status'] = 1
 			response_base.response['hours'] = hours
@@ -1281,10 +1281,10 @@ def onetime_ch(request):
 		userchallenge.total_clean_creds = total_clean_creds
 		userchallenge.save()
 
-		# Add CleanCreds to individual
+		# Add ChangeCreds to individual
 		user.profile.add_clean_creds(total_clean_creds)
 
-		# Add CleanCreds to Clean Teams if applicable
+		# Add ChangeCreds to Change Teams if applicable
 		clean_champions = CleanChampion.objects.filter(user=user)
 
 		for clean_champion in clean_champions:
@@ -1295,7 +1295,7 @@ def onetime_ch(request):
 		if user.profile.is_clean_ambassador():
 			user.profile.clean_team_member.clean_team.add_team_clean_creds(total_clean_creds)
 		
-		# Clean Team posting challenge	
+		# Change Team posting challenge	
 		challenge.clean_team.add_team_clean_creds(total_clean_creds)
 	except Exception, e:
 		print e
@@ -1312,7 +1312,7 @@ def newsfeeds(request):
 	#print limitcount
 	#print user_id
 	try:
-		#ctm = CleanTeamMember.objects.get(user_id=user_id, role="clean-ambassador", status="approved")
+		#ctm = CleanTeamMember.objects.get(user_id=user_id, role="ambassador", status="approved")
 		#challenge = Challenge.objects.filter(clean_team_id=ctm.clean_team_id)
 		#print "ctm.clean_team_id",ctm.clean_team_id
 		#print chanllege

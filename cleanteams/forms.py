@@ -55,7 +55,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 		contact_email = cleaned_data.get("contact_email")
 
 		if not name:
-			raise forms.ValidationError("Please enter your Clean Team's name")
+			raise forms.ValidationError("Please enter your Change Team's name")
 		elif not region:
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:
@@ -108,7 +108,7 @@ class EditCleanTeamForm(forms.ModelForm):
 		clean_team_id = cleaned_data.get('clean_team_id')
 
 		if not name:
-			raise forms.ValidationError("Please enter your Clean Team's name")
+			raise forms.ValidationError("Please enter your Change Team's name")
 		elif not region:
 			raise forms.ValidationError("Please enter your region")
 		elif not team_type:
@@ -185,8 +185,8 @@ class InviteResponseForm(forms.Form):
 	token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-	('clean-champion', 'Clean Champion'),
-	('clean-ambassador', 'Clean Ambassador'), 
+	('catalyst', 'Catalyst'),
+	('ambassador', 'Ambassador'), 
 )
 
 class InviteForm(forms.Form):
@@ -216,11 +216,11 @@ class InviteForm(forms.Form):
 			try:
 				u = User.objects.get(email=invite_email)
 
-				if role == 'clean-ambassador':
+				if role == 'ambassador':
 					if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
 						raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 
-				if role == 'clean-champion':
+				if role == 'catalyst':
 					if u.profile.is_clean_champion(clean_team_id):
 						raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))	
 			except User.DoesNotExist, e:

@@ -1,4 +1,4 @@
-# My Clean City
+# My Effect
 
 The aim is to have django models for all key data to power
 all website operations (profiles, subscribe/unsubscribe, etc.) and all

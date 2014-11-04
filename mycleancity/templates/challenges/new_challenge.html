@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - New #CleanAct {% endblock %}
+{% block title %} My Effect - New Action {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,8 +22,8 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2><span class="bold green">#Clean</span><span class="bold blue">Acts</span> Survey Questions</h2>
-            <span class="subtitle">Please fill out our survey to calculate the <span class="green bold">Clean</span><span class="blue bold">Creds</span>/hr</span>
+            <h2>Actions Survey Questions</h2>
+            <span class="subtitle">Please fill out our survey to calculate the <span class="green bold">Change</span> <span class="blue bold">Creds</span>/hr</span>
 
 			{% if form.non_field_errors %}
               <div class="message-box error">
@@ -48,7 +48,7 @@
 	            <span class="subtitle">Please provide the contact information of host</span>
 				
 				<div id="host_is_clean_team_container">
-					{{ form.host_is_clean_team }} <span>{{ user.profile.clean_team_member.clean_team.name }} is hosting this <span class="bold green">#Clean</span><span class="bold blue">Act</span></span>
+					{{ form.host_is_clean_team }} <span>{{ user.profile.clean_team_member.clean_team.name }} is hosting this Action</span>
 				</div>
 
 				<input type="hidden" id="pre_loaded_clean_team_name" value="{{ user.profile.clean_team_member.clean_team.name }}" />
@@ -71,8 +71,8 @@
 					</tr>
 				</table>
 
-				<h2 style="margin-top: 50px;">Create <span class="bold green">#Clean</span><span class="bold blue">Act</span></h2>
-	            <span class="subtitle">Fill out the fields below to create your <span class="bold green">#Clean</span><span class="bold blue">Act</span></span>
+				<h2 style="margin-top: 50px;">Create Action</h2>
+	            <span class="subtitle">Fill out the fields below to create your Action</span>
 			
 	            <table>
 	                <tr>

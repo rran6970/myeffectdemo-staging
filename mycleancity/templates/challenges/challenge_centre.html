@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Challenge Centre {% endblock %}
+{% block title %} My Effect - Challenge Centre {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,8 +22,8 @@
   <div class="content challenge-centre">
     <div class="container">
         <div id="white-box" class="message">
-          <p>Have volunteer opportunities that aren’t included as <span class="bold green">#Clean</span><span class="bold blue">Acts</span> in our challenge centre?</p>
-          <p>If you are a Clean Ambassador you can sign up the activity as a <span class="bold green">#Clean</span><span class="bold blue">Acts</span> for your team.</p>
+          <p>Have volunteer opportunities that aren’t included as Actions in our challenge centre?</p>
+          <p>If you are a Ambassador you can sign up the activity as a Actions for your team.</p>
           <p>Don't have a team? <a href="/contact">Email us</a> the details with the volunteer coordinator contact (if you know it) and we will work to add it to our portal.</p>
         </div>
 
@@ -47,7 +47,7 @@
       					
 
                 {% if challenge.clean_team_only %}
-                  <span class="clean-team-only bold"><h2>Clean Teams Only</h2></span>
+                  <span class="clean-team-only bold"><h2>Change Teams Only</h2></span>
                 {% endif %}
 
                 <span class="hosted-by">
@@ -55,7 +55,7 @@
                 </span>
 
                 <span class="clean-creds">
-                  <h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
+                  <h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="green bold">Change</span> <span class="blue bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
                 </span>
 
                 <span class="date">

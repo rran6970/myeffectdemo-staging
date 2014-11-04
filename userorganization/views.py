@@ -66,7 +66,7 @@ class RegisterOrganizationView(FormView):
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'] })
 		content = template.render(content)
 
-		subject, from_email, to = 'My Clean City - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
+		subject, from_email, to = 'My Effect - Signup Successful', 'info@mycleancity.org', form.cleaned_data['email']
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"
@@ -77,7 +77,7 @@ class RegisterOrganizationView(FormView):
 		content = Context({ 'email': form.cleaned_data['email'] })
 		content = template.render(content)
 
-		subject, from_email, to = 'My Clean City - Organization Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
+		subject, from_email, to = 'My Effect - Organization Signup Successful', 'info@mycleancity.org', 'partner@mycleancity.org'
 
 		mail = EmailMessage(subject, content, from_email, [to])
 		mail.content_subtype = "html"

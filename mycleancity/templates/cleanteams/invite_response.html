@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Register Clean Team {% endblock %}
+{% block title %} My Effect - Register Change Team {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,10 +19,10 @@
     <div class="container">
         <div id="white-box" class="invite-response">
             <p>{{ invite.user.get_full_name }} from {{ invite.clean_team.name }} is inviting you to be a 
-              {% if invite.role == "clean-ambassador" %}
+              {% if invite.role == "ambassador" %}
                 Clean Ambassasdor
               {% else %}
-                Clean Champion
+                Catalyst
               {% endif %}
             </p>
 

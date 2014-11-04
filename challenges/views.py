@@ -380,7 +380,7 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
 
 		if user.profile.is_clean_ambassador():
 			try:
-				ctm = CleanTeamMember.objects.get(user=user, role="clean-ambassador", status="approved")
+				ctm = CleanTeamMember.objects.get(user=user, role="ambassador", status="approved")
 				context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
 			except Exception, e:
 				print e

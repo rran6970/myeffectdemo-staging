@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - {{ clean_team.name }} {% endblock %}
+{% block title %} My Effect - {{ clean_team.name }} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -51,7 +51,7 @@
           </div>
       
           <div class="sign-point-meter-bottom">
-              <h1 id="your-points"><span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+              <h1 id="your-points"><span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
           </div>   
         </div><!-- /.point-meter -->
         
@@ -69,12 +69,12 @@
             <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
 
             <div class="clean-creds">
-              <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
+              <p><span class="green bold">Change</span> <span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </div>
             
             <div id="clean-team-info">
               <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
-              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="Check out {{ clean_team.name }} on My Clean City" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
+              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="Check out {{ clean_team.name }} on My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
 
               {% if clean_team.twitter %}
               <div>
@@ -90,7 +90,7 @@
             </div>
             <a href="#clean-team-members-list" class="popup-600">View Members</a>
             {% if challenges %}
-              <a href="#clean-team-challenges-list" class="popup-600">View Challenges</a>
+              <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
             {% endif %}
 
             {% if user.is_authenticated %}
@@ -99,24 +99,24 @@
                   <span><a id="view-invite-btn" href="/clean-team/invite-response/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>
                 </div>
               {% else %}
-                <!-- Clean Champion -->
+                <!-- Catalyst -->
                 {% if not clean_champion and not clean_ambassador and not user.profile.clean_team_member.status == "removed" and not user.profile.clean_team_member.status == "pending" %}
                 <form action="/clean-team/cc-join/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                  <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Be a Clean Champion" />
+                  <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Join our Change Team" />
                 </form>
                 {% endif %}
 
                 {% if clean_champion %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Clean Champion" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Catalyst" />
                 {% endif %}
 
                 {% if clean_ambassador %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Clean Champion" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Catalyst" />
                 {% endif %}
 
-                <!-- Clean Ambassador -->
+                <!-- Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
                 <form action="/clean-team/ca-request-join/" method="post">
                   {% csrf_token %}
@@ -212,7 +212,7 @@
           <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
 
           {% if challenge.1.clean_team_only %}
-            <span class="clean-team-only"><h2 class="bold">Clean Teams Only</h2></span>
+            <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
           {% endif %}
 
           <p class="date-time">
@@ -222,7 +222,7 @@
             <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
           </p>
           <p>{{ challenge.1.description|slice:":255" }}</p>
-          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Clean</span><span class="blue bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Change</span> <span class="blue bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
 
           {% if user.is_authenticated %}
             {% if challenge.0 == "particpating" %}
@@ -243,13 +243,13 @@
   </div>
 
   <div id="clean-team-members-list" class="popup">
-    <!-- Clean Ambassadors -->
+    <!-- Ambassadors -->
     <ul>
     {% for member in cas %}
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
           <li>
-          {% if member.role == "clean-ambassador" %}
+          {% if member.role == "ambassador" %}
             <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
             {% if member.user.profile.picture %}
               <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
@@ -264,7 +264,7 @@
     {% endfor %}
     </ul>
 
-    <!-- Clean Champions -->
+    <!-- Catalysts -->
     <ul>
     {% for member in ccs %}
       {% if member.user.is_active %}

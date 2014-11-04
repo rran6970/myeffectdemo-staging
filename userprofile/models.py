@@ -188,7 +188,7 @@ class UserProfile(models.Model):
 
 	def is_clean_ambassador(self, status="approved"):
 		try:
-			return True if self.clean_team_member.role=="clean-ambassador" and self.clean_team_member.status==status else False
+			return True if self.clean_team_member.role=="ambassador" and self.clean_team_member.status==status else False
 		except Exception, e:
 			print e
 			return False
@@ -205,7 +205,7 @@ class UserProfile(models.Model):
 			print e
 			return False
 
-	# TODO: Should check if they are part of a Clean Team as 
+	# TODO: Should check if they are part of a Change Team as 
 	# 		either a Clean Champion or Clean Ambassador
 	def has_clean_team(self):
 		if not self.clean_team_member:
@@ -255,7 +255,7 @@ class UserProfile(models.Model):
 				print e
 
 	def add_clean_creds_to_individual_and_teams(self, amount, notification=True):
-		# Add CleanCreds to individual
+		# Add ChangeCreds to individual
 		self.add_clean_creds(amount, notification)
 
 		# Clean Champion

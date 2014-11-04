@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - {{ clean_team.name }} Members {% endblock %}
+{% block title %} My Effect - {{ clean_team.name }} Members {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -33,7 +33,7 @@
 					</thead>
 					<tbody>
 					{% for ca in cas %}
-						{% if ca.user.is_active and ca.role == "clean-ambassador" %}
+						{% if ca.user.is_active and ca.role == "ambassador" %}
 						<tr>
 							<td class="members">						
 			                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
@@ -67,7 +67,7 @@
         </div><!-- /#white-box -->
 
 		<div id="white-box" class="team-members-cc">	
-			<h1 id="team-name">Clean Champions</h1>	
+			<h1 id="team-name">Catalysts</h1>	
 	        <div id="clean-team-members-list">
 			    {% for cc in ccs %}
 			      {% if cc.user.is_active %}
