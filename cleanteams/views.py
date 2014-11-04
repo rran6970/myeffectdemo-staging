@@ -85,7 +85,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ctm.clean_team = ct
 		ctm.user = user
 		ctm.status = "approved"
-		ctm.role = "clean-ambassador"
+		ctm.role = "ambassador"
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
@@ -97,10 +97,10 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		# Send registration email to user
 		if lang == "English":
 			template = get_template('emails/clean_team_register.html')
-			subject = 'My Clean City - Clean Team Signup Successful'
+			subject = 'My Effect - Change Team Signup Successful'
 		else:
 			template = get_template('emails/french/clean_team_register_fr.html')
-			subject = 'My Clean City - Clean Team Signup Successful'
+			subject = 'My Effect - Change Team Signup Successful'
 		
 		content = Context({ 'email': user.email, 'first_name': user.first_name })
 
@@ -114,7 +114,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': user.email })
 
-		subject, from_email, to = 'My Clean City - Clean Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
+		subject, from_email, to = 'My Effect - Change Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -367,7 +367,7 @@ class CleanTeamView(TemplateView):
 
 			try:
 				# TODO: Need to pass this to the template
-				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="clean-ambassador")
+				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="ambassador")
 				context['clean_ambassador'] = clean_ambassador
 			except Exception, e:
 				print e
@@ -430,7 +430,7 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 		# if not ctm.has_max_clean_ambassadors():
 		ctm.requestBecomeCleanAmbassador(self.request.user, selected_team)
 		# else:
-			#TODO: Message saying that the Clean Team ambassador count is full
+			#TODO: Message saying that the Change Team ambassador count is full
 			# pass
 
 		return HttpResponseRedirect('/')
@@ -498,7 +498,7 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 		
 		# TODO: HttpResponseRedirect is not working
 		# Check if approved Clean Ambassador
-		if ct.role != "clean-ambassador" or ct.status != "approved":
+		if ct.role != "ambassador" or ct.status != "approved":
 			print "kkkkk"
 			return HttpResponseRedirect("/challenges")
 
@@ -654,11 +654,11 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 			if response == "accepted":
 				invite.status = "accepted"
 
-				if invite.role == "clean-champion":
+				if invite.role == "catalyst":
 					clean_champion = CleanChampion()				
 					clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
 
-				elif invite.role == "clean-ambassador":
+				elif invite.role == "ambassador":
 					try:
 						ctm = CleanTeamMember.objects.get(user=self.request.user)
 					except Exception, e:
@@ -761,7 +761,7 @@ def invite_check(request, token):
 		
 	return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
 
-# On the Clean Team's Profile
+# On the Change Team's Profile
 def request_join_clean_team(request):
 	if request.method == 'POST':
 		ctid = request.POST.get('ctid')
@@ -776,7 +776,7 @@ def request_join_clean_team(request):
 		# if not ctm.has_max_clean_ambassadors():
 		ctm.requestBecomeCleanAmbassador(request.user, selected_team)
 		# else:
-			#TODO: Message saying that the Clean Team ambassador count is full
+			#TODO: Message saying that the Change Team ambassador count is full
 			# pass
 
 	return HttpResponseRedirect('/clean-team/%s' % str(ctid))

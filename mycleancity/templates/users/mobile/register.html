@@ -1,6 +1,6 @@
 {% extends '_public_mobile_base.html' %}
 
-{% block title %} My Clean City - Register {% endblock %}
+{% block title %} My Effect - Register {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 
 		<div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
 
-	    <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Clean City" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
+	    <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
 
 	    <form method="post" autocomplete="off">{% csrf_token %}
 			{{ form.token }}
@@ -34,18 +34,19 @@
 				<span>{{ form.province.label_tag }} {{ form.province }}</span>
 				<span>{{ form.communication_language.label_tag }} {{ form.communication_language }}</span>
 				<span>{{ form.hear_about_us.label_tag }} {{ form.hear_about_us }}</span>
-				<span>{{ form.age.label_tag }}{{ form.age }}</span>
+				<span>{{ form.dob.label_tag }}{{ form.dob }}</span>
 				<span>
 					<a rel="tooltip" data-html="true" data-placement="right" data-original-title="
-					<span class='description'><strong class='title'>Clean Agent</strong>I am an individual and I want to participate on my own</span>
+					<span class='description'><strong class='title'>Agent</strong>I am an individual and I want to participate on my own</span>
 
-					<span class='description'><strong class='title'>Clean Ambassador</strong>I want to be a My Clean City leader and start or join a Clean Team</span>
+					<span class='description'><strong class='title'>Ambassador</strong>I want to be a My Effect leader and start or join a Change Team</span>
 
-					<span class='description last'><strong class='title'>Clean Champion</strong>I want to support a Clean Team while I participate</span>"><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
+					<span class='description last'><strong class='title'>Catalyst</strong>I want to support a Change Team while I participate</span>"><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="" style="float: right; cursor: pointer;"></a>
 					{{ form.role }}
 				</span>
 				<span>{{ form.smartphone }}<label for="">Do you have a smartphone? <br /> Est-ce que tu as un téléphone intelligent?</label></span>
-				<span>{{ form.receive_newsletters }}<label for="">I would like to receive My Clean City communications containing important program announcements, news, updates, partner opportunities, contests and promotions, regarding My Clean City's program and tools. You may withdraw consent at anytime. <br /> J'aimerais recevoir toutes communications de la part de Ma Ville Propre à propos des programmes, des nouvelles, des mises à jour, des opportunités avec les partenaires, des concours et des promotions, en lien avec le programme et les outils de Ma Ville Propre. Vous pouvez annuler votre inscription en tout temps. </label></span>
+				<span>{{ form.data_privacy }}<label for="">I consent to share my volunteer data with organizations I work with</label></span>
+				<span>{{ form.receive_newsletters }}<label for="">I would like to receive My Effect communications containing important program announcements, news, updates, partner opportunities, contests and promotions, regarding My Effect's program and tools. You may withdraw consent at anytime. <br /> J'aimerais recevoir toutes communications de la part de Ma Ville Propre à propos des programmes, des nouvelles, des mises à jour, des opportunités avec les partenaires, des concours et des promotions, en lien avec le programme et les outils de Ma Ville Propre. Vous pouvez annuler votre inscription en tout temps. </label></span>
 				<span>{{ form.uea }}<label for="">I agree that I have read and accepted the <a href="/terms">Terms &amp; Conditions</a> <br /> Je reconnais que j'ai lu et j'accepte les <a href="/terms">Conditions générales</a></label></span>
 				<span>{{ form.captcha }}</span>
 				<span><input class="btn btn-primary" type="submit" value="Register / Inscription" /></span>
@@ -56,7 +57,7 @@
 
 <div class="popup-container">
 	<div id="terms-conditions" class="popup">
-	    <h1>My Clean City User<br/>Agreement and Usage Policies</h1>
+	    <h1>My Effect User<br/>Agreement and Usage Policies</h1>
 
 	    <p>Dear mycleancity.org user,</p>
 	    <p>

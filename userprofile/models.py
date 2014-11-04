@@ -29,6 +29,7 @@ class UserSettings(models.Model):
 	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
 	receive_newsletters = models.BooleanField(default=0)
 	email_privacy = models.BooleanField(default=0)
+	data_privacy = models.BooleanField(default=0)
 	timezone = TimeZoneField(default='America/Toronto')
 
 	class Meta:
@@ -149,7 +150,9 @@ class UserProfile(models.Model):
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
 	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
 	clean_creds = models.IntegerField(default=0)
+	student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
 	school_type = models.CharField(max_length=30, blank=True, default="High School")
+	school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
 	age = models.CharField(max_length=30, blank=True, default="17-21")
 	smartphone = models.BooleanField(default=0)
 	emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
@@ -185,7 +188,7 @@ class UserProfile(models.Model):
 
 	def is_clean_ambassador(self, status="approved"):
 		try:
-			return True if self.clean_team_member.role=="clean-ambassador" and self.clean_team_member.status==status else False
+			return True if self.clean_team_member.role=="ambassador" and self.clean_team_member.status==status else False
 		except Exception, e:
 			print e
 			return False
@@ -202,7 +205,7 @@ class UserProfile(models.Model):
 			print e
 			return False
 
-	# TODO: Should check if they are part of a Clean Team as 
+	# TODO: Should check if they are part of a Change Team as 
 	# 		either a Clean Champion or Clean Ambassador
 	def has_clean_team(self):
 		if not self.clean_team_member:
@@ -252,7 +255,7 @@ class UserProfile(models.Model):
 				print e
 
 	def add_clean_creds_to_individual_and_teams(self, amount, notification=True):
-		# Add CleanCreds to individual
+		# Add ChangeCreds to individual
 		self.add_clean_creds(amount, notification)
 
 		# Clean Champion

@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Settings {% endblock %}
+{% block title %} My Effect - Settings {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -41,6 +41,12 @@
                   </tr>
                   <tr>
                       <td>{{ form.email_privacy.label_tag }} {{ form.email_privacy }}</td>
+                  </tr>
+                  <tr>
+                      <td>{{ form.data_privacy.label_tag }}
+                          <span class="gray-italic-subtitle">By unchecking this box, your challenge participation and volunteer hours will not be seen by the organizations you work with.</span>
+                        {{ form.data_privacy }}
+                      </td>
                   </tr>
                   <tr>
                       <td>{{ form.receive_newsletters.label_tag }} {{ form.receive_newsletters }}</td>

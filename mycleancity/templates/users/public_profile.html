@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - {{ user_profile.first_name }} {{ user_profile.last_name }} {% endblock %}
+{% block title %} My Effect - {{ user_profile.first_name }} {{ user_profile.last_name }} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -62,12 +62,12 @@
           
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
-            <p class="title">Clean Team:</p>
+            <p class="title">Change Team:</p>
             <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
           </div>
           {% endif %}
           <span class="clean-creds">
-            <p><span class="green bold">Clean</span><span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
+            <p><span class="green bold">Change</span> <span class="blue bold">Creds</span><span>:&nbsp;{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">Total Hours:</p>
@@ -97,7 +97,7 @@
         </div><!-- /.info -->          
       </div><!-- /#white-box -->
 
-      {% if user_profile.profile.clean_team_member.role == "clean-ambassador" and user_profile.profile.clean_team_member.status == "approved" %}
+      {% if user_profile.profile.clean_team_member.role == "ambassador" and user_profile.profile.clean_team_member.status == "approved" %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Badge CA" />
       {% elif clean_champion_clean_teams %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Badge CC" />

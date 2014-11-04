@@ -117,7 +117,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
 	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
-	join = forms.BooleanField(label="I'd like to join the My Clean City team", required=False)
+	join = forms.BooleanField(label="I'd like to join the My Effect team", required=False)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -142,7 +142,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
-	ROLE_CHOICES = (('individual', 'Clean Agent / Agent VillePropre',), ('clean-ambassador', 'Clean Ambassador / Ambassadeur Net',), ('clean-champion', 'Clean Champion / Champion Net',))
+	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
 	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
 
@@ -154,15 +154,19 @@ class RegisterUserForm(forms.ModelForm):
 	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="City / Ville")
 	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province")
 	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
+	student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student ID/Profession")
+	school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name/Company")
+	# age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
 	receive_newsletters = forms.BooleanField(required=False)
 	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
+	data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
+	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -180,7 +184,8 @@ class RegisterUserForm(forms.ModelForm):
 		province = cleaned_data.get('province')
 		# school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
-		age = cleaned_data.get('age')
+		# age = cleaned_data.get('age')
+		dob = cleaned_data.get('dob')
 		uea = cleaned_data.get('uea')
 		receive_newsletters = cleaned_data.get('receive_newsletters')
 		captcha = cleaned_data.get('captcha')
@@ -206,8 +211,8 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please accept the Terms & Conditions")
 		elif not captcha:
 			raise forms.ValidationError("Please enter the CAPTCHA field correctly")
-		elif not age:
-			raise forms.ValidationError("Please select your age range")
+		elif not dob:
+			raise forms.ValidationError("Please select your date of birth")
 
 		if password and confirm_password:
 			if password != confirm_password:
@@ -230,6 +235,7 @@ class ProfileForm(forms.ModelForm):
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
 	picture = forms.ImageField(required=False, label="Profile picture")
+	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -246,6 +252,7 @@ class ProfileForm(forms.ModelForm):
 		school_type = cleaned_data.get("school_type")
 		emergency_phone = cleaned_data.get("emergency_phone")
 		picture = cleaned_data.get("picture")
+		dob = cleaned_data.get('dob')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -253,6 +260,8 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your last name")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
+		elif not dob:
+			raise forms.ValidationError("Please select your date of birth")
 
 		if picture:
 			if picture._size > 2*1024*1024:
@@ -268,9 +277,10 @@ class ProfileForm(forms.ModelForm):
 		return cleaned_data
 
 class SettingsForm(forms.ModelForm):
-	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
+	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
 	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
-	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Clean City email communications")
+	data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="I consent to share my volunteer data with organizations I work with")
+	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
 	timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
 
 	def __init__(self, *args, **kwargs):

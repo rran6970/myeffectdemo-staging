@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Profile {% endblock %}
+{% block title %} My Effect - Profile {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -40,7 +40,7 @@
             <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
                     <tr>
-                      <td class="clean-creds"><span class="green bold">Clean</span><span class="blue bold">Creds:</span>&nbsp;{{ user.profile.clean_creds }}</td>
+                      <td class="clean-creds"><span class="green bold">Change</span><span class="blue bold">Creds:</span>&nbsp;{{ user.profile.clean_creds }}</td>
                       <td></td>
                     </tr>
                     <tr>
@@ -53,6 +53,7 @@
                     </tr>
                     <tr>
                         <td>{{ form.emergency_phone.label_tag }} {{ form.emergency_phone }}</td>
+                        <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">

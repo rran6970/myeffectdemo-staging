@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Leader Board {% endblock %}
+{% block title %} My Effect - Leader Board {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -38,13 +38,13 @@
             {% endfor %}
             </table>
           {% else %}
-            <h2>See who is leading the nation in our summer challenge. Who will win our grand prize and be recognized as TOP My Clean City leaders? Let the challenge begin.</h2>
+            <h2>See who is leading the nation in our summer challenge. Who will win our grand prize and be recognized as TOP My Effect leaders? Let the challenge begin.</h2>
           {% endif %}
         </div><!-- /.brown-box -->
         <div class="clear"></div>
         <div id="sign-leaderboard">
           {% if user.is_authenticated %}
-              <h1 id="your-points">MY&nbsp;<span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
+              <h1 id="your-points">MY&nbsp;<span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
           {% else %}
             <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
           {% endif %}
@@ -71,14 +71,14 @@
             {% endfor %}
             </table>
           {% else %}
-            <h2>See who is leading the nation in our summer challenge. Who will win our grand prize and be recognized as TOP My Clean City leaders? Let the challenge begin.</h2>
+            <h2>See who is leading the nation in our summer challenge. Who will win our grand prize and be recognized as TOP My Effect leaders? Let the challenge begin.</h2>
           {% endif %}
         </div><!-- /.brown-box -->
         <div class="clear"></div>
         <div id="sign-leaderboard">
           {% if user.is_authenticated %}
             {% if user.profile.is_clean_ambassador %}
-              <h1 id="your-points">TEAM&nbsp;<span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_team_member.clean_team.clean_creds }}</span></h1>
+              <h1 id="your-points">TEAM&nbsp;<span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_team_member.clean_team.clean_creds }}</span></h1>
             {% endif %}
           {% else %}
             <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>

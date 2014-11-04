@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Clean City - Clean Teams {% endblock %}
+{% block title %} My Effect - Change Teams {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
       <div id="white-box" class="all-clean-teams">
-          <h1>All Clean Teams</h1>
+          <h1>All Change Teams</h1>
 
           <div class="table-container">
             <table class="table table-hover">
@@ -40,12 +40,12 @@
                     <td class="roles">
                       {% for clean_champion in clean_champions %}
                         {% if team == clean_champion.clean_team %}
-                          <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Clean Champion" />
+                          <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Catalyst" />
                         {% endif %}
                       {% endfor %}
 
                       {% if team == user.profile.clean_team_member.clean_team and user.profile.clean_team_member.status == "approved" %}
-                        <img id="badge-ca" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Clean Ambassador" />
+                        <img id="badge-ca" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Ambassador" />
                       {% endif %}
                     </td>
                     

@@ -155,7 +155,7 @@ $(function(){
         question_5.prop('disabled', false);
     }
 
-    // Posted Challenge host is Clean Team
+    // Posted Challenge host is Change Team
     $("#id_host_is_clean_team").on("click", hostIsCleanTeam);
 
     $("#id_clean_ambassadors").on("change", populateMainContactInfo);
@@ -168,7 +168,7 @@ $(function(){
 
     twttr.events.bind('follow', followTwitterCallback);
 
-    // Clean Team invite button
+    // Change Team invite button
     $("#send-invite-form").on("submit", function(){
         var button = $("#send-invite-form").find("#send-invite-button");
         button.prop('disabled', 'disabled');
@@ -179,7 +179,7 @@ $(function(){
 
     $(".resend-invite-form").on("submit", resendInvite);
 
-    // Show post message box on Clean Team Profile
+    // Show post message box on Change Team Profile
     $("#show-post-message-box").on("focus", function(){
         $("#post-message-container").fadeIn(500).show();
         $("#post-message-container form textarea").focus();

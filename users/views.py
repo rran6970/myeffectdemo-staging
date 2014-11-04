@@ -161,11 +161,14 @@ class RegisterView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
-		u.profile.age = form.cleaned_data['age']
+		u.profile.student_id = form.cleaned_data['student_id']
+		u.profile.school_name = form.cleaned_data['school_name']
+		u.profile.dob = form.cleaned_data['dob']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
 		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
+		u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
 		u.profile.settings.save()
 		u.profile.save()
 		u.save()
@@ -189,10 +192,10 @@ class RegisterView(FormView):
 		# Send registration email to user
 		if lang == "English":
 			template = get_template('emails/user_register_success.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		else:
 			template = get_template('emails/french/user_register_success_fr.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -206,15 +209,15 @@ class RegisterView(FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
 
-		if form.cleaned_data['role'] == "clean-ambassador":
+		if form.cleaned_data['role'] == "ambassador":
 			return HttpResponseRedirect('/clean-team/create-or-request/')
-		elif form.cleaned_data['role'] == "clean-champion":
-			return HttpResponseRedirect('/clean-team/register-clean-champion/')
+		elif form.cleaned_data['role'] == "catalyst":
+			return HttpResponseRedirect('/clean-team/register-catalyst/')
 
 		return HttpResponseRedirect('/')
 
@@ -273,11 +276,14 @@ class RegisterInviteView(FormView):
 		u.last_name = form.cleaned_data['last_name']
 		u.profile.city = form.cleaned_data['city']
 		u.profile.province = form.cleaned_data['province']
-		u.profile.age = form.cleaned_data['age']
+		u.profile.student_id = form.cleaned_data['student_id']
+		u.profile.school_name = form.cleaned_data['school_name']
+		u.profile.dob = form.cleaned_data['dob']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
 		u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
+		u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
 		u.profile.settings.save()
 		u.profile.save()
 		u.save()
@@ -301,10 +307,10 @@ class RegisterInviteView(FormView):
 		# Send registration email to user
 		if lang == "English":
 			template = get_template('emails/user_register_success.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		else:
 			template = get_template('emails/french/user_register_success_fr.html')
-			subject = 'My Clean City - Signup Successful'
+			subject = 'My Effect - Signup Successful'
 		
 		content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -317,7 +323,7 @@ class RegisterInviteView(FormView):
 		template = get_template('emails/register_email_notification.html')
 		content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-		subject, from_email, to = 'My Clean City - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+		subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
@@ -359,6 +365,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['email'] = user.email
 		initial['about'] = user.profile.about
 		initial['emergency_phone'] = user.profile.emergency_phone
+		initial['dob'] = user.profile.dob
 
 		if user.profile.twitter:
 			initial['twitter'] = user.profile.twitter
@@ -389,6 +396,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
 		user.profile.emergency_phone = form.cleaned_data['emergency_phone']
+		user.profile.dob = form.cleaned_data['dob']
 
 		if picture:		
 			key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
@@ -410,6 +418,7 @@ class SettingsView(LoginRequiredMixin, FormView):
 		initial = {}
 		initial['communication_language'] = settings.communication_language
 		initial['email_privacy'] = settings.email_privacy
+		initial['data_privacy'] = settings.data_privacy
 		initial['receive_newsletters'] = settings.receive_newsletters
 		initial['timezone'] = settings.timezone
 
@@ -430,6 +439,11 @@ class SettingsView(LoginRequiredMixin, FormView):
 	def form_valid(self, form, **kwargs):
 		user = self.request.user
 
+		if form.cleaned_data['data_privacy'] == "True":
+			user.profile.settings.data_privacy = 1
+		else:
+			user.profile.settings.data_privacy = 0
+			
 		if form.cleaned_data['email_privacy'] == "True":
 			user.profile.settings.email_privacy = 1
 		else:
