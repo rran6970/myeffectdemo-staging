@@ -156,7 +156,7 @@ class RegisterUserForm(forms.ModelForm):
 	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
 	student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student ID/Profession")
 	school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name/Company")
-	age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
+	# age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
 	receive_newsletters = forms.BooleanField(required=False)
@@ -166,6 +166,7 @@ class RegisterUserForm(forms.ModelForm):
 	data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
+	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -183,7 +184,8 @@ class RegisterUserForm(forms.ModelForm):
 		province = cleaned_data.get('province')
 		# school_type = cleaned_data.get('school_type')
 		role = cleaned_data.get('role')
-		age = cleaned_data.get('age')
+		# age = cleaned_data.get('age')
+		dob = cleaned_data.get('dob')
 		uea = cleaned_data.get('uea')
 		receive_newsletters = cleaned_data.get('receive_newsletters')
 		captcha = cleaned_data.get('captcha')
@@ -209,8 +211,8 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please accept the Terms & Conditions")
 		elif not captcha:
 			raise forms.ValidationError("Please enter the CAPTCHA field correctly")
-		elif not age:
-			raise forms.ValidationError("Please select your age range")
+		elif not dob:
+			raise forms.ValidationError("Please select your date of birth")
 
 		if password and confirm_password:
 			if password != confirm_password:
@@ -233,6 +235,7 @@ class ProfileForm(forms.ModelForm):
 	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
 	emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
 	picture = forms.ImageField(required=False, label="Profile picture")
+	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
 
 	# Combines the form with the corresponding model
 	class Meta:
@@ -249,6 +252,7 @@ class ProfileForm(forms.ModelForm):
 		school_type = cleaned_data.get("school_type")
 		emergency_phone = cleaned_data.get("emergency_phone")
 		picture = cleaned_data.get("picture")
+		dob = cleaned_data.get('dob')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -256,6 +260,8 @@ class ProfileForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter your last name")
 		elif not email:
 			raise forms.ValidationError("Please enter a valid email address")
+		elif not dob:
+			raise forms.ValidationError("Please select your date of birth")
 
 		if picture:
 			if picture._size > 2*1024*1024:

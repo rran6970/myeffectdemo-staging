@@ -583,7 +583,8 @@ div.container#mobile-register-view #white-box form .text { text-align: center; m
 div.container#mobile-register-view #white-box form #register-table span { padding-top: 10px; display: block; width: 95%; text-wrap: normal; }
 div.container#mobile-register-view #white-box form #id_uea, 
 div.container#mobile-register-view #white-box form #id_smartphone, 
-div.container#mobile-register-view #white-box form #id_receive_newsletters { float: left; margin-right: 10px; }
+div.container#mobile-register-view #white-box form #id_receive_newsletters,
+div.container#mobile-register-view #white-box form #id_data_privacy { float: left; margin-right: 10px; }
 
 /******************************
 	Create or Request Join

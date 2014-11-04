@@ -163,7 +163,7 @@ class RegisterView(FormView):
 		u.profile.province = form.cleaned_data['province']
 		u.profile.student_id = form.cleaned_data['student_id']
 		u.profile.school_name = form.cleaned_data['school_name']
-		u.profile.age = form.cleaned_data['age']
+		u.profile.dob = form.cleaned_data['dob']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
@@ -278,7 +278,7 @@ class RegisterInviteView(FormView):
 		u.profile.province = form.cleaned_data['province']
 		u.profile.student_id = form.cleaned_data['student_id']
 		u.profile.school_name = form.cleaned_data['school_name']
-		u.profile.age = form.cleaned_data['age']
+		u.profile.dob = form.cleaned_data['dob']
 		u.profile.smartphone = form.cleaned_data['smartphone']
 		u.profile.hear_about_us = form.cleaned_data['hear_about_us']
 		u.profile.settings.communication_language = form.cleaned_data['communication_language']
@@ -365,6 +365,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		initial['email'] = user.email
 		initial['about'] = user.profile.about
 		initial['emergency_phone'] = user.profile.emergency_phone
+		initial['dob'] = user.profile.dob
 
 		if user.profile.twitter:
 			initial['twitter'] = user.profile.twitter
@@ -395,6 +396,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 		user.profile.about = form.cleaned_data['about']
 		user.profile.twitter = form.cleaned_data['twitter']
 		user.profile.emergency_phone = form.cleaned_data['emergency_phone']
+		user.profile.dob = form.cleaned_data['dob']
 
 		if picture:		
 			key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
