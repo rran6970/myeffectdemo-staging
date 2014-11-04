@@ -192,6 +192,7 @@ ROLE_CHOICES = (
 class InviteForm(forms.Form):
 	email = forms.CharField(required=True, widget=forms.Textarea)
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
+	terms = forms.BooleanField(required=True)
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
 	# Combines the form with the corresponding model
@@ -203,10 +204,13 @@ class InviteForm(forms.Form):
 		cleaned_data = super(InviteForm, self).clean()
 		email = cleaned_data.get('email')
 		role = cleaned_data.get('role')
+		terms = cleaned_data.get('terms')
 		clean_team_id = cleaned_data.get('clean_team_id')
 
 		if not email:
 			raise forms.ValidationError("Please enter an email")
+		if not terms:
+			raise forms.ValidationError("Please accept the terms")
 
 		emails = re.split(',', email)
 

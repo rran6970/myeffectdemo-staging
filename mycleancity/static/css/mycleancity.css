@@ -865,6 +865,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.invite-form .subtitle { display: block; margin-bottom: 20px; margin-left: 0 !important; }
 #clean-team-members-list table tr td textarea { width: 300px; }
+#clean-team-members-list table tr td #id_terms { float: left; display: block; margin-right: 5px; }
 
 #send-invite-button {}
 
