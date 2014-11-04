@@ -142,7 +142,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
-	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('admin', 'Administrator',))
+	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
 	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
 

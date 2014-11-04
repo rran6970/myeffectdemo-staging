@@ -44,7 +44,7 @@
         <div class="clear"></div>
         <div id="sign-leaderboard">
           {% if user.is_authenticated %}
-              <h1 id="your-points">MY&nbsp;<span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
+              <h1 id="your-points">MY&nbsp;<span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_creds }}</span></h1>
           {% else %}
             <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>
           {% endif %}
@@ -78,7 +78,7 @@
         <div id="sign-leaderboard">
           {% if user.is_authenticated %}
             {% if user.profile.is_clean_ambassador %}
-              <h1 id="your-points">TEAM&nbsp;<span class="blue">CLEAN</span><span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_team_member.clean_team.clean_creds }}</span></h1>
+              <h1 id="your-points">TEAM&nbsp;<span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span class="points">{{ user.profile.clean_team_member.clean_team.clean_creds }}</span></h1>
             {% endif %}
           {% else %}
             <a class="btn btn-primary btn-block" href="/users/register">Register Now</a>

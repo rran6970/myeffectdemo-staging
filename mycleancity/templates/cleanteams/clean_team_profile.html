@@ -51,7 +51,7 @@
           </div>
       
           <div class="sign-point-meter-bottom">
-              <h1 id="your-points"><span class="blue">CHANGE</span><span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+              <h1 id="your-points"><span class="blue">CHANGE</span> <span class="green">CREDS:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
           </div>   
         </div><!-- /.point-meter -->
         
@@ -69,7 +69,7 @@
             <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
 
             <div class="clean-creds">
-              <p><span class="green bold">Change</span><span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
+              <p><span class="green bold">Change</span> <span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </div>
             
             <div id="clean-team-info">
@@ -222,7 +222,7 @@
             <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
           </p>
           <p>{{ challenge.1.description|slice:":255" }}</p>
-          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Change</span><span class="blue bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Change</span> <span class="blue bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
 
           {% if user.is_authenticated %}
             {% if challenge.0 == "particpating" %}

@@ -12,7 +12,7 @@ div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 
 div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
 
 div.wrapper.public a.logo,
-#mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-166x200.png) no-repeat center center; position: relative; z-index: 1; }
+#mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-166x200.png) no-repeat center center; position: relative; z-index: 1; background-size: 50%; }
 div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-my-effect-yellow-166x200.png) no-repeat 0 0; position: relative; z-index: 1; }
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
@@ -807,7 +807,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .center { text-align: center !important; }
 
 #sign-leaderboard { width: 530px; height: 116px; float: right; background: transparent url(../images/sign-your-points.png) no-repeat 0 0; margin-right: 10px; }
-#sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 33px; color: #83c156; top: 57px; left: 25px }
+#sign-leaderboard #your-points { position: relative; font-weight: 900; font-size: 30px; color: #83c156; top: 57px; left: 25px }
 #sign-leaderboard #your-points span.points { float: right; margin-right: 52px; }
 #sign-leaderboard a.btn { margin: 54px auto 0; width: 400px; font-size: 17px; padding-top: 9px; }
 
