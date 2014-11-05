@@ -195,7 +195,7 @@ class UserProfile(models.Model):
 
 	def is_clean_ambassador(self, status="approved"):
 		try:
-			return True if self.clean_team_member.role=="ambassador" and self.clean_team_member.status==status else False
+			return True if (self.clean_team_member.role=="ambassador" or self.clean_team_member.role=="manager") and self.clean_team_member.status==status else False
 		except Exception, e:
 			print e
 			return False

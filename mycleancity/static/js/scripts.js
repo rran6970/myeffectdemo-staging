@@ -190,7 +190,29 @@ $(function(){
     });
 
     $("#post-message-container form").on("submit", postMessage);
+
+    // My Actions
+    // $(".export-challenge-data").on("click", exportChallengeData);
 });
+
+function exportChallengeData(e)
+{
+    var link = $(this);
+    // alert(link.attr('href'));
+
+    $.ajax({
+        type: 'get',
+        url: link.attr('href'),
+        success: function (data) {
+            
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+    return false;
+}
 
 function resendInvite(e)
 {

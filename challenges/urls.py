@@ -7,6 +7,7 @@ urlpatterns = patterns('',
 	url(r'^/?$', ChallengeCentreView.as_view()),
 	url(r'^fr/?', TemplateView.as_view(template_name="mycleancity/french/challenge_centre_fr.html")),
 
+	url(r'^export-data/(?P<cid>\d+)/?$', 'challenges.views.export_challenge_data'),
 	url(r'^edit/(?P<cid>\d+)/?$', EditChallengeView.as_view()),
 	url(r'^new-challenge/?$', NewChallengeView.as_view()),
 	url(r'^participants/(?P<cid>\d+)/?$', ChallengeParticipantsView.as_view()),

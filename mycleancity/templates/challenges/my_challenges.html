@@ -32,6 +32,9 @@
 						<a href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
 
 						<div class="links">
+							{% if user.profile.is_manager %}
+							<a class="export-challenge-data" href="/challenges/export-data/{{ challenge.id }}/">Export User Data</a>
+							{% endif %}
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">View Participants</a>
 							<div class="clear"></div>
 							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">Edit Action</a>
