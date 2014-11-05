@@ -29,6 +29,7 @@
           {% endif %}
 
           <form autocomplete="off" action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
+              {{ form.role }}
               <table>
                   <tr>
                       <td>{{ form.name.label_tag }} {{ form.name }}</td>

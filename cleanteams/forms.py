@@ -25,7 +25,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 	team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
 	group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
 	clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
-
+	role = forms.CharField(required=False, widget=forms.HiddenInput())
 	contact_first_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="First name")
 	contact_last_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
 	contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
@@ -171,10 +171,11 @@ CREATE_OR_JOIN_CHOICES = (
 	('join-existing-team', 'Join an existing team'),
 )
 
+ROLE_CHOICES = (('ambassador', 'Ambassador',), ('manager', 'Manager',))
 class CreateTeamOrJoinForm(forms.Form):
 	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CREATE_OR_JOIN_CHOICES)
+	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role")
 	invite = forms.CharField(required=False, widget=forms.HiddenInput())
-
 
 RESPONSE_CHOICES = (
 	('accepted', 'Accept'), 

@@ -12,6 +12,7 @@ from django.core.context_processors import csrf
 from django.core.mail import EmailMessage
 
 from django.db.models import Q
+from django import forms
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
@@ -44,6 +45,9 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		initial['contact_first_name'] = self.request.user.first_name
 		initial['contact_last_name'] = self.request.user.last_name
 		initial['contact_email'] = self.request.user.email
+
+		if 'role' in self.request.GET:
+			initial['role'] = self.request.GET['role']
 
 		return initial
 
@@ -85,7 +89,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 		ctm.clean_team = ct
 		ctm.user = user
 		ctm.status = "approved"
-		ctm.role = "ambassador"
+		ctm.role = form.cleaned_data['role']
 		ctm.save()
 
 		user.profile.clean_team_member = ctm
@@ -267,6 +271,14 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 	template_name = "cleanteams/create_team_or_join.html"
 	form_class = CreateTeamOrJoinForm
 
+	def get_initial(self):
+		initial = {}
+
+		if 'role' in self.request.GET:
+			initial['role'] = self.request.GET['role']
+
+		return initial
+
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
@@ -281,9 +293,9 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
 
 	def form_valid(self, form):
 		if form.cleaned_data['selections'] == 'create-new-team':
-			return HttpResponseRedirect('/clean-team/register-clean-team')
+			return HttpResponseRedirect('/clean-team/register-clean-team/?role=%s' %(form.cleaned_data['role']))
 		else:
-			return HttpResponseRedirect('/clean-team/register-request-join')
+			return HttpResponseRedirect('/clean-team/register-request-join/?role=%s' %(form.cleaned_data['role']))
 
 	def get_context_data(self, **kwargs):
 		context = super(CreateOrRequest, self).get_context_data(**kwargs)
