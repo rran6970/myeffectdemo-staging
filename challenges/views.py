@@ -40,12 +40,21 @@ def export_challenge_data(request, cid):
 			for participant in challenge_participants:
 				writer.writerow([participant.clean_team.id, participant.clean_team.name, participant.clean_team.contact_user.first_name, participant.clean_team.contact_user.last_name, participant.clean_team.contact_user.email, participant.timestamp, participant.time_in, participant.time_out, participant.total_hours, participant. total_clean_creds])
 		else:
-			challenge_participants = UserChallenge.objects.filter(challenge=challenge)
+			challenge_participants = UserChallenge.objects.filter(Q(challenge=challenge))
 		
 			writer.writerow(['User ID', 'First Name', 'Last Name', 'Email', 'Date/Time (UTC) Signed Up for Challenge', 'Date/Time (UTC) Checked In', 'Date/Time (UTC) Checked Out', 'Total Hours', 'Total Change Creds'])
 
 			for participant in challenge_participants:
-				writer.writerow([participant.user.id, participant.user.first_name, participant.user.last_name, participant.user.email, participant.timestamp, participant.time_in, participant.time_out, participant.total_hours, participant. total_clean_creds])
+				if participant.user.profile.settings.data_privacy:
+					first_name = participant.user.first_name
+					last_name = participant.user.last_name
+				else:
+					first_name = ""
+					last_name = ""
+
+				email = participant.user.email
+
+				writer.writerow([participant.user.id, first_name, last_name, email, participant.timestamp, participant.time_in, participant.time_out, participant.total_hours, participant. total_clean_creds])
 
 	return response
 
