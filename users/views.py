@@ -214,8 +214,8 @@ class RegisterView(FormView):
 		send_email = SendEmail()
 		send_email.send(template, content, subject, from_email, to)
 
-		if form.cleaned_data['role'] == "ambassador":
-			return HttpResponseRedirect('/clean-team/create-or-request/')
+		if form.cleaned_data['role'] == "ambassador" or form.cleaned_data['role'] == "manager":
+			return HttpResponseRedirect('/clean-team/create-or-request/?role=%s' %(form.cleaned_data['role']))
 		elif form.cleaned_data['role'] == "catalyst":
 			return HttpResponseRedirect('/clean-team/register-catalyst/')
 
