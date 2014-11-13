@@ -58,7 +58,7 @@
       </div><!-- /#white-box -->
 
       <div id="white-box" class="invite-form">  
-        <h2>Invite friends</h2> 
+        <h2>Invite Friends</h2> 
 
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -77,6 +77,9 @@
               </tr>
               <tr>
                 <td>{{ form.role.label_tag }} {{ form.role }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.terms }}<label for="">Do you agree to abide by anti-spam rules before sending these emails?</label></td>
               </tr>
               <tr>
                 <td><input id="send-invite-button" type="submit" value="Send Invite" class="btn btn-primary"></td>

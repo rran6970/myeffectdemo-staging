@@ -615,7 +615,7 @@
   "pk": 3, 
   "model": "notifications.notification", 
   "fields": {
-    "name": "New Clean Champion", 
+    "name": "New Catalyst", 
     "users_to_notify": "ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "cc_joined", 
@@ -627,12 +627,12 @@
   "pk": 4, 
   "model": "notifications.notification", 
   "fields": {
-    "name": "New Clean Ambassador request", 
+    "name": "New Ambassador/Manager request", 
     "users_to_notify": "ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_request", 
-    "message": "{0} has requested to join {1} as an Ambassador", 
-    "description": "A new Ambassador request is made"
+    "message": "{0} has requested to join {1} your team", 
+    "description": "A new request is made to join your team"
   }
 },
 {
@@ -643,7 +643,7 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "ca_invite", 
-    "message": "{0} from {1} has invited you to become a Ambassador", 
+    "message": "{0} from {1} has invited you to join their team", 
     "description": "A requst is sent to a User for them to become a Clean Ambassador"
   }
 },
@@ -667,7 +667,7 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/{0}", 
     "notification_type": "ca_approved", 
-    "message": "You have been approved to be a Ambassador for {0}", 
+    "message": "You have been approved to be a member of {0}", 
     "description": "A new Ambassador request is approved"
   }
 },
@@ -679,7 +679,7 @@
     "users_to_notify": "ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_joined", 
-    "message": "{0} joined {1} as an Ambassador!", 
+    "message": "{0} joined {1} the team!", 
     "description": "A new Ambassador has joined a Clean Team"
   }
 },
