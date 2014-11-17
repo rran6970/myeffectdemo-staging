@@ -163,7 +163,7 @@ class RegisterUserForm(forms.ModelForm):
 	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
-	data_privacy = forms.BooleanField(required=False)
+	# data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
 	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
