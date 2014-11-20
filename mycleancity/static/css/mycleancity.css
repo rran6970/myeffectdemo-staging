@@ -803,6 +803,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .board table tr td span.cleancreds { display: block; float: right; }
 
 .blue { color: #00aeef !important; }
+.gold { color: #FDD144 !important; }
 .green { color: #83c156 !important; }
 .red { color: #EB0900 !important; }
 .bold { font-weight: 800 !important; }

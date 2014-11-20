@@ -112,10 +112,10 @@
 	                <tr>
 	                	<td colspan="2">{{ form.national_challenge }} {{ form.national_challenge.label_tag }}</td>
 	                </tr>
+	                {% endif %}
 	                <tr>
 	                	<td colspan="2">{{ form.clean_team_only }} {{ form.clean_team_only.label_tag }}</td>
 	                </tr>
-	                {% endif %}
 	            </table>
 	            <input class="btn btn-primary" type="submit" value="Post CleanAct" />
         	</form>
