@@ -142,6 +142,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.clean-team-members { left: 181px; }
 #sign-go-back.edit-clean-team { left: 347px; }
 #sign-go-back.invite { left: 78px; }
+#sign-go-back.report-card { left: 78px; }
 #sign-go-back-big.about,
 #sign-go-back-big-fr.about { left: 32px; top: 386px; }
 #sign-go-back-big.communication-hub,
@@ -802,6 +803,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .board table tr td span.cleancreds { display: block; float: right; }
 
 .blue { color: #00aeef !important; }
+.gold { color: #FDD144 !important; }
 .green { color: #83c156 !important; }
 .red { color: #EB0900 !important; }
 .bold { font-weight: 800 !important; }
@@ -875,6 +877,22 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.invite-response {  }
 #white-box.invite-response form { width: 400px; margin: 0 auto; }
 #white-box.invite-response form input[type="submit"] { width: 300px; margin: 20px auto; }
+
+/******************************
+    Report Card Page
+******************************/
+#white-box.report-card { width: 1250px; left: 10px; }
+#white-box.report-card table { text-align: center; width: 100%; }
+#white-box.report-card table thead tr td { padding: 10px; border: 1px solid #abd78c; background-color: #EAF8E1; }
+#white-box.report-card table thead tr td.date { width: 150px; }
+#white-box.report-card table thead tr td.hours { }
+#white-box.report-card table thead tr td.organization { }
+#white-box.report-card table thead tr td.description { }
+#white-box.report-card table thead tr td.supervisor-name { }
+#white-box.report-card table thead tr td.supervisor-signature { }
+#white-box.report-card table thead tr td.designate-signature { }
+#white-box.report-card table tbody tr td { padding: 10px; border: 1px solid #C4E6AD; }
+#white-box.report-card table tbody tr:hover { background-color: #EAF8E1; }
 
 /******************************
 	Change Team Page
