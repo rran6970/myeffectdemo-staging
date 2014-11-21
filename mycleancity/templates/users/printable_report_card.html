@@ -35,7 +35,10 @@
                       <td>{{ user_challenge.total_hours }}</td>
                       <td>{{ user_challenge.challenge.organization }}</td>
                       <td>{{ user_challenge.challenge.title }}</td>
-                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}</td>
+                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}<br/>
+                        {{ user_challenge.challenge.contact_phone }}<br/>
+                        {{ user_challenge.challenge.contact_email }}
+                      </td>
                       <!-- <td></td>
                       <td></td> -->
                     </tr>
