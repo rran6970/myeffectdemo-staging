@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^profile/?$', ProfileView.as_view()),  
     url(r'^settings/?$', SettingsView.as_view()),
     url(r'^report-card/?$', ReportCardView.as_view()),  
+    url(r'^printable-report-card/?$', PrintableReportCardView.as_view()),  
     url(r'^qrcode/?$', QRCodeView.as_view()),  
     url(r'^printable-card/?$', PrintableCardView.as_view()),  
 

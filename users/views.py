@@ -499,6 +499,17 @@ class ReportCardView(TemplateView):
 
 		return context
 
+class PrintableReportCardView(TemplateView):
+	template_name = "users/printable_report_card.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(PrintableReportCardView, self).get_context_data(**kwargs)
+		challenges = self.request.user.profile.get_my_challenges()
+		
+		context['challenges'] = challenges
+
+		return context
+
 class LeaderboardView(TemplateView):
 	template_name = "users/leaderboard.html"
 	
