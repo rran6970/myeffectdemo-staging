@@ -130,12 +130,6 @@ class EditCleanTeamForm(forms.ModelForm):
 
 		return cleaned_data
 
-YEAR_IN_SCHOOL_CHOICES = (
-    ('FR', 'Freshman'),
-    ('SO', 'Sophomore'),
-    ('JR', 'Junior'),
-    ('SR', 'Senior'),
-)
 class EditCleanTeamMainContact(forms.Form):
 	contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="First name")
 	contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
@@ -166,31 +160,31 @@ class RequestJoinTeamsForm(forms.Form):
 class JoinTeamCleanChampionForm(forms.Form):
 	team = forms.ModelChoiceField(required=True, queryset=CleanTeam.objects.all())
 
-CREATE_OR_JOIN_CHOICES = (
-	('create-new-team', 'Create a new team'), 
-	('join-existing-team', 'Join an existing team'),
-)
-
-ROLE_CHOICES = (('ambassador', 'Ambassador',), ('manager', 'Manager',))
 class CreateTeamOrJoinForm(forms.Form):
+	CREATE_OR_JOIN_CHOICES = (
+		('create-new-team', 'Create a new team'), 
+		('join-existing-team', 'Join an existing team'),
+	)
+	ROLE_CHOICES = (('ambassador', 'Ambassador',), ('manager', 'Manager',))
+
 	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CREATE_OR_JOIN_CHOICES)
 	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role")
 	invite = forms.CharField(required=False, widget=forms.HiddenInput())
 
-RESPONSE_CHOICES = (
-	('accepted', 'Accept'), 
-	('declined', 'Decline'),
-)
 class InviteResponseForm(forms.Form):
+	RESPONSE_CHOICES = (
+		('accepted', 'Accept'), 
+		('declined', 'Decline'),
+	)
 	selections = forms.ChoiceField(widget=forms.RadioSelect, choices=RESPONSE_CHOICES)
 	token = forms.CharField(required=True, widget=forms.HiddenInput())
 
-ROLE_CHOICES = (
-	('catalyst', 'Catalyst'),
-	('ambassador', 'Ambassador'), 
-)
-
 class InviteForm(forms.Form):
+	ROLE_CHOICES = (
+		('agent', 'Agent'),
+		('ambassador', 'Ambassador'),
+		('catalyst', 'Catalyst'),
+	)
 	email = forms.CharField(required=True, widget=forms.Textarea)
 	role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
 	terms = forms.BooleanField(required=True)
