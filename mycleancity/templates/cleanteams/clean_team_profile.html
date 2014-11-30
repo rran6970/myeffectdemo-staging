@@ -109,11 +109,11 @@
                 {% endif %}
 
                 {% if clean_champion %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Catalyst" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-my-effect-cc-88x110.png" alt="Catalyst" />
                 {% endif %}
 
                 {% if clean_ambassador %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Catalyst" />
+                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-my-effect-ca2-88x110.png" alt="Catalyst" />
                 {% endif %}
 
                 <!-- Ambassador -->
@@ -250,7 +250,7 @@
         {% if member.status == "approved" %}
           <li>
           {% if member.role == "ambassador" %}
-            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-my-effect-ca2-62x78.png" alt="Badge CA" />
             {% if member.user.profile.picture %}
               <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
             {% else %}
@@ -270,7 +270,7 @@
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
           <li>        
-            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-my-effect-cc-62x78.png" alt="Badge CC" />
             {% if member.user.profile.picture %}
               <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
             {% else %}
