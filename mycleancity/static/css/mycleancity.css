@@ -638,7 +638,7 @@ div.container#register-join-team {  }
 #white-box.public-profile div.info div.field * { font-size: 14px; line-height: 18px; }
 #white-box.public-profile div.info div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
 #white-box.public-profile div.info div.field.about p.title { margin-bottom: -16px; }
-#white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px;right: 344px; z-index: 1000; }
+#white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px; right: 360px; z-index: 1000; }
 
 /******************************
 	Challenge Survey
@@ -952,7 +952,7 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
 
-#white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
+#white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 10px auto; }
 
 #point-meter { width: 400px; float: left; position: absolute; top: -25px; margin-left: 30px; }
 
