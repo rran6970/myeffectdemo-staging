@@ -1,17 +1,63 @@
 # My Effect
 
-The aim is to have django models for all key data to power
-all website operations (profiles, subscribe/unsubscribe, etc.) and all
-backoffice operations (shipping, refunds, etc.).
+The aim is to have django models for all key data to power all website operations
 
 ## Requirements
 
-You must have Python >= 2.6 < 3.0 installed, with setuptools or distribute
-(latest).
+A basic understanding of the following is required:
 
-Confirm you have python installed with the correct version by executing:
+    pip
+    python
+    mysql
+    south
+    django
+    git
+    git-flow
+    heroku
 
-    python --version
+## Repository
+
+To clone from bitbucket.org, make sure you have access to the project and type:
+
+    git clone git@bitbucket.org:hakstudio/my-clean-city.git
+
+To pull from bitbucket.org, make sure you have access to the project and type:
+
+    git pull origin master
+    git pull origin develop
+
+Setup git flow by typing:
+
+    git flow init
+
+Follow the instructions, and leave all of the branch names as their default (ie. master, develop, release, etc.)
+Version tagging prefix is v-
+
+## Hosting
+
+Hosting of the application is done on Heroku. Kelly's host would have required
+too much setup.
+
+    The Heroku apps are as follows:
+    
+    mycleancity-staging - Staging (Test)
+    mycleancity - Production (Live)
+
+    Be sure to add these remotes to your git repo project
+
+To push to Staging, type:
+    
+    git push staging develop:master # If you wanted to push the develop branch
+
+or
+    
+    git push staging master # If you wanted to push the master branch
+
+To push to Production, type:
+    
+    git push heroku master
+
+Both apps should be transferred in Heroku to the developers Heroku account.
 
 ## Getting Started
 
@@ -43,10 +89,12 @@ To install all python requirements:
 
 To update database tables:
     
+    # Locally
     python manage.py schemamigration users --initial
     python manage.py schemamigration users --auto
     python manage.py schemamigration users --help
 
+    # On Heroku - Production/Staging
     heroku run python manage.py migrate userorganization --app mycleancity-staging
 
 To dump fixtures
@@ -64,9 +112,23 @@ To run the django development server, you will first need to setup the database:
 This loads default data into the database as defined by fixtures within
 the `users` app.
 
+If running locally, open settings.py and comment out:
+
+    DATABASES['default'] = dj_database_url.config()
+
+Also, change:
+
+    DEBUG = False to DEBUG = True
+    
+Uncomment the following line 
+ 
+    AWS_BUCKET = 'mycleancitystaging'
+
+### There is a more efficient way of doing this, but I didn't have time. ###
+
 At this point you are ready to run the development server:
 
-    python manage.py runserver --noreload 0.0.0.0:10000
+    python manage.py runserver 0.0.0.0:10000
 
 Above, the `--noreload` argument is optional, and prevents django from reloading
 every time you make a code change. Now the development web server should be
