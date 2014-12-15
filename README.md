@@ -31,6 +31,7 @@ Setup git flow by typing:
     git flow init
 
 Follow the instructions, and leave all of the branch names as their default (ie. master, develop, release, etc.)
+Version tagging prefix is v-
 
 ## Hosting
 
