@@ -87,6 +87,8 @@ To install all python requirements:
     
     pip install --requirement requirements.txt
 
+(Python-MySQL 1.2.4 fails to install due to an error, "maximum recursion depth exceeded". Using Python-MySQL 1.2.5 appears to work.  At some point, installation will require mysql_config from libmysqlclient-dev). --~ilatypov
+
 To update database tables:
     
     # Locally
