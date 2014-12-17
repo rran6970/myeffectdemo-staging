@@ -92,10 +92,13 @@ To install all python requirements:
 * The mysql connector refused to download an untrusted package, and ignoring this concern by prefixing the name of the package with "--allow-external" in requirements.txt worked this around.
 
 * The hg command from the Debian mercurial package failed to showconfig paths.default stored in venv/src/pil/.hg/hgrc.  Creating a ~/.hgrc with a trust to root helps,
+
     [trusted]
     users = root
 
 * Installing the PostgreSQL module failed pointing to absence of pg_config, and installing libpq-dev corrected this.
+
+* Compiling the MySQL module failed and referred to a missing Python.h.  Installing libpython2.7-dev fixed this.
 
 To update database tables:
     
