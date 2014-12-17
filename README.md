@@ -68,7 +68,7 @@ install MySQL at this point, and create a new database.
 
 Next, create a local version of python.
 
-    virtualenv -p python2.7 .
+    virtualenv -p python2.7 venv
 
 Put the local version of Python in your path.
 (You will have to do this every time you use the project.)
@@ -87,7 +87,15 @@ To install all python requirements:
     
     pip install --requirement requirements.txt
 
-(Python-MySQL 1.2.4 fails to install due to an error, "maximum recursion depth exceeded". Using Python-MySQL 1.2.5 appears to work.  At some point, installation will require mysql_config from libmysqlclient-dev). --~ilatypov
+* Python-MySQL 1.2.4 failed to install on Debian sid due to an error, "maximum recursion depth exceeded". Using Python-MySQL 1.2.5 appears to work.  At some point, installation will require mysql_config from libmysqlclient-dev.
+
+* The mysql connector refused to download an untrusted package, and ignoring this concern by prefixing the name of the package with "--allow-external" in requirements.txt worked this around.
+
+* The hg command from the Debian mercurial package failed to showconfig paths.default stored in venv/src/pil/.hg/hgrc.  Creating a ~/.hgrc with a trust to root helps,
+    [trusted]
+    users = root
+
+* Installing the PostgreSQL module failed pointing to absence of pg_config, and installing libpq-dev corrected this.
 
 To update database tables:
     
