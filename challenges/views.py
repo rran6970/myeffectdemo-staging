@@ -106,7 +106,6 @@ def unparticipate_in_challenge(request):
 	return HttpResponseRedirect('/challenges/%s' % str(cid))
 
 # This is only called through the QR Code scanning...I think
-@login_required
 def one_time_check_in(request, cid, token):
 	user = request.user
 	
