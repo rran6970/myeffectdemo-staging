@@ -250,7 +250,7 @@ class Challenge(models.Model):
 				user_challenge.challenge.check_in_check_out(user_challenge.user.id)
 
 	def one_time_check_in_with_token(self, user, token):
-		now = datetime.utcnow().replace(tzinfo=utc)
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
 		total_clean_creds = self.clean_creds_per_hour
 
 		if self.clean_team_only:

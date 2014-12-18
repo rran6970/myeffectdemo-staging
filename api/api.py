@@ -1058,13 +1058,18 @@ def check_out_all(request):
 	return HttpResponse(data, mimetype="text/javascript")
 
 def one_time_check_in(request):
+
 	if request.is_ajax:
 		request_obj = GenericRequest(request)
 		request_obj.parse_request_params()
 		response_base = ResponseDic()
 		
-		user = request.user
+		# user = request.user
+		uid = request_obj.params['uid']
 		cid = request_obj.params['cid']
+		token = request_obj.params['token']
+
+		user = User.objects.get(id=uid)
 		
 		challenge = get_object_or_404(Challenge, id=cid)
 		challenge.one_time_check_in_with_token(user, token)
