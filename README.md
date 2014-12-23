@@ -137,7 +137,7 @@ Uncomment the following line
  
     AWS_BUCKET = 'mycleancitystaging'
 
-### There is a more efficient way of doing this, but I didn't have time. ###
+* _[Zeeshan Syed](https://bitbucket.org/syedzee) knows a more efficient way of doing this, but he didn't have time._
 
 At this point you are ready to run the development server:
 
@@ -148,3 +148,28 @@ every time you make a code change. Now the development web server should be
 running. Try it by connecting via a web browser:
 
     http://localhost:10000
+
+* _Running *manage.py syncdb* produces an error,_
+~~~~
+(venv)ilgiz@ei:~/work/my-clean-city$ python manage.py syncdb
+Syncing...
+Creating tables ...
+Creating table auth_permission
+Creating table auth_group_permissions
+Creating table auth_group
+Creating table auth_user_groups
+Creating table auth_user_user_permissions
+Creating table auth_user
+Creating table django_content_type
+Creating table django_session
+Creating table django_admin_log
+Creating table south_migrationhistory
+
+You just installed Django's auth system, which means you don't have any superusers defined.
+Would you like to create one now? (yes/no): yes
+Username (leave blank to use 'ilgiz'):
+Email address: ilatypov@yahoo.ca
+Password:
+Password (again):
+DatabaseError: (1146, "Table 'mycleancity.userprofile_userprofile' doesn't exist")
+~~~~
