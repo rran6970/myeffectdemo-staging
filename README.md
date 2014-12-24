@@ -162,3 +162,5 @@ every time you make a code change. Now the development web server should be
 running. Try it by connecting via a web browser:
 
     http://localhost:10000
+
+* The error about a missing Python module in an import statement may result from forgetting to source venv/bin/activate.
