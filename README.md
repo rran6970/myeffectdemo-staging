@@ -164,3 +164,16 @@ running. Try it by connecting via a web browser:
     http://localhost:10000
 
 * The error about a missing Python module in an import statement may result from forgetting to source venv/bin/activate.
+
+* New issues. Is "develop" the right branch to run a server locally?
+~~~~
+AttributeError at /users/profile/2
+
+'User' object has no attribute 'get_profile'
+~~~~
+
+~~~~
+LookupError at /admin/
+
+No installed app with label 'sites'.
+~~~~
