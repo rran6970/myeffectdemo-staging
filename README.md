@@ -108,7 +108,7 @@ To install all python requirements:
 * Creating a database failed to alter a time field.  Fix:
    Update Django to the latest release 1.7.1.
    Remove "south" from requirements.txt and from settings.py.
-   Remove `*/migrations/{}*.py*` except `*/migrations/__init__.py`.
+   Remove `*/migrations/*.py*` except `*/migrations/__init__.py`.
    Run "python manage.py makemigrations", "python manage.py migrate".
 
 * Creating the database failed in serializing a timezone field.  Updating django-timezone-field to a newer version resolved this.
