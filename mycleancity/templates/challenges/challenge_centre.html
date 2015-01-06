@@ -24,7 +24,7 @@
         <div id="white-box" class="message">
           <p>Do you know of volunteer opportunities or events that aren't listed in our Action Centre?</p>
           <p>Change Agents: Connect My Effect to the local organization host or refer an Action to earn a 10 bonus Change Creds!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
-          <p>Change Leaders: <a href="new_challenge.html">Upload your opportunity</a> as an Action for your Change Team to start earning ongoing Change Creds<!-- TODO: Insert link to post an action tab--></p>
+          <p>Change Leaders: {% if user.is_authenticated %}<a href="new_challenge.html">Upload your opportunity</a>{% else %} Upload your opportunity {% endif %}as an Action for your Change Team to start earning ongoing Change Creds<!-- TODO: Insert link to post an action tab--></p>
         </div>
 
       	<div id="sign-challenge-centre"></div>
