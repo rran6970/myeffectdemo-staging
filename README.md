@@ -92,75 +92,84 @@ To install all python requirements:
 * The mysql connector refused to download an untrusted package, and ignoring this concern by prefixing the name of the package with "--allow-external" in requirements.txt worked this around.
 
 * The hg command from the Debian mercurial package failed to showconfig paths.default stored in venv/src/pil/.hg/hgrc.  Creating a ~/.hgrc with a trust to root helps,
-
-    [trusted]
-    users = root
-
+~~~~
+[trusted]
+users = root
+~~~~
 * Installing the PostgreSQL module failed pointing to absence of pg_config, and installing libpq-dev corrected this.
 
 * Compiling the MySQL module failed and referred to a missing Python.h.  Installing libpython2.7-dev fixed this.
 
 * Running "manage.py createsuperuser" showed an error about a missing JPEG handler.  Installing respective libraries, re-installing the Python pillow module fixed that,
-    sudo apt-get install libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev
-    pip uninstall pillow
-    pip install -r requirements.txt
+~~~~
+sudo apt-get install libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev
+pip uninstall pillow
+pip install -r requirements.txt
+~~~~
 
 * Creating a database failed to alter a time field.  Fix:
-   Update Django to the latest release 1.7.1.
-   Remove "south" from requirements.txt and from settings.py.
-   Remove `*/migrations/*.py*` except `*/migrations/__init__.py`.
-   Run "python manage.py makemigrations", "python manage.py migrate".
+* * Update Django to the latest release 1.7.1.
+* * Remove "south" from requirements.txt and from settings.py.
+* * Remove `*/migrations/*.py*` except `*/migrations/__init__.py`.
+* * Run "python manage.py makemigrations", "python manage.py migrate".
 
 * Creating the database failed in serializing a timezone field.  Updating django-timezone-field to a newer version resolved this.
 
 
 To update database tables:
-    
-    # Locally
-    python manage.py schemamigration users --initial
-    python manage.py schemamigration users --auto
-    python manage.py schemamigration users --help
 
-    # On Heroku - Production/Staging
-    heroku run python manage.py migrate userorganization --app mycleancity-staging
+~~~~    
+# Locally
+python manage.py schemamigration users --initial
+python manage.py schemamigration users --auto
+python manage.py schemamigration users --help
+
+# On Heroku - Production/Staging
+heroku run python manage.py migrate userorganization --app mycleancity-staging
+~~~~
 
 To dump fixtures
-
-    python manage.py dumpdata --indent 2 cleanteams.cleanteamlevel cleanteams.cleanteamleveltask challenges.challengetype challenges.cleangrid challenges.challengequestiontype challenges.answertype challenges.challengequestion challenges.questionanswer notifications.notification > fixtures/initial_data.json
+~~~~
+python manage.py dumpdata --indent 2 cleanteams.cleanteamlevel cleanteams.cleanteamleveltask challenges.challengetype challenges.cleangrid challenges.challengequestiontype challenges.answertype challenges.challengequestion challenges.questionanswer notifications.notification > fixtures/initial_data.json
+~~~~
 
 To load fixtures
-
-    python manage.py loaddata fixtures/initial_data.json
+~~~~
+python manage.py loaddata fixtures/initial_data.json
+~~~~
 
 To run the django development server, you will first need to setup the database:
-
-    python manage.py syncdb
+~~~~
+python manage.py syncdb
+~~~~
 
 This loads default data into the database as defined by fixtures within
 the `users` app.
 
 If running locally, open settings.py and comment out:
-
-    DATABASES['default'] = dj_database_url.config()
+~~~~
+DATABASES['default'] = dj_database_url.config()
+~~~~
 
 Also, change:
 
-    DEBUG = False to DEBUG = True
+~~~~
+DEBUG = False to DEBUG = True
+~~~~
     
 Uncomment the following line 
- 
-    AWS_BUCKET = 'mycleancitystaging'
+~~~~ 
+AWS_BUCKET = 'mycleancitystaging'
+~~~~
 
 * _[Zeeshan Syed](https://bitbucket.org/syedzee) knows a more efficient way of doing this, but he didn't have time._
 
 At this point you are ready to run the development server:
-
-    python manage.py runserver 0.0.0.0:10000
-
-Above, the `--noreload` argument is optional, and prevents django from reloading
-every time you make a code change. Now the development web server should be
-running. Try it by connecting via a web browser:
-
-    http://localhost:10000
-
+~~~~
+python manage.py runserver 0.0.0.0:10000
+~~~~
+Above, the `--noreload` argument is optional, and prevents django from reloading every time you make a code change. Now the development web server should be running. Try it by connecting via a web browser:
+~~~~
+http://localhost:10000
+~~~~
 * The error about a missing Python module in an import statement may result from forgetting to source venv/bin/activate.
