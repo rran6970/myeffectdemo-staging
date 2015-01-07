@@ -27,16 +27,15 @@
           {% if user.is_authenticated %}
             <table>
             {% for leader in individual_leaders %}
-            	{% while forloop.counter <= 6 %}
-		              <tr>
-		                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
-		                  <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span>
-		                </td>
-		                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
-		                  <span class="cleancreds">{{ leader.clean_creds }}</span>
-		                </td>
-		              </tr>
-		            {% endfor %}
+              <tr>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span>
+                </td>
+                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <span class="cleancreds">{{ leader.clean_creds }}</span>
+                </td>
+              </tr>
+            {% endfor %}
             </table>
           {% else %}
             <h2>See who is leading the nation in our summer challenge. Who will win our grand prize and be recognized as TOP My Effect leaders? Let the challenge begin.</h2>
