@@ -148,7 +148,7 @@ def registration(request):
 	content = Context({ 'first_name': params['firstname'] })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Effect - Signup Successful', 'info@mycleancity.org', params['email']
+	subject, from_email, to = 'My Effect - Signup Successful', 'info@myeffect.ca', params['email']
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
@@ -159,7 +159,7 @@ def registration(request):
 	content = Context({ 'email': params['email'], 'first_name': params['firstname'], 'last_name': params['lastname'], 'student': 'student' })
 	content = template.render(content)
 
-	subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+	subject, from_email, to = 'My Effect - Student Signup Successful', 'info@myeffect.ca', 'info@myeffect.ca'
 
 	mail = EmailMessage(subject, content, from_email, [to])
 	mail.content_subtype = "html"
