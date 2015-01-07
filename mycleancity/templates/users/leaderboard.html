@@ -23,10 +23,10 @@
     <div class="container">
       <div class="brown-box individuals">
         <div class="board">
-          <h1>TOP CLEAN CHAMPIONS</h1>
+          <h1>TOP 5 CLEAN CHAMPIONS</h1>
           {% if user.is_authenticated %}
             <table>
-            {% for leader in individual_leaders %}
+            {% for leader in individual_leaders[0:6] %}
               <tr>
                 <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
                   <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/users/profile/{{ leader.user.id }}">{{ leader.user.first_name }} {{ leader.user.last_name }}</a></span>
@@ -53,10 +53,10 @@
 
       <div class="brown-box clean-teams">
         <div class="board">
-          <h1>TOP CLEAN TEAMS</h1>
+          <h1>TOP 5 CLEAN TEAMS</h1>
           {% if user.is_authenticated %}
             <table>
-            {% for leader in clean_team_leaders %}
+            {% for leader in clean_team_leaders[0:6] %}
               <tr>
                 <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
                   <img id="badge-icon" src="{{ STATIC_URL }}{{ leader.level.badge }}" alt="Badge Level" />                  
