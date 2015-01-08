@@ -155,14 +155,14 @@ def registration(request):
 	# mail.send()
 
 	# Send notification email to administrator
-	template = get_template('emails/register_email_notification.html')
-	content = Context({ 'email': params['email'], 'first_name': params['firstname'], 'last_name': params['lastname'], 'student': 'student' })
-	content = template.render(content)
+	#template = get_template('emails/register_email_notification.html')
+	#content = Context({ 'email': params['email'], 'first_name': params['firstname'], 'last_name': params['lastname'], 'student': 'student' })
+	#content = template.render(content)
 
-	subject, from_email, to = 'My Effect - Student Signup Successful', 'info@myeffect.ca', 'info@myeffect.ca'
+	#subject, from_email, to = 'My Effect - Student Signup Successful', 'info@myeffect.ca', 'info@myeffect.ca'
 
-	mail = EmailMessage(subject, content, from_email, [to])
-	mail.content_subtype = "html"
+	#mail = EmailMessage(subject, content, from_email, [to])
+	#mail.content_subtype = "html"
 	# mail.send()
 	qr_code_array = UserQRCode.objects.get(user_id=u.id)
 	#print qr_code_array.qr_image
@@ -655,7 +655,7 @@ def invite_user(request):
         uriParsed = urlparse.urlparse(uri)
         scheme = uriParsed[0]
         domain = uriParsed[1]
-        fullPath = "%s://%s/clean-teams/invite/"%(scheme,domain)
+        fullPath = "%s://%s/clean-teams/invite"%(scheme,domain)
         invite = CleanTeamInvite()
         invite.inviteUsersNew(cleanteam_id,userid, role, email, fullPath)
         response_base.response['status'] = 1
