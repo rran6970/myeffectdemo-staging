@@ -85,7 +85,7 @@ def country_is_valid(country):
 
 SCHOOLS = (('', 'Please select one...'),('Elementary Student', 'Elementary Student'), ('High School Student', 'High School Student'), ('Post Secondary Student', 'Post Secondary Student'))
 
-COUNTRY = (' ', 'Canada', 'United States')
+COUNTRY = (('', 'Please select one'), ('Canada', 'Canada'), ('United States', 'United States'))
 
 PROVINCES = (('', 'Please select one...'),
     ('AB', 'AB'),
