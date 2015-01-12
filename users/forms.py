@@ -189,7 +189,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 
 class RegisterUserForm(forms.ModelForm):
     ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('manager', 'Manager',))
-    HEAR_CHOICES = ('Twitter', 'Instagram', 'Facebook', 'Google', 'Volunteer Posting', 'School Flyer', 'Teacher', 'Friend', 'Clean Leader', 'Website', 'H&M', 'Staples')
+    HEAR_CHOICES = (('Twitter', 'Twitter'), ('Instagram', 'Instagram'), ('Facebook', 'Facebook'), ('Google', 'Google'), ('Volunteer Posting', 'Volunteer Posting'), ('School Flyer', 'School Flyer'), ('Teacher', 'Teacher'), ('Friend', 'Friend'), ('Clean Leader', 'Clean Leader'), ('Website', 'Website'), ('H&M', 'H&M'), ('Staples', 'Staples'))
 
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
