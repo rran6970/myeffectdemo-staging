@@ -197,14 +197,14 @@ class RegisterUserForm(forms.ModelForm):
     password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password")
     confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password")
     city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="City")
-    province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province")
+    province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province/State")
     country = forms.ChoiceField(widget=forms.Select(), choices=COUNTRY, label="Country")
     # school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-    student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student ID/Profession")
-    school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name/Company")
+    # student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student P/Profession")
+    school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name/Company Name")
     # age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
-    role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
-    communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
+    role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role")
+    communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language")
     receive_newsletters = forms.BooleanField(required=False)
     smartphone = forms.BooleanField(required=False)
     hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us?")
@@ -278,7 +278,6 @@ class ProfileForm(forms.ModelForm):
     email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
     about = forms.CharField(required=False, widget=forms.Textarea())
     twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
-    # dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
@@ -315,10 +314,10 @@ class ProfileForm(forms.ModelForm):
 
             w, h = get_image_dimensions(picture)
 
-            if w != 124:
-                raise forms.ValidationError("The image is supposed to be 124px X 124px")
-            if h != 124:
-                raise forms.ValidationError("The image is supposed to be 124px X 124px")
+            # if w != 124:
+            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
+            # if h != 124:
+            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
         return cleaned_data
 
