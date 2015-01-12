@@ -20,16 +20,17 @@
         <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a> -->
         <div id="white-box" class="register">
             <h2>Register</h2>
-            
+
+              
+            <div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
+
+            <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
+
             {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
             {% endif %}
-              
-            <div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
-
-            <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
 
             <form method="post" autocomplete="off">{% csrf_token %}
               {{ form.token }}
