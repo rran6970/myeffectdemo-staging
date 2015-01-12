@@ -188,7 +188,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
         return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
-    ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('manager', 'Manager',))
+    ROLE_CHOICES = (('agent', 'Agent',), ('leader', 'Leader',), ('manager', 'Manager',))
     HEAR_CHOICES = (('Twitter', 'Twitter'), ('Instagram', 'Instagram'), ('Facebook', 'Facebook'), ('Google', 'Google'), ('Volunteer Posting', 'Volunteer Posting'), ('School Flyer', 'School Flyer'), ('Teacher', 'Teacher'), ('Friend', 'Friend'), ('Clean Leader', 'Clean Leader'), ('Website', 'Website'), ('H&M', 'H&M'), ('Staples', 'Staples'))
 
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
