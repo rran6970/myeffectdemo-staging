@@ -9,11 +9,11 @@
 {% block content %}
 
 <div class="wrapper public">
-  <div class="clouds"></div>
+  <div class="clouds"> </div>
 
   {% include "_loggedin_navbar.html" %}  
 
-  <a href="/" class="logo"></a>
+  <a href="/" class="logo"> </a>
   
   <div class="content">
     <div class="container">
@@ -25,9 +25,9 @@
                 {% if clean_team == user.profile.clean_team_member.clean_team %}
                   <div class="your-team-box" style="bottom: {{ pixels }}px;">
                     {% if clean_team.logo %}
-                      <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic profile-pic-50x50" />
+                      <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="Team Logo" class="profile-pic profile-pic-50x50" />
                     {% else %}
-                      <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" class="profile-pic profile-pic-50x50" src="{{ STATIC_URL }}images/default-team-pic-50x50.png" alt="" />
+                      <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" class="profile-pic profile-pic-50x50" src="{{ STATIC_URL }}images/default-team-pic-50x50.png" alt="Team Logo" />
                     {% endif %}
                   </div>
                   
