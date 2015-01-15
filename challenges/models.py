@@ -602,9 +602,9 @@ class Challenge(models.Model):
 			province = c.province if c.province else ""
 
 			if type == 2:
-				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Change</span> <span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
 			else:
-				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Change</span> <span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+				clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
 
 			title = "%s<div>%s<br/>%s&nbsp;%s%s</div>" % (logo, challenge_title, city, province, clean_creds_per_hour)
 			
