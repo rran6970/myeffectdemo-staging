@@ -507,3 +507,14 @@ def follow_on_twitter(request):
                 user.profile.clean_team_member.clean_team.complete_level_task(task)
 
     return HttpResponse(True)
+
+class ProfileProgressView(TemplateView):
+    template_name = "users/profile_progress.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileProgressView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        context['user'] = user
+
+        return context
