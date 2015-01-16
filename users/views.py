@@ -35,7 +35,6 @@ from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, Sett
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
 from django.contrib.auth.views import password_reset as django_password_reset
-CleanTeamLevelProgress = ProfileLevelProgress
 def get_user_json(request):
     if request.is_ajax:
         uid = request.GET['uid']
@@ -517,7 +516,7 @@ class ProfileProgressView(TemplateView):
         clean_team = user.profile.clean_team_member.clean_team
 
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
-        tasks = ProfileLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
+        tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
 
         context['tasks'] = tasks
         context['clean_team'] = clean_team
