@@ -26,7 +26,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallenge
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
@@ -35,7 +35,7 @@ from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, Sett
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
 from django.contrib.auth.views import password_reset as django_password_reset
-
+CleanTeamLevelProgress = ProfileLevelProgress
 def get_user_json(request):
     if request.is_ajax:
         uid = request.GET['uid']
@@ -509,12 +509,18 @@ def follow_on_twitter(request):
     return HttpResponse(True)
 
 class ProfileProgressView(TemplateView):
-    template_name = "users/profile_progress.html"
+    template_name = "cleanteams/level_progress.html"
 
     def get_context_data(self, **kwargs):
         context = super(ProfileProgressView, self).get_context_data(**kwargs)
         user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
 
+        level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
+        tasks = ProfileLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
+
+        context['tasks'] = tasks
+        context['clean_team'] = clean_team
         context['user'] = user
 
         return context
