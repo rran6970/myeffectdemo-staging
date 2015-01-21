@@ -61,13 +61,6 @@ class RegisterCleanTeamForm(forms.ModelForm):
             if logo._size > 2*1024*1024:
                 raise forms.ValidationError("Image file must be smaller than 2MB")
 
-            w, h = get_image_dimensions(logo)
-
-            #if w != 124:
-            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
-            #if h != 124:
-            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
-
         if CleanTeam.objects.filter(name=name) and not clean_team_id:
             raise forms.ValidationError(u'%s already exists' % name)
 
@@ -180,8 +173,8 @@ class InviteResponseForm(forms.Form):
     token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-    ('catalyst', 'Catalyst'),
-    ('ambassador', 'Ambassador'),
+    ('agent', 'Agent'),
+    ('leader', 'Leader')
 )
 
 class InviteForm(forms.Form):

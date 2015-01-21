@@ -197,8 +197,7 @@ class RegisterView(FormView):
             subject = 'My Effect - Signup Successful'
 
         content = Context({ 'first_name': form.cleaned_data['first_name'] })
-
-        from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
+        from_email, to = 'info@myeffect.ca', form.cleaned_data['email']
 
         send_email = SendEmail()
         send_email.send(template, content, subject, from_email, to)
@@ -208,14 +207,15 @@ class RegisterView(FormView):
         template = get_template('emails/register_email_notification.html')
         content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-        subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+        subject, from_email, to = 'My Effect - Student Signup Successful', 'info@myeffect.ca', 'communications@mycleancity.org'
 
         send_email = SendEmail()
         send_email.send(template, content, subject, from_email, to)
 
-        if form.cleaned_data['role'] == "ambassador" or form.cleaned_data['role'] == "manager":
-            return HttpResponseRedirect('/clean-team/create-or-request/?role=%s' %(form.cleaned_data['role']))
-        elif form.cleaned_data['role'] == "catalyst":
+
+        if form.cleaned_data['role'] == "leader" or form.cleaned_data['role'] == "manager":
+            return HttpResponseRedirect('/clean-team/create-or-request/?role=%s' % (form.cleaned_data['role']))
+        elif form.cleaned_data['role'] == "agent":
             return HttpResponseRedirect('/clean-team/register-catalyst/')
 
         return HttpResponseRedirect('/')
@@ -235,7 +235,7 @@ class RegisterView(FormView):
 
         return context
 
-# TODO: Pretty much a copy and paste of RegisterView,
+# TODO: Pretty much a copy and paste of RegisterView
 # find a more efficient way of doing this.
 class RegisterInviteView(FormView):
     template_name = "users/register.html"
