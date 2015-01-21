@@ -507,7 +507,7 @@ def follow_on_twitter(request):
 
     return HttpResponse(True)
 
-class ProfileProgressView(TemplateView):
+class ProfileProgressView(LoginRequiredMixin, TemplateView):
     template_name = "users/profile_progress.html"
 
     def get_context_data(self, **kwargs):

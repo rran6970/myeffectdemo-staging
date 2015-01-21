@@ -25,19 +25,19 @@ Date created:   Jan 30, 2014
 Description:    All of the levels each Change Team can go through
 """
 class CleanTeamLevel(models.Model):
-	name = models.CharField(max_length=30, null=False, default="Seedling")
-	badge = models.CharField(max_length=100, null=False, default="images/badge-level-1-75x63.png")
-	tree_level = models.CharField(max_length=100, null=False, default="images/clean-team-tree-stage-1.png")
-	next_level = models.ForeignKey('self', null=True, blank=True)
+    name = models.CharField(max_length=30, null=False, default="Seedling")
+    badge = models.CharField(max_length=100, null=False, default="images/badge-level-1-75x63.png")
+    tree_level = models.CharField(max_length=100, null=False, default="images/clean-team-tree-stage-1.png")
+    next_level = models.ForeignKey('self', null=True, blank=True)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Level'
+    class Meta:
+        verbose_name_plural = u'Change Team Level'
 
-	def __unicode__(self):
-		return u'%s' % self.name
+    def __unicode__(self):
+        return u'%s' % self.name
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamLevel, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanTeamLevel, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeam
@@ -45,236 +45,236 @@ Date created:   Nov 25, 2013
 Description:    Users can be part of Change Teams
 """
 class CleanTeam(models.Model):
-	name = models.CharField(max_length=60, blank=True, verbose_name='Change Team Name')
-	website = models.URLField(verbose_name = u'Website', default="")
-	logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
-	about = models.TextField(blank=True, null=True, default="")
-	twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
-	region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
-	team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
-	group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
-	clean_creds = models.IntegerField(default=0)
-	level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
-	admin = models.BooleanField(default=False)
+    name = models.CharField(max_length=60, blank=True, verbose_name='Change Team Name')
+    website = models.URLField(verbose_name = u'Website', default="")
+    logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
+    about = models.TextField(blank=True, null=True, default="")
+    twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
+    region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
+    team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
+    group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
+    clean_creds = models.IntegerField(default=0)
+    level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
+    admin = models.BooleanField(default=False)
 
-	contact_user = models.ForeignKey(User)
-	contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
+    contact_user = models.ForeignKey(User)
+    contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
 
-	class Meta:
-		verbose_name_plural = u'Change Team'
+    class Meta:
+        verbose_name_plural = u'Change Team'
 
-	def __unicode__(self):
-		return u'Change Team: %s' % self.name
+    def __unicode__(self):
+        return u'Change Team: %s' % self.name
 
-	def get_pixels_for_leading_teams(self, clean_creds):
-		height = 0
+    def get_pixels_for_leading_teams(self, clean_creds):
+        height = 0
 
-		if (clean_creds <= 250):
-			difference = 75
-			max = 250
+        if (clean_creds <= 250):
+            difference = 75
+            max = 250
 
-			divisor = max/difference
-			height = clean_creds/divisor
-			height -= 30
-		elif (clean_creds <= 1000):
-			difference = 67
-			max = 1000
+            divisor = max/difference
+            height = clean_creds/divisor
+            height -= 30
+        elif (clean_creds <= 1000):
+            difference = 67
+            max = 1000
 
-			divisor = max/difference
-			
-			height = clean_creds/divisor
-			height += difference
-			height -= 30
-		elif (clean_creds <= 3000):
-			difference = 67
-			max = 3000
+            divisor = max/difference
 
-			divisor = max/difference
-			
-			height = clean_creds/divisor
-			height += (difference + 75)
-			height -= 15
-		elif (clean_creds <= 5000):
-			difference = 67
-			max = 5000
+            height = clean_creds/divisor
+            height += difference
+            height -= 30
+        elif (clean_creds <= 3000):
+            difference = 67
+            max = 3000
 
-			divisor = max/difference
-			
-			height = clean_creds/divisor
-			height += (difference + 140)
-			height -= 35
-		elif (clean_creds <= 10000):
-			difference = 67
-			max = 10000
+            divisor = max/difference
 
-			divisor = max/difference;
-			
-			height = clean_creds/divisor;
-			height += (difference + 208);
-			height -= 40
-		elif (clean_creds <= 15000):
-			difference = 67
-			max = 15000
+            height = clean_creds/divisor
+            height += (difference + 75)
+            height -= 15
+        elif (clean_creds <= 5000):
+            difference = 67
+            max = 5000
 
-			divisor = max/difference
-			
-			height = clean_creds/divisor
-			height += (difference + 285)
-			height -= 13
-		elif (clean_creds > 15000):
-			height = 419
-			height -= 5
+            divisor = max/difference
 
-		return height
+            height = clean_creds/divisor
+            height += (difference + 140)
+            height -= 35
+        elif (clean_creds <= 10000):
+            difference = 67
+            max = 10000
 
-	def get_leading_teams(self):
-		clean_teams = CleanTeam.objects.filter(clean_creds__gt=self.clean_creds)[:3]
-		clean_teams_list = []
+            divisor = max/difference;
 
-		for clean_team in clean_teams:
-			pixels = self.get_pixels_for_leading_teams(clean_team.clean_creds)
-			clean_team_array = [clean_team, pixels]
-			clean_teams_list.append(clean_team_array)
+            height = clean_creds/divisor;
+            height += (difference + 208);
+            height -= 40
+        elif (clean_creds <= 15000):
+            difference = 67
+            max = 15000
 
-		return clean_teams_list
+            divisor = max/difference
 
-	def add_team_clean_creds(self, amount, notification=True):
-		self.clean_creds += amount
-		self.save()
+            height = clean_creds/divisor
+            height += (difference + 285)
+            height -= 13
+        elif (clean_creds > 15000):
+            height = 419
+            height -= 5
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="clean_team_add_clean_creds")
-				# The names that will go in the notification message template
-				name_strings = [self.name, amount]
-				link_strings = [str(self.id)]
+        return height
 
-				users_to_notify_str = notification.users_to_notify
-				users_to_notify = users_to_notify_str.split(', ')
+    def get_leading_teams(self):
+        clean_teams = CleanTeam.objects.filter(clean_creds__gt=self.clean_creds)[:3]
+        clean_teams_list = []
 
-				# Notify all of the Users that have the roles within users_to_notify
-				for role in users_to_notify:
-					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self, status="approved")
+        for clean_team in clean_teams:
+            pixels = self.get_pixels_for_leading_teams(clean_team.clean_creds)
+            clean_team_array = [clean_team, pixels]
+            clean_teams_list.append(clean_team_array)
 
-					for member in clean_team_members:
-						user_notification = UserNotification()
-						user_notification.create_notification("clean_team_add_clean_creds", member.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+        return clean_teams_list
 
-	# Checks if all of the tasks within the Change Teams level is complete.
-	# If so, they are leveled up.
-	def check_if_level_up(self):
-		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
-		tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=self, level_task__in=level_tasks, completed=True).count()
-		total_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level).count()
+    def add_team_clean_creds(self, amount, notification=True):
+        self.clean_creds += amount
+        self.save()
 
-		if tasks_complete == total_tasks:
-			self.level_up()
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="clean_team_add_clean_creds")
+                # The names that will go in the notification message template
+                name_strings = [self.name, amount]
+                link_strings = [str(self.id)]
 
-	def level_up(self, notification=True):
-		# If they don't have a badge, ie. new team, make them a Seedling
-		if self.level is None:
-			level = CleanTeamLevel.objects.get(name="Seedling")
-		else:
-			level = self.level.next_level
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
 
-		self.level = level
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self, status="approved")
 
-		# Add rewards for certain badges
-		if level.name == "Sapling":
-			self.clean_creds += 100
-		elif level.name == "Tree":
-			self.clean_creds += 200
+                    for member in clean_team_members:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("clean_team_add_clean_creds", member.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-		self.save()
+    # Checks if all of the tasks within the Change Teams level is complete.
+    # If so, they are leveled up.
+    def check_if_level_up(self):
+        level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
+        tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=self, level_task__in=level_tasks, completed=True).count()
+        total_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level).count()
 
-		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
+        if tasks_complete == total_tasks:
+            self.level_up()
 
-		# Create the new tasks the Change Team must complete
-		for task in level_tasks:
-			level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
-			level_progress.save()
+    def level_up(self, notification=True):
+        # If they don't have a badge, ie. new team, make them a Seedling
+        if self.level is None:
+            level = CleanTeamLevel.objects.get(name="Seedling")
+        else:
+            level = self.level.next_level
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="level_up")
-				# The names that will go in the notification message template			
-				name_strings = [self.name, self.level.name]
-				link_strings = [str(self.id)]
+        self.level = level
 
-				users_to_notify_str = notification.users_to_notify
-				users_to_notify = users_to_notify_str.split(', ')
+        # Add rewards for certain badges
+        if level.name == "Sapling":
+            self.clean_creds += 100
+        elif level.name == "Tree":
+            self.clean_creds += 200
 
-				# Notify all of the Users that have the roles within users_to_notify
-				for role in users_to_notify:
-					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self, status="approved")
+        self.save()
 
-					for member in clean_team_members:
-						user_notification = UserNotification()
-						user_notification.create_notification("level_up", member.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+        level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
 
-	def complete_level_task(self, task):
-		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)	
+        # Create the new tasks the Change Team must complete
+        for task in level_tasks:
+            level_progress = CleanTeamLevelProgress(clean_team=self, level_task=task)
+            level_progress.save()
 
-		# Check if the task is already requesting an approval
-		if level_progress.approval_requested:
-			level_progress.approval_requested = False
-			level_progress.completed = True
-		elif task.approval_required:
-			level_progress.submit_for_approval()
-		else:
-			level_progress.completed = True
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="level_up")
+                # The names that will go in the notification message template
+                name_strings = [self.name, self.level.name]
+                link_strings = [str(self.id)]
 
-		level_progress.save()
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
 
-		self.check_if_level_up()
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self, status="approved")
 
-	def uncomplete_level_task(self, task):
-		level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)	
+                    for member in clean_team_members:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("level_up", member.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-		if level_progress.level_task.approval_required:
-			level_progress.approval_requested = True
-		else:
-			level_progress.approval_requested = False
+    def complete_level_task(self, task):
+        level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)
 
-		level_progress.completed = False
-		level_progress.save()
+        # Check if the task is already requesting an approval
+        if level_progress.approval_requested:
+            level_progress.approval_requested = False
+            level_progress.completed = True
+        elif task.approval_required:
+            level_progress.submit_for_approval()
+        else:
+            level_progress.completed = True
 
-	def count_invites_sent(self, role=""):
-		if role:
-			return CleanTeamInvite.objects.filter(clean_team=self, role=role).count()
-		else:
-			return CleanTeamInvite.objects.filter(clean_team=self).count()
+        level_progress.save()
 
-	def count_approved_members(self, role=""):
-		if role == "ambassador":
-			return CleanTeamMember.objects.filter(clean_team=self, role=role, status="approved").count()
-		elif role == "catalyst":
-			return CleanChampion.objects.filter(clean_team=self, status="approved").count()
-		else:
-			ca = CleanTeamMember.objects.filter(clean_team=self, role="ambassador", status="approved").count()
-			cc = CleanChampion.objects.filter(clean_team=self, status="approved").count()
+        self.check_if_level_up()
 
-			return ca + cc
+    def uncomplete_level_task(self, task):
+        level_progress, created = CleanTeamLevelProgress.objects.get_or_create(clean_team=self, level_task=task)
 
-	def update_main_contact(self, form):
-		try:
-			clean_ambassador = form['clean_ambassadors']
-			clean_ambassador_user = User.objects.get(id=clean_ambassador)
+        if level_progress.level_task.approval_required:
+            level_progress.approval_requested = True
+        else:
+            level_progress.approval_requested = False
 
-			self.contact_user = clean_ambassador_user
-			self.contact_phone = form['contact_phone']
-			self.save()
-		except Exception, e:
-			print e
+        level_progress.completed = False
+        level_progress.save()
 
-	def save(self, *args, **kwargs):
-		super(CleanTeam, self).save(*args, **kwargs)
+    def count_invites_sent(self, role=""):
+        if role:
+            return CleanTeamInvite.objects.filter(clean_team=self, role=role).count()
+        else:
+            return CleanTeamInvite.objects.filter(clean_team=self).count()
+
+    def count_approved_members(self, role=""):
+        if role == "ambassador":
+            return CleanTeamMember.objects.filter(clean_team=self, role=role, status="approved").count()
+        elif role == "catalyst":
+            return CleanChampion.objects.filter(clean_team=self, status="approved").count()
+        else:
+            ca = CleanTeamMember.objects.filter(clean_team=self, role="ambassador", status="approved").count()
+            cc = CleanChampion.objects.filter(clean_team=self, status="approved").count()
+
+            return ca + cc
+
+    def update_main_contact(self, form):
+        try:
+            clean_ambassador = form['clean_ambassadors']
+            clean_ambassador_user = User.objects.get(id=clean_ambassador)
+
+            self.contact_user = clean_ambassador_user
+            self.contact_phone = form['contact_phone']
+            self.save()
+        except Exception, e:
+            print e
+
+    def save(self, *args, **kwargs):
+        super(CleanTeam, self).save(*args, **kwargs)
 
 """
 Name:           CleanChampion
@@ -282,97 +282,97 @@ Date created:   Dec 30, 2013
 Description:    Users can be part of Change Teams as Clean Champions
 """
 class CleanChampion(models.Model):
-	user = models.ForeignKey(User)
-	clean_team = models.ForeignKey(CleanTeam)
-	status = models.CharField(max_length=30, default="approved")
+    user = models.ForeignKey(User)
+    clean_team = models.ForeignKey(CleanTeam)
+    status = models.CharField(max_length=30, default="approved")
 
-	class Meta:
-		verbose_name_plural = u'Clean Champions'
+    class Meta:
+        verbose_name_plural = u'Clean Champions'
 
-	def __unicode__(self):
-		return u'%s is supporting %s' %(self.user.email, self.clean_team.name)
+    def __unicode__(self):
+        return u'%s is supporting %s' %(self.user.email, self.clean_team.name)
 
-	def save(self, *args, **kwargs):
-		super(CleanChampion, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanChampion, self).save(*args, **kwargs)
 
-	def becomeCleanChampion(self, user, selected_team, notification=True):
-		self.user = user
-		self.clean_team = selected_team
-		self.status = "approved"
-		self.save()
+    def becomeCleanChampion(self, user, selected_team, notification=True):
+        self.user = user
+        self.clean_team = selected_team
+        self.status = "approved"
+        self.save()
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="cc_joined")
-				# The names that will go in the notification message template
-				full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-				name_strings = [full_name, self.clean_team.name]
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="cc_joined")
+                # The names that will go in the notification message template
+                full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                name_strings = [full_name, self.clean_team.name]
 
-				users_to_notify_str = notification.users_to_notify
-				users_to_notify = users_to_notify_str.split(', ')
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
 
-				# Notify all of the Users that have the roles within users_to_notify
-				for role in users_to_notify:
-					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-					for member in clean_team_members:
-						user_notification = UserNotification()
-						user_notification.create_notification("cc_joined", member.user, name_strings)
-			except Exception, e:
-				print e
+                    for member in clean_team_members:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("cc_joined", member.user, name_strings)
+            except Exception, e:
+                print e
 
-		if self.clean_team.level.name == "Sprout":
-			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+        if self.clean_team.level.name == "Sprout":
+            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
 
-			if count_ccs > 2:
-				task = CleanTeamLevelTask.objects.get(name="3_ccs")
-				self.clean_team.complete_level_task(task)
+            if count_ccs > 2:
+                task = CleanTeamLevelTask.objects.get(name="3_ccs")
+                self.clean_team.complete_level_task(task)
 
-		elif self.clean_team.level.name == "Sapling":
-			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+        elif self.clean_team.level.name == "Sapling":
+            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
 
-			if count_ccs > 9:
-				task = CleanTeamLevelTask.objects.get(name="10_ccs")
-				self.clean_team.complete_level_task(task)
+            if count_ccs > 9:
+                task = CleanTeamLevelTask.objects.get(name="10_ccs")
+                self.clean_team.complete_level_task(task)
 
-		elif self.clean_team.level.name == "Tree":
-			count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+        elif self.clean_team.level.name == "Tree":
+            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
 
-			if count_ccs > 19:
-				task = CleanTeamLevelTask.objects.get(name="20_ccs")
-				self.clean_team.complete_level_task(task)
+            if count_ccs > 19:
+                task = CleanTeamLevelTask.objects.get(name="20_ccs")
+                self.clean_team.complete_level_task(task)
 
-		self.clean_team.add_team_clean_creds(5)
-		self.user.profile.add_clean_creds(20)
-		
+        self.clean_team.add_team_clean_creds(5)
+        self.user.profile.add_clean_creds(20)
+
     #def becomeCleanChampionNew(self, user,userid, selected_team):
-	def becomeCleanChampionNew(self,user,userid,selected_team):
-		self.user_id = userid
-		self.clean_team_id = selected_team
-		self.status = "approved"
-		self.save()
-		
+    def becomeCleanChampionNew(self,user,userid,selected_team):
+        self.user_id = userid
+        self.clean_team_id = selected_team
+        self.status = "approved"
+        self.save()
+
         # Send notifications
-		notification = Notification.objects.get(notification_type="cc_joined")
-		# The names that will go in the notification message template
-		full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-		name_strings = [full_name, self.clean_team.name]
+        notification = Notification.objects.get(notification_type="cc_joined")
+        # The names that will go in the notification message template
+        full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+        name_strings = [full_name, self.clean_team.name]
 
-		users_to_notify_str = notification.users_to_notify
-		users_to_notify = users_to_notify_str.split(', ')
+        users_to_notify_str = notification.users_to_notify
+        users_to_notify = users_to_notify_str.split(', ')
 
-		# Notify all of the Users that have the roles within users_to_notify
-		for role in users_to_notify:
-			#print self.clean_team_id
-			clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+        # Notify all of the Users that have the roles within users_to_notify
+        for role in users_to_notify:
+            #print self.clean_team_id
+            clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-			for member in clean_team_members:
-				user_notification = UserNotification()
-				user_notification.create_notification("cc_joined", member.user, name_strings)
+            for member in clean_team_members:
+                user_notification = UserNotification()
+                user_notification.create_notification("cc_joined", member.user, name_strings)
 
-		self.clean_team.add_team_clean_creds(5)
-		self.user.profile.add_clean_creds(20)		
+        self.clean_team.add_team_clean_creds(5)
+        self.user.profile.add_clean_creds(20)
 
 """
 Name:           CleanTeamMember
@@ -380,112 +380,112 @@ Date created:   Nov 25, 2013
 Description:    Users can be part of Change Teams
 """
 class CleanTeamMember(models.Model):
-	user = models.ForeignKey(User)
-	clean_team = models.ForeignKey(CleanTeam)
-	role = models.CharField(max_length=30, default="ambassador")
-	status = models.CharField(max_length=30, default="pending")
+    user = models.ForeignKey(User)
+    clean_team = models.ForeignKey(CleanTeam)
+    role = models.CharField(max_length=30, default="ambassador")
+    status = models.CharField(max_length=30, default="pending")
 
-	class Meta:
-		verbose_name_plural = u'Change Team Member'
+    class Meta:
+        verbose_name_plural = u'Change Team Member'
 
-	def __unicode__(self):
-		return u'%s is on %s' %(self.user.email, self.clean_team.name)
+    def __unicode__(self):
+        return u'%s is on %s' %(self.user.email, self.clean_team.name)
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamMember, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanTeamMember, self).save(*args, **kwargs)
 
-	# By pass the requestBecomeCleanAmbassador() and approveCleanAmbassador()
-	def becomeCleanAmbassador(self, user, selected_team, notification=True):
-		CleanChampion.objects.filter(user=user, clean_team=selected_team).delete()
+    # By pass the requestBecomeCleanAmbassador() and approveCleanAmbassador()
+    def becomeCleanAmbassador(self, user, selected_team, notification=True):
+        CleanChampion.objects.filter(user=user, clean_team=selected_team).delete()
 
-		self.user = user
-		self.clean_team = selected_team
-		self.role = "ambassador"
-		self.status = "approved"
-		self.save()
+        self.user = user
+        self.clean_team = selected_team
+        self.role = "ambassador"
+        self.status = "approved"
+        self.save()
 
-		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		self.user.profile.save()
+        self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+        self.user.profile.save()
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="ca_approved")
-				# The names that will go in the notification message template
-				name_strings = [self.clean_team.name]
-				link_strings = [str(self.clean_team.id)]
-			
-				user_notification = UserNotification()
-				user_notification.create_notification("ca_approved", self.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="ca_approved")
+                # The names that will go in the notification message template
+                name_strings = [self.clean_team.name]
+                link_strings = [str(self.clean_team.id)]
 
-		self.user.profile.add_clean_creds(50)
+                user_notification = UserNotification()
+                user_notification.create_notification("ca_approved", self.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-	def approveCleanAmbassador(self, notification=True):
-		self.status = "approved"
-		self.save()
+        self.user.profile.add_clean_creds(50)
 
-		CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
+    def approveCleanAmbassador(self, notification=True):
+        self.status = "approved"
+        self.save()
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="ca_approved")
-				# The names that will go in the notification message template
-				name_strings = [self.clean_team.name]
-				link_strings = [str(self.clean_team.id)]
-			
-				user_notification = UserNotification()
-				user_notification.create_notification("ca_approved", self.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+        CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
 
-		self.user.profile.add_clean_creds(50)
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="ca_approved")
+                # The names that will go in the notification message template
+                name_strings = [self.clean_team.name]
+                link_strings = [str(self.clean_team.id)]
 
-	def removedCleanAmbassador(self):
-		self.user.profile.clean_team_member = None
-		self.user.profile.save()
-		self.delete()
+                user_notification = UserNotification()
+                user_notification.create_notification("ca_approved", self.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-	def requestBecomeCleanAmbassador(self, user, selected_team, notification=True):
-		self.user = user
-		self.clean_team = selected_team
-		self.status = "pending"
-		self.role = "ambassador"
-		self.save()
+        self.user.profile.add_clean_creds(50)
 
-		self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
-		self.user.profile.save()
+    def removedCleanAmbassador(self):
+        self.user.profile.clean_team_member = None
+        self.user.profile.save()
+        self.delete()
 
-		try:
-			if notification:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="ca_request")
-				# The names that will go in the notification message template
-				full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-				name_strings = [full_name, self.clean_team.name]
+    def requestBecomeCleanAmbassador(self, user, selected_team, notification=True):
+        self.user = user
+        self.clean_team = selected_team
+        self.status = "pending"
+        self.role = "ambassador"
+        self.save()
 
-				users_to_notify_str = notification.users_to_notify
-				users_to_notify = users_to_notify_str.split(', ')
+        self.user.profile.clean_team_member = CleanTeamMember.objects.latest('id')
+        self.user.profile.save()
 
-				# Notify all of the Users that have the roles within users_to_notify
-				for role in users_to_notify:
-					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+        try:
+            if notification:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="ca_request")
+                # The names that will go in the notification message template
+                full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                name_strings = [full_name, self.clean_team.name]
 
-					for member in clean_team_members:
-						user_notification = UserNotification()
-						user_notification.create_notification("ca_request", member.user, name_strings)
-		except Exception, e:
-				print e
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
 
-	def has_max_clean_ambassadors(self):
-		num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-		if num_ca >= 4:
-			return True
+                    for member in clean_team_members:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("ca_request", member.user, name_strings)
+        except Exception, e:
+                print e
 
-		return False
+    def has_max_clean_ambassadors(self):
+        num_ca = CleanTeamMember.objects.filter(clean_team_id=8).count()
+
+        if num_ca >= 4:
+            return True
+
+        return False
 
 """
 Name:           CleanTeamPost
@@ -493,70 +493,70 @@ Date created:   Dec 25, 2013
 Description:    The posts on a Change Team's profile
 """
 class CleanTeamPost(models.Model):
-	clean_team = models.ForeignKey(CleanTeam)
-	user = models.ForeignKey(User)
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	message = models.TextField(blank=True, null=True, default="")
+    clean_team = models.ForeignKey(CleanTeam)
+    user = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    message = models.TextField(blank=True, null=True, default="")
 
-	class Meta:
-		verbose_name_plural = u'Change Team Post'
+    class Meta:
+        verbose_name_plural = u'Change Team Post'
 
-	def __unicode__(self):
-		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
+    def __unicode__(self):
+        return u'%s post on %s' % (self.clean_team, str(self.timestamp))
 
-	def newPost(self, user, message, clean_team, notification=True):
-		self.user = user
-		self.clean_team = clean_team
-		self.message = message
+    def newPost(self, user, message, clean_team, notification=True):
+        self.user = user
+        self.clean_team = clean_team
+        self.message = message
 
-		self.save()
+        self.save()
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="message_posted")
-				# The names that will go in the notification message template
-				name_strings = [self.clean_team.name]
-				link_strings = [str(self.clean_team.id)]
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="message_posted")
+                # The names that will go in the notification message template
+                name_strings = [self.clean_team.name]
+                link_strings = [str(self.clean_team.id)]
 
-				users_to_notify_str = notification.users_to_notify
-				users_to_notify = users_to_notify_str.split(', ')
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
 
-				# Notify all of the Users that have the roles within users_to_notify
-				for role in users_to_notify:
-					clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-					members_list = list(clean_team_members)
+                    members_list = list(clean_team_members)
 
-					if role == "catalyst":
-						clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")	
+                    if role == "catalyst":
+                        clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")
 
-						members_list = list(chain(clean_team_members, clean_champions))
+                        members_list = list(chain(clean_team_members, clean_champions))
 
-					for member in members_list:
-						user_notification = UserNotification()
-						user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+                    for member in members_list:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-		post_string = "<div class='post'>";
+        post_string = "<div class='post'>";
 
-		if self.user.profile.picture:
-			post_string += "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, self.user.profile.picture)
-		else:
-			post_string += "<img src='%simages/default-profile-pic-42x42.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
-		
-		post_string += "<p class='user'><a href='/users/profile/%s'>%s</a></p>" % (self.user.id, self.user.profile.get_full_name())
-		# post_string += "<p class='timestamp'>%s</p>" % date(self.timestamp, "F j, Y, g:i a")
-		post_string += "<p class='timestamp'>Just now</p>"
-		post_string += "<div class='clear'></div>"
-		post_string += "<p class='message'>" + message + "</p></div>"
-		post_string += "<div class='clear'></div>"
+        if self.user.profile.picture:
+            post_string += "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, self.user.profile.picture)
+        else:
+            post_string += "<img src='%simages/default-profile-pic-42x42.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
 
-		return json.dumps(post_string, indent=4, separators=(',', ': '))
+        post_string += "<p class='user'><a href='/users/profile/%s'>%s</a></p>" % (self.user.id, self.user.profile.get_full_name())
+        # post_string += "<p class='timestamp'>%s</p>" % date(self.timestamp, "F j, Y, g:i a")
+        post_string += "<p class='timestamp'>Just now</p>"
+        post_string += "<div class='clear'></div>"
+        post_string += "<p class='message'>" + message + "</p></div>"
+        post_string += "<div class='clear'></div>"
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamPost, self).save(*args, **kwargs)
+        return json.dumps(post_string, indent=4, separators=(',', ': '))
+
+    def save(self, *args, **kwargs):
+        super(CleanTeamPost, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeamInvite
@@ -564,147 +564,147 @@ Date created:   Jan 5, 2014
 Description:    The invites that each member can receive
 """
 class CleanTeamInvite(models.Model):
-	email = models.EmailField(max_length=70, blank=True)
-	clean_team = models.ForeignKey(CleanTeam)
-	user = models.ForeignKey(User)
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	role = models.CharField(max_length=30, default="ambassador")
-	status = models.CharField(max_length=30, default="pending")
-	token = models.CharField(max_length=20, blank=True)
+    email = models.EmailField(max_length=70, blank=True)
+    clean_team = models.ForeignKey(CleanTeam)
+    user = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    role = models.CharField(max_length=30, default="ambassador")
+    status = models.CharField(max_length=30, default="pending")
+    token = models.CharField(max_length=20, blank=True)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Invite'
+    class Meta:
+        verbose_name_plural = u'Change Team Invite'
 
-	def __unicode__(self):
-		return u'%s post on %s' % (self.clean_team, str(self.timestamp))
+    def __unicode__(self):
+        return u'%s post on %s' % (self.clean_team, str(self.timestamp))
 
-	# Checks if User is already registered before accpeting the invite
-	# Returns False if not accepted
-	def acceptInvite(self, user, notification=True):
-		if self.role == "catalyst":
-			clean_champion = CleanChampion()				
-			clean_champion.becomeCleanChampion(user, self.clean_team)
+    # Checks if User is already registered before accpeting the invite
+    # Returns False if not accepted
+    def acceptInvite(self, user, notification=True):
+        if self.role == "catalyst":
+            clean_champion = CleanChampion()
+            clean_champion.becomeCleanChampion(user, self.clean_team)
 
-		elif self.role == "ambassador":
-			ctm = CleanTeamMember()
-			ctm.becomeCleanAmbassador(user, self.clean_team)
+        elif self.role == "ambassador":
+            ctm = CleanTeamMember()
+            ctm.becomeCleanAmbassador(user, self.clean_team)
 
-		emails = User.objects.filter(email=self.email).count()
+        emails = User.objects.filter(email=self.email).count()
 
-		if emails > 0:
-			self.status = "accepted"
-			self.save()
+        if emails > 0:
+            self.status = "accepted"
+            self.save()
 
-			if notification:
-				try:
-					# Send notifications
-					notification = Notification.objects.get(notification_type="ca_joined")
-					# The names that will go in the notification message template
-					full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-					name_strings = [full_name, self.clean_team.name]
+            if notification:
+                try:
+                    # Send notifications
+                    notification = Notification.objects.get(notification_type="ca_joined")
+                    # The names that will go in the notification message template
+                    full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                    name_strings = [full_name, self.clean_team.name]
 
-					users_to_notify_str = notification.users_to_notify
-					users_to_notify = users_to_notify_str.split(', ')
+                    users_to_notify_str = notification.users_to_notify
+                    users_to_notify = users_to_notify_str.split(', ')
 
-					# Notify all of the Users that have the roles within users_to_notify
-					for role in users_to_notify:
-						clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+                    # Notify all of the Users that have the roles within users_to_notify
+                    for role in users_to_notify:
+                        clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-						for member in clean_team_members:
-							user_notification = UserNotification()
-							user_notification.create_notification("ca_joined", member.user, name_strings)
+                        for member in clean_team_members:
+                            user_notification = UserNotification()
+                            user_notification.create_notification("ca_joined", member.user, name_strings)
 
-					# self.clean_team.add_team_clean_creds(5)	
-				except Exception, e:
-					print e
+                    # self.clean_team.add_team_clean_creds(5)
+                except Exception, e:
+                    print e
 
-			return True
+            return True
 
-		return False
+        return False
 
-	def inviteUser(self, user, role, email, uri, notification=True):
-		char_set = string.ascii_lowercase + string.digits
-		token = ''.join(random.sample(char_set*20,20))
-		invite_full_uri = u'%s/%s' % (uri, token)
-		unsubscribe_full_uri = u'%s/unsubscribe/' % (uri)
+    def inviteUser(self, user, role, email, uri, notification=True):
+        char_set = string.ascii_lowercase + string.digits
+        token = ''.join(random.sample(char_set*20,20))
+        invite_full_uri = u'%s/%s' % (uri, token)
+        unsubscribe_full_uri = u'%s/unsubscribe/' % (uri)
 
-		self.clean_team = user.profile.clean_team_member.clean_team
-		self.user = user
-		self.email = str(email)
-		self.role = role
-		self.status = 'pending'
-		self.token = token
-		self.save()
+        self.clean_team = user.profile.clean_team_member.clean_team
+        self.user = user
+        self.email = str(email)
+        self.role = role
+        self.status = 'pending'
+        self.token = token
+        self.save()
 
-		# If the User is already registered, send them a notification
-		try:
-			u = User.objects.get(email=str(email))
-		except Exception, e:
-			u = None
+        # If the User is already registered, send them a notification
+        try:
+            u = User.objects.get(email=str(email))
+        except Exception, e:
+            u = None
 
-		if notification:
-			try:
-				if u:
-					# Send notifications
-					notification_type = "cc_invite"
-					if role == "ambassador":
-						notification_type = "ca_invite"
-						
-					notification = Notification.objects.get(notification_type=notification_type)
-					# The names that will go in the notification message template
-					full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-					name_strings = [full_name, self.clean_team.name]
-					link_strings = [str(self.token)]
+        if notification:
+            try:
+                if u:
+                    # Send notifications
+                    notification_type = "cc_invite"
+                    if role == "ambassador":
+                        notification_type = "ca_invite"
 
-					user_notification = UserNotification()
-					user_notification.create_notification(notification_type, u, name_strings, link_strings)
-			except Exception, e:
-				print e
+                    notification = Notification.objects.get(notification_type=notification_type)
+                    # The names that will go in the notification message template
+                    full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                    name_strings = [full_name, self.clean_team.name]
+                    link_strings = [str(self.token)]
 
-		if self.clean_team.level.name == "Seedling":
-			if self.clean_team.count_invites_sent() > 4:
-				task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
-				self.clean_team.complete_level_task(task)
+                    user_notification = UserNotification()
+                    user_notification.create_notification(notification_type, u, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-		if role == "ambassador":
-			role = "Clean Ambassador"
-		elif role == "catalyst":
-			role = "Clean Champion"
+        if self.clean_team.level.name == "Seedling":
+            if self.clean_team.count_invites_sent() > 4:
+                task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
+                self.clean_team.complete_level_task(task)
 
-		print email
-		# from django.core.mail import send_mail
-		# send_mail('test', 'test', 'zee@hakstudio.com', [email])
+        if role == "ambassador":
+            role = "Clean Ambassador"
+        elif role == "catalyst":
+            role = "Clean Champion"
 
-		# Send invite email to email address
-		template = get_template('emails/email_invite_join.html')
-		content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
+        print email
+        # from django.core.mail import send_mail
+        # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
-		subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
+        # Send invite email to email address
+        template = get_template('emails/email_invite_join.html')
+        content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
 
-		send_email = SendEmail()
-		send_email.send(template, content, subject, from_email, to)
+        subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
 
-	def unsubscribe(self):
-		self.status = "declined"
-		self.save()
+        send_email = SendEmail()
+        send_email.send(template, content, subject, from_email, to)
 
-	def resendInvite(self, uri):
-		full_uri = u'%s/%s' % (uri, self.token)
+    def unsubscribe(self):
+        self.status = "declined"
+        self.save()
 
-		# from django.core.mail import send_mail
-		# send_mail('test', 'test', 'zee@hakstudio.com', [email])
+    def resendInvite(self, uri):
+        full_uri = u'%s/%s' % (uri, self.token)
 
-		# Send invite email to email address
-		template = get_template('emails/email_invite_join.html')
-		content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
+        # from django.core.mail import send_mail
+        # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
-		subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
+        # Send invite email to email address
+        template = get_template('emails/email_invite_join.html')
+        content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
 
-		send_email = SendEmail()
-		send_email.send(template, content, subject, from_email, to)
+        subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamInvite, self).save(*args, **kwargs)
+        send_email = SendEmail()
+        send_email.send(template, content, subject, from_email, to)
+
+    def save(self, *args, **kwargs):
+        super(CleanTeamInvite, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeamLevelTask
@@ -712,20 +712,20 @@ Date created:   Jan 30, 2014
 Description:    All of the tasks required to be completed in a level
 """
 class CleanTeamLevelTask(models.Model):
-	clean_team_level = models.ForeignKey(CleanTeamLevel)
-	name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
-	description = models.TextField(blank=True, null=True, default="")
-	link = models.URLField(blank=True, null=True)
-	approval_required = models.BooleanField(default=0)
+    clean_team_level = models.ForeignKey(CleanTeamLevel)
+    name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
+    description = models.TextField(blank=True, null=True, default="")
+    link = models.URLField(blank=True, null=True)
+    approval_required = models.BooleanField(default=0)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Level Task'
+    class Meta:
+        verbose_name_plural = u'Change Team Level Task'
 
-	def __unicode__(self):
-		return u'%s: %s' % (self.name, self.description)
+    def __unicode__(self):
+        return u'%s: %s' % (self.name, self.description)
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamLevelTask, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanTeamLevelTask, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeamLevelProgress
@@ -733,24 +733,24 @@ Date created:   Jan 30, 2014
 Description:    The tasks each Change Team has completed per level
 """
 class CleanTeamLevelProgress(models.Model):
-	clean_team = models.ForeignKey(CleanTeam)
-	level_task = models.ForeignKey(CleanTeamLevelTask)
-	approval_requested = models.BooleanField(default=0)
-	completed = models.BooleanField(default=0)
+    clean_team = models.ForeignKey(CleanTeam)
+    level_task = models.ForeignKey(CleanTeamLevelTask)
+    approval_requested = models.BooleanField(default=0)
+    completed = models.BooleanField(default=0)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Level Progress'
+    class Meta:
+        verbose_name_plural = u'Change Team Level Progress'
 
-	def __unicode__(self):
-		return u'%s - %s' % (self.clean_team, self.level_task)
+    def __unicode__(self):
+        return u'%s - %s' % (self.clean_team, self.level_task)
 
-	def submit_for_approval(self):
-		self.approval_requested = True
-		self.completed = False
-		self.save()
+    def submit_for_approval(self):
+        self.approval_requested = True
+        self.completed = False
+        self.save()
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamLevelProgress, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanTeamLevelProgress, self).save(*args, **kwargs)
 
 """
 Name:           LeaderReferral
@@ -758,39 +758,39 @@ Date created:   Mar 4, 2014
 Description:    When Change Teams refer leaders
 """
 class LeaderReferral(models.Model):
-	first_name = models.CharField(max_length=60, blank=False, default="")
-	last_name = models.CharField(max_length=60, blank=False, default="")
-	email = models.CharField(max_length=60, blank=False, default="")
-	organization = models.CharField(max_length=60, blank=False, default="")
-	title = models.CharField(max_length=60, blank=False, default="")
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	clean_team = models.ForeignKey(CleanTeam, null=True)
-	user = models.ForeignKey(User, null=True)
+    first_name = models.CharField(max_length=60, blank=False, default="")
+    last_name = models.CharField(max_length=60, blank=False, default="")
+    email = models.CharField(max_length=60, blank=False, default="")
+    organization = models.CharField(max_length=60, blank=False, default="")
+    title = models.CharField(max_length=60, blank=False, default="")
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    clean_team = models.ForeignKey(CleanTeam, null=True)
+    user = models.ForeignKey(User, null=True)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Leader Referrals'
+    class Meta:
+        verbose_name_plural = u'Change Team Leader Referrals'
 
-	def __unicode__(self):
-		return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
+    def __unicode__(self):
+        return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
 
-	def new_referral(self, user, form, clean_team):
-		self.first_name = form.cleaned_data['first_name']
-		self.last_name = form.cleaned_data['last_name']
-		self.email = form.cleaned_data['email']
-		self.organization = form.cleaned_data['organization']
-		self.title = form.cleaned_data['title']
+    def new_referral(self, user, form, clean_team):
+        self.first_name = form.cleaned_data['first_name']
+        self.last_name = form.cleaned_data['last_name']
+        self.email = form.cleaned_data['email']
+        self.organization = form.cleaned_data['organization']
+        self.title = form.cleaned_data['title']
 
-		self.user = user
-		self.clean_team = clean_team
+        self.user = user
+        self.clean_team = clean_team
 
-		self.save()
+        self.save()
 
-		if self.clean_team.level.name == "Sapling":
-			task = CleanTeamLevelTask.objects.get(name="refer_teacher")
-			self.clean_team.complete_level_task(task)
+        if self.clean_team.level.name == "Sapling":
+            task = CleanTeamLevelTask.objects.get(name="refer_teacher")
+            self.clean_team.complete_level_task(task)
 
-	def save(self, *args, **kwargs):
-		super(LeaderReferral, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(LeaderReferral, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeamPresentation
@@ -798,35 +798,35 @@ Date created:   Mar 5, 2014
 Description:    When Change Teams submits a presentation
 """
 class CleanTeamPresentation(models.Model):
-	title = models.CharField(max_length=60, blank=False, default="")
-	presentation = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-	clean_team = models.ForeignKey(CleanTeam, null=True)
-	user = models.ForeignKey(User, null=True)
+    title = models.CharField(max_length=60, blank=False, default="")
+    presentation = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    clean_team = models.ForeignKey(CleanTeam, null=True)
+    user = models.ForeignKey(User, null=True)
 
-	class Meta:
-		verbose_name_plural = u'Change Team Presentation'
+    class Meta:
+        verbose_name_plural = u'Change Team Presentation'
 
-	def __unicode__(self):
-		return u'%s by %s' % (self.title, self.clean_team.name)
+    def __unicode__(self):
+        return u'%s by %s' % (self.title, self.clean_team.name)
 
-	def new_submission(self, user, form, clean_team):
-		self.title = form.cleaned_data['title']
-		presentation = form.cleaned_data['presentation']
+    def new_submission(self, user, form, clean_team):
+        self.title = form.cleaned_data['title']
+        presentation = form.cleaned_data['presentation']
 
-		self.user = user
-		self.clean_team = clean_team
+        self.user = user
+        self.clean_team = clean_team
 
-		if presentation:
-			key = 'presentations/ct_presentation_%s_%s' % (str(self.clean_team.id), presentation)
-			uploadFile = UploadFileToS3()
-			self.presentation = uploadFile.upload(key, presentation)
+        if presentation:
+            key = 'presentations/ct_presentation_%s_%s' % (str(self.clean_team.id), presentation)
+            uploadFile = UploadFileToS3()
+            self.presentation = uploadFile.upload(key, presentation)
 
-		self.save()
+        self.save()
 
-		if self.clean_team.level.name == "Tree":
-			task = CleanTeamLevelTask.objects.get(name="mcc_presentation")
-			self.clean_team.complete_level_task(task)
+        if self.clean_team.level.name == "Tree":
+            task = CleanTeamLevelTask.objects.get(name="mcc_presentation")
+            self.clean_team.complete_level_task(task)
 
-	def save(self, *args, **kwargs):
-		super(CleanTeamPresentation, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(CleanTeamPresentation, self).save(*args, **kwargs)
