@@ -190,6 +190,20 @@ $(function(){
     });
 
     $("#post-message-container form").on("submit", postMessage);
+
+    $("#clean-team-members-list #id_role").on("change", function(e){
+        if ($(this).val() == "organization")
+        {
+            window.location.replace("/clean-team/invite-org/");
+        }
+    });
+
+    $("#invite_id_role").on("change", function(e){
+        if ($(this).val() != "organization")
+        {
+            window.location.replace("/clean-team/invite/?role=" + $(this).val());
+        }
+    });
 });
 
 function resendInvite(e)

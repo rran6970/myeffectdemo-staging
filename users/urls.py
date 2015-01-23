@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 from cleanteams.views import *
 from userorganization.views import *
 from users.views import *
 
 urlpatterns = patterns('',
-	url(r'^login/?', LoginPageView.as_view()),
+	#url(r'^login/?', LoginPageView.as_view()),
+    url(r'^login/?', RedirectView.as_view(url='/accounts/login/')),
 	url(r'^auth/?', 'users.views.auth_view'),
 	url(r'^logout/?', 'users.views.logout'),	
 	url(r'^register_success/?', 'users.views.register_success'),

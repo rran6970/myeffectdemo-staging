@@ -33,801 +33,876 @@ from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
 
 class RegisterCleanTeamView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/register_clean_team.html"
-	form_class = RegisterCleanTeamForm
-	success_url = "mycleancity/index.html"
+    template_name = "cleanteams/register_clean_team.html"
+    form_class = RegisterCleanTeamForm
+    success_url = "mycleancity/index.html"
 
-	def get_initial(self):
-		initial = {}
+    def get_initial(self):
+        initial = {}
 
-		user = self.request.user
+        user = self.request.user
+        if user.profile.referral_token != '':
+            referral = LeaderReferral.objects.get(token=user.profile.referral_token)
+            initial['name'] = referral.organization
 
-		initial['contact_first_name'] = self.request.user.first_name
-		initial['contact_last_name'] = self.request.user.last_name
-		initial['contact_email'] = self.request.user.email
+        initial['contact_first_name'] = self.request.user.first_name
+        initial['contact_last_name'] = self.request.user.last_name
+        initial['contact_email'] = self.request.user.email
 
-		if 'role' in self.request.GET:
-			initial['role'] = self.request.GET['role']
+        if 'role' in self.request.GET:
+            initial['role'] = self.request.GET['role']
 
-		return initial
+        return initial
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		user = self.request.user
-		logo = form.cleaned_data['logo']
+    def form_valid(self, form):
+        user = self.request.user
+        logo = form.cleaned_data['logo']
 
-		ct = CleanTeam()
-		ct.name = form.cleaned_data['name']
-		ct.region = form.cleaned_data['region']
-		ct.team_type = form.cleaned_data['team_type']
-		ct.group = form.cleaned_data['group']
+        ct = CleanTeam()
+        ct.name = form.cleaned_data['name']
+        ct.region = form.cleaned_data['region']
+        ct.team_type = form.cleaned_data['team_type']
+        ct.group = form.cleaned_data['group']
 
-		ct.contact_user = user
-		ct.contact_phone = form.cleaned_data['contact_phone']
+        ct.contact_user = user
+        ct.contact_phone = form.cleaned_data['contact_phone']
 
-		if logo:
-			key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
-			uploadFile = UploadFileToS3()
-			ct.logo = uploadFile.upload(key, logo)
+        if logo:
+            key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
+            uploadFile = UploadFileToS3()
+            ct.logo = uploadFile.upload(key, logo)
 
-		ct.save()
-		ct.add_team_clean_creds(50)
-		ct.level_up()
+        ct.save()
+        ct.add_team_clean_creds(50)
+        ct.level_up()
 
-		try:
-			ctm = CleanTeamMember.objects.get(user=self.request.user)
-		except Exception, e:
-			print e
-			ctm = CleanTeamMember()
+        try:
+            ctm = CleanTeamMember.objects.get(user=self.request.user)
+        except Exception, e:
+            print e
+            ctm = CleanTeamMember()
 
-		ct = CleanTeam.objects.latest('id')
-		ctm.clean_team = ct
-		ctm.user = user
-		ctm.status = "approved"
-		ctm.role = form.cleaned_data['role']
-		ctm.save()
+        ct = CleanTeam.objects.latest('id')
+        ctm.clean_team = ct
+        ctm.user = user
+        ctm.status = "approved"
+        ctm.role = form.cleaned_data['role']
+        ctm.save()
 
-		user.profile.clean_team_member = ctm
-		user.profile.add_clean_creds(50)
-		user.profile.save()
+        if user.profile.referral_token != '':
+            try:
+                referral = LeaderReferral.objects.get(token=user.profile.referral_token)
+                if referral.status == "pending":
+                    referral.status = "accepted"
+                    referral.save()
+                    referral.clean_team.add_team_clean_creds(50)
+            except Exception, e:
+                print e
+        elif LeaderReferral.objects.filter(email=user.email).count() > 0:
+            try:
+                referral = LeaderReferral.objects.filter(email=user.email)[0]
+                if referral.status == "pending":
+                    referral.status = "accepted"
+                    referral.save()
+                    referral.clean_team.add_team_clean_creds(50)
+            except Exception, e:
+                print e
+        user.profile.clean_team_member = ctm
+        user.profile.add_clean_creds(50)
+        user.profile.save()
 
-		lang = user.profile.settings.communication_language
+        lang = user.profile.settings.communication_language
 
-		# Send registration email to user
-		if lang == "English":
-			template = get_template('emails/clean_team_register.html')
-			subject = 'My Effect - Change Team Signup Successful'
-		else:
-			template = get_template('emails/french/clean_team_register_fr.html')
-			subject = 'My Effect - Change Team Signup Successful'
-		
-		content = Context({ 'email': user.email, 'first_name': user.first_name })
+        # Send registration email to user
+        if lang == "English":
+            template = get_template('emails/clean_team_register.html')
+            subject = 'My Effect - Change Team Signup Successful'
+        else:
+            template = get_template('emails/french/clean_team_register_fr.html')
+            subject = 'My Effect - Change Team Signup Successful'
 
-		from_email, to = 'info@myeffect.ca', user.email
+        content = Context({ 'email': user.email, 'first_name': user.first_name })
 
-		send_email = SendEmail()
-		send_email.send(template, content, subject, from_email, to)
+        from_email, to = 'info@myeffect.ca', user.email
+
+        send_email = SendEmail()
+        send_email.send(template, content, subject, from_email, to)
 
 
-		# Send notification email to administrator
-		template = get_template('emails/register_email_notification.html')
-		content = Context({ 'email': user.email })
+        # Send notification email to administrator
+        template = get_template('emails/register_email_notification.html')
+        content = Context({ 'email': user.email })
 
-		subject, from_email, to = 'My Effect - Change Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
+        subject, from_email, to = 'My Effect - Change Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
 
-		send_email = SendEmail()
-		send_email.send(template, content, subject, from_email, to)
+        send_email = SendEmail()
+        send_email.send(template, content, subject, from_email, to)
 
-		return HttpResponseRedirect('/clean-team/invite/')
+        return HttpResponseRedirect('/clean-team/invite/')
 
-	def get_context_data(self, **kwargs):
-		context = super(RegisterCleanTeamView, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(RegisterCleanTeamView, self).get_context_data(**kwargs)
 
-		if self.request.flavour == "mobile":
-			self.template_name = "cleanteams/mobile/register_clean_team.html"
+        if self.request.flavour == "mobile":
+            self.template_name = "cleanteams/mobile/register_clean_team.html"
 
-		return context
+        return context
 
 class CleanTeamMainContactView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/main_contact.html"
-	form_class = EditCleanTeamMainContact
-	success_url = "mycleancity/index.html"
+    template_name = "cleanteams/main_contact.html"
+    form_class = EditCleanTeamMainContact
+    success_url = "mycleancity/index.html"
 
-	def get_initial(self, clean_team_member=None):
-		initial = {}
+    def get_initial(self, clean_team_member=None):
+        initial = {}
 
-		clean_team_member = self.request.user.profile.clean_team_member
-		if clean_team_member:
-			clean_team = clean_team_member.clean_team
-			contact_user = clean_team.contact_user
+        clean_team_member = self.request.user.profile.clean_team_member
+        if clean_team_member:
+            clean_team = clean_team_member.clean_team
+            contact_user = clean_team.contact_user
 
-			initial['contact_first_name'] = contact_user.first_name
-			initial['contact_last_name'] = contact_user.last_name
-			initial['contact_email'] = contact_user.email
-			initial['contact_phone'] = clean_team.contact_phone
-			initial['clean_ambassadors'] = clean_team.contact_user.id
-			initial['clean_team_id'] = clean_team.id
+            initial['contact_first_name'] = contact_user.first_name
+            initial['contact_last_name'] = contact_user.last_name
+            initial['contact_email'] = contact_user.email
+            initial['contact_phone'] = clean_team.contact_phone
+            initial['clean_ambassadors'] = clean_team.contact_user.id
+            initial['clean_team_id'] = clean_team.id
 
-		return initial
+        return initial
 
-	# Initialize the form with initial values
-	def get_form_kwargs(self):	
-		clean_team_member = self.request.user.profile.clean_team_member
-		kwargs = {
-			"initial": self.get_initial(clean_team_member),
-			"clean_team": clean_team_member.clean_team
-		}
-		if self.request.method in ("POST", "PUT"):
-			kwargs.update({
-				"data": self.request.POST,
-				"files": self.request.FILES
-			})
-		return kwargs
+    # Initialize the form with initial values
+    def get_form_kwargs(self):
+        clean_team_member = self.request.user.profile.clean_team_member
+        kwargs = {
+            "initial": self.get_initial(clean_team_member),
+            "clean_team": clean_team_member.clean_team
+        }
+        if self.request.method in ("POST", "PUT"):
+            kwargs.update({
+                "data": self.request.POST,
+                "files": self.request.FILES
+            })
+        return kwargs
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		clean_team_id = form.cleaned_data['clean_team_id']
+    def form_valid(self, form):
+        clean_team_id = form.cleaned_data['clean_team_id']
 
-		try:
-			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
-			clean_team_member.clean_team.update_main_contact(form.cleaned_data)
-		except Exception, e:
-			print e
-		
-		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
+        try:
+            clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+            clean_team_member.clean_team.update_main_contact(form.cleaned_data)
+        except Exception, e:
+            print e
+
+        return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 
 class EditCleanTeamView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/edit_clean_team.html"
-	form_class = EditCleanTeamForm
-	success_url = "mycleancity/index.html"
+    template_name = "cleanteams/edit_clean_team.html"
+    form_class = EditCleanTeamForm
+    success_url = "mycleancity/index.html"
 
-	def get_initial(self):
-		initial = {}
+    def get_initial(self):
+        initial = {}
 
-		if self.request.user.profile.clean_team_member:
-			clean_team = self.request.user.profile.clean_team_member.clean_team
+        if self.request.user.profile.clean_team_member:
+            clean_team = self.request.user.profile.clean_team_member.clean_team
 
-			initial['name'] = clean_team.name
-			initial['website'] = clean_team.website
-			initial['twitter'] = clean_team.twitter
-			# initial['logo'] = clean_team.logo
-			initial['about'] = clean_team.about
-			initial['region'] = clean_team.region
-			initial['team_type'] = clean_team.team_type
-			initial['group'] = clean_team.group
-			initial['clean_team_id'] = clean_team.id
+            initial['name'] = clean_team.name
+            initial['website'] = clean_team.website
+            initial['twitter'] = clean_team.twitter
+            # initial['logo'] = clean_team.logo
+            initial['about'] = clean_team.about
+            initial['region'] = clean_team.region
+            initial['team_type'] = clean_team.team_type
+            initial['group'] = clean_team.group
+            initial['clean_team_id'] = clean_team.id
 
-		return initial
+        return initial
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		print form.errors
+        print form.errors
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		clean_team_id = form.cleaned_data['clean_team_id']
+    def form_valid(self, form):
+        clean_team_id = form.cleaned_data['clean_team_id']
 
-		try:
-			clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
-			clean_team = CleanTeam.objects.get(id=clean_team_member.clean_team.id)
-		except Exception, e:
-			print e
-		
-		clean_team.name = form.cleaned_data['name']
-		clean_team.website = form.cleaned_data['website']
-		clean_team.twitter = form.cleaned_data['twitter']
-		clean_team.about = form.cleaned_data['about']
-		clean_team.region = form.cleaned_data['region']
-		clean_team.team_type = form.cleaned_data['team_type']
-		
-		logo = form.cleaned_data['logo']
+        try:
+            clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
+            clean_team = CleanTeam.objects.get(id=clean_team_member.clean_team.id)
+        except Exception, e:
+            print e
 
-		if logo:
-			key = 'uploads/ct_logo_%s_%s' % (str(self.request.user.id), logo)
-			uploadFile = UploadFileToS3()
-			clean_team.logo = uploadFile.upload(key, logo)
+        clean_team.name = form.cleaned_data['name']
+        clean_team.website = form.cleaned_data['website']
+        clean_team.twitter = form.cleaned_data['twitter']
+        clean_team.about = form.cleaned_data['about']
+        clean_team.region = form.cleaned_data['region']
+        clean_team.team_type = form.cleaned_data['team_type']
 
-		clean_team.save()
+        logo = form.cleaned_data['logo']
 
-		if clean_team.level.name == "Seedling":
-			if clean_team.about:
-				task = CleanTeamLevelTask.objects.get(name="ct_description")
-				clean_team.complete_level_task(task)
-			else:
-				task = CleanTeamLevelTask.objects.get(name="ct_description")
-				clean_team.uncomplete_level_task(task)
+        if logo:
+            key = 'uploads/ct_logo_%s_%s' % (str(self.request.user.id), logo)
+            uploadFile = UploadFileToS3()
+            clean_team.logo = uploadFile.upload(key, logo)
 
-			if clean_team.twitter:
-				task = CleanTeamLevelTask.objects.get(name="ct_twitter")
-				clean_team.complete_level_task(task)
-			else:
-				task = CleanTeamLevelTask.objects.get(name="ct_twitter")
-				clean_team.uncomplete_level_task(task)
+        clean_team.save()
 
-		return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
+        if clean_team.level.name == "Seedling":
+            if clean_team.about:
+                task = CleanTeamLevelTask.objects.get(name="ct_description")
+                clean_team.complete_level_task(task)
+            else:
+                task = CleanTeamLevelTask.objects.get(name="ct_description")
+                clean_team.uncomplete_level_task(task)
 
-	def get_context_data(self, **kwargs):
-		context = super(EditCleanTeamView, self).get_context_data(**kwargs)
-		
-		if not self.request.user.profile.clean_team_member:	
-			context = None
+            if clean_team.twitter:
+                task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+                clean_team.complete_level_task(task)
+            else:
+                task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+                clean_team.uncomplete_level_task(task)
 
-		return context
+        return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
+
+    def get_context_data(self, **kwargs):
+        context = super(EditCleanTeamView, self).get_context_data(**kwargs)
+
+        if not self.request.user.profile.clean_team_member:
+            context = None
+
+        return context
 
 class CreateOrRequest(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/create_team_or_join.html"
-	form_class = CreateTeamOrJoinForm
+    template_name = "cleanteams/create_team_or_join.html"
+    form_class = CreateTeamOrJoinForm
 
-	def get_initial(self):
-		initial = {}
+    def get_initial(self):
+        initial = {}
 
-		if 'role' in self.request.GET:
-			initial['role'] = self.request.GET['role']
+        if 'role' in self.request.GET:
+            initial['role'] = self.request.GET['role']
 
-		return initial
+        return initial
 
-	def get(self, request, *args, **kwargs):
-		form_class = self.get_form_class()
-		form = self.get_form(form_class)
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
 
-		return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		if form.cleaned_data['selections'] == 'create-new-team':
-			return HttpResponseRedirect('/clean-team/register-clean-team/?role=%s' %(form.cleaned_data['role']))
-		else:
-			return HttpResponseRedirect('/clean-team/register-request-join/?role=%s' %(form.cleaned_data['role']))
+    def form_valid(self, form):
+        if form.cleaned_data['selections'] == 'create-new-team':
+            return HttpResponseRedirect('/clean-team/register-clean-team/?role=%s' %(form.cleaned_data['role']))
+        else:
+            return HttpResponseRedirect('/clean-team/register-request-join/?role=%s' %(form.cleaned_data['role']))
 
-	def get_context_data(self, **kwargs):
-		context = super(CreateOrRequest, self).get_context_data(**kwargs)
-		user = self.request.user
+    def get_context_data(self, **kwargs):
+        context = super(CreateOrRequest, self).get_context_data(**kwargs)
+        user = self.request.user
 
-		if user.profile.clean_team_member:
-			# TODO: Not working
-			if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
-				return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
-		
-		context['user'] = self.request.user
+        if user.profile.clean_team_member:
+            # TODO: Not working
+            if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
+                return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
 
-		if self.request.flavour == "mobile":
-			self.template_name = "cleanteams/mobile/create_team_or_join.html"
+        context['user'] = self.request.user
 
-		return context
+        if self.request.flavour == "mobile":
+            self.template_name = "cleanteams/mobile/create_team_or_join.html"
+
+        return context
 
 class ViewAllCleanTeams(TemplateView):
-	template_name = "cleanteams/all_clean_teams.html"	
+    template_name = "cleanteams/all_clean_teams.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
-		teams = CleanTeam.objects.all()
-		
-		if self.request.user.is_authenticated():
-			clean_champions = CleanChampion.objects.filter(user=self.request.user)
-			context['clean_champions'] = clean_champions
+        teams = CleanTeam.objects.all()
 
-		context['teams'] = teams
-		context['user'] = self.request.user
+        if self.request.user.is_authenticated():
+            clean_champions = CleanChampion.objects.filter(user=self.request.user)
+            context['clean_champions'] = clean_champions
 
-		return context
+        context['teams'] = teams
+        context['user'] = self.request.user
+
+        return context
 
 class LevelProgressView(TemplateView):
-	template_name = "cleanteams/level_progress.html"	
+    template_name = "cleanteams/level_progress.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(LevelProgressView, self).get_context_data(**kwargs)
-		user = self.request.user
-		clean_team = user.profile.clean_team_member.clean_team
+    def get_context_data(self, **kwargs):
+        context = super(LevelProgressView, self).get_context_data(**kwargs)
+        user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
 
-		level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
-		tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
+        level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
+        tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
 
-		context['tasks'] = tasks
-		context['clean_team'] = clean_team
-		context['user'] = user
+        context['tasks'] = tasks
+        context['clean_team'] = clean_team
+        context['user'] = user
 
-		return context
+        return context
 
 class CleanTeamView(TemplateView):
-	template_name = "cleanteams/clean_team_profile.html"	
+    template_name = "cleanteams/clean_team_profile.html"
 
-	def get_object(self):
-		return get_object_or_404(User, pk=self.request.user.id)
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
 
-	def get_context_data(self, **kwargs):
-		context = super(CleanTeamView, self).get_context_data(**kwargs)
-		user = self.request.user
+    def get_context_data(self, **kwargs):
+        context = super(CleanTeamView, self).get_context_data(**kwargs)
+        user = self.request.user
 
-		if 'ctid' in self.kwargs:
-			ctid = self.kwargs['ctid']
-			context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
+        if 'ctid' in self.kwargs:
+            ctid = self.kwargs['ctid']
+            context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 
-			cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
-			ccs = CleanChampion.objects.filter(clean_team_id=ctid)
-			posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
+            cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
+            ccs = CleanChampion.objects.filter(clean_team_id=ctid)
+            posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
 
-			try:
-				clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=user)
-				context['clean_champion'] = clean_champion
-			except Exception, e:
-				print e
+            try:
+                clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=user)
+                context['clean_champion'] = clean_champion
+            except Exception, e:
+                print e
 
-			try:
-				invite = CleanTeamInvite.objects.get(email=user.email, clean_team_id=ctid)
-				context['invite'] = invite
-			except Exception, e:
-				print e
+            try:
+                invite = CleanTeamInvite.objects.get(email=user.email, clean_team_id=ctid)
+                context['invite'] = invite
+            except Exception, e:
+                print e
 
-			try:
-				# TODO: Need to pass this to the template
-				clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="ambassador")
-				context['clean_ambassador'] = clean_ambassador
-			except Exception, e:
-				print e
-			
-			try:
-				user_challenges = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid)
-				user_challenges_list = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
-			except Exception, e:
-				user_challenges = []
-				user_challenges_list = []
+            try:
+                # TODO: Need to pass this to the template
+                clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="ambassador")
+                context['clean_ambassador'] = clean_ambassador
+            except Exception, e:
+                print e
 
-			today = datetime.datetime.now()
-			challenges = Challenge.objects.filter(Q(event_end_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+            try:
+                user_challenges = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid)
+                user_challenges_list = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+            except Exception, e:
+                user_challenges = []
+                user_challenges_list = []
 
-			challenge_dict = {}
+            today = datetime.datetime.now()
+            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
 
-			count = 0
-			for challenge in challenges:
-				challenge_dict[count] = ["not-particpating", challenge]
-				count += 1
+            challenge_dict = {}
 
-			for user_challenge in user_challenges:
-				challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
+            count = 0
+            for challenge in challenges:
+                challenge_dict[count] = ["not-particpating", challenge]
+                count += 1
 
-			if user.is_authenticated():
-				if user.profile.is_clean_ambassador():
-					leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
-					context['leading_teams'] = leading_teams
-					context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
+            for user_challenge in user_challenges:
+                challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
 
-			context['challenges'] = challenge_dict
-			context['page_url'] = self.request.get_full_path()
-			context['cas'] = cas
-			context['ccs'] = ccs
-			context['posts'] = posts
+            if user.is_authenticated():
+                if user.profile.is_clean_ambassador():
+                    leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
+                    context['leading_teams'] = leading_teams
+                    context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
 
-		context['user'] = user
+            context['challenges'] = challenge_dict
+            context['page_url'] = self.request.get_full_path()
+            context['cas'] = cas
+            context['ccs'] = ccs
+            context['posts'] = posts
 
-		return context
+        context['user'] = user
+
+        return context
 
 class RegisterRequestJoinView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/register_request_join.html"
-	form_class = RequestJoinTeamsForm
+    template_name = "cleanteams/register_request_join.html"
+    form_class = RequestJoinTeamsForm
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		
-		return self.render_to_response(context)
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-	def form_valid(self, form):
-		try:
-			ctm = CleanTeamMember.objects.get(user=self.request.user)
-		except Exception, e:
-			print e
-			ctm = CleanTeamMember()
+        return self.render_to_response(context)
 
-		selected_team = form.cleaned_data['team']
+    def form_valid(self, form):
+        try:
+            ctm = CleanTeamMember.objects.get(user=self.request.user)
+        except Exception, e:
+            print e
+            ctm = CleanTeamMember()
 
-		# if not ctm.has_max_clean_ambassadors():
-		ctm.requestBecomeCleanAmbassador(self.request.user, selected_team)
-		# else:
-			#TODO: Message saying that the Change Team ambassador count is full
-			# pass
+        selected_team = form.cleaned_data['team']
 
-		return HttpResponseRedirect('/')
+        # if not ctm.has_max_clean_ambassadors():
+        ctm.requestBecomeCleanAmbassador(self.request.user, selected_team)
+        # else:
+            #TODO: Message saying that the Change Team ambassador count is full
+            # pass
 
-	def get_context_data(self, **kwargs):
-		context = super(RegisterRequestJoinView, self).get_context_data(**kwargs)
-		user = self.request.user
-		
-		context['user'] = user
+        return HttpResponseRedirect('/')
 
-		if self.request.flavour == "mobile":
-			self.template_name = "cleanteams/mobile/register_request_join.html"
+    def get_context_data(self, **kwargs):
+        context = super(RegisterRequestJoinView, self).get_context_data(**kwargs)
+        user = self.request.user
 
-		return context
+        context['user'] = user
+
+        if self.request.flavour == "mobile":
+            self.template_name = "cleanteams/mobile/register_request_join.html"
+
+        return context
 
 class RegisterCleanChampionView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/register_clean_champion.html"
-	form_class = JoinTeamCleanChampionForm
+    template_name = "cleanteams/register_clean_champion.html"
+    form_class = JoinTeamCleanChampionForm
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		
-		return self.render_to_response(context)
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-	def form_valid(self, form):
-		selected_team = form.cleaned_data['team']
+        return self.render_to_response(context)
 
-		try:
-			clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
-		except Exception, e:
-			print e
-			clean_champion = CleanChampion()
+    def form_valid(self, form):
+        selected_team = form.cleaned_data['team']
 
-		clean_champion.becomeCleanChampion(self.request.user, selected_team)
+        try:
+            clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
+        except Exception, e:
+            print e
+            clean_champion = CleanChampion()
 
-		return HttpResponseRedirect('/clean-team/%s' % selected_team.id)
+        clean_champion.becomeCleanChampion(self.request.user, selected_team)
 
-	def get_context_data(self, **kwargs):
-		context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
-		user = self.request.user
-		
-		context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
-		context['user'] = user
+        return HttpResponseRedirect('/clean-team/%s' % selected_team.id)
 
-		if self.request.flavour == "mobile":
-			self.template_name = "cleanteams/mobile/register_clean_champion.html"
+    def get_context_data(self, **kwargs):
+        context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
+        user = self.request.user
 
-		return context
+        context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
+        context['user'] = user
+
+        if self.request.flavour == "mobile":
+            self.template_name = "cleanteams/mobile/register_clean_champion.html"
+
+        return context
 
 class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
-	template_name = "cleanteams/clean_team_members.html"	
+    template_name = "cleanteams/clean_team_members.html"
 
-	def get_object(self):
-		return get_object_or_404(User, pk=self.request.user.id)
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
 
-	def get_context_data(self, **kwargs):
-		context = super(CleanTeamMembersView, self).get_context_data(**kwargs)
-		user = self.request.user
+    def get_context_data(self, **kwargs):
+        context = super(CleanTeamMembersView, self).get_context_data(**kwargs)
+        user = self.request.user
 
-		ct = user.profile.clean_team_member
-		cas = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
-		ccs = CleanChampion.objects.filter(clean_team=ct.clean_team)
-		# ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
-		
-		# TODO: HttpResponseRedirect is not working
-		# Check if approved Clean Ambassador
-		if ct.role != "ambassador" or ct.status != "approved":
-			print "kkkkk"
-			return HttpResponseRedirect("/challenges")
+        ct = user.profile.clean_team_member
+        cas = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
+        ccs = CleanChampion.objects.filter(clean_team=ct.clean_team)
+        # ctm = CleanTeamMember.objects.filter(clean_team=ct.clean_team)
 
-		context['user'] = user
-		context['clean_team'] = ct.clean_team
-		context['cas'] = cas
-		context['ccs'] = ccs
-		# context['clean_team_members'] = ctm
+        # TODO: HttpResponseRedirect is not working
+        # Check if approved Clean Ambassador
+        if ct.role != "leader" or ct.status != "approved":
+            print "kkkkk"
+            return HttpResponseRedirect("/challenges")
 
-		return context
+        context['user'] = user
+        context['clean_team'] = ct.clean_team
+        context['cas'] = cas
+        context['ccs'] = ccs
+        # context['clean_team_members'] = ctm
+
+        return context
 
 class PostMessageView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/post_message.html"
-	form_class = PostMessageForm
+    template_name = "cleanteams/post_message.html"
+    form_class = PostMessageForm
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		
-		return self.render_to_response(context)
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-	def form_valid(self, form):
-		user = self.request.user
-		clean_team = user.profile.clean_team_member.clean_team
-		message = form.cleaned_data['message']
+        return self.render_to_response(context)
 
-		clean_team_post = CleanTeamPost()
-		clean_team_post.newPost(user, message, clean_team)
+    def form_valid(self, form):
+        user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
+        message = form.cleaned_data['message']
 
-		return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
+        clean_team_post = CleanTeamPost()
+        clean_team_post.newPost(user, message, clean_team)
 
-	def get_context_data(self, **kwargs):
-		context = super(PostMessageView, self).get_context_data(**kwargs)
-		user = self.request.user
-		
-		context['user'] = user
+        return HttpResponseRedirect('/clean-team/%s' % str(clean_team.id))
 
-		return context
+    def get_context_data(self, **kwargs):
+        context = super(PostMessageView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        context['user'] = user
+
+        return context
 
 def post_message_ajax(request):
-	if request.method == 'POST' and request.is_ajax:	
-		user = request.user
-		message = request.POST['message']
-		ctid = request.POST['ctid']
-		
-		clean_team = get_object_or_404(CleanTeam, id=ctid)
+    if request.method == 'POST' and request.is_ajax:
+        user = request.user
+        message = request.POST['message']
+        ctid = request.POST['ctid']
 
-		clean_team_post = CleanTeamPost()
-		post = clean_team_post.newPost(user, message, clean_team)
+        clean_team = get_object_or_404(CleanTeam, id=ctid)
 
-	return HttpResponse(post)
+        clean_team_post = CleanTeamPost()
+        post = clean_team_post.newPost(user, message, clean_team)
+
+    return HttpResponse(post)
 
 def resend_invite(request):
-	if request.method == 'POST' and request.is_ajax:	
-		invite_id = request.POST['invite_id']
-		uri = request.build_absolute_uri()
-		
-		try:
-			invite = CleanTeamInvite.objects.get(id=invite_id)
-			invite.resendInvite(uri)
-		except Exception, e:
-			raise e
-			
-	return HttpResponse("success")
+    if request.method == 'POST' and request.is_ajax:
+        invite_id = request.POST['invite_id']
+        uri = request.build_absolute_uri()
+
+        try:
+            invite = CleanTeamInvite.objects.get(id=invite_id)
+            invite.resendInvite(uri)
+        except Exception, e:
+            raise e
+
+    return HttpResponse("success")
 
 class InviteView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/invite.html"
-	form_class = InviteForm
-	success_url = "clean-team/invite.html"
+    template_name = "cleanteams/invite.html"
+    form_class = InviteForm
+    success_url = "cleanteams/invite.html"
 
-	def get_initial(self):
-		initial = {}
-		initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+    def get_initial(self):
+        initial = {}
+        initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+        role = self.request.GET.get('role', 'agent')
+        initial['role'] = role
+        return initial
 
-		return initial
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+        return self.render_to_response(context)
 
-		return self.render_to_response(context)
+    def form_valid(self, form):
+        user = self.request.user
+        email = form.cleaned_data['email']
+        role = form.cleaned_data['role']
+        uri = self.request.build_absolute_uri()
 
-	def form_valid(self, form):
-		user = self.request.user
-		email = form.cleaned_data['email']
-		role = form.cleaned_data['role']
-		uri = self.request.build_absolute_uri()
+        print email
 
-		print email
+        emails = re.split(',', email)
 
-		emails = re.split(',', email)
+        for e in emails:
+            e = e.strip()
 
-		for e in emails:
-			e = e.strip()
+            if e == "":
+                continue
 
-			if e == "":
-				continue
+            invite = CleanTeamInvite()
+            invite.inviteUser(user, role, e, uri)
 
-			invite = CleanTeamInvite()
-			invite.inviteUser(user, role, e, uri)
+        return HttpResponseRedirect('/clean-team/invite')
 
-		return HttpResponseRedirect('/clean-team/invite')
+    def get_context_data(self, **kwargs):
+        context = super(InviteView, self).get_context_data(**kwargs)
 
-	def get_context_data(self, **kwargs):
-		context = super(InviteView, self).get_context_data(**kwargs)
+        invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
 
-		invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+        context['invitees'] = invitees
+        context['user'] = self.request.user
 
-		context['invitees'] = invitees
-		context['user'] = self.request.user
+        return context
 
-		return context
+class InviteOrganizationView(LoginRequiredMixin, FormView):
+    template_name = "cleanteams/invite_organization.html"
+    form_class = LeaderReferralForm
+
+    def get_initial(self):
+        initial = {}
+        initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+
+        return initial
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
+        uri = self.request.build_absolute_uri()
+
+        leader_referral = LeaderReferral()
+        leader_referral.new_referral(user, form, clean_team, uri)
+
+        return HttpResponseRedirect('/clean-team/invite-org/')
+
+    def get_context_data(self, **kwargs):
+        context = super(InviteOrganizationView, self).get_context_data(**kwargs)
+
+        referers = LeaderReferral.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+
+        context['referers'] = referers
+        context['user'] = self.request.user
+
+        return context
 
 # Coming from the invite email
 def unsubscribe(request, token):
-	invite = CleanTeamInvite.objects.get(token=token)
-	invite.unsubscribe()
+    invite = CleanTeamInvite.objects.get(token=token)
+    invite.unsubscribe()
 
-	return render_to_response('mycleancity/unsubscribe.html', context_instance=RequestContext(request))
+    return render_to_response('mycleancity/unsubscribe.html', context_instance=RequestContext(request))
 
 class InviteResponseView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/invite_response.html"
-	form_class = InviteResponseForm
+    template_name = "cleanteams/invite_response.html"
+    form_class = InviteResponseForm
 
-	def get_initial(self):
-		initial = {}
-		if 'token' in self.kwargs:
-			token = self.kwargs['token']
+    def get_initial(self):
+        initial = {}
+        if 'token' in self.kwargs:
+            token = self.kwargs['token']
 
-			try:
-				invite = CleanTeamInvite.objects.get(token=token)
-				initial['token'] = invite.token
-			except Exception, e:
-				# TDOD: Redirect to error page
-				print e
-	
-		return initial
+            try:
+                invite = CleanTeamInvite.objects.get(token=token)
+                initial['token'] = invite.token
+            except Exception, e:
+                # TDOD: Redirect to error page
+                print e
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
-		print form.errors
-		
-		return self.render_to_response(context)
+        return initial
 
-	def form_valid(self, form):
-		response = form.cleaned_data['selections']
-		token = form.cleaned_data['token']
-		
-		try:
-			invite = CleanTeamInvite.objects.get(token=token)
-			
-			if response == "accepted":
-				invite.status = "accepted"
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        print form.errors
 
-				if invite.role == "catalyst":
-					clean_champion = CleanChampion()				
-					clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
+        return self.render_to_response(context)
 
-				elif invite.role == "ambassador":
-					try:
-						ctm = CleanTeamMember.objects.get(user=self.request.user)
-					except Exception, e:
-						ctm = CleanTeamMember(user=self.request.user)
-						
-					ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, False)
-			else:
-				invite.status = "declined"
+    def form_valid(self, form):
+        response = form.cleaned_data['selections']
+        token = form.cleaned_data['token']
 
-			invite.save()
-		except Exception, e:
-			# TDOD: Redirect to error page
-			print e
+        try:
+            invite = CleanTeamInvite.objects.get(token=token)
 
-		return HttpResponseRedirect('/clean-team/%s' % str(invite.clean_team.id))
+            if response == "accepted":
+                invite.status = "accepted"
 
-	def get_context_data(self, **kwargs):
-		context = super(InviteResponseView, self).get_context_data(**kwargs)
-		
-		if 'token' in self.kwargs:
-			token = self.kwargs['token']
+                if invite.role == "catalyst":
+                    clean_champion = CleanChampion()
+                    clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
 
-			try:
-				invite = CleanTeamInvite.objects.get(token=token)
-			except Exception, e:
-				# TDOD: Redirect to error page
-				print e
+                elif invite.role == "ambassador":
+                    try:
+                        ctm = CleanTeamMember.objects.get(user=self.request.user)
+                    except Exception, e:
+                        ctm = CleanTeamMember(user=self.request.user)
 
-			context['invite'] = invite
+                    ctm.becomeCleanAmbassador(self.request.user, invite.clean_team, False)
+            else:
+                invite.status = "declined"
 
-		user = self.request.user
-		context['user'] = user
+            invite.save()
+        except Exception, e:
+            # TDOD: Redirect to error page
+            print e
 
-		return context
+        return HttpResponseRedirect('/clean-team/%s' % str(invite.clean_team.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(InviteResponseView, self).get_context_data(**kwargs)
+
+        if 'token' in self.kwargs:
+            token = self.kwargs['token']
+
+            try:
+                invite = CleanTeamInvite.objects.get(token=token)
+            except Exception, e:
+                # TDOD: Redirect to error page
+                print e
+
+            context['invite'] = invite
+
+        user = self.request.user
+        context['user'] = user
+
+        return context
 
 class LeaderReferralView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/leader_referral.html"
-	form_class = LeaderReferralForm
+    template_name = "cleanteams/leader_referral.html"
+    form_class = LeaderReferralForm
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		print form.errors
+        print form.errors
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		user = self.request.user
-		clean_team = user.profile.clean_team_member.clean_team
+    def form_valid(self, form):
+        user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
 
-		leader_referral = LeaderReferral()
-		leader_referral.new_referral(user, form, clean_team)
+        leader_referral = LeaderReferral()
+        leader_referral.new_referral(user, form, clean_team, url)
 
-		return HttpResponseRedirect('/clean-team/level-progress')
+        return HttpResponseRedirect('/clean-team/level-progress')
 
-	def get_context_data(self, **kwargs):
-		context = super(LeaderReferralView, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(LeaderReferralView, self).get_context_data(**kwargs)
 
-		return context
+        return context
 
 class CleanTeamPresentationView(LoginRequiredMixin, FormView):
-	template_name = "cleanteams/clean_team_presentation.html"
-	form_class = CleanTeamPresentationForm
+    template_name = "cleanteams/clean_team_presentation.html"
+    form_class = CleanTeamPresentationForm
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		context['form'] = form
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
 
-		print form.errors
+        print form.errors
 
-		return self.render_to_response(context)
+        return self.render_to_response(context)
 
-	def form_valid(self, form):
-		user = self.request.user
-		clean_team = user.profile.clean_team_member.clean_team
+    def form_valid(self, form):
+        user = self.request.user
+        clean_team = user.profile.clean_team_member.clean_team
 
-		presentation = CleanTeamPresentation()
-		presentation.new_submission(user, form, clean_team)
+        presentation = CleanTeamPresentation()
+        presentation.new_submission(user, form, clean_team)
 
-		return HttpResponseRedirect('/clean-team/level-progress')
+        return HttpResponseRedirect('/clean-team/level-progress')
 
-	def get_context_data(self, **kwargs):
-		context = super(CleanTeamPresentationView, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(CleanTeamPresentationView, self).get_context_data(**kwargs)
 
-		return context
+        return context
 
 # Check if the invitee email address is a registered User
 def invite_check(request, token):
-	if token:
-		try:
-			invite = CleanTeamInvite.objects.get(token=token)
-			user = User.objects.get(email=invite.email)
-		except User.DoesNotExist, e:
-			return HttpResponseRedirect('/register-invite/%s' % invite.token)
-		except Invite.DoesNotExist, e:
-			print e
-		except Exception, e:
-			print e
-		
-	return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
+    if token:
+        request.session['invite_token'] = token
+        try:
+            invite = CleanTeamInvite.objects.get(token=token)
+            user = User.objects.get(email=invite.email)
+        except User.DoesNotExist, e:
+            return HttpResponseRedirect('/register-invite/%s' % invite.token)
+        except Invite.DoesNotExist, e:
+            print e
+        except Exception, e:
+            print e
+
+    return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
+
+# Check if the referee email address is a registered User
+def referral_check(request, token):
+    if token:
+        request.session['referral_token'] = token
+        try:
+            referral = LeaderReferral.objects.get(token=token)
+            user = User.objects.get(email=referral.email)
+        except User.DoesNotExist, e:
+            return HttpResponseRedirect('/register/')
+        except referral.DoesNotExist, e:
+            print e
+        except Exception, e:
+            print e
+
+    return HttpResponseRedirect('/clean-team/register-clean-team/')
 
 # On the Change Team's Profile
 def request_join_clean_team(request):
-	if request.method == 'POST':
-		ctid = request.POST.get('ctid')
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
 
-		try:
-			selected_team = CleanTeam.objects.get(id=ctid)
-			ctm = CleanTeamMember.objects.get(user=request.user)
-		except Exception, e:
-			print e
-			ctm = CleanTeamMember()
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            ctm = CleanTeamMember.objects.get(user=request.user)
+        except Exception, e:
+            print e
+            ctm = CleanTeamMember()
 
-		# if not ctm.has_max_clean_ambassadors():
-		ctm.requestBecomeCleanAmbassador(request.user, selected_team)
-		# else:
-			#TODO: Message saying that the Change Team ambassador count is full
-			# pass
+        # if not ctm.has_max_clean_ambassadors():
+        ctm.requestBecomeCleanAmbassador(request.user, selected_team)
+        # else:
+            #TODO: Message saying that the Change Team ambassador count is full
+            # pass
 
-	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
 def be_clean_champion(request):
-	if request.method == 'POST':
-		ctid = request.POST.get('ctid')
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
 
-		try:
-			selected_team = CleanTeam.objects.get(id=ctid)
-			clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
-		except Exception, e:
-			print e
-			clean_champion = CleanChampion()
-			
-		clean_champion.becomeCleanChampion(request.user, selected_team)
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
+        except Exception, e:
+            print e
+            clean_champion = CleanChampion()
 
-	return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+        clean_champion.becomeCleanChampion(request.user, selected_team)
+
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
 # Coming from the email invite link
 def accept_invite(request, token):
-	invite = CleanTeamInvite.objects.get(token=token)
+    invite = CleanTeamInvite.objects.get(token=token)
 
-	if not invite.accept_invite():
-		return HttpResponseRedirect('/register-invite/')
+    if not invite.accept_invite():
+        return HttpResponseRedirect('/register-invite/')
 
-	return HttpResponseRedirect('/clean-team/invite/')
+    return HttpResponseRedirect('/clean-team/invite/')
 
 def clean_team_member_action(request):
-	if request.method == 'POST' and request.is_ajax:
-		ctid = request.POST['ctid']
-		uid = request.POST['uid']
-		action = request.POST['action']
-		
-		clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
+    if request.method == 'POST' and request.is_ajax:
+        ctid = request.POST['ctid']
+        uid = request.POST['uid']
+        action = request.POST['action']
 
-		if action == "approve":
-			clean_team_member.approveCleanAmbassador()
-		elif action == "remove":
-			clean_team_member.removedCleanAmbassador()
-			
-	return HttpResponse("success")
+        clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
+
+        if action == "approve":
+            clean_team_member.approveCleanAmbassador()
+        elif action == "remove":
+            clean_team_member.removedCleanAmbassador()
+
+    return HttpResponse("success")

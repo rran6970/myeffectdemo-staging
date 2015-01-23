@@ -470,11 +470,11 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 /******************************
 	White Box
 ******************************/
-#white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: scroll; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
+#white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: auto; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
 #white-box h2 { margin-bottom: 12px; }
 #white-box p, #white-box h2 { color: #638d3d; }
-#white-box p { padding: 10px 0; }
-#white-box p, #white-box ul li, #white-box ol li { font-size: 18px; font-weight: 400; line-height: 25px; }
+#white-box p { /*padding: 10px 0;*/ }
+#white-box p, #white-box ul li, #white-box ol li { font-size: 14px; font-weight: 400; line-height: 25px; }
 #white-box .left { float: left; width: 150px; }
 #white-box .right { float: right; }
 #white-box .right form input { display: block; width: 300px; }
@@ -504,10 +504,18 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 /******************************
 	Login
 ******************************/
-#white-box.login { width: 356px; height: 332px; left: 36%; overflow-y: scroll; }
+#white-box.login { width: 356px; height: 500px; left: 36%; overflow-y: auto; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
-#white-box.login p { text-align: center; font-size: 15px; }
+#white-box.login p { font-size: 15px; }
+
+/******************************
+    Social Signup
+******************************/
+#white-box.social-signup { margin: auto; overflow-y: auto; }
+#white-box.social-signup input[type="text"], #white-box.social-signup input[type="email"] { width: 295px; }
+#white-box.social-signup input[type="submit"] { width: 296px; font-size: 16px; padding: 10px; }
+#white-box.social-signup p { font-size: 15px; }
 
 /******************************
 	Password Reset

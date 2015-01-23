@@ -144,30 +144,19 @@ class PrelaunchEmailsForm(forms.ModelForm):
 class RegisterUserForm(forms.ModelForm):
 	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
 	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
-	HEAR_CHOICES = (('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('H&M', 'H&M',), ('Staples', 'Staples / Bureau en gros',))
+	HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
 
 	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
 	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
 	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email / Courriel")
 	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password / Mot de passe")
 	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
-	city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="City / Ville")
-	province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES, label="Province")
-	# school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	student_id = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Student ID/Profession")
-	school_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="School Name/Company")
-	# age = forms.ChoiceField(widget=forms.Select(), choices=AGE_CHOICES, label="Age range / Tranche d’âge")
-	role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role / Rôle")
-	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication Language / Langue de communication")
-	receive_newsletters = forms.BooleanField(required=False)
-	smartphone = forms.BooleanField(required=False)
 	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
 	uea = forms.BooleanField(required=True)
 	# data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
+	referral_token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
-	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
-
 	# Combines the form with the corresponding model
 	class Meta:
 		model = User
@@ -180,16 +169,10 @@ class RegisterUserForm(forms.ModelForm):
 		email = cleaned_data.get('email')
 		password = cleaned_data.get('password')
 		confirm_password = cleaned_data.get('confirm_password')
-		city = cleaned_data.get('city')
-		province = cleaned_data.get('province')
-		# school_type = cleaned_data.get('school_type')
-		role = cleaned_data.get('role')
-		# age = cleaned_data.get('age')
-		dob = cleaned_data.get('dob')
 		uea = cleaned_data.get('uea')
-		receive_newsletters = cleaned_data.get('receive_newsletters')
 		captcha = cleaned_data.get('captcha')
 		token = cleaned_data.get('token')
+		token = cleaned_data.get('referral_token')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")
@@ -201,28 +184,19 @@ class RegisterUserForm(forms.ModelForm):
 			raise forms.ValidationError("Please enter a password")
 		elif not confirm_password:
 			raise forms.ValidationError("Please confirm your password")
-		elif not city:
-			raise forms.ValidationError("Please select your city")
-		elif not province:
-			raise forms.ValidationError("Please select your province")
-		# elif not school_type:
-		# 	raise forms.ValidationError("Please select your school type")
 		elif not uea:
 			raise forms.ValidationError("Please accept the Terms & Conditions")
 		elif not captcha:
 			raise forms.ValidationError("Please enter the CAPTCHA field correctly")
-		elif not dob:
-			raise forms.ValidationError("Please select your date of birth")
-
 		if password and confirm_password:
 			if password != confirm_password:
 				raise forms.ValidationError('Passwords did not match')
 
-		if User.objects.filter(username = email):
+		if User.objects.filter(username = email) or User.objects.filter(email = email):
 			raise forms.ValidationError(u'%s is already registered' % email)
 
-		if len(password) < 8:
-			raise forms.ValidationError(u'Password must be at least 8 characters')
+		if len(password) < 6:
+			raise forms.ValidationError(u'Password must be at least 6 characters')
 
 		return cleaned_data
 

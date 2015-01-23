@@ -13,7 +13,7 @@ from cStringIO import StringIO
 
 from mycleancity.actions import *
 from challenges.models import Challenge, UserChallenge, CleanTeamChallenge, StaplesChallenge
-from cleanteams.models import CleanTeamMember, CleanChampion
+from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
@@ -161,6 +161,7 @@ class UserProfile(models.Model):
 	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
 	settings = models.OneToOneField(UserSettings, null=True)
 	qr_code = models.OneToOneField(UserQRCode, null=True)
+	referral_token = models.CharField(max_length=20, blank=True)
 
 	class Meta:
 		verbose_name_plural = u'User Profiles'
@@ -243,6 +244,11 @@ class UserProfile(models.Model):
 	def count_notifications(self):
 		count = UserNotification.objects.filter(user=self.user).count()
 		return count
+
+	def set_referral_token(self, token):
+		if self.referral_token == '':
+			self.referral_token = token
+			self.save()
 
 	def add_clean_creds(self, amount, notification=True):
 		self.clean_creds += amount

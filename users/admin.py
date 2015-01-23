@@ -11,4 +11,4 @@ class PrelaunchEmailsAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
     
 admin.site.register(PrelaunchEmails, PrelaunchEmailsAdmin)
-admin.site.register(Site)
+#admin.site.register(Site)
