@@ -568,9 +568,9 @@ class CleanTeamInvite(models.Model):
     clean_team = models.ForeignKey(CleanTeam)
     user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    role = models.CharField(max_length=30, default="ambassador")
+    role = models.CharField(max_length=30, default="agent")
     status = models.CharField(max_length=30, default="pending")
-    token = models.CharField(max_length=20, blank=True)
+    token = models.CharField(max_length=50, blank=True)
 
     class Meta:
         verbose_name_plural = u'Change Team Invite'
@@ -647,7 +647,7 @@ class CleanTeamInvite(models.Model):
                 if u:
                     # Send notifications
                     notification_type = "cc_invite"
-                    if role == "ambassador":
+                    if role == "leader":
                         notification_type = "ca_invite"
 
                     notification = Notification.objects.get(notification_type=notification_type)
@@ -765,7 +765,10 @@ class LeaderReferral(models.Model):
     title = models.CharField(max_length=60, blank=False, default="")
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     clean_team = models.ForeignKey(CleanTeam, null=True)
+    status = models.CharField(max_length=30, default="pending")
+    token = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User, null=True)
+
 
     class Meta:
         verbose_name_plural = u'Change Team Leader Referrals'
@@ -773,12 +776,18 @@ class LeaderReferral(models.Model):
     def __unicode__(self):
         return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
 
-    def new_referral(self, user, form, clean_team):
+    def new_referral(self, user, form, clean_team, uri):
+        char_set = string.ascii_lowercase + string.digits
+        token = ''.join(random.sample(char_set*20,20))
+        invite_full_uri = u'%s' % (uri+token)
+        unsubscribe_full_uri = u'%sunsubscribe/' % (uri)
         self.first_name = form.cleaned_data['first_name']
         self.last_name = form.cleaned_data['last_name']
         self.email = form.cleaned_data['email']
         self.organization = form.cleaned_data['organization']
         self.title = form.cleaned_data['title']
+        self.status = 'pending'
+        self.token = token
 
         self.user = user
         self.clean_team = clean_team
@@ -788,6 +797,14 @@ class LeaderReferral(models.Model):
         if self.clean_team.level.name == "Sapling":
             task = CleanTeamLevelTask.objects.get(name="refer_teacher")
             self.clean_team.complete_level_task(task)
+
+        template = get_template('emails/email_invite_org.html')
+        content = Context({ 'user': user, 'email': self.email, 'first_name': self.first_name, 'last_name': self.last_name, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri})
+
+        subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
+
+        send_email = SendEmail()
+        send_email.send(template, content, subject, from_email, to)
 
     def save(self, *args, **kwargs):
         super(LeaderReferral, self).save(*args, **kwargs)

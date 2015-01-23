@@ -61,6 +61,13 @@ class RegisterCleanTeamForm(forms.ModelForm):
             if logo._size > 2*1024*1024:
                 raise forms.ValidationError("Image file must be smaller than 2MB")
 
+            w, h = get_image_dimensions(logo)
+
+            # if w != 124:
+            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
+            # if h != 124:
+            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
+
         if CleanTeam.objects.filter(name=name) and not clean_team_id:
             raise forms.ValidationError(u'%s already exists' % name)
 
@@ -174,7 +181,8 @@ class InviteResponseForm(forms.Form):
 
 ROLE_CHOICES = (
     ('agent', 'Agent'),
-    ('leader', 'Leader')
+    ('leader', 'Leader'),
+    ('organization', 'Organization')
 )
 
 class InviteForm(forms.Form):
@@ -208,11 +216,11 @@ class InviteForm(forms.Form):
             try:
                 u = User.objects.get(email=invite_email)
 
-                if role == 'ambassador':
+                if role == 'leader':
                     if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
                         raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 
-                if role == 'catalyst':
+                if role == 'agent':
                     if u.profile.is_clean_champion(clean_team_id):
                         raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))
             except User.DoesNotExist, e:
@@ -247,7 +255,7 @@ class LeaderReferralForm(forms.ModelForm):
 
     class Meta:
         model = LeaderReferral
-        exclude = ('clean_team', 'user', 'timestamp')
+        exclude = ('clean_team', 'user', 'timestamp', 'status', 'token')
 
     def clean(self):
         cleaned_data = super(LeaderReferralForm, self).clean()
