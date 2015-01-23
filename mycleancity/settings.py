@@ -1,6 +1,5 @@
 # Django settings for mycleancity project.
 import os
-import urlparse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -17,7 +16,7 @@ DATABASES = {
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': 'orcl',
+        'PASSWORD': 'another123',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                     # Set to empty string for default.
         'OPTIONS': {
@@ -100,17 +99,12 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    # Required by allauth template tags
-    'django.core.context_processors.request',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django_mobile.context_processors.flavour',
     'django.contrib.auth.context_processors.auth',
-    # allauth specific context processors
-    'allauth.account.context_processors.account',
-    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -133,40 +127,11 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates'),
 )
 
-CRON_CLASSES = [
-    "mycleancity.cron.MyCronJob",
-]
-
-CRON_POLLING_FREQUENCY = 20
-
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = True
-LOGIN_REDIRECT_URL = '/'
-SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'METHOD': 'js_sdk'  # instead of 'oauth2'
-    }
-}
-
-SOCIALACCOUNT_PROVIDERS = \
-    { 'google':
-        { 'SCOPE': ['profile', 'email'],
-          'AUTH_PARAMS': { 'access_type': 'online' } }}
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
@@ -174,8 +139,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_mobile',
     'django_wysiwyg',
-    "django_cron",
-    'django_mailer',
     'captcha',
     'cleancreds',
     'cleanteams',
@@ -186,14 +149,6 @@ INSTALLED_APPS = (
     'users',
     'userorganization',
     'userprofile',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.instagram',
-    'allauth.socialaccount.providers.linkedin',
-    'allauth.socialaccount.providers.twitter',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -226,16 +181,8 @@ LOGGING = {
 }
 
 # Parse database configuration from $DATABASE_URL
-#import dj_database_url
-#DATABASES['default'] = dj_database_url.config()
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
-DATABASES['default'].update({
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        })
+import dj_database_url
+# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -248,7 +195,6 @@ LOGIN_URL = '/users/login/'
 LOGOUT_URL = '/users/logout/'
 LOGIN_REDIRECT_URL = '/users/profile/'
 
-#EMAIL_BACKEND = 'django_mailer.smtp_queue.EmailBackend'
 EMAIL_HOST = 'secure153.inmotionhosting.com'
 EMAIL_HOST_USER = 'info@myeffect.ca'
 EMAIL_HOST_PASSWORD = u'*Effect*'
@@ -261,7 +207,7 @@ DJANGO_WYSIWYG_FLAVOR = 'yui'
 
 AWS_ACCESS_KEY_ID = 'AKIAIKQOZZOLGYLTP37A'
 AWS_SECRET_ACCESS_KEY = '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'
-#AWS_BUCKET = 'mycleancityproduction'
+AWS_BUCKET = 'mycleancityproduction'
 AWS_BUCKET = 'mycleancitystaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET

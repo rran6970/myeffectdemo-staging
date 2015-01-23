@@ -40,7 +40,7 @@ img.images-padded-10 { padding: 10px; background: white; }
 .gray-italic-subtitle { color: #AAA !important; font-style: italic !important; font-size: 13px !important; }
 .subtitle-blue { color: #00aeef !important; }
 
-p, label { line-height: 20px; font-weight: 200; font-size: 14px; letter-spacing: 0px; margin: 0; padding: 0; }
+p, label { display: block; line-height: 20px; font-weight: 200; font-size: 14px; letter-spacing: 0px; margin: 0; padding: 0; }
 ul, ol { padding: 0; margin: 0 0 10px 25px; }
 img { outline: 0; }
 hr { margin: 20px 0; border: 0; border-top: 1px solid #EEE; border-bottom: none; }
@@ -49,15 +49,14 @@ a:hover { color: #86b45c; text-decoration: none; }
 a:active { outline: 0 !important; outline: none !important; }
 
 select { display: block; }
-input[type="text"], input[type="email"], input[type="password"], textarea { font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; padding: 13px 10px 7px 10px\9; font-weight: 200; text-align: left; margin-bottom: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
-input[type="text"] + label, input[type="email"] + label, input[type="password"] + label, textarea + label { text-align: left; }
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus { outline: 0; }
+input[type="text"], input[type="password"], textarea { font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; padding: 13px 10px 7px 10px\9; font-weight: 200; text-align: left; margin-bottom: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+input[type="text"] + label, input[type="password"] + label, textarea + label { text-align: left; }
+input[type="text"]:focus, input[type="password"]:focus { outline: 0; }
 
 textarea { width: 417px; }
 
 textarea,
 input[type="text"],
-input[type="email"],
 input[type="password"],
 input[type="datetime"],
 input[type="datetime-local"],
@@ -145,8 +144,3 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .popup { padding: 20px; }
 
 .tooltip { min-width: 100px; }
-
-.socialaccount_signup {display: -webkit-inline-box; }
-.socialaccount_signup .social-login-icon { width: 30px; height: 30px; margin: 0px; border: 0px ; -webkit-border-radius: 7px; border-radius: 7px;}
-.socialaccount_ballot .social-login-icon { width: 40px; height: 40px; margin: 0px; border: 0px ; -webkit-border-radius: 10px; border-radius: 10px;}
-.errorlist {color: red; padding: 5px ; border: 1px solid; border-radius: 10px; margin: 0;}

@@ -12,8 +12,8 @@ import qrcode
 from cStringIO import StringIO
 
 from mycleancity.actions import *
-from challenges.models import Challenge, UserChallenge, CleanTeamChallenge, StaplesChallenge
-from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral
+from challenges.models import Challenge, UserChallenge, CleanTeamChallenge
+from cleanteams.models import CleanTeamMember, CleanChampion
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
@@ -25,21 +25,21 @@ Date created:   Feb 15, 2014
 Description:    All of the settings for each UserProfile.
 """
 class UserSettings(models.Model):
-	user = models.OneToOneField(User, null=True)
-	communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
-	receive_newsletters = models.BooleanField(default=0)
-	email_privacy = models.BooleanField(default=0)
-	data_privacy = models.BooleanField(default=0)
-	timezone = TimeZoneField(default='America/Toronto')
+    user = models.OneToOneField(User, null=True)
+    communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
+    receive_newsletters = models.BooleanField(default=0)
+    email_privacy = models.BooleanField(default=0)
+    data_privacy = models.BooleanField(default=0)
+    timezone = TimeZoneField(default='America/Toronto')
 
-	class Meta:
-		verbose_name_plural = u'User Settings'
+    class Meta:
+        verbose_name_plural = u'User Settings'
 
-	def __unicode__(self):
-		return u'User Setting: %s' % self.user.username
+    def __unicode__(self):
+        return u'User Setting: %s' % self.user.username
 
-	def save(self, *args, **kwargs):
-		super(UserSettings, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(UserSettings, self).save(*args, **kwargs)
 
 """
 Name:           QRCodeSignups
@@ -47,17 +47,17 @@ Date created:   Jan 9, 2013
 Description:    Used to keep track of all of the signups through the QR Code URL
 """
 class QRCodeSignups(models.Model):
-	user = models.OneToOneField(User)
-	timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    user = models.OneToOneField(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-	class Meta:
-		verbose_name_plural = u'QR Code Signups'
+    class Meta:
+        verbose_name_plural = u'QR Code Signups'
 
-	def __unicode__(self):
-		return u'QR Code Signups : %s' % self.user.username
+    def __unicode__(self):
+        return u'QR Code Signups : %s' % self.user.username
 
-	def save(self, *args, **kwargs):
-		super(QRCodeSignups, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(QRCodeSignups, self).save(*args, **kwargs)
 
 """
 Name:           UserQRCode
@@ -65,73 +65,73 @@ Date created:   Jan 9, 2014
 Description:    A QR Code of each user
 """
 class UserQRCode(models.Model):
-	user = models.OneToOneField(User)
-	data = models.CharField(max_length=60, blank=True, null=True, default="")
-	qr_image = models.ImageField(
-		upload_to=get_upload_file_name,
-		height_field="qr_image_height",
-		width_field="qr_image_width",
-		null=True,
-		blank=True
-	)
-	qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
-	qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    user = models.OneToOneField(User)
+    data = models.CharField(max_length=60, blank=True, null=True, default="")
+    qr_image = models.ImageField(
+        upload_to=get_upload_file_name,
+        height_field="qr_image_height",
+        width_field="qr_image_width",
+        null=True,
+        blank=True
+    )
+    qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
 
-	class Meta:
-		verbose_name_plural = u'User QR Codes'
+    class Meta:
+        verbose_name_plural = u'User QR Codes'
 
-	def __unicode__(self):
-		return u'User QR Code: %s' % self.user.username
+    def __unicode__(self):
+        return u'User QR Code: %s' % self.user.username
 
-	def qr_code(self):
-		return '%s' % self.qr_image.url
+    def qr_code(self):
+        return '%s' % self.qr_image.url
 
-	qr_code.allow_tags = True
+    qr_code.allow_tags = True
 
 # from userprofile.models import *; user = User.objects.get(id=196); qr = UserQRCode(data='http://hakstudio.com/', user=user); qr.save()
 
 def userqrcode_pre_save(sender, instance, **kwargs):    
-	if not instance.pk:
-		instance._QRCODE = True
-	else:
-		if hasattr(instance, '_QRCODE'):
-			instance._QRCODE = False
-		else:
-			instance._QRCODE = True
+    if not instance.pk:
+        instance._QRCODE = True
+    else:
+        if hasattr(instance, '_QRCODE'):
+            instance._QRCODE = False
+        else:
+            instance._QRCODE = True
 
 def userqrcode_post_save(sender, instance, **kwargs):
-	if instance._QRCODE:
-		instance._QRCODE = False
+    if instance._QRCODE:
+        instance._QRCODE = False
 
-		if instance.qr_image:
-			instance.qr_image.delete()
-		
-		qr = qrcode.QRCode(
-			version=1,
-			error_correction=qrcode.constants.ERROR_CORRECT_L,
-			box_size=12,
-			border=2,
-		)
-		qr.add_data(instance.data)
-		qr.make()
-		image = qr.make_image()
+        if instance.qr_image:
+            instance.qr_image.delete()
 
-		# Save image to string buffer
-		image_buffer = StringIO()
-		image.save(image_buffer, kind='JPEG')
-		image_buffer.seek(0)
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=12,
+            border=2,
+        )
+        qr.add_data(instance.data)
+        qr.make()
+        image = qr.make_image()
 
-		# Here we use django file storage system to save the image.
-		file_name = 'UserQR_%s_%s.jpg' % (instance.user.id, instance.id)
-		file_object = File(image_buffer, file_name)
-		content_file = ContentFile(file_object.read())
+        # Save image to string buffer
+        image_buffer = StringIO()
+        image.save(image_buffer, kind='JPEG')
+        image_buffer.seek(0)
 
-		key = 'qr_code/%s' % (file_name)
-		uploadFile = UploadFileToS3()
-		path = uploadFile.upload(key, content_file)
+        # Here we use django file storage system to save the image.
+        file_name = 'UserQR_%s_%s.jpg' % (instance.user.id, instance.id)
+        file_object = File(image_buffer, file_name)
+        content_file = ContentFile(file_object.read())
 
-		instance.qr_image.save(path, content_file, save=True)
-	 
+        key = 'qr_code/%s' % (file_name)
+        uploadFile = UploadFileToS3()
+        path = uploadFile.upload(key, content_file)
+
+        instance.qr_image.save(path, content_file, save=True)
+
 models.signals.pre_save.connect(userqrcode_pre_save, sender=UserQRCode)
 models.signals.post_save.connect(userqrcode_post_save, sender=UserQRCode)
 
@@ -141,176 +141,144 @@ Date created:   Sept 8, 2013
 Description:    Used as an extension to the User model.
 """
 class UserProfile(models.Model):
-	user = models.OneToOneField(User)
-	dob = models.DateField(auto_now_add=True, blank=True, null=True)
-	about = models.TextField(blank=True, null=True, default="")
-	twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
-	city = models.CharField(max_length=60, blank=True, null=True, verbose_name='City')
-	province = models.CharField(max_length=10, blank=True, null=True, verbose_name='Province')
-	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
-	country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
-	clean_creds = models.IntegerField(default=0)
-	student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
-	school_type = models.CharField(max_length=30, blank=True, default="High School")
-	school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
-	age = models.CharField(max_length=30, blank=True, default="17-21")
-	smartphone = models.BooleanField(default=0)
-	emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
-	clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
-	picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
-	hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
-	settings = models.OneToOneField(UserSettings, null=True)
-	qr_code = models.OneToOneField(UserQRCode, null=True)
-	referral_token = models.CharField(max_length=20, blank=True)
+    user = models.OneToOneField(User)
+    dob = models.DateField(auto_now_add=True, blank=True, null=True)
+    about = models.TextField(blank=True, null=True, default="")
+    twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
+    city = models.CharField(max_length=60, blank=True, null=True, verbose_name='City')
+    province = models.CharField(max_length=10, blank=True, null=True, verbose_name='Province')
+    postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name='Postal Code')
+    country = models.CharField(max_length=60, blank=True, null=True, verbose_name='Country')
+    clean_creds = models.IntegerField(default=0)
+    student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
+    school_type = models.CharField(max_length=30, blank=True, default="High School")
+    school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
+    age = models.CharField(max_length=30, blank=True, default="17-21")
+    smartphone = models.BooleanField(default=0)
+    emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
+    clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
+    picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
+    hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
+    settings = models.OneToOneField(UserSettings, null=True)
+    qr_code = models.OneToOneField(UserQRCode, null=True)
 
-	class Meta:
-		verbose_name_plural = u'User Profiles'
+    class Meta:
+        verbose_name_plural = u'User Profiles'
 
-	def __unicode__(self):
-		return u'UserProfile: %s' % self.user.username
+    def __unicode__(self):
+        return u'UserProfile: %s' % self.user.username
 
-	def get_full_name(self):
-		return "%s %s" % (self.user.first_name, self.user.last_name)
+    def get_full_name(self):
+        return "%s %s" % (self.user.first_name, self.user.last_name)
 
-	def get_total_hours(self):
-		user_challenges = UserChallenge.objects.filter(user=self.user)	
+    def get_total_hours(self):
+        user_challenges = UserChallenge.objects.filter(user=self.user)
 
-		total_hours = 0
-		for u in user_challenges:
-			total_hours += u.total_hours
+        total_hours = 0
+        for u in user_challenges:
+            total_hours += u.total_hours
 
-		if self.is_clean_ambassador():
-			clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=self.clean_team_member.clean_team)
+        if self.is_clean_ambassador():
+            clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=self.clean_team_member.clean_team)
 
-			for c in clean_team_challenges:
-				total_hours += c.total_hours
+            for c in clean_team_challenges:
+                total_hours += c.total_hours
 
-		return total_hours
+        return total_hours
 
-	def is_manager(self, status="approved"):
-		try:
-			return True if self.clean_team_member.role=="manager" and self.clean_team_member.status==status else False
-		except Exception, e:
-			print e
-			return False
+    def is_manager(self, status="approved"):
+        try:
+            return True if self.clean_team_member.role=="manager" and self.clean_team_member.status==status else False
+        except Exception, e:
+            print e
+            return False
 
-	def is_clean_ambassador(self, status="approved"):
-		try:
-			return True if (self.clean_team_member.role=="ambassador" or self.clean_team_member.role=="manager") and self.clean_team_member.status==status else False
-		except Exception, e:
-			print e
-			return False
+    def is_clean_ambassador(self, status="approved"):
+        try:
+            return True if (self.clean_team_member.role=="ambassador" or self.clean_team_member.role=="manager") and self.clean_team_member.status==status else False
+        except Exception, e:
+            print e
+            return False
 
-	def is_clean_champion(self, clean_team=None):
-		try:
-			if clean_team:
-				clean_champion = CleanChampion.objects.get(user=self.user, clean_team=clean_team)
-			else:
-				clean_champion = CleanChampion.objects.filter(user=self.user)[0]
+    def is_clean_champion(self, clean_team=None):
+        try:
+            if clean_team:
+                clean_champion = CleanChampion.objects.get(user=self.user, clean_team=clean_team)
+            else:
+                clean_champion = CleanChampion.objects.filter(user=self.user)[0]
 
-			return True if clean_champion.status=="approved" else False
-		except Exception, e:
-			print e
-			return False
+            return True if clean_champion.status=="approved" else False
+        except Exception, e:
+            print e
+            return False
 
-	# TODO: Should check if they are part of a Change Team as 
-	# 		either a Clean Champion or Clean Ambassador
-	def has_clean_team(self):
-		if not self.clean_team_member:
-			return False
+    # TODO: Should check if they are part of a Change Team as
+    # 		either a Clean Champion or Clean Ambassador
+    def has_clean_team(self):
+        if not self.clean_team_member:
+            return False
 
-		try:
-			# ctm = CleanTeamMember.objects.get(user=self.user)
+        try:
+            # ctm = CleanTeamMember.objects.get(user=self.user)
 
-			if self.clean_team_member.status == "removed":
-				return False
-			if self.clean_team_member.status == "pending":
-				return False
+            if self.clean_team_member.status == "removed":
+                return False
+            if self.clean_team_member.status == "pending":
+                return False
 
-		except Exception, e:
-			print e
-			return False
+        except Exception, e:
+            print e
+            return False
 
-		return True
+        return True
 
-	def get_notifications(self):
-		user_notifications = UserNotification.objects.filter(user=self.user).order_by('-timestamp')[:10]
-		return user_notifications
+    def get_notifications(self):
+        user_notifications = UserNotification.objects.filter(user=self.user).order_by('-timestamp')[:10]
+        return user_notifications
 
-	def count_unread_notifications(self):
-		count = UserNotification.objects.filter(user=self.user, read=False).count()
-		return count
+    def count_unread_notifications(self):
+        count = UserNotification.objects.filter(user=self.user, read=False).count()
+        return count
 
-	def count_notifications(self):
-		count = UserNotification.objects.filter(user=self.user).count()
-		return count
+    def count_notifications(self):
+        count = UserNotification.objects.filter(user=self.user).count()
+        return count
 
-	def set_referral_token(self, token):
-		if self.referral_token == '':
-			self.referral_token = token
-			self.save()
+    def add_clean_creds(self, amount, notification=True):
+        self.clean_creds += amount
+        self.save()
 
-	def add_clean_creds(self, amount, notification=True):
-		self.clean_creds += amount
-		self.save()
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="user_add_clean_creds")
+                # The names that will go in the notification message template
+                name_strings = [amount]
+                link_strings = [str(self.user.id)]
 
-		if notification:
-			try:
-				# Send notifications
-				notification = Notification.objects.get(notification_type="user_add_clean_creds")
-				# The names that will go in the notification message template
-				name_strings = [amount]
-				link_strings = [str(self.user.id)]
-			
-				user_notification = UserNotification()
-				user_notification.create_notification("user_add_clean_creds", self.user, name_strings, link_strings)
-			except Exception, e:
-				print e
+                user_notification = UserNotification()
+                user_notification.create_notification("user_add_clean_creds", self.user, name_strings, link_strings)
+            except Exception, e:
+                print e
 
-	def add_clean_creds_to_individual_and_teams(self, amount, notification=True):
-		# Add ChangeCreds to individual
-		self.add_clean_creds(amount, notification)
+    def add_clean_creds_to_individual_and_teams(self, amount, notification=True):
+        # Add ChangeCreds to individual
+        self.add_clean_creds(amount, notification)
 
-		# Clean Champion
-		if self.is_clean_champion():
-			clean_champions = CleanChampion.objects.filter(user=self.user)	
-			
-			for clean_champion in clean_champions:
-				if clean_champion.status == "approved":
-					clean_champion.clean_team.add_team_clean_creds(amount, notification)
+        # Clean Champion
+        if self.is_clean_champion():
+            clean_champions = CleanChampion.objects.filter(user=self.user)
 
-		# Clean Ambassador
-		if self.is_clean_ambassador():
-			self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)	
+            for clean_champion in clean_champions:
+                if clean_champion.status == "approved":
+                    clean_champion.clean_team.add_team_clean_creds(amount, notification)
 
-	def get_my_challenges(self):
-		challenges = []
+        # Clean Ambassador
+        if self.is_clean_ambassador():
+            self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)
 
-		if self.is_clean_ambassador():
-			ctm = self.clean_team_member
-			
-			try:
-				posted_challenges = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
-				challenges.append({ 'posted_challenges': posted_challenges })
-			except Exception, e:
-				print e
-
-			clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=ctm.clean_team).order_by("time_in")
-			challenges.append({ 'clean_team_challenges': clean_team_challenges })
-
-			try:
-				staples_challenge = StaplesChallenge.get_participating_store(ctm.clean_team)
-				challenges.append({ 'staples_challenge': staples_challenge })
-			except Exception, e:
-				print e
-		
-		user_challenges = UserChallenge.objects.filter(user=self.user).order_by("time_in")
-		challenges.append({ 'user_challenges': user_challenges })
-
-		return challenges
-
-	def save(self, *args, **kwargs):
-		super(UserProfile, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  

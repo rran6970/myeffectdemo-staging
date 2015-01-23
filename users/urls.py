@@ -1,14 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from django.views.generic import RedirectView
 
 from cleanteams.views import *
 from userorganization.views import *
 from users.views import *
 
 urlpatterns = patterns('',
-	#url(r'^login/?', LoginPageView.as_view()),
-    url(r'^login/?', RedirectView.as_view(url='/accounts/login/')),
+	url(r'^login/?', LoginPageView.as_view()),
 	url(r'^auth/?', 'users.views.auth_view'),
 	url(r'^logout/?', 'users.views.logout'),	
 	url(r'^register_success/?', 'users.views.register_success'),
@@ -20,10 +18,9 @@ urlpatterns = patterns('',
     url(r'^register/(?P<qrcode>\w+)/?$', RegisterView.as_view()),
     url(r'^register/?$', RegisterView.as_view()),
     url(r'^profile/(?P<uid>\d+)/?$', ProfilePublicView.as_view()),
+    url(r'^profile-progress/(?P<uid>\d+)/?$', ProfileProgressView.as_view()),
     url(r'^profile/?$', ProfileView.as_view()),  
-    url(r'^settings/?$', SettingsView.as_view()),
-    url(r'^report-card/?$', ReportCardView.as_view()),  
-    url(r'^printable-report-card/?$', PrintableReportCardView.as_view()),  
+    url(r'^settings/?$', SettingsView.as_view()),  
     url(r'^qrcode/?$', QRCodeView.as_view()),  
     url(r'^printable-card/?$', PrintableCardView.as_view()),  
 

@@ -5,10 +5,8 @@ from cleanteams.views import *
 
 urlpatterns = patterns('',
 	url(r'^invite/?$', InviteView.as_view()),
-	url(r'^invite-org/?$', InviteOrganizationView.as_view()),
 	url(r'^invite/unsubscribe/(?P<token>\w+)/?$', 'cleanteams.views.unsubscribe'),
 	url(r'^invite/(?P<token>\w+)/?$', 'cleanteams.views.invite_check'),
-	url(r'^invite-org/(?P<token>\w+)/?$', 'cleanteams.views.referral_check'),
 	url(r'^resend-invite/?$', 'cleanteams.views.resend_invite'),
 	url(r'^invite-response/(?P<token>\w+)/?$', InviteResponseView.as_view()),
 	# url(r'^invite/(?P<token>\w+)/?$', 'cleanteams.views.accept_invite'),
