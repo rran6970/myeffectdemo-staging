@@ -750,7 +750,7 @@ class Voucher(models.Model):
         verbose_name_plural = u'Voucher Codes'
 
     def __unicode__(self):
-        return u'Voucher: %s' %(self.voucher)
+        return u'Voucher: %s' %self.voucher
 
     # Checks if the user has already claimed the voucher code before
     def has_already_claimed(self, user):

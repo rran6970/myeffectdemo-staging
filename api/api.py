@@ -125,7 +125,6 @@ def registration(request):
             params['email'],
             params['password']
         )
-
         u.first_name = params['firstname']
         u.last_name = params['lastname']
         u.profile.city = params['city']
@@ -170,6 +169,7 @@ def registration(request):
 
         #print response_base.send_json_response()
         #return HttpResponse(response_base.send_json_response(), mimetype="application/json", status=200, content_type="application/json")
+
     except:
         response_base.response['status'] = 0
         response_base.response['errorMessages'] = 'Invalid'
@@ -219,7 +219,6 @@ def edit_user_profile(request):
 
     response_base.response['status'] = 1
     data = '%s(%s);' % (request.REQUEST['callback'], json.dumps(response_base.response))
-
     return HttpResponse(data, mimetype="text/javascript")
 
 def get_user_profile(request):

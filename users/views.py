@@ -365,6 +365,9 @@ class ProfileView(LoginRequiredMixin, FormView):
         initial['about'] = user.profile.about
         initial['emergency_phone'] = user.profile.emergency_phone
         initial['dob'] = user.profile.dob
+        initial['category'] = user.profile.category
+        initial['emergency_contact_fname'] = user.profile.emergency_contact_fname
+        initial['emergency_contact_lname'] = user.profile.emergency_contact_lname
         initial['street_address'] = user.profile.street_address
         initial['city'] = user.profile.city
         initial['province'] = user.profile.province
@@ -374,6 +377,7 @@ class ProfileView(LoginRequiredMixin, FormView):
 
         if user.profile.website:
             initial['website'] = user.profile.website
+
 
         if user.profile.twitter:
             initial['twitter'] = user.profile.twitter
@@ -429,6 +433,9 @@ class ProfileView(LoginRequiredMixin, FormView):
         user.profile.linkedin = form.cleaned_data['linkedin']
         user.profile.emergency_phone = form.cleaned_data['emergency_phone']
         user.profile.dob = form.cleaned_data['dob']
+        user.profile.category = form.cleaned_data['category']
+        user.profile.emergency_contact_fname = form.cleaned_data['emergency_contact_fname']
+        user.profile.emergency_contact_lname = form.cleaned_data['emergency_contact_lname']
 
         if picture:
             key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)

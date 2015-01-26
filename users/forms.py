@@ -154,6 +154,7 @@ PROVINCES = (('', 'Please select one...'),
     ('other', 'Other')
 )
 
+CATEGORIES = (("------------------","-----------------"), ("Student","Student"), ("Professional","Professional"), ("Educator","Educator"))
 COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
 
@@ -291,7 +292,10 @@ class ProfileForm(forms.ModelForm):
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
-
+    category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
+    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
+    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
+    smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
     # Combines the form with the corresponding model
     class Meta:
         model = User
@@ -327,8 +331,6 @@ class ProfileForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a valid email address")
         elif not dob:
             raise forms.ValidationError("Please select your date of birth")
-
-
         return cleaned_data
 
 class SettingsForm(forms.ModelForm):
