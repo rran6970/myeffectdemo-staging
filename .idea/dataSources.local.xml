@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQLdb" uuid="e6c99b3d-6fbc-43ae-a4e6-d9f2a5b5dc87">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>mycleancity.*</schema-pattern>
+      <default-schemas>mycleancity.*</default-schemas>
+    </data-source>
+    <data-source name="Django default" uuid="2ed6e227-45e4-4e9a-a27c-fa502f515b33">
+      <user-name>root</user-name>
+      <user-password>dfcbdfc4dfc5dfdedfc2dfcfdfd8df9bdf98df99</user-password>
+      <schema-pattern>mycleancity.*</schema-pattern>
+      <default-schemas>mycleancity.*</default-schemas>
+    </data-source>
+  </component>
+</project>

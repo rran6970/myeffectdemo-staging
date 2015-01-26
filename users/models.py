@@ -25,9 +25,7 @@ class PrelaunchEmails(models.Model):
         super(PrelaunchEmails, self).save(*args, **kwargs)
 
 """
-Name:           CleanTeamLevel
-Date created:   Jan 30, 2014
-Description:    All of the levels each Change Team can go through
+Name:           ProfilePhase
 """
 class ProfilePhase(models.Model):
     name = models.CharField(max_length=30, null=False, default="One")
@@ -44,9 +42,7 @@ class ProfilePhase(models.Model):
         super(ProfilePhase, self).save(*args, **kwargs)
 
 """
-Name:           CleanTeamLevelTask
-Date created:   Jan 30, 2014
-Description:    All of the tasks required to be completed in a level
+Name:           ProfileTask
 """
 class ProfileTask(models.Model):
     profile_phase = models.ForeignKey(ProfilePhase)
@@ -65,9 +61,7 @@ class ProfileTask(models.Model):
         super(ProfileTask, self).save(*args, **kwargs)
 
 """
-Name:           CleanTeamLevelProgress
-Date created:   Jan 30, 2014
-Description:    The tasks each Change Team has completed per level
+Name:           ProfileProgress
 """
 class ProfileProgress(models.Model):
     user = models.ForeignKey(User)

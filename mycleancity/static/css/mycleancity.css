@@ -214,7 +214,7 @@ div.tab-pane table.table ul li { margin: 0 !important; }
 div.tab-pane table.table tr td.blue-cell { background-color: #00aeef; color: white; }
 div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: white; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%;}
 /*#footer apps {  }*/
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }

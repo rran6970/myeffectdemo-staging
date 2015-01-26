@@ -46,8 +46,7 @@
                     this.isOptional = isOptional || false;
                     this.isQuantifier = isQuantifier || false;
                     this.quantifier = { min: 1, max: 1 };
-                };
-
+                }
                 //test definition => {fn: RegExp/function, cardinality: int, optionality: bool, newBlockMarker: bool, offset: int, casing: null/upper/lower, def: definitionSymbol}
                 function insertTestDefinition(mtoken, element, position) {
                     var maskdef = opts.definitions[element];
@@ -587,7 +586,7 @@
                 if (position <= 0) return 0;
 
                 while (--position > 0 && !isMask(position)) {
-                };
+                }
                 return position;
             }
 
@@ -1357,8 +1356,7 @@
                         return isComplete(getBuffer());
                 }
             }
-        };
-
+        }
         function multiMaskScope(el, masksets, opts) {
             var $el = $(el), isRTL = el.dir == "rtl" || opts.numericInput;
 
@@ -1433,7 +1431,7 @@
             }
             function determineActiveMask(eventType, elmasks) {
                 if (eventType != "multiMaskScope") {
-                    var lpc = -1, cp = -1, lvp = -1;;
+                    var lpc = -1, cp = -1, lvp = -1;
                     $.each(elmasks, function (ndx, lmsk) {
                         var data = $(lmsk).data('_inputmask');
                         var maskset = data["maskset"];
@@ -1529,8 +1527,7 @@
                     determineActiveMask("init", elmasks);
                 }, 0);
             }
-        };
-
+        }
         $.inputmask = {
             //options default
             defaults: {

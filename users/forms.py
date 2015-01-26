@@ -277,7 +277,17 @@ class ProfileForm(forms.ModelForm):
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
     about = forms.CharField(required=False, widget=forms.Textarea())
+    website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
     twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Facebook'}))
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Instagram'}))
+    google_plus = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Google+'}))
+    linkedin = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Linkedin'}))
+    street_address = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
@@ -291,9 +301,19 @@ class ProfileForm(forms.ModelForm):
         cleaned_data = super(ProfileForm, self).clean()
         first_name = cleaned_data.get("first_name")
         last_name = cleaned_data.get("last_name")
+        street_address = cleaned_data.get("street_address")
+        city = cleaned_data.get("city")
+        province = cleaned_data.get("province")
+        country = cleaned_data.get("country")
+        postal_code = cleaned_data.get("postal_code")
         email = cleaned_data.get("email")
         about = cleaned_data.get("about")
+        website = cleaned_data.get("website")
         twitter = cleaned_data.get("twitter")
+        facebook = cleaned_data.get("facebook")
+        instagram = cleaned_data.get("instagram")
+        google_plus = cleaned_data.get("google_plus")
+        linkedin = cleaned_data.get("linkedin")
         school_type = cleaned_data.get("school_type")
         emergency_phone = cleaned_data.get("emergency_phone")
         picture = cleaned_data.get("picture")
@@ -308,16 +328,6 @@ class ProfileForm(forms.ModelForm):
         elif not dob:
             raise forms.ValidationError("Please select your date of birth")
 
-        if picture:
-            if picture._size > 2*1024*1024:
-                raise forms.ValidationError("Image file must be smaller than 2MB")
-
-            w, h = get_image_dimensions(picture)
-
-            # if w != 124:
-            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
-            # if h != 124:
-            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
         return cleaned_data
 

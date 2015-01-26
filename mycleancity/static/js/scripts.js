@@ -18,11 +18,11 @@ $(function(){
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
-    })
+    });
 
     // Prevents selecting of checkbox to close search dropdown
     $("input[type='checkbox']").on("click", function(){
-        return;
+
     });
 
     $("[data-toggle='tab']").on("click", function(){
@@ -229,9 +229,9 @@ function populateMainContactInfo(e)
 
             for (var key in json){
                 var user = json[key]["fields"];
-                var first_name = user.first_name
-                var last_name = user.last_name
-                var email = user.email
+                var first_name = user.first_name;
+                var last_name = user.last_name;
+                var email = user.email;
 
                 $("#id_contact_first_name").val(first_name);
                 $("#id_contact_last_name").val(last_name);

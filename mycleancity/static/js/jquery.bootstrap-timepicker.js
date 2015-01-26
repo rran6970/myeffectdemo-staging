@@ -126,7 +126,7 @@
                 this.$widget.css({
                     top: pos.top + pos.height
                     , left: pos.left
-                })
+                });
 
                 if (!this.open) {
                     this.$widget.addClass('open');
@@ -784,7 +784,7 @@
                 data[option]();
             }
         })
-    }
+    };
 
     $.fn.timepicker.defaults = {
       minuteStep: 15
@@ -797,7 +797,7 @@
     , template: 'dropdown'
     , modalBackdrop: false
     , templates: {} // set custom templates
-    }
+    };
 
     $.fn.timepicker.Constructor = Timepicker
 }(window.jQuery);
