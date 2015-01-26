@@ -30,11 +30,7 @@ class ProfileProgressAdmin(admin.ModelAdmin):
             row.user.complete_level_task(row.level_task)
     
 admin.site.register(PrelaunchEmails, PrelaunchEmailsAdmin)
-<<<<<<< HEAD
 admin.site.register(ProfilePhase, ProfilePhaseAdmin)
 admin.site.register(ProfileTask, ProfileTaskAdmin)
 admin.site.register(ProfileProgress, ProfileProgressAdmin)
-admin.site.register(Site)
-=======
 #admin.site.register(Site)
->>>>>>> origin/songquin-dropbox-changes
