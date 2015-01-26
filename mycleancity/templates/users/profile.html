@@ -40,7 +40,7 @@
             <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <table>
                     <tr>
-                      <td class="clean-creds"><span class="green bold">Change</span><span class="blue bold">Creds</span>: {{ user.profile.clean_creds }}</td>
+                      <td>{{ form.category.label_tag }} {{ form.category }}</td>
                       <td></td>
                     </tr>
                     <tr>
@@ -58,9 +58,6 @@
                     <tr>
                         <td colspan="2">
                           {{ form.picture.label_tag }} {{ form.picture }}
-                          <div class="message-box warning">
-                            <p>Accepted images include: JPGs, PNGs, and must be smaller than 2MB.</p>
-                          </div>
                         </td>
                     </tr>
                     <tr>

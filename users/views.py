@@ -365,6 +365,9 @@ class ProfileView(LoginRequiredMixin, FormView):
         initial['about'] = user.profile.about
         initial['emergency_phone'] = user.profile.emergency_phone
         initial['dob'] = user.profile.dob
+        initial['category'] = user.profile.category
+        initial['emergency_contact_fname'] = user.profile.emergency_contact_fname
+        initial['emergency_contact_lname'] = user.profile.emergency_contact_lname
 
         if user.profile.twitter:
             initial['twitter'] = user.profile.twitter
@@ -391,11 +394,13 @@ class ProfileView(LoginRequiredMixin, FormView):
         user.last_name = form.cleaned_data['last_name']
         user.save()
 
-        # user.profile.dob = form.cleaned_data['dob']
         user.profile.about = form.cleaned_data['about']
         user.profile.twitter = form.cleaned_data['twitter']
         user.profile.emergency_phone = form.cleaned_data['emergency_phone']
         user.profile.dob = form.cleaned_data['dob']
+        user.profile.category = form.cleaned_data['category']
+        user.profile.emergency_contact_fname = form.cleaned_data['emergency_contact_fname']
+        user.profile.emergency_contact_lname = form.cleaned_data['emergency_contact_lname']
 
         if picture:
             key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
@@ -513,7 +518,7 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileProgressView, self).get_context_data(**kwargs)
         user = self.request.user
-        clean_team = user.profile.clean_team_member.clean_team
+        clean_team = user.profile
 
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
         tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)

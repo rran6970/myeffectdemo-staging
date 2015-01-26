@@ -214,7 +214,7 @@ div.tab-pane table.table ul li { margin: 0 !important; }
 div.tab-pane table.table tr td.blue-cell { background-color: #00aeef; color: white; }
 div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: white; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%;}
 /*#footer apps {  }*/
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
@@ -937,8 +937,8 @@ div.table-container #invitees-table tr td.roles {  }
 #point-meter { width: 400px; float: left; position: absolute; top: -25px; margin-left: 30px; }
 
 #point-meter .meter-container { position: relative; }
-#point-meter .meter-container .frame { height: 470px; width: 276px; background: url(../images/point-meter/meter-frame.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; } 
-#point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background: url(../images/point-meter/meter-filling-1x60.png) repeat-y 0 0; margin-left: 161px; bottom: 16px; border-top-left-radius: 30px; border-top-right-radius: 32px; border-top: 1px solid #004711; }
+#point-meter .meter-container .frame { height: 497px; width: 276px; background: url(../images/point-meter/meter-frame-160x492.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; left: 22px; top: 4px; }
+#point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background-color: #FDD144; margin-left: 161px; bottom: 16px; border-top-left-radius: 30px; border-top-right-radius: 32px; border-top: 1px solid #004711; }
 
 #point-meter .meter-container .your-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 80px; height: 63px; background: url(../images/point-meter/your-team-box-80x63.png) no-repeat 0 0; z-index: 999; bottom: 118px; }
 #point-meter .meter-container .your-team-box img.profile-pic { position: relative; left: 23px; top: 5px; box-shadow: none; border-radius: 0; }
@@ -946,8 +946,8 @@ div.table-container #invitees-table tr td.roles {  }
 #point-meter .meter-container .other-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 70px; height: 54px; background: url(../images/point-meter/other-team-box-70x54.png) no-repeat 0 0; z-index: 999; bottom: 218px; }
 #point-meter .meter-container .other-team-box img.profile-pic { position: relative; left: 22px; top: 6px; box-shadow: none; border-radius: 0; }
 
-#point-meter .sign-point-meter-bottom { width: 405px; height: 65px; background: url(../images/point-meter/bottom.png) no-repeat 0 0; }
-#point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 26px; color: #83c156; top: 16px; left: 24px; text-align: center; }
+#point-meter .sign-point-meter-bottom { width: 405px; height: 65px; background: url(../images/point-meter/bottom.png) no-repeat 0 0; text-shadow: 1px 1px 2px #0C2218; }
+#point-meter .sign-point-meter-bottom h1 { position: relative; width: 350px; font-weight: 900; font-size: 29px; color: #83c156; top: 16px; left: 24px; text-align: center; }
 
 /************************************************************
 	Edit Change Team

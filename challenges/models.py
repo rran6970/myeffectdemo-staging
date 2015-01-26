@@ -125,6 +125,7 @@ Date created:   Sept 8, 2013
 Description:    The challenge that each user will be allowed to created.
 """
 class Challenge(models.Model):
+
     title = models.CharField(max_length=60, blank=False, verbose_name="Title")
     event_start_date = models.DateField(blank=True, null=True)
     event_start_time = models.TimeField(blank=True, null=True)
@@ -250,7 +251,7 @@ class Challenge(models.Model):
                 user_challenge.challenge.check_in_check_out(user_challenge.user.id)
 
     def one_time_check_in_with_token(self, user, token):
-        now = datetime.utcnow().replace(tzinfo=utc)
+        now = datetime.datetime.utcnow().replace(tzinfo=utc)
         total_clean_creds = self.clean_creds_per_hour
 
         if self.clean_team_only:
@@ -602,9 +603,14 @@ class Challenge(models.Model):
             province = c.province if c.province else ""
 
             if type == 2:
-                clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+                clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Change</span> <span class='blue bold'>Creds</span>" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
             else:
-                clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Clean</span><span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+                clean_creds_per_hour = "<br/><strong>%s</strong>&nbsp;<span class='green bold'>Change</span> <span class='blue bold'>Creds</span>/hr" % (c.clean_creds_per_hour) if c.clean_creds_per_hour else ""
+
+            title = "%s<div>%s<br/>%s&nbsp;%s%s</div>" % (logo, challenge_title, city, province, clean_creds_per_hour)
+
+            if c.national_challenge:
+                title += "<img class='badge-icon' src='/static/images/badge-nc-62x45.png' alt='National Challenge'>"
 
             title = "%s<div>%s<br/>%s&nbsp;%s%s</div>" % (logo, challenge_title, city, province, clean_creds_per_hour)
 
@@ -744,7 +750,7 @@ class Voucher(models.Model):
         verbose_name_plural = u'Voucher Codes'
 
     def __unicode__(self):
-        return u'Voucher: %s' %(self.voucher)
+        return u'Voucher: %s' %self.voucher
 
     # Checks if the user has already claimed the voucher code before
     def has_already_claimed(self, user):
