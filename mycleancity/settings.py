@@ -1,6 +1,5 @@
 # Django settings for mycleancity project.
 import os
-import urlparse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -17,7 +16,7 @@ DATABASES = {
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': 'orcl',
+        'PASSWORD': 'another123',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                     # Set to empty string for default.
         'OPTIONS': {
@@ -224,16 +223,8 @@ LOGGING = {
 }
 
 # Parse database configuration from $DATABASE_URL
-#import dj_database_url
-#DATABASES['default'] = dj_database_url.config()
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
-DATABASES['default'].update({
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        })
+import dj_database_url
+# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

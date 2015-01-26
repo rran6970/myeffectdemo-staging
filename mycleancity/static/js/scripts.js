@@ -18,11 +18,11 @@ $(function(){
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
-    })
+    });
 
     // Prevents selecting of checkbox to close search dropdown
     $("input[type='checkbox']").on("click", function(){
-        return;
+
     });
 
     $("[data-toggle='tab']").on("click", function(){
