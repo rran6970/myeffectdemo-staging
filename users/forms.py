@@ -23,91 +23,144 @@ from userprofile.models import UserProfile, UserSettings
 from userorganization.models import UserOrganization
 
 class CustomPasswordResetForm(PasswordResetForm):
-	"""
-	    Overriding the Email Password Resert Forms Save to be able to send HTML email
-	"""
-	def save(self, domain_override=None, email_template_name='registration/reset_email.html', use_https=False, token_generator=default_token_generator, request=None, email_subject_name='registration/reset_subject.txt', **kwargs):
-		from django.core.mail import EmailMultiAlternatives
-		from django.utils.html import strip_tags
-		from django.template.loader import render_to_string
-		from django.contrib.sites.models import get_current_site
-		from django.utils.http import int_to_base36
+    """
+        Overriding the Email Password Resert Forms Save to be able to send HTML email
+    """
+    def save(self, domain_override=None, email_template_name='registration/reset_email.html', use_https=False, token_generator=default_token_generator, request=None, email_subject_name='registration/reset_subject.txt', **kwargs):
+        from django.core.mail import EmailMultiAlternatives
+        from django.utils.html import strip_tags
+        from django.template.loader import render_to_string
+        from django.contrib.sites.models import get_current_site
+        from django.utils.http import int_to_base36
 
-		for user in self.users_cache:
-			if not domain_override:
-				current_site = get_current_site(request)
-				site_name = current_site.name
-				domain = current_site.domain
-			else:
-				site_name = domain = domain_override
+        for user in self.users_cache:
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
 
-			c = {
-				'email': user.email,
-				'domain': domain,
-				'site_name': site_name,
-				'uid': int_to_base36(user.id),
-				'user': user,
-				'token': token_generator.make_token(user),
-				'protocol': use_https and 'https' or 'http',
-			}
-			render = render_to_string(email_template_name, c)
-			render_subject = render_to_string(email_subject_name, c)
+            c = {
+                'email': user.email,
+                'domain': domain,
+                'site_name': site_name,
+                'uid': int_to_base36(user.id),
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': use_https and 'https' or 'http',
+            }
+            render = render_to_string(email_template_name, c)
+            render_subject = render_to_string(email_subject_name, c)
 
-			msg = EmailMultiAlternatives(render_subject, strip_tags(render), None, [user.email])
-			msg.attach_alternative(render, "text/html")
-			msg.send()
+            msg = EmailMultiAlternatives(render_subject, strip_tags(render), None, [user.email])
+            msg.attach_alternative(render, "text/html")
+            msg.send()
 
 """
 Form validators
 """
 
 def username_is_unique(value):
-	if User.objects.filter(username = value):
-		raise forms.ValidationError(u'%s is already registered' % value)
+    if User.objects.filter(username = value):
+        raise forms.ValidationError(u'%s is already registered' % value)
 
 def username_exists(value):
-	if not User.objects.filter(username = value):
-		raise forms.ValidationError(u'%s is not a valid user' % value)
+    if not User.objects.filter(username = value):
+        raise forms.ValidationError(u'%s is not a valid user' % value)
 
 def username_format_is_valid(value):
-	if not value:
-		raise forms.ValidationError(u'Invalid email address')
-	if not re.match(r'\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b', value,
-		re.IGNORECASE):
-		raise forms.ValidationError(u'%s is not a valid email address' % value)
+    if not value:
+        raise forms.ValidationError(u'Invalid email address')
+    if not re.match(r'\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b', value,
+        re.IGNORECASE):
+        raise forms.ValidationError(u'%s is not a valid email address' % value)
 
 def password_length_sufficient(value):
-	if len(value) < 8:
-		raise forms.ValidationError(u'Password must be at least 8 characters')
+    if len(value) < 6:
+        raise forms.ValidationError(u'Password must be at least 6 characters')
 
 def country_is_valid(country):
-	_countries = pycountry.countries
-	countries = []
-	for _country in _countries:
-		if getattr(_country, 'alpha2', False):
-			countries.append(_country.alpha2)
-	if str(country) not in countries:
-		raise forms.ValidationError('Invalid country')
+    _countries = pycountry.countries
+    countries = []
+    for _country in _countries:
+        if getattr(_country, 'alpha2', False):
+            countries.append(_country.alpha2)
+    if str(country) not in countries:
+        raise forms.ValidationError('Invalid country')
 
 SCHOOLS = (('', 'Please select one...'),('Elementary Student', 'Elementary Student'), ('High School Student', 'High School Student'), ('Post Secondary Student', 'Post Secondary Student'))
 
+COUNTRY = (('', 'Please select one'), ('Canada', 'Canada'), ('United States', 'United States'))
+
 PROVINCES = (('', 'Please select one...'),
-	('AB', 'AB'),
-	('BC', 'BC'),
-	('MB', 'MB'),
-	('NB', 'NB'),
-	('NF', 'NF'),
-	('NW', 'NW'),
-	('NS', 'NS'),
-	('NU', 'NU'),
-	('ON', 'ON'),
-	('PEI', 'PEI'),
-	('QB', 'QB'),
-	('SA', 'SA'),
-	('YU', 'YU'),
-	('other', 'Other/Autres'),
+    ('AB', 'AB'),
+    ('BC', 'BC'),
+    ('MB', 'MB'),
+    ('NB', 'NB'),
+    ('NF', 'NF'),
+    ('NW', 'NW'),
+    ('NS', 'NS'),
+    ('NU', 'NU'),
+    ('ON', 'ON'),
+    ('PEI', 'PEI'),
+    ('QB', 'QB'),
+    ('SA', 'SA'),
+    ('YU', 'YU'),
+    ('AL', 'AL'),
+    ('AK', 'AK'),
+    ('AZ', 'AZ'),
+    ('AR', 'AR'),
+    ('CA', 'CA'),
+    ('CO', 'CO'),
+    ('CT', 'CT'),
+    ('DE', 'DE'),
+    ('FL', 'FL'),
+    ('GA', 'GA'),
+    ('HI', 'HI'),
+    ('ID', 'ID'),
+    ('IL', 'IL'),
+    ('IN', 'IN'),
+    ('IA', 'IA'),
+    ('KS', 'KS'),
+    ('KY', 'KY'),
+    ('LA', 'LA'),
+    ('ME', 'ME'),
+    ('MD', 'MD'),
+    ('MA', 'MA'),
+    ('MI', 'MI'),
+    ('MN', 'MN'),
+    ('MS', 'MS'),
+    ('MO', 'MO'),
+    ('MT', 'MT'),
+    ('NE', 'NE'),
+    ('NV', 'NV'),
+    ('NH', 'NH'),
+    ('NJ', 'NJ'),
+    ('NM', 'NM'),
+    ('NY', 'NY'),
+    ('NC', 'NC'),
+    ('ND', 'ND'),
+    ('OH', 'OH'),
+    ('OK', 'OK'),
+    ('OR', 'OR'),
+    ('PA', 'PA'),
+    ('RI', 'RI'),
+    ('SC', 'SC'),
+    ('SD', 'SD'),
+    ('TN', 'TN'),
+    ('TX', 'TX'),
+    ('UT', 'UT'),
+    ('VT', 'VT'),
+    ('VA', 'VA'),
+    ('WA', 'WA'),
+    ('WV', 'WV'),
+    ('WI', 'WI'),
+    ('WY', 'WY'),
+    ('other', 'Other')
 )
 
+CATEGORIES = (("------------------","-----------------"), ("Student","Student"), ("Professional","Professional"), ("Educator","Educator"))
 COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
 
@@ -201,54 +254,64 @@ class RegisterUserForm(forms.ModelForm):
 		return cleaned_data
 
 class ProfileForm(forms.ModelForm):
-	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
-	about = forms.CharField(required=False, widget=forms.Textarea())
-	twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
-	# dob = forms.DateField(required=True, initial=datetime.date.today, label="Date of Birth (YYYY-MM-DD)", widget=forms.TextInput(attrs={'class':'datepicker'}))
-	emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
-	picture = forms.ImageField(required=False, label="Profile picture")
-	dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
+    first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+    about = forms.CharField(required=False, widget=forms.Textarea())
+    website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
+    twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Facebook'}))
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Instagram'}))
+    google_plus = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Google+'}))
+    linkedin = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Linkedin'}))
+    street_address = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
+    picture = forms.ImageField(required=False, label="Profile picture")
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
+    category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
+    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
+    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
+    smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
+    # Combines the form with the corresponding model
+    class Meta:
+        model = User
+        exclude = ('username', 'last_login', 'date_joined', 'password')
 
-	# Combines the form with the corresponding model
-	class Meta:
-		model = User
-		exclude = ('username', 'last_login', 'date_joined', 'password')
+    def clean(self):
+        cleaned_data = super(ProfileForm, self).clean()
+        first_name = cleaned_data.get("first_name")
+        last_name = cleaned_data.get("last_name")
+        street_address = cleaned_data.get("street_address")
+        city = cleaned_data.get("city")
+        province = cleaned_data.get("province")
+        country = cleaned_data.get("country")
+        postal_code = cleaned_data.get("postal_code")
+        email = cleaned_data.get("email")
+        about = cleaned_data.get("about")
+        website = cleaned_data.get("website")
+        twitter = cleaned_data.get("twitter")
+        facebook = cleaned_data.get("facebook")
+        instagram = cleaned_data.get("instagram")
+        google_plus = cleaned_data.get("google_plus")
+        linkedin = cleaned_data.get("linkedin")
+        school_type = cleaned_data.get("school_type")
+        emergency_phone = cleaned_data.get("emergency_phone")
+        picture = cleaned_data.get("picture")
+        dob = cleaned_data.get('dob')
 
-	def clean(self):
-		cleaned_data = super(ProfileForm, self).clean()
-		first_name = cleaned_data.get("first_name")
-		last_name = cleaned_data.get("last_name")
-		email = cleaned_data.get("email")
-		about = cleaned_data.get("about")
-		twitter = cleaned_data.get("twitter")
-		school_type = cleaned_data.get("school_type")
-		emergency_phone = cleaned_data.get("emergency_phone")
-		picture = cleaned_data.get("picture")
-		dob = cleaned_data.get('dob')
-
-		if not first_name:
-			raise forms.ValidationError("Please enter your first name")
-		elif not last_name:
-			raise forms.ValidationError("Please enter your last name")
-		elif not email:
-			raise forms.ValidationError("Please enter a valid email address")
-		elif not dob:
-			raise forms.ValidationError("Please select your date of birth")
-
-		if picture:
-			if picture._size > 2*1024*1024:
-				raise forms.ValidationError("Image file must be smaller than 2MB")
-
-			w, h = get_image_dimensions(picture)
-
-			if w != 124:
-				raise forms.ValidationError("The image is supposed to be 124px X 124px")
-			if h != 124:
-				raise forms.ValidationError("The image is supposed to be 124px X 124px")
-
-		return cleaned_data
+        if not first_name:
+            raise forms.ValidationError("Please enter your first name")
+        elif not last_name:
+            raise forms.ValidationError("Please enter your last name")
+        elif not email:
+            raise forms.ValidationError("Please enter a valid email address")
+        elif not dob:
+            raise forms.ValidationError("Please select your date of birth")
+        return cleaned_data
 
 class SettingsForm(forms.ModelForm):
 	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")

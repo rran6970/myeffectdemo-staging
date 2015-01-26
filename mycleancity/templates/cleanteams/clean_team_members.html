@@ -33,10 +33,10 @@
 					</thead>
 					<tbody>
 					{% for ca in cas %}
-						{% if ca.user.is_active and ca.role == "ambassador" %}
+						{% if ca.user.is_active and ca.role == "leader" %}
 						<tr>
 							<td class="members">						
-			                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+			                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-my-effect-ca2-62x78.png" alt="Badge CA" />
 			                  <a href="/users/profile/{{ ca.user.id }}">{{ ca.user.first_name }} {{ ca.user.last_name }}</a>
 							</td>
 							<td class="status">
@@ -67,13 +67,13 @@
         </div><!-- /#white-box -->
 
 		<div id="white-box" class="team-members-cc">	
-			<h1 id="team-name">Catalysts</h1>	
+			<h1 id="team-name">Agent</h1>	
 	        <div id="clean-team-members-list">
 			    {% for cc in ccs %}
 			      {% if cc.user.is_active %}
 			        {% if cc.status == "approved" %}
 			          <p>          
-			            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+			            <img id="badge-icon" src="{{ STATIC_URL }}images/badge-my-effect-cc-62x78.png" alt="Badge CC" />
 			            <a href="/users/profile/{{ cc.user.id }}">{{ cc.user.first_name }} {{ cc.user.last_name }}</a>
 			          </p>
 			        {% endif %}

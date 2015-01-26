@@ -1,5 +1,5 @@
 {% extends '_public_base.html' %}
-
+{% load socialaccount %}
 {% block title %} My Effect - Register {% endblock %}
 
 {% block css %}
@@ -19,87 +19,65 @@
     <div class="container">
         <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a> -->
         <div id="white-box" class="register">
-            <h2>Register</h2>
+            <div class="socialaccount_signup">
+              <h2>Sign up with: </h2>
+              <a href="{% provider_login_url "twitter" %}">
+                <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+              <a href="{% provider_login_url "facebook" %}">
+                <img class="social-login-icon" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+              <a href="{% provider_login_url "instagram" %}">
+                <img class="social-login-icon" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+              <a href="{% provider_login_url "linkedin" %}">
+                <img class="social-login-icon" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+              <a href="{% provider_login_url "google" %}">
+                <img class="social-login-icon" src="/static/images/google175x175.jpeg" alt="Google"></a>
+            </div>
+            <div style="float: right;">
+              <div class="fb-share-button" style=" padding: 2px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
 
-              
-            <div class="fb-share-button" style="margin-right: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-type="button_count" data-show-faces="true" data-send="false"></div>
-
-            <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
+              <div style=" padding: 2px;"><a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a></div>
+            </div>
+            <h2>or:</h2>
+            <h2>Register / Inscription</h2>
 
             {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
             {% endif %}
-
+              
             <form method="post" autocomplete="off">{% csrf_token %}
               {{ form.token }}
+              {{ form.referral_token }}
               <table>
-                  <div class="padding-30 width-350"><br />
-                    <a rel="tooltip" data-html="true" data-placement="right" data-original-title="
-                    <span class='description'><strong class='title'>Agent</strong>I am an individual and I want to participate on my own.</span>
-
-                    <span class='description'><strong class='title'>Leader</strong>I want to be a My Effect leader and start or join a Change Team.</span>
-
-                    <span class='description last'><strong class='title'>Manager</strong>I will be creating and managing a Change Team on an organizations' behalf.</span>"><br /><br /><img src="{{ STATIC_URL }}images/icon-help-24x29.png" alt="Hover over this to see what these  roles mean" style="float: right; cursor: pointer;"></a>
-                    {{ form.role }}
-                  </div>
                 <tr>
                     <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
                     <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
                 </tr>
                 <tr>
+                    <td>{{ form.email.label_tag }} {{ form.email }}</td>
+                </tr>
+                <tr>
                     <td>{{ form.password.label_tag }} {{ form.password }}</td>
                     <td>{{ form.confirm_password.label_tag }} {{ form.confirm_password }}</td>
                 </tr>
-                <tr>
-                    <td>{{ form.email.label_tag }} {{ form.email }}</td>
-                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.city.label_tag }} {{ form.city }}</td>
-                    <td>{{ form.province.label_tag }} {{ form.province }}</td>
-                </tr>
-                <tr>
-                    <!--<td>{#  #}{ form.student_id.label_tag }} {#  #}{ form.student_id }}</td>-->
-                    <td>{{ form.school_name.label_tag }} {{ form.school_name }}</td>
-                </tr>
               </table>
-
-              <div class="padding-10 width-550">
-                {{ form.communication_language.label_tag }} {{ form.communication_language }}
-              </div>
               <div class="padding-10">
                 {{ form.hear_about_us.label_tag }} {{ form.hear_about_us }}
               </div>
-              <div class="padding-10">
-                {{ form.dob.label_tag }}{{ form.dob }}
-              </div>
-
-
-              <!--<div class="padding-20">
-                {#  #}{ form.smartphone }}<label for="">Do you have a smartphone? <br /> Est-ce que tu as un téléphone intelligent?</label>
-              </div>-->
-
+              
               <div class="padding-20">
-                {{ form.receive_newsletters }}<label for="">I would like to receive My Effect communications containing important program announcements, news, updates, partner opportunities, contests and promotions, regarding My Effect's program and tools. You may withdraw consent at anytime.<!-- <br /> J'aimerais recevoir toutes communications de la part de Ma Ville Propre à propos des programmes, des nouvelles, des mises à jour, des opportunités avec les partenaires, des concours et des promotions, en lien avec le programme et les outils de Ma Ville Propre. Vous pouvez annuler votre inscription en tout temps. --></label>
-              </div>
-
-              <div class="padding-20">
-                {{ form.data_privacy }}<label for="">I consent to share my volunteer data with organizations I work with</label>
-              </div>
-              <div class="padding-20">
-                {{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditions</a> <!--<br /> Je reconnais que j'ai lu et j'accepte les <a href="#terms-conditions-fr" class="popup-600">Conditions générales</a>--></label>
+                {{ form.uea }}<label for="">I agree that I have read and accepted the <a href="#terms-conditions" class="popup-600">Terms &amp; Conditions</a> <br /> Je reconnais que j'ai lu et j'accepte les <a href="#terms-conditions-fr" class="popup-600">Conditions générales</a></label>
               </div>
 
               <div class="padding-20">
                 {{ form.captcha }}
               </div>
               
-              <input class="btn btn-primary" type="submit" value="Register" />
+              <input class="btn btn-primary" type="submit" value="Register / Inscription" />
           </form>
-          <p>Already have an account? Login in <a href="/users/login">here</a>.</p>
-          <!--<p>Déjà un compte? <a href="/users/login">Connectez-vous</a> ici</a>.</p>-->
+          <p>Already have an account? Login in <a href="/accounts/login">here</a>.
+          <p>Déjà un compte? <a href="/accounts/login">Connectez-vous</a> ici</a>.
         </div><!-- /#white-box .register -->
 
         {% if popup %}

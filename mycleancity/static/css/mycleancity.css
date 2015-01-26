@@ -5,6 +5,7 @@ Description:    CSS file for the Index Page
 Date created:   Sept 24, 2013
 -------------------------------------------------------------------*/
 
+div.wrapper.public.printer-friendly { background: none; }
 div.wrapper.public { margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; overflow: hidden; }
 
 div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
@@ -13,7 +14,7 @@ div.wrapper.public h1.title { position: relative; line-height: 30px; font-size: 
 
 div.wrapper.public a.logo,
 #mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-250x243.png) no-repeat center center; position: relative; z-index: 1; }
-/*div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-my-effect-yellow-250x243.png) no-repeat 0 0; position: relative; z-index: 1; }*/
+div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-my-effect-yellow-250x243.png) no-repeat 0 0; position: relative; z-index: 1; }
 
 div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
 
@@ -25,7 +26,7 @@ div.container.mobile-view  {
     background: -webkit-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
     background: -moz-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
     background: -o-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
-   /* background: linear-gradient(#00afef 0%, #ebf7fe 50%) !important;*/ /* W3C */
+    background: linear-gradient(#00afef 0%, #ebf7fe 50%) !important; /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00afef', endColorstr='#ebf7fe',GradientType=0 ) !important; /* IE6-9 */
 
     background-image: url('../images/login-bottombg.png');
@@ -43,7 +44,7 @@ div.container.mobile-view #white-box { margin: 0; padding: 15px; position: stati
 [class*=" icon-"] { background-image: url("../images/glyphicons-halflings.png"); }
 
 a { color: #00aeef; }
-a.menu-items { font-weight: 500; font-size: 15px; color: white; letter-spacing: 0; margin: 20px 15px; text-shadow: 1px 1px 2px #444; }
+a.menu-items { font-weight: 500; font-size: 15px; color: white; letter-spacing: 0px; margin: 20px 15px; text-shadow: 1px 1px 2px #444; }
 a.menu-items-left { float: left; position: relative; display: inline-block; z-index: 999; }
 a.menu-items-right { float: right; margin: 20px; position: relative; display: block; z-index: 999; }
 a.menu-items:hover { text-decoration: none; color: #000; }
@@ -52,7 +53,7 @@ p.question { font-weight: 800; margin-bottom: 0; padding-bottom: 0; }
 h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; padding-bottom: 0; }
 
 #notification-icon { cursor: pointer; display: block; height: 34px; width: 32px; background: url(../images/icon-notification.png) no-repeat 0 0; }
-#notification-icon:hover { background-position: bottom;}
+#notification-icon:hover { background-position: bottom; bottom }
 #notification-container { height: 19px; background-color: #FF8E35; position: absolute; right: 127px; padding: 1px 3px 18px; top: 11px; z-index: 1000; color: #FFF; text-shadow: 0px 1px 1px #000; text-align: right; }
 #notification-container span { display: block; }
 
@@ -142,6 +143,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.clean-team-members { left: 181px; }
 #sign-go-back.edit-clean-team { left: 347px; }
 #sign-go-back.invite { left: 78px; }
+#sign-go-back.report-card { left: 78px; }
 #sign-go-back-big.about,
 #sign-go-back-big-fr.about { left: 32px; top: 386px; }
 #sign-go-back-big.communication-hub,
@@ -206,16 +208,16 @@ div.signs.nav-tabs { border: none; }
 
 #sign-my-actions2 { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 32px; background: url(../images/sign-my-actions2.png) no-repeat 0 0; }
 .sign:hover, div.active { background-position: 0 bottom !important; }
-/*#sign-my-actions2-fr { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-actions2.png) no-repeat 0 0; }
-.sign:hover, div.active { background-position: 0 bottom !important; }*/
+#sign-my-actions2-fr { width: 251px; height: 54px; position: absolute; z-index: 1000; top: 270px; left: 51px; background: url(../images/french/sign-my-actions2.png) no-repeat 0 0; }
+.sign:hover, div.active { background-position: 0 bottom !important; }
 
 div.tab-pane table.table tr td { padding: 10px !important; font-weight: 400; font-size: 18px; line-height: 25px; }
 div.tab-pane table.table ul li { margin: 0 !important; }
 div.tab-pane table.table tr td.blue-cell { background-color: #00aeef; color: white; }
 div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: white; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%;}
-/*#footer apps {  }*/
+#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; height: 1000px; }
+#footer apps {  }
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
 #footer #footer-nav { float: left; margin-top: 21px; }
@@ -302,7 +304,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #sign-why-mcc-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-why-mcc.png) no-repeat 0 0; }
 
 #sign-volunteer-tracking { width: 354px; height: 68px; position: absolute; z-index: 1000; top: 135px; left: 31px; background: url(../images/sign-volunteer-tracking.png) no-repeat 0 0; }
-/*#sign-volunteer-tracking-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-volunteer-tracking.png) no-repeat 0 0; }*/
+#sign-volunteer-tracking-fr { width: 352px; height: 68px; position: absolute; z-index: 1000; top: 95px; left: 31px; background: url(../images/french/sign-volunteer-tracking.png) no-repeat 0 0; }
 
 #sign-get-started { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 197px; left: 50px; background: url(../images/sign-get-started.png) no-repeat 0 0; }
 #sign-get-started-fr { width: 276px; height: 54px; position: absolute; z-index: 1000; top: 165px; left: 62px; background: url(../images/french/sign-get-started.png) no-repeat 0 0; }
@@ -311,7 +313,7 @@ div.content.student #white-box iframe { margin: 0 190px; }
 #sign-ambassador-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-ambassador.png) no-repeat 0 0; }
 
 #sign-create-team { width: 256px; height: 54px; position: absolute; z-index: 1000; top: 314px; left: 60px; background: url(../images/sign-create-team.png) no-repeat 0 0; }
-/*#sign-create-team-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-create-team.png) no-repeat 0 0; }*/
+#sign-create-team-fr { width: 343px; height: 68px; position: absolute; z-index: 1000; top: 225px; left: 26px; background: url(../images/french/sign-create-team.png) no-repeat 0 0; }
 
 #sign-get-rewarded { width: 250px; height: 54px; position: absolute; z-index: 1000; top: 371px; left: 40px; background: url(../images/sign-get-rewarded.png) no-repeat 0 0; }
 #sign-get-rewarded-fr { width: 258px; height: 54px; position: absolute; z-index: 1000; top: 296px; left: 62px; background: url(../images/french/sign-get-rewarded.png) no-repeat 0 0; }
@@ -416,11 +418,11 @@ div.content.rewards #white-box #grand-prize-title img { display: block; margin: 
 #sign-clean-teams { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 231px; left: 56px; background: url(../images/sign-clean-teams.png) no-repeat 0 0; }
 #sign-clean-teams-fr { width: 267px; height: 65px; position: absolute; z-index: 1000; top: 224px; left: 56px; background: url(../images/french/sign-clean-teams.png) no-repeat 0 0; }
 
-/*#sign-catalysts { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-catalysts.png) no-repeat 0 0; }
-#sign-catalysts-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-catalysts.png) no-repeat 0 0; }*/
+#sign-catalysts { width: 277px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/sign-catalysts.png) no-repeat 0 0; }
+#sign-catalysts-fr { width: 249px; height: 54px; position: absolute; z-index: 1000; top: 288px; left: 62px; background: url(../images/french/sign-catalysts.png) no-repeat 0 0; }
 
 #sign-grand-prize { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/sign-grand-prize.png) no-repeat 0 0; }
-/*#sign-grand-prize-fr { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/french/sign-grand-prize.png) no-repeat 0 0; }*/
+#sign-grand-prize-fr { width: 213px; height: 54px; position: absolute; z-index: 1000; top: 344px; left: 81px; background: url(../images/french/sign-grand-prize.png) no-repeat 0 0; }
 
 #sign-go-back-big.rewards { top: 424px; left: 62px; background: url(../images/sign-go-back-big.png) no-repeat 0 0; }
 #sign-go-back-big.rewards-fr { top: 400px; left: 62px; background: url(../images/french/sign-go-back-big.png) no-repeat 0 0; }
@@ -468,11 +470,11 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 /******************************
 	White Box
 ******************************/
-#white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: scroll; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
+#white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: auto; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
 #white-box h2 { margin-bottom: 12px; }
 #white-box p, #white-box h2 { color: #638d3d; }
-#white-box p { padding: 10px 0; }
-#white-box p, #white-box ul li, #white-box ol li { font-size: 18px; font-weight: 400; line-height: 25px; }
+#white-box p { /*padding: 10px 0;*/ }
+#white-box p, #white-box ul li, #white-box ol li { font-size: 14px; font-weight: 400; line-height: 25px; }
 #white-box .left { float: left; width: 150px; }
 #white-box .right { float: right; }
 #white-box .right form input { display: block; width: 300px; }
@@ -502,10 +504,18 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 /******************************
 	Login
 ******************************/
-#white-box.login { width: 356px; height: 332px; left: 36%; overflow-y: scroll; }
+#white-box.login { width: 356px; height: 500px; left: 36%; overflow-y: auto; }
 #white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
-#white-box.login p { text-align: center; font-size: 15px; }
+#white-box.login p { font-size: 15px; }
+
+/******************************
+    Social Signup
+******************************/
+#white-box.social-signup { margin: auto; overflow-y: auto; }
+#white-box.social-signup input[type="text"], #white-box.social-signup input[type="email"] { width: 295px; }
+#white-box.social-signup input[type="submit"] { width: 296px; font-size: 16px; padding: 10px; }
+#white-box.social-signup p { font-size: 15px; }
 
 /******************************
 	Password Reset
@@ -636,7 +646,7 @@ div.container#register-join-team {  }
 #white-box.public-profile div.info div.field * { font-size: 14px; line-height: 18px; }
 #white-box.public-profile div.info div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
 #white-box.public-profile div.info div.field.about p.title { margin-bottom: -16px; }
-#white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px;right: 344px; z-index: 1000; }
+#white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px; right: 360px; z-index: 1000; }
 
 /******************************
 	Challenge Survey
@@ -763,7 +773,7 @@ div.content.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; 
 
 div.content.challenge-overview #participants-box { position: absolute; width: 375px; height: 415px; overflow: scroll; z-index: 1000; left: 54%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
 div.content.challenge-overview #participants-box h1 { font-weight: 900; }
-/*div.content.challenge-overview #participants-box div.participants { margin: 7px; text-align: center; }
+d/*iv.content.challenge-overview #participants-box div.participants { margin: 7px; text-align: center; }
 div.content.challenge-overview #participants-box div.participants a img { float: left; margin: 0 auto 6px; display: block; border-radius: 4px; width: 42px; height: 42px; }*/
 
 div.content.challenge-overview #participants-box .participants-list { margin: 10px; }
@@ -789,7 +799,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .brown-box.clean-teams { float: right; margin-right: 50px; text-shadow: 1px 1px 3px #111; }
 .brown-box.clean-teams #badge-icon { height: 36px; }
 
-.brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 15px; }
+.brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 20px; }
 .brown-box h2 { font-size: 22px; font-weight: 900; }
 
 .board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
@@ -802,9 +812,9 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 .board table tr td span.cleancreds { display: block; float: right; }
 
 .blue { color: #00aeef !important; }
+.gold { color: #FDD144 !important; }
 .green { color: #83c156 !important; }
 .red { color: #EB0900 !important; }
-.gold { color: #FDD017 !important; }
 .bold { font-weight: 800 !important; }
 .center { text-align: center !important; }
 
@@ -878,6 +888,24 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.invite-response form input[type="submit"] { width: 300px; margin: 20px auto; }
 
 /******************************
+    Report Card Page
+******************************/
+#white-box.report-card { width: 1250px; left: 10px; }
+#white-box.report-card table { text-align: center; width: 100%; }
+#white-box.report-card table thead tr td { padding: 10px; border: 1px solid #abd78c; background-color: #EAF8E1; }
+#white-box.report-card table thead tr td.date { width: 150px; }
+#white-box.report-card table thead tr td.hours { }
+#white-box.report-card table thead tr td.organization { }
+#white-box.report-card table thead tr td.description { }
+#white-box.report-card table thead tr td.supervisor-name { }
+#white-box.report-card table thead tr td.supervisor-signature { }
+#white-box.report-card table thead tr td.designate-signature { }
+#white-box.report-card table tbody tr td { padding: 10px; border: 1px solid #C4E6AD; }
+#white-box.report-card table tbody tr:hover { background-color: #EAF8E1; }
+
+#white-box.report-card.printer-friendly { width: 100%; height: 100%; border: none; position: static; overflow: auto; }
+
+/******************************
 	Change Team Page
 ******************************/
 #clean-team-members-list.popup { width: 100%; left: 35%; }
@@ -932,12 +960,12 @@ div.table-container #invitees-table tr td.roles {  }
 
 #white-box.clean-team-profile div.field p.title { text-transform: uppercase; margin: 0 !important; }
 
-#white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 0 auto; }
+#white-box.clean-team-profile #badge-cc { display: block; width: 80px; margin: 10px auto; }
 
 #point-meter { width: 400px; float: left; position: absolute; top: -25px; margin-left: 30px; }
 
 #point-meter .meter-container { position: relative; }
-#point-meter .meter-container .frame { height: 497px; width: 276px; background: url(../images/point-meter/meter-frame-160x492.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; left: 22px; top: 4px; }
+#point-meter .meter-container .frame { height: 497px; width: 276px; background: url(../images/point-meter/meter-frame-160x492.png) no-repeat 0 0; margin: 0 auto; position: relative; z-index: 1; left: 22px; top: 4px; } 
 #point-meter .meter-container .meter-filling { position: absolute; z-index: 1; height: 5px; width: 60px; background-color: #FDD144; margin-left: 161px; bottom: 16px; border-top-left-radius: 30px; border-top-right-radius: 32px; border-top: 1px solid #004711; }
 
 #point-meter .meter-container .your-team-box { opacity: 0.9; position: absolute; margin-left: 210px; width: 80px; height: 63px; background: url(../images/point-meter/your-team-box-80x63.png) no-repeat 0 0; z-index: 999; bottom: 118px; }

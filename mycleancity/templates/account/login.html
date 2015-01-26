@@ -1,0 +1,66 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+{% load account %}
+{% load socialaccount %}
+{% load url from future %}
+{% block title %} My Effect - Login {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_public_no_popup_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign login" id="sign-go-back"></div></a>
+        <div id="white-box" class="login">
+            <h2>Login with:</h2>
+            <div class="socialaccount_ballot">
+              <a href="{% provider_login_url "twitter" %}">
+                <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+              <a href="{% provider_login_url "facebook" %}">
+                <img class="social-login-icon" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+              <a href="{% provider_login_url "instagram" %}">
+                <img class="social-login-icon" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+              <a href="{% provider_login_url "linkedin" %}">
+                <img class="social-login-icon" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+              <a href="{% provider_login_url "google" %}">
+                <img class="social-login-icon" src="/static/images/google175x175.jpeg" alt="Google"></a>
+            </div>
+            <h2>or:</h2>
+            {% if invalid %}
+              <div class="message-box error">
+               <p>Sorry, that's not a valid username or password</p>
+              </div>
+            {% endif %}
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              {{ form.as_p }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <input class="btn btn-primary" type="submit" value="Login" />
+            </form>
+
+            <p>
+              Don't have an account? Create one <a href="/register">here</a>.
+              <br/
+              >Forgot your password? Reset it <a href="/user/password/reset/">here</a>.
+            </p>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
