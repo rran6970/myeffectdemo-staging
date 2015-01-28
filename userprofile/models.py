@@ -151,6 +151,8 @@ class UserProfile(models.Model):
     google_plus = models.CharField(max_length=60, blank=True, null=True, verbose_name="Google Plus")
     linkedin = models.CharField(max_length=60, blank=True, null=True, verbose_name="Linkedin")
     street_address = models.CharField(max_length=60, blank=True, null=True, verbose_name='Street Address')
+    emergency_contact_fname = models.CharField(max_length=60, blank=True, null=True)
+    emergency_contact_lname = models.CharField(max_length=60, blank=True, null=True)
     category = models.CharField(max_length=60, blank=True, null=True, verbose_name="Category")
     city = models.CharField(max_length=60, blank=True, null=True, verbose_name='City')
     province = models.CharField(max_length=10, blank=True, null=True, verbose_name='Province')

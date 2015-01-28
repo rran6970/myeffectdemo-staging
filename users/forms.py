@@ -289,12 +289,12 @@ class ProfileForm(forms.ModelForm):
     province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency phone number")
+    emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency contact phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
     category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
-    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
-    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput())
+    emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact first name")
+    emergency_contact_lname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact last name")
     smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
     # Combines the form with the corresponding model
     class Meta:
