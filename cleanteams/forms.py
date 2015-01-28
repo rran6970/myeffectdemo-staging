@@ -9,6 +9,20 @@ CLEAN_TEAM_TYPES = (('', 'Please select one...'),
     ('representing', 'Representing a school or group'),
 )
 
+TEAM_CATEGORIES = (('General', 'General'),
+    ('Animals_Wildlife', 'Animals & Wildlife'),
+    ('Arts_Culture', 'Arts & Culture'),
+    ('Business_Entrepreneurship', 'Business & Entrepreneurship'),
+    ('Children_Youth', 'Children & Youth'),
+    ('Education_Research', 'Education & Research'),
+    ('Environment', 'Environment'),
+    ('Health_Wellness', 'Health & Wellness'),
+    ('HumanRights_Advocacy', 'Human Rights & Advocacy'),
+    ('InternationalRelief_Development', 'International Relief & Development'),
+    ('SocialServices_Community', 'Social Services & Community'),
+    ('Sports_Recreation', 'Sports & Recreation'),
+)
+
 class RegisterCleanTeamForm(forms.ModelForm):
     name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
     website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
@@ -17,6 +31,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
     team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
+    team_category = forms.ChoiceField(widget=forms.Select(), choices=TEAM_CATEGORIES)
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     role = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -60,6 +75,13 @@ class RegisterCleanTeamForm(forms.ModelForm):
         if logo:
             if logo._size > 2*1024*1024:
                 raise forms.ValidationError("Image file must be smaller than 2MB")
+
+            w, h = get_image_dimensions(logo)
+
+            # if w != 124:
+            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
+            # if h != 124:
+            #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
         if CleanTeam.objects.filter(name=name) and not clean_team_id:
             raise forms.ValidationError(u'%s already exists' % name)
@@ -158,7 +180,7 @@ CREATE_OR_JOIN_CHOICES = (
     ('join-existing-team', 'Join an existing team'),
 )
 
-ROLE_CHOICES = (('Leader', 'Leader',), ('manager', 'Manager',))
+ROLE_CHOICES = (('leader', 'Leader',), ('manager', 'Manager',))
 class CreateTeamOrJoinForm(forms.Form):
     selections = forms.ChoiceField(widget=forms.RadioSelect, choices=CREATE_OR_JOIN_CHOICES)
     role = forms.ChoiceField(widget=forms.RadioSelect, choices=ROLE_CHOICES, label="Role")
@@ -173,8 +195,9 @@ class InviteResponseForm(forms.Form):
     token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-    ('agent', 'Agent'),
-    ('leader', 'Leader')
+    ('agent', 'Friend(Agent)'),
+    ('leader', 'Leader'),
+    ('organization', 'Organization')
 )
 
 class InviteForm(forms.Form):
@@ -208,11 +231,11 @@ class InviteForm(forms.Form):
             try:
                 u = User.objects.get(email=invite_email)
 
-                if role == 'ambassador':
+                if role == 'leader':
                     if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
                         raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 
-                if role == 'catalyst':
+                if role == 'agent':
                     if u.profile.is_clean_champion(clean_team_id):
                         raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))
             except User.DoesNotExist, e:
@@ -247,7 +270,7 @@ class LeaderReferralForm(forms.ModelForm):
 
     class Meta:
         model = LeaderReferral
-        exclude = ('clean_team', 'user', 'timestamp')
+        exclude = ('clean_team', 'user', 'timestamp', 'status', 'token')
 
     def clean(self):
         cleaned_data = super(LeaderReferralForm, self).clean()

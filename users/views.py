@@ -99,7 +99,7 @@ class LoginPageView(TemplateView):
             context['next_url'] = next_url
         else:
             print "not there"
-
+            
         return context
 
 class PrelaunchView(FormView):
@@ -136,12 +136,28 @@ class PrelaunchView(FormView):
 class RegisterView(FormView):
     template_name = "users/register.html"
     form_class = RegisterUserForm
-    success_url = "mycleancity/index.html"
+    success_url = "/users/profile/"
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if 'invite_token' in request.session:
+            token = request.session.get('invite_token')
+            return HttpResponseRedirect('/register-invite/%s' % token)
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get_initial(self):
+        referral_token = ''
         initial = {}
-        initial['role'] = 'individual'
-
+        if 'referral_token' in self.request.session:
+            referral_token = self.request.session.get('referral_token')
+            referral = LeaderReferral.objects.get(token=referral_token)
+            if referral is not None:
+                initial['email'] = referral.email
+                initial['first_name'] = referral.first_name
+                initial['last_name'] = referral.last_name
+        
+        initial['referral_token'] = referral_token
         return initial
 
     def form_invalid(self, form, **kwargs):
@@ -151,26 +167,30 @@ class RegisterView(FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
+        uName = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
+        suffix = ''
+        i = 0
+        while User.objects.filter(username=uName+suffix):
+            i=i+1
+            suffix = str(i)
+
         u = User.objects.create_user(
-            form.cleaned_data['email'],
+            uName+suffix,
             form.cleaned_data['email'],
             form.cleaned_data['password']
         )
         u.first_name = form.cleaned_data['first_name']
         u.last_name = form.cleaned_data['last_name']
-        u.profile.city = form.cleaned_data['city']
-        u.profile.province = form.cleaned_data['province']
-        # u.profile.student_id = form.cleaned_data['student_id']
-        u.profile.school_name = form.cleaned_data['school_name']
-        u.profile.dob = form.cleaned_data['dob']
-        u.profile.smartphone = form.cleaned_data['smartphone']
         u.profile.hear_about_us = form.cleaned_data['hear_about_us']
-        u.profile.settings.communication_language = form.cleaned_data['communication_language']
-        u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
-        u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
+        #u.profile.settings.communication_language = form.cleaned_data['communication_language']
+        u.profile.referral_token = form.cleaned_data['referral_token']
+        u.profile.settings.data_privacy = 1
         u.profile.settings.save()
         u.profile.save()
         u.save()
+
+        if 'referral_token' in self.request.session:
+            del self.request.session['referral_token']
 
         today = date.today()
         early_bird_date = date(2014, 03, 19)
@@ -187,7 +207,7 @@ class RegisterView(FormView):
         auth.login(self.request, user)
 
         lang = u.profile.settings.communication_language
-
+        
         # Send registration email to user
         if lang == "English":
             template = get_template('emails/user_register_success.html')
@@ -195,30 +215,25 @@ class RegisterView(FormView):
         else:
             template = get_template('emails/french/user_register_success_fr.html')
             subject = 'My Effect - Signup Successful'
-
+        
         content = Context({ 'first_name': form.cleaned_data['first_name'] })
-        from_email, to = 'info@myeffect.ca', form.cleaned_data['email']
+
+        from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
 
         send_email = SendEmail()
         send_email.send(template, content, subject, from_email, to)
 
 
         # Send notification email to administrator
-        template = get_template('emails/register_email_notification.html')
-        content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
+        #template = get_template('emails/register_email_notification.html')
+        #content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-        subject, from_email, to = 'My Effect - Student Signup Successful', 'info@myeffect.ca', 'communications@mycleancity.org'
+        #subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+        #send_email = SendEmail()
+        #send_email.send(template, content, subject, from_email, to)
 
-
-        if form.cleaned_data['role'] == "leader" or form.cleaned_data['role'] == "manager":
-            return HttpResponseRedirect('/clean-team/create-or-request/?role=%s' % (form.cleaned_data['role']))
-        elif form.cleaned_data['role'] == "agent":
-            return HttpResponseRedirect('/clean-team/register-catalyst/')
-
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/users/profile/')
 
 
     def get_context_data(self, **kwargs):
@@ -226,35 +241,39 @@ class RegisterView(FormView):
 
         if 'qrcode' in self.kwargs:
             context['popup'] = True
-
+    
         context['page_url'] = self.request.get_full_path()
         context['user'] = self.request.user
 
         if self.request.flavour == "mobile":
             self.template_name = "users/mobile/register.html"
 
-        return context
+        return context  
 
-# TODO: Pretty much a copy and paste of RegisterView
+# TODO: Pretty much a copy and paste of RegisterView,
 # find a more efficient way of doing this.
 class RegisterInviteView(FormView):
     template_name = "users/register.html"
     form_class = RegisterUserForm
-    success_url = "mycleancity/index.html"
+    success_url = "/users/profile/"
 
     def get_initial(self):
         if 'token' in self.kwargs:
             token = self.kwargs['token']
+        elif 'invite_token' in self.request.session:
+            token = self.request.session.get('invite_token')
         else:
             return HttpResponseRedirect('/register/')
 
         invite = CleanTeamInvite.objects.get(token=token)
-
+        referral_token = ''
+        if 'referral_token' in self.request.session:
+            referral_token = self.request.session.get('referral_token')
         # TODO: Need to make the fields read-only
         initial = {}
         initial['email'] = invite.email
-        initial['role'] = invite.role
         initial['token'] = invite.token
+        initial['referral_token'] = referral_token
 
         return initial
 
@@ -270,19 +289,12 @@ class RegisterInviteView(FormView):
             form.cleaned_data['email'],
             form.cleaned_data['password']
         )
-
+    
         u.first_name = form.cleaned_data['first_name']
         u.last_name = form.cleaned_data['last_name']
-        u.profile.city = form.cleaned_data['city']
-        u.profile.province = form.cleaned_data['province']
-        u.profile.student_id = form.cleaned_data['student_id']
-        u.profile.school_name = form.cleaned_data['school_name']
-        u.profile.dob = form.cleaned_data['dob']
-        u.profile.smartphone = form.cleaned_data['smartphone']
         u.profile.hear_about_us = form.cleaned_data['hear_about_us']
-        u.profile.settings.communication_language = form.cleaned_data['communication_language']
-        u.profile.settings.receive_newsletters = form.cleaned_data['receive_newsletters']
-        u.profile.settings.data_privacy = form.cleaned_data['data_privacy']
+        u.profile.referral_token = form.cleaned_data['referral_token']
+        u.profile.settings.data_privacy = 1
         u.profile.settings.save()
         u.profile.save()
         u.save()
@@ -294,15 +306,18 @@ class RegisterInviteView(FormView):
             u.profile.add_clean_creds(50)
 
         invite = CleanTeamInvite.objects.get(token=form.cleaned_data['token'])
-
+        
         invite.acceptInvite(u)
         invite.save()
-
+        if 'invite_token' in self.request.session:
+            del self.request.session['invite_token']
+        if 'referral_token' in self.request.session:
+            del self.request.session['referral_token']
         user = auth.authenticate(username=u.username, password=form.cleaned_data['password'])
         auth.login(self.request, user)
 
         lang = u.profile.settings.communication_language
-
+        
         # Send registration email to user
         if lang == "English":
             template = get_template('emails/user_register_success.html')
@@ -310,7 +325,7 @@ class RegisterInviteView(FormView):
         else:
             template = get_template('emails/french/user_register_success_fr.html')
             subject = 'My Effect - Signup Successful'
-
+        
         content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
         from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
@@ -319,16 +334,16 @@ class RegisterInviteView(FormView):
         send_email.send(template, content, subject, from_email, to)
 
         # Send notification email to administrator
-        template = get_template('emails/register_email_notification.html')
-        content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
+        #template = get_template('emails/register_email_notification.html')
+        #content = Context({ 'email': form.cleaned_data['email'], 'first_name': form.cleaned_data['first_name'], 'last_name': form.cleaned_data['last_name'], 'student': 'student' })
 
-        subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
+        #subject, from_email, to = 'My Effect - Student Signup Successful', 'info@mycleancity.org', 'communications@mycleancity.org'
 
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+        #send_email = SendEmail()
+        #send_email.send(template, content, subject, from_email, to)
 
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/users/profile/')
 
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
     template_name = "users/public_profile.html"
@@ -357,6 +372,10 @@ class ProfileView(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         user = self.request.user
+        if 'referral_token' in self.request.session:
+            user.profile.set_referral_token(self.request.session.get('referral_token'))
+            user.profile.save()
+            del self.request.session['referral_token']
 
         initial = {}
         initial['first_name'] = user.first_name
@@ -519,6 +538,33 @@ class PrintableCardView(LoginRequiredMixin, TemplateView):
         context = super(PrintableCardView, self).get_context_data(**kwargs)
 
         context['qr_code'] = UserQRCode.objects.get(user=self.request.user)
+
+        return context
+
+class ReportCardView(TemplateView):
+    template_name = "users/report_card.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ReportCardView, self).get_context_data(**kwargs)
+        challenges = self.request.user.profile.get_my_challenges()
+        
+        # print challenges[0]['posted_challenges']
+        # print challenges[1]
+        # print challenges[2]
+        # print challenges[3]
+
+        context['challenges'] = challenges
+
+        return context
+
+class PrintableReportCardView(TemplateView):
+    template_name = "users/printable_report_card.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PrintableReportCardView, self).get_context_data(**kwargs)
+        challenges = self.request.user.profile.get_my_challenges()
+        
+        context['challenges'] = challenges
 
         return context
 

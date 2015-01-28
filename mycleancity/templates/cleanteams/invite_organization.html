@@ -1,0 +1,98 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect - Invite to Join {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_loggedin_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign invite" id="sign-go-back"></div></a>
+      
+      <div id="white-box" class="invite">
+        {% csrf_token %}
+        <h2>Organization Referral</h2>
+        
+        <div class="table-container">
+          <table class="table table-hover" id="invitees-table">
+            <tbody>
+            {% for referer in referers %}
+              <tr>
+                <td>
+                  {{ referer.first_name }} {{ referer.last_name }}
+                </td>
+                <td>            
+                  {{ referer.organization }}
+                </td>
+                <td class="members">            
+                  {{ referer.email }}
+                </td>
+                <td class="status">
+                  {{ referer.status }}
+                </td>
+              </tr>
+              
+            {% endfor %}
+            </tbody>
+          </table><!-- /.table.table-hover -->
+        </div><!-- /.table-container -->
+      </div><!-- /#white-box -->
+
+      <div id="white-box" class="invite-form">  
+        <h1>Refer a leader to My Effect</h1>
+          <p class="subtitle">Do you know an interested teacher youth group leader, or city hall counselor?</p>
+          
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+          
+          <form action="" method="post">{% csrf_token %}
+            <table>
+              <tr>
+                <td><label for="id_role">Role</label> <select id="invite_id_role" name="role">
+                  <option value="agent">Friend(Agent)</option>
+                  <option value="leader">Leader</option>
+                  <option value="organization" selected>Organization</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.email.label_tag }}{{ form.email }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.organization.label_tag }}{{ form.organization }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.title.label_tag }} {{ form.title }}</td>
+              </tr>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Make Referral" />
+          </form>
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

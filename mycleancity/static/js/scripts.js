@@ -139,10 +139,12 @@ $(function(){
     $("#id_team_type").on("change", function(e){
         if ($(this).val() == "representing")
         {
+            $("#clean-team-category-td").fadeIn();
             $("#clean-team-group-td").fadeIn();
         }
         else
         {
+            $("#clean-team-category-td").fadeOut();
             $("#clean-team-group-td").fadeOut();
         }
     });
@@ -190,6 +192,20 @@ $(function(){
     });
 
     $("#post-message-container form").on("submit", postMessage);
+
+    $("#clean-team-members-list #id_role").on("change", function(e){
+        if ($(this).val() == "organization")
+        {
+            window.location.replace("/clean-team/invite-org/");
+        }
+    });
+
+    $("#invite_id_role").on("change", function(e){
+        if ($(this).val() != "organization")
+        {
+            window.location.replace("/clean-team/invite/?role=" + $(this).val());
+        }
+    });
 });
 
 function resendInvite(e)
@@ -229,9 +245,9 @@ function populateMainContactInfo(e)
 
             for (var key in json){
                 var user = json[key]["fields"];
-                var first_name = user.first_name;
-                var last_name = user.last_name;
-                var email = user.email;
+                var first_name = user.first_name
+                var last_name = user.last_name
+                var email = user.email
 
                 $("#id_contact_first_name").val(first_name);
                 $("#id_contact_last_name").val(last_name);
