@@ -132,10 +132,6 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates'),
 )
 
-CRONJOBS = [
-    ('* * * * *', 'heroku run python manage.py send_mail  --app mycleancity-testing')
-]
-
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -171,7 +167,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_mobile',
     'django_wysiwyg',
-    "django_crontab",
     'captcha',
     'cleancreds',
     'cleanteams',
