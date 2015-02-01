@@ -23,8 +23,8 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, CreateTeamOrJoinForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation
+from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile
 from challenges.models import Challenge, UserChallenge
 
 from notifications.models import Notification
@@ -49,34 +49,29 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         initial['contact_last_name'] = self.request.user.last_name
         initial['contact_email'] = self.request.user.email
 
-        if 'role' in self.request.GET:
-            initial['role'] = self.request.GET['role']
-
         return initial
 
     def form_invalid(self, form, **kwargs):
         context = self.get_context_data(**kwargs)
         context['form'] = form
-
         return self.render_to_response(context)
 
     def form_valid(self, form):
         user = self.request.user
+        role = "leader"
+        orgprofile = None
+        if OrgProfile.objects.filter(user=user).exists():
+            orgprofile = OrgProfile.objects.filter(user=user)[0]
+            role = "manager"
         logo = form.cleaned_data['logo']
 
         ct = CleanTeam()
         ct.name = form.cleaned_data['name']
         ct.region = form.cleaned_data['region']
-        ct.team_type = form.cleaned_data['team_type']
         ct.group = form.cleaned_data['group']
 
         ct.contact_user = user
         ct.contact_phone = form.cleaned_data['contact_phone']
-        if form.cleaned_data['team_type'] == 'representing':
-            ct.team_category = form.cleaned_data['team_category']
-        else:
-            ct.team_category = 'General'
-        
         if logo:
             key = 'uploads/ct_logo_%s_%s' % (str(user.id), logo)
             uploadFile = UploadFileToS3()
@@ -96,7 +91,8 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         ctm.clean_team = ct
         ctm.user = user
         ctm.status = "approved"
-        ctm.role = form.cleaned_data['role']
+        ctm.role = role
+        ctm.org_profile = orgprofile
         ctm.save()
 
         if user.profile.referral_token != '':
@@ -152,13 +148,13 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
 
         # Send notification email to administrator
-        template = get_template('emails/register_email_notification.html')
-        content = Context({ 'email': user.email })
+        #template = get_template('emails/register_email_notification.html')
+        #content = Context({ 'email': user.email })
 
-        subject, from_email, to = 'My Effect - Change Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
+        #subject, from_email, to = 'My Effect - Change Team Signup Successful', 'info@myeffect.ca', 'partner@mycleancity.org'
 
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+        #send_email = SendEmail()
+        #send_email.send(template, content, subject, from_email, to)
 
         return HttpResponseRedirect('/clean-team/invite/')
 
@@ -240,7 +236,6 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             # initial['logo'] = clean_team.logo
             initial['about'] = clean_team.about
             initial['region'] = clean_team.region
-            initial['team_type'] = clean_team.team_type
             initial['group'] = clean_team.group
             initial['clean_team_id'] = clean_team.id
 
@@ -268,7 +263,6 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.twitter = form.cleaned_data['twitter']
         clean_team.about = form.cleaned_data['about']
         clean_team.region = form.cleaned_data['region']
-        clean_team.team_type = form.cleaned_data['team_type']
 
         logo = form.cleaned_data['logo']
 
@@ -304,21 +298,22 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
         return context
 
-class CreateOrRequest(LoginRequiredMixin, FormView):
-    template_name = "cleanteams/create_team_or_join.html"
-    form_class = CreateTeamOrJoinForm
+class TeamOrOrganization(LoginRequiredMixin, FormView):
+    template_name = "cleanteams/create_team_or_org.html"
+    form_class = RegisterOrganizationForm
 
     def get_initial(self):
         initial = {}
-
-        if 'role' in self.request.GET:
-            initial['role'] = self.request.GET['role']
-
         return initial
 
     def get(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        user = request.user
+        if user.profile.clean_team_member:
+            if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
+                return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
+        
 
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -329,24 +324,22 @@ class CreateOrRequest(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
-        if form.cleaned_data['selections'] == 'create-new-team':
-            return HttpResponseRedirect('/clean-team/register-clean-team/?role=%s' %(form.cleaned_data['role']))
-        else:
-            return HttpResponseRedirect('/clean-team/register-request-join/?role=%s' %(form.cleaned_data['role']))
+        u = self.request.user
+        if OrgProfile.objects.filter(user=u).exists():
+            OrgProfile.objects.filter(user=u).delete()
+        if form.cleaned_data['create_team'] != 'change team':
+            orgProfile = OrgProfile()
+            orgProfile.org_type = form.cleaned_data['org_type']
+            orgProfile.registered_number = form.cleaned_data['registered_number']
+            orgProfile.category = form.cleaned_data['category']
+            orgProfile.user = u
+            orgProfile.save()
+
+        return HttpResponseRedirect('/clean-team/register-clean-team/')
 
     def get_context_data(self, **kwargs):
-        context = super(CreateOrRequest, self).get_context_data(**kwargs)
-        user = self.request.user
-
-        if user.profile.clean_team_member:
-            # TODO: Not working
-            if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
-                return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
-
+        context = super(TeamOrOrganization, self).get_context_data(**kwargs)
         context['user'] = self.request.user
-
-        if self.request.flavour == "mobile":
-            self.template_name = "cleanteams/mobile/create_team_or_join.html"
 
         return context
 
@@ -547,8 +540,7 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
 
         # TODO: HttpResponseRedirect is not working
         # Check if approved Clean Ambassador
-        if ct.role != "leader" or ct.status != "approved":
-            print "kkkkk"
+        if ct.role not in ["leader","manager"] or ct.status != "approved":
             return HttpResponseRedirect("/challenges")
 
         context['user'] = user
@@ -916,8 +908,18 @@ def clean_team_member_action(request):
 
         clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
 
-        if action == "approve":
-            clean_team_member.approveCleanAmbassador()
+        if action == "approve" and request.POST['role']:
+            if request.POST['role'] == "leader":
+                clean_team_member.approveCleanAmbassador()
+            elif request.POST['role'] == "agent":
+                u = User.objects.get(id=uid)
+                ct = CleanTeam.objects.get(id=ctid)
+                try:
+                    clean_champion = CleanChampion.objects.get(user=u, clean_team=ct)
+                except Exception, e:
+                    clean_champion = CleanChampion()
+                    clean_champion.becomeCleanChampion(u, ct)
+                    clean_team_member.removedCleanAmbassador()
         elif action == "remove":
             clean_team_member.removedCleanAmbassador()
 

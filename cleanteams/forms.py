@@ -2,14 +2,19 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation, OrgProfile
 
-CLEAN_TEAM_TYPES = (('', 'Please select one...'),
-    ('independent', 'Independent'),
-    ('representing', 'Representing a school or group'),
+CREATE_TEAM_CHOICES = (('create_team', 'Create A Change Team'),
+    ('representing', 'Representing An Organization'),
 )
 
-TEAM_CATEGORIES = (('General', 'General'),
+ORG_TYPES = (('nonprofit_charity', 'Nonprofit/Charity'),
+    ('school', 'School'),
+    ('business', 'Business'),
+    ('municipality', 'Municipality'),
+)
+
+ORG_CATEGORIES = (('General', 'General'),
     ('Animals_Wildlife', 'Animals & Wildlife'),
     ('Arts_Culture', 'Arts & Culture'),
     ('Business_Entrepreneurship', 'Business & Entrepreneurship'),
@@ -30,8 +35,6 @@ class RegisterCleanTeamForm(forms.ModelForm):
     about = forms.CharField(required=False, widget=forms.Textarea())
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
-    team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
-    team_category = forms.ChoiceField(widget=forms.Select(), choices=TEAM_CATEGORIES)
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     role = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -53,10 +56,9 @@ class RegisterCleanTeamForm(forms.ModelForm):
         # about = cleaned_data.get('about')
         # twitter = cleaned_data.get('twitter')
         region = cleaned_data.get('region')
-        team_type = cleaned_data.get('team_type')
-        # group = cleaned_data.get('group')
+        group = cleaned_data.get('group')
         # contact_phone = cleaned_data.get('contact_phone')
-        clean_team_id = cleaned_data.get('clean_team_id')
+        #clean_team_id = cleaned_data.get('clean_team_id')
 
         # contact_first_name = cleaned_data.get("contact_first_name")
         # contact_last_name = cleaned_data.get("contact_last_name")
@@ -67,8 +69,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
             raise forms.ValidationError("Please enter your Change Team's name")
         elif not region:
             raise forms.ValidationError("Please enter your region")
-        elif not team_type:
-            raise forms.ValidationError("Please select the type of team")
+        elif not group:
+            raise forms.ValidationError("Please the group your team associated with")
         elif not contact_phone:
             raise forms.ValidationError("Please enter a contact phone number")
 
@@ -83,8 +85,33 @@ class RegisterCleanTeamForm(forms.ModelForm):
             # if h != 124:
             #    raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
-        if CleanTeam.objects.filter(name=name) and not clean_team_id:
+        if CleanTeam.objects.filter(name=name):
             raise forms.ValidationError(u'%s already exists' % name)
+        return cleaned_data
+
+class RegisterOrganizationForm(forms.ModelForm):
+    create_team = forms.ChoiceField(widget=forms.RadioSelect, choices=CREATE_TEAM_CHOICES)
+    org_type = forms.ChoiceField(widget=forms.Select(), choices=ORG_TYPES)
+    registered_number = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
+
+    class Meta:
+        model = OrgProfile
+        exclude = ('user')
+
+    def clean(self):
+        cleaned_data = super(RegisterOrganizationForm, self).clean()
+        create_team = cleaned_data.get('create_team')
+        org_type = cleaned_data.get('org_type')
+        registered_number = cleaned_data.get('registered_number')
+        category = cleaned_data.get("category")
+        if not create_team:
+            raise forms.ValidationError("Please Select a Change Team Type")
+
+
+        if org_type == 'nonprofit_charity':
+            if not registered_number:
+                raise forms.ValidationError("Please enter your Registered Number")
 
         return cleaned_data
 
@@ -95,7 +122,6 @@ class EditCleanTeamForm(forms.ModelForm):
     about = forms.CharField(required=False, widget=forms.Textarea())
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
-    team_type = forms.ChoiceField(widget=forms.Select(), choices=CLEAN_TEAM_TYPES)
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
@@ -112,7 +138,6 @@ class EditCleanTeamForm(forms.ModelForm):
         about = cleaned_data.get('about')
         twitter = cleaned_data.get('twitter')
         region = cleaned_data.get('region')
-        team_type = cleaned_data.get('team_type')
         group = cleaned_data.get('group')
         clean_team_id = cleaned_data.get('clean_team_id')
 
@@ -120,8 +145,6 @@ class EditCleanTeamForm(forms.ModelForm):
             raise forms.ValidationError("Please enter your Change Team's name")
         elif not region:
             raise forms.ValidationError("Please enter your region")
-        elif not team_type:
-            raise forms.ValidationError("Please select the type of team")
 
         if logo:
             if logo._size > 2*1024*1024:

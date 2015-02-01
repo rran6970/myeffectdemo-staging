@@ -136,16 +136,25 @@ $(function(){
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
 
-    $("#id_team_type").on("change", function(e){
-        if ($(this).val() == "representing")
-        {
-            $("#clean-team-category-td").fadeIn();
-            $("#clean-team-group-td").fadeIn();
+    $("#create_team_rdo").on("click", function(e){
+        $("#org_type_tr").fadeOut();
+        $("#registered_number_tr").fadeOut();
+        $("#category_tr").fadeOut();
+    });
+
+    $("#representing_rdo").on("click", function(e){
+        $("#org_type_tr").fadeIn();
+        if($("#id_org_type").val() == "nonprofit_charity"){
+            $("#registered_number_tr").fadeIn();
         }
-        else
-        {
-            $("#clean-team-category-td").fadeOut();
-            $("#clean-team-group-td").fadeOut();
+        $("#category_tr").fadeIn();
+    });
+
+    $("#id_org_type").on("change", function(e){
+        if($(this).val() == "nonprofit_charity"){
+            $("#registered_number_tr").fadeIn();
+        }else{
+            $("#registered_number_tr").fadeOut();
         }
     });
 
@@ -607,25 +616,9 @@ function ajaxApproveMember(e)
         url: form.attr('action'),
         data: form.serialize(),
         success: function (data) {
-            hidden_field = form.find("#action");
-            action_btn = form.find("#action-btn");
-
-            if(hidden_field.val() == "approve")
-            {
-	            hidden_field.val("remove");
-    	        action_btn.val("Remove");
-    	        action_btn.addClass("dark");
-
-                action_btn.closest("td").prev().text("approved");
-    	    }
-    	    else if(hidden_field.val() == "remove")
-    	    {
-                action_btn.hide();
-                action_btn.closest("td").prev().text("removed");
-                action_btn.closest("tr").fadeOut("1000");
-    	    }
+            location.reload();
         },
-        error: function(data) {}
+        error: function(data) {alert("some thing is wrong...")}
     });
     e.preventDefault();
     return false;
