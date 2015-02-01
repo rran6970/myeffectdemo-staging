@@ -139,7 +139,8 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = '/'
@@ -243,10 +244,10 @@ SERVER_EMAIL = EMAIL_HOST_USER
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 
-AWS_ACCESS_KEY_ID = 'AKIAIKQOZZOLGYLTP37A'
-AWS_SECRET_ACCESS_KEY = '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'
-#AWS_BUCKET = 'mycleancityproduction'
-AWS_BUCKET = 'mycleancitystaging'
+AWS_ACCESS_KEY_ID = 'AKIAJLI4AHTNZQXEOA4Q'
+AWS_SECRET_ACCESS_KEY = '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'
+#AWS_BUCKET = 'myeffectproduction'
+AWS_BUCKET = 'myeffectstaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET
 MEDIA_URL = S3_URL

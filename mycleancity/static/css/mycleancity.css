@@ -505,7 +505,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 	Login
 ******************************/
 #white-box.login { width: 356px; height: 500px; left: 36%; overflow-y: auto; }
-#white-box.login input[type="text"], #white-box.login input[type="password"] { width: 295px; }
+#white-box.login input[type="email"], #white-box.login input[type="password"] { width: 295px; }
 #white-box.login input[type="submit"] { width: 296px; font-size: 16px; }
 #white-box.login p { font-size: 15px; }
 
@@ -553,6 +553,8 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 #white-box.register-join-team .table .team { vertical-align: middle; }
 
 #white-box.small { width: 478px; left: 32%; }
+#white-box.create-org { width: 670px; left: 22%; }
+#white-box.create-org table { width: 100%; }
 
 #white-box.register { width: 700px; left: 22%; }
 #white-box.register input[type="submit"] { width: 296px; font-size: 16px; margin: 24px auto 0; }

@@ -63,4 +63,14 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script>
+  $( document ).ready(function() {
+    var email = window.location.search.substring(1);
+    if(new RegExp('^email=').exec(email)){
+      $("#id_login").val(email.substring(6));
+      $("#id_password").focus();
+    }
+  });
+</script>
+{% endblock %}

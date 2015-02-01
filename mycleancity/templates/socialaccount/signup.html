@@ -27,8 +27,9 @@
 			  {% csrf_token %}
 			  {{ form.as_p }}
 			  {% if redirect_field_value %}
-			  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+			  <input name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 			  {% endif %}
+        <a href="" id = "redirect_to_signin" class="btn" style=" display: none; ">Login with your account</a>
 			  <input class="btn btn-primary" type="submit" value="Sign Up" />
 			</form>
         </div><!-- /#white-box -->
@@ -39,4 +40,15 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script>
+  $( document ).ready(function() {
+    var email = $("#id_email").val();
+    if(email && $("#id_email").parent().prev().hasClass("errorlist")){
+      $("#redirect_to_signin").html("Login with: " + email);
+      $("#redirect_to_signin").attr('href','/accounts/login/?email=' + email);
+      $("#redirect_to_signin").fadeIn();
+    }
+  });
+</script>
+{% endblock %}

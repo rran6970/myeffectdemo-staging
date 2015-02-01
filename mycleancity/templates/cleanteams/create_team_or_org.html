@@ -17,7 +17,7 @@
   
   <div class="content">
     <div class="container">
-        <div id="white-box" class="small create-or-request-join">
+        <div id="white-box" class="create-org create-or-request-join">
             {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
@@ -26,22 +26,30 @@
 
             <form action="/clean-team/create-team-or-org/" method="post" enctype="multipart/form-data">{% csrf_token %}
               <table>
-                  <tr>
-                    <td colspan="2">
-                      <div class="btn-group" data-toggle="buttons">
+                <!--<div class="btn-group" data-toggle="buttons">-->
+                  <tr style="height: 70px;" >
+                    <td>
+                      
                         <label id = "create_team_rdo" class="btn btn-radio-group">
+                          <input name="create_team" type="radio" value="create_team" style="margin-right: 35px;" >
                           Create A Change Team
-                          <input name="create_team" type="radio" value="create_team">
                         </label>
-                        <h3>(For student run or grassroots groups)</h3>
-                        <label id = "representing_rdo" class="btn btn-radio-group">
-                          Representing An Organization
-                          <input name="create_team" type="radio" value="representing">
-                        </label>
-                        <h3>(Create a team as an organization)</h3>
-                      </div>
                     </td>
+                    <td>
+                        <h3>(For student run or grassroots groups)</h3>
+                    </td>
+                  <tr style="height: 70px;" >
+                      <td>
+                        <label id = "representing_rdo" class="btn btn-radio-group">
+                          <input name="create_team" type="radio" value="representing" >
+                          Representing An Organization
+                        </label>
+                      </td>
+                      <td>
+                        <h3>(Create a team as an organization)</h3>
+                      </td>
                   </tr>
+                <!--</div>-->
                   <tr id = "org_type_tr" style="display: none;">
                     <td>
                       <label for="org_type">Organization type:</label>
