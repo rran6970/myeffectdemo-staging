@@ -20,6 +20,26 @@ from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
 """
+Name:           OrgProfile
+Date created:   Jan 29, 2015
+Description:    profile for clean teams that Representing a organization
+"""
+class OrgProfile(models.Model):
+    org_type = models.CharField(max_length=30, null=False, default="other")
+    registered_number = models.CharField(max_length=30, blank=True, null=True )
+    category = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Category", default="General")
+    user = models.OneToOneField(User, null=True)
+
+    class Meta:
+        verbose_name_plural = u'Organization Profile'
+
+    def __unicode__(self):
+        return u'%s' % self.org_type
+
+    def save(self, *args, **kwargs):
+        super(OrgProfile, self).save(*args, **kwargs)
+
+"""
 Name:           CleanTeamLevel
 Date created:   Jan 30, 2014
 Description:    All of the levels each Change Team can go through
@@ -46,17 +66,16 @@ Description:    Users can be part of Change Teams
 """
 class CleanTeam(models.Model):
     name = models.CharField(max_length=60, blank=True, verbose_name='Change Team Name')
-    website = models.URLField(verbose_name = u'Website', default="")
+    website = models.URLField(verbose_name = u'Website', blank=True, null=True, default="")
     logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
     about = models.TextField(blank=True, null=True, default="")
     twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
     region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
-    team_type = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Type", default="Independent")
     group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
-    team_category = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Category", default="General")
     clean_creds = models.IntegerField(default=0)
     level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
     admin = models.BooleanField(default=False)
+    org_profile = models.OneToOneField(OrgProfile, blank=True, null=True)
 
     contact_user = models.ForeignKey(User)
     contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
@@ -426,9 +445,11 @@ class CleanTeamMember(models.Model):
     def approveCleanAmbassador(self, notification=True):
         self.status = "approved"
         self.save()
-
-        CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
-
+        try:
+            CleanChampion.objects.filter(user=self.user, clean_team=self.clean_team).delete()
+        except Exception, e:
+                print e
+                
         if notification:
             try:
                 # Send notifications
@@ -596,6 +617,7 @@ class CleanTeamInvite(models.Model):
         if emails > 0:
             self.status = "accepted"
             self.save()
+            self.user.profile.add_clean_creds(10)
 
             if notification:
                 try:

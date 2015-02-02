@@ -104,7 +104,7 @@
                 <form action="/clean-team/cc-join/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                  <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Join our Change Team" />
+                  <input class="btn btn-primary" type="submit" value="Follow" />
                 </form>
                 {% endif %}
 
@@ -249,7 +249,7 @@
       {% if member.user.is_active %}
         {% if member.status == "approved" %}
           <li>
-          {% if member.role == "ambassador" %}
+          {% if member.role == "leader" %}
             <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
             {% if member.user.profile.picture %}
               <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />

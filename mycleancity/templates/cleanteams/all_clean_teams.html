@@ -40,12 +40,12 @@
                     <td class="roles">
                       {% for clean_champion in clean_champions %}
                         {% if team == clean_champion.clean_team %}
-                          <img id="badge-cc" src="{{ STATIC_URL }}images/badge-my-effect-cc-62x78.png" alt="Catalyst" />
+                          <img id="badge-cc" src="{{ STATIC_URL }}images/badge-my-effect-ca-62x78.png" alt="Agent" />
                         {% endif %}
                       {% endfor %}
 
-                      {% if team == user.profile.clean_team_member.clean_team and user.profile.clean_team_member.status == "approved" %}
-                        <img id="badge-ca" src="{{ STATIC_URL }}images/badge-my-effect-ca2-62x78.png" alt="Ambassador" />
+                      {% if team == user.profile.clean_team_member.clean_team and user.profile.clean_team_member.role == "leader" and user.profile.clean_team_member.status == "approved" %}
+                        <img id="badge-ca" src="{{ STATIC_URL }}images/badge-my-effect-cl-62x78.png" alt="Leader" />
                       {% endif %}
                     </td>
                     

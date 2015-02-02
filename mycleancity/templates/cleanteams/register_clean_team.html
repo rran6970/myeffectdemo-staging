@@ -32,18 +32,14 @@
               {{ form.role }}
               <table>
                   <tr>
-                      <td>{{ form.name.label_tag }} {{ form.name }}</td>
+                      <td><label for="id_name">Team Name</label> {{ form.name }}</td>
                       <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                   </tr>
                   <tr>
                     <td>{{ form.region.label_tag }} {{ form.region }}</td>
                   </tr>
                   <tr>
-                      <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
-                  </tr>
-                  <tr>
-                      <td id="clean-team-category-td" style="display: none;">{{ form.team_category.label_tag }} {{ form.team_category }}</td>
-                      <td id="clean-team-group-td" style="display: none;">{{ form.group.label_tag }} {{ form.group }}</td>
+                      <td><label for="id_name">Associated school/group</label> {{ form.group }}</td>
                   </tr>
               </table>
 
@@ -60,7 +56,6 @@
                       <td>{{ form.contact_phone.label_tag }} {{ form.contact_phone }}</td>
                   </tr>
               </table>
-
               <input class="btn btn-primary" type="submit" value="Register" />
           </form>
       </div><!-- /#white-box -->

@@ -225,7 +225,7 @@ class RegisterUserForm(forms.ModelForm):
 		uea = cleaned_data.get('uea')
 		captcha = cleaned_data.get('captcha')
 		token = cleaned_data.get('token')
-		token = cleaned_data.get('referral_token')
+		referral_token = cleaned_data.get('referral_token')
 
 		if not first_name:
 			raise forms.ValidationError("Please enter your first name")

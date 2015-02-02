@@ -26,7 +26,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallenge
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
