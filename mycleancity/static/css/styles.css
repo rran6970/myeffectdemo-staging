@@ -152,3 +152,6 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .errorlist {color: red; padding: 5px ; border: 1px solid; border-radius: 10px; margin: 0;}
 
 #request-join-clean-team-btn { width: 100px; height: 30px; font-size: 11px;}
+
+.grayscale { -webkit-filter: grayscale(100%); filter: grayscale(100%);}
+#connection_list > a > img[title]:hover:after { content: attr(title); position: absolute; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}

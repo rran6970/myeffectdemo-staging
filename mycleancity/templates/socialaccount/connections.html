@@ -1,5 +1,5 @@
 {% extends "socialaccount/base.html" %}
-
+{% load socialaccount %}
 {% load i18n %}
 {% load url from future %}
 
@@ -31,7 +31,11 @@
 </div>
 {% endwith %}
 {% endfor %}
-
+{% for base_account in form.accounts.provider %}
+<label>
+{{base_account}}
+</label>
+{% endfor %}
 <div>
 <button type="submit">{% trans 'Remove' %}</button>
 </div>
@@ -49,6 +53,7 @@
 <ul class="socialaccount_providers">
 {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
 </ul>
+<a href="{% provider_login_url "linkedin" process="connect" %}">LLLKIN</a>
 
 {% include "socialaccount/snippets/login_extra.html" %}
 

@@ -24,7 +24,7 @@
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
             <h2>My Profile</h2>
-
+            {% include "socialaccount/snippets/connection_list.html" %}
             {% if form.errors %}
               <div class="message-box error">
               {{ form.errors }}
