@@ -110,6 +110,33 @@
             <p class="title">Total Hours:</p>
             <p class="text">{{ total_hours }}</p>
           </div>
+          {% load socialaccount %}
+          {% get_social_accounts user_profile.profile.user as accounts %}
+          {% if accounts %}
+          <p><strong>Social accounts:</strong></p>
+          <div class="socialaccount_profile" id ="connection_list">
+            {% if accounts.twitter %}
+            <a href="{{accounts.twitter.0.get_profile_url }}" target="_blank">
+              <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+            {% endif %}
+            {% if accounts.facebook %}
+            <a href="{{accounts.facebook.0.get_profile_url }}" target="_blank">
+              <img class="social-login-icon" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+            {% endif %}
+            {% if accounts.instagram %}
+            <a href="{{accounts.instagram.0.get_profile_url }}" target="_blank">
+              <img class="social-login-icon" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+            {% endif %}
+            {% if accounts.linkedin %}
+            <a href="{{accounts.linkedin.0.get_profile_url }}" target="_blank">
+              <img class="social-login-icon" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+            {% endif %}
+            {% if accounts.google %}
+            <a href="{{accounts.google.0.get_profile_url }}" target="_blank">
+              <img class="social-login-icon" src="/static/images/google175x175.jpeg" alt="Google"></a>
+            {% endif %}
+          </div>
+          {% endif %}
         </div><!-- /.info -->
         
         {% if user.id == user_profile.id %}
@@ -118,11 +145,20 @@
 
         {% if user_profile.profile.picture %}
           <img src="{{ MEDIA_URL }}{{ user_profile.profile.picture }}" alt="" class="profile-pic profile-pic-124x124" />
+        {% elif accounts.facebook %}
+          <img src="{{accounts.facebook.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
+        {% elif accounts.linkedin %}
+          <img src="{{accounts.linkedin.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
+        {% elif accounts.google %}
+          <img src="{{accounts.google.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
+        {% elif accounts.twitter %}
+          <img src="{{accounts.twitter.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
+        {% elif accounts.instagram %}
+          <img src="{{accounts.instagram.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
         {% else %}
           <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
         {% endif %}
-        
-        
+
         <div class="info" style="width: 100%;">
           {% if user_profile.profile.about %}
           <div class="field about">
@@ -134,7 +170,7 @@
         </div><!-- /.info -->          
       </div><!-- /#white-box -->
 
-      {% if user_profile.profile.clean_team_member.role == "ambassador" and user_profile.profile.clean_team_member.status == "approved" %}
+      {% if user_profile.profile.clean_team_member.role == "leader" and user_profile.profile.clean_team_member.status == "approved" %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Badge CA" />
       {% elif clean_champion_clean_teams %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Badge CC" />
