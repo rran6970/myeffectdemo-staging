@@ -795,6 +795,29 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="mycleancity"/>
+    <table name="account_emailaddress" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="email" sqlType="VARCHAR" precision="75" scale="0" nullable="false" jdbcType="12"/>
+      <column name="verified" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="primary" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="user_id_refs_id_4aacde5e" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="email_address_id_refs_id_6ea1eea3" table="account_emailconfirmation" schema="" catalog="mycleancity" columns="email_address_id"/>
+      <index name="email" unique="true" columns="email"/>
+      <index name="account_emailaddress_6340c63c" unique="false" columns="user_id"/>
+    </table>
+    <table name="account_emailconfirmation" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email_address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="sent" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="key" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="email_address_id_refs_id_6ea1eea3" columns="email_address_id" ref-table="account_emailaddress" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="key" unique="true" columns="key"/>
+      <index name="account_emailconfirmation_a659cab3" unique="false" columns="email_address_id"/>
+    </table>
     <table name="auth_group" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
@@ -837,6 +860,7 @@
       <column name="is_active" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="date_joined" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="user_id_refs_id_4aacde5e" table="account_emailaddress" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_40c41112" table="auth_user_groups" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_4dc23c39" table="auth_user_user_permissions" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="last_updated_by_id_refs_id_b10c65a5" table="challenges_challenge" schema="" catalog="mycleancity" columns="last_updated_by_id"/>
@@ -858,6 +882,7 @@
       <exported-key name="user_id_refs_id_d9504c04" table="communities_communitypost" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_c0d12874" table="django_admin_log" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_2b423243" table="notifications_usernotification" schema="" catalog="mycleancity" columns="user_id"/>
+      <exported-key name="user_id_refs_id_b4f0248b" table="socialaccount_socialaccount" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_c775c721" table="userorganization_userorganization" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_59aaee72" table="userprofile_qrcodesignups" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_721bd63a" table="userprofile_userfacebookprofile" schema="" catalog="mycleancity" columns="user_id"/>
@@ -1168,6 +1193,7 @@
       <column name="admin" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="contact_user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="contact_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="team_category" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="contact_user_id_refs_id_d3ff39d3" columns="contact_user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="level_id_refs_id_a5657b15" columns="level_id" ref-table="cleanteams_cleanteamlevel" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1408,6 +1434,43 @@
       <column name="domain" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="site_id_refs_id_4111d61a" table="facebook_facebookapp" schema="" catalog="mycleancity" columns="site_id"/>
+      <exported-key name="site_id_refs_id_05d6147e" table="socialaccount_socialapp_sites" schema="" catalog="mycleancity" columns="site_id"/>
+      <exported-key name="site_id_refs_id_c23564f8" table="twitter_twitterapp" schema="" catalog="mycleancity" columns="site_id"/>
+    </table>
+    <table name="facebook_facebookaccesstoken" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="app_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="account_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="access_token" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="account_id_refs_socialaccount_ptr_id_07320c87" columns="account_id" ref-table="facebook_facebookaccount" ref-schema="" ref-catalog="mycleancity" ref-columns="socialaccount_ptr_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="app_id_refs_id_15ff0338" columns="app_id" ref-table="facebook_facebookapp" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="facebook_facebookaccesstoken_app_id_377e362ce1b88a0_uniq" unique="true" columns="app_id,account_id"/>
+      <index name="facebook_facebookaccesstoken_60fc113e" unique="false" columns="app_id"/>
+      <index name="facebook_facebookaccesstoken_93025c2f" unique="false" columns="account_id"/>
+    </table>
+    <table name="facebook_facebookaccount" schema="" catalog="mycleancity" type="TABLE">
+      <column name="socialaccount_ptr_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="social_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="link" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="socialaccount_ptr_id"/>
+      <foreign-key name="socialaccount_ptr_id_refs_id_bfedee99" columns="socialaccount_ptr_id" ref-table="socialaccount_socialaccount" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="account_id_refs_socialaccount_ptr_id_07320c87" table="facebook_facebookaccesstoken" schema="" catalog="mycleancity" columns="account_id"/>
+      <index name="social_id" unique="true" columns="social_id"/>
+    </table>
+    <table name="facebook_facebookapp" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="site_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="application_id" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="api_key" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="application_secret" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="site_id_refs_id_4111d61a" columns="site_id" ref-table="django_site" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="app_id_refs_id_15ff0338" table="facebook_facebookaccesstoken" schema="" catalog="mycleancity" columns="app_id"/>
+      <index name="facebook_facebookapp_99732b5c" unique="false" columns="site_id"/>
     </table>
     <table name="notifications_notification" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1434,12 +1497,86 @@
       <index name="notifications_usernotification_6340c63c" unique="false" columns="user_id"/>
       <index name="notifications_usernotification_ed7f6c22" unique="false" columns="notification_id"/>
     </table>
+    <table name="socialaccount_socialaccount" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_login" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_joined" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="provider" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="uid" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="extra_data" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="user_id_refs_id_b4f0248b" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="socialaccount_ptr_id_refs_id_bfedee99" table="facebook_facebookaccount" schema="" catalog="mycleancity" columns="socialaccount_ptr_id"/>
+      <exported-key name="account_id_refs_id_1337a128" table="socialaccount_socialtoken" schema="" catalog="mycleancity" columns="account_id"/>
+      <exported-key name="socialaccount_ptr_id_refs_id_266c9636" table="twitter_twitteraccount" schema="" catalog="mycleancity" columns="socialaccount_ptr_id"/>
+      <index name="socialaccount_socialaccount_uid_ddaf5094e365968_uniq" unique="true" columns="uid,provider"/>
+      <index name="socialaccount_socialaccount_6340c63c" unique="false" columns="user_id"/>
+    </table>
+    <table name="socialaccount_socialapp" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="provider" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="key" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="secret" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="client_id" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="socialapp_id_refs_id_e7a43014" table="socialaccount_socialapp_sites" schema="" catalog="mycleancity" columns="socialapp_id"/>
+      <exported-key name="app_id_refs_id_edac8a54" table="socialaccount_socialtoken" schema="" catalog="mycleancity" columns="app_id"/>
+    </table>
+    <table name="socialaccount_socialapp_sites" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="socialapp_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="site_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="site_id_refs_id_05d6147e" columns="site_id" ref-table="django_site" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="socialapp_id_refs_id_e7a43014" columns="socialapp_id" ref-table="socialaccount_socialapp" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="socialaccount_socialapp_site_socialapp_id_7e5a0b3d1a793369_uniq" unique="true" columns="socialapp_id,site_id"/>
+      <index name="socialaccount_socialapp_sites_99732b5c" unique="false" columns="site_id"/>
+      <index name="socialaccount_socialapp_sites_f2973cd1" unique="false" columns="socialapp_id"/>
+    </table>
+    <table name="socialaccount_socialtoken" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="app_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="account_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="token" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="token_secret" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="expires_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="account_id_refs_id_1337a128" columns="account_id" ref-table="socialaccount_socialaccount" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="app_id_refs_id_edac8a54" columns="app_id" ref-table="socialaccount_socialapp" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="socialaccount_socialtoken_app_id_16a0b971722b0406_uniq" unique="true" columns="app_id,account_id"/>
+      <index name="socialaccount_socialtoken_60fc113e" unique="false" columns="app_id"/>
+      <index name="socialaccount_socialtoken_93025c2f" unique="false" columns="account_id"/>
+    </table>
     <table name="south_migrationhistory" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="app_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="migration" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="applied" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="twitter_twitteraccount" schema="" catalog="mycleancity" type="TABLE">
+      <column name="socialaccount_ptr_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="social_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="username" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="profile_image_url" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="socialaccount_ptr_id"/>
+      <foreign-key name="socialaccount_ptr_id_refs_id_266c9636" columns="socialaccount_ptr_id" ref-table="socialaccount_socialaccount" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="social_id" unique="true" columns="social_id"/>
+    </table>
+    <table name="twitter_twitterapp" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="site_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="consumer_key" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="consumer_secret" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="request_token_url" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="access_token_url" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="authorize_url" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="site_id_refs_id_c23564f8" columns="site_id" ref-table="django_site" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="twitter_twitterapp_99732b5c" unique="false" columns="site_id"/>
     </table>
     <table name="userorganization_userorganization" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1490,6 +1627,11 @@
       <column name="about" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="clean_team_member_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="twitter" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="facebook" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="instagram" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="website" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street_address" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="age" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="smartphone" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="picture" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
@@ -1499,12 +1641,11 @@
       <column name="emergency_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
       <column name="student_id" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="school_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
-      <column name="website" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="facebook" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="instagram" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="linkedin" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="google_plus" sqlType="VARCHAR" precision="65" scale="0" nullable="false" jdbcType="12"/>
-      <column name="street_address" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="category" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="emergency_contact_fname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="emergency_contact_lname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="google_plus" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="referral_token" sqlType="VARCHAR" precision="450" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_member_id_refs_id_830a9c84" columns="clean_team_member_id" ref-table="cleanteams_cleanteammember" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="qr_code_id_refs_id_0eec4b1e" columns="qr_code_id" ref-table="userprofile_userqrcode" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>

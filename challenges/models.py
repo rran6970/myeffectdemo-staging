@@ -224,16 +224,18 @@ class Challenge(models.Model):
                 user_notification = UserNotification()
                 user_notification.create_notification("challenge_posted", member.user, name_strings, link_strings)
 
-        if self.clean_team.level.name == "Sprout":
+        if self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="1_challenge")
             self.clean_team.complete_level_task(task)
+            self.clean_creds += 25
 
-        elif self.clean_team.level.name == "Sapling":
+        elif self.clean_team.level.name == "Seedling":
             count_challenges = Challenge.objects.filter(clean_team=self.clean_team).count()
 
             if count_challenges > 4:
                 task = CleanTeamLevelTask.objects.get(name="5_challenges")
                 self.clean_team.complete_level_task(task)
+                self.clean_creds += 50
 
     def get_challenge_total_clean_creds(self, total_hours):
         return int(self.clean_creds_per_hour * total_hours)
@@ -436,7 +438,7 @@ class Challenge(models.Model):
                     return False
 
             if user.profile.is_clean_ambassador():
-                if user.profile.clean_team_member.clean_team.level.name == "Tree":
+                if user.profile.clean_team_member.clean_team.level.name == "Seedling":
                     count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
                     count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
 

@@ -19,8 +19,8 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"> </div></a>
       <div id="white-box" class="clean-team-progress">
-          <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
-          <h1>{{ clean_team.name }}'s Level Progress</h1>
+          <!--<img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />-->
+          <h1>{{ clean_team.name }}'s Achievements</h1><p><br /></p>
 
           <div class="clear"> </div>
           <div class="table-container">
@@ -58,11 +58,11 @@
                     </td>
                   </tr>
                   {% endfor %}
-                  <tr>
+                  <!--<tr>
                     <td class="next_level" colspan="2">
                       <p>Complete all of the these tasks to get to <img src="{{ STATIC_URL }}{{ clean_team.level.next_level.badge }}" alt="Badge Level" /></p>
                     </td>
-                  </tr>
+                  </tr>-->
                 {% else %}
                   <tr>
                     <td class="next_level" colspan="2">
