@@ -132,7 +132,7 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .message-box p, .message-box li { font-size: 13px !important; font-weight: 400 !important; }
 .message-box ul { margin: 0; } 
 
-.error { background-color: #f2dede; border: 1px solid #EDAAA8; }
+.error { background-color: #f2dede; }
 .error p, .error li { color: #b94a48 !important; }
 
 .success { background-color: #E3FCEA; border: 1px solid #74E05F; padding: 10px; }
@@ -148,7 +148,12 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 
 .socialaccount_signup {display: -webkit-inline-box; }
 .socialaccount_signup .social-login-icon { width: 30px; height: 30px; margin: 0px; border: 0px ; -webkit-border-radius: 7px; border-radius: 7px;}
+.socialaccount_profile .social-login-icon { width: 30px; height: 30px; margin: 0px; border: 0px ; -webkit-border-radius: 7px; border-radius: 7px;}
 .socialaccount_ballot .social-login-icon { width: 40px; height: 40px; margin: 0px; border: 0px ; -webkit-border-radius: 10px; border-radius: 10px;}
-.errorlist {color: red; padding: 5px ; border: 1px solid; border-radius: 10px; margin: 0;}
+.message-box.error > ul > li { border: 1px solid; border-radius: 10px; margin: 5px;}
+.login .errorlist { color: red; margin: 0; }
 
 #request-join-clean-team-btn { width: 100px; height: 30px; font-size: 11px;}
+
+.grayscale { -webkit-filter: grayscale(100%); filter: grayscale(100%);}
+/*#connection_list > a[title]:hover:after { content: attr(title); padding: 4px 8px; color: #333; position: absolute; z-index: 20; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}*/

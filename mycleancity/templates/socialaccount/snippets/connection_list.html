@@ -1,0 +1,42 @@
+{% load socialaccount %}
+{% get_social_accounts user as accounts %}
+<div style="border: 1px solid; padding: 10px;">
+	<div style=" padding: 5px; display: -webkit-box; "><h4>My Connections: &nbsp;</h4><p>(click on grey icons to connect)</p></div>
+	<div class="socialaccount_ballot" id ="connection_list">
+	  {% if accounts.twitter %}
+	  <a href="{{accounts.twitter.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "twitter" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+	  {% endif %}
+	  {% if accounts.facebook %}
+	  <a href="{{accounts.facebook.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "facebook" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+	  {% endif %}
+	  {% if accounts.instagram %}
+	  <a href="{{accounts.instagram.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "instagram" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+	  {% endif %}
+	  {% if accounts.linkedin %}
+	  <a href="{{accounts.linkedin.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "linkedin" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+	  {% endif %}
+	  {% if accounts.google %}
+	  <a href="{{accounts.google.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/google175x175.jpeg" alt="Google"></a>
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "google" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/google175x175.jpeg" alt="Google"></a>
+	  {% endif %}
+	</div>
+</div>
