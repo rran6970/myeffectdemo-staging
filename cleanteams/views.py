@@ -233,6 +233,8 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             initial['name'] = clean_team.name
             initial['website'] = clean_team.website
             initial['twitter'] = clean_team.twitter
+            initial['facebook'] = clean_team.facebook
+            initial['instagram'] = clean_team.instagram
             # initial['logo'] = clean_team.logo
             initial['about'] = clean_team.about
             initial['region'] = clean_team.region
@@ -261,6 +263,8 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.name = form.cleaned_data['name']
         clean_team.website = form.cleaned_data['website']
         clean_team.twitter = form.cleaned_data['twitter']
+        clean_team.facebook = form.cleaned_data['facebook']
+        clean_team.instagram = form.cleaned_data['instagram']
         clean_team.about = form.cleaned_data['about']
         clean_team.region = form.cleaned_data['region']
 
