@@ -19,6 +19,7 @@ from time import time
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
+
 """
 Name:           OrgProfile
 Date created:   Jan 29, 2015
@@ -195,6 +196,7 @@ class CleanTeam(models.Model):
 
         if tasks_complete == total_tasks:
             self.level_up()
+
 
     def level_up(self, notification=True):
         # If they don't have a badge, ie. new team, make them a Seedling
