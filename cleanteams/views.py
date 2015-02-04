@@ -292,6 +292,9 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
                 task = CleanTeamLevelTask.objects.get(name="ct_twitter")
                 clean_team.uncomplete_level_task(task)
 
+
+
+
         return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
 
     def get_context_data(self, **kwargs):
