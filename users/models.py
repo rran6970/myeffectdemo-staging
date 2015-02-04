@@ -73,7 +73,7 @@ class ProfileProgress(models.Model):
         verbose_name_plural = u'Profile Progress'
 
     def __unicode__(self):
-        return u'%s - %s' % (self.clean_team, self.level_task)
+        return u'%s - %s' % (self.user, self.profile_task)
 
     def submit_for_approval(self):
         self.approval_requested = True

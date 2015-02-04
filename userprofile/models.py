@@ -172,6 +172,7 @@ class UserProfile(models.Model):
     settings = models.OneToOneField(UserSettings, null=True)
     qr_code = models.OneToOneField(UserQRCode, null=True)
     referral_token = models.CharField(max_length=20, blank=True)
+    phase = models.IntegerField(max_length=3, blank=False, default=1)
 
     class Meta:
         verbose_name_plural = u'User Profiles'

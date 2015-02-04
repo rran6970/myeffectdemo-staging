@@ -27,7 +27,7 @@ class ProfileProgressAdmin(admin.ModelAdmin):
 
     def complete_tasks(self, request, queryset):
         for row in queryset:
-            row.user.complete_level_task(row.level_task)
+            row.user.complete_profile_task(row.profile)
     
 admin.site.register(PrelaunchEmails, PrelaunchEmailsAdmin)
 admin.site.register(ProfilePhase, ProfilePhaseAdmin)
