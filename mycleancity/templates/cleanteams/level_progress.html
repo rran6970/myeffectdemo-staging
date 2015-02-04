@@ -38,7 +38,7 @@
                       {% endif %}
                     </td>
                     <td class="description" rel="tooltip" data-html="true"  data-original-title="
-                  <span class='description'><strong></strong></span>">
+                  <span class='description'><strong><b>{{ task.level_task.title }}</b></strong><br />{{ task.level_task.description }}</span>">
                       {% if task.level_task.link %}
                         {% if task.level_task.name == "follow_twitter" %}
                           <form action="">{% csrf_token %}
@@ -46,10 +46,10 @@
                             <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
                           </form>
                         {% else %}
-                          <p><a href="{{ task.level_task.link }}" >{{ task.level_task.description }}</a></p>
+                          <p><a href="{{ task.level_task.link }}" >{{ task.level_task.title }}</a></p>
                         {% endif %}
                       {% else %}
-                        <p>{{ task.level_task.description }}</p>
+                        <p>{{ task.level_task.title }}</p>
                       {% endif %}
                       {% if task.approval_requested %}
                         <div class="success">

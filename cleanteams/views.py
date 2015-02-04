@@ -278,9 +278,10 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.save()
 
         if clean_team.level.name == "Seedling":
-            if clean_team.about:
+            if clean_team.about and clean_team.logo:
                 task = CleanTeamLevelTask.objects.get(name="ct_description")
                 clean_team.complete_level_task(task)
+                clean_team.clean_creds += 5
             else:
                 task = CleanTeamLevelTask.objects.get(name="ct_description")
                 clean_team.uncomplete_level_task(task)

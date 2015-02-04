@@ -164,6 +164,7 @@ class CleanTeam(models.Model):
         self.clean_creds += amount
         self.save()
 
+
         if notification:
             try:
                 # Send notifications
@@ -743,6 +744,7 @@ class CleanTeamLevelTask(models.Model):
     name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
     description = models.TextField(blank=True, null=True, default="")
     link = models.URLField(blank=True, null=True)
+    title = models.CharField(max_length=50, null=True)
     approval_required = models.BooleanField(default=0)
 
     class Meta:
