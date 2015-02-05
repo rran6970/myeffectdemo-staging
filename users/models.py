@@ -1,5 +1,8 @@
 from django.db import models
+from datetime import date
 from django.contrib.auth.models import User
+import string
+import random
 
 """
 Name:           PrelaunchEmails
@@ -82,3 +85,39 @@ class ProfileProgress(models.Model):
 
     def save(self, *args, **kwargs):
         super(ProfileProgress, self).save(*args, **kwargs)
+
+"""
+Name:           OrganizationLicense
+Date created:   Sept 9, 2013
+Description:    Used to keep track of all of the prelaunch emails
+"""
+class OrganizationLicense(models.Model):
+    code = models.CharField(max_length=50, blank=True, null=True, unique=True)
+    user = models.OneToOneField(User,blank=True, null=True)
+    is_charity = models.BooleanField(null=False, default=False, verbose_name='Is Nonprofit/Charity')
+    from_date = models.DateField(null=False)
+    to_date = models.DateField(null=False)
+
+    class Meta:
+        verbose_name_plural = u'Organization License'
+
+    def __unicode__(self):
+        return u'License : %s' % self.code
+
+    def new_charity_license(self, user):
+        self.code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        self.user = user
+        self.is_charity = True
+        self.from_date = date.today()
+        to_date = date.today()
+        try:
+            to_date = to_date.replace(year = to_date.year + 1)
+        except ValueError:
+            to_date = to_date + (date(to_date.year + 1, 1, 1) - date(to_date.year, 1, 1))
+        self.to_date = to_date
+        self.save()
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        super(OrganizationLicense, self).save(*args, **kwargs)

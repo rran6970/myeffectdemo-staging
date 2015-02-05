@@ -39,7 +39,11 @@
                     <td>{{ form.region.label_tag }} {{ form.region }}</td>
                   </tr>
                   <tr>
+                      {% if isManager %}
+                      <td><label for="id_name">Company name or city</label> {{ form.group }}</td>
+                      {% else %}
                       <td><label for="id_name">Associated school/group</label> {{ form.group }}</td>
+                      {% endif %}
                   </tr>
               </table>
 

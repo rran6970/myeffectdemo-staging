@@ -35,18 +35,19 @@
           <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
           <div class="clear"></div>
 
-          {% if not user_profile.profile.category == "------------------" %}
+          {% if user_profile.profile.category and not user_profile.profile.category == "------------------" %}
           <div class="field">
               <p class="text">{{ user.profile.category }}</p>
           </div>
           {% endif %}
 
           <div class="clear"></div>
-
+          {% if user_profile.profile.city and user_profile.profile.province %}
           <div class="field">
             <p class="title">From:</p>
             <p class="text">{{ user_profile.profile.city }} {{ user_profile.profile.province }}</p>
           </div>
+          {% endif %}
           {% if not user_profile.profile.settings.email_privacy %}
           <div class="field">
             <p class="title">Email:</p>

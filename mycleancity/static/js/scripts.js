@@ -63,6 +63,12 @@ $(function(){
         overlayClose: false,
         escKey: false
     });
+
+    $(".contact_for_license").colorbox({
+        iframe:true, 
+        width:"420px", 
+        height:"90%"
+    });
     // $("#relaunch-signup-link").colorbox({
     //     iframe: true,
     //     open: true,
@@ -137,24 +143,42 @@ $(function(){
 	$('form.members-forms').on('submit', ajaxApproveMember);
 
     $("#create_team_rdo").on("click", function(e){
-        $("#org_type_tr").fadeOut();
-        $("#registered_number_tr").fadeOut();
-        $("#category_tr").fadeOut();
+        $("#org_type_tr").hide();
+        $("#registered_number_tr").hide();
+        $("#category_tr").hide();
+        $("#number_of_users_tr").hide();
+        $("#submit_org_tr").hide();
+        $("#submit_tr").fadeIn();
     });
 
     $("#representing_rdo").on("click", function(e){
         $("#org_type_tr").fadeIn();
         if($("#id_org_type").val() == "nonprofit_charity"){
+            $("#submit_org_tr").hide();
             $("#registered_number_tr").fadeIn();
+            $("#category_tr").fadeIn();
+            $("#submit_tr").fadeIn();
+        }else{
+            $("#submit_tr").hide();
+            $("#number_of_users_tr").fadeIn();
+            $("#submit_org_tr").fadeIn();
         }
-        $("#category_tr").fadeIn();
     });
 
     $("#id_org_type").on("change", function(e){
         if($(this).val() == "nonprofit_charity"){
+            $("#number_of_users_tr").hide();
+            $("#submit_org_tr").hide();
             $("#registered_number_tr").fadeIn();
-        }else{
-            $("#registered_number_tr").fadeOut();
+            $("#category_tr").fadeIn();
+            $("#submit_tr").fadeIn();
+        }
+        else{
+            $("#category_tr").hide();
+            $("#registered_number_tr").hide();
+            $("#submit_tr").hide();
+            $("#number_of_users_tr").fadeIn();
+            $("#submit_org_tr").fadeIn();
         }
     });
 
@@ -206,6 +230,14 @@ $(function(){
         if ($(this).val() == "organization")
         {
             window.location.replace("/clean-team/invite-org/");
+        }
+        else if ($(this).val() == "agent"){
+            $("#invite-heading").html("Invite Friends");
+            $("#invite-subtitle").html("Invite your friends to support your Change Team.");
+        }
+        else{
+            $("#invite-heading").html("Invite Leader");
+            $("#invite-subtitle").html("Invite a leader to become a manager of your Change Team.");
         }
     });
 

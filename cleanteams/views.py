@@ -13,7 +13,7 @@ from django.core.mail import EmailMessage
 
 from django.db.models import Q
 from django import forms
-
+from datetime import date
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
@@ -26,7 +26,7 @@ from django.views.generic.edit import FormView, UpdateView
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile
 from challenges.models import Challenge, UserChallenge
-
+from users.models import OrganizationLicense
 from notifications.models import Notification
 
 from mycleancity.actions import *
@@ -37,6 +37,17 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
     form_class = RegisterCleanTeamForm
     success_url = "mycleancity/index.html"
 
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        user = request.user
+        if user.profile.clean_team_member:
+            if user.profile.clean_team_member.status != "declined" and user.profile.clean_team_member.status != "removed":
+                return HttpResponseRedirect('/clean-team/%s' % str(user.profile.clean_team_member.clean_team.id))
+        
+
+        return self.render_to_response(self.get_context_data(form=form))
+    
     def get_initial(self):
         initial = {}
 
@@ -160,6 +171,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(RegisterCleanTeamView, self).get_context_data(**kwargs)
+        context['isManager'] = OrgProfile.objects.filter(user=self.request.user).exists()
 
         if self.request.flavour == "mobile":
             self.template_name = "cleanteams/mobile/register_clean_team.html"
@@ -304,6 +316,7 @@ class TeamOrOrganization(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         initial = {}
+        initial['current_user'] = self.request.user.id
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -324,22 +337,57 @@ class TeamOrOrganization(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
+        pass_url = "/clean-team/register-clean-team/"
+        redirect = "/clean-team/create-team-or-org/"
         u = self.request.user
+        access_code = form.cleaned_data['access_code']
         if OrgProfile.objects.filter(user=u).exists():
             OrgProfile.objects.filter(user=u).delete()
-        if form.cleaned_data['create_team'] != 'change team':
-            orgProfile = OrgProfile()
-            orgProfile.org_type = form.cleaned_data['org_type']
-            orgProfile.registered_number = form.cleaned_data['registered_number']
-            orgProfile.category = form.cleaned_data['category']
-            orgProfile.user = u
-            orgProfile.save()
+        if form.cleaned_data['create_team'] == 'change_team':
+            redirect = pass_url
+        if form.cleaned_data['create_team'] == 'representing':
+            if form.cleaned_data['org_type'] == 'nonprofit_charity':
+                if not OrganizationLicense.objects.filter(user=u).exists():
+                    orgLicense = OrganizationLicense()
+                    orgLicense.new_charity_license(u)
+                orgProfile = OrgProfile()
+                orgProfile.org_type = form.cleaned_data['org_type']
+                orgProfile.registered_number = form.cleaned_data['registered_number']
+                orgProfile.category = form.cleaned_data['category']
+                orgProfile.user = u
+                orgProfile.save()
+                redirect = pass_url
 
-        return HttpResponseRedirect('/clean-team/register-clean-team/')
+            elif OrganizationLicense.objects.filter(user=u).exists() and not OrganizationLicense.objects.get(user=u).is_charity and OrganizationLicense.objects.get(user=u).to_date > date.today():
+                orgProfile = OrgProfile()
+                orgProfile.number_of_users = form.cleaned_data['number_of_users']
+                orgProfile.user = u
+                orgProfile.save()
+                redirect = pass_url
+            elif access_code and OrganizationLicense.objects.filter(code=access_code).exists():
+                orgLicense = OrganizationLicense.objects.filter(code=access_code)[0]
+                if not orgLicense.is_charity and orgLicense.to_date > date.today():
+                    orgProfile = OrgProfile()
+                    orgProfile.number_of_users = form.cleaned_data['number_of_users']
+                    orgProfile.user = u
+                    orgProfile.save()
+                    if OrganizationLicense.objects.filter(user=u).exists():
+                        OrganizationLicense.objects.filter(user=u).delete()
+                    orgLicense.user = u
+                    orgLicense.save()
+                    redirect = pass_url
+
+        return HttpResponseRedirect(redirect)
 
     def get_context_data(self, **kwargs):
         context = super(TeamOrOrganization, self).get_context_data(**kwargs)
-        context['user'] = self.request.user
+        u = self.request.user
+        context['user'] = u
+        org_license = False
+        if OrganizationLicense.objects.filter(user=u).exists():
+            if not OrganizationLicense.objects.get(user=u).is_charity and OrganizationLicense.objects.get(user=u).to_date > date.today():
+                org_license = True
+        context['org_license'] = org_license
 
         return context
 
@@ -651,6 +699,8 @@ class InviteView(LoginRequiredMixin, FormView):
 
         context['invitees'] = invitees
         context['user'] = self.request.user
+        role = self.request.GET.get('role', 'agent')
+        context['role'] = role
 
         return context
 

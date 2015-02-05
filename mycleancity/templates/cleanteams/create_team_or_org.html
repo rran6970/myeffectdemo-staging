@@ -24,14 +24,14 @@
               </div>
             {% endif %}
 
-            <form action="/clean-team/create-team-or-org/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="/clean-team/create-team-or-org/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
               <table>
                 <!--<div class="btn-group" data-toggle="buttons">-->
                   <tr style="height: 70px;" >
                     <td>
                       
                         <label id = "create_team_rdo" class="btn btn-radio-group">
-                          <input name="create_team" type="radio" value="create_team" style="margin-right: 35px;" >
+                          <input name="create_team" type="radio" value="change_team" style="margin-right: 35px;" >
                           Create A Change Team
                         </label>
                     </td>
@@ -60,7 +60,8 @@
                   </tr>
                   <tr id = "registered_number_tr" style="display: none;">
                     <td>
-                      <label for="registered_number">Registered Number:</label>
+                      <label for="registered_number"><span style="color:red;" >&#42;&#32;</span>Registered Number:</label><br>
+                      <p style="color: blue;">&#32;&#32;(for a free 12 month trial)</p>
                     </td>
                     <td>
                       {{form.registered_number}}
@@ -74,11 +75,48 @@
                       {{form.category}}
                     </td>
                   </tr>
-                  <tr>
+                  <tr id = "number_of_users_tr" style="display: none;">
+                    <td>
+                      <label for="number_of_users"><span style="color:red;" >&#42;&#32;</span>Number Of Users:(must be number)</label>
+                    </td>
+                    <td>
+                      {{form.number_of_users}}
+                    </td>
+                  </tr>
+                  <tr id = "submit_tr" style="display: none;">
                     <td colspan="2">
                       <input class="btn btn-primary" type="submit" value="Continue" />
                     </td>
                   </tr>
+                  {% if org_license %}
+                  <tr id = "submit_org_tr" style="display: none;">
+                    <td colspan="2">
+                      <input id="id_org_license" name="org_license" type="hidden" value="True">
+                      <input class="btn btn-primary" type="submit" value="Continue" />
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tbody id = "submit_org_tr" style="display: none;">
+                    <tr>
+                      <td>
+                        <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
+                      </td>
+                      <td>
+                        {{form.access_code}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <input class="btn btn-primary" type="submit" value="Continue" />
+                      </td>
+                    </tr>
+                  </tbody>
+                  {% endif %}
               </table>
             </form>
         </div><!-- /#white-box -->
