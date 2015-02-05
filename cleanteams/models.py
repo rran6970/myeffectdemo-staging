@@ -19,6 +19,7 @@ from time import time
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
+
 """
 Name:           OrgProfile
 Date created:   Jan 29, 2015
@@ -71,6 +72,8 @@ class CleanTeam(models.Model):
     logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
     about = models.TextField(blank=True, null=True, default="")
     twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
+    facebook = models.CharField(max_length=60, blank=True, null=True, verbose_name="Facebook")
+    instagram = models.CharField(max_length=60, blank=True, null=True, verbose_name="Instagram Link")
     region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
     group = models.CharField(max_length=100, blank=True, null=True, verbose_name="Group Representing")
     clean_creds = models.IntegerField(default=0)
@@ -163,6 +166,7 @@ class CleanTeam(models.Model):
         self.clean_creds += amount
         self.save()
 
+
         if notification:
             try:
                 # Send notifications
@@ -194,20 +198,19 @@ class CleanTeam(models.Model):
         if tasks_complete == total_tasks:
             self.level_up()
 
+
     def level_up(self, notification=True):
         # If they don't have a badge, ie. new team, make them a Seedling
         if self.level is None:
             level = CleanTeamLevel.objects.get(name="Seedling")
         else:
-            level = self.level.next_level
+            level = CleanTeamLevel.objects.get(name="Seedling")
+
 
         self.level = level
 
         # Add rewards for certain badges
-        if level.name == "Sapling":
-            self.clean_creds += 100
-        elif level.name == "Tree":
-            self.clean_creds += 200
+
 
         self.save()
 
@@ -344,25 +347,28 @@ class CleanChampion(models.Model):
                 print e
 
         if self.clean_team.level.name == "Sprout":
-            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            #count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            self.clean_team.level.name == "Seedling"
 
-            if count_ccs > 2:
-                task = CleanTeamLevelTask.objects.get(name="3_ccs")
-                self.clean_team.complete_level_task(task)
+            #if count_ccs > 2:
+             #   task = CleanTeamLevelTask.objects.get(name="3_ccs")
+              #  self.clean_team.complete_level_task(task)
 
         elif self.clean_team.level.name == "Sapling":
-            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            self.clean_team.level.name == "Seedling"
+            #count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
 
-            if count_ccs > 9:
-                task = CleanTeamLevelTask.objects.get(name="10_ccs")
-                self.clean_team.complete_level_task(task)
+            #if count_ccs > 9:
+               # task = CleanTeamLevelTask.objects.get(name="10_ccs")
+               # self.clean_team.complete_level_task(task)
 
         elif self.clean_team.level.name == "Tree":
-            count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            self.clean_team.level.name == "Seedling"
+           # count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
 
-            if count_ccs > 19:
-                task = CleanTeamLevelTask.objects.get(name="20_ccs")
-                self.clean_team.complete_level_task(task)
+           # if count_ccs > 19:
+             #   task = CleanTeamLevelTask.objects.get(name="20_ccs")
+             #   self.clean_team.complete_level_task(task)
 
         self.clean_team.add_team_clean_creds(5)
         self.user.profile.add_clean_creds(20)
@@ -741,6 +747,7 @@ class CleanTeamLevelTask(models.Model):
     name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
     description = models.TextField(blank=True, null=True, default="")
     link = models.URLField(blank=True, null=True)
+    title = models.CharField(max_length=50, null=True)
     approval_required = models.BooleanField(default=0)
 
     class Meta:
@@ -819,7 +826,7 @@ class LeaderReferral(models.Model):
 
         self.save()
 
-        if self.clean_team.level.name == "Sapling":
+        if self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="refer_teacher")
             self.clean_team.complete_level_task(task)
 
@@ -866,7 +873,7 @@ class CleanTeamPresentation(models.Model):
 
         self.save()
 
-        if self.clean_team.level.name == "Tree":
+        if self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="mcc_presentation")
             self.clean_team.complete_level_task(task)
 

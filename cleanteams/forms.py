@@ -35,6 +35,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
     logo = forms.ImageField(required=False)
     about = forms.CharField(required=False, widget=forms.Textarea())
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -56,6 +58,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
         logo = cleaned_data.get('logo')
         # about = cleaned_data.get('about')
         # twitter = cleaned_data.get('twitter')
+        # facebook = cleaned_data.get('twitter')
+        # instagram = cleaned_data.get('instagram')
         region = cleaned_data.get('region')
         group = cleaned_data.get('group')
         # contact_phone = cleaned_data.get('contact_phone')
@@ -143,6 +147,8 @@ class EditCleanTeamForm(forms.ModelForm):
     logo = forms.ImageField(required=False)
     about = forms.CharField(required=False, widget=forms.Textarea())
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -159,6 +165,8 @@ class EditCleanTeamForm(forms.ModelForm):
         logo = cleaned_data.get('logo')
         about = cleaned_data.get('about')
         twitter = cleaned_data.get('twitter')
+        facebook = cleaned_data.get('facebook')
+        instagram = cleaned_data.get('instagram')
         region = cleaned_data.get('region')
         group = cleaned_data.get('group')
         clean_team_id = cleaned_data.get('clean_team_id')
@@ -171,13 +179,6 @@ class EditCleanTeamForm(forms.ModelForm):
         if logo:
             if logo._size > 2*1024*1024:
                 raise forms.ValidationError("Image file must be smaller than 2MB")
-
-            w, h = get_image_dimensions(logo)
-
-            # if w != 124:
-            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
-            # if h != 124:
-            #     raise forms.ValidationError("The image is supposed to be 124px X 124px")
 
         if CleanTeam.objects.filter(name=name) and not clean_team_id:
             raise forms.ValidationError(u'%s already exists' % name)

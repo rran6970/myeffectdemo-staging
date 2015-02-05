@@ -25,7 +25,7 @@
 			{% endif %}
 			{% if user.profile.has_clean_team %}
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
-			<li><a href="/clean-team/level-progress" class="menu-items">Level Progress</a></li>
+			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
 			<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>
 			<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>
 			<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>
@@ -40,6 +40,7 @@
 	<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
 	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
 		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+        <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Profile Goals</a></li>
 		<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>
 		<li><a href="/users/qrcode/" class="menu-items">Member ID</a></li>
 		<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>

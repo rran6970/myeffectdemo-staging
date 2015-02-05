@@ -27,7 +27,8 @@ class ProfileProgressAdmin(admin.ModelAdmin):
 
     def complete_tasks(self, request, queryset):
         for row in queryset:
-            row.user.complete_level_task(row.level_task)
+            row.user.complete_profile_task(row.profile)
+
 class OrganizationLicenseAdmin(admin.ModelAdmin):
     list_display = ('edit_link', 'id', 'code', 'user', 'custom_user_name', 'user_email', 'organization', 'is_charity', 'from_date', 'to_date')
     raw_id_fields = ("user",)
