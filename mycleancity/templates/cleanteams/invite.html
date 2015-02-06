@@ -57,8 +57,14 @@
         </div><!-- /.table-container -->
       </div><!-- /#white-box -->
 
-      <div id="white-box" class="invite-form">  
-        <h2>Invite Friends</h2> 
+      <div id="white-box" class="invite-form">
+        {% if role == "leader" %}
+        <h2 id="invite-heading">Invite Leader</h2> 
+        <p id="invite-subtitle">Invite a leader to become a manager of your Change Team.</p>
+        {% else %}
+        <h2 id="invite-heading">Invite Friends</h2> 
+        <p id="invite-subtitle">Invite your friends to support your Change Team.</p>
+        {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
           {{ form.non_field_errors }}

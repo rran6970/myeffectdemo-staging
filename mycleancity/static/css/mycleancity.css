@@ -502,6 +502,12 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 #white-box.contact form div.padding-20 #id_receive_newsletters { float: left; margin-right: 10px; }
 
 /******************************
+    For License Contact
+******************************/
+#forlicensecontact textarea { width: 335px; height: 100px; }
+#forlicensecontact input[type="text"] { width: 335px; }
+
+/******************************
 	Login
 ******************************/
 #white-box.login { width: 356px; height: 500px; left: 36%; overflow-y: auto; }

@@ -29,6 +29,7 @@ class OrgProfile(models.Model):
     org_type = models.CharField(max_length=30, null=False, default="other")
     registered_number = models.CharField(max_length=30, blank=True, null=True )
     category = models.CharField(max_length=60, blank=False, null=False, verbose_name="Team Category", default="General")
+    number_of_users = models.IntegerField(blank=True, null=True)
     user = models.OneToOneField(User, null=True)
 
     class Meta:

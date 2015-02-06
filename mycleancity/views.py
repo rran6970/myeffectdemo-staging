@@ -23,7 +23,7 @@ from django.views.generic.edit import FormView
 
 from users.models import PrelaunchEmails
 
-from mycleancity.forms import ContactForm
+from mycleancity.forms import ContactForm, ContactForLicenceForm
 from cleanteams.models import CleanTeamLevelTask
 from users.forms import PrelaunchEmailsForm
 
@@ -85,6 +85,44 @@ class ContactPageView(FormView):
         mail.send()
 
         return HttpResponseRedirect('/')
+
+class ContactForLicenceView(FormView):
+    template_name = "mycleancity/contact_for_license.html"
+    success_url = "mycleancity/message_sent_success.html"
+    form_class = ContactForLicenceForm
+
+    def get_initial(self):
+        user = self.request.user
+        initial = {}
+
+        if user:
+            initial['name'] = "%s %s" % (user.first_name, user.last_name)
+            initial['email'] = user.email
+            initial['message'] = "I would like to learn the price options for setting up an organization account on My Effect!"
+
+        return initial
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        subject = "%s - Organization License Inquiry" % name
+        organization = form.cleaned_data['organization']
+        position = form.cleaned_data['position']
+        number_of_users = form.cleaned_data['number_of_users']
+        message = "name: %s <br> organization: %s <br> position: %s <br> number_of_users: %s <br> %s" % (name, organization,position,number_of_users,form.cleaned_data['message'])
+        subject_line, from_email, to = subject, email, 'sales@myeffect.ca'
+
+        mail = EmailMessage(subject, message, from_email, [to])
+        mail.content_subtype = "html"
+        mail.send()
+
+        return HttpResponseRedirect('/message-sent-success/')
 
 class RegisterSuccessView(TemplateView):
     template_name = "users/register_success.html"

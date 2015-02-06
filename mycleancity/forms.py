@@ -40,3 +40,35 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("Please enter the CAPTCHA field correctly")
 
         return cleaned_data
+
+class ContactForLicenceForm(forms.Form):
+    name = forms.CharField(label='Your Name *', max_length=50, widget=forms.TextInput())
+    email = forms.EmailField(label='Email *', widget=forms.TextInput())
+    organization = forms.CharField(label='Organization *', widget=forms.TextInput())
+    position = forms.CharField(label='Position', required=False, widget=forms.TextInput())
+    number_of_users = forms.CharField(label='Number of users', required=False, widget=forms.TextInput())
+    message = forms.CharField(label='Message', widget=forms.Textarea())
+    captcha = ReCaptchaField()
+
+    def clean(self):
+        cleaned_data = super(ContactForLicenceForm, self).clean()
+        name = cleaned_data.get("name")
+        email = cleaned_data.get("email")
+        organization = cleaned_data.get("organization")
+        position = cleaned_data.get("position")
+        number_of_users = cleaned_data.get("number_of_users")
+        message = cleaned_data.get("message")
+        captcha = cleaned_data.get('captcha')
+
+        if not name:
+            raise forms.ValidationError("Please let us know what to call you!")
+        elif not email:
+            raise forms.ValidationError("Please enter a valid email address")
+        elif not organization:
+            raise forms.ValidationError("Please enter a organization name")
+        elif not message:
+            raise forms.ValidationError("Please enter a message")
+        elif not captcha:
+            raise forms.ValidationError("Please enter the CAPTCHA field correctly")
+
+        return cleaned_data

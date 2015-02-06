@@ -145,13 +145,13 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .popup { padding: 20px; }
 
 .tooltip { min-width: 100px; }
-
+.social-signup #id_uea {float: left; outline: 2px solid red; outline-offset: 3px; margin-right: 15px; }
 .socialaccount_signup {display: -webkit-inline-box; }
 .socialaccount_signup .social-login-icon { width: 30px; height: 30px; margin: 0px; border: 0px ; -webkit-border-radius: 7px; border-radius: 7px;}
 .socialaccount_profile .social-login-icon { width: 30px; height: 30px; margin: 0px; border: 0px ; -webkit-border-radius: 7px; border-radius: 7px;}
 .socialaccount_ballot .social-login-icon { width: 40px; height: 40px; margin: 0px; border: 0px ; -webkit-border-radius: 10px; border-radius: 10px;}
 .message-box.error > ul > li { border: 1px solid; border-radius: 10px; margin: 5px;}
-.login .errorlist { color: red; margin: 0; }
+.errorlist { color: red; margin: 5px; }
 
 #request-join-clean-team-btn { width: 100px; height: 30px; font-size: 11px;}
 

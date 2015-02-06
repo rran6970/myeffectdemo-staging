@@ -3,8 +3,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation, OrgProfile
+from users.models import OrganizationLicense
 
-CREATE_TEAM_CHOICES = (('create_team', 'Create A Change Team'),
+CREATE_TEAM_CHOICES = (('change_team', 'Create A Change Team'),
     ('representing', 'Representing An Organization'),
 )
 
@@ -98,6 +99,10 @@ class RegisterOrganizationForm(forms.ModelForm):
     org_type = forms.ChoiceField(widget=forms.Select(), choices=ORG_TYPES)
     registered_number = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
     category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
+    number_of_users = forms.IntegerField(required=False)
+    access_code = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
+    current_user = forms.CharField(required=False, widget=forms.HiddenInput(), max_length=50 )
+    org_license = forms.CharField(required=False, widget=forms.HiddenInput(), max_length=10 )
 
     class Meta:
         model = OrgProfile
@@ -109,14 +114,31 @@ class RegisterOrganizationForm(forms.ModelForm):
         org_type = cleaned_data.get('org_type')
         registered_number = cleaned_data.get('registered_number')
         category = cleaned_data.get("category")
+        number_of_users = cleaned_data.get("number_of_users")
+        access_code = cleaned_data.get("access_code")
+        current_user = cleaned_data.get("current_user")
+        org_license = cleaned_data.get("org_license")
         if not create_team:
             raise forms.ValidationError("Please Select a Change Team Type")
 
-
-        if org_type == 'nonprofit_charity':
-            if not registered_number:
-                raise forms.ValidationError("Please enter your Registered Number")
-
+        if create_team == 'representing':
+            if org_type == 'nonprofit_charity':
+                if not registered_number:
+                    raise forms.ValidationError("Please enter your Registered Number")
+            else:
+                if not number_of_users:
+                    raise forms.ValidationError("Please enter Expected Number Of Users")
+                if number_of_users < 1:
+                    raise forms.ValidationError("Please enter a valid Expected Number Of Users")
+                if not org_license:
+                    if not access_code:
+                        raise forms.ValidationError("Please enter a valid Access Code")
+                    if not OrganizationLicense.objects.filter(code=access_code).exists():
+                        raise forms.ValidationError("Please enter a valid Access Code")
+                    else:
+                        ol = OrganizationLicense.objects.filter(code=access_code)[0]
+                        if ol.user and ol.user.id != current_user:
+                            raise forms.ValidationError("Please enter a valid Access Code3")
         return cleaned_data
 
 class EditCleanTeamForm(forms.ModelForm):
