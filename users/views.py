@@ -605,7 +605,7 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
         tasks = ProfileProgress.objects.filter(phase=phase , profile_task__in=profile_tasks)
 
         context['tasks'] = tasks
-        context['user_profile'] = user_profile
+        context['phase'] = phase
         context['user'] = user
 
         return context
