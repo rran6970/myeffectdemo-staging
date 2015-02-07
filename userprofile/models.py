@@ -6,7 +6,7 @@ from django.core.files.images import ImageFile
 from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
-from allauth.account.signals import user_signed_up
+from allauth.socialaccount.signals import social_account_removed
 from django.dispatch import receiver
 import qrcode
 
@@ -146,11 +146,6 @@ class UserProfile(models.Model):
     dob = models.DateField(auto_now_add=True, blank=True, null=True)
     about = models.TextField(blank=True, null=True, default="")
     website = models.CharField(max_length=60, blank=True, null=True, verbose_name="Website")
-    twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
-    facebook = models.CharField(max_length=60, blank=True, null=True, verbose_name="Facebook")
-    instagram = models.CharField(max_length=60, blank=True, null=True, verbose_name="Instagram")
-    google_plus = models.CharField(max_length=60, blank=True, null=True, verbose_name="Google Plus")
-    linkedin = models.CharField(max_length=60, blank=True, null=True, verbose_name="Linkedin")
     street_address = models.CharField(max_length=60, blank=True, null=True, verbose_name='Street Address')
     emergency_contact_fname = models.CharField(max_length=60, blank=True, null=True)
     emergency_contact_lname = models.CharField(max_length=60, blank=True, null=True)
@@ -311,6 +306,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
 
-@receiver(user_signed_up)
-def complete_social_signup(sender, **kwargs):
+@receiver(social_account_removed)
+def redirect_to_user_profile(sender, **kwargs):
     print("Request finished!")

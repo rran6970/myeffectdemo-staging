@@ -98,7 +98,7 @@ class ContactForLicenceView(FormView):
         if user:
             initial['name'] = "%s %s" % (user.first_name, user.last_name)
             initial['email'] = user.email
-            initial['message'] = "I would like to learn the price options for setting up an organization account on My Effect!"
+            initial['message'] = "Please send me more information about My Effect's pricing and how my organization can get involved."
 
         return initial
 
@@ -111,11 +111,11 @@ class ContactForLicenceView(FormView):
     def form_valid(self, form):
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
-        subject = "%s - Organization License Inquiry" % name
+        subject = "%s - Access Code Inquiry" % name
         organization = form.cleaned_data['organization']
         position = form.cleaned_data['position']
         number_of_users = form.cleaned_data['number_of_users']
-        message = "name: %s <br> organization: %s <br> position: %s <br> number_of_users: %s <br> %s" % (name, organization,position,number_of_users,form.cleaned_data['message'])
+        message = "Name: %s <br> Organization: %s <br> Position: %s <br> Number of Employees/Students: %s <br> %s" % (name, organization,position,number_of_users,form.cleaned_data['message'])
         subject_line, from_email, to = subject, email, 'sales@myeffect.ca'
 
         mail = EmailMessage(subject, message, from_email, [to])

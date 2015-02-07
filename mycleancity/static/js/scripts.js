@@ -182,6 +182,18 @@ $(function(){
         }
     });
 
+    $("#edit-social-connection").on("click", function(e){
+        if($(this).text()=="Edit"){
+            $(".social-login-cross").css("display", "block");
+            $(".social-login-add").css("opacity", "1");
+            $(this).text("Cancel");
+        }else{
+            $(".social-login-cross").css("display", "none");
+            $(".social-login-add").css("opacity", "0");
+            $(this).text("Edit");
+        }
+    });
+
     // Enable question 5 if there is an answer selected
     var question_5 = $("input[name='question_5']");
 

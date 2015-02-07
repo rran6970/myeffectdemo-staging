@@ -61,41 +61,6 @@
             <p class="text"><a href="{{ user_profile.profile.website }}" target="_blank">{{ user_profile.profile.website }}</a></p>
           </div>
           {% endif %}
-
-          {% if user_profile.profile.twitter and not user_profile.profile.twitter == "@" %}
-          <div class="field">
-            <p class="title">Twitter:</p>
-            <p class="text"><a href="https://twitter.com/{{ user_profile.profile.twitter }}" target="_blank">{{ user_profile.profile.twitter }}</a></p>
-          </div>
-          {% endif %}
-
-          {% if user_profile.profile.facebook and not user_profile.profile.facebook == "facebook" %}
-          <div class="field">
-            <p class="title">Facebook:</p>
-            <p class="text"><a href="{{ user_profile.profile.facebook }}" target="_blank">{{ user_profile.profile.facebook }}</a></p>
-          </div>
-          {% endif %}
-
-          {% if user_profile.profile.instagram and not user_profile.profile.instagram == "instagram" %}
-          <div class="field">
-            <p class="title">Instagram:</p>
-            <p class="text"><a href="{{ user_profile.profile.instagram }}" target="_blank">{{ user_profile.profile.instagram }}</a></p>
-          </div>
-          {% endif %}
-
-          {% if user_profile.profile.google_plus and not user_profile.profile.google_plus == "google+" %}
-          <div class="field">
-            <p class="title">Google Plus:</p>
-            <p class="text"><a href="{{ user_profile.profile.google_plus }}" target="_blank">{{ user_profile.profile.google_plus }}</a></p>
-          </div>
-          {% endif %}
-
-          {% if user_profile.profile.linkedin and not user_profile.profile.linkedin == "linkedin" %}
-          <div class="field">
-            <p class="title">Linkedin</p>
-            <p class="text"><a href="{{ user_profile.profile.linkedin }}" target="_blank">{{ user_profile.profile.linkedin }}</a></p>
-          </div>
-          {% endif %}
           
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
