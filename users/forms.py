@@ -17,6 +17,7 @@ from django.forms.extras.widgets import SelectDateWidget
 
 # from captcha.fields import CaptchaField
 from captcha.fields import ReCaptchaField
+from parsley.decorators import parsleyfy
 
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile, UserSettings
@@ -165,93 +166,100 @@ COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
 
 class PrelaunchEmailsForm(forms.ModelForm):
-	first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
-	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
-	postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
-	school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
-	ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
-	join = forms.BooleanField(label="I'd like to join the My Effect team", required=False)
+    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email address'}))
+    postal_code = forms.CharField(max_length=7, widget=forms.TextInput(attrs={'placeholder':'Postal code'}))
+    school_type = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS)
+    ambassador = forms.BooleanField(label="I'd like to participate as an ambassador", required=False)
+    join = forms.BooleanField(label="I'd like to join the My Effect team", required=False)
 
-	# Combines the form with the corresponding model
-	class Meta:
-		model = PrelaunchEmails
+    # Combines the form with the corresponding model
+    class Meta:
+        model = PrelaunchEmails
 
-	def clean(self):
-		cleaned_data = super(PrelaunchEmailsForm, self).clean()
-		first_name = cleaned_data.get("first_name")
-		email = cleaned_data.get("email")
-		postal_code = cleaned_data.get("postal_code")
-		school_type = cleaned_data.get("school_type")
+    def clean(self):
+        cleaned_data = super(PrelaunchEmailsForm, self).clean()
+        first_name = cleaned_data.get("first_name")
+        email = cleaned_data.get("email")
+        postal_code = cleaned_data.get("postal_code")
+        school_type = cleaned_data.get("school_type")
 
-		if not first_name:
-			raise forms.ValidationError("Please let us know what to call you!")
-		elif not email:
-			raise forms.error
-		elif not postal_code:
-			raise forms.ValidationError("Please enter a valid postal code")
-		elif not school_type:
-			raise forms.ValidationError("Please select your education")
+        if not first_name:
+            raise forms.ValidationError("Please let us know what to call you!")
+        elif not email:
+            raise forms.error
+        elif not postal_code:
+            raise forms.ValidationError("Please enter a valid postal code")
+        elif not school_type:
+            raise forms.ValidationError("Please select your education")
 
-		return cleaned_data
+        return cleaned_data
 
+@parsleyfy
 class RegisterUserForm(forms.ModelForm):
-	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
-	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
-	HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
+    ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
+    AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
+    HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
 
-	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
-	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
-	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email / Courriel")
-	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password / Mot de passe")
-	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
-	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
-	uea = forms.BooleanField(required=True)
-	# data_privacy = forms.BooleanField(required=False)
-	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
-	referral_token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
-	captcha = ReCaptchaField()
-	# Combines the form with the corresponding model
-	class Meta:
-		model = User
-		exclude = ('username', 'last_login', 'date_joined')
+    first_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="First name / Prénom")
+    last_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="Last name / Nom de famille")
+    email = forms.EmailField(required=True, max_length = 128, label="Email / Courriel")
+    password = forms.CharField(required=True, max_length = 32, min_length = 6, widget = forms.PasswordInput(), label="Password (minimum 6 characters) / Mot de passe")
+    confirm_password = forms.CharField(required=True, max_length = 32, min_length = 6, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
+    hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
+    uea = forms.BooleanField(required=True)
+    # data_privacy = forms.BooleanField(required=False)
+    token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
+    referral_token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
+    captcha = ReCaptchaField()
+    # Combines the form with the corresponding model
+    class Meta:
+        parsley_extras = {
+            'confirm_password': {
+                'equalto': "password",
+                'error-message': "Your passwords do not match.",
+            },
+        }
+        model = User
+        exclude = ('username', 'last_login', 'date_joined')
 
-	def clean(self):
-		cleaned_data = super(RegisterUserForm, self).clean()
-		first_name = cleaned_data.get('first_name')
-		last_name = cleaned_data.get('last_name')
-		email = cleaned_data.get('email')
-		password = cleaned_data.get('password')
-		confirm_password = cleaned_data.get('confirm_password')
-		uea = cleaned_data.get('uea')
-		captcha = cleaned_data.get('captcha')
-		token = cleaned_data.get('token')
-		referral_token = cleaned_data.get('referral_token')
+    def clean(self):
+        cleaned_data = super(RegisterUserForm, self).clean()
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+        uea = cleaned_data.get('uea')
+        captcha = cleaned_data.get('captcha')
+        token = cleaned_data.get('token')
+        referral_token = cleaned_data.get('referral_token')
 
-		if not first_name:
-			raise forms.ValidationError("Please enter your first name")
-		elif not last_name:
-			raise forms.ValidationError("Please enter your last name")
-		elif not email:
-			raise forms.ValidationError("Please enter a valid email address")
-		elif not password:
-			raise forms.ValidationError("Please enter a password")
-		elif not confirm_password:
-			raise forms.ValidationError("Please confirm your password")
-		elif not uea:
-			raise forms.ValidationError("Please accept the Terms & Conditions")
-		elif not captcha:
-			raise forms.ValidationError("Please enter the CAPTCHA field correctly")
-		if password and confirm_password:
-			if password != confirm_password:
-				raise forms.ValidationError('Passwords did not match')
+        if not first_name:
+            raise forms.ValidationError("Please enter your first name")
+        elif not last_name:
+            raise forms.ValidationError("Please enter your last name")
+        elif not email:
+            raise forms.ValidationError("Please enter a valid email address")
+        elif not password:
+            raise forms.ValidationError("Please enter a password")
+        elif not confirm_password:
+            raise forms.ValidationError("Please confirm your password")
+        elif not uea:
+            raise forms.ValidationError("Please accept the Terms & Conditions")
+        elif not captcha:
+            raise forms.ValidationError("Please enter the CAPTCHA field correctly")
+        if password and confirm_password:
+            if password != confirm_password:
+                raise forms.ValidationError('Passwords did not match')
 
-		if User.objects.filter(username = email) or User.objects.filter(email = email):
-			raise forms.ValidationError(u'%s is already registered' % email)
+        if User.objects.filter(username = email) or User.objects.filter(email = email):
+            raise forms.ValidationError(u'%s is already registered' % email)
 
-		if len(password) < 6:
-			raise forms.ValidationError(u'Password must be at least 6 characters')
+        if len(password) < 6:
+            raise forms.ValidationError(u'Password must be at least 6 characters')
 
-		return cleaned_data
+        return cleaned_data
 
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -314,22 +322,22 @@ class ProfileForm(forms.ModelForm):
         return cleaned_data
 
 class SettingsForm(forms.ModelForm):
-	communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
-	email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
-	data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="I consent to share my volunteer data with organizations I work with")
-	receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
-	timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
+    communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
+    email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
+    data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="I consent to share my volunteer data with organizations I work with")
+    receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
+    timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
 
-	def __init__(self, *args, **kwargs):
-		super(SettingsForm, self).__init__(*args, **kwargs)
-		self.fields['timezone'].choices = [(tz, tz) for tz in pytz.all_timezones]
+    def __init__(self, *args, **kwargs):
+        super(SettingsForm, self).__init__(*args, **kwargs)
+        self.fields['timezone'].choices = [(tz, tz) for tz in pytz.all_timezones]
 
-	# Combines the form with the corresponding model
-	class Meta:
-		model = UserSettings
-		exclude = ('user')
+    # Combines the form with the corresponding model
+    class Meta:
+        model = UserSettings
+        exclude = ('user')
 
-	def clean(self):
-		cleaned_data = super(SettingsForm, self).clean()
+    def clean(self):
+        cleaned_data = super(SettingsForm, self).clean()
 
-		return cleaned_data
+        return cleaned_data
