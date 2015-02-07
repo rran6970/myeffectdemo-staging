@@ -253,7 +253,7 @@ class RegisterUserForm(forms.ModelForm):
             if password != confirm_password:
                 raise forms.ValidationError('Passwords did not match')
 
-        if User.objects.filter(username = email) or User.objects.filter(email = email):
+        if User.objects.filter(email = email):
             raise forms.ValidationError(u'%s is already registered' % email)
 
         if len(password) < 6:
@@ -267,11 +267,6 @@ class ProfileForm(forms.ModelForm):
     email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
     about = forms.CharField(required=False, widget=forms.Textarea())
     website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
-    twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
-    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Facebook'}))
-    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Instagram'}))
-    google_plus = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Google+'}))
-    linkedin = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Linkedin'}))
     street_address = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -301,11 +296,6 @@ class ProfileForm(forms.ModelForm):
         email = cleaned_data.get("email")
         about = cleaned_data.get("about")
         website = cleaned_data.get("website")
-        twitter = cleaned_data.get("twitter")
-        facebook = cleaned_data.get("facebook")
-        instagram = cleaned_data.get("instagram")
-        google_plus = cleaned_data.get("google_plus")
-        linkedin = cleaned_data.get("linkedin")
         school_type = cleaned_data.get("school_type")
         emergency_phone = cleaned_data.get("emergency_phone")
         picture = cleaned_data.get("picture")
@@ -319,6 +309,8 @@ class ProfileForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a valid email address")
         elif not dob:
             raise forms.ValidationError("Please select your date of birth")
+        if User.objects.filter(email = email):
+            raise forms.ValidationError(u'%s is already registered' % email)
         return cleaned_data
 
 class SettingsForm(forms.ModelForm):
