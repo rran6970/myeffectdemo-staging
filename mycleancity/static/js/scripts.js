@@ -56,7 +56,7 @@ $(function(){
     });
 
     $(".iframe").colorbox({
-        open:true, 
+        //open:true, 
         iframe:true, 
         width:"80%", 
         height:"80%", 
