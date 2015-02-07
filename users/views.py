@@ -599,13 +599,11 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileProgressView, self).get_context_data(**kwargs)
         user = self.request.user
-        user_profile = user.profile
 
-        profile_tasks = ProfileTask.objects.filter(profile_phase=user_profile.phase)
-        tasks = ProfileProgress.objects.filter(user=user_profile, profile_task__in=profile_tasks)
+        profile_tasks = ProfileTask.objects.filter(profile_phase=user.profile.phase)
+        tasks = ProfileProgress.objects.filter(user=user , profile_task__in=profile_tasks)
 
         context['tasks'] = tasks
-        context['user_profile'] = user_profile
         context['user'] = user
 
         return context

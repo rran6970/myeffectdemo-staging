@@ -68,6 +68,7 @@ Name:           ProfileProgress
 """
 class ProfileProgress(models.Model):
     user = models.ForeignKey(User)
+    phase = models.ForeignKey(ProfilePhase)
     profile_task = models.ForeignKey(ProfileTask)
     approval_requested = models.BooleanField(default=0)
     completed = models.BooleanField(default=0)
