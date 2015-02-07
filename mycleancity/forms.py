@@ -46,7 +46,7 @@ class ContactForLicenceForm(forms.Form):
     email = forms.EmailField(label='Email *', widget=forms.TextInput())
     organization = forms.CharField(label='Organization *', widget=forms.TextInput())
     position = forms.CharField(label='Position', required=False, widget=forms.TextInput())
-    number_of_users = forms.CharField(label='Number of users', required=False, widget=forms.TextInput())
+    number_of_users = forms.CharField(label='Number of Employees/Students', required=False, widget=forms.TextInput())
     message = forms.CharField(label='Message', widget=forms.Textarea())
     captcha = ReCaptchaField()
 
