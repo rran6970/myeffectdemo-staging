@@ -245,8 +245,8 @@ class RegisterView(FormView):
         context['page_url'] = self.request.get_full_path()
         context['user'] = self.request.user
 
-        if self.request.flavour == "mobile":
-            self.template_name = "users/mobile/register.html"
+        #if self.request.flavour == "mobile":
+            #self.template_name = "users/mobile/register.html"
 
         return context  
 
@@ -392,11 +392,8 @@ class ProfileView(LoginRequiredMixin, FormView):
         initial['province'] = user.profile.province
         initial['country'] = user.profile.country
         initial['postal_code'] = user.profile.country
-
-
         if user.profile.website:
             initial['website'] = user.profile.website
-
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -414,11 +411,10 @@ class ProfileView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         user = User.objects.get(id=self.request.user.id)
         picture = form.cleaned_data['picture']
-
+        
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
-
-
+        user.email = form.cleaned_data['email']
         user.save()
 
         user.profile.street_address = form.cleaned_data['street_address']

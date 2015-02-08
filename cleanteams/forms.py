@@ -9,8 +9,8 @@ CREATE_TEAM_CHOICES = (('change_team', 'Create A Change Team'),
     ('representing', 'Representing An Organization'),
 )
 
-ORG_TYPES = (('nonprofit_charity', 'Nonprofit/Charity'),
-    ('school', 'School'),
+ORG_TYPES = (('school', 'School'),
+    ('nonprofit_charity', 'Nonprofit/Charity'),
     ('business', 'Business'),
     ('municipality', 'Municipality'),
 )

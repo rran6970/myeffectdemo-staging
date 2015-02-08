@@ -188,6 +188,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.instagram',
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.twitter',
+    'parsley',
 )
 
 # A sample logging configuration. The only tangible logging

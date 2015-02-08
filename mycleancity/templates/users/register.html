@@ -46,10 +46,10 @@
               </div>
             {% endif %}
               
-            <form method="post" autocomplete="off">{% csrf_token %}
+            <form method="post" autocomplete="off" data-parsley-validate data-parsley-trigger="change">{% csrf_token %}
               {{ form.token }}
               {{ form.referral_token }}
-              <table>
+              <table >
                 <tr>
                     <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
                     <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>

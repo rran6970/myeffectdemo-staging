@@ -6,7 +6,7 @@ from django.core.files.images import ImageFile
 from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
-from allauth.account.signals import user_signed_up
+from allauth.socialaccount.signals import social_account_removed
 from django.dispatch import receiver
 import qrcode
 
@@ -306,6 +306,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
 
-@receiver(user_signed_up)
-def complete_social_signup(sender, **kwargs):
+@receiver(social_account_removed)
+def redirect_to_user_profile(sender, **kwargs):
     print("Request finished!")
