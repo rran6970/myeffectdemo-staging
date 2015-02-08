@@ -397,22 +397,6 @@ class ProfileView(LoginRequiredMixin, FormView):
         if user.profile.website:
             initial['website'] = user.profile.website
 
-
-        if user.profile.twitter:
-            initial['twitter'] = user.profile.twitter
-
-        if user.profile.facebook:
-            initial['facebook'] = user.profile.facebook
-
-        if user.profile.instagram:
-            initial['instagram'] = user.profile.instagram
-
-        if user.profile.google_plus:
-            initial['google_plus'] = user.profile.google_plus
-
-        if user.profile.linkedin:
-            initial['linkedin'] = user.profile.linkedin
-
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -437,7 +421,6 @@ class ProfileView(LoginRequiredMixin, FormView):
 
         user.save()
 
-        # user.profile.dob = form.cleaned_data['dob']
         user.profile.street_address = form.cleaned_data['street_address']
         user.profile.city = form.cleaned_data['city']
         user.profile.province = form.cleaned_data['province']
@@ -445,11 +428,6 @@ class ProfileView(LoginRequiredMixin, FormView):
         user.profile.postal_code = form.cleaned_data['postal_code']
         user.profile.about = form.cleaned_data['about']
         user.profile.website = form.cleaned_data['website']
-        user.profile.twitter = form.cleaned_data['twitter']
-        user.profile.facebook = form.cleaned_data['facebook']
-        user.profile.instagram = form.cleaned_data['instagram']
-        user.profile.google_plus = form.cleaned_data['google_plus']
-        user.profile.linkedin = form.cleaned_data['linkedin']
         user.profile.emergency_phone = form.cleaned_data['emergency_phone']
         user.profile.dob = form.cleaned_data['dob']
         user.profile.category = form.cleaned_data['category']

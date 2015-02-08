@@ -195,18 +195,14 @@ class PrelaunchEmailsForm(forms.ModelForm):
 		return cleaned_data
 
 class RegisterUserForm(forms.ModelForm):
-	ROLE_CHOICES = (('agent', 'Agent',), ('ambassador', 'Ambassador',), ('catalyst', 'Catalyst',), ('manager', 'Manager',))
-	AGE_CHOICES = (('13-16', '13-16',), ('17-21', '17-21',), ('22-25', '22-25',), ('Teacher', 'Teacher / Enseingnant',))
-	HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
 
-	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name / Prénom")
-	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name / Nom de famille")
-	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email / Courriel")
-	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password / Mot de passe")
-	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
-	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
+	first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
+	last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
+	email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email")
+	password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password")
+	confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password")
+	hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us?")
 	uea = forms.BooleanField(required=True)
-	# data_privacy = forms.BooleanField(required=False)
 	token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	referral_token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
 	captcha = ReCaptchaField()
@@ -259,16 +255,11 @@ class ProfileForm(forms.ModelForm):
     email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
     about = forms.CharField(required=False, widget=forms.Textarea())
     website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
-    twitter = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
-    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Facebook'}))
-    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Instagram'}))
-    google_plus = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Google+'}))
-    linkedin = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'Linkedin'}))
-    street_address = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    street_address = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
     city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    country = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    postal_code = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+    province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Province/State")
+    country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+    postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency contact phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
@@ -285,22 +276,10 @@ class ProfileForm(forms.ModelForm):
         cleaned_data = super(ProfileForm, self).clean()
         first_name = cleaned_data.get("first_name")
         last_name = cleaned_data.get("last_name")
-        street_address = cleaned_data.get("street_address")
         city = cleaned_data.get("city")
         province = cleaned_data.get("province")
         country = cleaned_data.get("country")
-        postal_code = cleaned_data.get("postal_code")
         email = cleaned_data.get("email")
-        about = cleaned_data.get("about")
-        website = cleaned_data.get("website")
-        twitter = cleaned_data.get("twitter")
-        facebook = cleaned_data.get("facebook")
-        instagram = cleaned_data.get("instagram")
-        google_plus = cleaned_data.get("google_plus")
-        linkedin = cleaned_data.get("linkedin")
-        school_type = cleaned_data.get("school_type")
-        emergency_phone = cleaned_data.get("emergency_phone")
-        picture = cleaned_data.get("picture")
         dob = cleaned_data.get('dob')
 
         if not first_name:
@@ -311,6 +290,11 @@ class ProfileForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a valid email address")
         elif not dob:
             raise forms.ValidationError("Please select your date of birth")
+        elif not city:
+            raise forms.ValidationError("Please enter your city")
+        elif not province:
+            raise forms.ValidationError("Please enter your province or state")
+
         return cleaned_data
 
 class SettingsForm(forms.ModelForm):
