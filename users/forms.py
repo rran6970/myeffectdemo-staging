@@ -197,21 +197,26 @@ class PrelaunchEmailsForm(forms.ModelForm):
 
 @parsleyfy
 class RegisterUserForm(forms.ModelForm):
-
     HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
 
-    first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
-    last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
-    email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email")
-    password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Password")
-    confirm_password = forms.CharField(required=True, max_length = 32, widget = forms.PasswordInput(), label="Confirm password")
-    hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us?")
+    first_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="First name / Prénom")
+    last_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="Last name / Nom de famille")
+    email = forms.EmailField(required=True, max_length = 128, label="Email / Courriel")
+    password = forms.CharField(required=True, max_length = 32, min_length = 6, widget = forms.PasswordInput(), label="Password (minimum 6 characters) / Mot de passe")
+    confirm_password = forms.CharField(required=True, max_length = 32, min_length = 6, widget = forms.PasswordInput(), label="Confirm password / Confirmez votre mot de passe")
+    hear_about_us = forms.ChoiceField(widget=forms.Select(), choices=HEAR_CHOICES, label="How did you hear about us? / Comment avez-vous entendu parler de nous?")
     uea = forms.BooleanField(required=True)
     token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
     referral_token = forms.CharField(required=False, max_length=50, widget=forms.HiddenInput())
     captcha = ReCaptchaField()
     # Combines the form with the corresponding model
     class Meta:
+        parsley_extras = {
+            'confirm_password': {
+                'equalto': "password",
+                'error-message': "Your passwords do not match.",
+            },
+        }
         model = User
         exclude = ('username', 'last_login', 'date_joined')
 
@@ -245,7 +250,7 @@ class RegisterUserForm(forms.ModelForm):
             if password != confirm_password:
                 raise forms.ValidationError('Passwords did not match')
 
-        if User.objects.filter(username = email) or User.objects.filter(email = email):
+        if User.objects.filter(email = email):
             raise forms.ValidationError(u'%s is already registered' % email)
 
         if len(password) < 6:
@@ -256,7 +261,7 @@ class RegisterUserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput())
+    email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(attrs={'disabled': "true"}))
     about = forms.CharField(required=False, widget=forms.Textarea())
     website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
     street_address = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
