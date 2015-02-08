@@ -198,6 +198,8 @@ class PrelaunchEmailsForm(forms.ModelForm):
 @parsleyfy
 class RegisterUserForm(forms.ModelForm):
 
+    HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
+
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
     email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(), label="Email")
