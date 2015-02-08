@@ -261,7 +261,7 @@ class RegisterUserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    email = forms.CharField(required=True, max_length = 128, widget=forms.TextInput(attrs={'disabled': "true"}))
+    email = forms.CharField(required=False, max_length = 128, widget=forms.TextInput(attrs={'readonly': "true"}))
     about = forms.CharField(required=False, widget=forms.Textarea())
     website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
     street_address = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -295,8 +295,6 @@ class ProfileForm(forms.ModelForm):
             raise forms.ValidationError("Please enter your first name")
         elif not last_name:
             raise forms.ValidationError("Please enter your last name")
-        elif not email:
-            raise forms.ValidationError("Please enter a valid email address")
         elif not dob:
             raise forms.ValidationError("Please select your date of birth")
         elif not city:
