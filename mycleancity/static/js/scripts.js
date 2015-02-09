@@ -56,7 +56,7 @@ $(function(){
     });
 
     $(".iframe").colorbox({
-        open:true, 
+        //open:true, 
         iframe:true, 
         width:"80%", 
         height:"80%", 
@@ -142,58 +142,6 @@ $(function(){
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
 
-    $("#create_team_rdo").on("click", function(e){
-        $("#org_type_tr").hide();
-        $("#registered_number_tr").hide();
-        $("#category_tr").hide();
-        $("#number_of_users_tr").hide();
-        $("#submit_org_tr").hide();
-        $("#submit_tr").fadeIn();
-    });
-
-    $("#representing_rdo").on("click", function(e){
-        $("#org_type_tr").fadeIn();
-        if($("#id_org_type").val() == "nonprofit_charity"){
-            $("#submit_org_tr").hide();
-            $("#registered_number_tr").fadeIn();
-            $("#category_tr").fadeIn();
-            $("#submit_tr").fadeIn();
-        }else{
-            $("#submit_tr").hide();
-            $("#number_of_users_tr").fadeIn();
-            $("#submit_org_tr").fadeIn();
-        }
-    });
-
-    $("#id_org_type").on("change", function(e){
-        if($(this).val() == "nonprofit_charity"){
-            $("#number_of_users_tr").hide();
-            $("#submit_org_tr").hide();
-            $("#registered_number_tr").fadeIn();
-            $("#category_tr").fadeIn();
-            $("#submit_tr").fadeIn();
-        }
-        else{
-            $("#category_tr").hide();
-            $("#registered_number_tr").hide();
-            $("#submit_tr").hide();
-            $("#number_of_users_tr").fadeIn();
-            $("#submit_org_tr").fadeIn();
-        }
-    });
-
-    $("#edit-social-connection").on("click", function(e){
-        if($(this).text()=="Edit"){
-            $(".social-login-cross").css("display", "block");
-            $(".social-login-add").css("opacity", "1");
-            $(this).text("Cancel");
-        }else{
-            $(".social-login-cross").css("display", "none");
-            $(".social-login-add").css("opacity", "0");
-            $(this).text("Edit");
-        }
-    });
-
     // Enable question 5 if there is an answer selected
     var question_5 = $("input[name='question_5']");
 
@@ -238,27 +186,80 @@ $(function(){
 
     $("#post-message-container form").on("submit", postMessage);
 
-    $("#clean-team-members-list #id_role").on("change", function(e){
-        if ($(this).val() == "organization")
-        {
-            window.location.replace("/clean-team/invite-org/");
-        }
-        else if ($(this).val() == "agent"){
-            $("#invite-heading").html("Invite Friends");
-            $("#invite-subtitle").html("Invite your friends to support your Change Team.");
-        }
-        else{
-            $("#invite-heading").html("Invite Leader");
-            $("#invite-subtitle").html("Invite a leader to become a manager of your Change Team.");
-        }
-    });
+});
 
-    $("#invite_id_role").on("change", function(e){
-        if ($(this).val() != "organization")
-        {
-            window.location.replace("/clean-team/invite/?role=" + $(this).val());
-        }
-    });
+$("#create_team_rdo").on("click", function(e){
+    $("#org_type_tr").hide();
+    $("#registered_number_tr").hide();
+    $("#category_tr").hide();
+    $("#number_of_users_tr").hide();
+    $("#submit_org_tr").hide();
+    $("#submit_tr").fadeIn();
+});
+
+$("#representing_rdo").on("click", function(e){
+    $("#org_type_tr").fadeIn();
+    if($("#id_org_type").val() == "nonprofit_charity"){
+        $("#submit_org_tr").hide();
+        $("#registered_number_tr").fadeIn();
+        $("#category_tr").fadeIn();
+        $("#submit_tr").fadeIn();
+    }else{
+        $("#submit_tr").hide();
+        $("#number_of_users_tr").fadeIn();
+        $("#submit_org_tr").fadeIn();
+    }
+});
+
+$("#id_org_type").on("change", function(e){
+    if($(this).val() == "nonprofit_charity"){
+        $("#number_of_users_tr").hide();
+        $("#submit_org_tr").hide();
+        $("#registered_number_tr").fadeIn();
+        $("#category_tr").fadeIn();
+        $("#submit_tr").fadeIn();
+    }
+    else{
+        $("#category_tr").hide();
+        $("#registered_number_tr").hide();
+        $("#submit_tr").hide();
+        $("#number_of_users_tr").fadeIn();
+        $("#submit_org_tr").fadeIn();
+    }
+});
+
+$("#edit-social-connection").on("click", function(e){
+    if($(this).text()=="Edit"){
+        $(".social-login-cross").css("display", "block");
+        $(".social-login-add").css("opacity", "1");
+        $(this).text("Cancel");
+    }else{
+        $(".social-login-cross").css("display", "none");
+        $(".social-login-add").css("opacity", "0");
+        $(this).text("Edit");
+    }
+});
+
+$("#clean-team-members-list #id_role").on("change", function(e){
+    if ($(this).val() == "organization")
+    {
+        window.location.replace("/clean-team/invite-org/");
+    }
+    else if ($(this).val() == "agent"){
+        $("#invite-heading").html("Invite Friends");
+        $("#invite-subtitle").html("Invite your friends to support your Change Team.");
+    }
+    else{
+        $("#invite-heading").html("Invite Leader");
+        $("#invite-subtitle").html("Invite a leader to become a manager of your Change Team.");
+    }
+});
+
+$("#invite_id_role").on("change", function(e){
+    if ($(this).val() != "organization")
+    {
+        window.location.replace("/clean-team/invite/?role=" + $(this).val());
+    }
 });
 
 function resendInvite(e)
