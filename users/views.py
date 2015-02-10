@@ -26,7 +26,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallenge
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
@@ -572,6 +572,7 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileProgressView, self).get_context_data(**kwargs)
         user = self.request.user
+
 
         profile_tasks = ProfileTask.objects.filter(profile_phase=user.profile.phase)
         tasks = ProfileProgress.objects.filter(user=user , profile_task__in=profile_tasks)
