@@ -30,7 +30,7 @@ from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTe
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
-from users.models import ProfilePhase, ProfileTask, ProfileProgress
+from users.models import ProfilePhase, ProfileTask, ProfileProgress, ProfilePhase
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm, CustomPasswordResetForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
@@ -575,6 +575,14 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
 
 
         profile_tasks = ProfileTask.objects.filter(profile_phase=user.profile.phase)
+        for task in profile_tasks:
+            if not ProfileProgress.objects.filter(user=user , profile_task=task):
+                profileprogress = ProfileProgress()
+                profileprogress.user = user
+                profileprogress.phase = ProfilePhase.objects.get(id=user.profile.phase)
+                profileprogress.profile_task = task
+                profileprogress.save()
+
         tasks = ProfileProgress.objects.filter(user=user , profile_task__in=profile_tasks)
 
         context['tasks'] = tasks
