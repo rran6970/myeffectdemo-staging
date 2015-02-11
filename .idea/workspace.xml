@@ -2,17 +2,92 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88f64d58-ed70-4f06-9f8a-2854527365ed" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/_public_no_popup_navbar.html" afterPath="$PROJECT_DIR$/mycleancity/templates/_public_no_popup_navbar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/challenges/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cleancreds/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cleanteams/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notifications/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/userorganization/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/userprofile/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/challenges/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cleancreds/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cleanteams/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notifications/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/userorganization/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/userprofile/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/migrations/__init__.py" />
+      <change type="DELETED" beforePath="C:\Users\Nick\Desktop\Co-op\mycleancity-staging\mycleancity\templates\_public_navbar.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Nick\Desktop\Co-op\mycleancity-staging\mycleancity\templates\_public_no_popup_navbar.html" afterPath="" />
+      <change type="MOVED" beforePath="C:\Users\Nick\Desktop\Co-op\mycleancity-staging\mycleancity\templates\_loggedin_navbar.html" afterPath="$PROJECT_DIR$/mycleancity/templates/_navbar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/about.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/about.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/admin.py" afterPath="$PROJECT_DIR$/users/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/all_clean_teams.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/all_clean_teams.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_centre.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_centre.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_details.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_participants.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/challenge_participants.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_members.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_presentation.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_presentation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_profile.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/emails/clean_team_register.txt" afterPath="$PROJECT_DIR$/mycleancity/templates/emails/clean_team_register.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/coming_soon.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/coming_soon.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/communication_hub.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/communication_hub.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/socialaccount/snippets/connection_list.html" afterPath="$PROJECT_DIR$/mycleancity/templates/socialaccount/snippets/connection_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/contact.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/contact.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/french/contact_fr.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/french/contact_fr.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/create_team_or_join.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/create_team_or_join.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/create_team_or_org.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/create_team_or_org.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/edit_challenge.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/edit_challenge.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/edit_clean_team.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/edit_clean_team.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/forms.py" afterPath="$PROJECT_DIR$/users/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/hm_voucher_code.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/hm_voucher_code.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/home.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/index.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/invalid_login.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/invalid_login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite_organization.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite_organization.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite_response.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/invite_response.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/leader_referral.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/leader_referral.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/leaderboard.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/leaderboard.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleanteams/models.py" afterPath="$PROJECT_DIR$/cleanteams/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/loggedin.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/loggedin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/account/login.html" afterPath="$PROJECT_DIR$/mycleancity/templates/account/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/login.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/logout.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/logout.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/main_contact.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/main_contact.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/media_hub.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/media_hub.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userprofile/models.py" afterPath="$PROJECT_DIR$/userprofile/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/my_challenges.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/my_challenges.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/new_challenge.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/new_challenge.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/not_authorized.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/not_authorized.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/notifications/notifications_feed.html" afterPath="$PROJECT_DIR$/mycleancity/templates/notifications/notifications_feed.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/organization_profile.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/organization_profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/organization_profile_public.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/organization_profile_public.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/organizations.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/organizations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_complete.html" afterPath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_complete.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_confirm.html" afterPath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_confirm.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_done.html" afterPath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_done.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_form.html" afterPath="$PROJECT_DIR$/mycleancity/templates/registration/password_reset_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/post_message.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/post_message.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/privacy.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/privacy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/profile.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/profile.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/settings.py" afterPath="$PROJECT_DIR$/mycleancity/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleanteams/views.py" afterPath="$PROJECT_DIR$/cleanteams/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/public_profile.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/public_profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/qr_code.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/qr_code.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/register.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_clean_champion.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_clean_champion.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_clean_team.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_clean_team.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/register_organization.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/register_organization.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_request_join.html" afterPath="$PROJECT_DIR$/mycleancity/templates/cleanteams/register_request_join.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/register_success.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/register_success.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/mobile/register_success.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/mobile/register_success.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/report_card.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/report_card.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/rewards.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/rewards.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/users/settings.html" afterPath="$PROJECT_DIR$/mycleancity/templates/users/settings.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/socialaccount/signup.html" afterPath="$PROJECT_DIR$/mycleancity/templates/socialaccount/signup.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/mycleancity/students.html" afterPath="$PROJECT_DIR$/mycleancity/templates/mycleancity/students.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/emails/user_register_success.txt" afterPath="$PROJECT_DIR$/mycleancity/templates/emails/user_register_success.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/views.py" afterPath="$PROJECT_DIR$/users/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mycleancity/templates/challenges/voucher_code.html" afterPath="$PROJECT_DIR$/mycleancity/templates/challenges/voucher_code.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mycleancity-staging.iws" />
@@ -56,7 +131,7 @@
       <file leaf-file-name="level_progress.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1700">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="374" max-vertical-offset="1598">
               <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
               <folding />
             </state>
@@ -73,11 +148,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile_progress.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="profile_progress.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="1496">
-              <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.60784316" vertical-offset="340" max-vertical-offset="1207">
+              <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -105,10 +180,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cleanteams/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50391936" vertical-offset="6486" max-vertical-offset="16388">
+            <state vertical-scroll-proportion="0.0" vertical-offset="6486" max-vertical-offset="16388">
               <caret line="440" column="22" selection-start-line="440" selection-start-column="22" selection-end-line="440" selection-end-column="22" />
               <folding />
             </state>
@@ -130,8 +205,8 @@
       <file leaf-file-name="clean_team_profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="939" max-vertical-offset="5117">
-              <caret line="68" column="111" selection-start-line="68" selection-start-column="111" selection-end-line="68" selection-end-column="111" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="5185">
+              <caret line="72" column="111" selection-start-line="72" selection-start-column="111" selection-end-line="72" selection-end-column="111" />
               <folding />
             </state>
           </provider>
@@ -173,12 +248,12 @@
         <option value="$PROJECT_DIR$/challenges/forms.py" />
         <option value="$PROJECT_DIR$/challenges/models.py" />
         <option value="$PROJECT_DIR$/api/api.py" />
-        <option value="$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html" />
         <option value="$PROJECT_DIR$/mycleancity/templates/users/leaderboard.html" />
         <option value="$PROJECT_DIR$/cleanteams/models.py" />
         <option value="$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_profile.html" />
         <option value="$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html" />
         <option value="$PROJECT_DIR$/cleanteams/views.py" />
+        <option value="$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html" />
       </list>
     </option>
   </component>
@@ -727,27 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mycleancity/templates/_public_navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.653847" vertical-offset="0" max-vertical-offset="2210">
-          <caret line="27" column="77" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mycleancity/templates/_public_no_popup_navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7564403" vertical-offset="0" max-vertical-offset="2176">
-          <caret line="38" column="84" selection-start-line="38" selection-start-column="84" selection-end-line="38" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mycleancity/templates/_loggedin_navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47775176" vertical-offset="0" max-vertical-offset="2125">
-          <caret line="24" column="77" selection-start-line="24" selection-start-column="77" selection-end-line="24" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mycleancity/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="4471">
@@ -760,6 +814,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.961538" vertical-offset="393" max-vertical-offset="1275">
           <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -767,6 +822,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2535461" vertical-offset="466" max-vertical-offset="1853">
           <caret line="19" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -788,6 +844,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -821,6 +878,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="93.5" vertical-offset="2431" max-vertical-offset="5185">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -828,6 +886,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="1037">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -835,6 +894,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="629">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -904,6 +964,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -925,6 +986,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.070444" vertical-offset="1811" max-vertical-offset="8194">
           <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -949,14 +1013,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.019675925" vertical-offset="6953" max-vertical-offset="9979">
           <caret line="410" column="31" selection-start-line="410" selection-start-column="31" selection-end-line="410" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="1496">
-          <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
-          <folding />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -996,14 +1055,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1700">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="22818" max-vertical-offset="24548">
@@ -1014,16 +1065,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mycleancity/templates/cleanteams/clean_team_profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="939" max-vertical-offset="5117">
-          <caret line="68" column="111" selection-start-line="68" selection-start-column="111" selection-end-line="68" selection-end-column="111" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="5185">
+          <caret line="72" column="111" selection-start-line="72" selection-start-column="111" selection-end-line="72" selection-end-column="111" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cleanteams/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50391936" vertical-offset="6486" max-vertical-offset="16388">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6486" max-vertical-offset="16388">
           <caret line="440" column="22" selection-start-line="440" selection-start-column="22" selection-end-line="440" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycleancity/templates/cleanteams/level_progress.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1700">
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycleancity/templates/users/profile_progress.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60784316" vertical-offset="340" max-vertical-offset="1207">
+          <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
           <folding />
         </state>
       </provider>

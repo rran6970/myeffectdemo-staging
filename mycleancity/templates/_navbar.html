@@ -1,11 +1,10 @@
-<a href="/fr" class="menu-items menu-items-left">Français</a>
-{% if user.is_active %}
-	<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
+<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
 
+{% if user.is_active %}
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Actions<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Actions<b class="caret"></b></a>
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
-			<li><a href="/challenges" class="menu-items">Challenge Centre</a></li>
+			<li><a href="/challenges" class="menu-items">Action Centre</a></li>
 			{% if user.profile.has_clean_team %}
 			<li><a href="/challenges/new-challenge/" class="menu-items">Post Actions</a></li>
 			{% endif %}
@@ -14,7 +13,7 @@
 	</div><!-- end of #user-dropdown.dropdown -->
 
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Team<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Team<b class="caret"></b></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 			{% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
 			<li><a href="/clean-team/members" class="menu-items">Members</a></li>
@@ -33,14 +32,14 @@
 			<li><a href="/clean-team/register-catalyst" class="menu-items">Be a Catalyst</a></li>
 			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
 		</ul>
-	</div><!-- end of #user-dropdown.dropdown -->
+	</div><!-- end of .dropdown -->
 
 	<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
 	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
 		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
-		<li><a href="/users/profile/" class="menu-items">Edit Profile</a></li>
+        <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Profile Goals</a></li>
 		<li><a href="/users/qrcode/" class="menu-items">Member ID</a></li>
-		<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+		<!--<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>-->
 		<li><a href="/claim-voucher" class="menu-items">Claim a Voucher</a></li>
 		<li><a href="/users/settings/" class="menu-items">Settings</a></li>
 		<li><a href="/users/logout" class="menu-items">Logout</a></li>
@@ -87,14 +86,14 @@
 		</div>
 
 		{% if user.profile.count_unread_notifications > 0 %}
-			<div id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
+		<div style="left: initial;" id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
 		{% endif %}
 	</div><!-- end of #notification-dropdown.dropdown -->
 
 	<form action="" method="get" id="search-form">
 		<div id="search-container" class="input-group">
 	      <div class="input-group-btn">
-	        <button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
+	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
 				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
 				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Change Team Actions</label></span></li>
@@ -113,7 +112,6 @@
 			</div><!-- end of #search-result-dropdown.dropdown -->
     	</div><!-- /input-group -->
     </form>
-
 {% else %}
 	<a href="/contact" class="menu-items menu-items-right">Contact</a>
 	<a href="/about" class="menu-items menu-items-right">About</a>

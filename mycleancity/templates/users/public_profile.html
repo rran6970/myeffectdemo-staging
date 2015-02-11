@@ -1,6 +1,6 @@
 {% extends '_public_base.html' %}
 
-{% block title %} My Effect - {{ user_profile.first_name }} {{ user_profile.last_name }} {% endblock %}
+{% block title %} My Effect - My Profile {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -11,7 +11,7 @@
 <div class="wrapper public">
   <div class="clouds"></div>
 
-  {% include "_loggedin_navbar.html" %}  
+  {% include "_navbar.html" %}
 
   <a href="/" class="logo"></a>
   
@@ -70,7 +70,7 @@
           {% endif %}
 
           <span class="clean-creds">
-            <p><span class="green bold">Change</span> <span class="gold bold">Creds</span><span>: {{ user_profile.profile.clean_creds }}</span></p>
+            <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">Total Hours:</p>
@@ -136,11 +136,11 @@
         </div><!-- /.info -->          
       </div><!-- /#white-box -->
 
-      {% if user_profile.profile.clean_team_member.role == "leader" and user_profile.profile.clean_team_member.status == "approved" %}
+      <!--{{% if user_profile.profile.clean_team_member.role == "leader" and user_profile.profile.clean_team_member.status == "approved" %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Badge CA" />
       {% elif clean_champion_clean_teams %}
         <img id="badge-icon" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Badge CC" />
-      {% endif %}
+      {% endif %}-->
         
     </div><!-- /.container -->
   </div><!-- /.about -->

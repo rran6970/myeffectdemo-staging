@@ -26,11 +26,11 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallenge
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
-from users.models import ProfilePhase, ProfileTask, ProfileProgress
+from users.models import ProfilePhase, ProfileTask, ProfileProgress, ProfilePhase
 from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm, CustomPasswordResetForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
@@ -319,12 +319,8 @@ class RegisterInviteView(FormView):
         lang = u.profile.settings.communication_language
         
         # Send registration email to user
-        if lang == "English":
-            template = get_template('emails/user_register_success.html')
-            subject = 'My Effect - Signup Successful'
-        else:
-            template = get_template('emails/french/user_register_success_fr.html')
-            subject = 'My Effect - Signup Successful'
+        template = get_template('emails/user_register_success.html')
+        subject = 'My Effect - Signup Successful'
         
         content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -332,6 +328,7 @@ class RegisterInviteView(FormView):
 
         send_email = SendEmail()
         send_email.send(template, content, subject, from_email, to)
+
 
         # Send notification email to administrator
         #template = get_template('emails/register_email_notification.html')
@@ -435,6 +432,11 @@ class ProfileView(LoginRequiredMixin, FormView):
             user.profile.picture = uploadFile.upload(key, picture)
 
         user.profile.save()
+
+
+        if user.profile.about and user.profile.category and user.profile.city and user.profile.country and user.profile.emergency_contact_fname and user.profile.emergency_contact_lname and user.profile.picture:
+            task = ProfileTask.objects.get(name="profile")
+            user.profile.complete_level_task(task)
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 
@@ -573,7 +575,16 @@ class ProfileProgressView(LoginRequiredMixin, TemplateView):
         context = super(ProfileProgressView, self).get_context_data(**kwargs)
         user = self.request.user
 
+
         profile_tasks = ProfileTask.objects.filter(profile_phase=user.profile.phase)
+        for task in profile_tasks:
+            if not ProfileProgress.objects.filter(user=user , profile_task=task):
+                profileprogress = ProfileProgress()
+                profileprogress.user = user
+                profileprogress.phase = ProfilePhase.objects.get(id=user.profile.phase)
+                profileprogress.profile_task = task
+                profileprogress.save()
+
         tasks = ProfileProgress.objects.filter(user=user , profile_task__in=profile_tasks)
 
         context['tasks'] = tasks

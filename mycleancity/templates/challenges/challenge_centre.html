@@ -10,12 +10,7 @@
 
 <div class="wrapper public">
   <div class="clouds"></div>
-  
-  {% if user.is_authenticated %}
-    {% include "_loggedin_navbar.html" %}
-  {% else %}
-    {% include "_public_navbar.html" %}
-  {% endif %}
+    {% include "_navbar.html" %}
 
   <a href="/" class="logo"></a>
   
@@ -23,8 +18,8 @@
   	<div class="container">
         <div id="white-box" class="message">
           <p>Do you know of volunteer opportunities or events that aren't listed in our Action Centre?</p>
-          <p>Change Agents: Connect My Effect to the local organization host or refer an Action to earn a 10 bonus Change Creds!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
-          <p>Change Leaders: {% if user.is_authenticated and user.profile.has_clean_team %}<a href="new-challenge">Upload your opportunity </a>{% else %} Upload your opportunity {% endif %}as an Action for your Change Team to start earning ongoing Change Creds</p>
+          <p>Change Agents: Connect My Effect to the local organization host or refer an Action to earn a 10 bonus change creds<sup>TM</sup>!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
+          <p>Change Leaders: {% if user.is_authenticated and user.profile.has_clean_team %}<a href="new-challenge">Upload your opportunity </a>{% else %} Upload your opportunity {% endif %}as an Action for your Change Team to start earning ongoing change creds<sup>TM</sup></p>
         </div>
 
       	<div id="sign-challenge-centre"></div>

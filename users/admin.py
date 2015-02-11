@@ -16,8 +16,8 @@ class ProfilePhaseAdmin(admin.ModelAdmin):
     actions = [export_as_csv_action("CSV Export")]
 
 class ProfileTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'profile_phase', 'description', 'link', 'approval_required')
-    search_fields = ['user', 'profile_phase', 'description', 'approval_required']
+    list_display = ('id', 'profile_phase', 'name', 'description', 'link', 'approval_required')
+    search_fields = ['user', 'profile_phase', 'name', 'approval_required']
     actions = [export_as_csv_action("CSV Export")]
 
 class ProfileProgressAdmin(admin.ModelAdmin):
