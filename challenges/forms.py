@@ -60,29 +60,6 @@ class NewChallengeForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(NewChallengeForm, self).__init__(*args, **kwargs)
 
-        questions = ChallengeQuestion.objects.all().order_by('question_number')
-
-        for question in questions:
-            answers = QuestionAnswer.objects.filter(question=question).order_by('answer_number')
-            answer_list = []
-
-            for answer in answers:
-                answer_list.append((answer.id, answer.answer))
-
-            answer_tuple = tuple(answer_list)
-
-            label = "%s. %s" %(question.question_number, question.question)
-
-            required = question.required
-
-            if question.answer_type.name == "single":
-                self.fields['question_%s' % question.question_number] = forms.ChoiceField(widget=forms.RadioSelect, required=required, label=label, choices=answer_tuple)
-            elif question.answer_type.name == "multiple":
-                self.fields['question_%s' % question.question_number] = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=required, label=label, choices=answer_tuple)
-
-            if question.question_number == 5:
-                self.fields['question_%s' % question.question_number].widget.attrs['disabled'] = True
-
         self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
         self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
@@ -124,13 +101,11 @@ class NewChallengeForm(forms.Form):
         postal_code = cleaned_data.get("postal_code")
         description = cleaned_data.get("description")
         link = cleaned_data.get("link")
-
         organization = cleaned_data.get("organization")
         contact_first_name = cleaned_data.get("contact_first_name")
         contact_last_name = cleaned_data.get("contact_last_name")
         contact_phone = cleaned_data.get("contact_phone")
         contact_email = cleaned_data.get("contact_email")
-
         national_challenge = cleaned_data.get("national_challenge")
         clean_team_only = cleaned_data.get("clean_team_only")
         type = cleaned_data.get("type")

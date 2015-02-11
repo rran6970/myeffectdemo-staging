@@ -4,6 +4,7 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link rel="import" href="{{ STATIC_URL }}bower_components/core-pages/core-pages.html">
 {% endblock %}
 
 {% block content %}
@@ -22,9 +23,8 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>Actions Survey Questions</h2>
-            <span class="subtitle">Please fill out our survey to calculate the <span class="green bold">Change</span> <span class="blue bold">Creds</span>/hr</span>
-
+        	<h2>Host Contact Information</h2>
+	        <span class="subtitle">Please provide the contact information of host</span>
 			{% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
@@ -37,16 +37,6 @@
             {% endif %}
 
 			<form autocomplete="off" action="" method="post">{% csrf_token %}
-				{{ form.question_1.label_tag }} {{ form.question_1 }} {{ form.question_1.errors }}
-				{{ form.question_2.label_tag }} {{ form.question_2 }} {{ form.question_2.errors }}
-				{{ form.question_3.label_tag }} {{ form.question_3 }} {{ form.question_3.errors }}
-				{{ form.question_4.label_tag }} {{ form.question_4 }} {{ form.question_4.errors }}
-				{{ form.question_5.label_tag }} {{ form.question_5 }} {{ form.question_5.errors }}
-				{{ form.question_6.label_tag }} {{ form.question_6 }} {{ form.question_6.errors }}
-
-				<h2 style="margin-top: 50px;">Host Contact Information</h2>
-	            <span class="subtitle">Please provide the contact information of host</span>
-				
 				<div id="host_is_clean_team_container">
 					{{ form.host_is_clean_team }} <span>{{ user.profile.clean_team_member.clean_team.name }} is hosting this Action</span>
 				</div>
@@ -129,4 +119,6 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
+{% endblock %}
