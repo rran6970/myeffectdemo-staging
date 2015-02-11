@@ -319,12 +319,8 @@ class RegisterInviteView(FormView):
         lang = u.profile.settings.communication_language
         
         # Send registration email to user
-        if lang == "English":
-            template = get_template('emails/user_register_success.html')
-            subject = 'My Effect - Signup Successful'
-        else:
-            template = get_template('emails/french/user_register_success_fr.html')
-            subject = 'My Effect - Signup Successful'
+        template = get_template('emails/user_register_success.html')
+        subject = 'My Effect - Signup Successful'
         
         content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
@@ -332,6 +328,7 @@ class RegisterInviteView(FormView):
 
         send_email = SendEmail()
         send_email.send(template, content, subject, from_email, to)
+
 
         # Send notification email to administrator
         #template = get_template('emails/register_email_notification.html')
@@ -435,6 +432,11 @@ class ProfileView(LoginRequiredMixin, FormView):
             user.profile.picture = uploadFile.upload(key, picture)
 
         user.profile.save()
+
+
+        if user.profile.about and user.profile.category and user.profile.city and user.profile.country and user.profile.emergency_contact_fname and user.profile.emergency_contact_lname and user.profile.picture:
+            task = ProfileTask.objects.get(name="profile")
+            user.profile.complete_level_task(task)
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 

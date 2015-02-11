@@ -17,7 +17,6 @@
   
   <div class="content">
     <div class="container">
-      <a href="#" onclick="history.go(-1); return false;"><div class="sign public-profile" id="sign-go-back"> </div></a>
       <div id="white-box" class="clean-team-progress">
           <h1>{{ user.first_name }}'s Profile Goals</h1><p><br /></p>
 
@@ -43,10 +42,10 @@
                             <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
                           </form>
                         {% else %}
-                          <p><a href="{{ task.profile_task.link }}">{{ task.profile_task.name }}</a></p>
+                          <p><a href="{{ task.profile_task.link }}">{{ task.profile_task.description }}</a></p>
                         {% endif %}
                       {% else %}
-                        <p>{{ task.profile_task.name }}</p>
+                        <p>{{ task.profile_task.description }}</p>
                       {% endif %}
                     </td>
                   </tr>
