@@ -2,9 +2,9 @@
 {% get_social_accounts user as accounts %}
 <div style="border: 1px solid; padding: 10px;">
 	<div style=" padding: 5px; display: -webkit-box; "><h4>My Connections: &nbsp;</h4><p>(click on grey icons to connect)</p></div>
-	{% if form.non_field_errors %}
-	<div id="errorMsg">{{form.non_field_errors}}</div>
-	{% endif %}
+	<!--{% if form.non_field_errors %}
+	<div id="errorMsg">{ #  form.non_field_errors}}</div>
+	{% endif %}-->
 	<form method="post" action="/accounts/social/connections/?next=/users/profile/">{% csrf_token %}
 	<div class="socialaccount_ballot" id ="connection_list">
 	<div>
