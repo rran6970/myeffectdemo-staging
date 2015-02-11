@@ -22,7 +22,7 @@ from notifications.models import Notification, UserNotification
 
 """
 Name:           OrgProfile
-Date created:   Jan 29, 2015
+Date created:   Jan 29, 2014
 Description:    profile for clean teams that Representing a organization
 """
 class OrgProfile(models.Model):
