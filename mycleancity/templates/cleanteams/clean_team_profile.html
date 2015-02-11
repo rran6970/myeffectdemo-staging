@@ -51,7 +51,7 @@
           </div>
       
           <div class="sign-point-meter-bottom">
-              <h1 id="your-points"><span class="blue">Change Creds<sup>TM</sup>:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+              <h1 id="your-points"><span class="blue">Change Creds:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
           </div>   
         </div><!-- /.point-meter -->
         
@@ -59,6 +59,10 @@
         <div id="white-box" class="public-profile clean-team-profile">
           
           <div class="info" id="right-side">
+
+            {% if clean_team == user.profile.clean_team_member.clean_team %}
+              <span class="edit-profile-link"><a href="/clean-team/edit">Edit Profile</a></span>
+            {% endif %}
             
             {% if clean_team.logo %}
               <img src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="" class="profile-pic profile-pic-124x124" />
@@ -66,10 +70,10 @@
               <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
             {% endif %}
 
-            <img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />
+            <!--<img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />-->
 
             <div class="clean-creds">
-              <p><span class="green bold">Change</span> <span class="blue bold">Creds</span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
+              <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
             </div>
             
             <div id="clean-team-info">
@@ -110,13 +114,13 @@
                 </form>
                 {% endif %}
 
-                {% if clean_champion %}
+                <!--{% if clean_champion %}
                   <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Catalyst" />
                 {% endif %}
 
                 {% if clean_ambassador %}
                   <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Catalyst" />
-                {% endif %}
+                {% endif %}-->
 
                 <!-- Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
