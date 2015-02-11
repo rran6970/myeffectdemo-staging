@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
 	url(r'^export-data/(?P<cid>\d+)/?$', 'challenges.views.export_challenge_data'),
 	url(r'^edit/(?P<cid>\d+)/?$', EditChallengeView.as_view()),
+	url(r'^new-challenge-survey/?$', NewActionSurveyView.as_view()),
 	url(r'^new-challenge/?$', NewChallengeView.as_view()),
 	url(r'^participants/(?P<cid>\d+)/?$', ChallengeParticipantsView.as_view()),
 	url(r'^my-challenges/?$', MyChallengesView.as_view()),

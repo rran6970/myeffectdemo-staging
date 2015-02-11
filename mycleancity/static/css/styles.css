@@ -165,3 +165,6 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 .grayscale { -webkit-filter: grayscale(100%); filter: grayscale(100%); }
 
 .parsley-errors-list > li {color: red; line-height:15px !important; }
+
+#btn-next-survey { top: 300px; position: relative; z-index: 101;}
+#id_question_txt_2 {padding: 0px; font-size: 14px;}

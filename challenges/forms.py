@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.extras.widgets import SelectDateWidget
+from parsley.decorators import parsleyfy
 from challenges.models import *
 
 PROVINCES = (('', 'Please select one...'),
@@ -168,6 +169,61 @@ class NewChallengeForm(forms.Form):
         elif not description:
             raise forms.ValidationError("Please enter a description")
 
+        return cleaned_data
+
+CATEGORIES = (('', '-------Select-------'),
+        ('General', 'General'),
+        ('Animals_Wildlife', 'Animals & Wildlife'),
+        ('Arts_Culture', 'Arts & Culture'),
+        ('Business_Entrepreneurship', 'Business & Entrepreneurship'),
+        ('Children_Youth', 'Children & Youth'),
+        ('Education_Research', 'Education & Research'),
+        ('Environment', 'Environment'),
+        ('Health_Wellness', 'Health & Wellness'),
+        ('HumanRights_Advocacy', 'Human Rights & Advocacy'),
+        ('InternationalRelief_Development', 'International Relief & Development'),
+        ('SocialServices_Community', 'Social Services & Community'),
+        ('Sports_Recreation', 'Sports & Recreation'),
+    )
+
+@parsleyfy
+class NewActionSurveyForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(NewActionSurveyForm, self).__init__(*args, **kwargs)
+        self.fields['category'] = forms.ChoiceField(widget=forms.Select(attrs={'class':'main-question', 'data-parsley-group':'1'}), required=True, choices=CATEGORIES)
+
+        questions = ChallengeQuestion.objects.all().order_by('question_number')
+        questions_order = 3
+
+        for question in questions:
+            required = question.required
+            if required:
+                questions_order = questions_order + 1
+                #label = "%s. %s" %(questions_order, question.question)
+                label = question.question
+                inputclass = "main-question"
+            else:
+                label = question.question
+                inputclass = "sub-question"
+            answers = QuestionAnswer.objects.filter(question=question).order_by('answer_number')
+            answer_list = []
+
+            for answer in answers:
+                answer_list.append((answer.id, answer.answer))
+
+            answer_tuple = tuple(answer_list)
+
+            if question.answer_type.name == "single":
+                self.fields['question_%s' % question.question_number] = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class':inputclass,'data-parsley-group':questions_order}), required=required, label=label, choices=answer_tuple)
+            elif question.answer_type.name == "multiple":
+                self.fields['question_%s' % question.question_number] = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(attrs={'class':inputclass,'data-parsley-group':questions_order}), required=required, label=label, choices=answer_tuple)
+            elif question.answer_type.name == "number":
+                self.fields['question_num_%s' % question.question_number] = forms.IntegerField(widget=forms.TextInput(attrs={'class':inputclass,'data-parsley-group':questions_order }), required=required, label=label)
+            elif question.answer_type.name == "text":
+                self.fields['question_txt_%s' % question.question_number] = forms.CharField(widget=forms.TextInput(attrs={'class':inputclass,'data-parsley-group':questions_order }), required=required, label=label)
+
+    def clean(self):
+        cleaned_data = super(NewActionSurveyForm, self).clean()
         return cleaned_data
 
 class EditChallengeForm(forms.ModelForm):

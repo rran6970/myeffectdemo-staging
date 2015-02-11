@@ -133,7 +133,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.all-clean-teams { left: 283px; }
 #sign-go-back.clean-team-progress { left: 283px; }
 
-#sign-go-back.challenge-survey { left: 245px; }
+#sign-go-back.new-challenge-survey { left: 283px; }
 #sign-go-back.new-challenge { left: 347px; }
 #sign-go-back.profile { left: 540px; }
 #sign-go-back.contact { left: 398px; }
@@ -656,15 +656,10 @@ div.container#register-join-team {  }
 #white-box.public-profile + #badge-icon { display: block; position: absolute; top: 144px; right: 360px; z-index: 1000; }
 
 /******************************
-	Challenge Survey
+	New Challenge Survey
 ******************************/
-#white-box.challenge-survey { width: 712px; left: 22%; height: 433px; }
-#white-box.challenge-survey textarea { width: 453px; height: 200px; }
-#white-box.challenge-survey input[type="submit"] { width: 296px; font-size: 16px; margin: 36px auto; }
-#white-box.challenge-survey table.survey-questions tr { display: block; margin: 17px 0; }
-#white-box.challenge-survey table.survey-questions tr td { line-height: 21px; }
-
-#white-box.challenge-survey + #sign-leaderboard { position: relative; top: 411px; right: 360px; }
+#white-box.new-challenge-survey { width: 700px; height: 520px; left: 25%; }
+#white-box.new-challenge-survey .subtitle { display: block; margin: 0 0 19px 0; }
 
 /******************************
 	New Challenge
