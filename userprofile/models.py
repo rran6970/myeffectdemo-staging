@@ -15,6 +15,7 @@ from cStringIO import StringIO
 from mycleancity.actions import *
 from challenges.models import Challenge, UserChallenge, CleanTeamChallenge, StaplesChallenge
 from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral
+from users.models import ProfileTask, ProfileProgress, ProfilePhase
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
 
@@ -288,6 +289,20 @@ class UserProfile(models.Model):
         # Clean Ambassador
         if self.is_clean_ambassador():
             self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)
+
+    def complete_level_task(self, task):
+        level_progress, created = ProfileProgress.objects.get_or_create(user=self, profile_task=task)
+
+        # Check if the task is already requesting an approval
+        if level_progress.approval_requested:
+            level_progress.approval_requested = False
+            level_progress.completed = True
+        elif task.approval_required:
+            level_progress.submit_for_approval()
+        else:
+            level_progress.completed = True
+
+        level_progress.save()
 
     def save(self, *args, **kwargs):
         super(UserProfile, self).save(*args, **kwargs)

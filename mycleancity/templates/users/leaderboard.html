@@ -12,9 +12,9 @@
   <div class="clouds"></div>
   
   {% if user.is_authenticated %}
-    {% include "_loggedin_navbar.html" %}
+    {% include "_navbar.html" %}
   {% else %}
-    {% include "_public_navbar.html" %}
+    {% include "_navbar.html" %}
   {% endif %}
 
   <a href="/" class="logo"></a>

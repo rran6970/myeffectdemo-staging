@@ -265,17 +265,17 @@ class ProfileForm(forms.ModelForm):
     about = forms.CharField(required=False, widget=forms.Textarea())
     website = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'www.yourwebsite.com'}))
     street_address = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-    city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    province = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Province/State")
+    city = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+    province = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Province/State")
     country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
     postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency contact phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
-    dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=False)
     category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
     emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact first name")
     emergency_contact_lname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact last name")
-    smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
+    # smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
     # Combines the form with the corresponding model
     class Meta:
         model = User
@@ -285,22 +285,22 @@ class ProfileForm(forms.ModelForm):
         cleaned_data = super(ProfileForm, self).clean()
         first_name = cleaned_data.get("first_name")
         last_name = cleaned_data.get("last_name")
-        city = cleaned_data.get("city")
-        province = cleaned_data.get("province")
-        country = cleaned_data.get("country")
-        email = cleaned_data.get("email")
-        dob = cleaned_data.get('dob')
+        # city = cleaned_data.get("city")
+        # province = cleaned_data.get("province")
+        # country = cleaned_data.get("country")
+        # email = cleaned_data.get("email")
+        # dob = cleaned_data.get('dob')
 
         if not first_name:
             raise forms.ValidationError("Please enter your first name")
         elif not last_name:
             raise forms.ValidationError("Please enter your last name")
-        elif not dob:
-            raise forms.ValidationError("Please select your date of birth")
-        elif not city:
-            raise forms.ValidationError("Please enter your city")
-        elif not province:
-            raise forms.ValidationError("Please enter your province or state")
+        # elif not dob:
+          # raise forms.ValidationError("Please select your date of birth")
+        # elif not city:
+          # raise forms.ValidationError("Please enter your city")
+        # elif not province:
+          # raise forms.ValidationError("Please enter your province or state")
 
         # if User.objects.filter(email = email):
             # raise forms.ValidationError(u'%s is already registered' % email)
