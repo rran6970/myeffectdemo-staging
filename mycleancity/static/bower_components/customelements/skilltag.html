@@ -1,0 +1,11 @@
+<link rel="import" href="{{ STATIC_URL }}bower_components/polymer/polymer.html">
+<link rel="import" href="{{ STATIC_URL }}bower_components/core-tooltip/core-tooltip.html">
+
+<polymer-element name="skilltag-element" noscript>
+  <template>
+  	<core-tooltip label="I'm a tooltip">
+    <span>I'm <b>my-element</b>. This is my Shadow DOM.</span>
+    <textarea value="{{resp}}"></textarea>
+    </core-tooltip>
+  </template>
+</polymer-element>
