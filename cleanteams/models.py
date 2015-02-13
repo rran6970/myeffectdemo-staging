@@ -22,7 +22,7 @@ from notifications.models import Notification, UserNotification
 
 """
 Name:           OrgProfile
-Date created:   Jan 29, 2015
+Date created:   Jan 29, 2014
 Description:    profile for clean teams that Representing a organization
 """
 class OrgProfile(models.Model):
@@ -194,10 +194,7 @@ class CleanTeam(models.Model):
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
         tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=self, level_task__in=level_tasks, completed=True).count()
         total_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level).count()
-
-        if tasks_complete == total_tasks:
-            self.level_up()
-
+        return tasks_complete
 
     def level_up(self, notification=True):
         # If they don't have a badge, ie. new team, make them a Seedling
@@ -698,7 +695,7 @@ class CleanTeamInvite(models.Model):
                 self.clean_team.complete_level_task(task)
 
         if role == "ambassador":
-            role = "Clean Ambassador"
+            role = "Clean Ambassadoru'%s/%s' % (uri, token)"
         elif role == "catalyst":
             role = "Clean Champion"
 
@@ -720,14 +717,14 @@ class CleanTeamInvite(models.Model):
         self.save()
 
     def resendInvite(self, uri):
-        full_uri = u'%s/%s' % (uri, self.token)
+        invite_full_uri = u'%s/%s' % (uri, self.token)
 
         # from django.core.mail import send_mail
         # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
         # Send invite email to email address
         template = get_template('emails/email_invite_join.html')
-        content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
+        content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'invite_full_uri': invite_full_uri })
 
         subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
 

@@ -16,15 +16,27 @@
   <a href="/" class="logo"> </a>
   
   <div class="content">
+  {% if tasks_complete == 3 %}
+              <p>Hello World</p>
+          {%  endif %}
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"> </div></a>
       <div id="white-box" class="clean-team-progress">
           <!--<img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />-->
+          {% if tasks_complete >= 0 %}
           <h1>{{ clean_team.name }}'s Achievements</h1><p><br /></p>
+          {% endif %}
+
 
           <div class="clear"> </div>
           <div class="table-container">
-            
+          {% if tasks_complete == 3 %}
+              <p>Hello World</p>
+          {%  endif %}
+           {% if tasks_complete == 10 %}
+              <p>Hello World I am a winner</p>
+          {%  endif %}
+
             <table class="table table-hover">
               <tbody>
                 {% if tasks %}

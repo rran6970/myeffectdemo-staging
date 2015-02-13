@@ -426,13 +426,24 @@ class LevelProgressView(TemplateView):
         context = super(LevelProgressView, self).get_context_data(**kwargs)
         user = self.request.user
         clean_team = user.profile.clean_team_member.clean_team
-
+        countcomp = 0
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
         tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
+        tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks, completed=True).count()
+
+        if CleanTeamLevelProgress.objects.filter(completed=1):
+            countcomp += 1
+        elif CleanTeamLevelProgress.objects.filter(completed=0):
+            countcomp == countcomp
 
         context['tasks'] = tasks
         context['clean_team'] = clean_team
         context['user'] = user
+        context['tasks_complete'] = tasks_complete
+
+
+
+
 
         return context
 
