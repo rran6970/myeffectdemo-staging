@@ -426,7 +426,7 @@ class LevelProgressView(TemplateView):
         countcomp = 0
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
         tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
-        completed_ones = CleanTeamLevelProgress.objects.filter(completed=1)
+
         if CleanTeamLevelProgress.objects.filter(completed=1):
             countcomp += 1
         elif CleanTeamLevelProgress.objects.filter(completed=0):
@@ -435,6 +435,8 @@ class LevelProgressView(TemplateView):
         context['tasks'] = tasks
         context['clean_team'] = clean_team
         context['user'] = user
+
+
 
 
 
