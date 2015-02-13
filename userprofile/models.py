@@ -6,7 +6,7 @@ from django.core.files.images import ImageFile
 from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
-from allauth.socialaccount.signals import social_account_removed
+from allauth.socialaccount.signals import social_account_added
 from django.dispatch import receiver
 import qrcode
 
@@ -321,6 +321,40 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
 
-@receiver(social_account_removed)
-def redirect_to_user_profile(sender, **kwargs):
-    print("Request finished!")
+@receiver(social_account_added)
+def user_social_progress(sender, sociallogin=None,  **kwargs):
+    if sociallogin:
+        if sociallogin.account.provider == 'linkedin':
+            task = ProfileTask.objects.get(name="social")
+            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
+            if not progress.completed:
+              sociallogin.user.profile.complete_level_task(task)
+              sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'twitter':
+            task = ProfileTask.objects.get(name="social")
+            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
+            if not progress.completed:
+              sociallogin.user.profile.complete_level_task(task)
+              sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'google':
+            task = ProfileTask.objects.get(name="social")
+            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
+            if not progress.completed:
+              sociallogin.user.profile.complete_level_task(task)
+              sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'instagram':
+            task = ProfileTask.objects.get(name="social")
+            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
+            if not progress.completed:
+              sociallogin.user.profile.complete_level_task(task)
+              sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'facebook':
+            task = ProfileTask.objects.get(name="social")
+            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
+            if not progress.completed:
+              sociallogin.user.profile.complete_level_task(task)
+              sociallogin.user.profile.add_clean_creds(5)

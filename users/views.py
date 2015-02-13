@@ -440,10 +440,10 @@ class ProfileView(LoginRequiredMixin, FormView):
             user.profile.complete_level_task(task)
             user.profile.add_clean_creds(5)
 
-        if accounts.linkedin:
-            task = ProfileTask.objects.get(name="social")
-            user.profile.complete_level_task(task)
-            user.profile.add_clean_creds(5)
+        # if accounts.linkedin:
+            # task = ProfileTask.objects.get(name="social")
+            # user.profile.complete_level_task(task)
+            # user.profile.add_clean_creds(5)
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 
