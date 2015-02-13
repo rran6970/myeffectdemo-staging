@@ -259,6 +259,11 @@ class NewChallengeView(LoginRequiredMixin, FormView):
         if not self.request.user.is_active:
             return HttpResponseRedirect('/challenges')
 
+        if not UserChallengeSurvey.objects.filter(user=self.request.user):
+            return HttpResponseRedirect(u'/challenges/new-challenge-survey/')
+        elif UserChallengeSurvey.objects.filter(user=self.request.user).order_by('-id')[0].challenge:
+            return HttpResponseRedirect(u'/challenges/new-challenge-survey/')
+
         return self.render_to_response(self.get_context_data(form=form))
 
     def form_invalid(self, form, **kwargs):
@@ -275,6 +280,38 @@ class NewChallengeView(LoginRequiredMixin, FormView):
         context['form'] = form
 
         return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(NewChallengeView, self).get_context_data(**kwargs)
+        context['skill_tags'] = SkillTag.objects.all()
+
+        return context
+
+class NewActionSurveyView(LoginRequiredMixin, FormView):
+    template_name = "challenges/new_challenge_survey.html"
+    form_class = NewActionSurveyForm
+    success_url = "mycleancity/index.html"
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if not self.request.user.is_active:
+            return HttpResponseRedirect('/challenges')
+
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+
+        return self.render_to_response(context)
+
+    def form_valid(self, form, **kwargs):
+        survey = UserChallengeSurvey()
+        survey.create_survey(self.request.user, form.cleaned_data)
+
+        return HttpResponseRedirect(u'/challenges/new-challenge/')
 
 class EditChallengeView(LoginRequiredMixin, FormView):
     template_name = "challenges/edit_challenge.html"

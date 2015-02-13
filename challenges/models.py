@@ -198,8 +198,22 @@ class Challenge(models.Model):
         self.clean_team = user.profile.clean_team_member.clean_team
         self.save()
 
-        survey = UserChallengeSurvey()
-        survey.create_survey(self, form)
+        survey = UserChallengeSurvey.objects.filter(user=user).order_by('-id')[0]
+        survey.challenge = self
+        survey.save()
+        self.clean_creds_per_hour = survey.total_score
+        self.save();
+
+        if form['tags']:
+            for tag in form['tags']:
+                try:
+                    skilltag = SkillTag.objects.get(id=int(tag))
+                    challenge_skilltag = ChallengeSkillTag()
+                    challenge_skilltag.challenge = self
+                    challenge_skilltag.skill_tag = skilltag
+                    challenge_skilltag.save()
+                except Exception, e:
+                    print e
 
         # Send notifications
         notification = Notification.objects.get(notification_type="challenge_posted")
@@ -216,7 +230,7 @@ class Challenge(models.Model):
 
             members_list = list(clean_team_members)
 
-            if role == "catalyst":
+            if role == "agent":
                 clean_champions = CleanChampion.objects.filter(clean_team=self.clean_team, status="approved")
                 members_list = list(chain(clean_team_members, clean_champions))
 
@@ -227,7 +241,7 @@ class Challenge(models.Model):
         if self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="1_challenge")
             self.clean_team.complete_level_task(task)
-            self.clean_creds += 25
+            self.clean_team.clean_creds += 25
 
         elif self.clean_team.level.name == "Seedling":
             count_challenges = Challenge.objects.filter(clean_team=self.clean_team).count()
@@ -235,7 +249,7 @@ class Challenge(models.Model):
             if count_challenges > 4:
                 task = CleanTeamLevelTask.objects.get(name="5_challenges")
                 self.clean_team.complete_level_task(task)
-                self.clean_creds += 50
+                self.clean_team.clean_creds += 50
 
     def get_challenge_total_clean_creds(self, total_hours):
         return int(self.clean_creds_per_hour * total_hours)
@@ -644,6 +658,36 @@ def create_challenge(sender, instance, created, **kwargs):
 post_save.connect(create_challenge, sender=Challenge) 
 
 """
+Name:           SkillTag
+Date created:   Feb 11, 2015
+Description:    All the tags for action posting
+"""
+class SkillTag(models.Model):
+    skill_name = models.CharField(max_length=50, blank=False, null=False)
+    description = models.CharField(max_length=1024, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = u'Skill Tag'
+
+    def save(self, *args, **kwargs):
+        super(SkillTag, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeSkillTag
+Date created:   Feb 11, 2015
+Description:    Tags for each action posting
+"""
+class ChallengeSkillTag(models.Model):
+    challenge = models.ForeignKey(Challenge)
+    skill_tag = models.ForeignKey(SkillTag)
+
+    class Meta:
+        verbose_name_plural = u'Challenge Skill Tag'
+
+    def save(self, *args, **kwargs):
+        super(ChallengeSkillTag, self).save(*args, **kwargs)
+
+"""
 Name:           UserChallenge
 Date created:   Sept 8, 2013
 Description:    Will be used to keep track of all of the Users partcipating 
@@ -895,7 +939,7 @@ class QuestionAnswer(models.Model):
         if self.score is not None:
             return self.score
         else:
-            return int(math.ceil(self.clean_grid.value))
+            return 0
 
     def __unicode__(self):
         return u'Question Answer: %s: %s' %(self.question, self.answer)
@@ -911,22 +955,23 @@ Description:    The survey each User creates for the Challenge.
 class UserChallengeSurvey(models.Model): 
     user = models.ForeignKey(User)
     clean_team = models.ForeignKey(CleanTeam)
-    challenge = models.ForeignKey(Challenge)
+    challenge = models.ForeignKey(Challenge, blank=True, null=True)
+    category = models.CharField(max_length=60, blank=False, default="General")
     total_score = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = u'User Challenge Surveys'
 
-    def create_survey(self, challenge, form):
-        self.user = challenge.user
-        self.clean_team = challenge.clean_team
-        self.challenge = challenge
+    def create_survey(self, user, form):
+        self.user = user
+        self.clean_team = user.profile.clean_team_member.clean_team
+        self.category = form['category']
         self.save()
 
         total_score = 0
 
         for question, answers in form.items():
-            if question.startswith("question_"):
+            if question.startswith("question_") and answers:
                 if isinstance(answers, list):
                     for answer in answers:
                         try:
@@ -944,22 +989,27 @@ class UserChallengeSurvey(models.Model):
                 else:
                     try:
                         if answers != "":
-                            answers = int(answers)
-                            ans = QuestionAnswer.objects.get(id=answers)
+                            if question.startswith("question_num_"):
+                                total_score +=int(answers)
+                                user_answer = UserChallengeSurveyAnswers(survey=self, answerdetail=answers)
+                                user_answer.save()
+                            elif question.startswith("question_txt_"):
+                                user_answer = UserChallengeSurveyAnswers(survey=self, answerdetail=answers)
+                                user_answer.save()
+                            else:
+                                answers = int(answers)
+                                ans = QuestionAnswer.objects.get(id=answers)
 
-                            total_score += ans.get_answer_score()
+                                total_score += ans.get_answer_score()
 
-                            user_answer = UserChallengeSurveyAnswers(survey=self, answer=ans)
-                            user_answer.save()
+                                user_answer = UserChallengeSurveyAnswers(survey=self, answer=ans)
+                                user_answer.save()
                     except Exception, e:
                         print e
                         return False
 
         self.total_score = total_score
         self.save()
-
-        challenge.clean_creds_per_hour = total_score
-        challenge.save()
 
         return True
 
@@ -976,7 +1026,8 @@ Description:    The survey answer that each User gives for the Challenge.
 """
 class UserChallengeSurveyAnswers(models.Model): 
     survey = models.ForeignKey(UserChallengeSurvey)
-    answer = models.ForeignKey(QuestionAnswer)
+    answer = models.ForeignKey(QuestionAnswer, blank=True, null=True)
+    answerdetail = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = u'User Challenge Survey Answers'
