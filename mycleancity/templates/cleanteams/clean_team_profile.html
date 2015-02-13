@@ -228,7 +228,7 @@
             <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
           </p>
           <p>{{ challenge.1.description|slice:":255" }}</p>
-          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="green bold">Change</span> <span class="blue bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
 
           {% if user.is_authenticated %}
             {% if challenge.0 == "particpating" %}

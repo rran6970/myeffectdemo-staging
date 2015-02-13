@@ -3,7 +3,6 @@ import ftplib
 import json
 import os
 import tempfile
-
 from datetime import date
 
 from django.db.models import Sum
@@ -434,9 +433,17 @@ class ProfileView(LoginRequiredMixin, FormView):
         user.profile.save()
 
 
+
+
         if user.profile.about and user.profile.category and user.profile.city and user.profile.country and user.profile.emergency_contact_fname and user.profile.emergency_contact_lname and user.profile.picture:
             task = ProfileTask.objects.get(name="profile")
             user.profile.complete_level_task(task)
+            user.profile.add_clean_creds(5)
+
+        if accounts.linkedin:
+            task = ProfileTask.objects.get(name="social")
+            user.profile.complete_level_task(task)
+            user.profile.add_clean_creds(5)
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
 

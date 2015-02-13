@@ -293,17 +293,20 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             if clean_team.about and clean_team.logo:
                 task = CleanTeamLevelTask.objects.get(name="ct_description")
                 clean_team.complete_level_task(task)
-                clean_team.clean_creds += 5
-            else:
-                task = CleanTeamLevelTask.objects.get(name="ct_description")
-                clean_team.uncomplete_level_task(task)
+                clean_team.add_team_clean_creds(5)
+            # onluy uncomment this if your testing turning this on, otherwise user can keep addidng 5CC to the team
+            # else:
+                # task = CleanTeamLevelTask.objects.get(name="ct_description")
+                # clean_team.uncomplete_level_task(task)
 
             if clean_team.twitter:
                 task = CleanTeamLevelTask.objects.get(name="ct_twitter")
                 clean_team.complete_level_task(task)
-            else:
-                task = CleanTeamLevelTask.objects.get(name="ct_twitter")
-                clean_team.uncomplete_level_task(task)
+                clean_team.add_team_clean_creds(5)
+            # same here as above
+            # else:
+                # task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+                # clean_team.uncomplete_level_task(task)
 
 
 
