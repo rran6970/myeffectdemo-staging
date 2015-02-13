@@ -59,6 +59,11 @@ class NewChallengeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(NewChallengeForm, self).__init__(*args, **kwargs)
+        skilltags = SkillTag.objects.all()
+        tag_list = []
+        for tag in skilltags:
+            tag_list.append((tag.id, tag.skill_name))
+        skilltags_choices = tuple(tag_list)
 
         self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
@@ -72,6 +77,7 @@ class NewChallengeForm(forms.Form):
         self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
+        self.fields['tags'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), choices=skilltags_choices, label="Skill Tags")
         self.fields['link'] = forms.CharField(required=False, min_length=2, label="External link")
 
         self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
@@ -99,6 +105,7 @@ class NewChallengeForm(forms.Form):
         province = cleaned_data.get("province")
         country = cleaned_data.get("country")
         postal_code = cleaned_data.get("postal_code")
+        tags = cleaned_data.get("tags")
         description = cleaned_data.get("description")
         link = cleaned_data.get("link")
         organization = cleaned_data.get("organization")

@@ -201,6 +201,19 @@ class Challenge(models.Model):
         survey = UserChallengeSurvey.objects.filter(user=user).order_by('-id')[0]
         survey.challenge = self
         survey.save()
+        self.clean_creds_per_hour = survey.total_score
+        self.save();
+
+        if form['tags']:
+            for tag in form['tags']:
+                try:
+                    skilltag = SkillTag.objects.get(id=int(tag))
+                    challenge_skilltag = ChallengeSkillTag()
+                    challenge_skilltag.challenge = self
+                    challenge_skilltag.skill_tag = skilltag
+                    challenge_skilltag.save()
+                except Exception, e:
+                    print e
 
         # Send notifications
         notification = Notification.objects.get(notification_type="challenge_posted")
@@ -228,7 +241,7 @@ class Challenge(models.Model):
         if self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="1_challenge")
             self.clean_team.complete_level_task(task)
-            self.clean_creds += 25
+            self.clean_team.clean_creds += 25
 
         elif self.clean_team.level.name == "Seedling":
             count_challenges = Challenge.objects.filter(clean_team=self.clean_team).count()
@@ -236,7 +249,7 @@ class Challenge(models.Model):
             if count_challenges > 4:
                 task = CleanTeamLevelTask.objects.get(name="5_challenges")
                 self.clean_team.complete_level_task(task)
-                self.clean_creds += 50
+                self.clean_team.clean_creds += 50
 
     def get_challenge_total_clean_creds(self, total_hours):
         return int(self.clean_creds_per_hour * total_hours)
@@ -643,6 +656,36 @@ def create_challenge(sender, instance, created, **kwargs):
             instance.save()
 
 post_save.connect(create_challenge, sender=Challenge) 
+
+"""
+Name:           SkillTag
+Date created:   Feb 11, 2015
+Description:    All the tags for action posting
+"""
+class SkillTag(models.Model):
+    skill_name = models.CharField(max_length=50, blank=False, null=False)
+    description = models.CharField(max_length=1024, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = u'Skill Tag'
+
+    def save(self, *args, **kwargs):
+        super(SkillTag, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeSkillTag
+Date created:   Feb 11, 2015
+Description:    Tags for each action posting
+"""
+class ChallengeSkillTag(models.Model):
+    challenge = models.ForeignKey(Challenge)
+    skill_tag = models.ForeignKey(SkillTag)
+
+    class Meta:
+        verbose_name_plural = u'Challenge Skill Tag'
+
+    def save(self, *args, **kwargs):
+        super(ChallengeSkillTag, self).save(*args, **kwargs)
 
 """
 Name:           UserChallenge

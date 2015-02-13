@@ -134,7 +134,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.clean-team-progress { left: 283px; }
 
 #sign-go-back.new-challenge-survey { left: 283px; }
-#sign-go-back.new-challenge { left: 347px; }
+#sign-go-back.new-challenge { left: 155px; }
 #sign-go-back.profile { left: 540px; }
 #sign-go-back.contact { left: 398px; }
 #sign-go-back.register { left: 373px; }
@@ -470,7 +470,7 @@ div.content.communication-hub #white-box div.tab-pane#announcements div a.badge-
 /******************************
 	White Box
 ******************************/
-#white-box { position: absolute; height: 500px; overflow-x: hidden; overflow-y: auto; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
+#white-box { position: absolute; height: 540px; overflow-x: hidden; overflow-y: auto; z-index: 1000; left: 27%; width: 600px; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 2px solid #505050; }
 #white-box h2 { margin-bottom: 12px; }
 #white-box p, #white-box h2 { color: #638d3d; }
 #white-box p { /*padding: 10px 0;*/ }
@@ -664,7 +664,7 @@ div.container#register-join-team {  }
 /******************************
 	New Challenge
 ******************************/
-#white-box.new-challenge { width: 512px; left: 30%; }
+#white-box.new-challenge { width: 850px; left: 15%; padding-left: 70px;}
 #white-box.new-challenge textarea { width: 453px; height: 200px; }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
 #white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }

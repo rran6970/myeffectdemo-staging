@@ -259,6 +259,11 @@ class NewChallengeView(LoginRequiredMixin, FormView):
         if not self.request.user.is_active:
             return HttpResponseRedirect('/challenges')
 
+        if not UserChallengeSurvey.objects.filter(user=self.request.user):
+            return HttpResponseRedirect(u'/challenges/new-challenge-survey/')
+        elif UserChallengeSurvey.objects.filter(user=self.request.user).order_by('-id')[0].challenge:
+            return HttpResponseRedirect(u'/challenges/new-challenge-survey/')
+
         return self.render_to_response(self.get_context_data(form=form))
 
     def form_invalid(self, form, **kwargs):
@@ -275,6 +280,12 @@ class NewChallengeView(LoginRequiredMixin, FormView):
         context['form'] = form
 
         return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(NewChallengeView, self).get_context_data(**kwargs)
+        context['skill_tags'] = SkillTag.objects.all()
+
+        return context
 
 class NewActionSurveyView(LoginRequiredMixin, FormView):
     template_name = "challenges/new_challenge_survey.html"

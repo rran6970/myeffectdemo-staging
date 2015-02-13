@@ -4,7 +4,8 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
-  <link rel="import" href="{{ STATIC_URL }}bower_components/core-pages/core-pages.html">
+  <link href="{{ STATIC_URL }}css/tags.css" rel="stylesheet">
+  <link rel="import" href="{{ STATIC_URL }}bower_components/core-tooltip/core-tooltip.html">
 {% endblock %}
 
 {% block content %}
@@ -48,16 +49,16 @@
 				
 				<table>
 					<tr>
-						<td>{{ form.organization.label_tag }}{{ form.organization }}</td>
-						<td></td>
+						<td>{{ form.organization.label_tag }}</td><td>{{ form.organization }}</td>
+						<td></td><td></td>
 					</tr>
 					<tr>
-						<td>{{ form.contact_first_name.label_tag }}{{ form.contact_first_name }}</td>
-						<td>{{ form.contact_last_name.label_tag }}{{ form.contact_last_name }}</td>
+						<td>{{ form.contact_first_name.label_tag }}</td><td>{{ form.contact_first_name }}</td>
+						<td>{{ form.contact_last_name.label_tag }}</td><td>{{ form.contact_last_name }}</td>
 					</tr>
 					<tr>
-						<td>{{ form.contact_email.label_tag }}{{ form.contact_email }}</td>
-						<td>{{ form.contact_phone.label_tag }}{{ form.contact_phone }}</td>
+						<td>{{ form.contact_email.label_tag }}</td><td>{{ form.contact_email }}</td>
+						<td>{{ form.contact_phone.label_tag }}</td><td>{{ form.contact_phone }}</td>
 					</tr>
 				</table>
 
@@ -66,44 +67,77 @@
 			
 	            <table>
 	                <tr>
-	                    <td>{{ form.title.label_tag }} {{ form.title }}</td>
-	                    <td></td>
+	                    <td>{{ form.title.label_tag }}</td><td>{{ form.title }}</td>
+	                    <td></td><td></td>
 	                </tr>
 	                <tr>
-	                	<td>{{ form.event_start_date.label_tag }}{{ form.event_start_date }}</td>
-	                	<td>{{ form.event_start_time.label_tag }}{{ form.event_start_time }}</td>
+	                	<td>{{ form.event_start_date.label_tag }}</td><td>{{ form.event_start_date }}</td>
+	                	<td>{{ form.event_start_time.label_tag }}</td><td>{{ form.event_start_time }}</td>
 	                </tr>
 	                <tr>
-	                	<td>{{ form.event_end_date.label_tag }}{{ form.event_end_date }}</td>
-	                	<td>{{ form.event_end_time.label_tag }}{{ form.event_end_time }}</td>
+	                	<td>{{ form.event_end_date.label_tag }}</td><td>{{ form.event_end_date }}</td>
+	                	<td>{{ form.event_end_time.label_tag }}</td><td>{{ form.event_end_time }}</td>
 	                </tr>
 	                <tr>
-	                    <td>{{ form.address1.label_tag }} {{ form.address1 }}</td>
-	                    <td>{{ form.address2.label_tag }} {{ form.address2 }}</td>
+	                    <td>{{ form.address1.label_tag }} </td><td>{{ form.address1 }}</td>
+	                    <td>{{ form.address2.label_tag }} </td><td>{{ form.address2 }}</td>
 	                </tr>
 	                <tr>
-	                	<td>{{ form.city.label_tag }} {{ form.city }}</td>
-	                    <td>{{ form.province.label_tag }} {{ form.province }}</td>
+	                	<td>{{ form.city.label_tag }} </td><td>{{ form.city }}</td>
+	                    <td>{{ form.province.label_tag }} </td><td>{{ form.province }}</td>
 	                </tr>
 	                <tr>
-	                    <td>{{ form.country.label_tag }} {{ form.country }}</td>
-	                    <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+	                    <td>{{ form.country.label_tag }} </td><td>{{ form.country }}</td>
+	                    <td>{{ form.postal_code.label_tag }} </td><td>{{ form.postal_code }}</td>
 	                </tr>
 	                <tr>
-	                	<td colspan="2">{{ form.link.label_tag }} {{ form.link }}</td>
+	                	<td>{{ form.link.label_tag }}</td><td colspan="3">{{ form.link }}</td>
 	                </tr>
 	                <tr>
-	                	<td>{{ form.type.label_tag }} {{ form.type }}</td>
+	                	<td>{{ form.type.label_tag }} </td><td>{{ form.type }}</td>
+	                	<td></td><td></td>
 	                </tr>
 	                <tr>
-	                	<td colspan="2">{{ form.description.label_tag }} {{ form.description }}</td>
+	                	<td colspan="4">
+	                		{{ form.tags.label_tag }}
+	                		<div class="selected-tags">
+	                			<a id="show-tags">Add</a>
+	                		{{ form.tags }}
+	                		</div>
+	                	</td>
+	                </tr>
+	                <tr>
+	                	<td colspan="4">
+	                		<a id="hide-tags">Hide</a>
+	                		<div class="tags-to-select">
+	                			<ul>
+									{% for tag in skill_tags %}
+									<li>
+										<core-tooltip>
+											<label tagid="{{ tag.id }}">{{ tag.skill_name }}<span class="add-tag">+</span></label>
+											<div tip style="width: 200px; white-space:normal; line-height: normal;">
+												{% if tag.description %}
+    											{{ tag.description }}
+    											{% else %}
+    											{{ tag.skill_name }}
+    											{% endif %}
+  											</div>
+										</core-tooltip>
+									</li>
+									{% endfor %}
+								</ul>
+	                		</div>
+	                	</td>
+	                </tr>
+	                <tr>
+	                	<td colspan="4">{{ form.description.label_tag }} {{ form.description }}</td>
 	                </tr>
 	                {% if user.profile.clean_team_member.clean_team.admin %}
 	                <tr>
-	                	<td colspan="2">{{ form.national_challenge }} {{ form.national_challenge.label_tag }}</td>
+	                	<td>{{ form.national_challenge }} </td><td colspan="3">{{ form.national_challenge.label_tag }}</td>
 	                </tr>
 	                <tr>
-	                	<td colspan="2">{{ form.clean_team_only }} {{ form.clean_team_only.label_tag }}</td>
+	                	<td>{{ form.clean_team_only }} </td><td colspan="3">{{ form.clean_team_only.label_tag }}</td>
 	                </tr>
 	                {% endif %}
 	            </table>
@@ -121,4 +155,49 @@
 
 {% block javascript %}
 <script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
+<script>
+$( document ).ready(function() {
+	$( '.selected-tags input[type="checkbox"]:checked' ).each(function( index ) {
+		$(this).closest('li').show();
+	});
+	$( ".selected-tags label" ).wrap( "<core-tooltip></core-tooltip>" );
+	$( ".selected-tags label" ).each(function( index ) {
+		$(this).append('<span class="remove-tag">x</span>');
+		var tagid = $('input[type="checkbox"]', this).val();
+		var tolltip = $('.tags-to-select label[tagid="'+tagid+'"]').next();
+		$(tolltip).clone().appendTo($(this).parent());
+	});
+	$('#hide-tags').hide();
+	$(".tags-to-select").hide();
+});
+
+$(".tags-to-select label ").on("click", function(e){
+  	var tagid = $(this).attr("tagid");
+  	var li = $('.selected-tags input[value="'+tagid+'"]').closest('li');
+  	$(li).parent().append(li);
+  	$('.selected-tags input[value="'+tagid+'"]').prop('checked', true);
+  	$('.selected-tags input[value="'+tagid+'"]').closest('li').fadeIn();
+  	$(this).closest('li').fadeOut();
+
+});
+
+$('.selected-tags input[type="checkbox"]').on("click", function(e){
+	var li = $(this).closest('li');
+	var tagid = $("input", li).val();
+	$("input", li).prop('checked', false);
+	$(li).fadeOut();
+	$('.tags-to-select label[tagid="'+tagid+'"]').closest('li').fadeIn();
+});
+
+$('#show-tags').on("click", function(e){
+	$('#hide-tags').show();
+	$(".tags-to-select").fadeIn();
+	$(this).hide();
+});
+$('#hide-tags').on("click", function(e){
+	$('#show-tags').show();
+	$(".tags-to-select").fadeOut();
+	$(this).fadeOut();
+});
+</script>
 {% endblock %}
