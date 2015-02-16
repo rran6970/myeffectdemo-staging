@@ -870,6 +870,7 @@ class CleanTeamPresentation(models.Model):
     def save(self, *args, **kwargs):
         super(CleanTeamPresentation, self).save(*args, **kwargs)
 
+
 class CleanTeamFollow(models.Model):
 
     clean_team = models.ForeignKey(CleanTeam, null=True)
