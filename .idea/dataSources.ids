@@ -873,6 +873,7 @@
       <exported-key name="user_id_refs_id_090b5b6b" table="cleancreds_cleancredsachievements" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_906d24aa" table="cleanteams_cleanchampion" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="contact_user_id_refs_id_d3ff39d3" table="cleanteams_cleanteam" schema="" catalog="mycleancity" columns="contact_user_id"/>
+      <exported-key name="user_id_refs_id_40a35015" table="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_7851615d" table="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_f06a4250" table="cleanteams_cleanteammember" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_6fd455b4" table="cleanteams_cleanteampost" schema="" catalog="mycleancity" columns="user_id"/>
@@ -1209,6 +1210,7 @@
       <exported-key name="clean_team_id_refs_id_8bd55be4" table="challenges_stapleschallenge" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_89cc1cc3" table="challenges_userchallengesurvey" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_1de813ab" table="cleanteams_cleanchampion" schema="" catalog="mycleancity" columns="clean_team_id"/>
+      <exported-key name="clean_team_id_refs_id_69e9076c" table="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_2d91f3d8" table="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_4c510438" table="cleanteams_cleanteamlevelprogress" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_1f50bb4f" table="cleanteams_cleanteammember" schema="" catalog="mycleancity" columns="clean_team_id"/>
@@ -1218,6 +1220,16 @@
       <exported-key name="clean_team_id_refs_id_238773c5" table="communities_communitycleanteam" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <index name="cleanteams_cleanteam_b8f3f94a" unique="false" columns="level_id"/>
       <index name="cleanteams_cleanteam_c5649b88" unique="false" columns="contact_user_id"/>
+    </table>
+    <table name="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="clean_team_id_refs_id_69e9076c" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="user_id_refs_id_40a35015" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="cleanteams_cleanteamfollow_6340c63c" unique="false" columns="user_id"/>
+      <index name="cleanteams_cleanteamfollow_d69679ce" unique="false" columns="clean_team_id"/>
     </table>
     <table name="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
