@@ -290,6 +290,34 @@ class UserProfile(models.Model):
         if self.is_clean_ambassador():
             self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)
 
+    def get_my_challenges(self):
+        challenges = []
+
+        if self.is_clean_ambassador():
+            ctm = self.clean_team_member
+
+            try:
+                posted_challenges = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
+                challenges.append({ 'posted_challenges': posted_challenges })
+            except Exception, e:
+                print e
+
+            clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=ctm.clean_team).order_by("time_in")
+            challenges.append({ 'clean_team_challenges': clean_team_challenges })
+
+            try:
+                staples_challenge = StaplesChallenge.get_participating_store(ctm.clean_team)
+                challenges.append({ 'staples_challenge': staples_challenge })
+            except Exception, e:
+                print e
+
+        user_challenges = UserChallenge.objects.filter(user=self.user).order_by("time_in")
+        challenges.append({'user_challenges': user_challenges})
+
+        return challenges
+
+        return challenges
+
     def complete_level_task(self, task):
         level_progress, created = ProfileProgress.objects.get_or_create(user=self, profile_task=task)
 
