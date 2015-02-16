@@ -159,7 +159,7 @@ class UserProfile(models.Model):
     student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
     school_type = models.CharField(max_length=30, blank=True, default="High School")
     school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
-    age = models.CharField(max_length=30, blank=True, default="17-21")
+    age = models.CharField(max_length=30, blank=True, default="17t-21")
     smartphone = models.BooleanField(default=0)
     emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
     clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
@@ -294,13 +294,14 @@ class UserProfile(models.Model):
         level_progress, created = ProfileProgress.objects.get_or_create(user=self, profile_task=task)
 
         # Check if the task is already requesting an approval
-        if level_progress.approval_requested:
-            level_progress.approval_requested = False
-            level_progress.completed = True
-        elif task.approval_required:
-            level_progress.submit_for_approval()
-        else:
-            level_progress.completed = True
+        if not level_progress.completed:
+            if level_progress.approval_requested:
+                level_progress.approval_requested = False
+                level_progress.completed = True
+            elif task.approval_required:
+                level_progress.submit_for_approval()
+            else:
+                level_progress.completed = True
 
         level_progress.save()
 
@@ -326,35 +327,25 @@ def user_social_progress(sender, sociallogin=None,  **kwargs):
     if sociallogin:
         if sociallogin.account.provider == 'linkedin':
             task = ProfileTask.objects.get(name="social")
-            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
-            if not progress.completed:
-              sociallogin.user.profile.complete_level_task(task)
-              sociallogin.user.profile.add_clean_creds(5)
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
 
         if sociallogin.account.provider == 'twitter':
             task = ProfileTask.objects.get(name="social")
-            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
-            if not progress.completed:
-              sociallogin.user.profile.complete_level_task(task)
-              sociallogin.user.profile.add_clean_creds(5)
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
 
         if sociallogin.account.provider == 'google':
             task = ProfileTask.objects.get(name="social")
-            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
-            if not progress.completed:
-              sociallogin.user.profile.complete_level_task(task)
-              sociallogin.user.profile.add_clean_creds(5)
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
 
         if sociallogin.account.provider == 'instagram':
             task = ProfileTask.objects.get(name="social")
-            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
-            if not progress.completed:
-              sociallogin.user.profile.complete_level_task(task)
-              sociallogin.user.profile.add_clean_creds(5)
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
 
         if sociallogin.account.provider == 'facebook':
             task = ProfileTask.objects.get(name="social")
-            progress = ProfileProgress.objects.get(user=sociallogin.user, profile_task=task)
-            if not progress.completed:
-              sociallogin.user.profile.complete_level_task(task)
-              sociallogin.user.profile.add_clean_creds(5)
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
