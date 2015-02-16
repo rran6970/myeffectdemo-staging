@@ -53,6 +53,17 @@
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
                 </tr>
                 <tr>
+                  <td colspan="2">{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.contact_first_name.label_tag }} {{ form.contact_first_name }}</td>
+                    <td>{{ form.contact_last_name.label_tag }} {{ form.contact_last_name }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.contact_email.label_tag }} {{ form.contact_email }}</td>
+                    <td>{{ form.contact_phone.label_tag }} {{ form.contact_phone }}</td>
+                </tr>
+                <tr>
                     <td id="clean-team-edit-about" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                 </tr>
             </table>
