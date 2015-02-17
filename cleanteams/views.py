@@ -146,12 +146,13 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         # Send registration email to user
         if lang == "English":
             template = get_template('emails/clean_team_register.html')
-            subject = 'My Effect - Change Team Signup Successful'
+            subject = 'My Effect - Welcome to Our Team!'
         else:
             template = get_template('emails/french/clean_team_register_fr.html')
-            subject = 'My Effect - Change Team Signup Successful'
-
-        content = Context({ 'email': user.email, 'first_name': user.first_name })
+            subject = 'My Effect - Welcome to Our Team!'
+        uri = self.request.build_absolute_uri()
+        level_progress_uri = u'%s/clean-team/level-progress' uri
+        content = Context({ 'email': user.email, 'first_name': user.first_name 'level_progress_uri': level_progress_uri})
 
         from_email, to = 'info@myeffect.ca', user.email
 
@@ -696,8 +697,6 @@ class InviteView(LoginRequiredMixin, FormView):
         email = form.cleaned_data['email']
         role = form.cleaned_data['role']
         uri = self.request.build_absolute_uri()
-
-        print email
 
         emails = re.split(',', email)
 

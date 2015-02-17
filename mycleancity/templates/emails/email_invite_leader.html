@@ -6,9 +6,6 @@
       <style>
         body { font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #666; font-weight: 300; }
         .button { display: block; height: 40px; width: 235px; background: url(images/email-button.png) no-repeat 0 0; }
-        .blue { color: #00aeef !important; } 
-        .green { color: #83c156 !important; } 
-        .bold { font-weight: 800 !important; }
       </style>
   </head>
   <body>
@@ -23,20 +20,15 @@
             </tr>
             <tr>
               <td>
-              	<p>Hey {{ first_name }},</p>
+              	<p>Hey {{ email }},</p>
 
-                <p>Congratulations on joining our leadership team! As a Change Leader you will have the opportunity to access a variety of entrepreneurial experiences and lead My Effect’s operations in your region or school community.</p>
-                <p>
-                  We will be following up shortly with some useful resources and supports to help you build your wave of change. In the meantime you can:
-                </p>
-                <ol>
-                  <li>Begin searching for a few fellow leaders to join your executive team, if you have not done so already.</li>
-                  <li>Check out <a href="{{ level_progress_uri }}">Team Achievements</a> to learn about some quick next steps to take action with My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM </span> and become a top Change Team.</li>
-                </ol>
+                <p>You've been invited to join My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> by {{ user.first_name }} {{ user.last_name }} and become a Change Leader of of their team,{{ user.profile.clean_team_member.clean_team.name }}.</p>
+                <p>As a Change Leader you will become a manager of {{ user.profile.clean_team_member.clean_team.name }}, and receive access to upload team Actions and post to {{ user.profile.clean_team_member.clean_team.name }}’s page.</p>
+        			  <p><a href="{{ invite_full_uri }}"><span style="display:inline;font-family:'Helvetica',Arial,sans-serif;text-decoration:none;font-weight:500;font-style:normal;font-size:20px; padding:10px; line-height:42px;border:none;background-color:#ffd430!important;color:#000000!important">Accept the invite.</span></a></p>
 
-        				<p>If you have any questions at any time, please feel free to reach out to our Director of Training, Diane Gies at <a href="mailto:diane@myeffect.ca" target="_blank">diane@myeffect.ca</a>. She is your dedicated resource and support for all your team needs.</p>
+                <p>Warm Regards,</p>
 
-                <p>My Effect</p>
+                <p>My Effect Team</p>
                 <p>---------</p>
               </td>
             </tr>
@@ -46,6 +38,8 @@
                 <p>1061 Queen's Blvd,</p>
                 <p>Kitchener, ON</p>
                 <p><a href="mailto:subscriptions@myeffect.ca" target="_blank">subscriptions@myeffect.ca</a></p>
+
+                <p>You are receiving this email because {{ user.first_name }} {{ user.last_name }} has indicated they know you and has your consent to send you electronic communications. If you are receiving this message in error or would not like to receive any further My Effect invites please  decline your invite <a href="{{ unsubscribe_full_uri }}">here</a>.</p>
               </td>
             </tr>
           </table>

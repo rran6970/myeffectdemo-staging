@@ -7,8 +7,10 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
 from allauth.socialaccount.signals import social_account_added
+from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
 import qrcode
+import mailchimp
 
 from cStringIO import StringIO
 
@@ -377,3 +379,13 @@ def user_social_progress(sender, sociallogin=None,  **kwargs):
             task = ProfileTask.objects.get(name="social")
             sociallogin.user.profile.complete_level_task(task)
             sociallogin.user.profile.add_clean_creds(5)
+
+@receiver(user_signed_up)
+def send_welcome_email(sender, **kwargs):
+    user = kwargs.pop('user')
+    if user:
+        try:
+            list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
+            list.subscribe(form.cleaned_data['email'], {'EMAIL': user.email, 'FNAME': user.first_name, 'LNAME': user.last_name})
+        except Exception, e:
+            print e

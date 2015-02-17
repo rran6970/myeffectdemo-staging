@@ -264,12 +264,12 @@ class CleanTeam(models.Model):
             return CleanTeamInvite.objects.filter(clean_team=self).count()
 
     def count_approved_members(self, role=""):
-        if role == "ambassador":
+        if role == "leader":
             return CleanTeamMember.objects.filter(clean_team=self, role=role, status="approved").count()
-        elif role == "catalyst":
+        elif role == "agent":
             return CleanChampion.objects.filter(clean_team=self, status="approved").count()
         else:
-            ca = CleanTeamMember.objects.filter(clean_team=self, role="ambassador", status="approved").count()
+            ca = CleanTeamMember.objects.filter(clean_team=self, role="leader", status="approved").count()
             cc = CleanChampion.objects.filter(clean_team=self, status="approved").count()
 
             return ca + cc
@@ -682,17 +682,13 @@ class CleanTeamInvite(models.Model):
                 task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
                 self.clean_team.complete_level_task(task)
 
-        if role == "ambassador":
-            role = "Clean Ambassadoru'%s/%s' % (uri, token)"
-        elif role == "catalyst":
-            role = "Clean Champion"
-
-        print email
         # from django.core.mail import send_mail
         # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
         # Send invite email to email address
-        template = get_template('emails/email_invite_join.html')
+        template = get_template('emails/email_invite_agent.html')
+        if role == "leader":
+            template = get_template('emails/email_invite_leader.html')
         content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
 
         subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
@@ -711,7 +707,9 @@ class CleanTeamInvite(models.Model):
         # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
         # Send invite email to email address
-        template = get_template('emails/email_invite_join.html')
+        template = get_template('emails/email_invite_agent.html')
+        if self.role == "leader":
+            template = get_template('emails/email_invite_leader.html')
         content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'invite_full_uri': invite_full_uri })
 
         subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
