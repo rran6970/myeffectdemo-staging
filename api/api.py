@@ -1379,7 +1379,7 @@ def cleanteam_view(request):
 
     try:
         clean_team = CleanTeam.objects.get(id=request_obj.params['ctid'])
-        badge  = unicode(clean_team.level.badge)
+        #badge  = unicode(clean_team.level.badge)
 
         response_base.response['status'] = 1
         response_base.response['data'] = {
@@ -1392,7 +1392,7 @@ def cleanteam_view(request):
             'twitter':clean_team.twitter,
             'region':clean_team.region,
             'team_type':clean_team.team_type,
-            'badge':badge
+            #'badge':badge
         }
 
         challenge_post = CleanTeamPost.objects.filter(clean_team_id=request_obj.params['ctid'])

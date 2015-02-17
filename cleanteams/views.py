@@ -294,17 +294,20 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             if clean_team.about and clean_team.logo:
                 task = CleanTeamLevelTask.objects.get(name="ct_description")
                 clean_team.complete_level_task(task)
-                clean_team.clean_creds += 5
-            else:
-                task = CleanTeamLevelTask.objects.get(name="ct_description")
-                clean_team.uncomplete_level_task(task)
+                clean_team.add_team_clean_creds(5)
+            # onluy uncomment this if your testing turning this on, otherwise user can keep addidng 5CC to the team
+            # else:
+                # task = CleanTeamLevelTask.objects.get(name="ct_description")
+                # clean_team.uncomplete_level_task(task)
 
             if clean_team.twitter:
                 task = CleanTeamLevelTask.objects.get(name="ct_twitter")
                 clean_team.complete_level_task(task)
-            else:
-                task = CleanTeamLevelTask.objects.get(name="ct_twitter")
-                clean_team.uncomplete_level_task(task)
+                clean_team.add_team_clean_creds(5)
+            # same here as above
+            # else:
+                # task = CleanTeamLevelTask.objects.get(name="ct_twitter")
+                # clean_team.uncomplete_level_task(task)
 
 
 
@@ -417,6 +420,7 @@ class ViewAllCleanTeams(TemplateView):
 
         return context
 
+
 class LevelProgressView(TemplateView):
     template_name = "cleanteams/level_progress.html"
 
@@ -424,15 +428,22 @@ class LevelProgressView(TemplateView):
         context = super(LevelProgressView, self).get_context_data(**kwargs)
         user = self.request.user
         clean_team = user.profile.clean_team_member.clean_team
-
+        countcomp = 0
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=clean_team.level)
         tasks = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks)
+        tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=clean_team, level_task__in=level_tasks, completed=True).count()
+
+        if CleanTeamLevelProgress.objects.filter(completed=1):
+            countcomp += 1
+        elif CleanTeamLevelProgress.objects.filter(completed=0):
+            countcomp == countcomp
 
         context['tasks'] = tasks
         context['clean_team'] = clean_team
         context['user'] = user
-
+        context['tasks_complete'] = tasks_complete
         return context
+
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
@@ -884,102 +895,102 @@ class CleanTeamPresentationView(LoginRequiredMixin, FormView):
         return context
 
 # Check if the invitee email address is a registered User
-def invite_check(request, token):
-    if token:
-        request.session['invite_token'] = token
-        try:
-            invite = CleanTeamInvite.objects.get(token=token)
-            user = User.objects.get(email=invite.email)
-        except User.DoesNotExist, e:
-            return HttpResponseRedirect('/register-invite/%s' % invite.token)
-        except Invite.DoesNotExist, e:
-            print e
-        except Exception, e:
-            print e
+    def invite_check(request, token):
+        if token:
+            request.session['invite_token'] = token
+            try:
+                invite = CleanTeamInvite.objects.get(token=token)
+                user = User.objects.get(email=invite.email)
+            except User.DoesNotExist, e:
+                return HttpResponseRedirect('/register-invite/%s' % invite.token)
+            except Invite.DoesNotExist, e:
+                print e
+            except Exception, e:
+                print e
 
-    return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
+        return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
 
-# Check if the referee email address is a registered User
-def referral_check(request, token):
-    if token:
-        request.session['referral_token'] = token
-        try:
-            referral = LeaderReferral.objects.get(token=token)
-            user = User.objects.get(email=referral.email)
-        except User.DoesNotExist, e:
-            return HttpResponseRedirect('/register/')
-        except referral.DoesNotExist, e:
-            print e
-        except Exception, e:
-            print e
+    # Check if the referee email address is a registered User
+    def referral_check(request, token):
+        if token:
+            request.session['referral_token'] = token
+            try:
+                referral = LeaderReferral.objects.get(token=token)
+                user = User.objects.get(email=referral.email)
+            except User.DoesNotExist, e:
+                return HttpResponseRedirect('/register/')
+            except referral.DoesNotExist, e:
+                print e
+            except Exception, e:
+                print e
 
-    return HttpResponseRedirect('/clean-team/register-clean-team/')
+        return HttpResponseRedirect('/clean-team/register-clean-team/')
 
 # On the Change Team's Profile
-def request_join_clean_team(request):
-    if request.method == 'POST':
-        ctid = request.POST.get('ctid')
+    def request_join_clean_team(request):
+        if request.method == 'POST':
+            ctid = request.POST.get('ctid')
 
-        try:
-            selected_team = CleanTeam.objects.get(id=ctid)
-            ctm = CleanTeamMember.objects.get(user=request.user)
-        except Exception, e:
-            print e
-            ctm = CleanTeamMember()
+            try:
+                selected_team = CleanTeam.objects.get(id=ctid)
+                ctm = CleanTeamMember.objects.get(user=request.user)
+            except Exception, e:
+                print e
+                ctm = CleanTeamMember()
 
-        # if not ctm.has_max_clean_ambassadors():
-        ctm.requestBecomeCleanAmbassador(request.user, selected_team)
-        # else:
-            #TODO: Message saying that the Change Team ambassador count is full
-            # pass
+            # if not ctm.has_max_clean_ambassadors():
+            ctm.requestBecomeCleanAmbassador(request.user, selected_team)
+            # else:
+                #TODO: Message saying that the Change Team ambassador count is full
+                # pass
 
-    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+        return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
-def be_clean_champion(request):
-    if request.method == 'POST':
-        ctid = request.POST.get('ctid')
+    def be_clean_champion(request):
+        if request.method == 'POST':
+            ctid = request.POST.get('ctid')
 
-        try:
-            selected_team = CleanTeam.objects.get(id=ctid)
-            clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
-        except Exception, e:
-            print e
-            clean_champion = CleanChampion()
+            try:
+                selected_team = CleanTeam.objects.get(id=ctid)
+                clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
+            except Exception, e:
+                print e
+                clean_champion = CleanChampion()
 
-        clean_champion.becomeCleanChampion(request.user, selected_team)
+            clean_champion.becomeCleanChampion(request.user, selected_team)
 
-    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+        return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
-# Coming from the email invite link
-def accept_invite(request, token):
-    invite = CleanTeamInvite.objects.get(token=token)
+    # Coming from the email invite link
+    def accept_invite(request, token):
+        invite = CleanTeamInvite.objects.get(token=token)
 
-    if not invite.accept_invite():
-        return HttpResponseRedirect('/register-invite/')
+        if not invite.accept_invite():
+            return HttpResponseRedirect('/register-invite/')
 
-    return HttpResponseRedirect('/clean-team/invite/')
+        return HttpResponseRedirect('/clean-team/invite/')
 
-def clean_team_member_action(request):
-    if request.method == 'POST' and request.is_ajax:
-        ctid = request.POST['ctid']
-        uid = request.POST['uid']
-        action = request.POST['action']
+    def clean_team_member_action(request):
+        if request.method == 'POST' and request.is_ajax:
+            ctid = request.POST['ctid']
+            uid = request.POST['uid']
+            action = request.POST['action']
 
-        clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
+            clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
 
-        if action == "approve" and request.POST['role']:
-            if request.POST['role'] == "leader":
-                clean_team_member.approveCleanAmbassador()
-            elif request.POST['role'] == "agent":
-                u = User.objects.get(id=uid)
-                ct = CleanTeam.objects.get(id=ctid)
-                try:
-                    clean_champion = CleanChampion.objects.get(user=u, clean_team=ct)
-                except Exception, e:
-                    clean_champion = CleanChampion()
-                    clean_champion.becomeCleanChampion(u, ct)
-                    clean_team_member.removedCleanAmbassador()
-        elif action == "remove":
-            clean_team_member.removedCleanAmbassador()
+            if action == "approve" and request.POST['role']:
+                if request.POST['role'] == "leader":
+                    clean_team_member.approveCleanAmbassador()
+                elif request.POST['role'] == "agent":
+                    u = User.objects.get(id=uid)
+                    ct = CleanTeam.objects.get(id=ctid)
+                    try:
+                        clean_champion = CleanChampion.objects.get(user=u, clean_team=ct)
+                    except Exception, e:
+                        clean_champion = CleanChampion()
+                        clean_champion.becomeCleanChampion(u, ct)
+                        clean_team_member.removedCleanAmbassador()
+            elif action == "remove":
+                clean_team_member.removedCleanAmbassador()
 
-    return HttpResponse("success")
+        return HttpResponse("success")

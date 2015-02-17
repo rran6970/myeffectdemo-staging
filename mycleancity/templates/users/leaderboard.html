@@ -58,9 +58,9 @@
             <table>
             {% for leader in clean_team_leaders %}
               <tr>
-                <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
-                  <img id="badge-icon" src="{{ STATIC_URL }}{{ leader.level.badge }}" alt="Badge Level" />                  
-                </td>
+                <!--<td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
+                  <img id="badge-icon" src="{{ STATIC_URL }}{{ leader.level.badge }}" alt="Badge Level" />
+                </td>-->
                 <td class="entry {% if forloop.counter|divisibleby:2 %}blue{% else %}green{% endif %}">
                   <span class="number">{{ forloop.counter }}.&nbsp;</span><span class="name"><a href="/clean-team/{{ leader.id }}">{{ leader.name|slice:":255" }}</a></span>
                 </td>

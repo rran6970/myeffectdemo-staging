@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
@@ -223,7 +223,7 @@ LOGGING = {
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -236,7 +236,7 @@ LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/users/logout/'
 LOGIN_REDIRECT_URL = '/users/profile/'
 
-#EMAIL_BACKEND = 'django_mailer.smtp_queue.EmailBackend'
+# EMAIL_BACKEND = 'django_mailer.smtp_queue.EmailBackend'
 EMAIL_HOST = 'secure153.inmotionhosting.com'
 EMAIL_HOST_USER = 'info@myeffect.ca'
 EMAIL_HOST_PASSWORD = u'*Effect*'
@@ -251,7 +251,7 @@ DJANGO_WYSIWYG_FLAVOR = 'yui'
 
 AWS_ACCESS_KEY_ID = 'AKIAJLI4AHTNZQXEOA4Q'
 AWS_SECRET_ACCESS_KEY = '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'
-#AWS_BUCKET = 'myeffectproduction'
+# AWS_BUCKET = 'myeffectproduction'
 AWS_BUCKET = 'myeffectstaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET

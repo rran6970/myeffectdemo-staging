@@ -789,7 +789,7 @@
     </table>
   </data-source>
   <data-source name="Django default" uuid="2ed6e227-45e4-4e9a-a27c-fa502f515b33">
-    <database-info product="MySQL" version="5.6.22-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+    <database-info product="MySQL" version="5.6.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
@@ -834,7 +834,8 @@
       <foreign-key name="group_id_refs_id_f4b32aac" columns="group_id" ref-table="auth_group" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="permission_id_refs_id_6ba0f519" columns="permission_id" ref-table="auth_permission" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="group_id" unique="true" columns="permission_id"/>
-      <index name="permission_id_refs_id_6ba0f519" unique="false" columns="permission_id"/>
+      <index name="auth_group_permissions_5f412f9a" unique="false" columns="group_id"/>
+      <index name="auth_group_permissions_83d7f98b" unique="false" columns="permission_id"/>
     </table>
     <table name="auth_permission" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -846,6 +847,7 @@
       <exported-key name="permission_id_refs_id_6ba0f519" table="auth_group_permissions" schema="" catalog="mycleancity" columns="permission_id"/>
       <exported-key name="permission_id_refs_id_35d9ac25" table="auth_user_user_permissions" schema="" catalog="mycleancity" columns="permission_id"/>
       <index name="content_type_id" unique="true" columns="codename"/>
+      <index name="auth_permission_37ef4eb4" unique="false" columns="content_type_id"/>
     </table>
     <table name="auth_user" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -871,11 +873,13 @@
       <exported-key name="user_id_refs_id_090b5b6b" table="cleancreds_cleancredsachievements" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_906d24aa" table="cleanteams_cleanchampion" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="contact_user_id_refs_id_d3ff39d3" table="cleanteams_cleanteam" schema="" catalog="mycleancity" columns="contact_user_id"/>
+      <exported-key name="user_id_refs_id_40a35015" table="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_7851615d" table="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_f06a4250" table="cleanteams_cleanteammember" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_6fd455b4" table="cleanteams_cleanteampost" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_3bca925a" table="cleanteams_cleanteampresentation" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_b964a857" table="cleanteams_leaderreferral" schema="" catalog="mycleancity" columns="user_id"/>
+      <exported-key name="user_id_refs_id_989aa962" table="cleanteams_orgprofile" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="contact_user_id_refs_id_b3433989" table="communities_community" schema="" catalog="mycleancity" columns="contact_user_id"/>
       <exported-key name="user_id_refs_id_8af599d0" table="communities_communityannouncement" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_3749b3cc" table="communities_communitycleanagent" schema="" catalog="mycleancity" columns="user_id"/>
@@ -889,7 +893,8 @@
       <exported-key name="user_id_refs_id_45274066" table="userprofile_userprofile" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_8b0c7d75" table="userprofile_userqrcode" schema="" catalog="mycleancity" columns="user_id"/>
       <exported-key name="user_id_refs_id_986e5b9c" table="userprofile_usersettings" schema="" catalog="mycleancity" columns="user_id"/>
-      <exported-key name="user id" table="users_profileprogress" schema="" catalog="mycleancity" columns="user_id"/>
+      <exported-key name="user_id_refs_id_ad478a78" table="users_organizationlicense" schema="" catalog="mycleancity" columns="user_id"/>
+      <exported-key name="user_id_refs_id_33d05388" table="users_profileprogress" schema="" catalog="mycleancity" columns="user_id"/>
       <index name="username" unique="true" columns="username"/>
     </table>
     <table name="auth_user_groups" schema="" catalog="mycleancity" type="TABLE">
@@ -900,7 +905,8 @@
       <foreign-key name="group_id_refs_id_274b862c" columns="group_id" ref-table="auth_group" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_40c41112" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="user_id" unique="true" columns="group_id"/>
-      <index name="group_id_refs_id_274b862c" unique="false" columns="group_id"/>
+      <index name="auth_user_groups_5f412f9a" unique="false" columns="group_id"/>
+      <index name="auth_user_groups_6340c63c" unique="false" columns="user_id"/>
     </table>
     <table name="auth_user_user_permissions" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -910,7 +916,8 @@
       <foreign-key name="permission_id_refs_id_35d9ac25" columns="permission_id" ref-table="auth_permission" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_4dc23c39" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="user_id" unique="true" columns="permission_id"/>
-      <index name="permission_id_refs_id_35d9ac25" unique="false" columns="permission_id"/>
+      <index name="auth_user_user_permissions_6340c63c" unique="false" columns="user_id"/>
+      <index name="auth_user_user_permissions_83d7f98b" unique="false" columns="permission_id"/>
     </table>
     <table name="captcha_captchastore" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -932,35 +939,35 @@
     <table name="challenges_challenge" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="title" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="event_start_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="event_start_time" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="event_end_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="event_end_time" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
       <column name="address1" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="address2" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="province" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="postal_code" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="country" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="province" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="link" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="clean_creds_per_hour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="last_updated_by_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="clean_creds_per_hour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="national_challenge" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="type_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="qr_code_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="token" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="promote_top" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="event_start_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
-      <column name="event_start_time" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
-      <column name="event_end_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
-      <column name="event_end_time" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="url" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="clean_team_only" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="organization" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="contact_first_name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="contact_last_name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="contact_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
       <column name="contact_email" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="clean_team_only" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="url" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="link" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_id_refs_id_5db18d46" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="last_updated_by_id_refs_id_b10c65a5" columns="last_updated_by_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -975,8 +982,8 @@
       <exported-key name="challenge_id_refs_id_728b888c" table="communities_communityapprovedchallenge" schema="" catalog="mycleancity" columns="challenge_id"/>
       <index name="challenges_challenge_403d8ff3" unique="false" columns="type_id"/>
       <index name="challenges_challenge_410a79ac" unique="false" columns="last_updated_by_id"/>
+      <index name="challenges_challenge_6340c63c" unique="false" columns="user_id"/>
       <index name="challenges_challenge_d69679ce" unique="false" columns="clean_team_id"/>
-      <index name="user_id_refs_id_b10c65a5" unique="false" columns="user_id"/>
     </table>
     <table name="challenges_challengeqrcode" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -998,8 +1005,8 @@
       <foreign-key name="answer_type_id_refs_id_fd4cfeaa" columns="answer_type_id" ref-table="challenges_answertype" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="type_id_refs_id_8741a2fe" columns="type_id" ref-table="challenges_challengequestiontype" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="question_id_refs_id_0af259ff" table="challenges_questionanswer" schema="" catalog="mycleancity" columns="question_id"/>
-      <index name="challenges_challengequestion_31e587c9" unique="false" columns="type_id"/>
       <index name="challenges_challengequestion_38ffc33e" unique="false" columns="answer_type_id"/>
+      <index name="challenges_challengequestion_403d8ff3" unique="false" columns="type_id"/>
     </table>
     <table name="challenges_challengequestiontype" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1007,7 +1014,7 @@
       <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="type_id_refs_id_8741a2fe" table="challenges_challengequestion" schema="" catalog="mycleancity" columns="type_id"/>
-      <index name="challenges_challengequestiontype_name_23423e6cdc3625e6_uniq" unique="true" columns="name"/>
+      <index name="name" unique="true" columns="name"/>
     </table>
     <table name="challenges_challengetype" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1042,10 +1049,10 @@
     <table name="challenges_questionanswer" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="answer_number" sqlType="VARCHAR" precision="1" scale="0" nullable="false" jdbcType="12"/>
       <column name="answer" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="score" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="clean_grid_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="answer_number" sqlType="VARCHAR" precision="1" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_grid_id_refs_id_c3472180" columns="clean_grid_id" ref-table="challenges_cleangrid" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="question_id_refs_id_0af259ff" columns="question_id" ref-table="challenges_challengequestion" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1130,9 +1137,8 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="user_id_refs_id_4f294cf8" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="voucher_id_refs_id_5362c76a" columns="voucher_id" ref-table="challenges_voucher" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="challenges_uservoucher_voucher_23e1de472767c3b4_uniq" unique="true" columns="voucher_id"/>
+      <index name="challenges_uservoucher_57a58267" unique="false" columns="voucher_id"/>
       <index name="challenges_uservoucher_6340c63c" unique="false" columns="user_id"/>
-      <index name="challenges_uservoucher_835f91d4" unique="false" columns="voucher_id"/>
     </table>
     <table name="challenges_voucher" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1151,7 +1157,7 @@
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="milestone_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="milestone_id_refs_id_a5e2ce96" columns="milestone_id" ref-table="cleancreds_cleancredsmilestones" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_090b5b6b" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1163,7 +1169,7 @@
       <column name="title" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <column name="cleancreds_needed" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="milestone_id_refs_id_a5e2ce96" table="cleancreds_cleancredsachievements" schema="" catalog="mycleancity" columns="milestone_id"/>
     </table>
@@ -1181,27 +1187,30 @@
     <table name="cleanteams_cleanteam" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
-      <column name="website" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="website" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
       <column name="logo" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
-      <column name="clean_creds" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="about" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="twitter" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="facebook" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="instagram" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="region" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="team_type" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="group" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="clean_creds" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="level_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="admin" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="org_profile_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="contact_user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="contact_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
-      <column name="team_category" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="contact_user_id_refs_id_d3ff39d3" columns="contact_user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="level_id_refs_id_a5657b15" columns="level_id" ref-table="cleanteams_cleanteamlevel" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="org_profile_id_refs_id_57f2fd11" columns="org_profile_id" ref-table="cleanteams_orgprofile" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="clean_team_id_refs_id_5db18d46" table="challenges_challenge" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_11eca4a9" table="challenges_cleanteamchallenge" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_8bd55be4" table="challenges_stapleschallenge" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_89cc1cc3" table="challenges_userchallengesurvey" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_1de813ab" table="cleanteams_cleanchampion" schema="" catalog="mycleancity" columns="clean_team_id"/>
+      <exported-key name="clean_team_id_refs_id_69e9076c" table="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_2d91f3d8" table="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_4c510438" table="cleanteams_cleanteamlevelprogress" schema="" catalog="mycleancity" columns="clean_team_id"/>
       <exported-key name="clean_team_id_refs_id_1f50bb4f" table="cleanteams_cleanteammember" schema="" catalog="mycleancity" columns="clean_team_id"/>
@@ -1212,15 +1221,25 @@
       <index name="cleanteams_cleanteam_b8f3f94a" unique="false" columns="level_id"/>
       <index name="cleanteams_cleanteam_c5649b88" unique="false" columns="contact_user_id"/>
     </table>
+    <table name="cleanteams_cleanteamfollow" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="clean_team_id_refs_id_69e9076c" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="user_id_refs_id_40a35015" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="cleanteams_cleanteamfollow_6340c63c" unique="false" columns="user_id"/>
+      <index name="cleanteams_cleanteamfollow_d69679ce" unique="false" columns="clean_team_id"/>
+    </table>
     <table name="cleanteams_cleanteaminvite" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="70" scale="0" nullable="false" jdbcType="12"/>
       <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="role" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="status" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="70" scale="0" nullable="false" jdbcType="12"/>
-      <column name="token" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="token" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_id_refs_id_2d91f3d8" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_7851615d" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1229,10 +1248,10 @@
     </table>
     <table name="cleanteams_cleanteamlevel" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="badge" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="next_level_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="badge" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="tree_level" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="next_level_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="next_level_id_refs_id_2ae43e58" columns="next_level_id" ref-table="cleanteams_cleanteamlevel" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="level_id_refs_id_a5657b15" table="cleanteams_cleanteam" schema="" catalog="mycleancity" columns="level_id"/>
@@ -1244,8 +1263,8 @@
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="level_task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="completed" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="approval_requested" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="completed" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_id_refs_id_4c510438" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="level_task_id_refs_id_c3cf9beb" columns="level_task_id" ref-table="cleanteams_cleanteamleveltask" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1255,22 +1274,23 @@
     <table name="cleanteams_cleanteamleveltask" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="clean_team_level_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="link" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="approval_required" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_level_id_refs_id_f40a12f2" columns="clean_team_level_id" ref-table="cleanteams_cleanteamlevel" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="level_task_id_refs_id_c3cf9beb" table="cleanteams_cleanteamlevelprogress" schema="" catalog="mycleancity" columns="level_task_id"/>
-      <index name="cleanteams_cleanteamleveltask_name_241c8689e8b6af68_uniq" unique="true" columns="name"/>
+      <index name="name" unique="true" columns="name"/>
       <index name="cleanteams_cleanteamleveltask_c6c1f7ff" unique="false" columns="clean_team_level_id"/>
     </table>
     <table name="cleanteams_cleanteammember" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="status" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="role" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_id_refs_id_1f50bb4f" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_f06a4250" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1312,12 +1332,25 @@
       <column name="title" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="clean_team_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="token" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_id_refs_id_8282ded5" columns="clean_team_id" ref-table="cleanteams_cleanteam" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_b964a857" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="cleanteams_leaderreferral_6340c63c" unique="false" columns="user_id"/>
       <index name="cleanteams_leaderreferral_d69679ce" unique="false" columns="clean_team_id"/>
+    </table>
+    <table name="cleanteams_orgprofile" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="org_type" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="registered_number" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="category" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="number_of_users" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="user_id_refs_id_989aa962" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="org_profile_id_refs_id_57f2fd11" table="cleanteams_cleanteam" schema="" catalog="mycleancity" columns="org_profile_id"/>
     </table>
     <table name="communities_community" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1410,8 +1443,8 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="content_type_id_refs_id_93d2d1f8" columns="content_type_id" ref-table="django_content_type" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_c0d12874" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="content_type_id_refs_id_93d2d1f8" unique="false" columns="content_type_id"/>
-      <index name="user_id_refs_id_c0d12874" unique="false" columns="user_id"/>
+      <index name="django_admin_log_37ef4eb4" unique="false" columns="content_type_id"/>
+      <index name="django_admin_log_6340c63c" unique="false" columns="user_id"/>
     </table>
     <table name="django_content_type" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1423,11 +1456,49 @@
       <exported-key name="content_type_id_refs_id_93d2d1f8" table="django_admin_log" schema="" catalog="mycleancity" columns="content_type_id"/>
       <index name="app_label" unique="true" columns="app_label,model"/>
     </table>
+    <table name="django_mailer_blacklist" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date_added" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="django_mailer_log" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="message_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="result" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="log_message" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="message_id_refs_id_7da8426e" columns="message_id" ref-table="django_mailer_message" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="django_mailer_log_d4a47933" unique="false" columns="message_id"/>
+    </table>
+    <table name="django_mailer_message" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="to_address" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="from_address" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subject" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="encoded_message" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="message_id_refs_id_7da8426e" table="django_mailer_log" schema="" catalog="mycleancity" columns="message_id"/>
+      <exported-key name="message_id_refs_id_0f1225b3" table="django_mailer_queuedmessage" schema="" catalog="mycleancity" columns="message_id"/>
+    </table>
+    <table name="django_mailer_queuedmessage" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="message_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="priority" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="deferred" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="retries" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date_queued" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="message_id_refs_id_0f1225b3" columns="message_id" ref-table="django_mailer_message" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
     <table name="django_session" schema="" catalog="mycleancity" type="TABLE">
       <column name="session_key" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
       <column name="session_data" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <column name="expire_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="session_key"/>
+      <index name="django_session_b7b81f0c" unique="false" columns="expire_date"/>
     </table>
     <table name="django_site" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1477,9 +1548,9 @@
       <column name="name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <column name="message" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="users_to_notify" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="notification_type" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
       <column name="link" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="notification_type" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="users_to_notify" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="notification_id_refs_id_a52b86f0" table="notifications_usernotification" schema="" catalog="mycleancity" columns="notification_id"/>
     </table>
@@ -1488,9 +1559,9 @@
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="notification_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="read" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="message" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <column name="link" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="notification_id_refs_id_a52b86f0" columns="notification_id" ref-table="notifications_notification" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="user_id_refs_id_2b423243" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1510,7 +1581,7 @@
       <exported-key name="socialaccount_ptr_id_refs_id_bfedee99" table="facebook_facebookaccount" schema="" catalog="mycleancity" columns="socialaccount_ptr_id"/>
       <exported-key name="account_id_refs_id_1337a128" table="socialaccount_socialtoken" schema="" catalog="mycleancity" columns="account_id"/>
       <exported-key name="socialaccount_ptr_id_refs_id_266c9636" table="twitter_twitteraccount" schema="" catalog="mycleancity" columns="socialaccount_ptr_id"/>
-      <index name="socialaccount_socialaccount_uid_ddaf5094e365968_uniq" unique="true" columns="uid,provider"/>
+      <index name="socialaccount_socialaccount_uid_459472be_uniq" unique="true" columns="uid,provider"/>
       <index name="socialaccount_socialaccount_6340c63c" unique="false" columns="user_id"/>
     </table>
     <table name="socialaccount_socialapp" schema="" catalog="mycleancity" type="TABLE">
@@ -1531,7 +1602,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="site_id_refs_id_05d6147e" columns="site_id" ref-table="django_site" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="socialapp_id_refs_id_e7a43014" columns="socialapp_id" ref-table="socialaccount_socialapp" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="socialaccount_socialapp_site_socialapp_id_7e5a0b3d1a793369_uniq" unique="true" columns="socialapp_id,site_id"/>
+      <index name="socialaccount_socialapp_sites_socialapp_id_3e6a002b_uniq" unique="true" columns="socialapp_id,site_id"/>
       <index name="socialaccount_socialapp_sites_99732b5c" unique="false" columns="site_id"/>
       <index name="socialaccount_socialapp_sites_f2973cd1" unique="false" columns="socialapp_id"/>
     </table>
@@ -1545,7 +1616,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="account_id_refs_id_1337a128" columns="account_id" ref-table="socialaccount_socialaccount" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="app_id_refs_id_edac8a54" columns="app_id" ref-table="socialaccount_socialapp" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="socialaccount_socialtoken_app_id_16a0b971722b0406_uniq" unique="true" columns="app_id,account_id"/>
+      <index name="socialaccount_socialtoken_app_id_73d1e698_uniq" unique="true" columns="app_id,account_id"/>
       <index name="socialaccount_socialtoken_60fc113e" unique="false" columns="app_id"/>
       <index name="socialaccount_socialtoken_93025c2f" unique="false" columns="account_id"/>
     </table>
@@ -1618,34 +1689,35 @@
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="dob" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
-      <column name="city" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="postal_code" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
-      <column name="country" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="clean_creds" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="school_type" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="province" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
       <column name="about" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="clean_team_member_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="website" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="twitter" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="facebook" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="instagram" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="google_plus" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="linkedin" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="website" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="street_address" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="emergency_contact_fname" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="emergency_contact_lname" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="category" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="province" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="postal_code" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="country" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="clean_creds" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="student_id" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_type" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="school_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="age" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="smartphone" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="emergency_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="clean_team_member_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="picture" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="hear_about_us" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="settings_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="qr_code_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="emergency_phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
-      <column name="student_id" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="school_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
-      <column name="category" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="emergency_contact_fname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="emergency_contact_lname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="google_plus" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
-      <column name="referral_token" sqlType="VARCHAR" precision="450" scale="0" nullable="true" jdbcType="12"/>
+      <column name="referral_token" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phase" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="clean_team_member_id_refs_id_830a9c84" columns="clean_team_member_id" ref-table="cleanteams_cleanteammember" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="qr_code_id_refs_id_0eec4b1e" columns="qr_code_id" ref-table="userprofile_userqrcode" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -1656,25 +1728,36 @@
     <table name="userprofile_userqrcode" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="data" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <column name="qr_image" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="qr_image_height" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="qr_image_width" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="data" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="user_id_refs_id_8b0c7d75" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="qr_code_id_refs_id_0eec4b1e" table="userprofile_userprofile" schema="" catalog="mycleancity" columns="qr_code_id"/>
     </table>
     <table name="userprofile_usersettings" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="communication_language" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="email_privacy" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="communication_language" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="receive_newsletters" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="timezone" sqlType="VARCHAR" precision="63" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email_privacy" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="data_privacy" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="timezone" sqlType="VARCHAR" precision="63" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="user_id_refs_id_986e5b9c" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="settings_id_refs_id_0e060f46" table="userprofile_userprofile" schema="" catalog="mycleancity" columns="settings_id"/>
+    </table>
+    <table name="users_organizationlicense" schema="" catalog="mycleancity" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="is_charity" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="from_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="to_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="user_id_refs_id_ad478a78" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="code" unique="true" columns="code"/>
     </table>
     <table name="users_prelaunchemails" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1683,39 +1766,49 @@
       <column name="postal_code" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12"/>
       <column name="school_type" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="ambassador" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="join" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="users_profilephase" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="drop_level" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="next_level_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="phase_id" table="users_profiletask" schema="" catalog="mycleancity" columns="profile_phase_id"/>
+      <foreign-key name="next_level_id_refs_id_f6a2e40e" columns="next_level_id" ref-table="users_profilephase" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="next_level_id_refs_id_f6a2e40e" table="users_profilephase" schema="" catalog="mycleancity" columns="next_level_id"/>
+      <exported-key name="phase_id_refs_id_ddcdc70b" table="users_profileprogress" schema="" catalog="mycleancity" columns="phase_id"/>
+      <exported-key name="profile_phase_id_refs_id_3227c7dc" table="users_profiletask" schema="" catalog="mycleancity" columns="profile_phase_id"/>
+      <index name="users_profilephase_f887f008" unique="false" columns="next_level_id"/>
     </table>
     <table name="users_profileprogress" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="phase_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="profile_task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="approval_requested" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="completed" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="profile_task_id" columns="profile_task_id" ref-table="users_profiletask" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="user id" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="phase_id_refs_id_ddcdc70b" columns="phase_id" ref-table="users_profilephase" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="profile_task_id_refs_id_450267d0" columns="profile_task_id" ref-table="users_profiletask" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="user_id_refs_id_33d05388" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="users_profileprogress_00033151" unique="false" columns="phase_id"/>
+      <index name="users_profileprogress_482de268" unique="false" columns="profile_task_id"/>
+      <index name="users_profileprogress_6340c63c" unique="false" columns="user_id"/>
     </table>
     <table name="users_profiletask" schema="" catalog="mycleancity" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="profile_phase_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="name" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
-      <column name="link" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="link" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
       <column name="approval_required" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="phase_id" columns="profile_phase_id" ref-table="users_profilephase" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="profile_task_id" table="users_profileprogress" schema="" catalog="mycleancity" columns="profile_task_id"/>
-      <index name="phase_id" unique="false" columns="profile_phase_id"/>
+      <foreign-key name="profile_phase_id_refs_id_3227c7dc" columns="profile_phase_id" ref-table="users_profilephase" ref-schema="" ref-catalog="mycleancity" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="profile_task_id_refs_id_450267d0" table="users_profileprogress" schema="" catalog="mycleancity" columns="profile_task_id"/>
+      <index name="name" unique="true" columns="name"/>
+      <index name="users_profiletask_3463eb68" unique="false" columns="profile_phase_id"/>
     </table>
   </data-source>
 </component>

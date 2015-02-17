@@ -3,26 +3,15 @@ import string
 import json
 
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.core.mail import EmailMessage
-
 from django.db import models
-from django.db.models import Count
-from django.template import Context
-from django.template.loader import get_template
-from django.template.defaultfilters import date
-
 from itertools import chain
-
-from time import time
-
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
 
 """
 Name:           OrgProfile
-Date created:   Jan 29, 2015
+Date created:   Jan 29, 2014
 Description:    profile for clean teams that Representing a organization
 """
 class OrgProfile(models.Model):
@@ -67,6 +56,7 @@ Date created:   Nov 25, 2013
 Description:    Users can be part of Change Teams
 """
 class CleanTeam(models.Model):
+
     name = models.CharField(max_length=60, blank=True, verbose_name='Change Team Name')
     website = models.URLField(verbose_name = u'Website', blank=True, null=True, default="")
     logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
@@ -93,14 +83,14 @@ class CleanTeam(models.Model):
     def get_pixels_for_leading_teams(self, clean_creds):
         height = 0
 
-        if (clean_creds <= 250):
+        if clean_creds <= 250:
             difference = 75
             max = 250
 
             divisor = max/difference
             height = clean_creds/divisor
             height -= 30
-        elif (clean_creds <= 1000):
+        elif clean_creds <= 1000:
             difference = 67
             max = 1000
 
@@ -109,7 +99,7 @@ class CleanTeam(models.Model):
             height = clean_creds/divisor
             height += difference
             height -= 30
-        elif (clean_creds <= 3000):
+        elif clean_creds <= 3000:
             difference = 67
             max = 3000
 
@@ -118,7 +108,7 @@ class CleanTeam(models.Model):
             height = clean_creds/divisor
             height += (difference + 75)
             height -= 15
-        elif (clean_creds <= 5000):
+        elif clean_creds <= 5000:
             difference = 67
             max = 5000
 
@@ -127,7 +117,7 @@ class CleanTeam(models.Model):
             height = clean_creds/divisor
             height += (difference + 140)
             height -= 35
-        elif (clean_creds <= 10000):
+        elif clean_creds <= 10000:
             difference = 67
             max = 10000
 
@@ -136,7 +126,7 @@ class CleanTeam(models.Model):
             height = clean_creds/divisor;
             height += (difference + 208);
             height -= 40
-        elif (clean_creds <= 15000):
+        elif clean_creds <= 15000:
             difference = 67
             max = 15000
 
@@ -145,7 +135,7 @@ class CleanTeam(models.Model):
             height = clean_creds/divisor
             height += (difference + 285)
             height -= 13
-        elif (clean_creds > 15000):
+        elif clean_creds > 15000:
             height = 419
             height -= 5
 
@@ -168,6 +158,7 @@ class CleanTeam(models.Model):
 
 
         if notification:
+
             try:
                 # Send notifications
                 notification = Notification.objects.get(notification_type="clean_team_add_clean_creds")
@@ -193,11 +184,8 @@ class CleanTeam(models.Model):
     def check_if_level_up(self):
         level_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level)
         tasks_complete = CleanTeamLevelProgress.objects.filter(clean_team=self, level_task__in=level_tasks, completed=True).count()
-        total_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level).count()
-
-        if tasks_complete == total_tasks:
-            self.level_up()
-
+        # total_tasks = CleanTeamLevelTask.objects.filter(clean_team_level=self.level).count()
+        return tasks_complete
 
     def level_up(self, notification=True):
         # If they don't have a badge, ie. new team, make them a Seedling
@@ -306,6 +294,7 @@ Date created:   Dec 30, 2013
 Description:    Users can be part of Change Teams as Clean Champions
 """
 class CleanChampion(models.Model):
+
     user = models.ForeignKey(User)
     clean_team = models.ForeignKey(CleanTeam)
     status = models.CharField(max_length=30, default="approved")
@@ -347,34 +336,27 @@ class CleanChampion(models.Model):
                 print e
 
         if self.clean_team.level.name == "Sprout":
-            #count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            # count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
             self.clean_team.level.name == "Seedling"
-
-            #if count_ccs > 2:
-             #   task = CleanTeamLevelTask.objects.get(name="3_ccs")
-              #  self.clean_team.complete_level_task(task)
-
+            # if count_ccs > 2:
+            # task = CleanTeamLevelTask.objects.get(name="3_ccs")
+            # self.clean_team.complete_level_task(task)
         elif self.clean_team.level.name == "Sapling":
             self.clean_team.level.name == "Seedling"
-            #count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
-
-            #if count_ccs > 9:
-               # task = CleanTeamLevelTask.objects.get(name="10_ccs")
-               # self.clean_team.complete_level_task(task)
-
+            # count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            # if count_ccs > 9:
+            # task = CleanTeamLevelTask.objects.get(name="10_ccs")
+            #  self.clean_team.complete_level_task(task)
         elif self.clean_team.level.name == "Tree":
             self.clean_team.level.name == "Seedling"
-           # count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
-
-           # if count_ccs > 19:
-             #   task = CleanTeamLevelTask.objects.get(name="20_ccs")
-             #   self.clean_team.complete_level_task(task)
-
+            # count_ccs = CleanChampion.objects.filter(clean_team=self.clean_team).count()
+            # if count_ccs > 19:
+            #   task = CleanTeamLevelTask.objects.get(name="20_ccs")
+            #   self.clean_team.complete_level_task(task)
         self.clean_team.add_team_clean_creds(5)
         self.user.profile.add_clean_creds(20)
 
-    #def becomeCleanChampionNew(self, user,userid, selected_team):
-    def becomeCleanChampionNew(self,user,userid,selected_team):
+    def becomeCleanChampionNew(self, user, userid, selected_team):
         self.user_id = userid
         self.clean_team_id = selected_team
         self.status = "approved"
@@ -391,7 +373,7 @@ class CleanChampion(models.Model):
 
         # Notify all of the Users that have the roles within users_to_notify
         for role in users_to_notify:
-            #print self.clean_team_id
+            # print self.clean_team_id
             clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
             for member in clean_team_members:
@@ -407,6 +389,7 @@ Date created:   Nov 25, 2013
 Description:    Users can be part of Change Teams
 """
 class CleanTeamMember(models.Model):
+
     user = models.ForeignKey(User)
     clean_team = models.ForeignKey(CleanTeam)
     role = models.CharField(max_length=30, default="leader")
@@ -437,7 +420,7 @@ class CleanTeamMember(models.Model):
         if notification:
             try:
                 # Send notifications
-                notification = Notification.objects.get(notification_type="ca_approved")
+                # notification = Notification.objects.get(notification_type="ca_approved")
                 # The names that will go in the notification message template
                 name_strings = [self.clean_team.name]
                 link_strings = [str(self.clean_team.id)]
@@ -460,7 +443,7 @@ class CleanTeamMember(models.Model):
         if notification:
             try:
                 # Send notifications
-                notification = Notification.objects.get(notification_type="ca_approved")
+                # notification = Notification.objects.get(notification_type="ca_approved")
                 # The names that will go in the notification message template
                 name_strings = [self.clean_team.name]
                 link_strings = [str(self.clean_team.id)]
@@ -490,12 +473,12 @@ class CleanTeamMember(models.Model):
         try:
             if notification:
                 # Send notifications
-                notification = Notification.objects.get(notification_type="ca_request")
+                # notification = Notification.objects.get(notification_type="ca_request")
                 # The names that will go in the notification message template
                 full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
                 name_strings = [full_name, self.clean_team.name]
 
-                #users_to_notify_str = notification.users_to_notify
+                # users_to_notify_str = notification.users_to_notify
                 users_to_notify_str = "leader"
                 users_to_notify = users_to_notify_str.split(', ')
 
@@ -523,6 +506,7 @@ Date created:   Dec 25, 2013
 Description:    The posts on a Change Team's profile
 """
 class CleanTeamPost(models.Model):
+
     clean_team = models.ForeignKey(CleanTeam)
     user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -594,6 +578,7 @@ Date created:   Jan 5, 2014
 Description:    The invites that each member can receive
 """
 class CleanTeamInvite(models.Model):
+
     email = models.EmailField(max_length=70, blank=True)
     clean_team = models.ForeignKey(CleanTeam)
     user = models.ForeignKey(User)
@@ -698,7 +683,7 @@ class CleanTeamInvite(models.Model):
                 self.clean_team.complete_level_task(task)
 
         if role == "ambassador":
-            role = "Clean Ambassador"
+            role = "Clean Ambassadoru'%s/%s' % (uri, token)"
         elif role == "catalyst":
             role = "Clean Champion"
 
@@ -720,14 +705,14 @@ class CleanTeamInvite(models.Model):
         self.save()
 
     def resendInvite(self, uri):
-        full_uri = u'%s/%s' % (uri, self.token)
+        invite_full_uri = u'%s/%s' % (uri, self.token)
 
         # from django.core.mail import send_mail
         # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
         # Send invite email to email address
         template = get_template('emails/email_invite_join.html')
-        content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'full_uri': full_uri })
+        content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'invite_full_uri': invite_full_uri })
 
         subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
 
@@ -743,6 +728,7 @@ Date created:   Jan 30, 2014
 Description:    All of the tasks required to be completed in a level
 """
 class CleanTeamLevelTask(models.Model):
+
     clean_team_level = models.ForeignKey(CleanTeamLevel)
     name = models.CharField(max_length=60, blank=False, unique=True, default="", verbose_name='Task Name')
     description = models.TextField(blank=True, null=True, default="")
@@ -765,6 +751,7 @@ Date created:   Jan 30, 2014
 Description:    The tasks each Change Team has completed per level
 """
 class CleanTeamLevelProgress(models.Model):
+
     clean_team = models.ForeignKey(CleanTeam)
     level_task = models.ForeignKey(CleanTeamLevelTask)
     approval_requested = models.BooleanField(default=0)
@@ -790,6 +777,7 @@ Date created:   Mar 4, 2014
 Description:    When Change Teams refer leaders
 """
 class LeaderReferral(models.Model):
+
     first_name = models.CharField(max_length=60, blank=False, default="")
     last_name = models.CharField(max_length=60, blank=False, default="")
     email = models.CharField(max_length=60, blank=False, default="")
@@ -803,6 +791,7 @@ class LeaderReferral(models.Model):
 
 
     class Meta:
+
         verbose_name_plural = u'Change Team Leader Referrals'
 
     def __unicode__(self):
@@ -847,6 +836,7 @@ Date created:   Mar 5, 2014
 Description:    When Change Teams submits a presentation
 """
 class CleanTeamPresentation(models.Model):
+
     title = models.CharField(max_length=60, blank=False, default="")
     presentation = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -879,3 +869,23 @@ class CleanTeamPresentation(models.Model):
 
     def save(self, *args, **kwargs):
         super(CleanTeamPresentation, self).save(*args, **kwargs)
+
+
+class CleanTeamFollow(models.Model):
+
+    clean_team = models.ForeignKey(CleanTeam, null=True)
+    user = models.ForeignKey(User, null=True)
+
+    class Meta:
+        verbose_name_plural = u'Change Team Followers'
+
+    def __unicode__(self):
+        return u'%s is following %s' % (self.user.email, self.clean_team.name)
+
+    def save(self, *args, **kwargs):
+        super(CleanTeamFollow, self).save(*args, **kwargs)
+
+    def become_clean_follower(self, user, selected_team):
+        self.user = user
+        self.clean_team = selected_team
+        self.save()

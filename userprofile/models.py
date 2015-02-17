@@ -6,7 +6,7 @@ from django.core.files.images import ImageFile
 from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save
-from allauth.socialaccount.signals import social_account_removed
+from allauth.socialaccount.signals import social_account_added
 from django.dispatch import receiver
 import qrcode
 
@@ -159,7 +159,7 @@ class UserProfile(models.Model):
     student_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Student ID')
     school_type = models.CharField(max_length=30, blank=True, default="High School")
     school_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='School Name')
-    age = models.CharField(max_length=30, blank=True, default="17-21")
+    age = models.CharField(max_length=30, blank=True, default="17t-21")
     smartphone = models.BooleanField(default=0)
     emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
     clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
@@ -290,17 +290,46 @@ class UserProfile(models.Model):
         if self.is_clean_ambassador():
             self.user.profile.clean_team_member.clean_team.add_team_clean_creds(amount, notification)
 
+    def get_my_challenges(self):
+        challenges = []
+
+        if self.is_clean_ambassador():
+            ctm = self.clean_team_member
+
+            try:
+                posted_challenges = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
+                challenges.append({ 'posted_challenges': posted_challenges })
+            except Exception, e:
+                print e
+
+            clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=ctm.clean_team).order_by("time_in")
+            challenges.append({ 'clean_team_challenges': clean_team_challenges })
+
+            try:
+                staples_challenge = StaplesChallenge.get_participating_store(ctm.clean_team)
+                challenges.append({ 'staples_challenge': staples_challenge })
+            except Exception, e:
+                print e
+
+        user_challenges = UserChallenge.objects.filter(user=self.user).order_by("time_in")
+        challenges.append({'user_challenges': user_challenges})
+
+        return challenges
+
+        return challenges
+
     def complete_level_task(self, task):
         level_progress, created = ProfileProgress.objects.get_or_create(user=self, profile_task=task)
 
         # Check if the task is already requesting an approval
-        if level_progress.approval_requested:
-            level_progress.approval_requested = False
-            level_progress.completed = True
-        elif task.approval_required:
-            level_progress.submit_for_approval()
-        else:
-            level_progress.completed = True
+        if not level_progress.completed:
+            if level_progress.approval_requested:
+                level_progress.approval_requested = False
+                level_progress.completed = True
+            elif task.approval_required:
+                level_progress.submit_for_approval()
+            else:
+                level_progress.completed = True
 
         level_progress.save()
 
@@ -321,6 +350,30 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User) 
 User.profile = property(lambda u: u.get_profile())
 
-@receiver(social_account_removed)
-def redirect_to_user_profile(sender, **kwargs):
-    print("Request finished!")
+@receiver(social_account_added)
+def user_social_progress(sender, sociallogin=None,  **kwargs):
+    if sociallogin:
+        if sociallogin.account.provider == 'linkedin':
+            task = ProfileTask.objects.get(name="social")
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'twitter':
+            task = ProfileTask.objects.get(name="social")
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'google':
+            task = ProfileTask.objects.get(name="social")
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'instagram':
+            task = ProfileTask.objects.get(name="social")
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)
+
+        if sociallogin.account.provider == 'facebook':
+            task = ProfileTask.objects.get(name="social")
+            sociallogin.user.profile.complete_level_task(task)
+            sociallogin.user.profile.add_clean_creds(5)

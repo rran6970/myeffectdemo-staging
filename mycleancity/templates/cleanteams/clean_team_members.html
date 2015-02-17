@@ -21,7 +21,7 @@
         <div id="white-box" class="team-members-ca">
 			{% csrf_token %}
 			<h1 id="team-name">{{ clean_team.name }}</h1>
-			<p class="subtitle">Edit team members</p>
+			<p class="subtitle">Edit team members    <a href="/clean-team/invite" class="edit-profile-link">Invite new members</a></p>
 			<div class="table-container">
 				<table class="table table-hover">
 					<thead>
