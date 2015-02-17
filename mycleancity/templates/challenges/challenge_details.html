@@ -4,6 +4,7 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/tags.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -66,14 +67,33 @@
   				<tr>
   					<td colspan="2"><span class="titles">Date and time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
           </tr>
-          
+          {% if challenge.address1 and challenge.province %}
   				<tr>
   					<td colspan="2"><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
   				</tr>
-          
+          {% elif challenge.country %}
+          <tr>
+            <td colspan="2"><span class="titles">Country:</span>{{ challenge.country }}</td>
+          </tr>
+          {% endif %}
           {% if challenge.link %}
           <tr>
             <td colspan="2"><a href="{{ challenge.link }}" target="_blank">External Link</a></td>
+          </tr>
+          {% endif %}
+          {% if skilltags %}
+          <tr>
+            <td colspan="2">
+              <div class ="skilltags-list">
+                <span class="titles">Tags:</span>
+                  <ul>
+                    {% for tag in skilltags %}
+                    <!--<span><a href="">{{ tag.skill_tag.skill_name }}</a>,&nbsp;</span>-->
+                    <li><a >{{ tag.skill_tag.skill_name }}</a></li>
+                    {% endfor %}
+                  <ul>
+              </div>
+            </td>
           </tr>
           {% endif %}
 

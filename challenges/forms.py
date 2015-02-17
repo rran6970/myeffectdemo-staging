@@ -70,10 +70,10 @@ class NewChallengeForm(forms.Form):
         self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
         self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
         self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
-        self.fields['address1'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
+        self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
         self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
-        self.fields['city'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-        self.fields['province'] = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
+        self.fields['city'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES)
         self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
@@ -87,7 +87,8 @@ class NewChallengeForm(forms.Form):
         self.fields['contact_phone'] = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class': 'phone-number'}), label="Phone number")
         self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 
-        self.fields['national_challenge'] = forms.BooleanField(label="This is a National CleanAct", required=False)
+        self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
+        self.fields['virtual_challenge'] = forms.BooleanField(label="This is a Virtual  Action", required=False)
         self.fields['clean_team_only'] = forms.BooleanField(label="This is only for Change Teams", required=False)
         self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
         self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -114,6 +115,7 @@ class NewChallengeForm(forms.Form):
         contact_phone = cleaned_data.get("contact_phone")
         contact_email = cleaned_data.get("contact_email")
         national_challenge = cleaned_data.get("national_challenge")
+        virtual_challenge = cleaned_data.get("virtual_challenge")
         clean_team_only = cleaned_data.get("clean_team_only")
         type = cleaned_data.get("type")
         challenge_id = cleaned_data.get("challenge_id")
@@ -138,18 +140,19 @@ class NewChallengeForm(forms.Form):
             raise forms.ValidationError("Please enter an ending event date")
         elif not event_end_time:
             raise forms.ValidationError("Please enter an ending event time")
-        elif not address1:
-            raise forms.ValidationError("Please enter an address")
-        elif not city:
-            raise forms.ValidationError("Please enter a city")
-        elif not province:
-            raise forms.ValidationError("Please select a province")
-        elif not country:
-            raise forms.ValidationError("Please enter a country")
-        elif not postal_code:
-            raise forms.ValidationError("Please enter a postal code")
         elif not description:
             raise forms.ValidationError("Please enter a description")
+        elif not national_challenge and not virtual_challenge:
+            if not country:
+                raise forms.ValidationError("Please enter a country")
+            elif not address1:
+                raise forms.ValidationError("Please enter an address")
+            elif not city:
+                raise forms.ValidationError("Please enter a city")
+            elif not province:
+                raise forms.ValidationError("Please select a province")
+            elif not postal_code:
+                raise forms.ValidationError("Please enter a postal code")
 
         return cleaned_data
 

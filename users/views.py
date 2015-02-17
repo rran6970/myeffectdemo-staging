@@ -3,6 +3,7 @@ import ftplib
 import json
 import os
 import tempfile
+import mailchimp
 
 from datetime import date
 
@@ -141,6 +142,7 @@ class RegisterView(FormView):
     def get(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+
         if 'invite_token' in request.session:
             token = request.session.get('invite_token')
             return HttpResponseRedirect('/register-invite/%s' % token)
@@ -209,6 +211,12 @@ class RegisterView(FormView):
         lang = u.profile.settings.communication_language
         
         # Send registration email to user
+        try:
+            list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
+            list.subscribe(form.cleaned_data['email'], {'EMAIL': form.cleaned_data['email'], 'FNAME': form.cleaned_data['first_name'], 'LNAME': form.cleaned_data['last_name']})
+        except Exception, e:
+            print e
+
         if lang == "English":
             template = get_template('emails/user_register_success.html')
             subject = 'My Effect - Signup Successful'
@@ -216,12 +224,12 @@ class RegisterView(FormView):
             template = get_template('emails/french/user_register_success_fr.html')
             subject = 'My Effect - Signup Successful'
         
-        content = Context({ 'first_name': form.cleaned_data['first_name'] })
+        #content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-        from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
+        #from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
 
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+        #send_email = SendEmail()
+        #send_email.send(template, content, subject, from_email, to)
 
 
         # Send notification email to administrator
@@ -319,15 +327,21 @@ class RegisterInviteView(FormView):
         lang = u.profile.settings.communication_language
         
         # Send registration email to user
-        template = get_template('emails/user_register_success.html')
-        subject = 'My Effect - Signup Successful'
+        try:
+            list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
+            list.subscribe(form.cleaned_data['email'], {'EMAIL': form.cleaned_data['email'], 'FNAME': form.cleaned_data['first_name'], 'LNAME': form.cleaned_data['last_name']})
+        except Exception, e:
+            print e
+
+        #template = get_template('emails/user_register_success.html')
+        #subject = 'My Effect - Signup Successful'
         
-        content = Context({ 'first_name': form.cleaned_data['first_name'] })
+        #content = Context({ 'first_name': form.cleaned_data['first_name'] })
 
-        from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
+        #from_email, to = 'info@mycleancity.org', form.cleaned_data['email']
 
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+        #send_email = SendEmail()
+        #send_email.send(template, content, subject, from_email, to)
 
 
         # Send notification email to administrator

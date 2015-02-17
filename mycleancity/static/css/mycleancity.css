@@ -669,9 +669,9 @@ div.container#register-join-team {  }
 #white-box.new-challenge input[type="submit"] { width: 296px; font-size: 16px; margin: 20px auto 0; }
 #white-box.new-challenge .subtitle { display: block; margin: 0 0 19px 0; }
 #white-box.new-challenge #id_link { width: 425px; }
+#white-box.new-challenge #id_host_is_clean_team,
 #white-box.new-challenge #id_national_challenge,
-#white-box.new-challenge #id_clean_team_only { float: left; margin-right: 5px; }
-#white-box.new-challenge #host_is_clean_team_container { margin-bottom: 20px; }
+#white-box.new-challenge #id_virtual_challenge { float: right; margin-right: 5px; }
 
 /******************************
 	Challenge Centre

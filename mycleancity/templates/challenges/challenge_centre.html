@@ -4,6 +4,7 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/tags.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -67,6 +68,16 @@
                 {% endif %}
       					
                 <div class="clear"></div>
+                <div class ="skilltags-list">
+                <h2>Tags:</h2>
+                  <ul>
+                    {% for tag in skilltags %}
+                      {% if tag.challenge == challenge %}
+                      <li><a >{{ tag.skill_tag.skill_name }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                  <ul>
+              </div>
 
       					<p>{{ challenge.description|slice:":180" }}...</p>
       				</div>

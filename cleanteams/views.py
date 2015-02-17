@@ -80,6 +80,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         ct.name = form.cleaned_data['name']
         ct.region = form.cleaned_data['region']
         ct.group = form.cleaned_data['group']
+        ct.org_profile = orgprofile
 
         ct.contact_user = user
         ct.contact_phone = form.cleaned_data['contact_phone']
