@@ -151,8 +151,8 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
             template = get_template('emails/french/clean_team_register_fr.html')
             subject = 'My Effect - Welcome to Our Team!'
         uri = self.request.build_absolute_uri()
-        level_progress_uri = u'%s/clean-team/level-progress' uri
-        content = Context({ 'email': user.email, 'first_name': user.first_name 'level_progress_uri': level_progress_uri})
+        level_progress_uri = u'%s/clean-team/level-progress' %uri
+        content = Context({ 'email': user.email, 'first_name': user.first_name, 'level_progress_uri': level_progress_uri})
 
         from_email, to = 'info@myeffect.ca', user.email
 
