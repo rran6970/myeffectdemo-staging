@@ -89,7 +89,7 @@
                   <ul>
                     {% for tag in skilltags %}
                     <!--<span><a href="">{{ tag.skill_tag.skill_name }}</a>,&nbsp;</span>-->
-                    <li><a >{{ tag.skill_tag.skill_name }}</a></li>
+                    <li><a href="/challenges/?q={{ tag.skill_tag.skill_name }}">{{ tag.skill_tag.skill_name }}</a></li>
                     {% endfor %}
                   <ul>
               </div>

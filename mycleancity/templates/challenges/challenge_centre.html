@@ -73,7 +73,7 @@
                   <ul>
                     {% for tag in skilltags %}
                       {% if tag.challenge == challenge %}
-                      <li><a >{{ tag.skill_tag.skill_name }}</a></li>
+                      <li><a href="/challenges/?q={{ tag.skill_tag.skill_name }}">{{ tag.skill_tag.skill_name }}</a></li>
                       {% endif %}
                     {% endfor %}
                   <ul>

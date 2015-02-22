@@ -582,7 +582,9 @@ class Challenge(models.Model):
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
 
-        predicates.add(Q(title__icontains=query) | Q(city__icontains=query), predicates.connector)
+        tags = SkillTag.objects.filter(skill_name__icontains=query)
+        challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
+        predicates.add(Q(title__icontains=query) | Q(city__icontains=query) | Q(challengeskilltag__in=challenges_tags), predicates.connector)
 
         if limit:
             challenges = Challenge.objects.filter(predicates).order_by('-promote_top')[:limit]
