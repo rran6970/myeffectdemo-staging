@@ -189,6 +189,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.twitter',
     'parsley',
+    'mailchimp',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -243,6 +244,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
+
+MAILCHIMP_API_KEY = 'f6ad2ba74b01cf949e699362413aa6db-us9'
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 

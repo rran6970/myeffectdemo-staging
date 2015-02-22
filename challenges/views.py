@@ -173,8 +173,9 @@ class ChallengeCentreView(TemplateView):
             clean_team_only = request.GET['clean_team_only']
 
         challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
+        skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
-        return render(request, self.template_name, {'challenges': challenges})
+        return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags})
 
     def get_context_data(self, **kwargs):
         context = super(ChallengeCentreView, self).get_context_data(**kwargs)
@@ -504,7 +505,9 @@ class ChallengeView(TemplateView):
                     context['user_challenge'] = user_challenge
 
                 context['staples_stores'] = staples_stores
-
+            skilltags = ChallengeSkillTag.objects.filter(challenge=challenge)
+            if skilltags:
+                context['skilltags'] = skilltags
             context['challenge'] = challenge
             context['count'] = sum(1 for participant in participants)
             context['participants'] = participants

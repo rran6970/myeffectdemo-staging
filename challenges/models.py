@@ -131,7 +131,7 @@ class Challenge(models.Model):
     event_start_time = models.TimeField(blank=True, null=True)
     event_end_date = models.DateField(blank=True, null=True)
     event_end_time = models.TimeField(blank=True, null=True)
-    address1 = models.CharField(max_length=60, blank=False, verbose_name="Address")
+    address1 = models.CharField(max_length=60, blank=True, verbose_name="Address")
     address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
     city = models.CharField(max_length=60, blank=True, verbose_name='City')
     province = models.CharField(max_length=60, blank=True, verbose_name='Province')
@@ -145,6 +145,7 @@ class Challenge(models.Model):
     last_updated_by = models.ForeignKey(User, related_name='user_last_updated_by')
     clean_creds_per_hour = models.IntegerField(default=0)
     national_challenge = models.BooleanField(default=False)
+    virtual_challenge = models.BooleanField(default=False)
     type = models.ForeignKey(ChallengeType, blank=True, null=True, default=1)
     qr_code = models.OneToOneField(ChallengeQRCode, null=True, blank=True)
     token = models.CharField(max_length=20, blank=True)
@@ -182,6 +183,7 @@ class Challenge(models.Model):
         self.description = form['description']
         self.link = form['link']
         self.national_challenge = form['national_challenge']
+        self.virtual_challenge = form['virtual_challenge']
         self.clean_team_only = form['clean_team_only']
 
         self.organization = form['organization']
@@ -580,7 +582,9 @@ class Challenge(models.Model):
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
 
-        predicates.add(Q(title__icontains=query) | Q(city__icontains=query), predicates.connector)
+        tags = SkillTag.objects.filter(skill_name__icontains=query)
+        challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
+        predicates.add(Q(title__icontains=query) | Q(city__icontains=query) | Q(challengeskilltag__in=challenges_tags), predicates.connector)
 
         if limit:
             challenges = Challenge.objects.filter(predicates).order_by('-promote_top')[:limit]

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title></title>
+      <style>
+        body { font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #666; font-weight: 300; }
+        .button { display: block; height: 40px; width: 235px; background: url(images/email-button.png) no-repeat 0 0; }
+      </style>
+  </head>
+  <body>
+    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+      <tr>
+        <td align="center" valign="top">
+          <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+            <tr>
+              <td align="center" valign="top">
+                <a href="/"><img src="http://www.mycleancity.org/static/images/logo-my-effect-yellow-250x243.png" alt="My Effect" /></a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              	<p>Hey {{ email }},</p>
+
+                <p>You've been invited to join My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> by {{ user.first_name }} {{ user.last_name }} and become a Change Leader of of their team,{{ user.profile.clean_team_member.clean_team.name }}.</p>
+                <p>As a Change Leader you will become a manager of {{ user.profile.clean_team_member.clean_team.name }}, and receive access to upload team Actions and post to {{ user.profile.clean_team_member.clean_team.name }}’s page.</p>
+        			  <p><a href="{{ invite_full_uri }}"><span style="display:inline;font-family:'Helvetica',Arial,sans-serif;text-decoration:none;font-weight:500;font-style:normal;font-size:20px; padding:10px; line-height:42px;border:none;background-color:#ffd430!important;color:#000000!important">Accept the invite.</span></a></p>
+
+                <p>Warm Regards,</p>
+
+                <p>My Effect Team</p>
+                <p>---------</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:11px;">
+                <p>My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM </span></p>
+                <p>1061 Queen's Blvd,</p>
+                <p>Kitchener, ON</p>
+                <p><a href="mailto:subscriptions@myeffect.ca" target="_blank">subscriptions@myeffect.ca</a></p>
+
+                <p>You are receiving this email because {{ user.first_name }} {{ user.last_name }} has indicated they know you and has your consent to send you electronic communications. If you are receiving this message in error or would not like to receive any further My Effect invites please  decline your invite <a href="{{ unsubscribe_full_uri }}">here</a>.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

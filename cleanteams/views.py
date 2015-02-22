@@ -80,6 +80,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         ct.name = form.cleaned_data['name']
         ct.region = form.cleaned_data['region']
         ct.group = form.cleaned_data['group']
+        ct.org_profile = orgprofile
 
         ct.contact_user = user
         ct.contact_phone = form.cleaned_data['contact_phone']
@@ -145,12 +146,13 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         # Send registration email to user
         if lang == "English":
             template = get_template('emails/clean_team_register.html')
-            subject = 'My Effect - Change Team Signup Successful'
+            subject = 'My Effect - Welcome to Our Team!'
         else:
             template = get_template('emails/french/clean_team_register_fr.html')
-            subject = 'My Effect - Change Team Signup Successful'
-
-        content = Context({ 'email': user.email, 'first_name': user.first_name })
+            subject = 'My Effect - Welcome to Our Team!'
+        uri = self.request.build_absolute_uri()
+        level_progress_uri = u'%s/clean-team/level-progress' %uri
+        content = Context({ 'email': user.email, 'first_name': user.first_name, 'level_progress_uri': level_progress_uri})
 
         from_email, to = 'info@myeffect.ca', user.email
 
@@ -696,8 +698,6 @@ class InviteView(LoginRequiredMixin, FormView):
         role = form.cleaned_data['role']
         uri = self.request.build_absolute_uri()
 
-        print email
-
         emails = re.split(',', email)
 
         for e in emails:
@@ -894,102 +894,102 @@ class CleanTeamPresentationView(LoginRequiredMixin, FormView):
         return context
 
 # Check if the invitee email address is a registered User
-    def invite_check(request, token):
-        if token:
-            request.session['invite_token'] = token
-            try:
-                invite = CleanTeamInvite.objects.get(token=token)
-                user = User.objects.get(email=invite.email)
-            except User.DoesNotExist, e:
-                return HttpResponseRedirect('/register-invite/%s' % invite.token)
-            except Invite.DoesNotExist, e:
-                print e
-            except Exception, e:
-                print e
+def invite_check(request, token):
+    if token:
+        request.session['invite_token'] = token
+        try:
+            invite = CleanTeamInvite.objects.get(token=token)
+            user = User.objects.get(email=invite.email)
+        except User.DoesNotExist, e:
+            return HttpResponseRedirect('/register-invite/%s' % invite.token)
+        except Invite.DoesNotExist, e:
+            print e
+        except Exception, e:
+            print e
 
-        return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
+    return HttpResponseRedirect('/clean-team/invite-response/%s' % invite.token)
 
-    # Check if the referee email address is a registered User
-    def referral_check(request, token):
-        if token:
-            request.session['referral_token'] = token
-            try:
-                referral = LeaderReferral.objects.get(token=token)
-                user = User.objects.get(email=referral.email)
-            except User.DoesNotExist, e:
-                return HttpResponseRedirect('/register/')
-            except referral.DoesNotExist, e:
-                print e
-            except Exception, e:
-                print e
+# Check if the referee email address is a registered User
+def referral_check(request, token):
+    if token:
+        request.session['referral_token'] = token
+        try:
+            referral = LeaderReferral.objects.get(token=token)
+            user = User.objects.get(email=referral.email)
+        except User.DoesNotExist, e:
+            return HttpResponseRedirect('/register/')
+        except referral.DoesNotExist, e:
+            print e
+        except Exception, e:
+            print e
 
-        return HttpResponseRedirect('/clean-team/register-clean-team/')
+    return HttpResponseRedirect('/clean-team/register-clean-team/')
 
 # On the Change Team's Profile
-    def request_join_clean_team(request):
-        if request.method == 'POST':
-            ctid = request.POST.get('ctid')
+def request_join_clean_team(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
 
-            try:
-                selected_team = CleanTeam.objects.get(id=ctid)
-                ctm = CleanTeamMember.objects.get(user=request.user)
-            except Exception, e:
-                print e
-                ctm = CleanTeamMember()
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            ctm = CleanTeamMember.objects.get(user=request.user)
+        except Exception, e:
+            print e
+            ctm = CleanTeamMember()
 
-            # if not ctm.has_max_clean_ambassadors():
-            ctm.requestBecomeCleanAmbassador(request.user, selected_team)
-            # else:
-                #TODO: Message saying that the Change Team ambassador count is full
-                # pass
+        # if not ctm.has_max_clean_ambassadors():
+        ctm.requestBecomeCleanAmbassador(request.user, selected_team)
+        # else:
+            #TODO: Message saying that the Change Team ambassador count is full
+            # pass
 
-        return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
-    def be_clean_champion(request):
-        if request.method == 'POST':
-            ctid = request.POST.get('ctid')
+def be_clean_champion(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
 
-            try:
-                selected_team = CleanTeam.objects.get(id=ctid)
-                clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
-            except Exception, e:
-                print e
-                clean_champion = CleanChampion()
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            clean_champion = CleanChampion.objects.get(user=request.user, clean_team=selected_team)
+        except Exception, e:
+            print e
+            clean_champion = CleanChampion()
 
-            clean_champion.becomeCleanChampion(request.user, selected_team)
+        clean_champion.becomeCleanChampion(request.user, selected_team)
 
-        return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
-    # Coming from the email invite link
-    def accept_invite(request, token):
-        invite = CleanTeamInvite.objects.get(token=token)
+# Coming from the email invite link
+def accept_invite(request, token):
+    invite = CleanTeamInvite.objects.get(token=token)
 
-        if not invite.accept_invite():
-            return HttpResponseRedirect('/register-invite/')
+    if not invite.accept_invite():
+        return HttpResponseRedirect('/register-invite/')
 
-        return HttpResponseRedirect('/clean-team/invite/')
+    return HttpResponseRedirect('/clean-team/invite/')
 
-    def clean_team_member_action(request):
-        if request.method == 'POST' and request.is_ajax:
-            ctid = request.POST['ctid']
-            uid = request.POST['uid']
-            action = request.POST['action']
+def clean_team_member_action(request):
+    if request.method == 'POST' and request.is_ajax:
+        ctid = request.POST['ctid']
+        uid = request.POST['uid']
+        action = request.POST['action']
 
-            clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
+        clean_team_member = CleanTeamMember.objects.get(clean_team_id=ctid, user_id=uid)
 
-            if action == "approve" and request.POST['role']:
-                if request.POST['role'] == "leader":
-                    clean_team_member.approveCleanAmbassador()
-                elif request.POST['role'] == "agent":
-                    u = User.objects.get(id=uid)
-                    ct = CleanTeam.objects.get(id=ctid)
-                    try:
-                        clean_champion = CleanChampion.objects.get(user=u, clean_team=ct)
-                    except Exception, e:
-                        clean_champion = CleanChampion()
-                        clean_champion.becomeCleanChampion(u, ct)
-                        clean_team_member.removedCleanAmbassador()
-            elif action == "remove":
-                clean_team_member.removedCleanAmbassador()
+        if action == "approve" and request.POST['role']:
+            if request.POST['role'] == "leader":
+                clean_team_member.approveCleanAmbassador()
+            elif request.POST['role'] == "agent":
+                u = User.objects.get(id=uid)
+                ct = CleanTeam.objects.get(id=ctid)
+                try:
+                    clean_champion = CleanChampion.objects.get(user=u, clean_team=ct)
+                except Exception, e:
+                    clean_champion = CleanChampion()
+                    clean_champion.becomeCleanChampion(u, ct)
+                    clean_team_member.removedCleanAmbassador()
+        elif action == "remove":
+            clean_team_member.removedCleanAmbassador()
 
-        return HttpResponse("success")
+    return HttpResponse("success")
