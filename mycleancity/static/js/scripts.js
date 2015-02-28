@@ -126,29 +126,34 @@ $(function(){
     $('#search-box')
         .data('timeout', null)
         .keyup(function(){
+            $("#city-search-box").val("");
+            $("#tag-search-box").val("");
+            $("#title-search-box").val("");
             clearTimeout($(this).data('timeout'));
             $(this).data('timeout', setTimeout(function(e){
-                showSearchResults(e, search_box)
+                showSearchResults(e);
             }, 500));
     });
+    $('.advanced-search-box')
+        .data('timeout', null)
+        .keyup(function(){
+            $('#search-box').val("");
+            clearTimeout($(this).data('timeout'));
+            $(this).data('timeout', setTimeout(function(e){
+                showSearchResults(e);
+            }, 500));
+    });
+
     $("#national-challenge-checkbox").on("click", function(e){
-        showSearchResults(e, search_box);
+        showSearchResults(e);
     });
     $("#clean-team-only-checkbox").on("click", function(e){
-        showSearchResults(e, search_box);
+        showSearchResults(e);
     });
     
     // $('form.participation-forms').on('submit', ajaxParticipation);
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
-
-    // Enable question 5 if there is an answer selected
-    var question_5 = $("input[name='question_5']");
-
-    if (question_5.is(':checked'))
-    {
-        question_5.prop('disabled', false);
-    }
 
     // Posted Challenge host is Change Team
     $("#id_host_is_clean_team").on("click", hostIsCleanTeam);
@@ -342,15 +347,33 @@ function postMessage(e)
     return false;
 }
 
-function showSearchResults(e, search_box)
+function showSearchResults(e)
 {
     var search_result_dropdown = $(".search-result-dropdown");
     var search_result_list = $(".search-result-dropdown ul");
-    var value = search_box.val();
+    var value = $("#search-box").val();
+    var city = $("#city-search-box").val();
+    var tag = $("#tag-search-box").val();
+    var title = $("#title-search-box").val();
     var national_challenges = $("#national-challenge-checkbox").is(':checked');
     var clean_team_only = $("#clean-team-only-checkbox").is(':checked');
 
     var challenge_url = '/challenges/?q=' + value;
+
+    if (city != "")
+    {
+        challenge_url += '&city='+ city;
+    }
+
+    if (tag != "")
+    {
+        challenge_url += '&tag='+ tag;
+    }
+
+    if (title != "")
+    {
+        challenge_url += '&title='+ title;
+    }
 
     if (national_challenges != "")
     {
@@ -365,13 +388,16 @@ function showSearchResults(e, search_box)
     $("#view-all-challenges").attr('href', challenge_url);
     $("#search-form").attr('action', challenge_url);
 
-    if(value || national_challenges == true || clean_team_only == true)
+    if(value || city || tag || title || national_challenges == true || clean_team_only == true)
     {
         $.ajax({
             type: 'GET',
             url: '/challenges/search/',
             data: { 
                 'q': value,
+                'city': city,
+                'tag': tag,
+                'title': title,
                 'national_challenges': national_challenges,
                 'clean_team_only': clean_team_only
             },

@@ -102,8 +102,13 @@
 	      <div class="input-group-btn">
 	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
+	        	<li><span>Advanced Search:</span></li>
+	        	<li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
+	        	<li><span><input autocomplete="off" id="tag-search-box" class="advanced-search-box" type="text" placeholder="Tag"></span></li>
+	        	<li><span><input autocomplete="off" id="title-search-box" class="advanced-search-box" type="text" placeholder="Title"></span></li>
 				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
 				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Change Team Actions</label></span></li>
+				
 	        </ul>
 	      </div><!-- /btn-group -->
 	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by title, city or tag" />
