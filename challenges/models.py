@@ -630,13 +630,16 @@ class Challenge(models.Model):
         for c in challenges:
             pk = c.id
             type = c.type.id
-            clean_team = c.clean_team.id
+            try:
+                clean_team = c.clean_team
+            except Exception, e:
+                clean_team = None
+                print e
 
-            clean_team = CleanTeam.objects.get(id=clean_team)
             list_start = "<li><a href='/challenges/%s/'>" % (pk)
             list_end = "</a></li>"
 
-            if clean_team.logo:
+            if clean_team and clean_team.logo:
                 logo = "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, clean_team.logo)
             else:
                 logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
