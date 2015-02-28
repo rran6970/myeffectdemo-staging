@@ -144,10 +144,15 @@ def check_out_all(request):
 
 def dropdown_search_for_challenges(request):
     query = request.GET['q']
+    city = request.GET['city']
+    tag = request.GET['tag']
+    title = request.GET['title']
     national_challenges = request.GET['national_challenges']
     clean_team_only = request.GET['clean_team_only']
-
-    challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
+    if query:
+        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
+    else:
+        challenges = Challenge.advenced_search_challenges(city, tag, title, national_challenges, clean_team_only, 10)
     challenges_json = Challenge.search_results_to_json(challenges)
 
     if challenges_json != "{}":
@@ -160,19 +165,31 @@ class ChallengeCentreView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = ""
+        city = ""
+        tag = ""
+        title = ""
         national_challenges = False
         clean_team_only = False
 
         if 'q' in request.GET:
             query = request.GET['q']
-
+            if not query:
+                if 'city' in request.GET:
+                    city = request.GET['city']
+                if 'tag' in request.GET:
+                    tag = request.GET['tag']
+                if 'title' in request.GET:
+                    title = request.GET['title']
         if 'national_challenges' in request.GET:
             national_challenges = request.GET['national_challenges']
 
         if 'clean_team_only' in request.GET:
             clean_team_only = request.GET['clean_team_only']
 
-        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
+        if city or tag or title:
+            challenges = Challenge.advenced_search_challenges(city, tag, title, national_challenges, clean_team_only)
+        else:
+            challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
         return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags})

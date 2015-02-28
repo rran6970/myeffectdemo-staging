@@ -587,9 +587,38 @@ class Challenge(models.Model):
         predicates.add(Q(title__icontains=query) | Q(city__icontains=query) | Q(challengeskilltag__in=challenges_tags), predicates.connector)
 
         if limit:
-            challenges = Challenge.objects.filter(predicates).order_by('-promote_top')[:limit]
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')[:limit]
         else:
-            challenges = Challenge.objects.filter(predicates).order_by('-promote_top')
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')
+
+        return challenges
+
+    @staticmethod
+    def advenced_search_challenges(city, tag, title, national_challenges=False, clean_team_only=False, limit=False):
+        today = datetime.datetime.now()
+
+        predicates = Q(event_end_date__gte=today)
+
+        if national_challenges == "true" or national_challenges == "on":
+            predicates.add(Q(national_challenge=True), predicates.connector)
+
+        if clean_team_only == "true" or clean_team_only == "on":
+            predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if city:
+            predicates.add(Q(city__icontains=city), predicates.connector)
+
+        if tag:
+            tags = SkillTag.objects.filter(skill_name__icontains=tag)
+            challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
+            predicates.add(Q(challengeskilltag__in=challenges_tags), predicates.connector)
+
+        if title:
+            predicates.add(Q(title__icontains=title), predicates.connector)
+        if limit:
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')[:limit]
+        else:
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')
 
         return challenges
 
