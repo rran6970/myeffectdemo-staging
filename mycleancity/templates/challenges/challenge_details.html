@@ -56,7 +56,7 @@
             </tr>
           {% endif %}
           <tr>
-            <td colspan="2"><span class="titles">Category:</span> <span class="bold"><a href="/challenges/?cat={{ challenge.category }}">{{ challenge.get_category }}</a></span></td>
+            <td colspan="2"><span class="titles">Category:</span> <span class="bold"><a href="/challenges/?q=&amp;cat={{ challenge.category }}">{{ challenge.get_category }}</a></span></td>
           </tr>
           <tr>
             <td colspan="2"><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
