@@ -129,6 +129,7 @@ $(function(){
             $("#city-search-box").val("");
             $("#tag-search-box").val("");
             $("#title-search-box").val("");
+            $("#category-search-selection").val("");
             clearTimeout($(this).data('timeout'));
             $(this).data('timeout', setTimeout(function(e){
                 showSearchResults(e);
