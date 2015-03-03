@@ -147,12 +147,13 @@ def dropdown_search_for_challenges(request):
     city = request.GET['city']
     tag = request.GET['tag']
     title = request.GET['title']
+    cat = request.GET['cat']
     national_challenges = request.GET['national_challenges']
     clean_team_only = request.GET['clean_team_only']
     if query:
         challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
     else:
-        challenges = Challenge.advenced_search_challenges(city, tag, title, national_challenges, clean_team_only, 10)
+        challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, 10)
     challenges_json = Challenge.search_results_to_json(challenges)
 
     if challenges_json != "{}":
@@ -168,6 +169,7 @@ class ChallengeCentreView(TemplateView):
         city = ""
         tag = ""
         title = ""
+        cat = ""
         national_challenges = False
         clean_team_only = False
 
@@ -180,14 +182,16 @@ class ChallengeCentreView(TemplateView):
                     tag = request.GET['tag']
                 if 'title' in request.GET:
                     title = request.GET['title']
+                if 'cat' in request.GET:
+                    cat = request.GET['cat']
         if 'national_challenges' in request.GET:
             national_challenges = request.GET['national_challenges']
 
         if 'clean_team_only' in request.GET:
             clean_team_only = request.GET['clean_team_only']
 
-        if city or tag or title:
-            challenges = Challenge.advenced_search_challenges(city, tag, title, national_challenges, clean_team_only)
+        if city or tag or title or cat:
+            challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only)
         else:
             challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)

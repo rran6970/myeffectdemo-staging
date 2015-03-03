@@ -47,7 +47,7 @@ $(function(){
     $(".notification-mark-read").on('click', ajaxQuickReadNotification);
     $(".notification-mark-unread").on('click', ajaxQuickUnreadNotification);
 
-    $('.dropdown-menu input, .dropdown-menu label').click(function(e) {
+    $('.dropdown-menu input, .dropdown-menu select, .dropdown-menu label').click(function(e) {
         e.stopPropagation();
     });
     
@@ -142,6 +142,11 @@ $(function(){
             $(this).data('timeout', setTimeout(function(e){
                 showSearchResults(e);
             }, 500));
+    });
+
+    $("#category-search-selection").on("change", function(e){
+        $('#search-box').val("");
+        showSearchResults(e);
     });
 
     $("#national-challenge-checkbox").on("click", function(e){
@@ -355,6 +360,7 @@ function showSearchResults(e)
     var city = $("#city-search-box").val();
     var tag = $("#tag-search-box").val();
     var title = $("#title-search-box").val();
+    var cat = $("#category-search-selection").val();
     var national_challenges = $("#national-challenge-checkbox").is(':checked');
     var clean_team_only = $("#clean-team-only-checkbox").is(':checked');
 
@@ -375,6 +381,11 @@ function showSearchResults(e)
         challenge_url += '&title='+ title;
     }
 
+    if (cat != "")
+    {
+        challenge_url += '&cat='+ cat;
+    }
+
     if (national_challenges != "")
     {
         challenge_url += '&national_challenges=on';
@@ -388,7 +399,7 @@ function showSearchResults(e)
     $("#view-all-challenges").attr('href', challenge_url);
     $("#search-form").attr('action', challenge_url);
 
-    if(value || city || tag || title || national_challenges == true || clean_team_only == true)
+    if(value || city || tag || title || cat || national_challenges == true || clean_team_only == true)
     {
         $.ajax({
             type: 'GET',
@@ -398,6 +409,7 @@ function showSearchResults(e)
                 'city': city,
                 'tag': tag,
                 'title': title,
+                'cat': cat,
                 'national_challenges': national_challenges,
                 'clean_team_only': clean_team_only
             },

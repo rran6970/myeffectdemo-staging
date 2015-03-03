@@ -25,6 +25,21 @@ PROVINCES = (('', 'Please select one...'),
     ('YU', 'YU'),
 )
 
+WEEKDAYS = (('-1', '------Select------'),
+    ('0', 'Monday'),
+    ('1', 'Tuesday'),
+    ('2', 'Wednesday'),
+    ('3', 'Thursday'),
+    ('4', 'Friday'),
+    ('5', 'Saturday'),
+    ('6', 'Sunday'),
+)
+
+EVENTTYPES = (('ongoing', 'Ongoing Event'),
+    ('onetime', 'One Time Event'),
+    ('weekly', 'Weekly Event'),
+)
+
 class UserVoucherForm(forms.Form):
     voucher = forms.CharField(required=True, max_length=60, min_length=2, label="Voucher Code", widget=forms.TextInput())
     user_id = forms.CharField(required=True, max_length=60, widget=forms.HiddenInput())
@@ -70,11 +85,13 @@ class NewChallengeForm(forms.Form):
         self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
         self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
         self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_type'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=EVENTTYPES, label="Event Type")
+        self.fields['day_of_week'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=WEEKDAYS)
         self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
         self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
         self.fields['city'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES)
-        self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+        #self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
         self.fields['tags'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), choices=skilltags_choices, label="Skill Tags")
@@ -90,7 +107,7 @@ class NewChallengeForm(forms.Form):
         self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
         self.fields['virtual_challenge'] = forms.BooleanField(label="This is a Virtual  Action", required=False)
         self.fields['clean_team_only'] = forms.BooleanField(label="This is only for Change Teams", required=False)
-        self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
+        self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all(), label="Change Creds Rate")
         self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def clean(self):
@@ -100,12 +117,14 @@ class NewChallengeForm(forms.Form):
         event_start_time = cleaned_data.get("event_start_time")
         event_end_date = cleaned_data.get("event_end_date")
         event_end_time = cleaned_data.get("event_end_time")
+        event_type = cleaned_data.get("event_type")
+        day_of_week = cleaned_data.get("day_of_week")
         address1 = cleaned_data.get("address1")
         address2 = cleaned_data.get("address2")
         city = cleaned_data.get("city")
         province = cleaned_data.get("province")
         country = cleaned_data.get("country")
-        postal_code = cleaned_data.get("postal_code")
+        #postal_code = cleaned_data.get("postal_code")
         tags = cleaned_data.get("tags")
         description = cleaned_data.get("description")
         link = cleaned_data.get("link")
@@ -151,8 +170,8 @@ class NewChallengeForm(forms.Form):
                 raise forms.ValidationError("Please enter a city")
             elif not province:
                 raise forms.ValidationError("Please select a province")
-            elif not postal_code:
-                raise forms.ValidationError("Please enter a postal code")
+            #elif not postal_code:
+                #raise forms.ValidationError("Please enter a postal code")
 
         return cleaned_data
 

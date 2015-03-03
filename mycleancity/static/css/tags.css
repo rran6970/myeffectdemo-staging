@@ -122,7 +122,8 @@
 #show-tags{padding-top:10px; padding-left:10px; display: block; cursor: pointer;}
 #hide-tags{padding:5px; display: block; cursor: pointer;}
 
-.skilltags-list { width: 100%; height: 100%; min-height: 20px; display: -webkit-box;}
+.skilltags-list { padding-top:3px; width: 100%; height: 100%; min-height: 20px; display: -webkit-box;}
+.skilltags-list h2 { margin-top: 5px; margin-bottom: 0 !important; font-size: 15px; font-weight: 700;}
 .skilltags-list ul { margin: 0;}
 .skilltags-list li, .skilltags-list a{
   float:left;
