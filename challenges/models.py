@@ -505,6 +505,7 @@ class Challenge(models.Model):
 
             if user.profile.is_clean_ambassador():
                 if user.profile.clean_team_member.clean_team.level.name == "Seedling":
+                    clean_team = user.profile.clean_team_member.clean_team
                     count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
                     count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
 

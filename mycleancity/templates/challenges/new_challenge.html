@@ -3,13 +3,13 @@
 {% block title %} My Effect - New Action {% endblock %}
 
 {% block css %}
+<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
   <link href="{{ STATIC_URL }}css/tags.css" rel="stylesheet">
   <link rel="import" href="{{ STATIC_URL }}bower_components/core-tooltip/core-tooltip.html">
 {% endblock %}
 
 {% block content %}
-
 <div class="wrapper public">
   <div class="clouds"></div>
 
@@ -154,7 +154,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
 <script>
 $( document ).ready(function() {
 	$( '.selected-tags input[type="checkbox"]:checked' ).each(function( index ) {
