@@ -237,7 +237,6 @@ DJANGO_WYSIWYG_FLAVOR = 'yui'
 AWS_ACCESS_KEY_ID = 'AKIAJLI4AHTNZQXEOA4Q'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_BUCKET = 'myeffectproduction'
-#AWS_BUCKET = 'myeffectstaging'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_BUCKET
 MEDIA_URL = S3_URL
