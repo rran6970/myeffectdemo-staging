@@ -107,6 +107,10 @@ pip uninstall pillow
 pip install -r requirements.txt
 ~~~~
 
+If running manage.py locally, you'll need to specify which settings file to use.  You can create your own, or use someone elses.  
+
+More details on this are here: https://docs.djangoproject.com/en/1.7/topics/settings/
+
 * Creating a database failed to alter a time field.  Fix:
 * * Update Django to the latest release 1.7.1.
 * * Remove "south" from requirements.txt and from settings.py.
@@ -146,23 +150,7 @@ python manage.py syncdb
 This loads default data into the database as defined by fixtures within
 the `users` app.
 
-If running locally, open settings.py and comment out:
-~~~~
-DATABASES['default'] = dj_database_url.config()
-~~~~
 
-Also, change:
-
-~~~~
-DEBUG = False to DEBUG = True
-~~~~
-    
-Uncomment the following line 
-~~~~ 
-AWS_BUCKET = 'mycleancitystaging'
-~~~~
-
-* _[Zeeshan Syed](https://bitbucket.org/syedzee) knows a more efficient way of doing this, but he didn't have time._
 
 At this point you are ready to run the development server:
 ~~~~
