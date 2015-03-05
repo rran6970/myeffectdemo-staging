@@ -4,7 +4,6 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
-  <link rel="import" href="{{ STATIC_URL }}bower_components/core-pages/core-pages.html">
 {% endblock %}
 
 {% block content %}
@@ -21,10 +20,9 @@
 
   <div class="content">
     <div class="container">
-      	<a id="btn-previous-survey" onclick="previous();"><div class="sign new-challenge-survey" id="sign-go-back"></div></a>
+      	<a id="btn-previous-survey" onclick="history.go(-1); return false;"><div class="sign new-challenge-survey" id="sign-go-back"></div></a>
       	<div id="white-box" class="new-challenge-survey">
-      		<form id="action-survey-frm" autocomplete="off" action="" method="post" data-parsley-validate data-parsley-trigger="change" data-parsley-focus="none">{% csrf_token %}
-	      	<core-pages selected="0">
+      		<form id="action-survey-frm" autocomplete="off" action="" method="post" data-parsley-validate data-parsley-trigger="change">{% csrf_token %}
 	      	<div>
 	      		<h2>Actions Survey Questions</h2>
       			<span class="subtitle">Please fill out our survey to calculate the <span class="blue bold">Change</span> <span class="gold bold">Creds</span></span>
@@ -40,9 +38,7 @@
 				{% endfor %}
 				</section>
 				<input class="btn btn-primary" type="submit" value="Submit" /></div>
-			</core-pages>
 			</form>
-			<input id="btn-next-survey" class="btn btn-primary" type="button" value="Next" onclick="next();" />
 		</div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
@@ -54,10 +50,18 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
-
 <script>
   $( document ).ready(function() {
+    var page = $("#id_category").closest('div');
+    if ($("#id_category").val() == "Environment"){
+      page.next().fadeIn();
+      page.next().next().fadeIn();
+    }
+    else{
+      page.next().fadeOut();
+      page.next().next().fadeOut();
+    }
+
   	$( ":radio" ).each(function( index ) {
   		var ul = $(this).closest('ul');
   		var error = $('.parsley-errors-list', ul);
@@ -66,9 +70,6 @@
   			error = null;
   		}
 	});
-
-  	var pages = document.querySelector('core-pages');
-  	pages.selected = 0;
   	$('.subquestions').hide();
   });
 
@@ -138,5 +139,17 @@
     	$('input', page).attr('data-parsley-required', 'false');
     }
 	});
+
+  $("#id_category").on("change", function(e){
+    var page = $(this).closest('div');
+    if ($(this).val() == "Environment"){
+      page.next().fadeIn();
+      page.next().next().fadeIn();
+    }
+    else{
+      page.next().fadeOut();
+      page.next().next().fadeOut();
+    }
+  });
 </script>
 {% endblock %}

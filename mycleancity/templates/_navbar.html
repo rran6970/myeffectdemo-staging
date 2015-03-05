@@ -102,11 +102,34 @@
 	      <div class="input-group-btn">
 	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
 	        <ul class="dropdown-menu">
+	        	<li><span>Advanced Search:</span></li>
+	        	<li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
+	        	<li><span><input autocomplete="off" id="tag-search-box" class="advanced-search-box" type="text" placeholder="Skill"></span></li>
+	        	<li><span><input autocomplete="off" id="title-search-box" class="advanced-search-box" type="text" placeholder="Title"></span></li>
+	        	<li><span>Category:</span></li>
+	        	<li>
+	        		<select id="category-search-selection">
+						<option value="" selected="selected">All</option>
+						<option value="General">General</option>
+						<option value="Animals_Wildlife">Animals &amp; Wildlife</option>
+						<option value="Arts_Culture">Arts &amp; Culture</option>
+						<option value="Business_Entrepreneurship">Business &amp; Entrepreneurship</option>
+						<option value="Children_Youth">Children &amp; Youth</option>
+						<option value="Education_Research">Education &amp; Research</option>
+						<option value="Environment">Environment</option>
+						<option value="Health_Wellness">Health &amp; Wellness</option>
+						<option value="HumanRights_Advocacy">Human Rights &amp; Advocacy</option>
+						<option value="InternationalRelief_Development">International Relief &amp; Development</option>
+						<option value="SocialServices_Community">Social Services &amp; Community</option>
+						<option value="Sports_Recreation">Sports &amp; Recreation</option>
+					</select>
+	        	</li>
 				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
 				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Change Team Actions</label></span></li>
+				
 	        </ul>
 	      </div><!-- /btn-group -->
-	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by title, city or tag" />
+	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by title, city or skill..." />
 	      <div class="dropdown-menu search-result-dropdown">
 				<ul role="menu" aria-labelledby="dLabel">
 					<li>

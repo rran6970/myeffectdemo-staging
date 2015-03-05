@@ -47,20 +47,29 @@
                 {% endif %}
 
                 <span class="hosted-by">
+                  <h2>Category:</h2><span>&nbsp;<a href="/challenges/?q=&amp;cat={{ challenge.category }}">{{ challenge.get_category }}</a></span>
+                </span>
+
+                <span class="hosted-by">
                   <h2>Created by:</h2><span>&nbsp;<a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span>
                 </span>
 
                 <span class="clean-creds">
                   <h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
                 </span>
-
+                {% if challenge.day_of_week != -1 %}
+                <span class="date"><h2>Time:</h2>&nbsp;Every {{ challenge.get_day_of_week }} from {{ challenge.event_start_time }} to {{ challenge.event_end_time }}</span>
+                <span class="date">
+                  <h2>Start Date:</h2><span>&nbsp;{{ challenge.event_start_date }}</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<h2>End Date:</h2>&nbsp;{{ challenge.event_end_date }}</span>
+                </span>
+                {% else %}
                 <span class="date">
                   <h2>Starts:</h2><span>&nbsp;{{ challenge.event_start_date }} at {{ challenge.event_start_time }}</span>
                 </span>
                 <span class="date">
                   <h2>Ends:</h2><span>&nbsp;{{ challenge.event_end_date }} at {{ challenge.event_end_time }}</span>
                 </span>
-                
+                {% endif %}
                 {% if challenge.city %}
       					<span class="location">
       						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
@@ -69,7 +78,7 @@
       					
                 <div class="clear"></div>
                 <div class ="skilltags-list">
-                <h2>Tags:</h2>
+                <h2>Skills:</h2>
                   <ul>
                     {% for tag in skilltags %}
                       {% if tag.challenge == challenge %}
@@ -83,7 +92,7 @@
       				</div>
       			{% endfor %}
           {% else %}
-            <h1 class="bold">Sorry, no <span class="green">#Clean</span><span class="blue">Acts</span> found.</h1>
+            <h1 class="bold">Sorry, no <span class="blue">Actions</span> found.</h1>
           {% endif %}
 			
         </div><!-- /#white-box -->
@@ -95,4 +104,41 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script>
+  function getQueryParams(qs) {
+      qs = qs.split("+").join(" ");
+
+      var params = {}, tokens,
+          re = /[?&]?([^=]+)=([^&]*)/g;
+
+      while (tokens = re.exec(qs)) {
+          params[decodeURIComponent(tokens[1])]
+              = decodeURIComponent(tokens[2]);
+      }
+
+      return params;
+  }
+
+  $( document ).ready(function() {
+    var query = getQueryParams(document.location.search);
+    if(query.q){
+      $('#search-box').val(query.q);
+    }
+    else if(query.city || query.tag || query.title ||query.cat){
+      $('#city-search-box').val(query.city);
+      $('#tag-search-box').val(query.tag);
+      $('#title-search-box').val(query.title);
+      $('#category-search-selection').val(query.cat);
+    }
+
+    if(query.national_challenges=="on" || query.national_challenges=="true"){
+      $("#national-challenge-checkbox").prop('checked', true);
+    }
+
+    if(query.clean_team_only=="on" || query.clean_team_only=="true"){
+      $("#clean-team-only-checkbox").prop('checked', true);
+    }
+  });
+</script>
+{% endblock %}

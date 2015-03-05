@@ -127,10 +127,12 @@ Description:    The challenge that each user will be allowed to created.
 class Challenge(models.Model):
 
     title = models.CharField(max_length=60, blank=False, verbose_name="Title")
+    category = models.CharField(max_length=60, blank=False, default="General")
     event_start_date = models.DateField(blank=True, null=True)
     event_start_time = models.TimeField(blank=True, null=True)
     event_end_date = models.DateField(blank=True, null=True)
     event_end_time = models.TimeField(blank=True, null=True)
+    day_of_week = models.IntegerField(default=-1)
     address1 = models.CharField(max_length=60, blank=True, verbose_name="Address")
     address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
     city = models.CharField(max_length=60, blank=True, verbose_name='City')
@@ -174,10 +176,11 @@ class Challenge(models.Model):
         self.event_start_time = form['event_start_time']
         self.event_end_date = form['event_end_date']
         self.event_end_time = form['event_end_time']
+        self.day_of_week = form['day_of_week']
         self.address1 = form['address1']
         self.address2 = form['address2']
         self.city = form['city']
-        self.postal_code = form['postal_code']
+        #self.postal_code = form['postal_code']
         self.province = form['province']
         self.country = form['country']
         self.description = form['description']
@@ -204,6 +207,7 @@ class Challenge(models.Model):
         survey.challenge = self
         survey.save()
         self.clean_creds_per_hour = survey.total_score
+        self.category = survey.category
         self.save();
 
         if form['tags']:
@@ -255,6 +259,52 @@ class Challenge(models.Model):
 
     def get_challenge_total_clean_creds(self, total_hours):
         return int(self.clean_creds_per_hour * total_hours)
+
+    def get_day_of_week(self):
+        day = "day of week"
+        if self.day_of_week == 0:
+            day = "Monday"
+        elif self.day_of_week == 1:
+            day = "Tuesday"
+        elif self.day_of_week == 2:
+            day = "Wednesday"
+        elif self.day_of_week == 3:
+            day = "Thursday"
+        elif self.day_of_week == 4:
+            day = "Friday"
+        elif self.day_of_week == 5:
+            day = "Saturday"
+        elif self.day_of_week == 6:
+            day = "Sunday"
+        return day
+
+    def get_category(self):
+        cat = ""
+        if self.category == "General":
+            cat = "General"
+        elif self.category == "Animals_Wildlife":
+            cat = "Animals &amp; Wildlife"
+        elif self.category == "Arts_Culture":
+            cat = "Arts &amp; Culture"
+        elif self.category == "Business_Entrepreneurship":
+            cat = "Business &amp; Entrepreneurship"
+        elif self.category == "Children_Youth":
+            cat = "Children &amp; Youth"
+        elif self.category == "Education_Research":
+            cat = "Education &amp; Research"
+        elif self.category == "Environment":
+            cat = "Environment"
+        elif self.category == "Health_Wellness":
+            cat = "Health &amp; Wellness"
+        elif self.category == "HumanRights_Advocacy":
+            cat = "Human Rights &amp; Advocacy"
+        elif self.category == "InternationalRelief_Development":
+            cat = "International Relief &amp; Development"
+        elif self.category == "SocialServices_Community":
+            cat = "Social Services &amp; Community"
+        elif self.category == "Sports_Recreation":
+            cat = "Sports &amp; Recreation"
+        return cat
 
     def check_out_all(self):
         if self.clean_team_only:
@@ -455,6 +505,7 @@ class Challenge(models.Model):
 
             if user.profile.is_clean_ambassador():
                 if user.profile.clean_team_member.clean_team.level.name == "Seedling":
+                    clean_team = user.profile.clean_team_member.clean_team
                     count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
                     count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
 
@@ -584,12 +635,45 @@ class Challenge(models.Model):
 
         tags = SkillTag.objects.filter(skill_name__icontains=query)
         challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
-        predicates.add(Q(title__icontains=query) | Q(city__icontains=query) | Q(challengeskilltag__in=challenges_tags), predicates.connector)
+        predicates.add(Q(title__icontains=query) | Q(city__icontains=query) | Q(category__icontains=query) | Q(challengeskilltag__in=challenges_tags), predicates.connector)
 
         if limit:
-            challenges = Challenge.objects.filter(predicates).order_by('-promote_top')[:limit]
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')[:limit]
         else:
-            challenges = Challenge.objects.filter(predicates).order_by('-promote_top')
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')
+
+        return challenges
+
+    @staticmethod
+    def advenced_search_challenges(city, tag, title, cat, national_challenges=False, clean_team_only=False, limit=False):
+        today = datetime.datetime.now()
+
+        predicates = Q(event_end_date__gte=today)
+
+        if national_challenges == "true" or national_challenges == "on":
+            predicates.add(Q(national_challenge=True), predicates.connector)
+
+        if clean_team_only == "true" or clean_team_only == "on":
+            predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if city:
+            predicates.add(Q(city__icontains=city), predicates.connector)
+
+        if tag:
+            tags = SkillTag.objects.filter(skill_name__icontains=tag)
+            challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
+            predicates.add(Q(challengeskilltag__in=challenges_tags), predicates.connector)
+
+        if title:
+            predicates.add(Q(title__icontains=title), predicates.connector)
+
+        if cat:
+            predicates.add(Q(category=cat), predicates.connector)
+
+        if limit:
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')[:limit]
+        else:
+            challenges = Challenge.objects.filter(predicates).distinct().order_by('-promote_top')
 
         return challenges
 
@@ -601,13 +685,16 @@ class Challenge(models.Model):
         for c in challenges:
             pk = c.id
             type = c.type.id
-            clean_team = c.clean_team.id
+            try:
+                clean_team = c.clean_team
+            except Exception, e:
+                clean_team = None
+                print e
 
-            clean_team = CleanTeam.objects.get(id=clean_team)
             list_start = "<li><a href='/challenges/%s/'>" % (pk)
             list_end = "</a></li>"
 
-            if clean_team.logo:
+            if clean_team and clean_team.logo:
                 logo = "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, clean_team.logo)
             else:
                 logo = "<img src='%simages/default-team-pic-124x124.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)

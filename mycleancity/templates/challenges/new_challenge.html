@@ -3,13 +3,13 @@
 {% block title %} My Effect - New Action {% endblock %}
 
 {% block css %}
+<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
   <link href="{{ STATIC_URL }}css/tags.css" rel="stylesheet">
   <link rel="import" href="{{ STATIC_URL }}bower_components/core-tooltip/core-tooltip.html">
 {% endblock %}
 
 {% block content %}
-
 <div class="wrapper public">
   <div class="clouds"></div>
 
@@ -65,17 +65,18 @@
 	            <span class="subtitle">Fill out the fields below to create your Action</span>
 			
 	            <table>
-	            	{% if user.profile.clean_team_member.clean_team.org_profile %}
 	                <tr>
 	                	<td>{{ form.national_challenge }} </td><td colspan="3">{{ form.national_challenge.label_tag }}</td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.virtual_challenge }} </td><td colspan="3">{{ form.virtual_challenge.label_tag }}</td>
 	                </tr>
-	                {% endif %}
 	                <tr>
-	                    <td>{{ form.title.label_tag }}</td><td>{{ form.title }}</td>
-	                    <td></td><td></td>
+	                    <td>{{ form.title.label_tag }}</td><td colspan="3">{{ form.title }}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{ form.event_type.label_tag }}</td><td>{{ form.event_type }}</td>
+	                    <td>{{ form.day_of_week.label_tag }}</td><td>{{ form.day_of_week }}</td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.event_start_date.label_tag }}</td><td>{{ form.event_start_date }}</td>
@@ -95,7 +96,7 @@
 	                </tr>
 	                <tr>
 	                    <td>{{ form.country.label_tag }} </td><td>{{ form.country }}</td>
-	                    <td>{{ form.postal_code.label_tag }} </td><td>{{ form.postal_code }}</td>
+	                    <td></td>
 	                </tr>
 	                <tr>
 	                	<td>{{ form.link.label_tag }}</td><td colspan="3">{{ form.link }}</td>
@@ -140,7 +141,7 @@
 	                	<td colspan="4">{{ form.description.label_tag }} {{ form.description }}</td>
 	                </tr>
 	            </table>
-	            <input class="btn btn-primary" type="submit" value="Post CleanAct" />
+	            <input class="btn btn-primary" type="submit" value="Post Action" />
         	</form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
@@ -153,7 +154,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
 <script>
 $( document ).ready(function() {
 	$( '.selected-tags input[type="checkbox"]:checked' ).each(function( index ) {
@@ -168,6 +168,23 @@ $( document ).ready(function() {
 	});
 	$('#hide-tags').hide();
 	$(".tags-to-select").hide();
+	if($('#id_event_type').val() == "weekly"){
+        $("#id_day_of_week").closest('td').prev().fadeIn();
+		$("#id_day_of_week").closest('td').fadeIn();
+    }
+    else {
+    	$("#id_day_of_week").val('-1');
+        $("#id_day_of_week").closest('td').prev().fadeOut();
+		$("#id_day_of_week").closest('td').fadeOut();
+    }
+	if($('#id_virtual_challenge').is(':checked') || $('#id_national_challenge').is(':checked')) {
+		$("#id_address1").closest('tr').fadeOut();
+		$("#id_city").closest('tr').fadeOut();
+    }
+    else{
+    	$("#id_address1").closest('tr').fadeIn();
+		$("#id_city").closest('tr').fadeIn();
+    }
 });
 
 $(".tags-to-select label ").on("click", function(e){
@@ -202,28 +219,31 @@ $('#id_national_challenge').on("click", function(e){
 	if(this.checked || $('#id_virtual_challenge').is(':checked')) {
 		$("#id_address1").closest('tr').fadeOut();
 		$("#id_city").closest('tr').fadeOut();
-		$("#id_postal_code").closest('td').prev().fadeOut();
-		$("#id_postal_code").closest('td').fadeOut();
     }
     else{
     	$("#id_address1").closest('tr').fadeIn();
 		$("#id_city").closest('tr').fadeIn();
-		$("#id_postal_code").closest('td').prev().fadeIn();
-		$("#id_postal_code").closest('td').fadeIn();
     }
 });
 $('#id_virtual_challenge').on("click", function(e){
 	if(this.checked || $('#id_national_challenge').is(':checked')) {
 		$("#id_address1").closest('tr').fadeOut();
 		$("#id_city").closest('tr').fadeOut();
-		$("#id_postal_code").closest('td').prev().fadeOut();
-		$("#id_postal_code").closest('td').fadeOut();
     }
     else{
     	$("#id_address1").closest('tr').fadeIn();
 		$("#id_city").closest('tr').fadeIn();
-		$("#id_postal_code").closest('td').prev().fadeIn();
-		$("#id_postal_code").closest('td').fadeIn();
+    }
+});
+$('#id_event_type').on("change", function(e){
+    if($(this).val() == "weekly"){
+        $("#id_day_of_week").closest('td').prev().fadeIn();
+		$("#id_day_of_week").closest('td').fadeIn();
+    }
+    else {
+    	$("#id_day_of_week").val('-1');
+        $("#id_day_of_week").closest('td').prev().fadeOut();
+		$("#id_day_of_week").closest('td').fadeOut();
     }
 });
 </script>
