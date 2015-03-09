@@ -92,7 +92,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
-.dropdown-menu.profile-dropdown { left: 1108px; }
+.dropdown-menu.profile-dropdown { left: auto; position: absolute; right: 20px; width: 158px; top: 50px;}
 
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }

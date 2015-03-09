@@ -38,19 +38,21 @@
 		</ul>
 	</div><!-- end of .dropdown -->
 
-	<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
-	<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
-		<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+	<div class="dropdown">
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
+			<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
 
-        <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
-		<!--<li><a href="/users/qrcode/" class="menu-items">Member ID</a></li> -->
-		<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
-		<!--<li><a href="/claim-voucher" class="menu-items">Claim a Voucher</a></li>-->
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
+			<!--<li><a href="/users/qrcode/" class="menu-items">Member ID</a></li> -->
+			<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+			<!--<li><a href="/claim-voucher" class="menu-items">Claim a Voucher</a></li>-->
 
-		<li><a href="/users/settings/" class="menu-items">Settings</a></li>
-        <li><a href="/users/FAQ/" class="menu-items">FAQ</a></li>
-		<li><a href="/users/logout" class="menu-items">Logout</a></li>
-	</ul>
+			<li><a href="/users/settings/" class="menu-items">Settings</a></li>
+		<li><a href="/users/FAQ/" class="menu-items">FAQ</a></li>
+			<li><a href="/users/logout" class="menu-items">Logout</a></li>
+		</ul>
+	</div><!-- end of .dropdown -->
 
 	<div class="dropdown" id="notification-dropdown">
 		<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
