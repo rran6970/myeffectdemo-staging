@@ -213,7 +213,7 @@ def edit_user_profile(request):
         user.save()
 
         user.profile.about = request_obj.params['about']
-        user.profile.twitter = request_obj.params['twitter']
+        #user.profile.twitter = request_obj.params['twitter']
 
         user.profile.save()
 
@@ -260,7 +260,7 @@ def get_user_profile(request):
         'email':user.email,
         'firstname': user.first_name,
         'lastname':user.last_name,
-        'twitter':user_profile.twitter,
+        #'twitter':user_profile.twitter,
         'city':user_profile.city,
         'cleancreds':user_profile.clean_creds,
         'totalhours': total_hours,
@@ -1391,7 +1391,7 @@ def cleanteam_view(request):
             'about':clean_team.about,
             'twitter':clean_team.twitter,
             'region':clean_team.region,
-            'team_type':clean_team.team_type,
+            #'team_type':clean_team.team_type,
             #'badge':badge
         }
 
