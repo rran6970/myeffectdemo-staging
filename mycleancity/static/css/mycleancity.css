@@ -1009,6 +1009,8 @@ div.table-container #invitees-table tr td.roles {  }
 ******************************/
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 20px; }
+.clean-teams-search {float: right;}
+.all-change-teams-header {float: left;}
 
 /******************************
 	All Notifications Page
