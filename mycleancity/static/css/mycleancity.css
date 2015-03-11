@@ -6,7 +6,7 @@ Date created:   Sept 24, 2013
 -------------------------------------------------------------------*/
 
 div.wrapper.public.printer-friendly { background: none; }
-div.wrapper.public { margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; overflow: hidden; }
+div.wrapper.public { margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; }
 
 div.wrapper.public div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
 
@@ -16,7 +16,7 @@ div.wrapper.public a.logo,
 #mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-250x243.png) no-repeat center center; position: relative; z-index: 1; }
 /*div.wrapper.public a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-my-effect-yellow-250x243.png) no-repeat 0 0; position: relative; z-index: 1; }*/
 
-div.wrapper.public .container { width: 1280px; height: 485px; margin: 0 auto; position: relative; }
+div.wrapper.public .container { width: 1280px;  margin: 0 auto; }
 
 div.container.mobile-view  {
 	-webkit-font-smoothing: antialiased;
@@ -216,7 +216,7 @@ div.tab-pane table.table ul li { margin: 0 !important; }
 div.tab-pane table.table tr td.blue-cell { background-color: #00aeef; color: white; }
 div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: white; }
 
-#footer { position: absolute; padding: 10px; z-index: 999; top: 764px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%;}
+#footer {  padding: 10px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%;}
 /*#footer apps {  }*/
 #footer div.icons { float: left; margin-left: 10px; }
 #footer div.icons a { margin-right: 10px; }
@@ -249,7 +249,7 @@ div.tab-pane table.table tr td.green-cell { background-color: #83c156; color: wh
 /******************************
 	About
 ******************************/
-div.content { background: transparent url(../images/about-bg.png) no-repeat center center; height: 551px; }
+div.content { min-height: 450px; background: transparent url(../images/about-bg-no-bottom.png) no-repeat center bottom; }
 div.content.about ul.nav.nav-tabs { border: none; margin-left: 250px; position: relative; top: 24px; }
 div.content.about ul.nav.nav-tabs li { background: transparent; }
 div.content.about ul.nav.nav-tabs li a { background-color: #4a3c2e; font-weight: 700; color: #8CC559; border-color: #4a3c2e; }
@@ -1057,3 +1057,17 @@ div.table-container table tr td input[type="submit"] { width: 120px; font-size: 
 .width-350 { display: block; width: 350px; }
 .width-450 { display: block; width: 450px; }
 .width-550 { display: block; width: 550px; }
+
+
+/******************************
+	My attempts at simpler CSS rules - Robert Elder March 2015
+******************************/
+
+
+.better-white-box{
+  width: 960px;
+  padding: 27px;
+  background: url(../images/1x1-white.png) repeat 0 0;
+  border: 2px solid #505050;
+  margin: 0px auto;
+}

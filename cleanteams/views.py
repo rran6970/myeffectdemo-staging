@@ -23,7 +23,7 @@ from django.views.generic import *
 from django.views.generic.base import View
 from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
+from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile
 from challenges.models import Challenge, UserChallenge
 from users.models import OrganizationLicense
@@ -321,6 +321,32 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         if not self.request.user.profile.clean_team_member:
             context = None
 
+        return context
+
+class CommunityView(LoginRequiredMixin, FormView):
+    template_name = "cleanteams/create_community.html"
+    form_class = RegisterCommunityForm
+
+    def get_initial(self):
+        initial = {}
+        initial['current_user'] = self.request.user.id
+        return initial
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        return HttpResponseRedirect("/")
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityView, self).get_context_data(**kwargs)
         return context
 
 class TeamOrOrganization(LoginRequiredMixin, FormView):

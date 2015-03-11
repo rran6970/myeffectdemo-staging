@@ -2,7 +2,7 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation, OrgProfile
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamInvite, LeaderReferral, CleanTeamPresentation, OrgProfile, Community
 from users.models import OrganizationLicense
 
 CREATE_TEAM_CHOICES = (('change_team', 'Create A Change Team'),
@@ -92,6 +92,17 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
         if CleanTeam.objects.filter(name=name):
             raise forms.ValidationError(u'%s already exists' % name)
+        return cleaned_data
+
+class RegisterCommunityForm(forms.ModelForm):
+    name = forms.CharField(required=False, widget=forms.TextInput(), max_length=120 )
+
+    class Meta:
+        model = Community
+
+    def clean(self):
+        cleaned_data = super(RegisterCommunityForm, self).clean()
+        name = cleaned_data.get('name')
         return cleaned_data
 
 class RegisterOrganizationForm(forms.ModelForm):
