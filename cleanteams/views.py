@@ -24,7 +24,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community
 from challenges.models import Challenge, UserChallenge
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -343,6 +343,10 @@ class CommunityView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
+        community = Community()
+        community.name = form.cleaned_data['name']
+        community.is_private = form.cleaned_data['is_private']
+        community.save()
         return HttpResponseRedirect("/")
 
     def get_context_data(self, **kwargs):

@@ -95,7 +95,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
         return cleaned_data
 
 class RegisterCommunityForm(forms.ModelForm):
-    name = forms.CharField(required=False, widget=forms.TextInput(), max_length=120 )
+    name = forms.CharField(required=True, widget=forms.TextInput(), max_length=120 )
+    is_private = forms.BooleanField(required=False)
 
     class Meta:
         model = Community

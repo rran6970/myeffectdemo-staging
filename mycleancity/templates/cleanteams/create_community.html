@@ -18,7 +18,7 @@
   
   <div class="content-better">
     <div class="container-better">
-        <div class="better-white-box">
+        <div class="better-white-box" style="height: 580px;">
             {% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
@@ -26,90 +26,28 @@
             {% endif %}
 
             <form action="/clean-team/create-community/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
-              <table class="table" style="width: 50%; display: none;">
+              <table class="table" style="width: 50%;">
                   <tr id="community_name">
                     <td>
-                      <label for="registered_number"><span style="color:red;" >&#42;&#32;</span>Community Name:</label><br>
+                      <label for="name"><span style="color:red;" >&#42;&#32;</span>Community Name:</label><br>
                     </td>
                     <td>
                       {{form.name}}
                     </td>
                   </tr>
                   <tr>
+                      <td>
+                          <label for="is_private"><span style="color:red;" >&#42;&#32;</span>Is your community private?</label>
+                      </td>
+                      <td>{{ form.is_private}}</td>
+                  </tr>
+                  <tr>
                     <td colspan="2">
-                      <input style="float: left;" class="btn btn-primary" type="submit" value="Continue" />
+                      <input style="float: left;" class="btn btn-primary" type="submit" value="Create Community" />
                     </td>
                   </tr>
               </table>
             </form>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
-            <h1>Large content</h1>
-            <br/>
         </div>
     </div>
   </div>
