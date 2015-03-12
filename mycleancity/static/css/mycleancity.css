@@ -3,6 +3,12 @@ Author:         Zeeshan Syed
 Email:          zee@hakstudio.com
 Description:    CSS file for the Index Page
 Date created:   Sept 24, 2013
+
+Note:
+Try to avoid using this file for new rules and put new stylesheet rules in mycleancity-css-migration.css.
+Many of the design decisions in this file lead to an excessive number of stylesheet rules, and many
+unnecessary scroll bars.
+
 -------------------------------------------------------------------*/
 
 div.wrapper.public.printer-friendly { background: none; }

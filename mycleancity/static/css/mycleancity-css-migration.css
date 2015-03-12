@@ -1,3 +1,13 @@
+/*
+    I created this file in an effort to move away form the design decisions used in mycleancity.css.
+    The design decisions I'm referring to are the excessive use of absolute positions, unnecessary
+    z-indexing, and unnecessary nested scroll bars.  If possible use this file for new styles instead 
+    of mycleancity.css
+
+    Robert Elder, March 2015
+
+*/
+
 div.wrapper.public-better .container-better { width: 1280px;  margin: 0 auto; }
 div.container-better.mobile-view  {
 	-webkit-font-smoothing: antialiased;
