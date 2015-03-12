@@ -4,19 +4,20 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/mycleancity-css-migration.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 
-<div class="wrapper public">
+<div class="wrapper public-better">
   <div class="clouds"></div>
   
   {% include "_navbar.html" %}
   
   <a href="/" class="logo"></a>
   
-  <div class="content">
-    <div class="container">
+  <div class="content-better">
+    <div class="container-better">
         <div class="better-white-box">
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -113,7 +114,9 @@
     </div>
   </div>
 </div>
+<div class="better-footer-wrapper">
 {% include "_footer_navbar.html" %}
+</div>
 
 {% endblock %}
 
