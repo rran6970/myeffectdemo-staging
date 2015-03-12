@@ -19,10 +19,16 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
       <div id="white-box" class="all-clean-teams">
-          <h1>All Change Teams</h1>
-
+          <div>
+            <h1 class="all-change-teams-header">All Change Teams</h1>
+            <div class="clean-teams-search">
+              <span class="glyphicon glyphicon-search"></span> &nbsp;
+              <input autocomplete="off" id="team-search-box" type="text" placeholder="Search Teams" />
+            </div>
+          </div>
+          <div style="clear: both;"></div>
           <div class="table-container">
-            <table class="table table-hover">
+            <table id="team-list-table" class="table table-hover">
               <tbody>
                 {% for team in teams %}
                   <tr>
@@ -33,7 +39,7 @@
                         {% else %}
                           <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
                         {% endif %}
-                        {{ team.name }}
+                        <span class="team-name-wrapper">{{ team.name }}</span>
                       </a>
                     </td>
                     

@@ -1,0 +1,226 @@
+/*
+    I created this file in an effort to move away form the design decisions used in mycleancity.css.
+    The design decisions I'm referring to are the excessive use of absolute positions, unnecessary
+    z-indexing, and unnecessary nested scroll bars.  If possible use this file for new styles instead 
+    of mycleancity.css
+
+    Robert Elder, March 2015
+
+*/
+
+div.wrapper.public-better .container-better { width: 1280px;  margin: 0 auto; }
+div.container-better.mobile-view  {
+	-webkit-font-smoothing: antialiased;
+    
+    /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+    background: -webkit-gradient(linear, 0 50%, 0 0, from(#00afef), to(#ebf7fe)) !important;
+    background: -webkit-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+    background: -moz-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+    background: -o-linear-gradient(#00afef 0%, #ebf7fe 50%) !important;
+   /* background: linear-gradient(#00afef 0%, #ebf7fe 50%) !important;*/ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00afef', endColorstr='#ebf7fe',GradientType=0 ) !important; /* IE6-9 */
+
+    background-image: url('../images/login-bottombg.png');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 100% auto;
+	height: 100%;
+	background-attachment: fixed;
+	overflow: hidden;
+}
+div.container-better.mobile-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-250x243.png) no-repeat 0 0; position: relative; z-index: 1; }
+div.container-better.mobile-view #white-box { margin: 0; padding: 15px; position: static; width: auto; }
+div.container-better#mobile-register-view #white-box form { /*margin: 0 auto; width: 216px;*/ }
+div.container-better#mobile-register-view #white-box form input[type="text"],
+div.container-better#mobile-register-view #white-box form input[type="password"],
+div.container-better#mobile-register-view #white-box form select { width: 100%; }
+div.container-better#mobile-register-view #white-box form input[type="submit"] { width: 100%; margin: 10px 0 0; }
+div.container-better#mobile-register-view #white-box form .text { text-align: center; margin-top: 20px; }
+div.container-better#mobile-register-view #white-box form #register-table span { padding-top: 10px; display: block; width: 95%; text-wrap: normal; }
+div.container-better#mobile-register-view #white-box form #id_uea, 
+div.container-better#mobile-register-view #white-box form #id_smartphone, 
+div.container-better#mobile-register-view #white-box form #id_receive_newsletters,
+div.container-better#mobile-register-view #white-box form #id_data_privacy { float: left; margin-right: 10px; }
+div.container-better#mobile-create-or-request-join {  } 
+div.container-better#mobile-create-or-request-join .btn-group { width: 100%; margin: 0 auto; }
+div.container-better#mobile-create-or-request-join .btn-radio-group { width: 100%; }
+div.container-better#mobile-create-or-request-join input[type="submit"] { margin: 16px auto; }
+div.container-better#register-join-team {  }
+div.content-better { min-height: 450px; background: transparent url(../images/about-bg-no-bottom.png) no-repeat center bottom; }
+div.content-better.about ul.nav.nav-tabs { border: none; margin-left: 250px; position: relative; top: 24px; }
+div.content-better.about ul.nav.nav-tabs li { background: transparent; }
+div.content-better.about ul.nav.nav-tabs li a { background-color: #4a3c2e; font-weight: 700; color: #8CC559; border-color: #4a3c2e; }
+div.content-better.about ul.nav.nav-tabs li a:hover { background-color: #A88460; color: #2D520C; }
+div.content-better.about ul.nav.nav-tabs li.active a { background-color: #A88460; color: #2D520C; }
+div.content-better.about #white-box { left: 30%; width: 700px; /*height: 350px;*/ }
+div.content-better.about #white-box h1 { font-weight: 800; }
+div.content-better.about #white-box h2 { font-weight: 500; color: #638d3d; margin-top: 23px; }
+div.content-better.about #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content-better.about #white-box ol li { list-style: decimal; }
+div.content-better.about #white-box iframe { margin-left: 120px; }
+div.content-better.student #white-box { left: 30%; width: 850px; }
+div.content-better.student #white-box h1 { font-weight: 800; }
+div.content-better.student #white-box h2 { font-weight: 500; color: #638d3d; }
+div.content-better.student #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content-better.student #white-box ol li { list-style: decimal; }
+div.content-better.student #white-box ul { margin-left: 18px; }
+div.content-better.student #white-box ul li { list-style: disc; }
+div.content-better.student #white-box iframe { margin: 0 190px; }
+div.content-better.organization #white-box { left: 30%; width: 828px; }
+div.content-better.organization #white-box h1 { font-weight: 800; }
+div.content-better.organization #white-box h2 { font-weight: 500; color: #638d3d; }
+div.content-better.organization #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content-better.organization #white-box ol li { list-style: decimal; }
+div.content-better.organization #white-box ul { margin-left: 18px; }
+div.content-better.organization #white-box ul li { list-style: disc; }
+div.content-better.organization #white-box iframe { margin: 0 190px; }
+div.content-better.organization #sign-stump { top: 210px; }
+div.content-better.rewards #white-box { left: 30%; width: 800px; }
+div.content-better.rewards #white-box h1 { font-weight: 800; }
+div.content-better.rewards #white-box h2 { font-weight: 500; color: #638d3d; }
+div.content-better.rewards #white-box h3 { font-weight: 500; color: #638d3d; }
+div.content-better.rewards #white-box ol li { list-style: decimal; margin: 14px 0; }
+div.content-better.rewards #white-box ul { margin-left: 18px; }
+div.content-better.rewards #white-box ul li { list-style: disc; }
+div.content-better.rewards #white-box iframe { margin: 0 190px; }
+div.content-better.rewards #white-box img { border: 1px solid #C4C4C4; }
+div.content-better.rewards #sign-stump { top: 200px; }
+/*div.content-better.rewards #white-box table.rewards-table td.reward { padding-bottom: 20px; }
+div.content-better.rewards #white-box table.rewards-table td.reward img { text-align: center; margin: 0 auto; display: block; }
+div.content-better.rewards #white-box table.rewards-table td.reward span.title { display: block; text-align: center; margin-top: 20px; font-size: 15px; }*/
+div.content-better.rewards #white-box div.reward img { display: block; margin: 0 auto; }
+div.content-better.rewards #white-box table.grand-prize-table tr { display: block; padding-top: 30px; }
+div.content-better.rewards #white-box table.grand-prize-table tr td { vertical-align: top; }
+div.content-better.rewards #white-box table.grand-prize-table tr td img { width: 200px; }
+div.content-better.rewards #white-box #grand-prize-title { margin: 30px 0; }
+div.content-better.rewards #white-box #grand-prize-title img { display: block; margin: 0 auto; }
+div.content-better.communication-hub { background: transparent url(../images/communication-hub-bg.png) no-repeat 80% 0; height: 548px; }
+div.content-better.communication-hub #white-box { left: 30%; width: 843px; }
+div.content-better.communication-hub #white-box div.tab-pane h1.titles { margin-bottom: 20px; }
+div.content-better.communication-hub #white-box div.tab-pane#contest #instafeed a { display: block; width: 162px; margin: 0 10px 10px 0; float: left; border: 1px solid #D7D6D1; padding: 4px; background: white; border-radius: 5px; padding: 10px; }
+div.content-better.communication-hub #white-box div.tab-pane#press a.articles,
+div.content-better.communication-hub #white-box div.tab-pane#resources a.downloadables { margin: 0 20px 20px 0; display: block; width: 316px; float: left; }
+div.content-better.communication-hub #white-box div.tab-pane#resources a.downloadables h2 { text-align: center; margin-top: 20px; }
+div.content-better.communication-hub #white-box div.tab-pane#press a.articles img,
+div.content-better.communication-hub #white-box div.tab-pane#resources a.downloadables img { border: 2px solid #4a3c2e; padding: 4px; background: white; border-radius: 5px; display: block; }
+div.content-better.communication-hub #white-box div.tab-pane#announcements div { margin-bottom: 30px; }
+div.content-better.communication-hub #white-box div.tab-pane#announcements div a {  }
+div.content-better.communication-hub #white-box div.tab-pane#announcements div img { background-color: white; padding: 10px; border: 2px solid #4a3c2e; width: 772px; }
+div.content-better.communication-hub #white-box div.tab-pane#announcements div a.badge-join img { background-color: transparent; width: auto; }
+div.content-better.challenge-centre { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
+div.content-better.challenge-centre #white-box.message { float: left; width: 420px; position: static; margin-left: 20px; }
+div.content-better.challenge-centre #white-box.message p { margin-bottom: 10px; }
+div.content-better.challenge-centre #white-box { width: 734px; height: 400px; left: 39%; }
+div.content-better.challenge-centre #white-box p { padding: 0; }
+div.content-better.challenge-centre #white-box div.challenges { position: relative; margin-bottom: 20px; padding: 20px; background-color: white; border: 1px solid #CCC; min-height: 168px; }
+div.content-better.challenge-centre #white-box div.challenges img.badge-icon { position: absolute; left: 600px; top: -15px; }
+div.content-better.challenge-centre #white-box div.challenges a.team-picture { display: block; float: left; margin-right: 20px; }
+div.content-better.challenge-centre #white-box div.challenges a.team-picture img { display: block; border-radius: 4px; /*border: 2px solid #4a3c2e;*/ }
+div.content-better.challenge-centre #white-box div.challenges a.challenge-title { display: block; margin-bottom: 10px; width: 550px; }
+div.content-better.challenge-centre #white-box div.challenges a.challenge-title h1 { line-height: 20px; font-weight: 900; font-size: 20px; color: #00aeef; }
+div.content-better.challenge-centre #white-box div.challenges span.clean-team-only { display: block; margin-bottom: 10px; }
+div.content-better.challenge-centre #white-box div.challenges span.clean-team-only h2 { display: block; font-size: 18px; display: inline; }
+div.content-better.challenge-centre #white-box div.challenges span.hosted-by { display: block; margin-bottom: 10px; }
+div.content-better.challenge-centre #white-box div.challenges span.hosted-by h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.challenge-centre #white-box div.challenges span.clean-creds { float: right; }
+div.content-better.challenge-centre #white-box div.challenges span.date { display: block; margin-bottom: 10px; }
+div.content-better.challenge-centre #white-box div.challenges span.date h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.challenge-centre #white-box div.challenges span.location h2 { display: block; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.challenge-centre #white-box div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.challenge-centre #white-box div.challenges p { margin-top: 10px; padding: 0; font-size: 15px; line-height: 17px; }
+div.content-better.challenge-centre #white-box div.challenges a:hover { color: #86b45c !important; }
+div.content-better.my-challenges { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
+div.content-better.my-challenges #white-box div.challenges { position: relative; margin-bottom: 27px; padding: 20px; background-color: white; border: 1px solid #CCC; /*margin: 20px 0;*/ border-bottom: 1px solid #abd78c; vertical-align: middle; }
+div.content-better.my-challenges #white-box div.challenges h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; margin-bottom: 12px; }
+div.content-better.my-challenges #white-box div.challenges div.links { width: 112px; float: right; position: relative; top: -29px; }
+div.content-better.my-challenges #white-box div.challenges div.links a { display: block; margin: 7px 0; }
+div.content-better.my-challenges #white-box div.challenges div.links a.view-challenge-qrcode img { display: block; height: 60px; width: 60px; }
+div.content-better.my-challenges #white-box div.challenges div.details { }
+div.content-better.my-challenges #white-box div.challenges div.details div.title { margin-left: 10px; display: block; }
+div.content-better.my-challenges #white-box div.challenges div.details div.title p { font-size: 15px; line-height: 21px; }
+div.content-better.my-challenges #white-box div.challenges div.details div.title p span { font-weight: 700; font-size: 16px; }
+div.content-better.my-challenges #white-box div.challenges span.clean-creds { margin-left: 10px; display: block; }
+div.content-better.my-challenges #white-box div.challenges span.clean-creds h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.my-challenges #white-box div.challenges span.status h2 { display: block; margin-left: 20px; font-size: 15px; font-weight: 700; display: inline; }
+div.content-better.my-challenges #white-box div.challenges p { padding: 0; }
+div.content-better.my-challenges #white-box div.challenges a:hover { color: #86b45c !important; }
+div.content-better.my-challenges #white-box.posted-challenges { width: 578px; height: 400px; left: 50%; }
+div.content-better.my-challenges #white-box.posted-challenges .badge-icon { display: block; position: absolute; top: -17px;right: -14px; z-index: 1000; }
+div.content-better.my-challenges #white-box.posted-challenges h1 { margin-bottom: 20px; }
+div.content-better.my-challenges #white-box.user-challenges { width: 528px; height: 400px; left: 7%; }
+div.content-better.my-challenges #white-box.user-challenges div.table-container { border: none; overflow: initial; }
+div.content-better.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
+div.content-better.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
+div.content-better.my-challenges #white-box.user-challenges .table tr #clean-creds { text-align: right; }
+div.content-better.my-challenges #white-box.user-challenges .table tr td { border: none; padding-left: 0 !important; padding-right: 0 !important; }
+div.content-better.my-challenges #white-box.user-challenges .table tr td.total-clean-creds { text-align: center; }
+div.content-better.my-challenges #white-box.user-challenges .table tr td.total-hours { text-align: center; }
+div.content-better.my-challenges #white-box.user-challenges .table div.challenge-info span.total-hours { display: block; font-size: 12px; }
+div.content-better.my-challenges #white-box.user-challenges .table div.challenge-info { float: left; /*margin-left: 10px;*/ }
+div.content-better.my-challenges #white-box.user-challenges .table div.challenge-info a h1 { color: inherit; line-height: 20px; font-weight: 900; font-size: 16px; }
+div.content-better.challenge-overview { background: url(../images/challenge-centre-bg.png) no-repeat center bottom; }
+div.content-better.challenge-overview #white-box { width: 530px; height: 415px; left: 11%; }
+div.content-better.challenge-overview #white-box h2 { float: left; font-weight: 400; width: 360px; font-size: 18px; }
+div.content-better.challenge-overview #white-box img { float: right; }
+div.content-better.challenge-overview #white-box #learn-more { display: block; position: relative; }
+div.content-better.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
+div.content-better.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
+div.content-better.challenge-overview #white-box table { margin: 10px 0 30px; }
+div.content-better.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }
+div.content-better.challenge-overview #white-box table tr td .fb-like { margin-top: 6px; margin-bottom: 6px; }
+div.content-better.challenge-overview #white-box table tr td p { font-size: 15px; }
+div.content-better.challenge-overview #white-box table tr td span.titles { font-weight: 700; font-size: 16px; }
+div.content-better.challenge-overview #white-box table tr td h2.clean-creds-per-hour { margin-top: 10px; }
+div.content-better.challenge-overview #white-box input[type="submit"] { font-size: 16px; margin: 0 auto; width: 289px; }
+div.content-better.challenge-overview #white-box #staples-stores-label { float: right; font-weight: bold; }
+div.content-better.challenge-overview #white-box #staples-stores-selection { float: right; margin-bottom: 10px; }
+div.content-better.challenge-overview #white-box a.btn { margin: 0 auto; width: 300px; }
+div.content-better.challenge-overview #participants-box { position: absolute; width: 375px; height: 415px; overflow: scroll; z-index: 1000; left: 54%; padding: 27px; background: url(../images/1x1-white.png) repeat 0 0; border: 4px solid #4a3c2e; }
+div.content-better.challenge-overview #participants-box h1 { font-weight: 900; }
+/*div.content-better.challenge-overview #participants-box div.participants { margin: 7px; text-align: center; }
+div.content-better.challenge-overview #participants-box div.participants a img { float: left; margin: 0 auto 6px; display: block; border-radius: 4px; width: 42px; height: 42px; }*/
+div.content-better.challenge-overview #participants-box .participants-list { margin: 10px; }
+div.content-better.challenge-overview #participants-box .participants-list li a { display: block; margin: 10px 0; }
+div.content-better.challenge-overview #participants-box .participants-list li a span {  }
+div.content-better.challenge-overview #participants-box .participants-list li a img { margin-right: 10px; border-radius: 4px; width: 42px; height: 42px; }
+div.content-better.challenge-overview .fb-like { float: left; margin-right: 10px; }
+div.content-better.challenge-overview .twitter-share-button { float: left; }
+div.content-better.challenge-overview #participate-btn { float: right; }
+div.content-better.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; }
+div.wrapper.public-better.printer-friendly { background: none; }
+div.wrapper.public-better { margin: 0 !important; background: #00b6f1 url(../images/sky-1x3334.jpg) repeat-x 0 0; }
+div.wrapper.public-better div.clouds { z-index: 1; position: absolute; top: 0; height: 205px; width: 100%; background: url(../images/clouds.png) repeat-x 0 -20px; }
+div.wrapper.public-better h1.title { position: relative; line-height: 30px; font-size: 25px; text-align: center; color: #20409a; font-weight: 200; margin-top: 0; }
+div.wrapper.public-better a.logo,
+#mobile-register-view a.logo { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/logo-my-effect-yellow-250x243.png) no-repeat center center; position: relative; z-index: 1; }
+/*div.wrapper.public-better a.logo-fr { display: block; width: 295px; height: 221px; margin: 0 auto; background: url(../images/french/logo-my-effect-yellow-250x243.png) no-repeat 0 0; position: relative; z-index: 1; }*/
+#white-box.public-better-profile { width: 478px; left: 45%; }
+#white-box.public-better-profile img.profile-pic { display: block; margin-top: 10px; margin-right: 16px; float: right; }
+#white-box.public-better-profile span.edit-profile-link { position: relative; left: 40px; top: 5px; }
+#white-box.public-better-profile div.info { width: 264px; float: left; }
+#white-box.public-better-profile div.info h2 { font-weight: 700; float: left; }
+#white-box.public-better-profile div.info div.field * { font-size: 14px; line-height: 18px; }
+#white-box.public-better-profile div.info div.field p.title { font-weight: 700; float: left; margin-right: 5px; }
+#white-box.public-better-profile + #badge-icon { display: block; position: absolute; top: 144px; right: 360px; z-index: 1000; }
+.better-footer-wrapper #footer {  padding: 10px; background: transparent url(../images/1x203-green.png) repeat-x 0 0; width: 100%; position: inherit;}
+.better-footer-wrapper #footer div.icons { float: left; margin-left: 10px; }
+.better-footer-wrapper #footer div.icons a { margin-right: 10px; }
+.better-footer-wrapper #footer #footer-nav { float: left; margin-top: 21px; }
+.better-footer-wrapper #footer #footer-nav ul li { float: left; margin-right: 10px; }
+.better-footer-wrapper #footer p.copyright { float: right; padding-right: 30px; padding-bottom: 20px; }
+.better-footer-wrapper #footer #hak-studio { width: 305px; float: right; text-align: center; }
+.better-footer-wrapper #footer #hak-studio a { display: block; }
+.better-footer-wrapper #footer #kelly-effect { width: 288px; margin: 0 auto; text-align: center; }
+.better-footer-wrapper #footer .issues { margin: 34px 0 10px 25px; }
+
+/******************************
+	My attempts at simpler CSS rules - Robert Elder March 2015
+******************************/
+
+.better-white-box{
+  width: 960px;
+  padding: 27px;
+  background: url(../images/1x1-white.png) repeat 0 0;
+  border: 2px solid #505050;
+  margin: 0px auto;
+}

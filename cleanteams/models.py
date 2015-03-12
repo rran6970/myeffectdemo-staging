@@ -8,6 +8,22 @@ from itertools import chain
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
+"""
+Name:           Community
+Date created:   March 10, 2015
+Description:    A table that stores community objects (of which users and teams can belong to)
+"""
+class Community(models.Model):
+    name = models.CharField(max_length=120, null=False, unique=True, default="", verbose_name='Name of Community')
+
+    class Meta:
+        verbose_name_plural = u'Community object'
+
+    def __unicode__(self):
+        return u'%s' % self.name
+
+    def save(self, *args, **kwargs):
+        super(Community, self).save(*args, **kwargs)
 
 """
 Name:           OrgProfile

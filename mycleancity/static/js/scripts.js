@@ -1,4 +1,18 @@
 $(function(){  
+
+    $("#team-search-box").on('input', function() {
+      var $team_rows = $("tr", $("#team-list-table"));
+      var search_expr = $(this).val();
+      $team_rows.each(function () {
+        var team_name = $(".team-name-wrapper", $(this)).html();
+        if(team_name.toLowerCase().indexOf(search_expr.toLowerCase()) != -1){
+          $(this).show();
+        }else{
+          $(this).hide();
+        }
+      });
+    });
+
     $(".btn").button();
 
     $("[rel='tooltip']").tooltip();

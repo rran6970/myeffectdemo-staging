@@ -27,5 +27,6 @@ urlpatterns = patterns('',
     url(r'^ca-request-join/?$', 'cleanteams.views.request_join_clean_team'),
     url(r'^member-action/?$', 'cleanteams.views.clean_team_member_action'),
     url(r'^create-team-or-org/?$', TeamOrOrganization.as_view()),
+    url(r'^create-community/?$', CommunityView.as_view()),
     url(r'^/?$', ViewAllCleanTeams.as_view()),
     url(r'^(?P<ctid>\d+)/?$', CleanTeamView.as_view()))

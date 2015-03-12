@@ -213,7 +213,7 @@ def edit_user_profile(request):
         user.save()
 
         user.profile.about = request_obj.params['about']
-        user.profile.twitter = request_obj.params['twitter']
+        #user.profile.twitter = request_obj.params['twitter']
 
         user.profile.save()
 

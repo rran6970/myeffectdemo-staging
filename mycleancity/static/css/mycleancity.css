@@ -3,6 +3,12 @@ Author:         Zeeshan Syed
 Email:          zee@hakstudio.com
 Description:    CSS file for the Index Page
 Date created:   Sept 24, 2013
+
+Note:
+Try to avoid using this file for new rules and put new stylesheet rules in mycleancity-css-migration.css.
+Many of the design decisions in this file lead to an excessive number of stylesheet rules, and many
+unnecessary scroll bars.
+
 -------------------------------------------------------------------*/
 
 div.wrapper.public.printer-friendly { background: none; }
@@ -92,7 +98,7 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 
 .dropdown-menu.challenges-dropdown { left: 164px; }
 .dropdown-menu.clean-team-dropdown { left: 300px; }
-.dropdown-menu.profile-dropdown { left: 1108px; }
+.dropdown-menu.profile-dropdown { left: auto; position: absolute; right: 20px; width: 158px; top: 50px;}
 
 .dropdown-menu.notification-dropdown { /*position: relative; */ left: initial; right: 133px; top: 50px; padding: 10px; border: 1px solid #CCC; }
 .dropdown-menu.notification-dropdown ul { max-height: 250px; overflow-y: scroll; margin: 0; border: 1px solid #BBB; }
@@ -1020,6 +1026,8 @@ div.table-container #invitees-table tr td.roles {  }
 ******************************/
 #white-box.all-clean-teams { width: 656px; height: 450px; left: 25%; }
 #white-box.all-clean-teams h1 { margin-bottom: 20px; }
+.clean-teams-search {float: right;}
+.all-change-teams-header {float: left;}
 
 /******************************
 	All Notifications Page
