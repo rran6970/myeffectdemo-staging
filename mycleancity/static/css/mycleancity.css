@@ -140,7 +140,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.register { left: 373px; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
-#sign-go-back.clean-team-members { left: 181px; }
+#sign-go-back.clean-team-members { left: 28px; }
 #sign-go-back.edit-clean-team { left: 347px; }
 #sign-go-back.invite { left: 78px; }
 #sign-go-back.report-card { left: 78px; }
@@ -786,7 +786,7 @@ div.content.challenge-overview #participants-box .participants-list li a img { m
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }
 div.content.challenge-overview .twitter-share-button { float: left; }
-div.content.challenge-overview #participate-btn { float: right; }
+div.content.challenge-overview #participate-btn, div.content.challenge-overview #unparticipate-btn { float: right; padding-bottom: 10px; }
 
 #main-contact-container { margin-top: 20px; }
 #main-contact-container h2 { margin-bottom: 10px; }
@@ -848,6 +848,17 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.challenge-participants table tr td div.clean-cred-adding #add-hours-text { float: left; width: 50px; }
 #white-box.challenge-participants table tr td div.clean-cred-adding #add-clean-creds-text { float: left; width: 50px; }
 #white-box.challenge-participants table tr td div.clean-cred-adding #confirm-btn { float: right; width: 160px; }
+
+/******************************
+    Participants Manage Page
+******************************/
+#white-box p { font-weight: 400; }
+#white-box.participants-manage { width: 885px; left: 5%; }
+#white-box.participants-manage table thead tr th.participants {}
+#white-box.participants-manage table thead tr th.message { width: 600px; }
+#white-box.participants-manage table thead tr th.actions { text-align: center; }
+
+#white-box.participants { width: 270px; left: 76%; }
 
 /******************************
 	Change Team Members Page

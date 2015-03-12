@@ -13,7 +13,7 @@ class ChallengeAdmin(admin.ModelAdmin):
 class ChallengeQRCodeAdmin(admin.ModelAdmin):
     list_display = ('data', 'qr_image')
 
-class UserChallengeAdmin(admin.ModelAdmin):
+class UserChallengeEventAdmin(admin.ModelAdmin):
     list_display = ('id', 'challenge', 'user', 'timestamp', 'time_in', 'time_out', 'total_hours', 'total_clean_creds')
     search_fields = ['user__id', 'user__first_name', 'user__last_name', 'challenge']
     actions = [export_as_csv_action("CSV Export")]
@@ -78,7 +78,7 @@ admin.site.register(StaplesStores, StaplesStoresAdmin)
 admin.site.register(StaplesChallenge, StaplesChallengeAdmin)
 admin.site.register(ChallengeQRCode, ChallengeQRCodeAdmin)
 admin.site.register(CleanTeamChallenge, CleanTeamChallengeAdmin)
-admin.site.register(UserChallenge, UserChallengeAdmin)
+admin.site.register(UserChallengeEvent, UserChallengeEventAdmin)
 admin.site.register(Voucher, VoucherAdmin)
 admin.site.register(UserVoucher, UserVoucherAdmin)
 admin.site.register(CleanGrid, CleanGridAdmin)

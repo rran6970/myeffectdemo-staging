@@ -54,8 +54,8 @@
   $( document ).ready(function() {
     var page = $("#id_category").closest('div');
     if ($("#id_category").val() == "Environment"){
-      page.next().fadeIn();
-      page.next().next().fadeIn();
+      page.next().hide();
+      page.next().next().hide();
     }
     else{
       page.next().fadeOut();

@@ -40,7 +40,7 @@ img.images-padded-10 { padding: 10px; background: white; }
 .gray-italic-subtitle { color: #AAA !important; font-style: italic !important; font-size: 13px !important; }
 .subtitle-blue { color: #00aeef !important; }
 
-p, label { line-height: 20px; font-weight: 200; font-size: 14px; letter-spacing: 0px; margin: 0; padding: 0; }
+p, label { line-height: 20px; font-weight: 200; font-size: 14px; vertical-align: middle; letter-spacing: 0px; margin: 0; padding: 0; }
 ul, ol { padding: 0; margin: 0 0 10px 25px; }
 img { outline: 0; }
 hr { margin: 20px 0; border: 0; border-top: 1px solid #EEE; border-bottom: none; }

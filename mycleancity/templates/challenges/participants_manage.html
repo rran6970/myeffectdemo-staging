@@ -1,0 +1,105 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect - {{ challenge.title }} Participants Manage {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+    	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
+        <div id="white-box" class="participants-manage">
+			{% csrf_token %}
+			<h1 id="team-name">{{ challenge.title }}</h1>
+			<div class="table-container">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="participants"><h2>Participants</h2></th>
+							<th class="message"><h2>Message</h2></th>
+							<th class="status"><h2>Status</h2></th>
+							<th class="actions"><h2>Actions</h2></th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for pa in participants %}
+						{% if pa.user.is_active %}
+						<tr>
+							<td class="participants">
+							  {% if pa.user.profile.picture %}
+						        <img src="{{ MEDIA_URL }}{{ pa.user.profile.picture }}" alt="" class="profile-pic profile-pic-42x42" />
+						      {% else %}
+						        <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
+						      {% endif %}
+			                  <br /><a href="/users/profile/{{ pa.user.id }}">{{ pa.user.first_name }} {{ pa.user.last_name }}</a>
+							</td>
+							<td class="message">
+								{{ pa.message }}
+							</td>
+							<form class="participant_action-forms" action="/challenges/participant-action/" method="post">
+							<td class="status">
+								{{pa.status }}
+							</td>
+							<td class="actions">
+								{% csrf_token %}
+								<input type="hidden" name="pid" value="{{ pa.id }}" />
+								{% if pa.status == "approved" %}
+									<input type="hidden" id="action" name="action" value="remove" />
+									<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />
+								{% else %}
+									<input type="hidden" id="action" name="action" value="approve" />
+									<input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+								{% endif %}
+							</td>
+							</form>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+				</table><!-- /.table.table-hover -->
+			</div><!-- /.table-container -->
+        </div><!-- /#white-box -->
+
+		<div id="white-box" class="participants">	
+			<h1 id="team-name">Participants</h1>
+			<p>Total: {{ count }}
+	        {% if challenge.limit > 0 %}
+	        Max: {{challenge.limit}}
+	        {% endif %}
+	        </p>
+	        <div id="clean-team-members-list">
+			    {% for cc in participants %}
+			      {% if cc.user.is_active %}
+			        {% if cc.status == "approved" %}
+			          <p>          
+			            {% if cc.user.profile.picture %}
+					      <img src="{{ MEDIA_URL }}{{ cc.user.profile.picture }}" alt="" class="profile-pic profile-pic-42x42" />
+					    {% else %}
+					      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
+					    {% endif %}
+			            <a href="/users/profile/{{ cc.user.id }}">{{ cc.user.first_name }} {{ cc.user.last_name }}</a>
+			          </p>
+			        {% endif %}
+			      {% endif %}
+			    {% endfor %}
+			</div><!-- end of #clean-team-members-list -->
+		</div><!-- /#white-box -->
+
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

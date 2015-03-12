@@ -25,7 +25,7 @@ from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile
-from challenges.models import Challenge, UserChallenge
+from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
 
@@ -484,8 +484,8 @@ class CleanTeamView(TemplateView):
                 print e
 
             try:
-                user_challenges = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid)
-                user_challenges_list = UserChallenge.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+                user_challenges = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid)
+                user_challenges_list = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
             except Exception, e:
                 user_challenges = []
                 user_challenges_list = []

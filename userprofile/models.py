@@ -15,7 +15,7 @@ import mailchimp
 from cStringIO import StringIO
 
 from mycleancity.actions import *
-from challenges.models import Challenge, UserChallenge, CleanTeamChallenge, StaplesChallenge
+from challenges.models import Challenge, UserChallengeEvent, CleanTeamChallenge, StaplesChallenge
 from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral
 from users.models import ProfileTask, ProfileProgress, ProfilePhase
 from notifications.models import Notification, UserNotification
@@ -182,7 +182,7 @@ class UserProfile(models.Model):
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
     def get_total_hours(self):
-        user_challenges = UserChallenge.objects.filter(user=self.user)
+        user_challenges = UserChallengeEvent.objects.filter(user=self.user)
 
         total_hours = 0
         for u in user_challenges:
@@ -205,7 +205,7 @@ class UserProfile(models.Model):
 
     def is_clean_ambassador(self, status="approved"):
         try:
-            return True if (self.clean_team_member.role=="ambassador" or self.clean_team_member.role=="manager") and self.clean_team_member.status==status else False
+            return True if (self.clean_team_member.role=="leader" or self.clean_team_member.role=="manager") and self.clean_team_member.status==status else False
         except Exception, e:
             print e
             return False
@@ -313,7 +313,7 @@ class UserProfile(models.Model):
             except Exception, e:
                 print e
 
-        user_challenges = UserChallenge.objects.filter(user=self.user).order_by("time_in")
+        user_challenges = UserChallengeEvent.objects.filter(user=self.user).order_by("time_in")
         challenges.append({'user_challenges': user_challenges})
 
         return challenges
