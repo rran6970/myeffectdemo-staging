@@ -8,6 +8,7 @@ from itertools import chain
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
 
+
 """
 Name:           Community
 Date created:   March 10, 2015
@@ -904,3 +905,39 @@ class CleanTeamFollow(models.Model):
         self.user = user
         self.clean_team = selected_team
         self.save()
+
+"""
+Name:           TeamCommunityMembership
+Date created:   March 12, 2015
+Description:    An association that describes that a team is associated with a specific community
+"""
+class TeamCommunityMembership(models.Model):
+    clean_team = models.ForeignKey(CleanTeam, null=False)
+    community = models.ForeignKey(Community, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Community Team Membership'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(TeamCommunityMembership, self).save(*args, **kwargs)
+
+"""
+Name:           UserCommunityMembership
+Date created:   March 12, 2015
+Description:    An association that describes that a user is associated with a specific community
+"""
+class UserCommunityMembership(models.Model):
+    user = models.ForeignKey(User, null=False)
+    community = models.ForeignKey(Community, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Community User Membership'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(UserCommunityMembership, self).save(*args, **kwargs)
