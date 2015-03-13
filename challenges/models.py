@@ -153,6 +153,7 @@ class Challenge(models.Model):
     token = models.CharField(max_length=20, blank=True)
     promote_top = models.BooleanField(default=False)
     url = models.CharField(max_length=60, blank=True, null=True, verbose_name="URL")
+    limit = models.IntegerField(default=-1)
 
     clean_team_only = models.BooleanField(default=False)
 
@@ -194,6 +195,11 @@ class Challenge(models.Model):
         self.contact_last_name = form['contact_last_name']
         self.contact_phone = form['contact_phone']
         self.contact_email = form['contact_email']
+
+        if form['limit'] and form['limit'] > 0:
+            self.limit = form['limit']
+        else:
+            self.limit = -1
 
         if form['type']:
             self.type = form['type']
@@ -306,6 +312,18 @@ class Challenge(models.Model):
             cat = "Sports &amp; Recreation"
         return cat
 
+    def add_participant_if_not_participated(self, user):
+        if not ChallengeParticipant.objects.filter(user=user, challenge=self):
+            challengeparticipant = ChallengeParticipant()
+            challengeparticipant.challenge = self
+            challengeparticipant.user = user
+            challengeparticipant.status = "approved"
+            challengeparticipant.save()
+        else:
+            p=ChallengeParticipant.objects.get(user=user, challenge=self)
+            p.status = "approved"
+            p.save()
+
     def check_out_all(self):
         if self.clean_team_only:
             clean_team_challenges = CleanTeamChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
@@ -313,7 +331,7 @@ class Challenge(models.Model):
             for clean_team_challenge in clean_team_challenges:
                 clean_team_challenge.challenge.check_in_check_out(clean_team_challenge.clean_team.id)
         else:
-            user_challenges = UserChallenge.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
+            user_challenges = UserChallengeEvent.objects.filter(challenge=self, time_in__isnull=False, time_out__isnull=True)
 
             for user_challenge in user_challenges:
                 user_challenge.challenge.check_in_check_out(user_challenge.user.id)
@@ -341,13 +359,15 @@ class Challenge(models.Model):
                 print e
         else:
             try:
-                userchallenge, created = UserChallenge.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
+                userchallenge, created = UserChallengeEvent.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
 
                 userchallenge.time_in = now
                 userchallenge.time_out = now
                 userchallenge.total_hours = 0
                 userchallenge.total_clean_creds = total_clean_creds
                 userchallenge.save()
+
+                self.add_participant_if_not_participated(user)
 
                 user.profile.add_clean_creds_to_individual_and_teams(total_clean_creds)
 
@@ -368,13 +388,14 @@ class Challenge(models.Model):
                 if self.clean_team_only:
                     participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_out__isnull=True)
                 else:
-                    participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_out__isnull=True)
+                    participant_challenge, created = UserChallengeEvent.objects.get_or_create(user_id=participant_id, challenge=self, time_out__isnull=True)
+                    self.add_participant_if_not_participated(User.objects.get(id=participant_id))
 
                 if not participant_challenge.time_in:
                     now = datetime.datetime.utcnow().replace(tzinfo=utc)
-
                     participant_challenge.time_in = now
                     participant_challenge.save()
+                    
                 else:
                     # Get current time and time out time
                     now = str(datetime.datetime.utcnow().replace(tzinfo=utc))
@@ -415,7 +436,7 @@ class Challenge(models.Model):
                 if self.clean_team_only:
                     participant_challenge = CleanTeamChallenge.objects.get(clean_team_id=participant_id, challenge=self)
                 else:
-                    participant_challenge = UserChallenge.objects.get(user_id=participant_id, challenge=self)
+                    participant_challenge = UserChallengeEvent.objects.get(user_id=participant_id, challenge=self)
 
                 now = datetime.datetime.utcnow().replace(tzinfo=utc)
                 # total_clean_creds = self.clean_creds_per_hour
@@ -441,7 +462,8 @@ class Challenge(models.Model):
                 if self.clean_team_only:
                     participant_challenge, created = CleanTeamChallenge.objects.get_or_create(clean_team_id=participant_id, challenge=self, time_in__isnull=True)
                 else:
-                    participant_challenge, created = UserChallenge.objects.get_or_create(user_id=participant_id, challenge=self, time_in__isnull=True)
+                    participant_challenge, created = UserChallengeEvent.objects.get_or_create(user_id=participant_id, challenge=self, time_in__isnull=True)
+                    self.add_participant_if_not_participated(User.objects.get(id=participant_id))
 
                 now = datetime.datetime.utcnow().replace(tzinfo=utc)
                 total_clean_creds = self.clean_creds_per_hour
@@ -466,7 +488,7 @@ class Challenge(models.Model):
             raise e
 
     # Have to remove staples_store parameter only there for the Staples CleanAct
-    def participate_in_challenge(self, user, staples_store=None):
+    def participate_in_challenge(self, user, message="", staples_store=None):
         try:
             if self.clean_team_only:
                 if user.profile.is_clean_ambassador():
@@ -494,19 +516,24 @@ class Challenge(models.Model):
                     else:
                         return False
             else:
-                user_challenge = UserChallenge.objects.filter(user=user, challenge=self)
+                challengeparticipant = ChallengeParticipant.objects.filter(user=user, challenge=self)
 
-                if user_challenge.count() == 0:
-                    user_challenge = UserChallenge(user=user)
-                    user_challenge.challenge = self
-                    user_challenge.save()
+                if not challengeparticipant:
+                    challengeparticipant = ChallengeParticipant(user=user)
+                    challengeparticipant.challenge = self
+                    if self.limit >0:
+                        challengeparticipant.status = "pending"
+                    else:
+                        challengeparticipant.status = "approved"
+                    challengeparticipant.message = message
+                    challengeparticipant.save()
                 else:
                     return False
 
             if user.profile.is_clean_ambassador():
                 if user.profile.clean_team_member.clean_team.level.name == "Seedling":
                     clean_team = user.profile.clean_team_member.clean_team
-                    count_user_challenges = UserChallenge.objects.filter(user=user, challenge__national_challenge=True).count()
+                    count_user_challenges = ChallengeParticipant.objects.filter(user=user, challenge__national_challenge=True, status="approved").count()
                     count_clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=clean_team, challenge__national_challenge=True).count()
 
                     total_challenges = count_user_challenges + count_clean_team_challenges
@@ -533,15 +560,11 @@ class Challenge(models.Model):
                     except Exception, e:
                         print e
         else:
-            count = UserChallenge.objects.filter(challenge=self, user=user).count()
-            already_participated = True if count > 1 else False
-
-            if not already_participated:
-                try:
-                    user_challenge = UserChallenge.objects.get(challenge=self, user=user)
-                    return False if user_challenge.time_in else True
-                except Exception, e:
-                    print e
+            try:
+                user_challenge = UserChallengeEvent.objects.filter(challenge=self, user=user)
+                return False if user_challenge else True
+            except Exception, e:
+                print e
 
         return False
 
@@ -551,7 +574,7 @@ class Challenge(models.Model):
                 clean_team_challenge = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
                 clean_team_challenge.delete()
             else:
-                user_challenge = UserChallenge.objects.get(challenge=self, user=user)
+                user_challenge = ChallengeParticipant.objects.get(challenge=self, user=user)
                 user_challenge.delete()
 
         return False
@@ -568,10 +591,9 @@ class Challenge(models.Model):
                         return False
         else:
             try:
-                user_challenge = UserChallenge.objects.filter(user=user, challenge=self)[0]
+                user_challenge = ChallengeParticipant.objects.get(user=user, challenge=self)
                 return user_challenge
             except Exception, e:
-                print e
                 return False
 
     # Shows participants in Challenge Overview page
@@ -579,7 +601,15 @@ class Challenge(models.Model):
         if self.clean_team_only:
             participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
         else:
-            participants = UserChallenge.objects.raw("SELECT id, user_id FROM challenges_userchallenge WHERE challenge_id = %s GROUP BY user_id, challenge_id" % (self.id))
+            participants = ChallengeParticipant.objects.filter(challenge=self, status="approved")
+
+        return participants
+
+    def get_all_participants(self):
+        if self.clean_team_only:
+            participants = CleanTeamChallenge.objects.raw("SELECT id, clean_team_id FROM challenges_cleanteamchallenge WHERE challenge_id = %s GROUP BY clean_team_id, challenge_id" % (self.id))
+        else:
+            participants = ChallengeParticipant.objects.filter(challenge=self)
 
         return participants
 
@@ -604,10 +634,10 @@ class Challenge(models.Model):
             return participants
         else:
             sql = ("SELECT uc.id, auth_user.first_name, auth_user.last_name, uc.challenge_id, uc.user_id, uc.timestamp, uc.time_in, uc.time_out, uc.total_hours, uc.total_clean_creds "
-                "FROM challenges_userchallenge uc "
+                "FROM challenges_userchallengeevent uc "
                 "INNER JOIN("
                 "SELECT id, user_id, max(timestamp) ts "
-                "FROM challenges_userchallenge "
+                "FROM challenges_userchallengeevent "
                 "WHERE challenge_id = %s "
                 "GROUP BY user_id"
                 ") ij ON uc.user_id = ij.user_id AND uc.timestamp = ts "
@@ -617,7 +647,7 @@ class Challenge(models.Model):
                 "ORDER BY auth_user.first_name"
             ) % (self.id, self.id)
 
-            participants = UserChallenge.objects.raw(sql)
+            participants = UserChallengeEvent.objects.raw(sql)
 
             return participants
 
@@ -779,12 +809,31 @@ class ChallengeSkillTag(models.Model):
         super(ChallengeSkillTag, self).save(*args, **kwargs)
 
 """
-Name:           UserChallenge
-Date created:   Sept 8, 2013
+Name:           ChallengeParticipant
+Date created:   March 6, 2015
 Description:    Will be used to keep track of all of the Users partcipating 
                 within a challenge.
 """
-class UserChallenge(models.Model):
+class ChallengeParticipant(models.Model):
+    challenge = models.ForeignKey(Challenge)
+    user = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    status = models.CharField(max_length=30, default="pending")
+    message = models.TextField(blank=True, null=True, default="")
+
+    class Meta:
+        verbose_name_plural = u'Challenges user participated in'
+
+    def save(self, *args, **kwargs):
+        super(ChallengeParticipant, self).save(*args, **kwargs)
+
+"""
+Name:           UserChallengeEvent
+Date created:   Sept 8, 2013
+Description:    Will be used to keep track of all of the Events Users attend 
+                within a challenge.
+"""
+class UserChallengeEvent(models.Model):
     challenge = models.ForeignKey(Challenge)
     user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -794,10 +843,10 @@ class UserChallenge(models.Model):
     total_clean_creds = models.DecimalField(max_digits=11, decimal_places=2, default=0)
 
     class Meta:
-        verbose_name_plural = u'Challenges user participated in'
+        verbose_name_plural = u'Events user attended'
 
     def save(self, *args, **kwargs):
-        super(UserChallenge, self).save(*args, **kwargs)
+        super(UserChallengeEvent, self).save(*args, **kwargs)
 
 """
 Name:           CleanTeamChallenge

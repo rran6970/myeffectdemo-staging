@@ -96,6 +96,7 @@ class NewChallengeForm(forms.Form):
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
         self.fields['tags'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), choices=skilltags_choices, label="Skill Tags")
         self.fields['link'] = forms.CharField(required=False, min_length=2, label="External link")
+        self.fields['limit'] = forms.IntegerField(required=False, label="Maximum Participants")
 
         self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
         self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")

@@ -174,14 +174,12 @@ $(function(){
     // $('form.participation-forms').on('submit', ajaxParticipation);
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
 	$('form.members-forms').on('submit', ajaxApproveMember);
+    $('form.participant_action-forms').on('submit', ajaxApproveParticipant);
 
     // Posted Challenge host is Change Team
     $("#id_host_is_clean_team").on("click", hostIsCleanTeam);
 
     $("#id_clean_ambassadors").on("change", populateMainContactInfo);
-
-    // Challenge survey enable/disable question 5 based on answer from question 4
-    $("#id_question_4_3").on("click", enabledDisableQuestion5);
 
     // Challenge survey update score in real time
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
@@ -539,14 +537,11 @@ function hostIsCleanTeam(e)
     }    
 }
 
-function enabledDisableQuestion5(e)
+function showParticipatingMessageBox(e)
 {
-    var checkbox = $(this);
-
-    if (checkbox.is(':checked'))
-        $("input[name='question_5']").prop('disabled', false);
-    else
-        $("input[name='question_5']").prop('disabled', 'disabled');
+    $("#participate-btn").hide();
+    $("#participating-message-box").fadeIn();
+    $("#id_send_btn").focus();
 }
 
 function ajaxQuickUnreadNotification(e)
@@ -708,6 +703,23 @@ function ajaxParticipation(e)
 function ajaxApproveMember(e)
 {		
 	var form = $(this);
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+            location.reload();
+        },
+        error: function(data) {alert("some thing is wrong...")}
+    });
+    e.preventDefault();
+    return false;
+}
+
+function ajaxApproveParticipant(e)
+{       
+    var form = $(this);
 
     $.ajax({
         type: form.attr('method'),

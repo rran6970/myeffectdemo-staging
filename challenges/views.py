@@ -40,7 +40,7 @@ def export_challenge_data(request, cid):
             for participant in challenge_participants:
                 writer.writerow([participant.clean_team.id, participant.clean_team.name, participant.clean_team.contact_user.first_name, participant.clean_team.contact_user.last_name, participant.clean_team.contact_user.email, participant.timestamp, participant.time_in, participant.time_out, participant.total_hours, participant. total_clean_creds])
         else:
-            challenge_participants = UserChallenge.objects.filter(Q(challenge=challenge))
+            challenge_participants = UserChallengeEvent.objects.filter(Q(challenge=challenge))
 
             writer.writerow(['User ID', 'First Name', 'Last Name', 'Email', 'Date/Time (UTC) Signed Up for Challenge', 'Date/Time (UTC) Checked In', 'Date/Time (UTC) Checked Out', 'Total Hours', 'Total Change Creds'])
 
@@ -77,6 +77,7 @@ def survey_update_score(request):
 def participate_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
+        message = request.POST['message']
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -85,12 +86,12 @@ def participate_in_challenge(request):
             staples_store = request.POST['staples_store']
             staples_store = StaplesStores.objects.get(id=staples_store)
 
-            participate = challenge.participate_in_challenge(user, staples_store)
+            participate = challenge.participate_in_challenge(user, message, staples_store)
 
             if not participate:
                 return HttpResponseRedirect('/challenges/%s/?error=store_taken' % str(cid))
         else:
-            challenge.participate_in_challenge(user)
+            challenge.participate_in_challenge(user, message)
 
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -448,13 +449,44 @@ class ChallengeParticipantsView(LoginRequiredMixin, TemplateView):
             challenge = get_object_or_404(Challenge, id=cid)
             user = self.request.user
 
-            if challenge.clean_team != user.profile.clean_team_member.clean_team:
+            if not user.profile.is_clean_ambassador():
+                context = None
+                return context
+            elif challenge.clean_team != user.profile.clean_team_member.clean_team:
                 context = None
                 return context
 
             participants = challenge.get_participants_to_check_in()
 
             context['participants'] = participants
+            context['cid'] = cid
+            context['challenge'] = challenge
+
+        return context
+
+class ChallengeParticipantManageView(LoginRequiredMixin, TemplateView):
+    template_name = "challenges/participants_manage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ChallengeParticipantManageView, self).get_context_data(**kwargs)
+
+        if 'cid' in self.kwargs:
+            cid = self.kwargs['cid']
+            challenge = get_object_or_404(Challenge, id=cid)
+            user = self.request.user
+
+            if not user.profile.is_clean_ambassador():
+                context = None
+                return context
+            elif challenge.clean_team != user.profile.clean_team_member.clean_team:
+                context = None
+                return context
+
+            participants = challenge.get_all_participants()
+            approvedparticipants = challenge.get_participants()
+
+            context['participants'] = participants
+            context['count'] = sum(1 for p in approvedparticipants)
             context['cid'] = cid
             context['challenge'] = challenge
 
@@ -484,7 +516,7 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
             except Exception, e:
                 print e
 
-        user_challenges = UserChallenge.objects.filter(user=user).order_by("time_in")
+        user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
 
         context['total_hours'] = user.profile.get_total_hours()
         context['user_challenges'] = user_challenges
@@ -507,6 +539,7 @@ class ChallengeView(TemplateView):
 
             if user.is_authenticated():
                 user_challenge = challenge.get_participating_challenge(user)
+                context['user_challenge'] = user_challenge
                 context['can_unparticipate'] = challenge.can_unparticipate(user)
 
             participants = challenge.get_participants()
@@ -530,3 +563,19 @@ class ChallengeView(TemplateView):
             context['page_url'] = self.request.get_full_path()
 
         return context
+
+def participant_action(request):
+    if request.method == 'POST' and request.is_ajax:
+        pid = request.POST['pid']
+        action = request.POST['action']
+
+        participant = ChallengeParticipant.objects.get(id=pid)
+
+        if action == "approve":
+            participant.status="approved"
+            participant.save()
+        elif action == "remove":
+            participant.status="removed"
+            participant.save()
+
+    return HttpResponse("success")

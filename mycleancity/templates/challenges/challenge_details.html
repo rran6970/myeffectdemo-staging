@@ -129,7 +129,11 @@
         <div class="clear"></div>
 
   			{% if user.is_authenticated %}
-          {% if challenge.clean_team_only %}
+          {% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
+            <form action="/challenges/participants-manage/{{ challenge.id }}/">
+            <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
+          </form>
+          {% elif challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
               {% if user_challenge %}
                 {% if participating_store %}
@@ -172,20 +176,28 @@
             {% endif %}
           {% else %}
             {% if user_challenge %}
+              {% if user_challenge.status == "approved" %}
+                <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+              {% else %}
+                <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="awaiting for approval" />
+              {% endif %}
               {% if can_unparticipate %}
                 <form action="/challenges/unparticipate/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="cid" value="{{ challenge.id }}">
-                  <input id="participate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
+                  <input id="unparticipate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
                 </form>
-              {% else %}
-                <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
               {% endif %}
             {% else %}
               <form action="/challenges/participate/" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="cid" value="{{ challenge.id }}">
-                <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
+                <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Participate" />
+                <div id="participating-message-box" style="display: none;">
+                  <p>Please describe the reason you want to participate in this action:</p>
+                  <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
+                  <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
+                </div>
               </form>
             {% endif %}
           {% endif %}
@@ -198,8 +210,11 @@
       <div id="participants-box">
       	<h1>Participants</h1>
 
-      	<p>Total: {{ count }}</p>
-
+      	<p>Total: {{ count }}
+        {% if challenge.limit > 0 %}
+        Max: {{challenge.limit}}
+        {% endif %}
+        </p>
         <ul class="participants-list">
         {% if not challenge.clean_team_only %}
           
