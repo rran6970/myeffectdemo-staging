@@ -187,7 +187,15 @@ $(function(){
     // Challenge survey update score in real time
     $("input[name^='question_']").on("click", ajaxChallengeSurveyUpdateScore);
 
-    twttr.events.bind('follow', followTwitterCallback);
+    var twttrBindFcn = function () {
+        /*  Try to bind every second until the twttr variable is defined */
+        if(!(typeof twttr === 'undefined')){
+            twttr.events.bind('follow', followTwitterCallback);
+        }else{
+            setTimeout(twttrBindFcn, 1000);
+        }
+    }
+    twttrBindFcn();
 
     // Change Team invite button
     $("#send-invite-form").on("submit", function(){
