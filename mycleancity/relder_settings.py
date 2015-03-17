@@ -1,5 +1,6 @@
 # Django settings for mycleancity project.
 import os
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -216,6 +217,11 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': '/tmp/django.log',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout
+        }
     },
     'loggers': {
         'django.request': {
