@@ -166,6 +166,7 @@ class UserProfile(models.Model):
     emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
     clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
     picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
+    resume = models.FileField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Resume (PDF Only)')
     hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
     settings = models.OneToOneField(UserSettings, null=True)
     qr_code = models.OneToOneField(UserQRCode, null=True)

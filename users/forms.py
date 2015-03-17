@@ -258,6 +258,22 @@ class RegisterUserForm(forms.ModelForm):
 
         return cleaned_data
 
+class PdfFileField(forms.FileField):
+    """
+    Same as FileField, but validates that the file is a PDF document
+    """
+    def __init__(self, *args, **kwargs):
+        super(PdfFileField, self).__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        data = super(PdfFileField, self).clean(*args, **kwargs)
+
+        #  TODO:  This only validates the header from the client ;  Should validate file format.
+        if not (data.content_type == 'application/pdf'):
+            raise forms.ValidationError('Document must be a pdf file.')
+
+        return data
+
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
@@ -271,6 +287,7 @@ class ProfileForm(forms.ModelForm):
     postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency contact phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
+    resume = PdfFileField(required=False, label="Resume (PDF Only)")
     dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=False)
     category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
     emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact first name")

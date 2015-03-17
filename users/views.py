@@ -422,6 +422,7 @@ class ProfileView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         user = User.objects.get(id=self.request.user.id)
         picture = form.cleaned_data['picture']
+        resume = form.cleaned_data['resume']
         
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
@@ -445,10 +446,12 @@ class ProfileView(LoginRequiredMixin, FormView):
             uploadFile = UploadFileToS3()
             user.profile.picture = uploadFile.upload(key, picture)
 
+        if resume:
+            key = 'uploads/user_resume_%s_%s' % (str(user.id), resume)
+            uploadFile = UploadFileToS3()
+            user.profile.resume = uploadFile.upload(key, resume)
+
         user.profile.save()
-
-
-
 
         if user.profile.about and user.profile.category and user.profile.city and user.profile.country and user.profile.emergency_contact_fname and user.profile.emergency_contact_lname and user.profile.picture:
             task = ProfileTask.objects.get(name="profile")
