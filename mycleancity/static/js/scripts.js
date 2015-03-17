@@ -21,7 +21,10 @@ $(function(){
     // $(".number-field").inputmask("9{3}");
 
     // Phone number vaidator mask
-    $(".phone-number").inputmask("9{1,3}-9{1,3}-9{1,4}");
+    var $phoneNumber = $(".phone-number");
+    if($phoneNumber.length){
+        $phoneNumber.inputmask("9{1,3}-9{1,3}-9{1,4}");
+    }
 
     // Javascript to enable link to tab
     var url = document.location.toString();
