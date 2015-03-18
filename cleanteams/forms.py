@@ -100,6 +100,7 @@ class RegisterCommunityForm(forms.ModelForm):
 
     class Meta:
         model = Community
+        exclude = ('owner_user')
 
     def clean(self):
         cleaned_data = super(RegisterCommunityForm, self).clean()
