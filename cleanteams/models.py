@@ -17,7 +17,7 @@ Description:    A table that stores community objects (of which users and teams 
 class Community(models.Model):
     name = models.CharField(max_length=120, null=False, unique=True, default="", verbose_name='Name of Community')
     is_private = models.BooleanField(default=0, null=False)
-    owner_user = models.ForeignKey(User)
+    owner_user = models.ForeignKey(User, unique=True)
 
     class Meta:
         verbose_name_plural = u'Community object'
