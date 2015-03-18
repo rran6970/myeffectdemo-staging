@@ -27,7 +27,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallengeEvent
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembership, Community
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
@@ -325,7 +325,19 @@ class RegisterInviteView(FormView):
         auth.login(self.request, user)
 
         lang = u.profile.settings.communication_language
-        
+
+        #  Look for a community owned by the person who did the invite
+        try:
+            parent_community = Community.objects.get(owner_user=invite.user.id)
+        except Exception, e:
+            parent_community = None
+
+        #  If the person who invited this individual is the owner of a community, the user now belongs to that community
+        if parent_community:
+            community_membership = UserCommunityMembership()
+            community_membership.user = user
+            community_membership.community = parent_community
+            community_membership.save()
         # Send registration email to user
         try:
             list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
