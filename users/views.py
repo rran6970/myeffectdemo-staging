@@ -326,17 +326,10 @@ class RegisterInviteView(FormView):
 
         lang = u.profile.settings.communication_language
 
-        #  Look for a community owned by the person who did the invite
-        try:
-            parent_community = Community.objects.get(owner_user=invite.user.id)
-        except Exception, e:
-            parent_community = None
-
-        #  If the person who invited this individual is the owner of a community, the user now belongs to that community
-        if parent_community:
+        if invite.community:
             community_membership = UserCommunityMembership()
             community_membership.user = user
-            community_membership.community = parent_community
+            community_membership.community = invite.community
             community_membership.save()
         # Send registration email to user
         try:

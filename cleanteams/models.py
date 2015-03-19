@@ -605,6 +605,7 @@ class CleanTeamInvite(models.Model):
     role = models.CharField(max_length=30, default="agent")
     status = models.CharField(max_length=30, default="pending")
     token = models.CharField(max_length=50, blank=True)
+    community = models.ForeignKey(Community, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = u'Change Team Invite'
@@ -669,6 +670,12 @@ class CleanTeamInvite(models.Model):
         self.role = role
         self.status = 'pending'
         self.token = token
+        #  If the person who invited this individual is the owner of a community, the user now belongs to that community
+        try:
+            self.community = Community.objects.get(owner_user=user.id)
+        except Exception, e:
+            self.community = None
+
         self.save()
 
         # If the User is already registered, send them a notification
