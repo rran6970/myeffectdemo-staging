@@ -727,7 +727,7 @@ class InviteView(LoginRequiredMixin, FormView):
         user = self.request.user
         email = form.cleaned_data['email']
         role = form.cleaned_data['role']
-        uri = self.request.build_absolute_uri()
+        uri = self.request.build_absolute_uri().rstrip('/')
 
         emails = re.split(',', email)
 
