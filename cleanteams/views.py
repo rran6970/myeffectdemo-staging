@@ -4,12 +4,14 @@ import ftplib
 import os
 import tempfile
 import re
+import json
 
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.core.mail import EmailMessage
+from django.core import serializers
 
 from django.db.models import Q
 from django import forms
@@ -19,8 +21,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 
-from django.views.generic import *
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
@@ -363,6 +364,12 @@ class CommunityView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(CommunityView, self).get_context_data(**kwargs)
         return context
+
+def community_search(request):
+    search = request.GET['search']
+    query_results = list(Community.objects.filter(name__contains=search))
+    result_objects = map(lambda item : { "name": item.name }, query_results)
+    return HttpResponse(json.dumps(result_objects, indent=4, separators=(',', ': ')))
 
 class TeamOrOrganization(LoginRequiredMixin, FormView):
     template_name = "cleanteams/create_team_or_org.html"
