@@ -102,9 +102,25 @@ class RegisterCommunityForm(forms.ModelForm):
         model = Community
         exclude = ('owner_user')
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(RegisterCommunityForm, self).__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super(RegisterCommunityForm, self).clean()
         name = cleaned_data.get('name')
+
+        if Community.objects.filter(name=name):
+            raise forms.ValidationError(u'There is already a community named \'%s\'.' % name)
+
+        try:
+            existing_community = Community.objects.get(owner_user=self.request.user)
+        except:
+            existing_community = None
+
+        if existing_community:
+            raise forms.ValidationError(u'You are already the owner of an existing community called \'%s\'.' % existing_community.name)
+
         return cleaned_data
 
 class RegisterOrganizationForm(forms.ModelForm):

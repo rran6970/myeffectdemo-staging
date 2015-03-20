@@ -24,7 +24,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -327,6 +327,11 @@ class CommunityView(LoginRequiredMixin, FormView):
     template_name = "cleanteams/create_community.html"
     form_class = RegisterCommunityForm
 
+    def get_form_kwargs(self):
+        kwargs = super(CommunityView, self).get_form_kwargs()
+        kwargs.update({ "request": self.request })
+        return kwargs
+
     def get_initial(self):
         initial = {}
         initial['current_user'] = self.request.user.id
@@ -348,6 +353,11 @@ class CommunityView(LoginRequiredMixin, FormView):
         community.is_private = form.cleaned_data['is_private']
         community.owner_user = self.request.user
         community.save()
+        #  Asign the owner to belong to the community
+        community_membership = UserCommunityMembership()
+        community_membership.user = self.request.user
+        community_membership.community = community
+        community_membership.save()
         return HttpResponseRedirect("/")
 
     def get_context_data(self, **kwargs):
