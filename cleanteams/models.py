@@ -920,7 +920,7 @@ Date created:   March 12, 2015
 Description:    An association that describes that a team is associated with a specific community
 """
 class TeamCommunityMembership(models.Model):
-    clean_team = models.ForeignKey(CleanTeam, null=False)
+    clean_team = models.ForeignKey(CleanTeam, null=False, unique=True)
     community = models.ForeignKey(Community, null=False)
 
     class Meta:
@@ -938,7 +938,7 @@ Date created:   March 12, 2015
 Description:    An association that describes that a user is associated with a specific community
 """
 class UserCommunityMembership(models.Model):
-    user = models.ForeignKey(User, null=False)
+    user = models.ForeignKey(User, null=False, unique=True)
     community = models.ForeignKey(Community, null=False)
 
     class Meta:

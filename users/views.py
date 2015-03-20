@@ -377,6 +377,10 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
 
             context['total_hours'] = total_hours
             context['user_profile'] = get_object_or_404(User, id=user_id)
+            try:
+                context['community'] = Community.objects.get(id=UserCommunityMembership.objects.get(user=user_id).community_id)
+            except:
+                context['community'] = None
 
         context['user'] = self.request.user
         return context

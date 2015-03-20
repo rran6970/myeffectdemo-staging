@@ -69,6 +69,15 @@
           </div>
           {% endif %}
 
+          <div class="field">
+            <p class="title">Community:</p>
+            {% if community %}
+              <p class="text">{{ community.name }}</p>
+            {% else %}
+              <a href="/clean-team/create-community/">Create Community</a>
+            {% endif %}
+          </div>
+
           <span class="clean-creds">
             <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
           </span>
