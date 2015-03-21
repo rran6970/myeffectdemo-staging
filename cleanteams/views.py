@@ -25,7 +25,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -256,6 +256,16 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             initial['group'] = clean_team.group
             initial['clean_team_id'] = clean_team.id
 
+            community_memberships = TeamCommunityMembership.objects.filter(clean_team=clean_team.id)
+            community_membership_requests = TeamCommunityMembershipRequest.objects.filter(clean_team=clean_team.id)
+
+            if community_memberships:
+                initial['community'] = community_memberships[0].community.name
+            elif community_membership_requests:
+                initial['community'] = community_membership_requests[0].community.name
+            else:
+                initial['community'] = ''
+
         return initial
 
     def form_invalid(self, form, **kwargs):
@@ -268,12 +278,27 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         clean_team_id = form.cleaned_data['clean_team_id']
+        community_name = form.cleaned_data['community']
+        if community_name and not community_name == "":
+            community = Community.objects.get(name=community_name)
+        else:
+            community = None
 
         try:
             clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
             clean_team = CleanTeam.objects.get(id=clean_team_member.clean_team.id)
         except Exception, e:
             print e
+
+        #  Request an invitation to join the community if necessary
+        if community:
+            previous_memberships = TeamCommunityMembership.objects.filter(clean_team=clean_team_id)
+            previous_memberships_requests = TeamCommunityMembershipRequest.objects.filter(clean_team=clean_team_id)
+            if not previous_memberships and not previous_memberships_requests:
+                membership_request = TeamCommunityMembershipRequest()
+                membership_request.clean_team_id = clean_team.id
+                membership_request.community_id = community.id
+                membership_request.save()
 
         clean_team.name = form.cleaned_data['name']
         clean_team.website = form.cleaned_data['website']
@@ -683,6 +708,8 @@ class CommunityMembersView(LoginRequiredMixin, TemplateView):
 
         context['user'] = user
         context['community'] = community
+        context['team_membership_requests'] = TeamCommunityMembershipRequest.objects.filter(community=community.id)
+        context['user_membership_requests'] = UserCommunityMembershipRequest.objects.filter(community=community.id)
         context['team_memberships'] = TeamCommunityMembership.objects.filter(community=community.id)
         context['user_memberships'] = UserCommunityMembership.objects.filter(community=community.id)
         return context
@@ -1058,5 +1085,24 @@ def clean_team_member_action(request):
                     clean_team_member.removedCleanAmbassador()
         elif action == "remove":
             clean_team_member.removedCleanAmbassador()
+
+    return HttpResponse("success")
+
+def community_member_action(request):
+    if request.method == 'POST' and request.is_ajax:
+        clean_team_id = request.POST['clean_team_id']
+        action = request.POST['action']
+
+        team_community_membership_request = TeamCommunityMembershipRequest.objects.get(clean_team_id=clean_team_id)
+
+        if action == "approve":
+            team_community_membership = TeamCommunityMembership()
+            team_community_membership.clean_team_id = team_community_membership_request.clean_team.id
+            team_community_membership.community_id = team_community_membership_request.community.id
+            team_community_membership.save()
+            team_community_membership_request.delete()
+        elif action == "remove":
+            #  TODO:  Not implemented yet
+            pass
 
     return HttpResponse("success")

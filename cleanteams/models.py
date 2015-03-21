@@ -949,3 +949,39 @@ class UserCommunityMembership(models.Model):
 
     def save(self, *args, **kwargs):
         super(UserCommunityMembership, self).save(*args, **kwargs)
+
+"""
+Name:           TeamCommunityMembershipRequest
+Date created:   March 20, 2015
+Description:    An association that describes that a team wants to join a specific community
+"""
+class TeamCommunityMembershipRequest(models.Model):
+    clean_team = models.ForeignKey(CleanTeam, null=False, unique=True)
+    community = models.ForeignKey(Community, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Community Team Membership Request'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(TeamCommunityMembershipRequest, self).save(*args, **kwargs)
+
+"""
+Name:           UserCommunityMembershipRequest
+Date created:   March 20, 2015
+Description:    An association that describes that a user wants to join a specific community
+"""
+class UserCommunityMembershipRequest(models.Model):
+    user = models.ForeignKey(User, null=False, unique=True)
+    community = models.ForeignKey(Community, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Community User Membership Request'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(UserCommunityMembershipRequest, self).save(*args, **kwargs)
