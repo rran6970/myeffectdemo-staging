@@ -181,6 +181,7 @@ class EditCleanTeamForm(forms.ModelForm):
     region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
+    community = forms.CharField(required=False, max_length=128, min_length=1, widget=forms.TextInput())
 
     # Combines the form with the corresponding model
     class Meta:
@@ -199,6 +200,12 @@ class EditCleanTeamForm(forms.ModelForm):
         region = cleaned_data.get('region')
         group = cleaned_data.get('group')
         clean_team_id = cleaned_data.get('clean_team_id')
+        community = cleaned_data.get('community')
+        if community == "":
+            community = None
+
+        if (not community is None) and (not Community.objects.filter(name=community)):
+            raise forms.ValidationError("That community does not exist")
 
         if not name:
             raise forms.ValidationError("Please enter your Change Team's name")

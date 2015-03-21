@@ -53,7 +53,8 @@
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>
+                  <td id="community-td">{{ form.community.label_tag }} {{ form.community }}</td>
+                  <td>{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>
                 </tr>
                 <tr>
                     <td>{{ form.contact_first_name.label_tag }} {{ form.contact_first_name }}</td>
@@ -74,6 +75,25 @@
   </div><!-- /.about -->
   {% wysiwyg_editor "id_about" %}
 </div> <!-- /.wrapper -->
+<script type="text/javascript">
+  setTimeout(function () {
+    var search_url = "{{ community_search_url }}";
+    var auto_complete_callback = function (request, response) {
+        $.ajax({
+          url: search_url + request.term,
+          success: function (data) {
+            var suggestions = []
+            var items = eval(data);
+            for(var i = 0; i < items.length; i++){
+              suggestions.push(items[i].name);
+            }
+            response(suggestions);
+          }
+        });
+    }
+    $("#community-td input").autocomplete({source: auto_complete_callback});
+  },1000);
+</script>
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

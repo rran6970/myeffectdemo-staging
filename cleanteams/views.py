@@ -318,6 +318,7 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(EditCleanTeamView, self).get_context_data(**kwargs)
+        context['community_search_url'] = self.request.build_absolute_uri("../../clean-team/community-search/?search=")
 
         if not self.request.user.profile.clean_team_member:
             context = None
