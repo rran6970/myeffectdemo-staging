@@ -1,4 +1,23 @@
 $(function(){  
+    var auto_complete_callback = function (request, response) {
+        $.ajax({
+          url: communities_search_url + request.term,
+          success: function (data) {
+            var suggestions = []
+            var items = eval(data);
+            for(var i = 0; i < items.length; i++){
+              suggestions.push(items[i].name);
+            }
+            if(suggestions.length == 0){
+              response(["No suggestions"]);
+            }else{
+              response(suggestions);
+            }
+          }
+        });
+    }
+
+    $("#community-td input").autocomplete({source: auto_complete_callback});
 
     $("#team-search-box").on('input', function() {
       var $team_rows = $("tr", $("#team-list-table"));
