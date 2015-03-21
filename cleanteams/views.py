@@ -25,7 +25,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -667,6 +667,24 @@ class CleanTeamMembersView(LoginRequiredMixin, TemplateView):
         context['ccs'] = ccs
         # context['clean_team_members'] = ctm
 
+        return context
+
+class CommunityMembersView(LoginRequiredMixin, TemplateView):
+    template_name = "cleanteams/community_members.html"
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityMembersView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        community = Community.objects.get(owner_user=self.request.user.id)
+
+        context['user'] = user
+        context['community'] = community
+        context['team_memberships'] = TeamCommunityMembership.objects.filter(community=community.id)
+        context['user_memberships'] = UserCommunityMembership.objects.filter(community=community.id)
         return context
 
 class PostMessageView(LoginRequiredMixin, FormView):
