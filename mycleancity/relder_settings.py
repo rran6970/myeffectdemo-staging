@@ -2,6 +2,8 @@
 import os
 import sys
 
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

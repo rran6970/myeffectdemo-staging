@@ -2,6 +2,8 @@
 import os
 import sys
 
+QR_CODE_BASE_URL = "http://hub.myeffect.ca/"
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
