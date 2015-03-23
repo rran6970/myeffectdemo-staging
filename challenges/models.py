@@ -1177,3 +1177,22 @@ class UserChallengeSurveyAnswers(models.Model):
 
     def save(self, *args, **kwargs):
         super(UserChallengeSurveyAnswers, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeForm
+Date created:   Mar 17 2015
+Description:    The forms for paticipents to download.
+"""
+class ChallengeUploadFile(models.Model): 
+    challenge = models.ForeignKey(Challenge)
+    file_name = models.CharField(max_length=100)
+    upload_file = models.FileField(upload_to=get_upload_file_name)
+
+    class Meta:
+        verbose_name_plural = u'Action Upload File:'
+
+    def __unicode__(self):
+        return u'%s' %(self.upload_file)
+
+    def save(self, *args, **kwargs):
+        super(ChallengeUploadFile, self).save(*args, **kwargs)

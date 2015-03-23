@@ -557,10 +557,14 @@ class ChallengeView(TemplateView):
             skilltags = ChallengeSkillTag.objects.filter(challenge=challenge)
             if skilltags:
                 context['skilltags'] = skilltags
+            context['files'] = ChallengeUploadFile.objects.filter(challenge=challenge)
             context['challenge'] = challenge
             context['count'] = sum(1 for participant in participants)
             context['participants'] = participants
             context['page_url'] = self.request.get_full_path()
+            if self.request.session.get('upload_error_msg', False):
+                context['error_msg'] = self.request.session.get('upload_error_msg')
+                del self.request.session['upload_error_msg']
 
         return context
 
@@ -579,3 +583,24 @@ def participant_action(request):
             participant.save()
 
     return HttpResponse("success")
+
+def upload_action_form(request):
+    if request.method == 'POST':
+        challenge_id = request.POST['challenge_id']
+        form = ChallengeUploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            challenge_id = form.cleaned_data['challenge_id']
+            upload_file = form.cleaned_data['upload_file']
+            st = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+            key = 'uploads/upload_file_%s_%s' % (st, upload_file)
+            uploadFile = UploadFileToS3()
+            fileUrl = uploadFile.upload(key, upload_file)
+            challengeform = ChallengeUploadFile()
+            challengeform.challenge_id = challenge_id
+            challengeform.file_name = upload_file
+            challengeform.upload_file = fileUrl
+            challengeform.save()
+        else:
+            request.session['upload_error_msg'] = form.non_field_errors()
+
+    return HttpResponseRedirect('/challenges/%s' % str(challenge_id))

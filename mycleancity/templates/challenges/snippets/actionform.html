@@ -1,0 +1,36 @@
+{% if user_challenge and user_challenge.status == "approved" %}
+	{% if files %}
+	<h4>Download Forms:</h4>
+	<ul>
+		{% for file in files %}
+			<li><a href="{{ MEDIA_URL }}{{ file.upload_file }}">{{ file.file_name }}</a></li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endif %}
+{% if user.is_authenticated %}
+	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
+		{% if files %}
+		<h4>Download Forms:</h4>
+		<ul>
+			{% for file in files %}
+				<li><a href="{{ MEDIA_URL }}{{ file.upload_file }}">{{ file.file_name }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% if error_msg %}
+			<div class="message-box error">
+			{{ error_msg }}
+			</div>
+		{% endif %}
+		<form enctype="multipart/form-data" action="/challenges/uploadform/" method="post">
+			{% csrf_token %}
+			<input id="id_challenge_id" name="challenge_id" type="hidden" value="{{ challenge.id }}">
+			<label for="id_upload_file">Add Form:</label>
+			<div style="display: -webkit-flex; display: flex; padding: 10px; border: 1px solid; margin: 5px;">
+			<input id="id_upload_file" name="upload_file" type="file">
+			<input id="id_upload_form" type="submit" value="Upload" />
+			</div>
+		</form>
+	{% endif %}
+{% endif %}
