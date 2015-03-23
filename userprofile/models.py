@@ -343,7 +343,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:  
        profile, created = UserProfile.objects.get_or_create(user=instance) 
        settings, created = UserSettings.objects.get_or_create(user=instance)
-       qr_code, created = UserQRCode.objects.get_or_create(user=instance, data='%suser/profile/%s' % (django_settings.QR_CODE_BASE_URL, profile.user.id))
+       qr_code, created = UserQRCode.objects.get_or_create(user=instance, data='%susers/profile/%s' % (django_settings.QR_CODE_BASE_URL, profile.user.id))
 
        profile.settings = UserSettings.objects.latest('id')
        profile.qr_code = UserQRCode.objects.latest('id')
