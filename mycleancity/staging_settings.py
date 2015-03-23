@@ -2,6 +2,8 @@
 import os
 import sys
 
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -189,7 +191,7 @@ LOGGING = {
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
     },
     'handlers': {
         'mail_admins': {
@@ -197,17 +199,26 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/tmp/django.log',
+        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'stream': sys.stdout
-        }
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['file', 'console',],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['file', 'console',],
+            'level': 'DEBUG',
         },
     }
 }

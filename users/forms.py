@@ -269,7 +269,7 @@ class PdfFileField(forms.FileField):
         data = super(PdfFileField, self).clean(*args, **kwargs)
 
         #  TODO:  This only validates the header from the client ;  Should validate file format.
-        if not (data.content_type == 'application/pdf'):
+        if data and not (data.content_type == 'application/pdf'):
             raise forms.ValidationError('Document must be a pdf file.')
 
         return data
