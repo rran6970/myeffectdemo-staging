@@ -38,7 +38,14 @@
                 </td>
                 <form class="members-forms" action="/clean-team/community-member-action/" method="post">
                 <td class="type">User</td>
-                <td class="actions"></td>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user_membership_request.user.id }}" />
+                    <input type="hidden" id="action" name="action" value="approve" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+                  </form>
+                </td>
                 </form>
               </tr>
             {% endfor %}
