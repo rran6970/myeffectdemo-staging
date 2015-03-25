@@ -298,11 +298,15 @@ $("#clean-team-members-list #id_role").on("change", function(e){
     {
         window.location.replace("/clean-team/invite-org/");
     }
+    else if ($(this).val() == "friend"){
+        $("#invite-heading").html("Invite Friends");
+        $("#invite-subtitle").html("Invite your friends to join MyEffect.");
+    }
     else if ($(this).val() == "agent"){
         $("#invite-heading").html("Invite Friends");
         $("#invite-subtitle").html("Invite your friends to support your Change Team.");
     }
-    else{
+    else if ($(this).val() == "leader"){
         $("#invite-heading").html("Invite Leader");
         $("#invite-subtitle").html("Invite a leader to become a manager of your Change Team.");
     }

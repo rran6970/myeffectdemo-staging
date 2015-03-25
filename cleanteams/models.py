@@ -599,10 +599,10 @@ Description:    The invites that each member can receive
 class CleanTeamInvite(models.Model):
 
     email = models.EmailField(max_length=70, blank=True)
-    clean_team = models.ForeignKey(CleanTeam)
+    clean_team = models.ForeignKey(CleanTeam, blank=True, null=True)
     user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    role = models.CharField(max_length=30, default="agent")
+    role = models.CharField(max_length=30, blank=True, null=True)
     status = models.CharField(max_length=30, default="pending")
     token = models.CharField(max_length=50, blank=True)
     community = models.ForeignKey(Community, blank=True, null=True)
@@ -632,28 +632,28 @@ class CleanTeamInvite(models.Model):
             self.user.profile.add_clean_creds(10)
 
             if notification:
-                try:
-                    # Send notifications
-                    notification = Notification.objects.get(notification_type="ca_joined")
-                    # The names that will go in the notification message template
-                    full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-                    name_strings = [full_name, self.clean_team.name]
+                if self.role:
+                    try:
+                        # Send notifications
+                        notification = Notification.objects.get(notification_type="ca_joined")
+                        # The names that will go in the notification message template
+                        full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                        name_strings = [full_name, self.clean_team.name]
 
-                    users_to_notify_str = notification.users_to_notify
-                    users_to_notify = users_to_notify_str.split(', ')
+                        users_to_notify_str = notification.users_to_notify
+                        users_to_notify = users_to_notify_str.split(', ')
 
-                    # Notify all of the Users that have the roles within users_to_notify
-                    for role in users_to_notify:
-                        clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
+                        # Notify all of the Users that have the roles within users_to_notify
+                        for role in users_to_notify:
+                            clean_team_members = CleanTeamMember.objects.filter(role=role, clean_team=self.clean_team, status="approved")
 
-                        for member in clean_team_members:
-                            user_notification = UserNotification()
-                            user_notification.create_notification("ca_joined", member.user, name_strings)
+                            for member in clean_team_members:
+                                user_notification = UserNotification()
+                                user_notification.create_notification("ca_joined", member.user, name_strings)
 
-                    # self.clean_team.add_team_clean_creds(5)
-                except Exception, e:
-                    print e
-
+                        # self.clean_team.add_team_clean_creds(5)
+                    except Exception, e:
+                        print e
             return True
 
         return False
@@ -664,10 +664,11 @@ class CleanTeamInvite(models.Model):
         invite_full_uri = u'%s/%s' % (uri, token)
         unsubscribe_full_uri = u'%s/unsubscribe/' % (uri)
 
-        self.clean_team = user.profile.clean_team_member.clean_team
+        if user.profile.clean_team_member and user.profile.clean_team_member.status == "approved":
+            self.clean_team = user.profile.clean_team_member.clean_team
+            self.role = role
         self.user = user
         self.email = str(email)
-        self.role = role
         self.status = 'pending'
         self.token = token
         #  If the person who invited this individual is the owner of a community, the user now belongs to that community
@@ -684,43 +685,50 @@ class CleanTeamInvite(models.Model):
         except Exception, e:
             u = None
 
-        if notification:
-            try:
-                if u:
-                    # Send notifications
-                    notification_type = "cc_invite"
-                    if role == "leader":
-                        notification_type = "ca_invite"
+        if self.clean_team:
+            if notification:
+                try:
+                    if u:
+                        # Send notifications
+                        notification_type = "cc_invite"
+                        if role == "leader":
+                            notification_type = "ca_invite"
 
-                    notification = Notification.objects.get(notification_type=notification_type)
-                    # The names that will go in the notification message template
-                    full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
-                    name_strings = [full_name, self.clean_team.name]
-                    link_strings = [str(self.token)]
+                        notification = Notification.objects.get(notification_type=notification_type)
+                        # The names that will go in the notification message template
+                        full_name = u'%s %s' %(self.user.first_name, self.user.last_name)
+                        name_strings = [full_name, self.clean_team.name]
+                        link_strings = [str(self.token)]
 
-                    user_notification = UserNotification()
-                    user_notification.create_notification(notification_type, u, name_strings, link_strings)
-            except Exception, e:
-                print e
+                        user_notification = UserNotification()
+                        user_notification.create_notification(notification_type, u, name_strings, link_strings)
+                except Exception, e:
+                    print e
 
-        if self.clean_team.level.name == "Seedling":
-            if self.clean_team.count_invites_sent() > 4:
-                task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
-                self.clean_team.complete_level_task(task)
+            if self.clean_team.level.name == "Seedling":
+                if self.clean_team.count_invites_sent() > 4:
+                    task = CleanTeamLevelTask.objects.get(name="invite_5_mcc")
+                    self.clean_team.complete_level_task(task)
 
-        # from django.core.mail import send_mail
-        # send_mail('test', 'test', 'zee@hakstudio.com', [email])
+            # from django.core.mail import send_mail
+            # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
-        # Send invite email to email address
-        template = get_template('emails/email_invite_agent.html')
-        if role == "leader":
-            template = get_template('emails/email_invite_leader.html')
-        content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
-
-        subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
-
-        send_email = SendEmail()
-        send_email.send(template, content, subject, from_email, to)
+            # Send invite email to email address
+            template = get_template('emails/email_invite_agent.html')
+            if role == "leader":
+                template = get_template('emails/email_invite_leader.html')
+            content = Context({ 'user': user, 'email': email, 'role': role, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
+            subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
+            send_email = SendEmail()
+            send_email.send(template, content, subject, from_email, to)
+            
+        elif not u:
+            template = get_template('emails/email_invite_friend.html')
+            content = Context({ 'user': user, 'email': email, 'invite_full_uri': invite_full_uri, 'unsubscribe_full_uri': unsubscribe_full_uri })
+            subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, email
+            send_email = SendEmail()
+            send_email.send(template, content, subject, from_email, to)
+        return
 
     def unsubscribe(self):
         self.status = "declined"
@@ -733,9 +741,11 @@ class CleanTeamInvite(models.Model):
         # send_mail('test', 'test', 'zee@hakstudio.com', [email])
 
         # Send invite email to email address
-        template = get_template('emails/email_invite_agent.html')
+        template = get_template('emails/email_invite_friend.html')
         if self.role == "leader":
             template = get_template('emails/email_invite_leader.html')
+        elif self.role == "agent":
+            template = get_template('emails/email_invite_agent.html')
         content = Context({ 'user': self.user, 'email': self.email, 'role': self.role, 'invite_full_uri': invite_full_uri })
 
         subject, from_email, to = 'My Effect - Invite to join', settings.DEFAULT_FROM_EMAIL, self.email
@@ -808,7 +818,7 @@ class LeaderReferral(models.Model):
     organization = models.CharField(max_length=60, blank=False, default="")
     title = models.CharField(max_length=60, blank=False, default="")
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    clean_team = models.ForeignKey(CleanTeam, null=True)
+    clean_team = models.ForeignKey(CleanTeam, blank=True, null=True)
     status = models.CharField(max_length=30, default="pending")
     token = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User, null=True)
@@ -835,11 +845,12 @@ class LeaderReferral(models.Model):
         self.token = token
 
         self.user = user
-        self.clean_team = clean_team
+        if clean_team:
+            self.clean_team = clean_team
 
         self.save()
 
-        if self.clean_team.level.name == "Seedling":
+        if clean_team and self.clean_team.level.name == "Seedling":
             task = CleanTeamLevelTask.objects.get(name="refer_teacher")
             self.clean_team.complete_level_task(task)
 

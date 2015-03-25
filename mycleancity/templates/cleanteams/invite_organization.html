@@ -61,12 +61,20 @@
           <form action="" method="post">{% csrf_token %}
             <table>
               <tr>
+                {% if clean_team %}
                 <td><label for="id_role">Role</label> <select id="invite_id_role" name="role">
                   <option value="agent">Friend(Agent)</option>
                   <option value="leader">Leader</option>
                   <option value="organization" selected>Organization</option>
                   </select>
                 </td>
+                {% else %}
+                <td><label for="id_role">Role</label> <select id="invite_id_role" name="role">
+                  <option value="friend">Friend</option>
+                  <option value="organization" selected>Organization</option>
+                  </select>
+                </td>
+                {% endif %}
               </tr>
 
               <tr>

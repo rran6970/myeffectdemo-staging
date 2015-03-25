@@ -309,25 +309,33 @@ class InviteForm(forms.Form):
 
         for invite_email in emails:
             invite_email = invite_email.strip()
+            if clean_team_id:
+                try:
+                    u = User.objects.get(email=invite_email)
 
-            try:
-                u = User.objects.get(email=invite_email)
+                    if role == 'leader':
+                        if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
+                            raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
 
-                if role == 'leader':
-                    if u.profile.is_clean_ambassador() or u.profile.is_clean_ambassador("pending"):
-                        raise forms.ValidationError("%s is already a Clean Ambassador for %s" % (invite_email, u.profile.clean_team_member.clean_team.name))
+                    if role == 'agent':
+                        if u.profile.is_clean_champion(clean_team_id):
+                            raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))
+                except User.DoesNotExist, e:
+                    print e
 
-                if role == 'agent':
-                    if u.profile.is_clean_champion(clean_team_id):
-                        raise forms.ValidationError("%s is already a Clean Clean Champion for your team" % (invite_email))
-            except User.DoesNotExist, e:
-                print e
+                error = CleanTeamInvite.objects.filter(email=invite_email, role=role, clean_team_id=clean_team_id).count()
 
-            error = CleanTeamInvite.objects.filter(email=invite_email, role=role, clean_team_id=clean_team_id).count()
-
-            if error > 0:
-                raise forms.ValidationError("%s is already invited for that role" %(invite_email))
-
+                if error > 0:
+                    raise forms.ValidationError("%s is already invited for that role" %(invite_email))
+            else:
+                if CleanTeamInvite.objects.filter(email=invite_email):
+                    raise forms.ValidationError("%s is already invited" %(invite_email))
+                try:
+                    u = User.objects.get(email=invite_email)
+                    if u:
+                        raise forms.ValidationError("%s is already invited" %(invite_email))
+                except User.DoesNotExist, e:
+                    print e
         return cleaned_data
 
 class PostMessageForm(forms.Form):
@@ -372,6 +380,8 @@ class LeaderReferralForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a organization")
         if not title:
             raise forms.ValidationError("Please enter a title")
+        if LeaderReferral.objects.filter(email=email):
+            raise forms.ValidationError("This email is already referred")
 
         return cleaned_data
 

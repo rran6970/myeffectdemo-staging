@@ -212,7 +212,7 @@ class RegisterView(FormView):
         
         # Send registration email to user
         try:
-            list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
+            list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
             list.subscribe(form.cleaned_data['email'], {'EMAIL': form.cleaned_data['email'], 'FNAME': form.cleaned_data['first_name'], 'LNAME': form.cleaned_data['last_name']})
         except Exception, e:
             print e
@@ -333,7 +333,7 @@ class RegisterInviteView(FormView):
             community_membership.save()
         # Send registration email to user
         try:
-            list = mailchimp.utils.get_connection().get_list_by_id('c854c390df')
+            list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
             list.subscribe(form.cleaned_data['email'], {'EMAIL': form.cleaned_data['email'], 'FNAME': form.cleaned_data['first_name'], 'LNAME': form.cleaned_data['last_name']})
         except Exception, e:
             print e
