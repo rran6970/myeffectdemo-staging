@@ -34,6 +34,7 @@
               </div>
             {% endif %}
 
+            {% if clean_team_member_id %}
             <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
               <table>
                   <tbody id = "submit_org_tr">
@@ -58,6 +59,9 @@
                   </tbody>
               </table>
             </form>
+            {% else %}
+              <p>You must <a href="/clean-team/create-team-or-org">become the leader</a> of team before you can upgrade to a manager.</p>
+            {% endif %}
         </div>
     </div>
   </div>

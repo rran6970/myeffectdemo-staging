@@ -354,14 +354,13 @@ class SettingsForm(forms.ModelForm):
         return cleaned_data
 
 class UpgradeAccountForm(forms.ModelForm):
-    access_code = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
+    access_code = forms.CharField(required=False, widget=forms.TextInput(), max_length=30)
 
     def __init__(self, *args, **kwargs):
         super(UpgradeAccountForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = UserSettings
-        exclude = ('user', 'timezone', 'communication_language')
+        model = UserProfile
 
     def clean(self):
         cleaned_data = super(UpgradeAccountForm, self).clean()

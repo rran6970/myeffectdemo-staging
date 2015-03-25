@@ -564,7 +564,7 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
     success_url = "/"
 
     def get_initial(self):
-        initial = {}
+        initial = super(UpgradeAccountView, self).get_initial()
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -579,6 +579,11 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form, **kwargs):
         return HttpResponseRedirect('/')
+
+    def get_context_data(self, **kwargs):
+        context = super(UpgradeAccountView, self).get_context_data(**kwargs)
+        context['clean_team_member_id'] = self.request.user.profile.clean_team_member.id
+        return context
 
 class QRCodeView(LoginRequiredMixin, TemplateView):
     template_name = "users/qr_code.html"
