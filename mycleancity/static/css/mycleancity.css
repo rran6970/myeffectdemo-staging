@@ -653,7 +653,6 @@ div.container#register-join-team {  }
 ******************************/
 #white-box.public-profile { width: 478px; left: 45%; }
 #white-box.public-profile img.profile-pic { display: block; margin-top: 10px; margin-right: 16px; float: right; }
-#white-box.public-profile span.edit-profile-link { position: relative; left: 40px; top: 5px; }
 
 #white-box.public-profile div.info { width: 264px; float: left; }
 #white-box.public-profile div.info h2 { font-weight: 700; float: left; }

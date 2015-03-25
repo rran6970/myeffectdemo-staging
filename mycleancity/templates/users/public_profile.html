@@ -115,7 +115,8 @@
         </div><!-- /.info -->
         
         {% if user.id == user_profile.id %}
-          <span class="edit-profile-link"><a href="/users/profile">Edit Profile</a></span>
+          <div style="text-align: center;"><span><a href="/users/profile">Edit Profile</a></span></div>
+          <div style="text-align: center;"><span><a href="/users/upgrade-account">Upgrade Account</a></span></div>
         {% endif %}
 
         {% if user_profile.profile.picture %}
