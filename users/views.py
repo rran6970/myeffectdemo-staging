@@ -27,7 +27,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from challenges.models import Challenge, UserChallengeEvent
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembership, Community
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembershipRequest, UserCommunityMembership, Community
 
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
@@ -414,6 +414,17 @@ class ProfileView(LoginRequiredMixin, FormView):
         initial['postal_code'] = user.profile.country
         if user.profile.website:
             initial['website'] = user.profile.website
+
+        community_memberships = UserCommunityMembership.objects.filter(user=user.id)
+        community_membership_requests = UserCommunityMembershipRequest.objects.filter(user=user.id)
+
+        if community_memberships:
+            initial['community'] = community_memberships[0].community.name
+        elif community_membership_requests:
+            initial['community'] = community_membership_requests[0].community.name
+        else:
+            initial['community'] = ''
+
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -432,6 +443,23 @@ class ProfileView(LoginRequiredMixin, FormView):
         user = User.objects.get(id=self.request.user.id)
         picture = form.cleaned_data['picture']
         resume = form.cleaned_data['resume']
+        community_name = form.cleaned_data['community']
+        if community_name and not community_name == "":
+            community = Community.objects.get(name=community_name)
+        else:
+            community = None
+
+        #  Request an invitation to join the community if necessary
+        if community:
+            previous_memberships = UserCommunityMembership.objects.filter(user=user.id)
+            previous_memberships_requests = UserCommunityMembershipRequest.objects.filter(user=user.id)
+            #  Remove any previous membership request
+            previous_memberships_requests.delete()
+            if not previous_memberships:
+                membership_request = UserCommunityMembershipRequest()
+                membership_request.user_id = user.id
+                membership_request.community_id = community.id
+                membership_request.save()
         
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
@@ -468,6 +496,11 @@ class ProfileView(LoginRequiredMixin, FormView):
             user.profile.add_clean_creds(5)
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['community_search_url'] = self.request.build_absolute_uri("../../clean-team/community-search/?search=")
+        return context
 
 class SettingsView(LoginRequiredMixin, FormView):
     template_name = "users/settings.html"

@@ -19,6 +19,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from captcha.fields import ReCaptchaField
 from parsley.decorators import parsleyfy
 
+from cleanteams.models import Community
 from users.models import PrelaunchEmails
 from userprofile.models import UserProfile, UserSettings
 from userorganization.models import UserOrganization
@@ -292,6 +293,7 @@ class ProfileForm(forms.ModelForm):
     category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
     emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact first name")
     emergency_contact_lname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact last name")
+    community = forms.CharField(required=False, max_length=128, min_length=1, widget=forms.TextInput())
     # smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
     # Combines the form with the corresponding model
     class Meta:
@@ -307,6 +309,13 @@ class ProfileForm(forms.ModelForm):
         # country = cleaned_data.get("country")
         # email = cleaned_data.get("email")
         # dob = cleaned_data.get('dob')
+
+        community = cleaned_data.get('community')
+        if community == "":
+            community = None
+
+        if (not community is None) and (not Community.objects.filter(name=community)):
+            raise forms.ValidationError("That community does not exist")
 
         if not first_name:
             raise forms.ValidationError("Please enter your first name")

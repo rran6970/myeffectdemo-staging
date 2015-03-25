@@ -64,6 +64,11 @@
                         <td>{{ form.country.label_tag }} {{ form.country }}</td>
                     </tr>
                     <tr>
+                        <td id="community-td">{{ form.community.label_tag }} {{ form.community }}
+                        {% if form.community_request_pending %}
+                           (Request Pending)
+                        {% endif %}
+                        </td>
                         <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
                     </tr>
                     <tr>
@@ -87,6 +92,9 @@
   </div><!-- /.about -->
   {% wysiwyg_editor "id_about" %}
 </div> <!-- /.wrapper -->
+<script type="text/javascript">
+    var communities_search_url = "{{ community_search_url }}";
+</script>
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

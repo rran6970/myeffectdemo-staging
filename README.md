@@ -109,7 +109,20 @@ pip install -r requirements.txt
 
 If running manage.py locally, you'll need to specify which settings file to use.  You can create your own, or use someone elses.  
 
-More details on this are here: https://docs.djangoproject.com/en/1.7/topics/settings/
+In our project each stage (production and staging) and each person will have their own settings.py file.  This is necessary as the project scales, and it will prevent us from pushing incorrect configuration values and breaking our production stage (since each of us will have a different db password, differnt setup etc.)  It also prevents from breaking each others local configuration. Production and staging are also different, so they need separate settings files.  It also prevents us from corrupting production data easily, if we accidentally talked to the wrong S3 bucket, since these need to be specified differently in production/staging settings.
+
+As a result you'll need to indicate which settings.py file to use.
+
+This is documented here:
+
+https://docs.djangoproject.com/en/1.7/topics/settings/
+
+For those of us on linux, you can just push an export in your .bashrc:
+
+export DJANGO\_SETTINGS\_MODULE=mycleancity.<yourname>\_settings
+
+Otherwise, you can just use --setings-file=... when you run command line statements.
+
 
 * Creating a database failed to alter a time field.  Fix:
 * * Update Django to the latest release 1.7.1.
@@ -161,3 +174,22 @@ Above, the `--noreload` argument is optional, and prevents django from reloading
 http://localhost:10000
 ~~~~
 * The error about a missing Python module in an import statement may result from forgetting to source venv/bin/activate.
+
+To delete your entire local database and start over:
+
+#  This files will show you how to re-create your database from scratch and re-run all migrations.
+#  This is also useful when setting up the database the first time
+
+
+--  Will delete all user data!!! Do not run this on production or staging!
+#  Log into mysql first
+drop database mycleancity;  #  Don't need to do this if you're setting up for first time
+create database mycleancity;
+
+#  On command line
+#  This will create some basic stuff like the south migration table and some other tables
+python manage.py syncdb
+#  Apply all migrations that come with the project
+python manage.py migrate --all
+#  Populate database with basic information like team levels etc.
+python manage.py loaddata fixtures/initial_data.json
