@@ -192,7 +192,11 @@
               <form action="/challenges/participate/" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="cid" value="{{ challenge.id }}">
+                {% if challenge.limit > 0 %}
+                <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Apply" />
+                {% else %}
                 <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Participate" />
+                {% endif %}
                 <div id="participating-message-box" style="display: none;">
                   <p>Please describe the reason you want to participate in this action:</p>
                   <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
