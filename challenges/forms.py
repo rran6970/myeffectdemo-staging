@@ -320,3 +320,25 @@ class EditChallengeForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a description")
 
         return cleaned_data
+
+class ChallengeUploadFileForm(forms.ModelForm):
+    challenge_id = forms.CharField(required=True, widget=forms.HiddenInput())
+    upload_file = forms.FileField(required=False)
+
+    class Meta:
+        model = ChallengeUploadFile
+        exclude = ('challenge', 'file_name')
+
+    def clean(self):
+        cleaned_data = super(ChallengeUploadFileForm, self).clean()
+        challenge_id = cleaned_data.get("challenge_id")
+        upload_file = cleaned_data.get("upload_file")
+        if not challenge_id:
+            raise forms.ValidationError("Please enter a id")
+        if not upload_file:
+            raise forms.ValidationError("Please select a file to upload")
+        # MAX_UPLOAD_SIZE 5MB - 5242880
+        if upload_file._size > 5242880:
+            raise forms.ValidationError('Please keep filesize under 5MB.')
+
+        return cleaned_data
