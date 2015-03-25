@@ -32,7 +32,7 @@ from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTe
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
 from users.models import ProfilePhase, ProfileTask, ProfileProgress, ProfilePhase
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm, CustomPasswordResetForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, UpgradeAccountForm, SettingsForm, CustomPasswordResetForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
 from django.contrib.auth.views import password_reset as django_password_reset
@@ -557,6 +557,28 @@ class SettingsView(LoginRequiredMixin, FormView):
         context['form'] = form
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+class UpgradeAccountView(LoginRequiredMixin, FormView):
+    template_name = "users/upgrade_account.html"
+    form_class = UpgradeAccountForm
+    success_url = "/"
+
+    def get_initial(self):
+        initial = {}
+        return initial
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form, **kwargs):
+        return HttpResponseRedirect('/')
 
 class QRCodeView(LoginRequiredMixin, TemplateView):
     template_name = "users/qr_code.html"
