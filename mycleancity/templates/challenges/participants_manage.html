@@ -19,8 +19,10 @@
     <div class="container">
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
         <div id="white-box" class="participants-manage">
-			{% csrf_token %}
 			<h1 id="team-name">{{ challenge.title }}</h1>
+			<span id="send-email-link">
+            <a href="/challenges/participants-email/{{ challenge.id }}/">Send emails to participants</a>
+            </span>
 			<div class="table-container">
 				<table class="table table-hover">
 					<thead>
