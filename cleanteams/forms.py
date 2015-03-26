@@ -45,6 +45,10 @@ class RegisterCleanTeamForm(forms.ModelForm):
     contact_last_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
     contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
     contact_email = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Email address")
+    number_of_users = forms.IntegerField(required=False)
+    org_type = forms.ChoiceField(widget=forms.Select(), choices=ORG_TYPES)
+    registered_number = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     # Combines the form with the corresponding model
     class Meta:
