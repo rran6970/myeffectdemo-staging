@@ -19,10 +19,10 @@
     <div class="container">
         <div id="white-box" class="invite-response">
             <p>{{ invite.user.get_full_name }} from {{ invite.clean_team.name }} is inviting you to be a 
-              {% if invite.role == "ambassador" %}
-                Clean Ambassasdor
+              {% if invite.role == "leader" %}
+                Change Leader
               {% else %}
-                Catalyst
+                Agent
               {% endif %}
             </p>
 

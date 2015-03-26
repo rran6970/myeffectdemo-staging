@@ -21,7 +21,11 @@
       
       <div id="white-box" class="invite">
         {% csrf_token %}
+        {% if clean_team %}
         <h2>Invite to join {{ user.profile.clean_team_member.clean_team.name }}</h2>
+        {% else %}
+        <h2>Invite to join MyEffect</h2>
+        {% endif %}
         
         <div class="table-container">
           <table class="table table-hover" id="invitees-table">
@@ -60,9 +64,12 @@
         {% if role == "leader" %}
         <h2 id="invite-heading">Invite Leader</h2> 
         <p id="invite-subtitle">Invite a leader to become a manager of your Change Team.</p>
-        {% else %}
+        {% elif role == "agent" %}
         <h2 id="invite-heading">Invite Friends</h2> 
         <p id="invite-subtitle">Invite your friends to support your Change Team.</p>
+        {% else %}
+        <h2 id="invite-heading">Invite Friends</h2> 
+        <p id="invite-subtitle">Invite your friends to join MyEffect.</p>
         {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -74,7 +81,16 @@
             {{ form.clean_team_id }}
             <table>
               <tr>
+                {% if role %}
                 <td>{{ form.role.label_tag }} {{ form.role }}</td>
+                {% else %}
+                <td><label for="id_role">Role</label> 
+                  <select id="id_role" name="role">
+                    <option value="friend" selected="selected">Friend</option>
+                    <option value="organization">Organization</option>
+                  </select>
+                </td>
+                {% endif %}
               </tr>
               <tr>
                 <td><span>Email: (separate each email address with a comma)</span> {{ form.email }}</td>

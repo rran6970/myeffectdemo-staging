@@ -114,7 +114,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
                 if referral.status == "pending":
                     referral.status = "accepted"
                     referral.save()
-                    referral.clean_team.add_team_clean_creds(50)
+                    referral.user.profile.add_clean_creds(50)
             except Exception, e:
                 print e
         elif LeaderReferral.objects.filter(email=user.email).count() > 0:
@@ -123,7 +123,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
                 if referral.status == "pending":
                     referral.status = "accepted"
                     referral.save()
-                    referral.clean_team.add_team_clean_creds(50)
+                    referral.user.profile.add_clean_creds(50)
             except Exception, e:
                 print e
         elif 'referral_token' in self.request.session:
@@ -133,7 +133,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
                 if referral.status == "pending":
                     referral.status = "accepted"
                     referral.save()
-                    referral.clean_team.add_team_clean_creds(50)
+                    referral.user.profile.add_clean_creds(50)
                     user.profile.referral_token = referral_token
                 del self.request.session['referral_token']
             except Exception, e:
@@ -775,9 +775,10 @@ class InviteView(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         initial = {}
-        initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
-        role = self.request.GET.get('role', 'agent')
-        initial['role'] = role
+        if self.request.user.profile.clean_team_member and self.request.user.profile.clean_team_member.status == "approved":
+            initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+            role = self.request.GET.get('role', 'agent')
+            initial['role'] = role
         return initial
 
     def form_invalid(self, form, **kwargs):
@@ -808,12 +809,16 @@ class InviteView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(InviteView, self).get_context_data(**kwargs)
 
-        invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+        if self.request.user.profile.clean_team_member and self.request.user.profile.clean_team_member.status == "approved":
+            invitees = CleanTeamInvite.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+            context['clean_team'] = self.request.user.profile.clean_team_member.clean_team
+            role = self.request.GET.get('role', 'agent')
+            context['role'] = role
+        else:
+            invitees = CleanTeamInvite.objects.filter(user=self.request.user)
 
         context['invitees'] = invitees
         context['user'] = self.request.user
-        role = self.request.GET.get('role', 'agent')
-        context['role'] = role
 
         return context
 
@@ -823,7 +828,8 @@ class InviteOrganizationView(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         initial = {}
-        initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
+        if self.request.user.profile.clean_team_member and self.request.user.profile.clean_team_member.status == "approved":
+            initial['clean_team_id'] = self.request.user.profile.clean_team_member.clean_team.id
 
         return initial
 
@@ -835,7 +841,9 @@ class InviteOrganizationView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         user = self.request.user
-        clean_team = user.profile.clean_team_member.clean_team
+        clean_team = None
+        if user.profile.clean_team_member and user.profile.clean_team_member.status == "approved":
+            clean_team = user.profile.clean_team_member.clean_team
         uri = self.request.build_absolute_uri()
 
         leader_referral = LeaderReferral()
@@ -846,8 +854,11 @@ class InviteOrganizationView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(InviteOrganizationView, self).get_context_data(**kwargs)
 
-        referers = LeaderReferral.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
-
+        if self.request.user.profile.clean_team_member and self.request.user.profile.clean_team_member.status == "approved":
+            referers = LeaderReferral.objects.filter(clean_team=self.request.user.profile.clean_team_member.clean_team)
+            context['clean_team'] = self.request.user.profile.clean_team_member.clean_team
+        else:
+            referers = LeaderReferral.objects.filter(user=self.request.user)
         context['referers'] = referers
         context['user'] = self.request.user
 
@@ -895,11 +906,11 @@ class InviteResponseView(LoginRequiredMixin, FormView):
             if response == "accepted":
                 invite.status = "accepted"
 
-                if invite.role == "catalyst":
+                if invite.role == "agent":
                     clean_champion = CleanChampion()
                     clean_champion.becomeCleanChampion(self.request.user, invite.clean_team)
 
-                elif invite.role == "ambassador":
+                elif invite.role == "leader":
                     try:
                         ctm = CleanTeamMember.objects.get(user=self.request.user)
                     except Exception, e:
@@ -932,32 +943,6 @@ class InviteResponseView(LoginRequiredMixin, FormView):
 
         user = self.request.user
         context['user'] = user
-
-        return context
-
-class LeaderReferralView(LoginRequiredMixin, FormView):
-    template_name = "cleanteams/leader_referral.html"
-    form_class = LeaderReferralForm
-
-    def form_invalid(self, form, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-
-        print form.errors
-
-        return self.render_to_response(context)
-
-    def form_valid(self, form):
-        user = self.request.user
-        clean_team = user.profile.clean_team_member.clean_team
-
-        leader_referral = LeaderReferral()
-        leader_referral.new_referral(user, form, clean_team, url)
-
-        return HttpResponseRedirect('/clean-team/level-progress')
-
-    def get_context_data(self, **kwargs):
-        context = super(LeaderReferralView, self).get_context_data(**kwargs)
 
         return context
 

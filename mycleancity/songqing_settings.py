@@ -1,5 +1,8 @@
 # Django settings for mycleancity project.
 import os
+import sys
+
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -246,6 +249,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 
 MAILCHIMP_API_KEY = 'f6ad2ba74b01cf949e699362413aa6db-us9'
+MAILCHIMP_MEMBERS_LIST_ID = 'c854c390df'
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 
