@@ -768,6 +768,7 @@ div.content.challenge-overview #white-box h2 { float: left; font-weight: 400; wi
 div.content.challenge-overview #white-box img { float: right; }
 div.content.challenge-overview #white-box #learn-more { display: block; position: relative; }
 div.content.challenge-overview #white-box #edit-challenge-link { display: block; top: 6px; position: relative; }
+div.content.challenge-overview #white-box #send-email-link { display: block; top: 6px; position: relative; }
 div.content.challenge-overview #white-box span.subtitle { display: block; margin: 0; }
 div.content.challenge-overview #white-box table { margin: 10px 0 30px; }
 div.content.challenge-overview #white-box table tr td { padding: 4px 15px 0 0; }

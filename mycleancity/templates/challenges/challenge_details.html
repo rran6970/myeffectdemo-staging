@@ -43,9 +43,17 @@
         	<div class="clear"></div>
 
         	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
-        	<span id="edit-challenge-link">
-        		<a href="/challenges/edit/{{ challenge.id }}/">Edit Action</a>
-        	</span>
+          <div>
+            <span id="edit-challenge-link">
+            <a href="/challenges/edit/{{ challenge.id }}/">Edit Action</a>
+          </span>
+          </div>
+        	<div>
+            <span id="send-email-link">
+            <a href="/challenges/participants-email/{{ challenge.id }}/">Send emails to participants</a>
+            </span>
+          </div>
+          
         	{% endif %}
         	<div class="clear"></div>
         	

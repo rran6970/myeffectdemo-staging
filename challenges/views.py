@@ -1,3 +1,4 @@
+import os
 import csv
 import datetime
 import json
@@ -10,7 +11,7 @@ from django.core.context_processors import csrf
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404, render
-
+from django.core.mail import EmailMessage
 from django.utils.timezone import utc
 
 from django.views.generic import *
@@ -492,6 +493,73 @@ class ChallengeParticipantManageView(LoginRequiredMixin, TemplateView):
 
         return context
 
+class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
+    template_name = "challenges/participants_email.html"
+    form_class = ParticipantEmailForm
+    success_url = "challenges/participants_email.html"
+
+    def get_initial(self):
+        initial = {}
+        emailfile = open(os.path.join(settings.BASE_DIR, 'templates/emails/email_defualt.html'))
+        message=emailfile.read()
+        initial['message'] = message
+
+        return initial
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
+        cid = self.kwargs['cid']
+        challenge = get_object_or_404(Challenge, id=cid)
+        user = self.request.user
+        if user.profile.is_clean_ambassador() and challenge.clean_team == user.profile.clean_team_member.clean_team:
+            from_email = self.request.user.email
+            to_email = []
+            for leader in CleanTeamMember.objects.filter(clean_team=challenge.clean_team, status="approved"):
+                to_email.append(leader.user.email)
+            approvedparticipants = challenge.get_participants()
+            for p in approvedparticipants:
+                to_email.append(p.user.email)
+            mail = EmailMessage(subject, message, from_email, to_email)
+            mail.content_subtype = "html"
+            mail.send()
+            self.request.session['email_sent_success'] = True
+        return HttpResponseRedirect(u'/challenges/participants-email/%s' %(challenge.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(ChallengeParticipantEmailView, self).get_context_data(**kwargs)
+
+        if 'cid' in self.kwargs:
+            cid = self.kwargs['cid']
+            challenge = get_object_or_404(Challenge, id=cid)
+            user = self.request.user
+
+            if not user.profile.is_clean_ambassador():
+                context = None
+                return context
+            elif challenge.clean_team != user.profile.clean_team_member.clean_team:
+                context = None
+                return context
+
+            if self.request.session.get('email_sent_success', False):
+                context['success'] = True
+                del self.request.session['email_sent_success']
+
+            approvedparticipants = challenge.get_participants()
+
+            context['participants'] = approvedparticipants
+            context['count'] = sum(1 for p in approvedparticipants)
+            context['cid'] = cid
+            context['challenge'] = challenge
+
+        return context
+
 class MyChallengesView(LoginRequiredMixin, TemplateView):
     template_name = "challenges/my_challenges.html"
 
@@ -516,7 +584,8 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
             except Exception, e:
                 print e
 
-        user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
+        #user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
+        user_challenges = ChallengeParticipant.objects.filter(user=user, status="approved")
 
         context['total_hours'] = user.profile.get_total_hours()
         context['user_challenges'] = user_challenges
