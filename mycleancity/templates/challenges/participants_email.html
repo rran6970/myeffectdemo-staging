@@ -13,7 +13,9 @@
 
   {% include "_navbar.html" %}
   {% load wysiwyg %}
-  {% wysiwyg_setup %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/django-wysiwyg/skin.css">
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/editor.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/django_wysiwyg.js"></script>
 
   <a href="/" class="logo"></a>
   
