@@ -361,6 +361,7 @@ class UpgradeAccountForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
+        exclude = ('phase', 'clean_creds', 'qr_code', 'user', 'settings')
 
     def clean(self):
         cleaned_data = super(UpgradeAccountForm, self).clean()

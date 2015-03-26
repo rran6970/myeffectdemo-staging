@@ -578,6 +578,8 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form, **kwargs):
+        self.request.user.profile.has_upgraded = True
+        self.request.user.profile.save()
         return HttpResponseRedirect('/')
 
     def get_context_data(self, **kwargs):
