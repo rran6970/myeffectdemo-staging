@@ -34,33 +34,37 @@
               </div>
             {% endif %}
 
-            {% if clean_team_member_id %}
-            <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
-              <table>
-                  <tbody id = "submit_org_tr">
-                    <tr>
-                      <td>
-                        <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
-                      </td>
-                      <td>
-                        {{form.access_code}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">
-                        <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">
-                        <input class="btn btn-primary" type="submit" value="Continue" />
-                      </td>
-                    </tr>
-                  </tbody>
-              </table>
-            </form>
+            {% if has_upgraded %}
+              <p>You have already upgraded.</p>
             {% else %}
-              <p>You must <a href="/clean-team/register-clean-team/">become the leader</a> of team before you can upgrade to a manager.</p>
+              {% if clean_team_member_id %}
+                <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
+                  <table>
+                      <tbody id = "submit_org_tr">
+                        <tr>
+                          <td>
+                            <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
+                          </td>
+                          <td>
+                            {{form.access_code}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <input class="btn btn-primary" type="submit" value="Continue" />
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </form>
+              {% else %}
+                <p>You must <a href="/clean-team/register-clean-team/">become the leader</a> of team before you can upgrade to a manager.</p>
+              {% endif %}
             {% endif %}
         </div>
     </div>
