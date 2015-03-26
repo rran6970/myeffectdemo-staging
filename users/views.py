@@ -579,6 +579,8 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form, **kwargs):
         self.request.user.profile.has_upgraded = True
+        self.request.user.profile.clean_team_member.role = "manager"
+        self.request.user.profile.clean_team_member.save()
         self.request.user.profile.save()
         return HttpResponseRedirect('/')
 
