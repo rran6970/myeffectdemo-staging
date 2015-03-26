@@ -582,7 +582,7 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(UpgradeAccountView, self).get_context_data(**kwargs)
-        context['clean_team_member_id'] = self.request.user.profile.clean_team_member.id
+        context['clean_team_member_id'] = self.request.user.profile.clean_team_member
         return context
 
 class QRCodeView(LoginRequiredMixin, TemplateView):
