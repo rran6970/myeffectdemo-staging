@@ -350,12 +350,12 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
         return context
 
-class CommunityView(LoginRequiredMixin, FormView):
+class CreateCommunityView(LoginRequiredMixin, FormView):
     template_name = "cleanteams/create_community.html"
     form_class = RegisterCommunityForm
 
     def get_form_kwargs(self):
-        kwargs = super(CommunityView, self).get_form_kwargs()
+        kwargs = super(CreateCommunityView, self).get_form_kwargs()
         kwargs.update({ "request": self.request })
         return kwargs
 
@@ -388,7 +388,7 @@ class CommunityView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect("/")
 
     def get_context_data(self, **kwargs):
-        context = super(CommunityView, self).get_context_data(**kwargs)
+        context = super(CreateCommunityView, self).get_context_data(**kwargs)
         return context
 
 def community_search(request):
@@ -519,6 +519,21 @@ class LevelProgressView(TemplateView):
         context['tasks_complete'] = tasks_complete
         return context
 
+class CommunityView(TemplateView):
+    template_name = "cleanteams/community_profile.html"
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        if 'community_id' in self.kwargs:
+            community_id = self.kwargs['community_id']
+            context['community'] = get_object_or_404(Community, id=community_id)
+
+        return context
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
