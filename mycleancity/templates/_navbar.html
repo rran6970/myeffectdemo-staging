@@ -31,14 +31,15 @@
     </ul>
   </div>
 
-  {% if user.profile.has_upgraded %}
   <div class="dropdown">
     <a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Communities<b class="caret"></b></a>
     <ul class="dropdown-menu communities-dropdown" role="menu" aria-labelledby="dLabel">
-      <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+      {% if user.profile.has_upgraded %}
+        <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+      {% endif %}
+      <li><a href="/clean-team/community/" class="menu-items">All Communities</a></li>
     </ul>
   </div>
-  {% endif %}
 
   <div class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
