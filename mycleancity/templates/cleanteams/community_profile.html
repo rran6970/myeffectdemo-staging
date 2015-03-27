@@ -130,7 +130,7 @@
         <div id="post-message-container">
           <form autocomplete="off" action="/clean-team/post-message" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="hidden" name="ctid" value="{{ community.id }}">
+            <input type="hidden" name="community_id" value="{{ community.id }}">
             <textarea name="message" id="" cols="30" rows="10"></textarea>
             <input id="post-message-btn" class="btn btn-primary" type="submit" value="Post Message" />
           </form>

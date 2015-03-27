@@ -592,6 +592,73 @@ class CleanTeamPost(models.Model):
         super(CleanTeamPost, self).save(*args, **kwargs)
 
 """
+Name:           CommunityPost
+Date created:   March 27, 2015
+Description:    The posts on a Community's profile
+"""
+class CommunityPost(models.Model):
+
+    community = models.ForeignKey(Community)
+    user = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    message = models.TextField(blank=True, null=True, default="")
+
+    class Meta:
+        verbose_name_plural = u'Community Post'
+
+    def __unicode__(self):
+        return u'%s post on %s' % (self.community, str(self.timestamp))
+
+    def newPost(self, user, message, community, notification=True):
+        self.user = user
+        self.community = community
+        self.message = message
+
+        self.save()
+
+        if notification:
+            try:
+                # Send notifications
+                notification = Notification.objects.get(notification_type="message_posted")
+                # The names that will go in the notification message template
+                name_strings = [self.community.name]
+                link_strings = [str(self.community.id)]
+
+                users_to_notify_str = notification.users_to_notify
+                users_to_notify = users_to_notify_str.split(', ')
+
+                # Notify all of the Users that have the roles within users_to_notify
+                for role in users_to_notify:
+                    community_members = UserCommunityMembership.objects.filter(community=self.community)
+
+                    members_list = list(community_members)
+
+                    for member in members_list:
+                        user_notification = UserNotification()
+                        user_notification.create_notification("message_posted", member.user, name_strings, link_strings)
+            except Exception, e:
+                print e
+
+        post_string = "<div class='post'>";
+
+        if self.user.profile.picture:
+            post_string += "<img class='profile-pic profile-pic-42x42' src='%s%s' alt='' />" % (settings.MEDIA_URL, self.user.profile.picture)
+        else:
+            post_string += "<img src='%simages/default-profile-pic-42x42.png' alt='' class='profile-pic profile-pic-42x42' />" % (settings.STATIC_URL)
+
+        post_string += "<p class='user'><a href='/users/profile/%s'>%s</a></p>" % (self.user.id, self.user.profile.get_full_name())
+        # post_string += "<p class='timestamp'>%s</p>" % date(self.timestamp, "F j, Y, g:i a")
+        post_string += "<p class='timestamp'>Just now</p>"
+        post_string += "<div class='clear'></div>"
+        post_string += "<p class='message'>" + message + "</p></div>"
+        post_string += "<div class='clear'></div>"
+
+        return json.dumps(post_string, indent=4, separators=(',', ': '))
+
+    def save(self, *args, **kwargs):
+        super(CommunityPost, self).save(*args, **kwargs)
+
+"""
 Name:           CleanTeamInvite
 Date created:   Jan 5, 2014
 Description:    The invites that each member can receive

@@ -25,7 +25,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
+from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -545,6 +545,7 @@ class CommunityView(TemplateView):
         if 'community_id' in self.kwargs:
             community_id = self.kwargs['community_id']
             context['community'] = get_object_or_404(Community, id=community_id)
+            context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
 
         return context
 
@@ -774,12 +775,19 @@ def post_message_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         user = request.user
         message = request.POST['message']
-        ctid = request.POST['ctid']
+        ctid = request.POST.get('ctid', None)
+        community_id = request.POST.get('community_id', None)
 
-        clean_team = get_object_or_404(CleanTeam, id=ctid)
-
-        clean_team_post = CleanTeamPost()
-        post = clean_team_post.newPost(user, message, clean_team)
+        if ctid:
+            clean_team = get_object_or_404(CleanTeam, id=ctid)
+            clean_team_post = CleanTeamPost()
+            post = clean_team_post.newPost(user, message, clean_team)
+        elif community_id:
+            community = get_object_or_404(Community, id=community_id)
+            community_post = CommunityPost()
+            post = community_post.newPost(user, message, community)
+        else:
+            raise Exception("Unexpected post type.")
 
     return HttpResponse(post)
 
