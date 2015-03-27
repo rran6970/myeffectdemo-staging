@@ -389,6 +389,7 @@ class CreateCommunityView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CreateCommunityView, self).get_context_data(**kwargs)
+        context['has_upgraded'] = self.request.user.profile.has_upgraded
         return context
 
 def community_search(request):
