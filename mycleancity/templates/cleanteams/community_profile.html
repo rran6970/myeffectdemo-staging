@@ -4,6 +4,7 @@
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/mycleancity-css-migration.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,17 @@
   
   <div class="content">
     <div class="container">
-        <div id="white-box" class="public-profile clean-team-profile">
+        <div style="float: right;">
+          <div class="plain-sign-top">
+            CHALLENGES
+          </div>
+          <div class="plain-sign-bottom">
+            TOP CLEAN TEAMS
+          </div>
+          <div class="community-pole">
+          </div>
+        </div>
+        <div id="white-box" class="public-profile clean-team-profile community-profile">
           <div class="info" id="right-side">
             {% if community == user.profile..community %}
               <span class="edit-profile-link"><a href="/clean-team/edit">Edit Profile</a></span>

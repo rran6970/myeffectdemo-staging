@@ -220,7 +220,40 @@ div.wrapper.public-better a.logo,
 .better-white-box{
   width: 960px;
   padding: 27px;
-  background: url(../images/1x1-white.png) repeat 0 0;
+  background: url('/static/images/1x1-white.png') repeat 0 0;
   border: 2px solid #505050;
   margin: 0px auto;
+}
+
+.plain-sign-top, .plain-sign-bottom{
+  background-image: url('/static/images/plain-sign.png'); 
+  background-repeat: no-repeat;
+  height: 40px;
+  min-width: 272px;
+  font-weight: 900;
+  font-size: 24px;
+  color: #83c156;
+  text-align: center;
+  text-shadow: rgb(17, 17, 17) 1px 1px 3px;
+  line-height: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.plain-sign-top{
+  top: -120px;
+}
+.plain-sign-bottom{
+  top: 180px;
+}
+
+.community-pole{
+  position: relative;
+  background-image: url('/static/images/community_pole.png'); 
+  background-repeat: repeat-y;
+  height: 640px;
+  z-index: 1;
+  top: -170px;
+  left: 180px;
+  margin-bottom: -200px;
 }
