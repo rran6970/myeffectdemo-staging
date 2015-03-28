@@ -53,21 +53,23 @@
   "pk": 5, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/edit/", 
     "name": "ct_description", 
+    "title": "Profiler", 
+    "link": "/clean-team/edit/", 
     "clean_team_level": 1, 
-    "description": "Add a profile description to your Clean Team"
+    "approval_required": false, 
+    "description": "Add a profile description and logo to your Clean Team"
   }
 },
 {
   "pk": 6, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/edit/", 
     "name": "ct_twitter", 
+    "title": "Birdie", 
+    "link": "/clean-team/edit/", 
     "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Add Twitter account to your Clean Team profile"
   }
 },
@@ -75,10 +77,11 @@
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/invite", 
     "name": "invite_5_mcc", 
+    "title": "Friendly", 
+    "link": "/clean-team/invite", 
     "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Invite at least 5 friends to My Clean City"
   }
 },
@@ -86,21 +89,23 @@
   "pk": 9, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/challenges/new-challenge/", 
     "name": "1_challenge", 
-    "clean_team_level": 2, 
-    "description": "Post 1st Challenge"
+    "title": "Novice Challenger", 
+    "link": "/challenges/new-challenge/", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Post Your 1st Action"
   }
 },
 {
   "pk": 11, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/invite", 
     "name": "3_ccs", 
-    "clean_team_level": 2, 
+    "title": "Novice Recruiter", 
+    "link": "/clean-team/invite", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Recruit 3 Clean Champions"
   }
 },
@@ -108,10 +113,11 @@
   "pk": 12, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "https://twitter.com/intent/user?screen_name=MyCleanCity1", 
     "name": "follow_twitter", 
-    "clean_team_level": 2, 
+    "title": null, 
+    "link": "https://twitter.com/intent/user?screen_name=MyCleanCity1", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Follow My Clean City on Twitter"
   }
 },
@@ -119,21 +125,23 @@
   "pk": 13, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/challenges/new-challenge/", 
     "name": "5_challenges", 
-    "clean_team_level": 3, 
-    "description": "Create 5 CleanActs"
+    "title": "Actioneer", 
+    "link": "/challenges/new-challenge/", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Create 5 Actions"
   }
 },
 {
   "pk": 14, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/invite", 
     "name": "10_ccs", 
-    "clean_team_level": 3, 
+    "title": "Help Gathers", 
+    "link": "/clean-team/invite", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Recruit 10 Clean Champions"
   }
 },
@@ -141,10 +149,11 @@
   "pk": 16, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": true, 
-    "link": "/clean-team/leader-referral", 
     "name": "refer_teacher", 
-    "clean_team_level": 3, 
+    "title": "United Leaders", 
+    "link": "/clean-team/leader-referral", 
+    "clean_team_level": 1, 
+    "approval_required": true, 
     "description": "Refer an interested teacher, youth group leader or city hall counselor"
   }
 },
@@ -152,10 +161,11 @@
   "pk": 17, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/challenges/?national_challenges=on&q=", 
     "name": "2_national_challenges_signup", 
-    "clean_team_level": 4, 
+    "title": "Going Global", 
+    "link": "/challenges/?national_challenges=on&q=", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Sign up for at least 2 national Challenges"
   }
 },
@@ -163,10 +173,11 @@
   "pk": 18, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": false, 
-    "link": "/clean-team/invite", 
     "name": "20_ccs", 
-    "clean_team_level": 4, 
+    "title": "Army of Volunteers", 
+    "link": "/clean-team/invite", 
+    "clean_team_level": 1, 
+    "approval_required": false, 
     "description": "Recruit 20 Clean Champions "
   }
 },
@@ -174,11 +185,60 @@
   "pk": 19, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "approval_required": true, 
-    "link": "/clean-team/send-presentation", 
     "name": "mcc_presentation", 
-    "clean_team_level": 4, 
+    "title": "Show Off", 
+    "link": "/clean-team/send-presentation", 
+    "clean_team_level": 1, 
+    "approval_required": true, 
     "description": "Make a My Clean City presentation"
+  }
+},
+{
+  "pk": 32, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "cc_250", 
+    "title": "The Beginning", 
+    "link": null, 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Total 250 Change Credits as a team!"
+  }
+},
+{
+  "pk": 33, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "cc_1000", 
+    "title": "Team Effort", 
+    "link": null, 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Total 1000 Change Credits as a team!"
+  }
+},
+{
+  "pk": 34, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "cc_5000", 
+    "title": "Swimmin' in Change", 
+    "link": null, 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Total 5,000 Change Credits as a team!"
+  }
+},
+{
+  "pk": 35, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "cc_10,000", 
+    "title": "Top of a New World", 
+    "link": null, 
+    "clean_team_level": 1, 
+    "approval_required": false, 
+    "description": "Be among the top teams and gain 10,000 Change Credits!!"
   }
 },
 {
@@ -186,8 +246,8 @@
   "model": "challenges.challengetype", 
   "fields": {
     "challenge_type": "hourly", 
-    "name": "Hourly CleanCreds", 
-    "description": "This would be the numbers of hours * CleanCreds/hour"
+    "name": "Per Hour", 
+    "description": "This would be the numbers of hours * Change Creds/hour"
   }
 },
 {
@@ -195,17 +255,8 @@
   "model": "challenges.challengetype", 
   "fields": {
     "challenge_type": "one-time", 
-    "name": "One Time CleanCreds", 
+    "name": "Flat Per Completed Action", 
     "description": "One time scan in via QR code"
-  }
-},
-{
-  "pk": 3, 
-  "model": "challenges.challengetype", 
-  "fields": {
-    "challenge_type": "manual", 
-    "name": "Manual CleanCreds", 
-    "description": "Manually add CleanCreds"
   }
 },
 {
@@ -297,6 +348,14 @@
   }
 },
 {
+  "pk": 4, 
+  "model": "challenges.challengequestiontype", 
+  "fields": {
+    "name": "equal_to_input_value", 
+    "description": "CC = dollar amount inputed i.e. $10 raised for every complete action, then 10 Change Creds would be added to the tally"
+  }
+},
+{
   "pk": 1, 
   "model": "challenges.answertype", 
   "fields": {
@@ -313,12 +372,28 @@
   }
 },
 {
+  "pk": 3, 
+  "model": "challenges.answertype", 
+  "fields": {
+    "name": "number", 
+    "description": "number input"
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.answertype", 
+  "fields": {
+    "name": "text", 
+    "description": "text input"
+  }
+},
+{
   "pk": 1, 
   "model": "challenges.challengequestion", 
   "fields": {
-    "type": 1, 
-    "question_number": 1, 
-    "question": "Did you or your team create this challenge?", 
+    "type": 3, 
+    "question_number": 200, 
+    "question": "Does this action involve fundraising?", 
     "answer_type": 1, 
     "required": true
   }
@@ -327,21 +402,21 @@
   "pk": 2, 
   "model": "challenges.challengequestion", 
   "fields": {
-    "type": 1, 
-    "question_number": 2, 
-    "question": "Which of the CleanCred LAWS is the most affected by your event?", 
-    "answer_type": 1, 
-    "required": true
+    "type": 4, 
+    "question_number": 201, 
+    "question": "How many dollars are raised for your cause for every completed action?", 
+    "answer_type": 3, 
+    "required": false
   }
 },
 {
   "pk": 3, 
   "model": "challenges.challengequestion", 
   "fields": {
-    "type": 2, 
-    "question_number": 4, 
-    "question": "Select all CleanCred LAWS that are impacted by your challenge? Think carefully, recycling would affect the land, air, and water for example.", 
-    "answer_type": 2, 
+    "type": 3, 
+    "question_number": 300, 
+    "question": "Does this action involve mentorship that fosters personal development or professional development?", 
+    "answer_type": 1, 
     "required": true
   }
 },
@@ -349,11 +424,11 @@
   "pk": 4, 
   "model": "challenges.challengequestion", 
   "fields": {
-    "type": 3, 
-    "question_number": 3, 
-    "question": "Does the challenge involve (select all that apply)", 
-    "answer_type": 2, 
-    "required": true
+    "type": 4, 
+    "question_number": 301, 
+    "question": "Enter the approximate number of people that are mentored per hour:", 
+    "answer_type": 3, 
+    "required": false
   }
 },
 {
@@ -361,36 +436,344 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 1, 
-    "question_number": 5, 
-    "question": "If you selected Species for #4, are the species:", 
+    "question_number": 400, 
+    "question": "Is this a certified skill development or training activity?", 
     "answer_type": 1, 
-    "required": false
+    "required": true
   }
 },
 {
   "pk": 6, 
   "model": "challenges.challengequestion", 
   "fields": {
+    "type": 3, 
+    "question_number": 500, 
+    "question": "Are people or animals helped through this action?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 7, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 4, 
+    "question_number": 501, 
+    "question": "Enter the approximate number helped per hour:", 
+    "answer_type": 3, 
+    "required": false
+  }
+},
+{
+  "pk": 8, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 600, 
+    "question": "Does this action create or build something new (i.e. sustained effect such as building a home or planting a tree)?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 9, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 700, 
+    "question": "Does this action at least 30 minutes of physial activity?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 10, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 800, 
+    "question": "Does this action promote healthy eating or lifestyle changes?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 11, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 3, 
+    "question_number": 900, 
+    "question": "Does this action involved physical labour?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 12, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 1, 
+    "question_number": 901, 
+    "question": "Intensity:", 
+    "answer_type": 1, 
+    "required": false
+  }
+},
+{
+  "pk": 13, 
+  "model": "challenges.challengequestion", 
+  "fields": {
     "type": 2, 
-    "question_number": 6, 
-    "question": "Does the challenge involve reducing consumption of (select all that apply)", 
+    "question_number": 1, 
+    "question": "Select the type of goods being recycled:", 
     "answer_type": 2, 
     "required": false
   }
 },
 {
-  "pk": 1, 
+  "pk": 14, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 4, 
+    "question_number": 3, 
+    "question": "If your action involves recycling, how many items are recycled in one completed action?", 
+    "answer_type": 3, 
+    "required": false
+  }
+},
+{
+  "pk": 15, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 2, 
+    "question_number": 4, 
+    "question": "Does your action address any of the following? Select all that apply", 
+    "answer_type": 2, 
+    "required": false
+  }
+},
+{
+  "pk": 16, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 3, 
+    "question_number": 2, 
+    "question": "Please specify:", 
+    "answer_type": 4, 
+    "required": false
+  }
+},
+{
+  "pk": 20, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Batteries", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 13, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 21, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Cans", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 22, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Clothing", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "C"
+  }
+},
+{
+  "pk": 23, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Electronics- Small( i.e. mp3s, mobile phones)", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 13, 
+    "answer_number": "D"
+  }
+},
+{
+  "pk": 24, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Electronics- Large( i.e. cameras, laptops, TVs)", 
+    "clean_grid": null, 
+    "score": 3, 
+    "question": 13, 
+    "answer_number": "E"
+  }
+},
+{
+  "pk": 33, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Ink Cartridges", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "F"
+  }
+},
+{
+  "pk": 34, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Light Bulbs", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 13, 
+    "answer_number": "G"
+  }
+},
+{
+  "pk": 35, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Paper", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "H"
+  }
+},
+{
+  "pk": 36, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "PET Plastic Bottles", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "I"
+  }
+},
+{
+  "pk": 37, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Specialty/Hard to Recycle Items", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 13, 
+    "answer_number": "J"
+  }
+},
+{
+  "pk": 38, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Styrofoam", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "K"
+  }
+},
+{
+  "pk": 39, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Other", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 13, 
+    "answer_number": "L"
+  }
+},
+{
+  "pk": 40, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Air Polllution", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 41, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Energy Efficiency/Conversation ", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 42, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Fossil Fuels", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "C"
+  }
+},
+{
+  "pk": 43, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Restoration of Habitat", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "D"
+  }
+},
+{
+  "pk": 44, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Species Protection", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "E"
+  }
+},
+{
+  "pk": 45, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Water Conservation", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 15, 
+    "answer_number": "F"
+  }
+},
+{
+  "pk": 46, 
   "model": "challenges.questionanswer", 
   "fields": {
     "answer": "Yes", 
     "clean_grid": null, 
-    "score": 5, 
+    "score": 0, 
     "question": 1, 
     "answer_number": "A"
   }
 },
 {
-  "pk": 2, 
+  "pk": 47, 
   "model": "challenges.questionanswer", 
   "fields": {
     "answer": "No", 
@@ -401,190 +784,854 @@
   }
 },
 {
-  "pk": 3, 
+  "pk": 48, 
   "model": "challenges.questionanswer", 
   "fields": {
-    "answer": "Land", 
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 3, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 49, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 3, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 50, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
     "clean_grid": null, 
     "score": 1, 
-    "question": 2, 
+    "question": 5, 
     "answer_number": "A"
+  }
+},
+{
+  "pk": 51, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 5, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 52, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 6, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 53, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 6, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 54, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 8, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 55, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 8, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 56, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 9, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 57, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 9, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 58, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 10, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 59, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 10, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 60, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 11, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 61, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 11, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 62, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Light", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 12, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 63, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Moderate", 
+    "clean_grid": null, 
+    "score": 2, 
+    "question": 12, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 64, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Demanding", 
+    "clean_grid": null, 
+    "score": 3, 
+    "question": 12, 
+    "answer_number": "C"
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 482, 
+    "skill_tag": 1
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 482, 
+    "skill_tag": 3
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 482, 
+    "skill_tag": 5
   }
 },
 {
   "pk": 4, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Air", 
-    "clean_grid": null, 
-    "score": 1, 
-    "question": 2, 
-    "answer_number": "B"
+    "challenge": 483, 
+    "skill_tag": 1
   }
 },
 {
   "pk": 5, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Water", 
-    "clean_grid": null, 
-    "score": 11, 
-    "question": 2, 
-    "answer_number": "C"
+    "challenge": 483, 
+    "skill_tag": 4
   }
 },
 {
   "pk": 6, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Species", 
-    "clean_grid": null, 
-    "score": 2, 
-    "question": 2, 
-    "answer_number": "D"
+    "challenge": 483, 
+    "skill_tag": 5
   }
 },
 {
   "pk": 7, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Land", 
-    "clean_grid": 1, 
-    "score": null, 
-    "question": 3, 
-    "answer_number": "A"
+    "challenge": 484, 
+    "skill_tag": 1
   }
 },
 {
   "pk": 8, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Air", 
-    "clean_grid": 2, 
-    "score": null, 
-    "question": 3, 
-    "answer_number": "B"
+    "challenge": 484, 
+    "skill_tag": 3
   }
 },
 {
   "pk": 9, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Water", 
-    "clean_grid": 3, 
-    "score": null, 
-    "question": 3, 
-    "answer_number": "C"
+    "challenge": 484, 
+    "skill_tag": 5
   }
 },
 {
   "pk": 10, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Species", 
-    "clean_grid": null, 
-    "score": 0, 
-    "question": 3, 
-    "answer_number": "D"
+    "challenge": 485, 
+    "skill_tag": 7
   }
 },
 {
   "pk": 11, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Recycling", 
-    "clean_grid": null, 
-    "score": 0, 
-    "question": 4, 
-    "answer_number": "A"
+    "challenge": 485, 
+    "skill_tag": 9
   }
 },
 {
   "pk": 12, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Prevention", 
-    "clean_grid": null, 
-    "score": 0, 
-    "question": 4, 
-    "answer_number": "B"
+    "challenge": 485, 
+    "skill_tag": 10
   }
 },
 {
   "pk": 13, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Protection of a Species", 
-    "clean_grid": null, 
-    "score": 0, 
-    "question": 4, 
-    "answer_number": "C"
+    "challenge": 485, 
+    "skill_tag": 11
   }
 },
 {
   "pk": 14, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Restoration of Habitat", 
-    "clean_grid": null, 
-    "score": 0, 
-    "question": 4, 
-    "answer_number": "D"
+    "challenge": 485, 
+    "skill_tag": 14
   }
 },
 {
   "pk": 15, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Mammals, Birds, Fish", 
-    "clean_grid": null, 
-    "score": 5, 
-    "question": 5, 
-    "answer_number": "A"
+    "challenge": 487, 
+    "skill_tag": 1
   }
 },
 {
   "pk": 16, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Amphibians, Reptiles, Molluscs", 
-    "clean_grid": null, 
-    "score": 2, 
-    "question": 5, 
-    "answer_number": "B"
+    "challenge": 487, 
+    "skill_tag": 7
   }
 },
 {
   "pk": 17, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Electricity", 
-    "clean_grid": 6, 
-    "score": null, 
-    "question": 6, 
-    "answer_number": "A"
+    "challenge": 487, 
+    "skill_tag": 4
   }
 },
 {
   "pk": 18, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Fossil Fuels", 
-    "clean_grid": 7, 
-    "score": null, 
-    "question": 6, 
-    "answer_number": "B"
+    "challenge": 487, 
+    "skill_tag": 20
   }
 },
 {
   "pk": 19, 
-  "model": "challenges.questionanswer", 
+  "model": "challenges.challengeskilltag", 
   "fields": {
-    "answer": "Commercial Products", 
-    "clean_grid": 8, 
-    "score": null, 
-    "question": 6, 
-    "answer_number": "C"
+    "challenge": 488, 
+    "skill_tag": 11
+  }
+},
+{
+  "pk": 20, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 488, 
+    "skill_tag": 12
+  }
+},
+{
+  "pk": 21, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 488, 
+    "skill_tag": 21
+  }
+},
+{
+  "pk": 22, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 488, 
+    "skill_tag": 13
+  }
+},
+{
+  "pk": 23, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 489, 
+    "skill_tag": 10
+  }
+},
+{
+  "pk": 24, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 489, 
+    "skill_tag": 16
+  }
+},
+{
+  "pk": 25, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 489, 
+    "skill_tag": 24
+  }
+},
+{
+  "pk": 26, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 489, 
+    "skill_tag": 28
+  }
+},
+{
+  "pk": 27, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 489, 
+    "skill_tag": 15
+  }
+},
+{
+  "pk": 28, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 11
+  }
+},
+{
+  "pk": 29, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 14
+  }
+},
+{
+  "pk": 30, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 21
+  }
+},
+{
+  "pk": 31, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 20
+  }
+},
+{
+  "pk": 32, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 19
+  }
+},
+{
+  "pk": 33, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 7
+  }
+},
+{
+  "pk": 34, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 9
+  }
+},
+{
+  "pk": 35, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 10
+  }
+},
+{
+  "pk": 36, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 18
+  }
+},
+{
+  "pk": 37, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 8
+  }
+},
+{
+  "pk": 38, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 25
+  }
+},
+{
+  "pk": 39, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 16
+  }
+},
+{
+  "pk": 40, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 13
+  }
+},
+{
+  "pk": 41, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 12
+  }
+},
+{
+  "pk": 42, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 2
+  }
+},
+{
+  "pk": 43, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 15
+  }
+},
+{
+  "pk": 44, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 27
+  }
+},
+{
+  "pk": 45, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 28
+  }
+},
+{
+  "pk": 46, 
+  "model": "challenges.challengeskilltag", 
+  "fields": {
+    "challenge": 490, 
+    "skill_tag": 33
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Reading Text", 
+    "description": "Reading materials in the form of sentences or paragraphs such as notes, letters, memos, manuals, specifications, books, reports and journals."
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Writing", 
+    "description": "The preparation of written materials for a variety of purposes.  Completing such tasks as filling in forms, writing text and using computers to write."
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Document Use", 
+    "description": "Reading different types of material such as labels, signs, lists, tables, graphs, forms, diagrams, blueprints and other similar material."
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Computer Use", 
+    "description": "The use of any type of computerized technology."
+  }
+},
+{
+  "pk": 5, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Oral Communication", 
+    "description": "Using verbal skills to exchange ideas and information with others."
+  }
+},
+{
+  "pk": 6, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Money Math", 
+    "description": "The use of mathematical skills in making financial transactions, such as handling cash, preparing bills, and making payments."
+  }
+},
+{
+  "pk": 7, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Scheduling or Budgeting and Accounting", 
+    "description": "Planning for the best use of time and money, as well as monitoring of the use of time and money."
+  }
+},
+{
+  "pk": 8, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Measurement and Calculation", 
+    "description": "The measurement and calculation of quantities, areas, volumes, and/or distances."
+  }
+},
+{
+  "pk": 9, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Data Analysis", 
+    "description": "The collection and analysis of data in numerical form."
+  }
+},
+{
+  "pk": 10, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Numerical Estimation", 
+    "description": "The production of estimates in numerical terms."
+  }
+},
+{
+  "pk": 11, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Job Task Planning and Organizing", 
+    "description": "Planning and organizing your own work."
+  }
+},
+{
+  "pk": 12, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Decision Making", 
+    "description": "Making a choice among options using appropriate information."
+  }
+},
+{
+  "pk": 13, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Problem Solving", 
+    "description": "The identification and solving of problems."
+  }
+},
+{
+  "pk": 14, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Finding Information", 
+    "description": "The use of a variety of sources, including written text, people, computerized databases, and information systems."
+  }
+},
+{
+  "pk": 15, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Working Safely", 
+    "description": "Working in a manner that prevents injury to self and others ."
+  }
+},
+{
+  "pk": 16, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Teamwork", 
+    "description": "Working willingly with others. Showing respect for the ideas and opinions of others. Taking responsibility for his or her share of the work."
+  }
+},
+{
+  "pk": 17, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Reliability", 
+    "description": "Being punctual. Following directions. Giving attention to detail. Using time effectively and producing work on time. Acting in accordance with health and safety practices."
+  }
+},
+{
+  "pk": 18, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Organization", 
+    "description": "Organizing work priorities when faced with a number of tasks. Devising and following a coherent plan to complete a task. Revising the plan when necessary to complete a task or to make improvements."
+  }
+},
+{
+  "pk": 19, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Working Independently", 
+    "description": null
+  }
+},
+{
+  "pk": 20, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Initiative", 
+    "description": null
+  }
+},
+{
+  "pk": 21, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Self-Advocacy", 
+    "description": null
+  }
+},
+{
+  "pk": 22, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Customer Service", 
+    "description": null
+  }
+},
+{
+  "pk": 23, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Entrepreneurship", 
+    "description": null
+  }
+},
+{
+  "pk": 24, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Networking", 
+    "description": null
+  }
+},
+{
+  "pk": 25, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Business Planning", 
+    "description": null
+  }
+},
+{
+  "pk": 26, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Leadership", 
+    "description": null
+  }
+},
+{
+  "pk": 27, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Creative Development", 
+    "description": null
+  }
+},
+{
+  "pk": 28, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Design", 
+    "description": null
+  }
+},
+{
+  "pk": 29, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Social Media", 
+    "description": null
+  }
+},
+{
+  "pk": 30, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Marketing", 
+    "description": null
+  }
+},
+{
+  "pk": 31, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Public Relations", 
+    "description": null
+  }
+},
+{
+  "pk": 32, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Networking", 
+    "description": null
+  }
+},
+{
+  "pk": 33, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Relationship Management/Communications", 
+    "description": null
+  }
+},
+{
+  "pk": 34, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Program & Campaign Development", 
+    "description": null
+  }
+},
+{
+  "pk": 35, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Skills Trade", 
+    "description": null
+  }
+},
+{
+  "pk": 36, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Event Planning", 
+    "description": null
+  }
+},
+{
+  "pk": 37, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "skill_name": "Program Execution", 
+    "description": null
   }
 },
 {
@@ -592,10 +1639,10 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Challenge posted", 
-    "users_to_notify": "ambassador, catalyst", 
+    "users_to_notify": "clean-ambassador, clean-champion", 
     "link": "/challenges/{0}/", 
     "notification_type": "challenge_posted", 
-    "message": "{0} posted an Action called {1}", 
+    "message": "{0} posted a challenge called {1}", 
     "description": "A Clean Team posts a Challenge"
   }
 },
@@ -604,7 +1651,7 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Message posted", 
-    "users_to_notify": "ambassador, catalyst", 
+    "users_to_notify": "clean-ambassador, clean-champion", 
     "link": "/clean-team/{0}", 
     "notification_type": "message_posted", 
     "message": "{0} posted a message on their wall", 
@@ -615,11 +1662,11 @@
   "pk": 3, 
   "model": "notifications.notification", 
   "fields": {
-    "name": "New Catalyst", 
-    "users_to_notify": "ambassador", 
+    "name": "New Clean Champion", 
+    "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "cc_joined", 
-    "message": "{0} joined {1} as a Catalyst!", 
+    "message": "{0} joined {1} as a Clean Champion!", 
     "description": "A new Clean Champion has joined a Clean Team"
   }
 },
@@ -627,12 +1674,12 @@
   "pk": 4, 
   "model": "notifications.notification", 
   "fields": {
-    "name": "New Ambassador/Manager request", 
-    "users_to_notify": "ambassador", 
+    "name": "New Clean Ambassador request", 
+    "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_request", 
-    "message": "{0} has requested to join {1} your team", 
-    "description": "A new request is made to join your team"
+    "message": "{0} has requested to join {1} as a Clean Ambassador", 
+    "description": "A new Clean Ambassador request is made"
   }
 },
 {
@@ -643,8 +1690,8 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "ca_invite", 
-    "message": "{0} from {1} has invited you to join their team", 
-    "description": "A requst is sent to a User for them to become a Clean Ambassador"
+    "message": "{0} from {1} has invited you to become a Clean Ambassador", 
+    "description": "A requst is sent to a User for them to become a Leader"
   }
 },
 {
@@ -655,8 +1702,8 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "cc_invite", 
-    "message": "{0} from {1} has invited you to become a Catalyst", 
-    "description": "A requst is sent to a User for them to become a Clean Champion"
+    "message": "{0} from {1} has invited you to become a Clean Champion", 
+    "description": "A requst is sent to a User for them to become a Agent"
   }
 },
 {
@@ -667,8 +1714,8 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/{0}", 
     "notification_type": "ca_approved", 
-    "message": "You have been approved to be a member of {0}", 
-    "description": "A new Ambassador request is approved"
+    "message": "You have been approved to be a Clean Ambassador for {0}", 
+    "description": "A new Clean Ambassador request is approved"
   }
 },
 {
@@ -676,11 +1723,11 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "New Clean Ambassador", 
-    "users_to_notify": "ambassador", 
+    "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_joined", 
-    "message": "{0} joined {1} the team!", 
-    "description": "A new Ambassador has joined a Clean Team"
+    "message": "{0} joined {1} as a Clean Ambassador!", 
+    "description": "A new Clean Ambassador has joined a Clean Team"
   }
 },
 {
@@ -688,7 +1735,7 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Level Up", 
-    "users_to_notify": "ambassador", 
+    "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/{0}", 
     "notification_type": "level_up", 
     "message": "Congratulations, {0} has just leveled up to {1}!", 
@@ -712,11 +1759,121 @@
   "model": "notifications.notification", 
   "fields": {
     "name": "Add CleanCreds to Clean Teams", 
-    "users_to_notify": "ambassador", 
+    "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/{0}", 
     "notification_type": "clean_team_add_clean_creds", 
     "message": "Congratulations, {0} just earned {1} CleanCreds!", 
     "description": "CleanCreds have been added to a Clean Team"
+  }
+},
+{
+  "pk": 1, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Myeffect Twitter Signin", 
+    "sites": [
+      1
+    ], 
+    "secret": "1RSbtG2bo60ph37uEAXdfFD941zb89OXxgOEjeDAF5TDIBiCRH", 
+    "client_id": "Q3VzRA07B1LFSNMifvGu8xbT8", 
+    "key": "", 
+    "provider": "twitter"
+  }
+},
+{
+  "pk": 3, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "LinkedIn", 
+    "sites": [
+      1
+    ], 
+    "secret": "riyNcV8xz8GcK8K3", 
+    "client_id": "7816d6zmthvhzw", 
+    "key": "", 
+    "provider": "linkedin"
+  }
+},
+{
+  "pk": 4, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Facebook", 
+    "sites": [
+      1
+    ], 
+    "secret": "caf15cf21486a8cdf3c42b887d9860a3", 
+    "client_id": "394573090720595", 
+    "key": "", 
+    "provider": "facebook"
+  }
+},
+{
+  "pk": 5, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Google", 
+    "sites": [
+      1
+    ], 
+    "secret": "comA__mcCQ_0IjorQI56vLf6", 
+    "client_id": "1096184111127-2nj0j9ceuiirq8hsn9jn333c77gd74m3.apps.googleusercontent.com", 
+    "key": "", 
+    "provider": "google"
+  }
+},
+{
+  "pk": 6, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Instagram", 
+    "sites": [
+      1
+    ], 
+    "secret": "3e4c980341ff49989c6e539a0c67f32f", 
+    "client_id": "1998fc6f911d4b6ab8592746a28db572", 
+    "key": "", 
+    "provider": "instagram"
+  }
+},
+{
+  "pk": 1, 
+  "model": "socialaccount.socialapp_sites", 
+  "fields": {
+    "socialapp": 1, 
+    "site": 1
+  }
+},
+{
+  "pk": 3, 
+  "model": "socialaccount.socialapp_sites", 
+  "fields": {
+    "socialapp": 3, 
+    "site": 1
+  }
+},
+{
+  "pk": 4, 
+  "model": "socialaccount.socialapp_sites", 
+  "fields": {
+    "socialapp": 4, 
+    "site": 1
+  }
+},
+{
+  "pk": 5, 
+  "model": "socialaccount.socialapp_sites", 
+  "fields": {
+    "socialapp": 5, 
+    "site": 1
+  }
+},
+{
+  "pk": 6, 
+  "model": "socialaccount.socialapp_sites", 
+  "fields": {
+    "socialapp": 6, 
+    "site": 1
   }
 }
 ]
