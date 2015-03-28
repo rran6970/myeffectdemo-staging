@@ -1,0 +1,54 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect - Communities {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
+      <div id="white-box" class="all-clean-teams">
+          <div>
+            <h1 class="all-change-teams-header">All Communities</h1>
+            <div class="clean-teams-search">
+              <span class="glyphicon glyphicon-search"></span> &nbsp;
+              <input autocomplete="off" id="team-search-box" type="text" placeholder="Search Communities" />
+            </div>
+          </div>
+          <div style="clear: both;"></div>
+          <div class="table-container">
+            <table id="team-list-table" class="table table-hover">
+              <tbody>
+                {% for community in communities %}
+                  <tr>
+                    <td class="team">                          
+                      <a href="{{ community.id }}">
+                        <span class="team-name-wrapper">{{ community.name }}</span>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+      </div>
+    </div>
+  </div>
+</div>
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

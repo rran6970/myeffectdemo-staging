@@ -25,7 +25,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
+from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -350,12 +350,12 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
         return context
 
-class CommunityView(LoginRequiredMixin, FormView):
+class CreateCommunityView(LoginRequiredMixin, FormView):
     template_name = "cleanteams/create_community.html"
     form_class = RegisterCommunityForm
 
     def get_form_kwargs(self):
-        kwargs = super(CommunityView, self).get_form_kwargs()
+        kwargs = super(CreateCommunityView, self).get_form_kwargs()
         kwargs.update({ "request": self.request })
         return kwargs
 
@@ -388,7 +388,8 @@ class CommunityView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect("/")
 
     def get_context_data(self, **kwargs):
-        context = super(CommunityView, self).get_context_data(**kwargs)
+        context = super(CreateCommunityView, self).get_context_data(**kwargs)
+        context['has_upgraded'] = self.request.user.profile.has_upgraded
         return context
 
 def community_search(request):
@@ -495,6 +496,18 @@ class ViewAllCleanTeams(TemplateView):
 
         return context
 
+class ViewAllCommunities(TemplateView):
+    template_name = "cleanteams/all_communities.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ViewAllCommunities, self).get_context_data(**kwargs)
+
+        communities = Community.objects.all()
+        context['communities'] = communities
+        context['user'] = self.request.user
+
+        return context
+
 
 class LevelProgressView(TemplateView):
     template_name = "cleanteams/level_progress.html"
@@ -519,6 +532,22 @@ class LevelProgressView(TemplateView):
         context['tasks_complete'] = tasks_complete
         return context
 
+class CommunityView(TemplateView):
+    template_name = "cleanteams/community_profile.html"
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        if 'community_id' in self.kwargs:
+            community_id = self.kwargs['community_id']
+            context['community'] = get_object_or_404(Community, id=community_id)
+            context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
+
+        return context
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
@@ -746,12 +775,19 @@ def post_message_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         user = request.user
         message = request.POST['message']
-        ctid = request.POST['ctid']
+        ctid = request.POST.get('ctid', None)
+        community_id = request.POST.get('community_id', None)
 
-        clean_team = get_object_or_404(CleanTeam, id=ctid)
-
-        clean_team_post = CleanTeamPost()
-        post = clean_team_post.newPost(user, message, clean_team)
+        if ctid:
+            clean_team = get_object_or_404(CleanTeam, id=ctid)
+            clean_team_post = CleanTeamPost()
+            post = clean_team_post.newPost(user, message, clean_team)
+        elif community_id:
+            community = get_object_or_404(Community, id=community_id)
+            community_post = CommunityPost()
+            post = community_post.newPost(user, message, community)
+        else:
+            raise Exception("Unexpected post type.")
 
     return HttpResponse(post)
 

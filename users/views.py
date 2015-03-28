@@ -373,8 +373,8 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
             user = User.objects.get(id=user_id)
             total_hours = user.profile.get_total_hours()
 
+            context['has_upgraded'] = user.profile.has_upgraded
             context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
-
             context['total_hours'] = total_hours
             context['user_profile'] = get_object_or_404(User, id=user_id)
             try:
@@ -579,12 +579,15 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form, **kwargs):
         self.request.user.profile.has_upgraded = True
+        self.request.user.profile.clean_team_member.role = "manager"
+        self.request.user.profile.clean_team_member.save()
         self.request.user.profile.save()
         return HttpResponseRedirect('/')
 
     def get_context_data(self, **kwargs):
         context = super(UpgradeAccountView, self).get_context_data(**kwargs)
         context['clean_team_member_id'] = self.request.user.profile.clean_team_member
+        context['has_upgraded'] = self.request.user.profile.has_upgraded
         return context
 
 class QRCodeView(LoginRequiredMixin, TemplateView):

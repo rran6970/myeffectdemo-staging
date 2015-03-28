@@ -1,0 +1,226 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect - {{ community.name }} {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/mycleancity-css-migration.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"> </div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"> </a>
+  
+  <div class="content">
+    <div class="container">
+        <div class="community-profile-right-container">
+          <div class="plain-sign-top">
+            CHALLENGES
+          </div>
+          <div class="community-profile-challenges">
+            <div class="community-profile-inner-1">
+              <div class="community-profile-inner-2">
+              </div>
+            </div>
+          </div>
+          <div class="plain-sign-bottom">
+            TOP CLEAN TEAMS
+          </div>
+          <div class="community-profile-top-clean-teams">
+            <div class="community-profile-inner-1">
+              <div class="community-profile-inner-2">
+              </div>
+            </div>
+          </div>
+          <div class="community-pole">
+          </div>
+        </div>
+        <div id="white-box" class="public-profile clean-team-profile community-profile">
+          <div class="info" id="right-side">
+            {% if community == user.profile..community %}
+              <span class="edit-profile-link"><a href="/clean-team/edit">Edit Profile</a></span>
+              <span class="edit-profile-link"><a href="/clean-team/main-contact">Update Main Contact</a></span>
+            {% endif %}
+            
+            <div class="clean-creds">
+              <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>:&nbsp;{{ community.clean_creds }}</span></p>
+            </div>
+            
+            <div id="clean-team-info">
+              <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+              <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="Check out {{ community.name }} on My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a>
+
+              {% if community.twitter %}
+              <div>
+                <span><a href="http://twitter.com/{{ community.twitter }}" target="_blank">{{ community.twitter }}</a></span>
+                <span><a href="{{ community.facebook }}" target="_blank">Facebook</a></span>
+                <span><a href="{{ community.instagram }}" target="_blank">Instagram</a></span>
+              </div>
+              {% endif %}
+
+              {% if community.region %}
+              <div>
+                <span>{{ community.region }}</span>
+              </div>
+              {% endif %}
+            </div>
+            <a href="#clean-team-members-list" class="popup-600">View Members</a>
+            {% if challenges %}
+              <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
+            {% endif %}
+
+          </div>
+          
+          <h2>{{ community.name }} {% if community.website %}<a href="{{ community.website }}" target="_blank">View Website</a> {% endif %}</h2>
+
+          <div class="info" id="about">
+            <div class="clear"></div>
+
+            {% if community.about %}
+            <div class="field about">
+              <div class="clear"></div>
+              <p class="text">{{ community.about }}</p>
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="info" id="wall">
+            <div class="field">
+              <p class="title">Posts</p>
+              <div class="clear"></div>
+    
+              {% if user.is_active %}
+              <input id="show-post-message-box" type="text" placeholder="Post a message..." />
+              {% endif %}
+
+              <div class="clear"></div>
+
+              <div class="posts">
+              {% if posts %}
+                {% for post in posts %}
+                  <div class="post">
+                    
+                    {% if post.user.profile.picture %}
+                      <img src="{{ MEDIA_URL }}{{ post.user.profile.picture }}" alt="" class="profile-pic profile-pic-42x42" />
+                    {% else %}
+                      <img src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
+                    {% endif %}
+
+                    <p class="user"><a href="/users/profile/{{ post.user.id }}">{{ post.user.get_full_name }}</a></p>
+                    <p class="timestamp">{{ post.timestamp }}</p>
+                    <div class="clear"></div>
+                    <p class="message">{{ post.message }}</p>
+                  
+                  </div>
+                  <div class="clear"></div>
+                {% endfor %}
+              {% else %}
+                <p class="messsage">No recent posts</p>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div id="post-message-container">
+          <form autocomplete="off" action="/clean-team/post-message" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="community_id" value="{{ community.id }}">
+            <textarea name="message" id="" cols="30" rows="10"></textarea>
+            <input id="post-message-btn" class="btn btn-primary" type="submit" value="Post Message" />
+          </form>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="popup-container">
+  <div id="clean-team-challenges-list" class="popup">
+    {% for key, challenge in challenges.items %}
+        <div class="challenge">
+          {% if challenge.1.national_challenge %}
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
+          {% endif %}
+          <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
+
+          {% if challenge.1.community_only %}
+            <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
+          {% endif %}
+
+          <p class="date-time">
+            <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
+          </p>
+          <p class="date-time">
+            <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
+          </p>
+          <p>{{ challenge.1.description|slice:":255" }}</p>
+          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+
+          {% if user.is_authenticated %}
+            {% if challenge.0 == "particpating" %}
+              <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+            {% else %}
+              <form action="/challenges/participate/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="cid" value="{{ challenge.1.id }}">
+                <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
+              </form>
+            {% endif %}
+          {% else %}
+            <a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
+          {% endif %}
+        </div>
+      
+    {% endfor %}
+  </div>
+
+  <div id="clean-team-members-list" class="popup">
+    <ul>
+    {% for member in cas %}
+      {% if member.user.is_active %}
+        {% if member.status == "approved" %}
+          <li>
+          {% if member.role == "leader" %}
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-ca-62x45.png" alt="Badge CA" />
+            {% if member.user.profile.picture %}
+              <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
+            {% else %}
+              <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+            {% endif %}
+            <a href="/users/profile/{{ member.user.id }}">{{ member.user.first_name }} {{ member.user.last_name }}</a>
+          {% endif %}
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+
+    <ul>
+    {% for member in ccs %}
+      {% if member.user.is_active %}
+        {% if member.status == "approved" %}
+          <li>        
+            <img class="badge-icon" src="{{ STATIC_URL }}images/badge-cc-56x45.png" alt="Badge CC" />
+            {% if member.user.profile.picture %}
+              <img class="profile-pic" src="{{ MEDIA_URL }}{{ member.user.profile.picture }}" alt="" />
+            {% else %}
+              <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+            {% endif %}
+            <a href="/users/profile/{{ member.user.id }}">{{ member.user.first_name }} {{ member.user.last_name }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
