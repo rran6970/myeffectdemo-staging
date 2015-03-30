@@ -486,6 +486,8 @@ class ViewAllCleanTeams(TemplateView):
         context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
         teams = CleanTeam.objects.all()
+        communities = Community.objects.all()
+
         following_map = {}
 
         if self.request.user.is_authenticated():
@@ -497,6 +499,7 @@ class ViewAllCleanTeams(TemplateView):
             context['clean_champions'] = clean_champions
 
         context['teams'] = teams
+        context['communities'] = communities
         context['user'] = self.request.user
         context['following_map'] = following_map
 
