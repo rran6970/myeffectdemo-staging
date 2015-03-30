@@ -505,19 +505,6 @@ class ViewAllCleanTeams(TemplateView):
 
         return context
 
-class ViewAllCommunities(TemplateView):
-    template_name = "cleanteams/all_communities.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(ViewAllCommunities, self).get_context_data(**kwargs)
-
-        communities = Community.objects.all()
-        context['communities'] = communities
-        context['user'] = self.request.user
-
-        return context
-
-
 class LevelProgressView(TemplateView):
     template_name = "cleanteams/level_progress.html"
 
