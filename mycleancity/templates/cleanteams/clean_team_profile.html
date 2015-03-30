@@ -101,11 +101,19 @@
             {% endif %}
 
             {% if user.is_authenticated %}
-              <form action="/clean-team/follow-team/" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                <input class="btn btn-primary" type="submit" value="Follow" />
-              </form>
+              {% if follows %}
+                <form action="/clean-team/unfollow-team/" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+                  <input class="btn btn-primary" type="submit" value="Unfollow" />
+                </form>
+              {% else %}
+                <form action="/clean-team/follow-team/" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+                  <input class="btn btn-primary" type="submit" value="Follow" />
+                </form>
+              {% endif %}
               {% if invite.status == "pending" %}
                 <div>
                   <span><a id="view-invite-btn" href="/clean-team/invite-response/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>

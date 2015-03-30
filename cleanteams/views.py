@@ -563,6 +563,7 @@ class CleanTeamView(TemplateView):
             ctid = self.kwargs['ctid']
             context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 
+            follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
             cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
             ccs = CleanChampion.objects.filter(clean_team_id=ctid)
             posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
@@ -617,6 +618,7 @@ class CleanTeamView(TemplateView):
             context['cas'] = cas
             context['ccs'] = ccs
             context['posts'] = posts
+            context['follows'] = follows
 
         context['user'] = user
 
@@ -1070,6 +1072,19 @@ def follow_team(request):
             follow_object.user_id = request.user.id
             follow_object.clean_team_id = selected_team.id
             follow_object.save()
+        except Exception, e:
+            print e
+
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
+def unfollow_team(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
+
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            follow_object = CleanTeamFollow.objects.get(user=request.user, clean_team=selected_team)
+            follow_object.delete()
         except Exception, e:
             print e
 
