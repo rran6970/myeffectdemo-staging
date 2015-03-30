@@ -486,13 +486,19 @@ class ViewAllCleanTeams(TemplateView):
         context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
         teams = CleanTeam.objects.all()
+        following_map = {}
 
         if self.request.user.is_authenticated():
             clean_champions = CleanChampion.objects.filter(user=self.request.user)
+            follow_list = CleanTeamFollow.objects.filter(user=self.request.user)
+            for follow in follow_list:
+                following_map[follow.clean_team_id] = follow.clean_team_id
+
             context['clean_champions'] = clean_champions
 
         context['teams'] = teams
         context['user'] = self.request.user
+        context['following_map'] = following_map
 
         return context
 
@@ -659,41 +665,6 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 
         if self.request.flavour == "mobile":
             self.template_name = "cleanteams/mobile/register_request_join.html"
-
-        return context
-
-class RegisterCleanChampionView(LoginRequiredMixin, FormView):
-    template_name = "cleanteams/register_clean_champion.html"
-    form_class = JoinTeamCleanChampionForm
-
-    def form_invalid(self, form, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-
-        return self.render_to_response(context)
-
-    def form_valid(self, form):
-        selected_team = form.cleaned_data['team']
-
-        try:
-            clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
-        except Exception, e:
-            print e
-            clean_champion = CleanChampion()
-
-        clean_champion.becomeCleanChampion(self.request.user, selected_team)
-
-        return HttpResponseRedirect('/clean-team/%s' % selected_team.id)
-
-    def get_context_data(self, **kwargs):
-        context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
-        user = self.request.user
-
-        context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
-        context['user'] = user
-
-        if self.request.flavour == "mobile":
-            self.template_name = "cleanteams/mobile/register_clean_champion.html"
 
         return context
 

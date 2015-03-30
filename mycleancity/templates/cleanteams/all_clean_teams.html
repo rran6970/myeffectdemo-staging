@@ -54,7 +54,18 @@
                         <img id="badge-ca" src="{{ STATIC_URL }}images/badge-my-effect-cl-62x78.png" alt="Leader" />
                       {% endif %}
                     </td>
-                    
+
+                    {% if team.id in following_map %}
+                      <td style="text-align: center;">Following</td>
+                    {% else  %}
+                      <td>
+                        <form action="/clean-team/follow-team/" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="ctid" value="{{ team.id }}">
+                          <input class="btn btn-primary" type="submit" value="Follow" />
+                        </form>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
               </tbody>
