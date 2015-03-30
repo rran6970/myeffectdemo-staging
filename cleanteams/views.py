@@ -25,7 +25,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
+from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -1057,6 +1057,21 @@ def request_join_clean_team(request):
         # else:
             #TODO: Message saying that the Change Team ambassador count is full
             # pass
+
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
+def follow_team(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
+
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            follow_object = CleanTeamFollow()
+            follow_object.user_id = request.user.id
+            follow_object.clean_team_id = selected_team.id
+            follow_object.save()
+        except Exception, e:
+            print e
 
     return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 

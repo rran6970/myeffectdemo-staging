@@ -972,11 +972,16 @@ class CleanTeamPresentation(models.Model):
     def save(self, *args, **kwargs):
         super(CleanTeamPresentation, self).save(*args, **kwargs)
 
+"""
+Name:           CleanTeamFollow
+Date created:   ??? by ???
+Description:    An association that describes that a user is following a team
+"""
 
 class CleanTeamFollow(models.Model):
 
-    clean_team = models.ForeignKey(CleanTeam, null=True)
-    user = models.ForeignKey(User, null=True)
+    clean_team = models.ForeignKey(CleanTeam, null=False)
+    user = models.ForeignKey(User, null=False)
 
     class Meta:
         verbose_name_plural = u'Change Team Followers'
@@ -986,11 +991,6 @@ class CleanTeamFollow(models.Model):
 
     def save(self, *args, **kwargs):
         super(CleanTeamFollow, self).save(*args, **kwargs)
-
-    def become_clean_follower(self, user, selected_team):
-        self.user = user
-        self.clean_team = selected_team
-        self.save()
 
 """
 Name:           TeamCommunityMembership

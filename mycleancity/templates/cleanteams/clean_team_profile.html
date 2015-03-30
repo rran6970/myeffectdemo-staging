@@ -101,28 +101,16 @@
             {% endif %}
 
             {% if user.is_authenticated %}
+              <form action="/clean-team/follow-team/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ctid" value="{{ clean_team.id }}">
+                <input class="btn btn-primary" type="submit" value="Follow" />
+              </form>
               {% if invite.status == "pending" %}
                 <div>
                   <span><a id="view-invite-btn" href="/clean-team/invite-response/{{ invite.token }}" class="btn btn-primary">View Invite</a></span>
                 </div>
               {% else %}
-                <!-- Catalyst -->
-                {% if not clean_champion and not clean_ambassador and not user.profile.clean_team_member.status == "removed" and not user.profile.clean_team_member.status == "pending" %}
-                <form action="/clean-team/cc-join/" method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="ctid" value="{{ clean_team.id }}">
-                  <input class="btn btn-primary" type="submit" value="Follow" />
-                </form>
-                {% endif %}
-
-                <!--{% if clean_champion %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-cc-80x64.png" alt="Catalyst" />
-                {% endif %}
-
-                {% if clean_ambassador %}
-                  <img id="badge-cc" src="{{ STATIC_URL }}images/badge-ca-88x64.png" alt="Catalyst" />
-                {% endif %}-->
-
                 <!-- Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
                 <form action="/clean-team/ca-request-join/" method="post">
