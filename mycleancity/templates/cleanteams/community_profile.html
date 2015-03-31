@@ -42,9 +42,8 @@
         </div>
         <div id="white-box" class="public-profile clean-team-profile community-profile">
           <div class="info" id="right-side">
-            {% if community == user.profile..community %}
-              <span class="edit-profile-link"><a href="/clean-team/edit">Edit Profile</a></span>
-              <span class="edit-profile-link"><a href="/clean-team/main-contact">Update Main Contact</a></span>
+            {% if community.owner_user == user %}
+              <span class="edit-profile-link"><a href="/clean-team/community/edit">Edit Profile</a></span>
             {% endif %}
             
             <div class="clean-creds">

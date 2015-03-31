@@ -232,6 +232,42 @@ class EditCleanTeamForm(forms.ModelForm):
 
         return cleaned_data
 
+class EditCommunityForm(forms.ModelForm):
+    name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+    website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
+    logo = forms.ImageField(required=False)
+    about = forms.CharField(required=False, widget=forms.Textarea())
+    twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    community_id = forms.CharField(required=False, widget=forms.HiddenInput())
+
+    # Combines the form with the corresponding model
+    class Meta:
+        model = Community
+        exclude = ('clean_creds', 'level', 'contact_user', 'is_private', 'owner_user')
+
+    def clean(self):
+        cleaned_data = super(EditCommunityForm, self).clean()
+        name = cleaned_data.get('name')
+        website = cleaned_data.get('website')
+        logo = cleaned_data.get('logo')
+        about = cleaned_data.get('about')
+        twitter = cleaned_data.get('twitter')
+        facebook = cleaned_data.get('facebook')
+        instagram = cleaned_data.get('instagram')
+        clean_team_id = cleaned_data.get('clean_team_id')
+        community = cleaned_data.get('community')
+
+        if not name:
+            raise forms.ValidationError("Please enter your Community's name")
+
+        if logo:
+            if logo._size > 2*1024*1024:
+                raise forms.ValidationError("Image file must be smaller than 2MB")
+
+        return cleaned_data
+
 YEAR_IN_SCHOOL_CHOICES = (
     ('FR', 'Freshman'),
     ('SO', 'Sophomore'),

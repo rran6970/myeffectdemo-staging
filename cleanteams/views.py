@@ -24,7 +24,7 @@ from django.template.loader import get_template
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
+from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent
 from users.models import OrganizationLicense
@@ -348,6 +348,58 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         if not self.request.user.profile.clean_team_member:
             context = None
 
+        return context
+
+class EditCommunityView(LoginRequiredMixin, FormView):
+    template_name = "cleanteams/edit_community.html"
+    form_class = EditCommunityForm
+
+    def get_initial(self):
+        initial = {}
+
+        community = get_object_or_404(Community, owner_user=self.request.user)
+        if community:
+            initial['name'] = community.name
+            initial['website'] = community.website
+            initial['twitter'] = community.twitter
+            initial['facebook'] = community.facebook
+            initial['instagram'] = community.instagram
+            initial['about'] = community.about
+            initial['community_id'] = community.id
+        return initial
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        community_id = form.cleaned_data['community_id']
+        try:
+            community = Community.objects.get(id=community_id)
+        except Exception, e:
+            print e
+
+        community.name = form.cleaned_data['name']
+        community.website = form.cleaned_data['website']
+        community.twitter = form.cleaned_data['twitter']
+        community.facebook = form.cleaned_data['facebook']
+        community.instagram = form.cleaned_data['instagram']
+        community.about = form.cleaned_data['about']
+
+        logo = form.cleaned_data['logo']
+
+        if logo:
+            key = 'uploads/community_logo_%s_%s' % (str(self.request.user.id), logo)
+            uploadFile = UploadFileToS3()
+            community.logo = uploadFile.upload(key, logo)
+
+        community.save()
+
+        return HttpResponseRedirect(u'/clean-team/community/%s' %(community_id))
+
+    def get_context_data(self, **kwargs):
+        context = super(EditCommunityView, self).get_context_data(**kwargs)
         return context
 
 class CreateCommunityView(LoginRequiredMixin, FormView):
