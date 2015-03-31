@@ -21,23 +21,16 @@
       {% else %}
       <li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
       {% endif %}
-      <li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
+      {% if user.profile.has_upgraded %}
+        <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+      {% endif %}
+      <li><a href="/clean-team/" class="menu-items">All Groups</a></li>
       {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
       <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
       {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
       <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
       {% endif %}
       <li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
-    </ul>
-  </div>
-
-  <div class="dropdown">
-    <a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Communities<b class="caret"></b></a>
-    <ul class="dropdown-menu communities-dropdown" role="menu" aria-labelledby="dLabel">
-      {% if user.profile.has_upgraded %}
-        <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
-      {% endif %}
-      <li><a href="/clean-team/" class="menu-items">All Communities</a></li>
     </ul>
   </div>
 

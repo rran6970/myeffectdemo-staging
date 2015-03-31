@@ -101,10 +101,17 @@ class RegisterCleanTeamForm(forms.ModelForm):
 class RegisterCommunityForm(forms.ModelForm):
     name = forms.CharField(required=True, widget=forms.TextInput(), max_length=120 )
     is_private = forms.BooleanField(required=False)
+    website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
+    logo = forms.ImageField(required=False)
+    about = forms.CharField(required=False, widget=forms.Textarea())
+    twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
 
     class Meta:
         model = Community
-        exclude = ('owner_user')
+        exclude = ('owner_user', 'contact_user', 'clean_creds')
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')

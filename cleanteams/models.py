@@ -17,7 +17,17 @@ Description:    A table that stores community objects (of which users and teams 
 class Community(models.Model):
     name = models.CharField(max_length=120, null=False, unique=True, default="", verbose_name='Name of Community')
     is_private = models.BooleanField(default=0, null=False)
-    owner_user = models.ForeignKey(User, unique=True)
+    owner_user = models.ForeignKey(User, unique=True, related_name='owner_user')
+    website = models.URLField(verbose_name = u'Website', blank=True, null=True, default="")
+    logo = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Logo')
+    about = models.TextField(blank=True, null=True, default="")
+    twitter = models.CharField(max_length=60, blank=True, null=True, verbose_name="Twitter Handle")
+    facebook = models.CharField(max_length=60, blank=True, null=True, verbose_name="Facebook")
+    instagram = models.CharField(max_length=60, blank=True, null=True, verbose_name="Instagram Link")
+    clean_creds = models.IntegerField(default=0)
+
+    contact_user = models.ForeignKey(User, related_name='contact_user')
+    contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
 
     class Meta:
         verbose_name_plural = u'Community object'

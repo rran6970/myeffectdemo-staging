@@ -379,6 +379,7 @@ class CreateCommunityView(LoginRequiredMixin, FormView):
         community.name = form.cleaned_data['name']
         community.is_private = form.cleaned_data['is_private']
         community.owner_user = self.request.user
+        community.contact_user = self.request.user
         community.save()
         #  Asign the owner to belong to the community
         community_membership = UserCommunityMembership()
