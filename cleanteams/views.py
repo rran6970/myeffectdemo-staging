@@ -595,7 +595,7 @@ class CommunityView(TemplateView):
             community_id = self.kwargs['community_id']
             context['community'] = get_object_or_404(Community, id=community_id)
             context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
-            context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id)
+            context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id).order_by('clean_team__clean_creds')
             context['user_memberships'] = UserCommunityMembership.objects.filter(community_id=community_id)
 
         return context
