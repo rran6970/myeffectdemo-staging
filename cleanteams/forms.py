@@ -245,7 +245,7 @@ class EditCommunityForm(forms.ModelForm):
     # Combines the form with the corresponding model
     class Meta:
         model = Community
-        exclude = ('clean_creds', 'level', 'contact_user', 'is_private', 'owner_user')
+        exclude = ('clean_creds', 'level', 'contact_user', 'contact_phone', 'is_private', 'owner_user')
 
     def clean(self):
         cleaned_data = super(EditCommunityForm, self).clean()
@@ -256,8 +256,7 @@ class EditCommunityForm(forms.ModelForm):
         twitter = cleaned_data.get('twitter')
         facebook = cleaned_data.get('facebook')
         instagram = cleaned_data.get('instagram')
-        clean_team_id = cleaned_data.get('clean_team_id')
-        community = cleaned_data.get('community')
+        community_id = cleaned_data.get('community_id')
 
         if not name:
             raise forms.ValidationError("Please enter your Community's name")
@@ -265,6 +264,10 @@ class EditCommunityForm(forms.ModelForm):
         if logo:
             if logo._size > 2*1024*1024:
                 raise forms.ValidationError("Image file must be smaller than 2MB")
+
+        #  If there is an existing community with this name, and we are changing the community name, then error
+        if Community.objects.filter(name=name).count() and Community.objects.filter(name=name, id=community_id).count() == 0:
+            raise forms.ValidationError(u'%s already exists' % name)
 
         return cleaned_data
 

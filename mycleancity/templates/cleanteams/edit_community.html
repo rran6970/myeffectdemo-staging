@@ -30,6 +30,14 @@
             </div>
           {% endif %}
 
+          {% for field in form %}
+              {% if field.errors %}
+                  <div class="message-box error">
+                      {{ field.label_tag }} {{ field.errors }}
+                  </div>
+              {% endif %}
+          {% endfor %}
+
           <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             {{ form.community_id }}
             <table>

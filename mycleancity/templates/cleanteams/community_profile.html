@@ -45,6 +45,12 @@
             {% if community.owner_user == user %}
               <span class="edit-profile-link"><a href="/clean-team/community/edit">Edit Profile</a></span>
             {% endif %}
+
+            {% if community.logo %}
+              <img src="{{ MEDIA_URL }}{{ community.logo }}" alt="" class="profile-pic profile-pic-124x124" />
+            {% else %}
+              <img src="{{ STATIC_URL }}images/default-team-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
+            {% endif %}
             
             <div class="clean-creds">
               <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>:&nbsp;{{ community.clean_creds }}</span></p>

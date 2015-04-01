@@ -15,7 +15,7 @@ Date created:   March 10, 2015
 Description:    A table that stores community objects (of which users and teams can belong to)
 """
 class Community(models.Model):
-    name = models.CharField(max_length=120, null=False, unique=True, default="", verbose_name='Name of Community')
+    name = models.CharField(max_length=120, null=False, unique=False, default="", verbose_name='Name of Community')
     is_private = models.BooleanField(default=0, null=False)
     owner_user = models.ForeignKey(User, unique=True, related_name='owner_user')
     website = models.URLField(verbose_name = u'Website', blank=True, null=True, default="")
