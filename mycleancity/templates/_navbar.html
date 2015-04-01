@@ -26,9 +26,12 @@
       {% endif %}
       <li><a href="/clean-team/" class="menu-items">All Groups</a></li>
       {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
       {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
+      {% endif %}
+      {% if user.profile.has_upgraded %}
+      <li><a href="/clean-team/community-members" class="menu-items">Manage Community Members</a></li>
       {% endif %}
       <li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
     </ul>
