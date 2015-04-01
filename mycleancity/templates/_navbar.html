@@ -6,7 +6,7 @@
     <ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
       <li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
       <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
-      <li><a href="/clean-team/register-catalyst" class="menu-items">Connect With Teams</a></li>
+      <li><a href="/clean-team/" class="menu-items">Connect With Teams</a></li>
       <li><a href="/claim-voucher" class="menu-items">Claim Creds</a></li>
     </ul>
   </div>
@@ -21,23 +21,19 @@
       {% else %}
       <li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
       {% endif %}
-      <li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
-      {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
-      {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
-      {% endif %}
-      <li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
-    </ul>
-  </div>
-
-  <div class="dropdown">
-    <a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Communities<b class="caret"></b></a>
-    <ul class="dropdown-menu communities-dropdown" role="menu" aria-labelledby="dLabel">
       {% if user.profile.has_upgraded %}
         <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
       {% endif %}
-      <li><a href="/clean-team/community/" class="menu-items">All Communities</a></li>
+      <li><a href="/clean-team/" class="menu-items">All Groups</a></li>
+      {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
+      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
+      {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
+      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
+      {% endif %}
+      {% if user.profile.has_upgraded %}
+      <li><a href="/clean-team/community-members" class="menu-items">Manage Community Members</a></li>
+      {% endif %}
+      <li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
     </ul>
   </div>
 
@@ -45,6 +41,7 @@
     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
     <ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
       <li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+      <li><a href="/users/upgrade-account" class="menu-items">Upgrade Account</a></li>
       <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
       <li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
       <li><a href="/users/settings/" class="menu-items">Settings</a></li>
