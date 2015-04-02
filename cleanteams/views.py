@@ -1162,27 +1162,27 @@ def community_member_action(request):
         action = request.POST['action']
 
         if clean_team_id:
-            team_community_membership_request = TeamCommunityMembershipRequest.objects.get(clean_team_id=clean_team_id)
             if action == "approve":
+                team_community_membership_request = TeamCommunityMembershipRequest.objects.get(clean_team_id=clean_team_id)
                 team_community_membership = TeamCommunityMembership()
                 team_community_membership.clean_team_id = team_community_membership_request.clean_team.id
                 team_community_membership.community_id = team_community_membership_request.community.id
                 team_community_membership.save()
                 team_community_membership_request.delete()
             elif action == "remove":
-                #  TODO:  Not implemented yet
-                pass
+                team_community_membership = TeamCommunityMembership.objects.get(clean_team_id=clean_team_id)
+                team_community_membership.delete()
 
         if user_id:
-            user_community_membership_request = UserCommunityMembershipRequest.objects.get(user_id=user_id)
             if action == "approve":
+                user_community_membership_request = UserCommunityMembershipRequest.objects.get(user_id=user_id)
                 user_community_membership = UserCommunityMembership()
                 user_community_membership.user_id = user_community_membership_request.user.id
                 user_community_membership.community_id = user_community_membership_request.community.id
                 user_community_membership.save()
                 user_community_membership_request.delete()
             elif action == "remove":
-                #  TODO:  Not implemented yet
-                pass
+                user_community_membership = UserCommunityMembership.objects.get(user_id=user_id)
+                user_community_membership.delete()
 
     return HttpResponse("success")
