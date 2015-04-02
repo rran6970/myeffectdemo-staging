@@ -1091,7 +1091,7 @@ def follow_team(request):
         except Exception, e:
             print e
 
-    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+    return HttpResponseRedirect('/clean-team')
 
 def unfollow_team(request):
     if request.method == 'POST':

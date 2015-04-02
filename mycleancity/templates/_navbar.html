@@ -6,7 +6,7 @@
     <ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
       <li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
       <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
-      <li><a href="/clean-team/" class="menu-items">Connect With Teams</a></li>
+      <li><a href="/clean-team/" class="menu-items">Connect With Groups</a></li>
       <li><a href="/claim-voucher" class="menu-items">Claim Creds</a></li>
     </ul>
   </div>
@@ -24,7 +24,6 @@
       {% if user.profile.has_upgraded %}
         <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
       {% endif %}
-      <li><a href="/clean-team/" class="menu-items">All Groups</a></li>
       {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
       <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
       {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
