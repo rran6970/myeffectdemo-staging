@@ -55,18 +55,17 @@
                       <img id="badge-ca" src="{{ STATIC_URL }}images/badge-my-effect-cl-62x78.png" alt="Leader" />
                     {% endif %}
                   </td>
-
-                  {% if team.id in following_map %}
-                    <td style="text-align: center;">Following</td>
-                  {% else  %}
-                    <td>
-                      <form action="/clean-team/follow-team/" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="ctid" value="{{ team.id }}">
-                        <input class="btn btn-primary" type="submit" value="Follow" />
-                      </form>
-                    </td>
-                  {% endif %}
+                  <td style="text-align: center;">
+                    {% if team.id in following_map %}
+                      Following
+                    {% else %}
+                        <div class="ajax-follow">
+                          {% csrf_token %}
+                          <input type="hidden" name="ctid" value="{{ team.id }}">
+                          <input class="ajax-follow-btn btn btn-primary" type="submit" value="Follow" />
+                        </div>
+                    {% endif %}
+                  </td>
                   <td style="text-align: center;">Team</td>
                 </tr>
               {% endfor %}
@@ -100,4 +99,25 @@
 
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+  $(".ajax-follow").each(function () {
+    var $self = $(this);
+    $(".ajax-follow-btn", $self).click(function () {
+      var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+      var $ctid = $("input[name=ctid]", $self);
+      $.ajax({
+        type: 'POST',
+        url: '/clean-team/follow-team/',
+        data: {
+          'csrfmiddlewaretoken':  $csrf.val(),
+          'ctid':  $ctid.val()
+        },
+        success: function  (data) {
+          $self.html("Following");
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
