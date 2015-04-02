@@ -1041,27 +1041,6 @@ class UserCommunityMembership(models.Model):
         super(UserCommunityMembership, self).save(*args, **kwargs)
 
 """
-Name:           ChallengeCommunityMembership
-Date created:   April 1, 2015
-Description:    An association that describes that a challenge is associated with a specific community
-"""
-class ChallengeCommunityMembership(models.Model):
-    from challenges.models import Challenge
-    challenge = models.ForeignKey(Challenge, null=False, unique=True)
-    community = models.ForeignKey(Community, null=False)
-    #  If the associate is private, you can't see this challenge unless you're a member of this community
-    is_private = models.BooleanField(default=0, null=False)
-
-    class Meta:
-        verbose_name_plural = u'Community Challenge Membership'
-
-    def __unicode__(self):
-        return u'%s' % self.id
-
-    def save(self, *args, **kwargs):
-        super(ChallengeCommunityMembership, self).save(*args, **kwargs)
-
-"""
 Name:           TeamCommunityMembershipRequest
 Date created:   March 20, 2015
 Description:    An association that describes that a team wants to join a specific community
