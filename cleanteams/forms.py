@@ -108,6 +108,8 @@ class RegisterCommunityForm(forms.ModelForm):
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
+    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     class Meta:
         model = Community
@@ -241,6 +243,8 @@ class EditCommunityForm(forms.ModelForm):
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     community_id = forms.CharField(required=False, widget=forms.HiddenInput())
+    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     # Combines the form with the corresponding model
     class Meta:

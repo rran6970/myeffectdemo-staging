@@ -25,6 +25,8 @@ class Community(models.Model):
     facebook = models.CharField(max_length=60, blank=True, null=True, verbose_name="Facebook")
     instagram = models.CharField(max_length=60, blank=True, null=True, verbose_name="Instagram Link")
     clean_creds = models.IntegerField(default=0)
+    category = models.CharField(max_length=60, blank=False, null=False, verbose_name="Community Category", default="General")
+    region = models.CharField(max_length=60, blank=True, null=True, verbose_name="Region")
 
     contact_user = models.ForeignKey(User, related_name='contact_user')
     contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")

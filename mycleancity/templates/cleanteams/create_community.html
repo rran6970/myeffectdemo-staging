@@ -40,17 +40,29 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>{{ form.logo.label_tag }}</td>
+                        <td>{{ form.region.label_tag }}</td>
                         <td style="text-align:right;">
-                            <span style="float:right;">{{ form.logo }}</span>
+                            <span style="float:right;">{{ form.region }}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="is_private"><span style="color:red;" >&#42;&#32;</span>Is your community private?</label>
+                            <label for="is_private">Is your community private?</label>
                         </td>
                         <td style="text-align:right;">
                             {{ form.is_private}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.category.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.category }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.logo.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.logo }}</span>
                         </td>
                     </tr>
                     <tr>

@@ -359,6 +359,8 @@ class EditCommunityView(LoginRequiredMixin, FormView):
 
         community = get_object_or_404(Community, owner_user=self.request.user)
         if community:
+            initial['category'] = community.category
+            initial['region'] = community.region
             initial['name'] = community.name
             initial['website'] = community.website
             initial['twitter'] = community.twitter
@@ -386,6 +388,8 @@ class EditCommunityView(LoginRequiredMixin, FormView):
         community.facebook = form.cleaned_data['facebook']
         community.instagram = form.cleaned_data['instagram']
         community.about = form.cleaned_data['about']
+        community.region = form.cleaned_data['region']
+        community.category = form.cleaned_data['category']
 
         logo = form.cleaned_data['logo']
 
@@ -429,9 +433,19 @@ class CreateCommunityView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         community = Community()
         community.name = form.cleaned_data['name']
+        community.region = form.cleaned_data['region']
+        community.category = form.cleaned_data['category']
         community.is_private = form.cleaned_data['is_private']
         community.owner_user = self.request.user
         community.contact_user = self.request.user
+
+        logo = form.cleaned_data['logo']
+
+        if logo:
+            key = 'uploads/community_logo_%s_%s' % (str(self.request.user.id), logo)
+            uploadFile = UploadFileToS3()
+            community.logo = uploadFile.upload(key, logo)
+
         community.save()
         #  Asign the owner to belong to the community
         community_membership = UserCommunityMembership()
