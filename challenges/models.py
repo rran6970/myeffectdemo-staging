@@ -1216,3 +1216,21 @@ class ChallengeCommunityMembership(models.Model):
 
     def save(self, *args, **kwargs):
         super(ChallengeCommunityMembership, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeTeamMembership
+Date created:   April 3, 2015
+Description:    An association that describes that a challenge is associated with a specific team
+"""
+class ChallengeTeamMembership(models.Model):
+    challenge = models.ForeignKey(Challenge, null=False, unique=True)
+    clean_team = models.ForeignKey(CleanTeam, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Team Challenge Membership'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(ChallengeTeamMembership, self).save(*args, **kwargs)
