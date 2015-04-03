@@ -90,20 +90,32 @@
                   <ul>
               </div>
                 <p>{{ challenge.description|slice:":180" }}...</p>
+                <p>{{ community_approved_challenges }}...</p>
+                <p>{{ team_approved_challenges }}...</p>
                 <div style="text-align: right;">
                   {% if my_community %}
-                    <span class="community-approve">
-                      <input type="hidden" name="community_id" value="{{ my_community.id }}">
-                      <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
-                      <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Community" />
-                    </span>
+                    {% if challenge.id in community_approved_challenges %}
+                      <span class="community-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                    {% else %}
+                      <span class="community-approve">
+                        {% csrf_token %}
+                        <input type="hidden" name="community_id" value="{{ my_community.id }}">
+                        <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Community" />
+                      </span>
+                    {% endif %}
                   {% endif %}
                   {% if my_team %}
-                    <span class="team_approve">
-                      <input type="hidden" name="clean_team_id" value="{{ my_team.id }}">
-                      <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
-                      <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Team" />
-                    </span>
+                    {% if challenge.id in team_approved_challenges %}
+                      <span class="team-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                    {% else %}
+                      <span class="team-approve">
+                        {% csrf_token %}
+                        <input type="hidden" name="clean_team_id" value="{{ my_team.id }}">
+                        <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Team" />
+                      </span>
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -156,6 +168,50 @@
     if(query.clean_team_only=="on" || query.clean_team_only=="true"){
       $("#clean-team-only-checkbox").prop('checked', true);
     }
+
+    $(".community-approve").each(function () {
+      var $self = $(this);
+      $(".btn", $self).click(function () {
+        var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+        var $community_id = $("input[name=community_id]", $self);
+        var $challenge_id = $("input[name=challenge_id]", $self);
+        $.ajax({
+          type: 'POST',
+          url: '/challenges/approve-challenge/',
+          data: {
+            'csrfmiddlewaretoken':  $csrf.val(),
+            'community_id':  $community_id.val(),
+            'challenge_id':  $challenge_id.val()
+          },
+          success: function  (data) {
+            $self.html("Approved");
+          }
+        });
+      });
+    });
+
+    $(".team-approve").each(function () {
+      var $self = $(this);
+      $(".btn", $self).click(function () {
+        var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+        var $clean_team_id = $("input[name=clean_team_id]", $self);
+        var $challenge_id = $("input[name=challenge_id]", $self);
+        $.ajax({
+          type: 'POST',
+          url: '/challenges/approve-challenge/',
+          data: {
+            'csrfmiddlewaretoken':  $csrf.val(),
+            'clean_team_id':  $clean_team_id.val(),
+            'challenge_id':  $challenge_id.val()
+          },
+          success: function  (data) {
+            $self.html("Approved");
+          }
+        });
+      });
+    });
   });
+
+
 </script>
 {% endblock %}
