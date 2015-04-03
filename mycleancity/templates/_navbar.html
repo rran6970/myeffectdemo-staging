@@ -7,7 +7,8 @@
 			<li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
             <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
             <li><a href="/clean-team/register-catalyst" class="menu-items">Connect With Teams</a></li>
-            <li><a href="/claim-voucher" class="menu-items">Claim Creds</a></li>
+            <li><a href="/claim-voucher" class="menu-items">Claim Change Creds™</a></li>
+            <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
 			{% if user.profile.has_clean_team %}
 			<!--<li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>-->
 			{% endif %}
@@ -16,7 +17,7 @@
 	</div><!-- end of #user-dropdown.dropdown -->
 
 	<div class="dropdown">
-		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Team<b class="caret"></b></a>
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Create Group<b class="caret"></b></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 
 			{% if user.profile.has_clean_team %}
@@ -35,7 +36,6 @@
 			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
 			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
 			{% endif %}
-			<li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
 		</ul>
 	</div><!-- end of .dropdown -->
 

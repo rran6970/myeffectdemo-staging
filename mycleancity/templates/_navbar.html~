@@ -1,0 +1,153 @@
+<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
+
+{% if user.is_active %}
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Take Action<b class="caret"></b></a>
+		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
+			<li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
+            <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
+            <li><a href="/clean-team/register-catalyst" class="menu-items">Connect With Teams</a></li>
+            <li><a href="/claim-voucher" class="menu-items">Claim Change Creds</a></li>
+            <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
+			{% if user.profile.has_clean_team %}
+			<!--<li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>-->
+			{% endif %}
+			<!--<li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>-->
+		</ul>
+	</div><!-- end of #user-dropdown.dropdown -->
+
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Create Group<b class="caret"></b></a>
+		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
+
+			{% if user.profile.has_clean_team %}
+			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
+			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
+            <li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>
+			<!--<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>-->
+			<!--<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>-->
+			<!--<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>-->
+			{% else %}
+			<li><a href="/clean-team/create-team-or-org/" class="menu-items">Create Change Team</a></li>
+			{% endif %}
+			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
+            {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			{% endif %}
+		</ul>
+	</div><!-- end of .dropdown -->
+
+	<div class="dropdown">
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
+		<ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
+			<li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+
+		<li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
+			<!--<li><a href="/users/qrcode/" class="menu-items">Member ID</a></li> -->
+			<li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+			<!--<li><a href="/claim-voucher" class="menu-items">Claim a Voucher</a></li>-->
+
+			<li><a href="/users/settings/" class="menu-items">Settings</a></li>
+		<li><a href="/users/FAQ/" class="menu-items">FAQ</a></li>
+			<li><a href="/users/logout" class="menu-items">Logout</a></li>
+		</ul>
+	</div><!-- end of .dropdown -->
+
+	<div class="dropdown" id="notification-dropdown">
+		<a class="dropdown-togglemenu-items menu-items-right" data-toggle="dropdown" id="notification-icon"></a>
+
+		<div class="dropdown-menu notification-dropdown">
+			<ul role="menu" aria-labelledby="dLabel">
+				{% if user.profile.count_notifications > 0 %}
+					{% for notification in user.profile.get_notifications %}
+					<li class="{% if not notification.read %}unread{% endif %}">
+						<form action="/notifications/read/" method="post">{% csrf_token %}
+							<input type="hidden" name="nid" value="{{ notification.id }}" />
+							<a href="{{ notification.link }}" class="notification-link">
+
+								<!-- {% if notification.user.profile.picture %}
+									<img class="notification-image" src="{{ MEDIA_URL }}{{ notification.user.profile.picture }}" alt="" class="profile-pic" />
+								{% else %}
+									<img class="notification-image" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+								{% endif %} -->
+
+								<div>{{ notification.message }}</div>
+								<p class="timestamp">{{ notification.timestamp }}</p>
+							</a>
+							{% if notification.read %}
+							<a class="notification-mark-unread">Make unread</a>
+							{% else %}
+							<a class="notification-mark-read">Make read</a>
+							{% endif %}
+						</form>
+					</li>
+					{% endfor %}
+				{% else %}
+					<li>
+						<a>
+							<div style="text-align: center"><h2>No notifications</h2></div>
+						</a>
+					</li>
+				{% endif %}
+			</ul>
+			<a href="/notifications/">View all notifications</a>
+		</div>
+
+		{% if user.profile.count_unread_notifications > 0 %}
+		<div style="left: initial;" id="notification-container"><span>{{ user.profile.count_unread_notifications }}</span></div>
+		{% endif %}
+	</div><!-- end of #notification-dropdown.dropdown -->
+
+	<form action="" method="get" id="search-form">
+		<div id="search-container" class="input-group">
+	      <div class="input-group-btn">
+	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span></button>
+	        <ul class="dropdown-menu">
+	        	<li><span>Advanced Search:</span></li>
+	        	<li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
+	        	<li><span><input autocomplete="off" id="tag-search-box" class="advanced-search-box" type="text" placeholder="Skill"></span></li>
+	        	<li><span><input autocomplete="off" id="title-search-box" class="advanced-search-box" type="text" placeholder="Title"></span></li>
+	        	<li><span>Category:</span></li>
+	        	<li>
+	        		<select id="category-search-selection">
+						<option value="" selected="selected">All</option>
+						<option value="General">General</option>
+						<option value="Animals_Wildlife">Animals &amp; Wildlife</option>
+						<option value="Arts_Culture">Arts &amp; Culture</option>
+						<option value="Business_Entrepreneurship">Business &amp; Entrepreneurship</option>
+						<option value="Children_Youth">Children &amp; Youth</option>
+						<option value="Education_Research">Education &amp; Research</option>
+						<option value="Environment">Environment</option>
+						<option value="Health_Wellness">Health &amp; Wellness</option>
+						<option value="HumanRights_Advocacy">Human Rights &amp; Advocacy</option>
+						<option value="InternationalRelief_Development">International Relief &amp; Development</option>
+						<option value="SocialServices_Community">Social Services &amp; Community</option>
+						<option value="Sports_Recreation">Sports &amp; Recreation</option>
+					</select>
+	        	</li>
+				<li><span><input type="checkbox" name="national_challenges" id="national-challenge-checkbox" /><label for="">National Actions only</label></span></li>
+				<li><span><input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" /><label for="">Change Team Actions</label></span></li>
+				
+	        </ul>
+	      </div><!-- /btn-group -->
+	      <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by title, city or skill..." />
+	      <div class="dropdown-menu search-result-dropdown">
+				<ul role="menu" aria-labelledby="dLabel">
+					<li>
+						<a>
+							<div style="text-align: center"><img src="{{ STATIC_URL }}images/loading.gif" alt="" /></div>
+						</a>
+					</li>
+				</ul>
+				<a id="view-all-challenges" href="">View all results</a>
+			</div><!-- end of #search-result-dropdown.dropdown -->
+    	</div><!-- /input-group -->
+    </form>
+{% else %}
+	<a href="/contact" class="menu-items menu-items-right">Contact</a>
+	<a href="/about" class="menu-items menu-items-right">About</a>
+	<a href="/register" class="menu-items menu-items-right">Register</a>
+	<a href="/accounts/login" class="menu-items menu-items-right">Login</a>
+{% endif %}
