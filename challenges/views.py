@@ -19,7 +19,7 @@ from django.views.generic.base import View
 
 from challenges.forms import *
 from challenges.models import *
-from cleanteams.models import CleanTeamMember, CleanChampion
+from cleanteams.models import CleanTeamMember, CleanChampion, Community
 from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
@@ -198,7 +198,14 @@ class ChallengeCentreView(TemplateView):
             challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
-        return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags})
+        if self.request.user.is_authenticated():
+            communities = Community.objects.filter(owner_user=self.request.user)
+            if communities.count():
+                my_community = communities[0]
+            if self.request.user.profile.clean_team_member:
+                my_team = self.request.user.profile.clean_team_member.clean_team
+
+        return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community})
 
     def get_context_data(self, **kwargs):
         context = super(ChallengeCentreView, self).get_context_data(**kwargs)
