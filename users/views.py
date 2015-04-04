@@ -32,7 +32,7 @@ from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTe
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
 from users.models import ProfilePhase, ProfileTask, ProfileProgress, ProfilePhase
-from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, SettingsForm, CustomPasswordResetForm
+from users.forms import PrelaunchEmailsForm, RegisterUserForm, ProfileForm, UpgradeAccountForm, SettingsForm, CustomPasswordResetForm
 from userprofile.models import UserSettings, UserProfile, QRCodeSignups, UserQRCode
 
 from django.contrib.auth.views import password_reset as django_password_reset
@@ -373,8 +373,8 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
             user = User.objects.get(id=user_id)
             total_hours = user.profile.get_total_hours()
 
+            context['has_upgraded'] = user.profile.has_upgraded
             context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
-
             context['total_hours'] = total_hours
             context['user_profile'] = get_object_or_404(User, id=user_id)
             try:
@@ -557,6 +557,38 @@ class SettingsView(LoginRequiredMixin, FormView):
         context['form'] = form
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+class UpgradeAccountView(LoginRequiredMixin, FormView):
+    template_name = "users/upgrade_account.html"
+    form_class = UpgradeAccountForm
+    success_url = "/"
+
+    def get_initial(self):
+        initial = super(UpgradeAccountView, self).get_initial()
+        return initial
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form, **kwargs):
+        self.request.user.profile.has_upgraded = True
+        self.request.user.profile.clean_team_member.role = "manager"
+        self.request.user.profile.clean_team_member.save()
+        self.request.user.profile.save()
+        return HttpResponseRedirect('/')
+
+    def get_context_data(self, **kwargs):
+        context = super(UpgradeAccountView, self).get_context_data(**kwargs)
+        context['clean_team_member_id'] = self.request.user.profile.clean_team_member
+        context['has_upgraded'] = self.request.user.profile.has_upgraded
+        return context
 
 class QRCodeView(LoginRequiredMixin, TemplateView):
     template_name = "users/qr_code.html"

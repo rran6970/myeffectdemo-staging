@@ -32,7 +32,12 @@
       
       <div id="white-box" class="public-profile">
         <div class="info">
-          <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
+          <h2>
+            {{ user_profile.first_name }} {{ user_profile.last_name }}
+            {% if has_upgraded %}
+              (Manager)
+            {% endif %}
+          </h2>
           <div class="clear"></div>
 
           {% if user_profile.profile.category and not user_profile.profile.category == "------------------" %}
@@ -73,8 +78,6 @@
             <p class="title">Community:</p>
             {% if community %}
               <p class="text">{{ community.name }}</p>
-            {% else %}
-              <a href="/clean-team/create-community/">Create Community</a>
             {% endif %}
           </div>
 
@@ -115,7 +118,7 @@
         </div><!-- /.info -->
         
         {% if user.id == user_profile.id %}
-          <span class="edit-profile-link"><a href="/users/profile">Edit Profile</a></span>
+          <div style="text-align: center;"><span><a href="/users/profile">Edit Profile</a></span></div>
         {% endif %}
 
         {% if user_profile.profile.picture %}

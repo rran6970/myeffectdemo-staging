@@ -24,9 +24,9 @@ from django.template.loader import get_template
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
-from cleanteams.forms import RegisterCleanTeamForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
-from challenges.models import Challenge, UserChallengeEvent
+from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
+from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
+from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership, ChallengeCommunityMembership
 from users.models import OrganizationLicense
 from notifications.models import Notification
 
@@ -350,12 +350,68 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
 
         return context
 
-class CommunityView(LoginRequiredMixin, FormView):
+class EditCommunityView(LoginRequiredMixin, FormView):
+    template_name = "cleanteams/edit_community.html"
+    form_class = EditCommunityForm
+
+    def get_initial(self):
+        initial = {}
+
+        community = get_object_or_404(Community, owner_user=self.request.user)
+        if community:
+            initial['category'] = community.category
+            initial['region'] = community.region
+            initial['name'] = community.name
+            initial['website'] = community.website
+            initial['twitter'] = community.twitter
+            initial['facebook'] = community.facebook
+            initial['instagram'] = community.instagram
+            initial['about'] = community.about
+            initial['community_id'] = community.id
+        return initial
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        community_id = form.cleaned_data['community_id']
+        try:
+            community = Community.objects.get(id=community_id)
+        except Exception, e:
+            print e
+
+        community.name = form.cleaned_data['name']
+        community.website = form.cleaned_data['website']
+        community.twitter = form.cleaned_data['twitter']
+        community.facebook = form.cleaned_data['facebook']
+        community.instagram = form.cleaned_data['instagram']
+        community.about = form.cleaned_data['about']
+        community.region = form.cleaned_data['region']
+        community.category = form.cleaned_data['category']
+
+        logo = form.cleaned_data['logo']
+
+        if logo:
+            key = 'uploads/community_logo_%s_%s' % (str(self.request.user.id), logo)
+            uploadFile = UploadFileToS3()
+            community.logo = uploadFile.upload(key, logo)
+
+        community.save()
+
+        return HttpResponseRedirect(u'/clean-team/community/%s' %(community_id))
+
+    def get_context_data(self, **kwargs):
+        context = super(EditCommunityView, self).get_context_data(**kwargs)
+        return context
+
+class CreateCommunityView(LoginRequiredMixin, FormView):
     template_name = "cleanteams/create_community.html"
     form_class = RegisterCommunityForm
 
     def get_form_kwargs(self):
-        kwargs = super(CommunityView, self).get_form_kwargs()
+        kwargs = super(CreateCommunityView, self).get_form_kwargs()
         kwargs.update({ "request": self.request })
         return kwargs
 
@@ -377,8 +433,19 @@ class CommunityView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         community = Community()
         community.name = form.cleaned_data['name']
+        community.region = form.cleaned_data['region']
+        community.category = form.cleaned_data['category']
         community.is_private = form.cleaned_data['is_private']
         community.owner_user = self.request.user
+        community.contact_user = self.request.user
+
+        logo = form.cleaned_data['logo']
+
+        if logo:
+            key = 'uploads/community_logo_%s_%s' % (str(self.request.user.id), logo)
+            uploadFile = UploadFileToS3()
+            community.logo = uploadFile.upload(key, logo)
+
         community.save()
         #  Asign the owner to belong to the community
         community_membership = UserCommunityMembership()
@@ -388,7 +455,8 @@ class CommunityView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect("/")
 
     def get_context_data(self, **kwargs):
-        context = super(CommunityView, self).get_context_data(**kwargs)
+        context = super(CreateCommunityView, self).get_context_data(**kwargs)
+        context['has_upgraded'] = self.request.user.profile.has_upgraded
         return context
 
 def community_search(request):
@@ -485,16 +553,24 @@ class ViewAllCleanTeams(TemplateView):
         context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
 
         teams = CleanTeam.objects.all()
+        communities = Community.objects.all()
+
+        following_map = {}
 
         if self.request.user.is_authenticated():
             clean_champions = CleanChampion.objects.filter(user=self.request.user)
+            follow_list = CleanTeamFollow.objects.filter(user=self.request.user)
+            for follow in follow_list:
+                following_map[follow.clean_team_id] = follow.clean_team_id
+
             context['clean_champions'] = clean_champions
 
         context['teams'] = teams
+        context['communities'] = communities
         context['user'] = self.request.user
+        context['following_map'] = following_map
 
         return context
-
 
 class LevelProgressView(TemplateView):
     template_name = "cleanteams/level_progress.html"
@@ -519,6 +595,46 @@ class LevelProgressView(TemplateView):
         context['tasks_complete'] = tasks_complete
         return context
 
+class CommunityView(TemplateView):
+    template_name = "cleanteams/community_profile.html"
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        if 'community_id' in self.kwargs:
+            try:
+                user_challenges = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid)
+                user_challenges_list = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+            except Exception, e:
+                user_challenges = []
+                user_challenges_list = []
+            today = datetime.datetime.now()
+            community_id = self.kwargs['community_id']
+            challenge_ids = list(ChallengeCommunityMembership.objects.filter(community_id=community_id).values_list("challenge_id",flat=True))
+            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(id__in=challenge_ids)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+
+            challenge_dict = {}
+
+            count = 0
+            for challenge in challenges:
+                challenge_dict[count] = ["not-particpating", challenge]
+                count += 1
+
+            for user_challenge in user_challenges:
+                challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
+
+            context['challenges'] = challenge_dict
+
+            context['community'] = get_object_or_404(Community, id=community_id)
+            context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
+            context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id).order_by('clean_team__clean_creds')
+            context['user_memberships'] = UserCommunityMembership.objects.filter(community_id=community_id)
+
+        return context
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
@@ -534,6 +650,7 @@ class CleanTeamView(TemplateView):
             ctid = self.kwargs['ctid']
             context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
 
+            follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
             cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
             ccs = CleanChampion.objects.filter(clean_team_id=ctid)
             posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
@@ -565,7 +682,8 @@ class CleanTeamView(TemplateView):
                 user_challenges_list = []
 
             today = datetime.datetime.now()
-            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+            team_approved_challenges = list(ChallengeTeamMembership.objects.filter(clean_team_id=ctid).values_list('challenge_id', flat=True))
+            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(clean_team_id=ctid) | Q(id__in=team_approved_challenges)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
 
             challenge_dict = {}
 
@@ -588,6 +706,7 @@ class CleanTeamView(TemplateView):
             context['cas'] = cas
             context['ccs'] = ccs
             context['posts'] = posts
+            context['follows'] = follows
 
         context['user'] = user
 
@@ -628,41 +747,6 @@ class RegisterRequestJoinView(LoginRequiredMixin, FormView):
 
         if self.request.flavour == "mobile":
             self.template_name = "cleanteams/mobile/register_request_join.html"
-
-        return context
-
-class RegisterCleanChampionView(LoginRequiredMixin, FormView):
-    template_name = "cleanteams/register_clean_champion.html"
-    form_class = JoinTeamCleanChampionForm
-
-    def form_invalid(self, form, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-
-        return self.render_to_response(context)
-
-    def form_valid(self, form):
-        selected_team = form.cleaned_data['team']
-
-        try:
-            clean_champion = CleanChampion.objects.get(user=self.request.user, clean_team=selected_team)
-        except Exception, e:
-            print e
-            clean_champion = CleanChampion()
-
-        clean_champion.becomeCleanChampion(self.request.user, selected_team)
-
-        return HttpResponseRedirect('/clean-team/%s' % selected_team.id)
-
-    def get_context_data(self, **kwargs):
-        context = super(RegisterCleanChampionView, self).get_context_data(**kwargs)
-        user = self.request.user
-
-        context['clean_champions'] = CleanChampion.objects.filter(user=self.request.user)
-        context['user'] = user
-
-        if self.request.flavour == "mobile":
-            self.template_name = "cleanteams/mobile/register_clean_champion.html"
 
         return context
 
@@ -746,12 +830,19 @@ def post_message_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         user = request.user
         message = request.POST['message']
-        ctid = request.POST['ctid']
+        ctid = request.POST.get('ctid', None)
+        community_id = request.POST.get('community_id', None)
 
-        clean_team = get_object_or_404(CleanTeam, id=ctid)
-
-        clean_team_post = CleanTeamPost()
-        post = clean_team_post.newPost(user, message, clean_team)
+        if ctid:
+            clean_team = get_object_or_404(CleanTeam, id=ctid)
+            clean_team_post = CleanTeamPost()
+            post = clean_team_post.newPost(user, message, clean_team)
+        elif community_id:
+            community = get_object_or_404(Community, id=community_id)
+            community_post = CommunityPost()
+            post = community_post.newPost(user, message, community)
+        else:
+            raise Exception("Unexpected post type.")
 
     return HttpResponse(post)
 
@@ -1024,6 +1115,34 @@ def request_join_clean_team(request):
 
     return HttpResponseRedirect('/clean-team/%s' % str(ctid))
 
+def follow_team(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
+
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            follow_object = CleanTeamFollow()
+            follow_object.user_id = request.user.id
+            follow_object.clean_team_id = selected_team.id
+            follow_object.save()
+        except Exception, e:
+            print e
+
+    return HttpResponseRedirect('/clean-team')
+
+def unfollow_team(request):
+    if request.method == 'POST':
+        ctid = request.POST.get('ctid')
+
+        try:
+            selected_team = CleanTeam.objects.get(id=ctid)
+            follow_object = CleanTeamFollow.objects.get(user=request.user, clean_team=selected_team)
+            follow_object.delete()
+        except Exception, e:
+            print e
+
+    return HttpResponseRedirect('/clean-team/%s' % str(ctid))
+
 def be_clean_champion(request):
     if request.method == 'POST':
         ctid = request.POST.get('ctid')
@@ -1080,27 +1199,27 @@ def community_member_action(request):
         action = request.POST['action']
 
         if clean_team_id:
-            team_community_membership_request = TeamCommunityMembershipRequest.objects.get(clean_team_id=clean_team_id)
             if action == "approve":
+                team_community_membership_request = TeamCommunityMembershipRequest.objects.get(clean_team_id=clean_team_id)
                 team_community_membership = TeamCommunityMembership()
                 team_community_membership.clean_team_id = team_community_membership_request.clean_team.id
                 team_community_membership.community_id = team_community_membership_request.community.id
                 team_community_membership.save()
                 team_community_membership_request.delete()
             elif action == "remove":
-                #  TODO:  Not implemented yet
-                pass
+                team_community_membership = TeamCommunityMembership.objects.get(clean_team_id=clean_team_id)
+                team_community_membership.delete()
 
         if user_id:
-            user_community_membership_request = UserCommunityMembershipRequest.objects.get(user_id=user_id)
             if action == "approve":
+                user_community_membership_request = UserCommunityMembershipRequest.objects.get(user_id=user_id)
                 user_community_membership = UserCommunityMembership()
                 user_community_membership.user_id = user_community_membership_request.user.id
                 user_community_membership.community_id = user_community_membership_request.community.id
                 user_community_membership.save()
                 user_community_membership_request.delete()
             elif action == "remove":
-                #  TODO:  Not implemented yet
-                pass
+                user_community_membership = UserCommunityMembership.objects.get(user_id=user_id)
+                user_community_membership.delete()
 
     return HttpResponse("success")

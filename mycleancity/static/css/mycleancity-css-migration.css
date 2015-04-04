@@ -220,7 +220,76 @@ div.wrapper.public-better a.logo,
 .better-white-box{
   width: 960px;
   padding: 27px;
-  background: url(../images/1x1-white.png) repeat 0 0;
+  background: url('/static/images/1x1-white.png') repeat 0 0;
   border: 2px solid #505050;
   margin: 0px auto;
+}
+
+.community-profile-right-container{
+  position: absolute;
+  left: 68%;
+}
+
+.plain-sign-top, .plain-sign-bottom{
+  background-image: url('/static/images/plain-sign.png'); 
+  background-repeat: no-repeat;
+  height: 40px;
+  min-width: 272px;
+  font-weight: 900;
+  font-size: 24px;
+  color: #83c156;
+  text-align: center;
+  text-shadow: rgb(17, 17, 17) 1px 1px 3px;
+  line-height: 40px;
+  position: absolute;
+  z-index: 2;
+  left: 25px;
+}
+
+.plain-sign-top{
+  top: -120px;
+}
+.plain-sign-bottom{
+  top: 180px;
+}
+
+.community-pole{
+  position: absolute;
+  background-image: url('/static/images/community_pole.png'); 
+  background-repeat: repeat-y;
+  height: 640px;
+  width: 32px;
+  z-index: 1;
+  top: -90px;
+  left: 180px;
+  margin-bottom: -200px;
+}
+
+.community-profile-challenges, .community-profile-top-clean-teams{
+  position: absolute;
+  width: 380px;
+  border: 1px solid #000000;
+  z-index: 2;
+}
+
+.community-profile-challenges{
+  top: -75px;
+  height: 250px;
+}
+
+.community-profile-top-clean-teams{
+  top: 230px;
+  height: 290px;
+}
+
+.community-profile-inner-1{
+  background-color: #FFFFFF;
+  width: 100%;
+  overflow-y: scroll;
+  height: 100%;
+  border: 10px solid #433627;
+}
+
+.community-profile-inner-2{
+  width: 100%;
 }

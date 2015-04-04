@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#coding: utf8
+#coding: utf-8
 import os
 import datetime
 import re
@@ -351,4 +351,19 @@ class SettingsForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(SettingsForm, self).clean()
 
+        return cleaned_data
+
+class UpgradeAccountForm(forms.ModelForm):
+    access_code = forms.CharField(required=False, widget=forms.TextInput(), max_length=30)
+
+    def __init__(self, *args, **kwargs):
+        super(UpgradeAccountForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = UserProfile
+        exclude = ('phase', 'clean_creds', 'qr_code', 'user', 'settings')
+
+    def clean(self):
+        cleaned_data = super(UpgradeAccountForm, self).clean()
+        access_code = cleaned_data.get("access_code")
         return cleaned_data

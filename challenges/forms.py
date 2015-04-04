@@ -342,3 +342,19 @@ class ChallengeUploadFileForm(forms.ModelForm):
             raise forms.ValidationError('Please keep filesize under 5MB.')
 
         return cleaned_data
+
+class ParticipantEmailForm(forms.Form):
+    subject = forms.CharField(label='Subject', max_length=200, widget=forms.TextInput())
+    message = forms.CharField(label='Message', widget=forms.Textarea())
+
+    def clean(self):
+        cleaned_data = super(ParticipantEmailForm, self).clean()
+        subject = cleaned_data.get("subject")
+        message = cleaned_data.get("message")
+
+        if not subject:
+            raise forms.ValidationError("Please enter a valid Subject")
+        elif not message:
+            raise forms.ValidationError("Please enter the message")
+
+        return cleaned_data

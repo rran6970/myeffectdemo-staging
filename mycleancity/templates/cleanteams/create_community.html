@@ -25,29 +25,56 @@
               </div>
             {% endif %}
 
-            <form action="/clean-team/create-community/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
-              <table class="table" style="width: 50%;">
-                  <tr id="community_name">
-                    <td>
-                      <label for="name"><span style="color:red;" >&#42;&#32;</span>Community Name:</label><br>
-                    </td>
-                    <td>
-                      {{form.name}}
-                    </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <label for="is_private"><span style="color:red;" >&#42;&#32;</span>Is your community private?</label>
+            {% if has_upgraded %}
+              <form action="/clean-team/create-community/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
+                <table class="table" style="width: 70%;">
+                    <tr>
+                        <td><label for="id_name">Community Name</label></td>
+                        <td style="text-align:right;">
+                            {% if form.name.errors %}
+                              <div class="message-box error">
+                                  {{ form.name.errors }}
+                              </div>
+                            {% endif %}
+                            <span style="float: right;">{{ form.name }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.region.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.region }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="is_private">Is your community private?</label>
+                        </td>
+                        <td style="text-align:right;">
+                            {{ form.is_private}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.category.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.category }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.logo.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.logo }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <input style="float: left;" class="btn btn-primary" type="submit" value="Create Community" />
                       </td>
-                      <td>{{ form.is_private}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <input style="float: left;" class="btn btn-primary" type="submit" value="Create Community" />
-                    </td>
-                  </tr>
-              </table>
-            </form>
+                    </tr>
+                </table>
+              </form>
+            {% else %}
+              <p>You need to <a href="/users/upgrade-account/">upgrade your account</a> before you can create communities.</p>
+            {% endif %}
         </div>
     </div>
   </div>

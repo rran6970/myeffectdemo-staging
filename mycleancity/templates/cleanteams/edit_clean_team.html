@@ -47,18 +47,18 @@
                 </tr>
                 <tr>
                   <td>{{ form.region.label_tag }} {{ form.region }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
-                    <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
-                </tr>
-                <tr>
                   <td id="community-td">{{ form.community.label_tag }} {{ form.community }}
                   {% if form.community_request_pending %}
                      (Request Pending)
                   {% endif %}
                   </td>
-                  <td>{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>
+                </tr>
+                <tr>
+                    <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
+                    <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>
                 </tr>
                 <tr>
                     <td>{{ form.contact_first_name.label_tag }} {{ form.contact_first_name }}</td>

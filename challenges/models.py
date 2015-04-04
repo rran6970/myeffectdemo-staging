@@ -20,7 +20,7 @@ from django.db.models.signals import post_save
 
 from django.utils.timezone import utc
 
-from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask
+from cleanteams.models import CleanTeam, CleanTeamMember, CleanChampion, CleanTeamLevelTask, Community
 
 from mycleancity.actions import *
 from notifications.models import Notification, UserNotification
@@ -1196,3 +1196,43 @@ class ChallengeUploadFile(models.Model):
 
     def save(self, *args, **kwargs):
         super(ChallengeUploadFile, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeCommunityMembership
+Date created:   April 1, 2015
+Description:    An association that describes that a challenge is associated with a specific community
+"""
+class ChallengeCommunityMembership(models.Model):
+    challenge = models.ForeignKey(Challenge, null=False)
+    community = models.ForeignKey(Community, null=False)
+    #  If the associate is private, you can't see this challenge unless you're a member of this community
+    is_private = models.BooleanField(default=0, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Community Challenge Membership'
+        unique_together = (('challenge', 'community'),)
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(ChallengeCommunityMembership, self).save(*args, **kwargs)
+
+"""
+Name:           ChallengeTeamMembership
+Date created:   April 3, 2015
+Description:    An association that describes that a challenge is associated with a specific team
+"""
+class ChallengeTeamMembership(models.Model):
+    challenge = models.ForeignKey(Challenge, null=False)
+    clean_team = models.ForeignKey(CleanTeam, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Team Challenge Membership'
+        unique_together = (('challenge', 'clean_team'),)
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(ChallengeTeamMembership, self).save(*args, **kwargs)
