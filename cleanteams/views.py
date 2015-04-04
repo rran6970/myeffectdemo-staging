@@ -26,7 +26,7 @@ from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
-from challenges.models import Challenge, UserChallengeEvent
+from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership
 from users.models import OrganizationLicense
 from notifications.models import Notification
 
@@ -660,7 +660,8 @@ class CleanTeamView(TemplateView):
                 user_challenges_list = []
 
             today = datetime.datetime.now()
-            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), clean_team_id=ctid).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+            team_approved_challenges = list(ChallengeTeamMembership.objects.filter(clean_team_id=ctid).values_list('challenge_id', flat=True))
+            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(clean_team_id=ctid) | Q(id__in=team_approved_challenges)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
 
             challenge_dict = {}
 

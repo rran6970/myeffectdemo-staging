@@ -90,8 +90,6 @@
                   <ul>
               </div>
                 <p>{{ challenge.description|slice:":180" }}...</p>
-                <p>{{ community_approved_challenges }}...</p>
-                <p>{{ team_approved_challenges }}...</p>
                 <div style="text-align: right;">
                   {% if my_community %}
                     {% if challenge.id in community_approved_challenges %}
