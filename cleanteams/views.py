@@ -26,7 +26,7 @@ from django.views.generic.edit import FormView, UpdateView
 
 from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
-from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership
+from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership, ChallengeCommunityMembership
 from users.models import OrganizationLicense
 from notifications.models import Notification
 
@@ -606,7 +606,29 @@ class CommunityView(TemplateView):
         user = self.request.user
 
         if 'community_id' in self.kwargs:
+            try:
+                user_challenges = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid)
+                user_challenges_list = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+            except Exception, e:
+                user_challenges = []
+                user_challenges_list = []
+            today = datetime.datetime.now()
             community_id = self.kwargs['community_id']
+            challenge_ids = list(ChallengeCommunityMembership.objects.filter(community_id=community_id).values_list("challenge_id",flat=True))
+            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(id__in=challenge_ids)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+
+            challenge_dict = {}
+
+            count = 0
+            for challenge in challenges:
+                challenge_dict[count] = ["not-particpating", challenge]
+                count += 1
+
+            for user_challenge in user_challenges:
+                challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
+
+            context['challenges'] = challenge_dict
+
             context['community'] = get_object_or_404(Community, id=community_id)
             context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
             context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id).order_by('clean_team__clean_creds')

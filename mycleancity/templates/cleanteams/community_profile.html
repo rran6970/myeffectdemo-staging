@@ -25,6 +25,44 @@
           <div class="community-profile-challenges">
             <div class="community-profile-inner-1">
               <div class="community-profile-inner-2">
+                <div id="clean-team-challenges-list" class="popup">
+                  <!-- Challenges -->
+                  {% for key, challenge in challenges.items %}
+                      <div class="challenge">
+                        {% if challenge.1.national_challenge %}
+                          <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
+                        {% endif %}
+                        <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
+               
+                        {% if challenge.1.clean_team_only %}
+                          <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
+                        {% endif %}
+               
+                        <p class="date-time">
+                          <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
+                        </p>
+                        <p class="date-time">
+                          <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
+                        </p>
+                        <p>{{ challenge.1.description|slice:":255" }}</p>
+                        <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+               
+                        {% if user.is_authenticated %}
+                          {% if challenge.0 == "particpating" %}
+                            <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
+                          {% else %}
+                            <form action="/challenges/participate/" method="post">
+                              {% csrf_token %}
+                              <input type="hidden" name="cid" value="{{ challenge.1.id }}">
+                              <input id="participate-btn" class="btn btn-primary" type="submit" value="Participate" />
+                            </form>
+                          {% endif %}
+                        {% else %}
+                          <a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
+                        {% endif %}
+                      </div>
+                  {% endfor %}
+                </div>
               </div>
             </div>
           </div>
