@@ -78,8 +78,6 @@
             <p class="title">Community:</p>
             {% if community %}
               <p class="text">{{ community.name }}</p>
-            {% else %}
-              <a href="/clean-team/create-community/">Create Community</a>
             {% endif %}
           </div>
 
@@ -121,7 +119,6 @@
         
         {% if user.id == user_profile.id %}
           <div style="text-align: center;"><span><a href="/users/profile">Edit Profile</a></span></div>
-          <div style="text-align: center;"><span><a href="/users/upgrade-account">Upgrade Account</a></span></div>
         {% endif %}
 
         {% if user_profile.profile.picture %}

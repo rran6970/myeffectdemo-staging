@@ -19,7 +19,11 @@ import os
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 # os.environ["DJANGO_SETTINGS_MODULE"] = "mycleancity.settings"
+<<<<<<< HEAD
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mycleancity.karthick_settings")
+=======
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mycleancity.amal_settings")
+>>>>>>> 45ca08c50ea52b611c36d0ee567604437a665c37
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

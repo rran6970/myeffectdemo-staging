@@ -16,18 +16,18 @@
   <a href="/" class="logo"></a>
   
   <div class="content challenge-centre">
-  	<div class="container">
+    <div class="container">
         <div id="white-box" class="message">
           <p>Do you know of volunteer opportunities or events that aren't listed in our Action Centre?</p>
           <p>Change Agents: Connect My Effect to the local organization host or refer an Action to earn a 10 bonus change creds<sup>TM</sup>!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
           <p>Change Leaders: {% if user.is_authenticated and user.profile.has_clean_team %}<a href="new-challenge">Upload your opportunity </a>{% else %} Upload your opportunity {% endif %}as an Action for your Change Team to start earning ongoing change creds<sup>TM</sup></p>
         </div>
 
-      	<div id="sign-challenge-centre"></div>
+        <div id="sign-challenge-centre"></div>
         <div id="white-box">
           {% if challenges %}
-      			{% for challenge in challenges %}
-      				<div class="challenges">
+            {% for challenge in challenges %}
+              <div class="challenges">
                 {% if challenge.national_challenge %}
                   <img class="badge-icon" src="/static/images/badge-nc-88x64.png" alt="National Challenge">
                 {% endif %}
@@ -39,8 +39,8 @@
                   {% endif %}
                 </a>
 
-      					<a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
-      					
+                <a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
+                
 
                 {% if challenge.clean_team_only %}
                   <span class="clean-team-only bold"><h2>Change Teams Only</h2></span>
@@ -57,6 +57,8 @@
                 <span class="clean-creds">
                   <h2>{{ challenge.clean_creds_per_hour }}&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</h2>
                 </span>
+
+
                 {% if challenge.day_of_week != -1 %}
                 <span class="date"><h2>Time:</h2>&nbsp;Every {{ challenge.get_day_of_week }} from {{ challenge.event_start_time }} to {{ challenge.event_end_time }}</span>
                 <span class="date">
@@ -71,11 +73,11 @@
                 </span>
                 {% endif %}
                 {% if challenge.city %}
-      					<span class="location">
-      						<h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
-      					</span>
+                <span class="location">
+                  <h2>Location:</h2><span>&nbsp;{{ challenge.city }}, {{ challenge.province }}</span>
+                </span>
                 {% endif %}
-      					
+                
                 <div class="clear"></div>
                 <div class ="skilltags-list">
                 <h2>Skills:</h2>
@@ -87,14 +89,39 @@
                     {% endfor %}
                   <ul>
               </div>
-
-      					<p>{{ challenge.description|slice:":180" }}...</p>
-      				</div>
-      			{% endfor %}
+                <p>{{ challenge.description|slice:":180" }}...</p>
+                <div style="text-align: right;">
+                  {% if my_community %}
+                    {% if challenge.id in community_approved_challenges %}
+                      <span class="community-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                    {% else %}
+                      <span class="community-approve">
+                        {% csrf_token %}
+                        <input type="hidden" name="community_id" value="{{ my_community.id }}">
+                        <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Community" />
+                      </span>
+                    {% endif %}
+                  {% endif %}
+                  {% if my_team %}
+                    {% if challenge.id in team_approved_challenges %}
+                      <span class="team-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                    {% else %}
+                      <span class="team-approve">
+                        {% csrf_token %}
+                        <input type="hidden" name="clean_team_id" value="{{ my_team.id }}">
+                        <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Team" />
+                      </span>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
           {% else %}
             <h1 class="bold">Sorry, no <span class="blue">Actions</span> found.</h1>
           {% endif %}
-			
+      
         </div><!-- /#white-box -->
         
     </div><!-- /.container -->
@@ -139,6 +166,50 @@
     if(query.clean_team_only=="on" || query.clean_team_only=="true"){
       $("#clean-team-only-checkbox").prop('checked', true);
     }
+
+    $(".community-approve").each(function () {
+      var $self = $(this);
+      $(".btn", $self).click(function () {
+        var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+        var $community_id = $("input[name=community_id]", $self);
+        var $challenge_id = $("input[name=challenge_id]", $self);
+        $.ajax({
+          type: 'POST',
+          url: '/challenges/approve-challenge/',
+          data: {
+            'csrfmiddlewaretoken':  $csrf.val(),
+            'community_id':  $community_id.val(),
+            'challenge_id':  $challenge_id.val()
+          },
+          success: function  (data) {
+            $self.html("Approved");
+          }
+        });
+      });
+    });
+
+    $(".team-approve").each(function () {
+      var $self = $(this);
+      $(".btn", $self).click(function () {
+        var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+        var $clean_team_id = $("input[name=clean_team_id]", $self);
+        var $challenge_id = $("input[name=challenge_id]", $self);
+        $.ajax({
+          type: 'POST',
+          url: '/challenges/approve-challenge/',
+          data: {
+            'csrfmiddlewaretoken':  $csrf.val(),
+            'clean_team_id':  $clean_team_id.val(),
+            'challenge_id':  $challenge_id.val()
+          },
+          success: function  (data) {
+            $self.html("Approved");
+          }
+        });
+      });
+    });
   });
+
+
 </script>
 {% endblock %}

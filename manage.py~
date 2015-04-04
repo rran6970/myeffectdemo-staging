@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+<<<<<<< HEAD
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mycleancity.karthick_settings")
+=======
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mycleancity.amal_settings")
+>>>>>>> 45ca08c50ea52b611c36d0ee567604437a665c37
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
