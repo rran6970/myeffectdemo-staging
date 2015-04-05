@@ -7,7 +7,7 @@
 		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
 			<li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
             <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
-            <li><a href="/clean-team/register-catalyst" class="menu-items">Connect With Teams</a></li>
+            <li><a href="/clean-team/" class="menu-items">Connect With Groups</a></li>
             <li><a href="/claim-voucher" class="menu-items">Claim Change Creds™</a></li>
             <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
 			{% if user.profile.has_clean_team %}
@@ -31,7 +31,6 @@
 			{% else %}
 			<li><a href="/clean-team/create-team-or-org/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
-			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
             {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
 			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
 			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
