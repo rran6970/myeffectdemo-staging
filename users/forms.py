@@ -1,5 +1,9 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
+# -*- coding: utf-8 -*-
+=======
 #coding: utf-8
+>>>>>>> 45ca08c50ea52b611c36d0ee567604437a665c37
 import os
 import datetime
 import re

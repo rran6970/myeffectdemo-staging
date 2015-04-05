@@ -1,42 +1,44 @@
+{% load i18n %}
 <a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
 
 {% if user.is_active %}
-  <div class="dropdown">
-    <a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Take Action<b class="caret"></b></a>
-    <ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
-      <li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
-      <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
-      <li><a href="/clean-team/" class="menu-items">Connect With Groups</a></li>
-      <li><a href="/claim-voucher" class="menu-items">Claim Change Creds</a></li>
-      <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
-    </ul>
-  </div>
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Take Action<b class="caret"></b></a>
+		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
+			<li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
+            <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
+            <li><a href="/clean-team/register-catalyst" class="menu-items">Connect With Teams</a></li>
+            <li><a href="/claim-voucher" class="menu-items">Claim Change Creds™</a></li>
+            <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
+			{% if user.profile.has_clean_team %}
+			<!--<li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>-->
+			{% endif %}
+			<!--<li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>-->
+		</ul>
+	</div><!-- end of #user-dropdown.dropdown -->
 
-  <div class="dropdown">
-    <a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Group<b class="caret"></b></a>
-    <ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
-      {% if user.profile.has_clean_team %}
-      <li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
-      <li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
-      <li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>
-      {% else %}
-      <li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
-      {% endif %}
-      {% if user.profile.has_upgraded %}
-        <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
-      {% endif %}
-      {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
-      {% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
-      <li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
-      {% endif %}
-      {% if user.profile.has_upgraded %}
-      <li><a href="/clean-team/community-members" class="menu-items">Manage Community Members</a></li>
-      {% endif %}
-      <li><a href="/clean-team/invite" class="menu-items">Invite Friends</a></li>
-    </ul>
-  </div>
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Create Group<b class="caret"></b></a>
+		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 
+			{% if user.profile.has_clean_team %}
+			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
+			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
+            <li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>
+			<!--<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>-->
+			<!--<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>-->
+			<!--<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>-->
+			{% else %}
+			<li><a href="/clean-team/create-team-or-org/" class="menu-items">Create Change Team</a></li>
+			{% endif %}
+			<li><a href="/clean-team/" class="menu-items">All Change Teams</a></li>
+            {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			{% endif %}
+		</ul>
+	</div><!-- end of .dropdown -->
   <div class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
     <ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
