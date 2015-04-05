@@ -216,6 +216,14 @@ class Challenge(models.Model):
         self.category = survey.category
         self.save();
 
+        my_communities = Community.objects.filter(owner_user=user)
+        if my_communities.count():
+            membership = ChallengeCommunityMembership()
+            membership.is_private = form['is_private']
+            membership.community = my_communities[0]
+            membership.challenge = self
+            membership.save()
+
         if form['tags']:
             for tag in form['tags']:
                 try:
