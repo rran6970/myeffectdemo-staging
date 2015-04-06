@@ -633,6 +633,8 @@ class CommunityView(TemplateView):
             context['posts'] = CommunityPost.objects.filter(community=community_id).order_by('-timestamp')
             context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id).order_by('clean_team__clean_creds')
             context['user_memberships'] = UserCommunityMembership.objects.filter(community_id=community_id)
+            context['has_membership_request'] = UserCommunityMembershipRequest.objects.filter(community_id=community_id, user_id=user.id).count()
+            context['is_member'] = UserCommunityMembership.objects.filter(community_id=community_id, user_id=user.id).count()
 
             #  Find out what community (if any) the user is a member of
             parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
@@ -1140,6 +1142,20 @@ def follow_team(request):
             print e
 
     return HttpResponseRedirect('/clean-team')
+
+def community_membership_request(request):
+    if request.method == 'POST':
+        community_id = request.POST.get('community_id')
+
+        try:
+            membership_request = UserCommunityMembershipRequest()
+            membership_request.user_id = request.user.id
+            membership_request.community_id = community_id
+            membership_request.save()
+        except Exception, e:
+            print e
+
+    return HttpResponse("success")
 
 def unfollow_team(request):
     if request.method == 'POST':

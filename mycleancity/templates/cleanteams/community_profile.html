@@ -137,6 +137,18 @@
               <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
             {% endif %}
 
+            <div class="community-membership-request" style="text-align: center; padding-top:10px;">
+              {% if not is_member %}
+                {% if has_membership_request %}
+                  Membership Request Sent
+                {% else %}
+                  {% csrf_token %}
+                  <input type="hidden" name="community_id" value="{{ community.id }}">
+                  <input class="community-membership-request-btn btn btn-primary" type="submit" value="Request to Join" />
+                {% endif %}
+              {% endif %}
+            </div>
+
           </div>
           
           <h2>{{ community.name }} {% if community.website %}<a href="{{ community.website }}" target="_blank">View Website</a> {% endif %}</h2>
@@ -275,4 +287,27 @@
 
 {% include "_footer_navbar.html" %}
 
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  $(".community-membership-request").each(function () {
+    var $self = $(this);
+    $(".community-membership-request-btn", $self).click(function () {
+      var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+      var $community_id = $("input[name=community_id]", $self);
+      $.ajax({
+        type: 'POST',
+        url: '/clean-team/community-membership-request/',
+        data: {
+          'csrfmiddlewaretoken':  $csrf.val(),
+          'community_id':  $community_id.val()
+        },
+        success: function  (data) {
+          $self.html("Membership Request Sent");
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}
