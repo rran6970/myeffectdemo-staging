@@ -207,8 +207,11 @@ class ChallengeCentreView(TemplateView):
                 my_community = communities[0]
             if self.request.user.profile.clean_team_member:
                 my_team = self.request.user.profile.clean_team_member.clean_team
+
+            community_approved_challenges = []
             if my_community:
                 community_approved_challenges = set(m.challenge_id for m in ChallengeCommunityMembership.objects.filter(community=my_community.id))
+            team_approved_challenges = []
             if my_team:
                 team_approved_challenges = set(m.challenge_id for m in ChallengeTeamMembership.objects.filter(clean_team=my_team.id))
 
@@ -216,7 +219,7 @@ class ChallengeCentreView(TemplateView):
             parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
             if parent_communities.count():
                 #  Hide all challenges that are privately associated with communities other than the community they are a member of
-                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_community)).values_list('challenge_id', flat=True)
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_communities[0])).values_list('challenge_id', flat=True)
             else:
                 #  Hide all challenges that are privately associated with communities
                 hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)

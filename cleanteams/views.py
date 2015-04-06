@@ -638,7 +638,7 @@ class CommunityView(TemplateView):
             parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
             if parent_communities.count():
                 #  Hide all challenges that are privately associated with communities other than the community they are a member of
-                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_community)).values_list('challenge_id', flat=True)
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_communities[0])).values_list('challenge_id', flat=True)
             else:
                 #  Hide all challenges that are privately associated with communities
                 hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)

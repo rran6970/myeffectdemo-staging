@@ -31,6 +31,9 @@
 			{% else %}
 			<li><a href="/clean-team/create-team-or-org/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
+			{% if user.profile.has_upgraded %}
+			<li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+			{% endif %}
             {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
 			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
 			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
