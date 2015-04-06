@@ -27,6 +27,7 @@
         <div id="white-box">
           {% if challenges %}
             {% for challenge in challenges %}
+            {% if not challenge.id in hidden_challenges %}
               <div class="challenges">
                 {% if challenge.national_challenge %}
                   <img class="badge-icon" src="/static/images/badge-nc-88x64.png" alt="National Challenge">
@@ -117,6 +118,7 @@
                   {% endif %}
                 </div>
               </div>
+            {% endif %}
             {% endfor %}
           {% else %}
             <h1 class="bold">Sorry, no <span class="blue">Actions</span> found.</h1>

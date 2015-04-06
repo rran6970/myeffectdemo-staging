@@ -28,6 +28,7 @@
                 <div id="clean-team-challenges-list" class="popup">
                   <!-- Challenges -->
                   {% for key, challenge in challenges.items %}
+                  {% if not challenge.id in hidden_challenges %}
                       <div class="challenge">
                         {% if challenge.1.national_challenge %}
                           <img class="badge-icon" src="{{ STATIC_URL }}images/badge-nc-88x64.png" alt="National Challenge" />
@@ -61,6 +62,7 @@
                           <a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
                         {% endif %}
                       </div>
+                  {% endif %}
                   {% endfor %}
                 </div>
               </div>

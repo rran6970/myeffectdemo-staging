@@ -634,6 +634,17 @@ class CommunityView(TemplateView):
             context['team_memberships'] = TeamCommunityMembership.objects.filter(community_id=community_id).order_by('clean_team__clean_creds')
             context['user_memberships'] = UserCommunityMembership.objects.filter(community_id=community_id)
 
+            #  Find out what community (if any) the user is a member of
+            parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
+            if parent_communities.count():
+                #  Hide all challenges that are privately associated with communities other than the community they are a member of
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_community)).values_list('challenge_id', flat=True)
+            else:
+                #  Hide all challenges that are privately associated with communities
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)
+
+            context['hidden_challenges'] = hidden_challenges
+
         return context
 
 class CleanTeamView(TemplateView):

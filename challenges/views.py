@@ -20,7 +20,7 @@ from django.views.generic.base import View
 
 from challenges.forms import *
 from challenges.models import *
-from cleanteams.models import CleanTeamMember, CleanChampion, Community
+from cleanteams.models import CleanTeamMember, CleanChampion, Community, UserCommunityMembership
 from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
@@ -212,7 +212,17 @@ class ChallengeCentreView(TemplateView):
             if my_team:
                 team_approved_challenges = set(m.challenge_id for m in ChallengeTeamMembership.objects.filter(clean_team=my_team.id))
 
-        return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community, 'community_approved_challenges': community_approved_challenges, 'team_approved_challenges': team_approved_challenges})
+            #  Find out what community (if any) the user is a member of
+            parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
+            if parent_communities.count():
+                #  Hide all challenges that are privately associated with communities other than the community they are a member of
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_community)).values_list('challenge_id', flat=True)
+            else:
+                #  Hide all challenges that are privately associated with communities
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)
+                
+            
+        return render(request, self.template_name, {'hidden_challenges': hidden_challenges, 'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community, 'community_approved_challenges': community_approved_challenges, 'team_approved_challenges': team_approved_challenges})
 
     def get_context_data(self, **kwargs):
         context = super(ChallengeCentreView, self).get_context_data(**kwargs)
