@@ -72,8 +72,14 @@
                 </td>
                 <form class="members-forms" action="/clean-team/community-member-action/" method="post">
                 <td class="type">User</td>
-                <td class="actions"></td>
-                </form>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user_membership.user.id }}" />
+                    <input type="hidden" id="action" name="action" value="remove" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Remove" />
+                  </form>
+                </td>
               </tr>
             {% endfor %}
             {% for team_membership in team_memberships %}
@@ -83,7 +89,12 @@
                 </td>
                 <td class="type">Team</td>
                 <td class="actions">
-
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="clean_team_id" value="{{ team_membership.clean_team.id }}" />
+                    <input type="hidden" id="action" name="action" value="remove" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Remove" />
+                  </form>
                 </td>
               </tr>
             {% endfor %}
