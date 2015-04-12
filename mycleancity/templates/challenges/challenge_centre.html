@@ -94,25 +94,25 @@
                 <div style="text-align: right;">
                   {% if my_community %}
                     {% if challenge.id in community_approved_challenges %}
-                      <span class="community-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                      <span class="community-approve">&nbsp;&nbsp;&nbsp;Added&nbsp;&nbsp;&nbsp;</span>
                     {% else %}
                       <span class="community-approve">
                         {% csrf_token %}
                         <input type="hidden" name="community_id" value="{{ my_community.id }}">
                         <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
-                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Community" />
+                        <input style="padding: 8px;" class="btn" type="submit" value="Add to my Community" />
                       </span>
                     {% endif %}
                   {% endif %}
                   {% if my_team %}
                     {% if challenge.id in team_approved_challenges %}
-                      <span class="team-approve">&nbsp;&nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;</span>
+                      <span class="team-approve">&nbsp;&nbsp;&nbsp;Added&nbsp;&nbsp;&nbsp;</span>
                     {% else %}
                       <span class="team-approve">
                         {% csrf_token %}
                         <input type="hidden" name="clean_team_id" value="{{ my_team.id }}">
                         <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
-                        <input style="padding: 8px;" class="btn" type="submit" value="Approve for my Team" />
+                        <input style="padding: 8px;" class="btn" type="submit" value="Add to my Team" />
                       </span>
                     {% endif %}
                   {% endif %}
@@ -184,7 +184,7 @@
             'challenge_id':  $challenge_id.val()
           },
           success: function  (data) {
-            $self.html("Approved");
+            $self.html("Added");
           }
         });
       });
@@ -205,7 +205,7 @@
             'challenge_id':  $challenge_id.val()
           },
           success: function  (data) {
-            $self.html("Approved");
+            $self.html("Added");
           }
         });
       });
