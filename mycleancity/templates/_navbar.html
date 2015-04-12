@@ -36,7 +36,9 @@
 			<li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
 			{% if user.profile.has_upgraded %}
-			<li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+			  {% if not glbl_my_community %}
+			    <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+			  {% endif %}
 			<li><a href="/clean-team/community-members/" class="menu-items">Manage Community Members</a></li>
 			{% endif %}
             {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}

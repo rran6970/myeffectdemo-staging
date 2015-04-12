@@ -578,16 +578,23 @@ class UpgradeAccountView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form, **kwargs):
-        self.request.user.profile.has_upgraded = True
-        self.request.user.profile.clean_team_member.role = "manager"
-        self.request.user.profile.clean_team_member.save()
-        self.request.user.profile.save()
+        upgrade_type = self.request.POST.get('upgrade_type', None)
+        if upgrade_type == "community":
+          self.request.user.profile.has_upgraded = True
+          self.request.user.profile.save()
+        elif upgrade_type == "manager":
+          self.request.user.profile.clean_team_member.role = "manager"
+          self.request.user.profile.clean_team_member.save()
+          self.request.user.profile.save()
+        else:
+          raise Exception("Unknown upgrade type.")
         return HttpResponseRedirect('/')
 
     def get_context_data(self, **kwargs):
         context = super(UpgradeAccountView, self).get_context_data(**kwargs)
         context['clean_team_member_id'] = self.request.user.profile.clean_team_member
         context['has_upgraded'] = self.request.user.profile.has_upgraded
+        context['is_manager'] = CleanTeamMember.objects.filter(user_id=self.request.user.id,role="manager").count() > 0
         return context
 
 class QRCodeView(LoginRequiredMixin, TemplateView):

@@ -20,7 +20,7 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
-            <h2>Upgrade Account</h2>
+            <h2>Upgrade To Manager</h2>
 
             {% if form.errors %}
               <div class="message-box error">
@@ -34,11 +34,12 @@
               </div>
             {% endif %}
 
-            {% if has_upgraded %}
-              <p>You have already upgraded.</p>
+            {% if is_manager %}
+              <p>You are already a manager.</p>
             {% else %}
               {% if clean_team_member_id %}
                 <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
+                  <input type="hidden" name="upgrade_type" value="manager" />
                   <table>
                       <tbody id = "submit_org_tr">
                         <tr>
@@ -65,6 +66,46 @@
               {% else %}
                 <p>You must <a href="/clean-team/register-clean-team/">become the leader</a> of team before you can upgrade to a manager.</p>
               {% endif %}
+            {% endif %}
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+
+            {% if has_upgraded %}
+              {% if glbl_my_community %}
+              {% else  %}
+                <p>You can create a community <a href="/clean-team/create-community/">here</a>.</p>
+              {% endif %}
+            {% else %}
+              <h2>Upgrade To Create Communities</h2>
+              <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
+                <input type="hidden" name="upgrade_type" value="community" />
+                <table>
+                    <tbody id = "submit_org_tr">
+                      <tr>
+                        <td>
+                          <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
+                        </td>
+                        <td>
+                          {{form.access_code}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <input class="btn btn-primary" type="submit" value="Continue" />
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </form>
             {% endif %}
         </div>
     </div>
