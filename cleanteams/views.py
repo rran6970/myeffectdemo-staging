@@ -1250,3 +1250,11 @@ def community_member_action(request):
                 user_community_membership.delete()
 
     return HttpResponse("success")
+
+def get_nav_data(request):
+  #  This function can be used to make variables available to every page so they can be used on the nav header.
+  glbl_my_community = None
+  if request.user.is_authenticated():
+    if Community.objects.filter(owner_user=request.user).count():
+      glbl_my_community = Community.objects.get(owner_user=request.user)
+  return {'glbl_my_community': glbl_my_community}
