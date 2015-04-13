@@ -21,12 +21,11 @@
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Group<b class="caret"></b></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 
-			{% if user.profile.has_clean_team %}
-			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
 			{% if glbl_my_community %}
 			  <li><a href="/clean-team/community/{{ glbl_my_community.id }}" class="menu-items">Community Profile</a></li>
-	                  
 			{% endif %}
+			{% if user.profile.has_clean_team %}
+			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
 			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
             <li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>
 			<!--<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>-->

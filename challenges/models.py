@@ -217,7 +217,7 @@ class Challenge(models.Model):
         self.save();
 
         my_communities = Community.objects.filter(owner_user=user)
-        if my_communities.count():
+        if my_communities.count() and not self.clean_team_only:
             membership = ChallengeCommunityMembership()
             membership.is_private = form['is_private']
             membership.community = my_communities[0]
