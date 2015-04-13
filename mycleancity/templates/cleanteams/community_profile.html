@@ -20,7 +20,7 @@
     <div class="container">
         <div class="community-profile-right-container">
           <div class="plain-sign-top">
-            CHALLENGES
+            ACTIONS
           </div>
           <div class="community-profile-challenges">
             <div class="community-profile-inner-1">
@@ -39,12 +39,6 @@
                           <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
                         {% endif %}
                
-                        <p class="date-time">
-                          <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
-                        </p>
-                        <p class="date-time">
-                          <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
-                        </p>
                         <p>{{ challenge.1.description|slice:":255" }}</p>
                         <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
                
@@ -136,6 +130,18 @@
             {% if challenges %}
               <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
             {% endif %}
+
+            <div class="community-membership-request" style="text-align: center; padding-top:10px;">
+              {% if not is_member %}
+                {% if has_membership_request %}
+                  Membership Request Sent
+                {% else %}
+                  {% csrf_token %}
+                  <input type="hidden" name="community_id" value="{{ community.id }}">
+                  <input class="community-membership-request-btn btn btn-primary" type="submit" value="Request to Join" />
+                {% endif %}
+              {% endif %}
+            </div>
 
           </div>
           
@@ -275,4 +281,27 @@
 
 {% include "_footer_navbar.html" %}
 
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  $(".community-membership-request").each(function () {
+    var $self = $(this);
+    $(".community-membership-request-btn", $self).click(function () {
+      var $csrf = $("input[name=csrfmiddlewaretoken]", $self);
+      var $community_id = $("input[name=community_id]", $self);
+      $.ajax({
+        type: 'POST',
+        url: '/clean-team/community-membership-request/',
+        data: {
+          'csrfmiddlewaretoken':  $csrf.val(),
+          'community_id':  $community_id.val()
+        },
+        success: function  (data) {
+          $self.html("Membership Request Sent");
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

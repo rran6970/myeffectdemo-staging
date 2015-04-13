@@ -9,10 +9,12 @@ CREATE_TEAM_CHOICES = (('change_team', 'Create A Change Team'),
     ('representing', 'Representing An Organization'),
 )
 
-ORG_TYPES = (('school', 'School'),
+ORG_TYPES = (('classroom', 'Classroom'),
     ('nonprofit_charity', 'Nonprofit/Charity'),
     ('business', 'Business'),
-    ('municipality', 'Municipality'),
+    ('grassroots_group', 'Grassroots Group'),
+    ('employee_team', 'Employee Team'),
+    ('student_lead_team', 'Student Lead Team'),
 )
 
 ORG_CATEGORIES = (('General', 'General'),

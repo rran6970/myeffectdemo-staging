@@ -21,6 +21,14 @@
 		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Change Group<b class="caret"></b></a>
 		<ul class="dropdown-menu clean-team-dropdown" role="menu" aria-labelledby="dLabel">
 
+			{% if glbl_my_community %}
+			  <li><a href="/clean-team/community/{{ glbl_my_community.id }}" class="menu-items">Community Profile</a></li>
+			  <li><a href="/clean-team/community-members/" class="menu-items">Manage Community Members</a></li>
+			{% else %}
+			  {% if user.profile.has_upgraded %}
+			    <li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
+			  {% endif %}
+			{% endif %}
 			{% if user.profile.has_clean_team %}
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
 			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
@@ -29,15 +37,13 @@
 			<!--<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>-->
 			<!--<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>-->
 			{% else %}
-			<li><a href="/clean-team/create-team-or-org/" class="menu-items">Create Change Team</a></li>
+			<li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
 			{% endif %}
-			{% if user.profile.has_upgraded %}
-			<li><a href="/clean-team/create-community/" class="menu-items">Create Community</a></li>
-			{% endif %}
+
             {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
-			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			<li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
 			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
-			<li><a href="/clean-team/members" class="menu-items">Manage Members</a></li>
+			<li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
 			{% endif %}
 		</ul>
 	</div><!-- end of .dropdown -->
