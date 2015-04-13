@@ -79,7 +79,7 @@ def survey_update_score(request):
 def participate_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
-        message = request.POST.get('messgage', None)
+        message = request.POST.get('message', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
