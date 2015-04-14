@@ -108,6 +108,7 @@ class NewChallengeForm(forms.Form):
         self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
         self.fields['virtual_challenge'] = forms.BooleanField(label="This is a Virtual  Action", required=False)
         self.fields['clean_team_only'] = forms.BooleanField(label="This is only for Change Teams", required=False)
+        self.fields['is_private'] = forms.BooleanField(label="This is a private challenge", required=False)
         self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all(), label="Change Creds Rate")
         self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
@@ -137,6 +138,7 @@ class NewChallengeForm(forms.Form):
         national_challenge = cleaned_data.get("national_challenge")
         virtual_challenge = cleaned_data.get("virtual_challenge")
         clean_team_only = cleaned_data.get("clean_team_only")
+        is_private = cleaned_data.get("is_private")
         type = cleaned_data.get("type")
         challenge_id = cleaned_data.get("challenge_id")
 

@@ -916,6 +916,7 @@ div.table-container #invitees-table tr td.roles {  }
 #white-box.report-card table thead tr td.date { width: 150px; }
 #white-box.report-card table thead tr td.hours { }
 #white-box.report-card table thead tr td.organization { }
+#white-box.report-card table thead tr td.skills { }
 #white-box.report-card table thead tr td.description { }
 #white-box.report-card table thead tr td.supervisor-name { }
 #white-box.report-card table thead tr td.supervisor-signature { }

@@ -16,7 +16,7 @@ DATABASES = {
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': '9979322901',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                     # Set to empty string for default.
         'OPTIONS': {
@@ -110,6 +110,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'cleanteams.views.get_nav_data',
 )
 
 MIDDLEWARE_CLASSES = (

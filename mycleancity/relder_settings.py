@@ -1,6 +1,7 @@
 # Django settings for mycleancity project.
 import os
 import sys
+from django.utils.translation import ugettext_lazy as _
 
 QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
 
@@ -40,7 +41,21 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+   ('en',_('English')),
+   ('fr',_('French')),
+)
+
+#  Use 'python manage.py makemessages -l fr' to collect strings for translation in .po files
+#  Use 'python manage.py compilemessages'  to create .mo files for use in translation
+#  Seems to require a server restart to take effect.
+LOCALE_PATHS = (
+    '/home/ubuntu/my-effect-main/locale',
+)
+
+USE_I18N = True
+
+LANGUAGE_CODE = 'fr-CA'
 
 SITE_ID = 1
 
@@ -113,6 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'cleanteams.views.get_nav_data',
 )
 
 MIDDLEWARE_CLASSES = (

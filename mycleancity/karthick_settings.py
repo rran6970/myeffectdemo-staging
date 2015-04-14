@@ -1,6 +1,8 @@
 # Django settings for mycleancity project.
 import os
 
+from django.utils.translation import gettext_lazy as _
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -16,7 +18,7 @@ DATABASES = {
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'Kssr26291',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                     # Set to empty string for default.
         'OPTIONS': {
@@ -37,13 +39,22 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+LOCALE_PATHS = (
+    os.path.join('/home/karthick/myeffect/myenv/my-effect-main', 'locale'),
+)
+
+LANGUAGES = (
+   ('en',_('English')),
+   ('fr',_('French')),
+)
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
@@ -110,11 +121,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'cleanteams.views.get_nav_data',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

@@ -14,12 +14,13 @@ from django.shortcuts import render_to_response, get_object_or_404, render
 from django.core.mail import EmailMessage
 from django.utils.timezone import utc
 
-from django.views.generic import *
+from django.views.generic import TemplateView
+from django.views.generic import FormView
 from django.views.generic.base import View
 
 from challenges.forms import *
 from challenges.models import *
-from cleanteams.models import CleanTeamMember, CleanChampion
+from cleanteams.models import CleanTeamMember, CleanChampion, Community, UserCommunityMembership
 from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
@@ -78,7 +79,7 @@ def survey_update_score(request):
 def participate_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
-        message = request.POST['message']
+        message = request.POST.get('message', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -198,7 +199,33 @@ class ChallengeCentreView(TemplateView):
             challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
-        return render(request, self.template_name, {'challenges': challenges, 'skilltags': skilltags})
+        if self.request.user.is_authenticated():
+            my_community = None
+            my_team = None
+            communities = Community.objects.filter(owner_user=self.request.user)
+            if communities.count():
+                my_community = communities[0]
+            if self.request.user.profile.clean_team_member:
+                my_team = self.request.user.profile.clean_team_member.clean_team
+
+            community_approved_challenges = []
+            if my_community:
+                community_approved_challenges = set(m.challenge_id for m in ChallengeCommunityMembership.objects.filter(community=my_community.id))
+            team_approved_challenges = []
+            if my_team:
+                team_approved_challenges = set(m.challenge_id for m in ChallengeTeamMembership.objects.filter(clean_team=my_team.id))
+
+            #  Find out what community (if any) the user is a member of
+            parent_communities = UserCommunityMembership.objects.filter(user=self.request.user)
+            if parent_communities.count():
+                #  Hide all challenges that are privately associated with communities other than the community they are a member of
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(Q(is_private=True) & ~Q(community=parent_communities[0])).values_list('challenge_id', flat=True)
+            else:
+                #  Hide all challenges that are privately associated with communities
+                hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)
+                
+            
+        return render(request, self.template_name, {'hidden_challenges': hidden_challenges, 'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community, 'community_approved_challenges': community_approved_challenges, 'team_approved_challenges': team_approved_challenges})
 
     def get_context_data(self, **kwargs):
         context = super(ChallengeCentreView, self).get_context_data(**kwargs)
@@ -584,9 +611,14 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
             except Exception, e:
                 print e
 
-        #user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
-        user_challenges = ChallengeParticipant.objects.filter(user=user, status="approved")
-
+        user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
+        #user_challenges = ChallengeParticipant.objects.filter(user=user, status="approved")
+        has_file = []
+        files = ChallengeUploadFile.objects.raw("SELECT * FROM challenges_challengeuploadfile f INNER JOIN challenges_userchallengeevent e ON f.challenge_id=e.challenge_id WHERE user_id=%s" % (user.id))
+        for f in files:
+            has_file.append(f.challenge_id)
+            print(f.challenge_id)
+        context['has_file'] = has_file
         context['total_hours'] = user.profile.get_total_hours()
         context['user_challenges'] = user_challenges
 
@@ -637,6 +669,24 @@ class ChallengeView(TemplateView):
 
         return context
 
+class DownloadFormsView(TemplateView):
+    template_name = "challenges/snippets/actionform.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DownloadFormsView, self).get_context_data(**kwargs)
+
+        if 'cid' in self.kwargs:
+            cid = self.kwargs['cid']
+            challenge = get_object_or_404(Challenge, Q(url=cid) | Q(id=cid))
+            user = self.request.user
+
+            if user.is_authenticated():
+                user_challenge = challenge.get_participating_challenge(user)
+                context['user_challenge'] = user_challenge
+            context['files'] = ChallengeUploadFile.objects.filter(challenge=challenge)
+            context['challenge'] = challenge
+        return context
+
 def participant_action(request):
     if request.method == 'POST' and request.is_ajax:
         pid = request.POST['pid']
@@ -647,9 +697,13 @@ def participant_action(request):
         if action == "approve":
             participant.status="approved"
             participant.save()
+            user_challenge = UserChallengeEvent.objects.get_or_create(user=participant.user, challenge=participant.challenge, time_in__isnull=True)
         elif action == "remove":
             participant.status="removed"
             participant.save()
+            user_challenge = UserChallengeEvent.objects.filter(user=participant.user, challenge=participant.challenge, time_in__isnull=True)
+            if user_challenge:
+                user_challenge.delete()
 
     return HttpResponse("success")
 
@@ -673,3 +727,24 @@ def upload_action_form(request):
             request.session['upload_error_msg'] = form.non_field_errors()
 
     return HttpResponseRedirect('/challenges/%s' % str(challenge_id))
+
+def approve_challenge(request):
+    if request.method == 'POST' and request.is_ajax:
+        clean_team_id = request.POST.get('clean_team_id', None)
+        community_id = request.POST.get('community_id', None)
+        challenge_id = request.POST.get('challenge_id', None)
+
+        if clean_team_id:
+            challenge_team_membership = ChallengeTeamMembership()
+            challenge_team_membership.clean_team_id = clean_team_id
+            challenge_team_membership.challenge_id = challenge_id
+            challenge_team_membership.save()
+
+        if community_id:
+            challenge_community_membership = ChallengeCommunityMembership()
+            challenge_community_membership.community_id = community_id
+            challenge_community_membership.challenge_id = challenge_id
+            challenge_community_membership.is_private = False
+            challenge_community_membership.save()
+
+    return HttpResponse("success")

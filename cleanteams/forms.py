@@ -9,10 +9,12 @@ CREATE_TEAM_CHOICES = (('change_team', 'Create A Change Team'),
     ('representing', 'Representing An Organization'),
 )
 
-ORG_TYPES = (('school', 'School'),
+ORG_TYPES = (('classroom', 'Classroom'),
     ('nonprofit_charity', 'Nonprofit/Charity'),
     ('business', 'Business'),
-    ('municipality', 'Municipality'),
+    ('grassroots_group', 'Grassroots Group'),
+    ('employee_team', 'Employee Team'),
+    ('student_lead_team', 'Student Lead Team'),
 )
 
 ORG_CATEGORIES = (('General', 'General'),
@@ -101,10 +103,19 @@ class RegisterCleanTeamForm(forms.ModelForm):
 class RegisterCommunityForm(forms.ModelForm):
     name = forms.CharField(required=True, widget=forms.TextInput(), max_length=120 )
     is_private = forms.BooleanField(required=False)
+    website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
+    logo = forms.ImageField(required=False)
+    about = forms.CharField(required=False, widget=forms.Textarea())
+    twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
+    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     class Meta:
         model = Community
-        exclude = ('owner_user')
+        exclude = ('owner_user', 'contact_user', 'clean_creds')
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -221,6 +232,47 @@ class EditCleanTeamForm(forms.ModelForm):
                 raise forms.ValidationError("Image file must be smaller than 2MB")
 
         if CleanTeam.objects.filter(name=name) and not clean_team_id:
+            raise forms.ValidationError(u'%s already exists' % name)
+
+        return cleaned_data
+
+class EditCommunityForm(forms.ModelForm):
+    name = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+    website = forms.URLField(required=False, initial="", max_length=128, min_length=2, widget=forms.TextInput())
+    logo = forms.ImageField(required=False)
+    about = forms.CharField(required=False, widget=forms.Textarea())
+    twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
+    facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
+    community_id = forms.CharField(required=False, widget=forms.HiddenInput())
+    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
+
+    # Combines the form with the corresponding model
+    class Meta:
+        model = Community
+        exclude = ('clean_creds', 'level', 'contact_user', 'contact_phone', 'is_private', 'owner_user')
+
+    def clean(self):
+        cleaned_data = super(EditCommunityForm, self).clean()
+        name = cleaned_data.get('name')
+        website = cleaned_data.get('website')
+        logo = cleaned_data.get('logo')
+        about = cleaned_data.get('about')
+        twitter = cleaned_data.get('twitter')
+        facebook = cleaned_data.get('facebook')
+        instagram = cleaned_data.get('instagram')
+        community_id = cleaned_data.get('community_id')
+
+        if not name:
+            raise forms.ValidationError("Please enter your Community's name")
+
+        if logo:
+            if logo._size > 2*1024*1024:
+                raise forms.ValidationError("Image file must be smaller than 2MB")
+
+        #  If there is an existing community with this name, and we are changing the community name, then error
+        if Community.objects.filter(name=name).count() and Community.objects.filter(name=name, id=community_id).count() == 0:
             raise forms.ValidationError(u'%s already exists' % name)
 
         return cleaned_data
