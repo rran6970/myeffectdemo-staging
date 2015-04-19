@@ -139,7 +139,11 @@
   			{% if user.is_authenticated %}
           {% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
             <form action="/challenges/participants-manage/{{ challenge.id }}/">
+	    {% if user.profile.clean_team_member and user.profile.clean_team_member.role == "manager" %}
             <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
+	    {% else  %}
+	      <p>You must be a manager to manager participants.</p>
+            {% endif %}
           </form>
           {% elif challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
