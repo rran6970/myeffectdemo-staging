@@ -7,11 +7,21 @@
 {% endblock %}
 
 {% block content %}
-<div class="wrapper public printer-friendly">
-        <a href="/" class="logo"></a>
 
-        <div id="white-box" class="report-card printer-friendly">
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_navbar.html" %}  
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
+        <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign report-card" id="sign-go-back"></div></a> -->
+        <div id="white-box" class="report-card">
             <h2>{{ user.first_name }}'s Volunteer Report Card</h2>
+            <a style="display: block; margin-bottom: 10px;" href="/users/printable-report-card">Printer Friendly Version</a>
             
             <table>
               <thead>
@@ -36,7 +46,10 @@
                       <td>{{ user_challenge.total_hours }}</td>
                       <td>{{ user_challenge.challenge.organization }}</td>
                       <td>{{ user_challenge.challenge.title }}</td>
-                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}</td>
+                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}<br/>
+                        {{ user_challenge.challenge.contact_phone }}<br/>
+                        {{ user_challenge.challenge.contact_email }}
+                      </td>
                       <!-- <td></td>
                       <td></td> -->
                     </tr>
@@ -87,7 +100,11 @@
               </tbody>
             </table>
         </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
 </div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
 {% endblock %}
 
 {% block javascript %}{% endblock %}

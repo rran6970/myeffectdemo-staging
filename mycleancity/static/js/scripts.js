@@ -105,6 +105,12 @@ $(function(){
         width:"420px", 
         height:"90%"
     });
+
+        $(".download_file_box").colorbox({
+        iframe:true,
+        width:"420px",
+        height:"50%"
+    });
     // $("#relaunch-signup-link").colorbox({
     //     iframe: true,
     //     open: true,

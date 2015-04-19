@@ -3,7 +3,9 @@
 {% block title %} My Effect - My Actions {% endblock %}
 
 {% block css %}
+  <script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link rel="import" href="{{ STATIC_URL }}bower_components/core-tooltip/core-tooltip.html">
 {% endblock %}
 
 {% block content %}
@@ -106,6 +108,9 @@
 								<td class="challenge">
 									<div class="challenge-info">
 										<a href="/challenges/{{ challenge.challenge.id }}/"><h1>{{ challenge.challenge.title }}</h1></a>
+										{% if challenge.challenge_id in has_file %}
+										<a href="/challenges/downloadforms/{{ challenge.challenge.id }}/" class="download_file_box" >Download Forms</a>
+										{% endif %}
 										{% if challenge.time_in %}
 										<span class="total-hours">Checked in on {{ challenge.time_in }}</span>
 										{% else %}

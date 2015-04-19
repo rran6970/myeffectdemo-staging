@@ -533,6 +533,7 @@ class Challenge(models.Model):
                         challengeparticipant.status = "pending"
                     else:
                         challengeparticipant.status = "approved"
+                        user_challenge = UserChallengeEvent.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
                     challengeparticipant.message = message
                     challengeparticipant.save()
                 else:

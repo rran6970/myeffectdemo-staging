@@ -1,4 +1,4 @@
-{% if user_challenge and user_challenge.status == "approved" %}
+{% if user_challenge and user_challenge.status == "approved" or user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
 	{% if files %}
 	<h4>Download Forms:</h4>
 	<ul>
@@ -10,20 +10,12 @@
 {% endif %}
 {% if user.is_authenticated %}
 	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
-		{% if files %}
-		<h4>Download Forms:</h4>
-		<ul>
-			{% for file in files %}
-				<li><a href="{{ MEDIA_URL }}{{ file.upload_file }}">{{ file.file_name }}</a></li>
-			{% endfor %}
-		</ul>
-		{% endif %}
 		{% if error_msg %}
 			<div class="message-box error">
 			{{ error_msg }}
 			</div>
 		{% endif %}
-		{% if user.profile.clean_team_member.role == "manager" %}
+		{% if user.profile.clean_team_member.role == "manager" or user.profile.clean_team_member.role == "leader" %}
 		<form enctype="multipart/form-data" action="/challenges/uploadform/" method="post">
 			{% csrf_token %}
 			<input id="id_challenge_id" name="challenge_id" type="hidden" value="{{ challenge.id }}">

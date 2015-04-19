@@ -79,7 +79,7 @@ def survey_update_score(request):
 def participate_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
-        message = request.POST.get('messgage', None)
+        message = request.POST.get('message', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -611,9 +611,14 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
             except Exception, e:
                 print e
 
-        #user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
-        user_challenges = ChallengeParticipant.objects.filter(user=user, status="approved")
-
+        user_challenges = UserChallengeEvent.objects.filter(user=user).order_by("time_in")
+        #user_challenges = ChallengeParticipant.objects.filter(user=user, status="approved")
+        has_file = []
+        files = ChallengeUploadFile.objects.raw("SELECT * FROM challenges_challengeuploadfile f INNER JOIN challenges_userchallengeevent e ON f.challenge_id=e.challenge_id WHERE user_id=%s" % (user.id))
+        for f in files:
+            has_file.append(f.challenge_id)
+            print(f.challenge_id)
+        context['has_file'] = has_file
         context['total_hours'] = user.profile.get_total_hours()
         context['user_challenges'] = user_challenges
 
@@ -664,6 +669,24 @@ class ChallengeView(TemplateView):
 
         return context
 
+class DownloadFormsView(TemplateView):
+    template_name = "challenges/snippets/actionform.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DownloadFormsView, self).get_context_data(**kwargs)
+
+        if 'cid' in self.kwargs:
+            cid = self.kwargs['cid']
+            challenge = get_object_or_404(Challenge, Q(url=cid) | Q(id=cid))
+            user = self.request.user
+
+            if user.is_authenticated():
+                user_challenge = challenge.get_participating_challenge(user)
+                context['user_challenge'] = user_challenge
+            context['files'] = ChallengeUploadFile.objects.filter(challenge=challenge)
+            context['challenge'] = challenge
+        return context
+
 def participant_action(request):
     if request.method == 'POST' and request.is_ajax:
         pid = request.POST['pid']
@@ -674,9 +697,13 @@ def participant_action(request):
         if action == "approve":
             participant.status="approved"
             participant.save()
+            user_challenge = UserChallengeEvent.objects.get_or_create(user=participant.user, challenge=participant.challenge, time_in__isnull=True)
         elif action == "remove":
             participant.status="removed"
             participant.save()
+            user_challenge = UserChallengeEvent.objects.filter(user=participant.user, challenge=participant.challenge, time_in__isnull=True)
+            if user_challenge:
+                user_challenge.delete()
 
     return HttpResponse("success")
 

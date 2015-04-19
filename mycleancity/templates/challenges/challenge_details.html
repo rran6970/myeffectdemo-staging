@@ -145,7 +145,8 @@
 	      <p>You must be a manager to manager participants.</p>
             {% endif %}
           </form>
-          {% elif challenge.clean_team_only %}
+          {% endif %}
+          {% if challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
               {% if user_challenge %}
                 {% if participating_store %}
