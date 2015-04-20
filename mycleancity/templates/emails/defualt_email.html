@@ -23,19 +23,15 @@
             </tr>
             <tr>
               <td>
-              	<p>Hey {{ first_name }},</p>
+                <p>{{ message }}</p>
 
-                <p>Don't forget that the action {{ action_name }} is starting on {{ event_start_date }}!</p>
-
-                <p>My Effect Team</p>
               </td>
             </tr>
             <tr>
               <td>
-                <p>My Effect</p>
-                <p>1061 Queen's Blvd,</p>
-                <p>Kitchener, ON</p>
-                <p>info@mycleancity.org</p>
+                <p>{{ group_name }}</p>
+                <p>{{ address }}</p>
+                <p>{{ email }}</p>
 
                 <p>You are receiving this email because you allowed My Effect to send reminders of actions you are participating in. if this has been in error or you would like to change your subscription settings, please click <a href="{{ settings_uri }}">here</a>.
               </td>

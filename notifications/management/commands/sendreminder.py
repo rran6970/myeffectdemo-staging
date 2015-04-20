@@ -16,22 +16,24 @@ class Command(BaseCommand):
                 action_name = challenge.title
                 event_start_date = challenge.event_start_date
                 self.stdout.write("sending reminders for action: " + challenge.title)
-                participants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved")
+                participants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved", receive_email=True)
                 to = []
                 for participant in participants:
                     to.append(str(participant.user.email))
-
-                self.stdout.write(str(to))
-                from_email = 'info@myeffect.ca'
-                content = Context({ 'first_name': participant.user.first_name, 'action_name': action_name, 'event_start_date': event_start_date})
-                render_content = template.render(content)
-                try:
-                    mail = EmailMessage(subject, render_content, from_email, to)
-                    mail.content_subtype = "html"
-                    mail.send()
-                    print("success")
-                except Exception, e:
-                    print e
+                if len(to) > 0:
+                    self.stdout.write(str(to))
+                    from_email = 'info@myeffect.ca'
+                    uri = 'http://localhost:8000'
+                    settings_uri = u'%s/users/settings/' %uri
+                    content = Context({ 'first_name': participant.user.first_name, 'action_name': action_name, 'event_start_date': event_start_date, 'settings_uri': settings_uri})
+                    render_content = template.render(content)
+                    try:
+                        mail = EmailMessage(subject, render_content, from_email, to)
+                        mail.content_subtype = "html"
+                        mail.send()
+                        print("success")
+                    except Exception, e:
+                        print e
         else:
             self.stdout.write("no action starts tomorrow")
 
