@@ -66,19 +66,11 @@
         <h2 id="invite-heading">{%trans "Invite Leader" %}</h2> 
         <p id="invite-subtitle">{%trans "Invite a leader to become a manager of your Change Team." %}</p>
         {% elif role == "agent" %}
-<<<<<<< HEAD
-        <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
-        <p id="invite-subtitle">{%trans "Invite your friends to support your Change Team." %}</p>
-        {% else %}
-        <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
-        <p id="invite-subtitle">{%trans "Invite your friends to join MyEffect." %}</p>
-=======
         <h2 id="invite-heading">Invite Volunteer</h2> 
         <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
         {% else %}
         <h2 id="invite-heading">Invite Agent</h2> 
         <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
         {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
