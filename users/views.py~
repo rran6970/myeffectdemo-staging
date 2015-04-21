@@ -25,8 +25,11 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
+
 import cleanteams.forms
 from challenges.models import Challenge, UserChallengeEvent
+
+from challenges.models import Challenge, UserChallengeEvent, ChallengeParticipant
 from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembershipRequest, UserCommunityMembership, Community
 import cleanteams.views
 import users.forms
@@ -537,7 +540,6 @@ class SettingsView(LoginRequiredMixin, FormView):
         initial['data_privacy'] = settings.data_privacy
         initial['receive_newsletters'] = settings.receive_newsletters
         initial['timezone'] = settings.timezone
-
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -574,10 +576,20 @@ class SettingsView(LoginRequiredMixin, FormView):
         user.profile.settings.communication_language = form.cleaned_data['communication_language']
         user.profile.settings.save()
 
+        challenge_articipants = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
+        for cp in challenge_articipants:
+            cp.receive_email = self.request.POST.get(str(cp.id), False)
+            cp.save()
+
         context = self.get_context_data(**kwargs)
         context['form'] = form
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(SettingsView, self).get_context_data(**kwargs)
+        context['receive_emails'] = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
+        return context
 
 class UpgradeAccountView(LoginRequiredMixin, FormView):
     template_name = "users/upgrade_account.html"

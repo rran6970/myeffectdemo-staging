@@ -25,13 +25,11 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-<<<<<<< HEAD
+
 import cleanteams.forms
 from challenges.models import Challenge, UserChallengeEvent
-=======
 
 from challenges.models import Challenge, UserChallengeEvent, ChallengeParticipant
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
 from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembershipRequest, UserCommunityMembership, Community
 import cleanteams.views
 import users.forms
