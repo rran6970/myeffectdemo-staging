@@ -140,8 +140,10 @@
   			{% if user.is_authenticated %}
           {% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
             <form action="/challenges/participants-manage/{{ challenge.id }}/">
-            <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
-          </form>
+              <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
+            </form>
+          {% else  %}
+	            <p>You must be a manager to manager participants.</p>
           {% endif %}
           {% if challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
@@ -208,8 +210,15 @@
                 <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Participate" />
                 {% endif %}
                 <div id="participating-message-box" style="display: none;">
+<<<<<<< HEAD
                   <p>{%trans "Please describe the reason you want to participate in this action:" %}</p>
                   <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
+=======
+                  <p>Please describe the reason you want to participate in this action:</p>
+                  <textarea cols="30" id="id_message" name="message" rows="5"></textarea><br>
+                  <input id="id_receive_email" name="receive_email" type="checkbox">
+                  <label for="id_receive_email">Would you like to receive info and reminders of this action?</label>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
                   <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
                 </div>
               </form>

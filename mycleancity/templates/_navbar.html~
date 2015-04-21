@@ -1,4 +1,5 @@
 {% load i18n %}
+<<<<<<< HEAD
 <a href="/users/leaderboard" class="menu-items menu-items-left">{%trans "Leader Board" %}</a>
 
 {% if user.is_active %}
@@ -10,6 +11,19 @@
             <li><a href="/clean-team/" class="menu-items">{%trans "Connect With Groups" %}</a></li>
             <li><a href="/claim-voucher" class="menu-items">{%trans "Claim Change Creds™" %}</a></li>
             <li><a href="/clean-team/invite" class="menu-items">{%trans "Make a Referral" %}</a></li>
+=======
+<a href="/users/leaderboard" class="menu-items menu-items-left">Leader Board</a>
+
+{% if user.is_active %}
+	<div class="dropdown">
+		<a class="dropdown-toggle menu-items menu-items-left" data-toggle="dropdown" href="#">Take Action<b class="caret"></b></a>
+		<ul class="dropdown-menu challenges-dropdown" role="menu" aria-labelledby="dLabel">
+			<li><a href="/challenges" class="menu-items">Find Opportunities</a></li>
+            <li><a href="/users/profile-progress/{{ user.id }}" class="menu-items">Boost My Effect</a></li>
+            <li><a href="/clean-team/" class="menu-items">Connect With Groups</a></li>
+            <li><a href="/claim-voucher" class="menu-items">Claim Change Creds™</a></li>
+            <li><a href="/clean-team/invite" class="menu-items">Make a Referral</a></li>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 			{% if user.profile.has_clean_team %}
 			<!--<li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>-->
 			{% endif %}
@@ -30,13 +44,20 @@
 			  {% endif %}
 			{% endif %}
 			{% if user.profile.has_clean_team %}
+<<<<<<< HEAD
 			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">{%trans "Team Profile" %}</a></li>
 			<li><a href="/clean-team/level-progress" class="menu-items">{%trans "Team Achievements" %}</a></li>
             <li><a href="/challenges/new-challenge-survey/" class="menu-items">{%trans "Post Actions" %}</a></li>
+=======
+			<li><a href="/clean-team/{{ user.profile.clean_team_member.clean_team.id }}" class="menu-items">Team Profile</a></li>
+			<li><a href="/clean-team/level-progress" class="menu-items">Team Achievements</a></li>
+            <li><a href="/challenges/new-challenge-survey/" class="menu-items">Post Actions</a></li>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 			<!--<li><a href="/clean-team/edit/" class="menu-items">Edit Change Team</a></li>-->
 			<!--<li><a href="/clean-team/main-contact/" class="menu-items">Update Main Contact</a></li>-->
 			<!--<li><a href="/clean-team/invite" class="menu-items">Invite new members</a></li>-->
 			{% else %}
+<<<<<<< HEAD
 			<li><a href="/clean-team/register-clean-team/" class="menu-items">{%trans "Create Change Team" %}</a></li>
 			{% endif %}
 
@@ -44,12 +65,22 @@
 			<li><a href="/clean-team/members" class="menu-items">{%trans "Manage Team Members" %}</a></li>
 			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
 			<li><a href="/clean-team/members" class="menu-items">{%trans "Manage Team Members" %}</a></li>
+=======
+			<li><a href="/clean-team/register-clean-team/" class="menu-items">Create Change Team</a></li>
+			{% endif %}
+
+            {% if user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "leader" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
+			{% elif user.profile.clean_team_member.status == "approved" and user.profile.clean_team_member.role == "manager" %}
+			<li><a href="/clean-team/members" class="menu-items">Manage Team Members</a></li>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 			{% endif %}
 		</ul>
 	</div><!-- end of .dropdown -->
   <div class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
     <ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
+<<<<<<< HEAD
       <li><a href="/users/profile/{{ user.id }}" class="menu-items">{%trans "My Profile" %}</a></li>
       <li><a href="/users/upgrade-account" class="menu-items">{%trans "Upgrade Account" %}</a></li>
       <li><a href="/challenges/my-challenges/" class="menu-items">{%trans "My Actions" %}</a></li>
@@ -57,6 +88,21 @@
       <li><a href="/users/settings/" class="menu-items">{%trans "Settings" %}</a></li>
       <li><a href="/users/FAQ/" class="menu-items">{%trans "FAQ" %}</a></li>
       <li><a href="/users/logout" class="menu-items">{%trans "Logout" %}</a></li>
+=======
+      <li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+<<<<<<< HEAD
+      <li><a href="/users/upgrade-account" class="menu-items">Upgrade Account</a></li>
+      <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
+      <li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+=======
+      <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
+      <li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+      <li><a href="/users/upgrade-account" class="menu-items">Upgrade Account</a></li>
+>>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
+      <li><a href="/users/settings/" class="menu-items">Settings</a></li>
+      <li><a href="/users/FAQ/" class="menu-items">FAQ</a></li>
+      <li><a href="/users/logout" class="menu-items">Logout</a></li>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
     </ul>
   </div>
 
@@ -75,9 +121,15 @@
                 <p class="timestamp">{{ notification.timestamp }}</p>
               </a>
               {% if notification.read %}
+<<<<<<< HEAD
               <a class="notification-mark-unread">{%trans "Make unread" %}</a>
               {% else %}
               <a class="notification-mark-read">{%trans "Make read" %}</a>
+=======
+              <a class="notification-mark-unread">Make unread</a>
+              {% else %}
+              <a class="notification-mark-read">Make read</a>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               {% endif %}
             </form>
           </li>
@@ -85,12 +137,20 @@
         {% else %}
           <li>
             <a>
+<<<<<<< HEAD
               <div style="text-align: center"><h2>{%trans "No notifications" %}</h2></div>
+=======
+              <div style="text-align: center"><h2>No notifications</h2></div>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             </a>
           </li>
         {% endif %}
       </ul>
+<<<<<<< HEAD
       <a href="/notifications/">{%trans "View all notifications" %}</a>
+=======
+      <a href="/notifications/">View all notifications</a>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
     </div>
 
     {% if user.profile.count_unread_notifications > 0 %}
@@ -105,13 +165,18 @@
             <span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span>
           </button>
           <ul class="dropdown-menu">
+<<<<<<< HEAD
             <li><span>{%trans "Advanced Search:" %}</span></li>
+=======
+            <li><span>Advanced Search:</span></li>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
             <li><span><input autocomplete="off" id="tag-search-box" class="advanced-search-box" type="text" placeholder="Skill"></span></li>
             <li><span><input autocomplete="off" id="title-search-box" class="advanced-search-box" type="text" placeholder="Title"></span></li>
             <li><span>Category:</span></li>
             <li>
               <select id="category-search-selection">
+<<<<<<< HEAD
                 <option value="" selected="selected">{%trans "All" %}</option>
                 <option value="General">{%trans "General" %}</option>
                 <option value="Animals_Wildlife">{%trans "Animals" %} &amp; {%trans "Wildlife" %}</option>
@@ -125,18 +190,45 @@
                 <option value="InternationalRelief_Development">{%trans "International Relief" %} &amp; {%trans "Development" %}</option>
                 <option value="SocialServices_Community">{%trans "Social Services" %} &amp; {%trans "Community" %}</option>
                 <option value="Sports_Recreation">{%trans "Sports" %} &amp; {%trans "Recreation" %}</option>
+=======
+                <option value="" selected="selected">All</option>
+                <option value="General">General</option>
+                <option value="Animals_Wildlife">Animals &amp; Wildlife</option>
+                <option value="Arts_Culture">Arts &amp; Culture</option>
+                <option value="Business_Entrepreneurship">Business &amp; Entrepreneurship</option>
+                <option value="Children_Youth">Children &amp; Youth</option>
+                <option value="Education_Research">Education &amp; Research</option>
+                <option value="Environment">Environment</option>
+                <option value="Health_Wellness">Health &amp; Wellness</option>
+                <option value="HumanRights_Advocacy">Human Rights &amp; Advocacy</option>
+                <option value="InternationalRelief_Development">International Relief &amp; Development</option>
+                <option value="SocialServices_Community">Social Services &amp; Community</option>
+                <option value="Sports_Recreation">Sports &amp; Recreation</option>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               </select>
             </li>
             <li>
               <span>
                 <input type="checkbox" name="national_challenges" id="national-challenge-checkbox" />
+<<<<<<< HEAD
                 <label for="">{%trans "National Actions only" %}</label>
+=======
+                <label for="">National Actions only</label>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               </span>
             </li>
             <li>
               <span>
                 <input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" />
+<<<<<<< HEAD
                 <label for="">{%trans "Change Team Actions" %}</label>
+=======
+<<<<<<< HEAD
+                <label for="">Actions for groups</label>
+=======
+                <label for="">Change Team Actions</label>
+>>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               </span>
             </li>
           </ul>
@@ -150,7 +242,11 @@
             </a>
           </li>
         </ul>
+<<<<<<< HEAD
         <a id="view-all-challenges" href="">{%trans "View all results" %}</a>
+=======
+        <a id="view-all-challenges" href="">View all results</a>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
       </div>
       </div>
     </form>

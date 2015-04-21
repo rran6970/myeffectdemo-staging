@@ -85,6 +85,8 @@
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
+	    <p class="title">Interests</p>
+            <p class="field">{{focus}}</P>
           </div>
           {% load socialaccount %}
           {% get_social_accounts user_profile.profile.user as accounts %}

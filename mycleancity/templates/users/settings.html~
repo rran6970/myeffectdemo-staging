@@ -1,5 +1,8 @@
 {% extends '_public_base.html' %}
+<<<<<<< HEAD
 {% load i18n %}
+=======
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
 {% block title %} My Effect - Settings {% endblock %}
 
@@ -21,7 +24,11 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
+<<<<<<< HEAD
             <h2>{%trans "My Settings" %}</h2>
+=======
+            <h2>My Settings</h2>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
             {% if form.errors %}
               <div class="message-box error">
@@ -45,7 +52,11 @@
                   </tr>
                   <tr>
                       <td>{{ form.data_privacy.label_tag }}
+<<<<<<< HEAD
                           <span class="gray-italic-subtitle">{%trans "By unchecking this box, your challenge participation and volunteer hours will not be seen by the organizations you work with." %}</span>
+=======
+                          <span class="gray-italic-subtitle">I consent to share my volunteer data with the following Change Teams & Communities.By unchecking this box, your challenge participation and volunteer hours cannot be seen or acknowledged by these groups.</span>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
                         {{ form.data_privacy }}
                       </td>
                   </tr>
@@ -55,8 +66,25 @@
                   <tr>
                       <td style="padding-bottom: 30px;">{{ form.timezone.label_tag }} {{ form.timezone }}</td>
                   </tr>
+<<<<<<< HEAD
               </table>
               <input class="btn btn-primary" type="submit" value="Update" />
+=======
+                  {% for re in receive_emails %}
+                  <tr>
+                      <td>
+                        <input name="{{ re.id }}" type="checkbox" {% if re.receive_email %}checked{% endif %}>
+                        <label>Receive info and reminders from {{ re.challenge.title }}.</label>
+                      </td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                      <td style="padding-top: 30px;">
+                        <input class="btn btn-primary" type="submit" value="Update" />
+                      </td>
+                  </tr>
+                </table>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             </form>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

@@ -197,7 +197,7 @@ class EditCleanTeamForm(forms.ModelForm):
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     community = forms.CharField(required=False, max_length=128, min_length=1, widget=forms.TextInput())
-
+    focus = forms.ChoiceField(required=False, widget=forms.Select, choices=ORG_CATEGORIES)
     # Combines the form with the corresponding model
     class Meta:
         model = CleanTeam
@@ -216,6 +216,8 @@ class EditCleanTeamForm(forms.ModelForm):
         group = cleaned_data.get('group')
         clean_team_id = cleaned_data.get('clean_team_id')
         community = cleaned_data.get('community')
+        focus = cleaned_data.get("focus")
+	print focus
         if community == "":
             community = None
 
@@ -341,6 +343,7 @@ ROLE_CHOICES = (
 class InviteForm(forms.Form):
     email = forms.CharField(required=True, widget=forms.Textarea)
     role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
+    invite_team = forms.FileField(required=False, label="Invite_team (CSV Only)")
     terms = forms.BooleanField(required=True)
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 

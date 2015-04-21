@@ -1,5 +1,8 @@
 {% extends '_public_base.html' %}
+<<<<<<< HEAD
 {% load i18n %}
+=======
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
 {% block title %} My Effect - My Profile {% endblock %}
 
@@ -25,7 +28,11 @@
           </div>
 
           <div class="sign-point-meter-bottom">
+<<<<<<< HEAD
               <h1 id="your-points"><span class="blue">{%trans "CHANGE" %}</span> <span class="gold">{%trans "CREDS:" %}</span>&nbsp;<span class="blue" id="clean-creds">{{ user_profile.profile.clean_creds }}</span></h1>
+=======
+              <h1 id="your-points"><span class="blue">CHANGE</span> <span class="gold">CREDS:</span>&nbsp;<span class="blue" id="clean-creds">{{ user_profile.profile.clean_creds }}</span></h1>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
           </div>
         </div><!-- /.point-meter -->
             
@@ -47,49 +54,83 @@
           <div class="clear"></div>
           {% if user_profile.profile.city and user_profile.profile.province %}
           <div class="field">
+<<<<<<< HEAD
             <p class="title">{%trans "From:" %}</p>
+=======
+            <p class="title">From:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <p class="text">{{ user_profile.profile.city }} {{ user_profile.profile.province }}</p>
           </div>
           {% endif %}
           {% if not user_profile.profile.settings.email_privacy %}
           <div class="field">
+<<<<<<< HEAD
             <p class="title">{%trans "Email:" %}</p>
+=======
+            <p class="title">Email:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <p class="text">{{ user_profile.email }}</p>
           </div>
           {% endif %}
 
           {% if user_profile.profile.website and not user_profile.profile.website == "www.yourwebsite.com" %}
           <div class="field">
+<<<<<<< HEAD
             <p class="title">{%trans "Website:" %}</p>
+=======
+            <p class="title">Website:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <p class="text"><a href="{{ user_profile.profile.website }}" target="_blank">{{ user_profile.profile.website }}</a></p>
           </div>
           {% endif %}
           
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
+<<<<<<< HEAD
             <p class="title">{%trans "Change Team:" %}</p>
+=======
+            <p class="title">Change Team:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
           </div>
           {% endif %}
 
           <div class="field">
+<<<<<<< HEAD
             <p class="title">{%trans "Community:" %}</p>
+=======
+            <p class="title">Community:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             {% if community %}
               <p class="text">{{ community.name }}</p>
             {% endif %}
           </div>
 
           <span class="clean-creds">
+<<<<<<< HEAD
             <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
+=======
+            <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
+          </span>
+          <div class="field">
+            <p class="title">Total Hours:</p>
+            <p class="text">{{ total_hours }}</p>
+	    <p class="title">Passions/interests</p>{{user_profile.focus}}
+            <p class="field">{{focus}}</P>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
           </div>
           {% load socialaccount %}
           {% get_social_accounts user_profile.profile.user as accounts %}
           {% if accounts %}
+<<<<<<< HEAD
           <p><strong>{%trans "Social accounts:" %}</strong></p>
+=======
+          <p><strong>Social accounts:</strong></p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
           <div class="socialaccount_profile" id ="connection_list">
             {% if accounts.twitter %}
             <a href="{{accounts.twitter.0.get_profile_url }}" target="_blank">
@@ -138,7 +179,11 @@
         <div class="info" style="width: 100%;">
           {% if user_profile.profile.about %}
           <div class="field about">
+<<<<<<< HEAD
             <p class="title">{%trans "About:" %}</p>
+=======
+            <p class="title">About:</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             <div class="clear"></div>
             <p class="text">{{ user_profile.profile.about }}</p>
           </div>

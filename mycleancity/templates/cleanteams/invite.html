@@ -66,11 +66,19 @@
         <h2 id="invite-heading">{%trans "Invite Leader" %}</h2> 
         <p id="invite-subtitle">{%trans "Invite a leader to become a manager of your Change Team." %}</p>
         {% elif role == "agent" %}
+<<<<<<< HEAD
         <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
         <p id="invite-subtitle">{%trans "Invite your friends to support your Change Team." %}</p>
         {% else %}
         <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
         <p id="invite-subtitle">{%trans "Invite your friends to join MyEffect." %}</p>
+=======
+        <h2 id="invite-heading">Invite Volunteer</h2> 
+        <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
+        {% else %}
+        <h2 id="invite-heading">Invite Agent</h2> 
+        <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
         {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -100,7 +108,15 @@
                 <td>{{ form.terms }}<label for="">{%trans "I agree to abide by anti-spam regulations and not abuse this feature." %}</label></td>
               </tr>
               <tr>
-                <td><input id="send-invite-button" type="submit" value="Send Invite" class="btn btn-primary"></td>
+                  <td colspan="2">
+                    {{ form.invite_team.label_tag }} {{ form.invite_team }}
+                  </td>
+              </tr>
+              <tr>
+                <td style="padding-top: 10px;" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
+              </tr>
+              <tr>
+                <td><input id="send-invite-button" name="btn" type="submit" value="Send Invite" class="btn btn-primary"></td>
               </tr>
             </table>
           </form>    

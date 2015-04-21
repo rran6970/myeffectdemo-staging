@@ -56,7 +56,11 @@
                 </tr>
                 <tr>
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
-                    <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+		    <td>{{ form.team_type.label_tag }} {{ form.team_type }}
+		    </td>
+		</tr>
+		<tr>
+                    <td colspan="2">{{ form.focus.label_tag }} {{ form.focus }}</td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>

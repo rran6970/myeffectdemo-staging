@@ -14,7 +14,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import authenticate
 from django.core.files.images import get_image_dimensions
 from django.forms.extras.widgets import SelectDateWidget
-
+import cleanteams.forms
 # from captcha.fields import CaptchaField
 from captcha.fields import ReCaptchaField
 from parsley.decorators import parsleyfy
@@ -165,6 +165,19 @@ PROVINCES = (('', 'Please select one...'),
 CATEGORIES = (("------------------","-----------------"), ("Student","Student"), ("Professional","Professional"), ("Educator","Educator"))
 COMM_CHOICES = (('English', 'English',), ('Français', 'Français',))
 YES_NO_CHOICES = ((True, 'Yes'), (False, 'No'),)
+ORG_CATEGORIES = (('General', 'General'),
+    ('Animals_Wildlife', 'Animals & Wildlife'),
+    ('Arts_Culture', 'Arts & Culture'),
+    ('Business_Entrepreneurship', 'Business & Entrepreneurship'),
+    ('Children_Youth', 'Children & Youth'),
+    ('Education_Research', 'Education & Research'),
+    ('Environment', 'Environment'),
+    ('Health_Wellness', 'Health & Wellness'),
+    ('HumanRights_Advocacy', 'Human Rights & Advocacy'),
+    ('InternationalRelief_Development', 'International Relief & Development'),
+    ('SocialServices_Community', 'Social Services & Community'),
+    ('Sports_Recreation', 'Sports & Recreation'),
+)
 
 class PrelaunchEmailsForm(forms.ModelForm):
     first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'First name'}))
@@ -294,6 +307,7 @@ class ProfileForm(forms.ModelForm):
     emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact first name")
     emergency_contact_lname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(), label="Emergency contact last name")
     community = forms.CharField(required=False, max_length=128, min_length=1, widget=forms.TextInput())
+    focus = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(attrs={"checked":""}), choices=ORG_CATEGORIES, required=False)
     # smartphone = forms.BooleanField(required=False, label="Check this box if you have regular access to a smartphone.")
     # Combines the form with the corresponding model
     class Meta:
@@ -309,6 +323,8 @@ class ProfileForm(forms.ModelForm):
         # country = cleaned_data.get("country")
         # email = cleaned_data.get("email")
         # dob = cleaned_data.get('dob')
+	focus = cleaned_data.get("focus")
+	print focus
 
         community = cleaned_data.get('community')
         if community == "":
@@ -334,7 +350,7 @@ class ProfileForm(forms.ModelForm):
 
 class SettingsForm(forms.ModelForm):
     communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
-    email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Make email private?")
+    email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Hide My email from my public profile?")
     data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="I consent to share my volunteer data with organizations I work with")
     receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
     timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")

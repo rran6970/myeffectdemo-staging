@@ -52,8 +52,14 @@
           </div>
       
           <div class="sign-point-meter-bottom">
+<<<<<<< HEAD
               <h1 id="your-points"><span class="blue">{%trans "Change Creds" %}:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
           </div>   
+=======
+              <h1 id="your-points"><span class="blue">Change Creds:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
+         
+</div>   
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
         </div><!-- /.point-meter -->
         
 
@@ -139,9 +145,16 @@
 
           </div><!-- /#clean-team-info -->
           
+<<<<<<< HEAD
           <h2>{{ clean_team.name }} {% if clean_team.website %}<a href="{{ clean_team.website }}" target="_blank">{%trans "View Website" %}</a> {% endif %}</h2>
+=======
+          <h2>{{ clean_team.name }} {% if clean_team.website %}<a href="{{ clean_team.website }}" target="_blank">View Website</a> {% endif %}</h2> 
+ 
+<h2><br/>Focus</h2>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
           <div class="info" id="about">
+<p>{{focus}}</p>
             <div class="clear"></div>
 
             {% if clean_team.about %}

@@ -1,5 +1,8 @@
 {% extends '_public_base.html' %}
+<<<<<<< HEAD
 {% load i18n %}
+=======
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
 {% block title %} My Effect - Profile {% endblock %}
 
@@ -22,7 +25,11 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
+<<<<<<< HEAD
             <h2>{%trans "My Profile" %}</h2>
+=======
+            <h2>My Profile</h2>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             {% include "socialaccount/snippets/connection_list.html" %}
             {% if form.errors %}
               <div class="message-box error">
@@ -40,7 +47,12 @@
                 <table>
                     <tr>
                       <td>{{ form.category.label_tag }} {{ form.category }}</td>
+<<<<<<< HEAD
                       <td></td>
+=======
+                      <td>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
+ {{value}}<br/> {% endfor%}</td>
+>>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
                     </tr>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>

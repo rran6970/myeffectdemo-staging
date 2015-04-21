@@ -25,10 +25,16 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-
+<<<<<<< HEAD
+import cleanteams.forms
 from challenges.models import Challenge, UserChallengeEvent
-from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembershipRequest, UserCommunityMembership, Community
+=======
 
+from challenges.models import Challenge, UserChallengeEvent, ChallengeParticipant
+>>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
+from cleanteams.models import CleanTeam, CleanChampion, CleanTeamMember, CleanTeamInvite, LeaderReferral, UserCommunityMembershipRequest, UserCommunityMembership, Community
+import cleanteams.views
+import users.forms
 from mycleancity.mixins import LoginRequiredMixin
 from mycleancity.actions import *
 from users.models import ProfilePhase, ProfileTask, ProfileProgress, ProfilePhase
@@ -360,28 +366,41 @@ class RegisterInviteView(FormView):
 
 
         return HttpResponseRedirect('/users/profile/')
-
 class ProfilePublicView(LoginRequiredMixin, TemplateView):
     template_name = "users/public_profile.html"
 
     def get_context_data(self, **kwargs):
         context = super(ProfilePublicView, self).get_context_data(**kwargs)
-
         if 'uid' in self.kwargs:
             user_id = self.kwargs['uid']
 
             user = User.objects.get(id=user_id)
             total_hours = user.profile.get_total_hours()
-
+            
             context['has_upgraded'] = user.profile.has_upgraded
             context['clean_champion_clean_teams'] = CleanChampion.objects.filter(user_id=user_id)
             context['total_hours'] = total_hours
             context['user_profile'] = get_object_or_404(User, id=user_id)
+            if user.profile.focus is None:
+                context['focus']=user.profile.focus
+            else:
+                all_categories= users.forms.ORG_CATEGORIES
+                print all_categories[0][0]
+                labeled_selected_categories=''
+                selected_categories=context['user_profile'].profile.focus.split(',')
+                for t in all_categories:
+                    if t[0] in selected_categories:
+                        labeled_selected_categories+=t[1]
+                        labeled_selected_categories+=" ,   "
+                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-1]
+                        context['focus']=labeled_selected_categories
+                        print labeled_selected_categories
+            
             try:
                 context['community'] = Community.objects.get(id=UserCommunityMembership.objects.get(user=user_id).community_id)
             except:
                 context['community'] = None
-
+                
         context['user'] = self.request.user
         return context
 
@@ -412,6 +431,12 @@ class ProfileView(LoginRequiredMixin, FormView):
         initial['province'] = user.profile.province
         initial['country'] = user.profile.country
         initial['postal_code'] = user.profile.country
+        if user.profile.focus is None:
+            initial['focus']=user.profile.focus
+        else:
+            categories= [str(x) for x in user.profile.focus.split(',')]
+            initial['focus'] = categories
+            
         if user.profile.website:
             initial['website'] = user.profile.website
 
@@ -477,7 +502,8 @@ class ProfileView(LoginRequiredMixin, FormView):
         user.profile.category = form.cleaned_data['category']
         user.profile.emergency_contact_fname = form.cleaned_data['emergency_contact_fname']
         user.profile.emergency_contact_lname = form.cleaned_data['emergency_contact_lname']
-
+	user.profile.focus =','.join( form.cleaned_data['focus'])
+	print user.profile.focus
         if picture:
             key = 'uploads/user_picture_%s_%s' % (str(user.id), picture)
             uploadFile = UploadFileToS3()
@@ -516,7 +542,6 @@ class SettingsView(LoginRequiredMixin, FormView):
         initial['data_privacy'] = settings.data_privacy
         initial['receive_newsletters'] = settings.receive_newsletters
         initial['timezone'] = settings.timezone
-
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -553,10 +578,20 @@ class SettingsView(LoginRequiredMixin, FormView):
         user.profile.settings.communication_language = form.cleaned_data['communication_language']
         user.profile.settings.save()
 
+        challenge_articipants = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
+        for cp in challenge_articipants:
+            cp.receive_email = self.request.POST.get(str(cp.id), False)
+            cp.save()
+
         context = self.get_context_data(**kwargs)
         context['form'] = form
 
         return HttpResponseRedirect('/users/profile/%s' % str(user.id))
+
+    def get_context_data(self, **kwargs):
+        context = super(SettingsView, self).get_context_data(**kwargs)
+        context['receive_emails'] = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
+        return context
 
 class UpgradeAccountView(LoginRequiredMixin, FormView):
     template_name = "users/upgrade_account.html"

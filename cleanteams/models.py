@@ -101,7 +101,7 @@ class CleanTeam(models.Model):
     level = models.ForeignKey(CleanTeamLevel, blank=True, null=True)
     admin = models.BooleanField(default=False)
     org_profile = models.OneToOneField(OrgProfile, blank=True, null=True)
-
+    focus = models.CharField(max_length=60, blank=True, null=True, verbose_name="Category")
     contact_user = models.ForeignKey(User)
     contact_phone = models.CharField(max_length=15, blank=False, verbose_name="Contact Phone Number")
 
@@ -808,7 +808,7 @@ class CleanTeamInvite(models.Model):
             send_email = SendEmail()
             send_email.send(template, content, subject, from_email, to)
         return
-
+   
     def unsubscribe(self):
         self.status = "declined"
         self.save()
@@ -909,6 +909,15 @@ class LeaderReferral(models.Model):
 
     def __unicode__(self):
         return u'%s %s from %s' % (self.first_name, self.last_name, self.organization)
+
+class Invite(models.Model):
+         
+    first_name = models.CharField(max_length=60, blank=False, default="")
+    last_name = models.CharField(max_length=60, blank=False, default="")
+    email = models.CharField(max_length=60, blank=False, default="")
+
+    def __unicode__(self):
+        return u'%s %s from %s' % (self.first_name, self.last_name)
 
     def new_referral(self, user, form, clean_team, uri):
         char_set = string.ascii_lowercase + string.digits

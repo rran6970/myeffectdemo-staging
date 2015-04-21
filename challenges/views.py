@@ -80,6 +80,7 @@ def participate_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
         message = request.POST.get('message', None)
+        receive_email = request.POST.get('receive_email', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -88,12 +89,12 @@ def participate_in_challenge(request):
             staples_store = request.POST['staples_store']
             staples_store = StaplesStores.objects.get(id=staples_store)
 
-            participate = challenge.participate_in_challenge(user, message, staples_store)
+            participate = challenge.participate_in_challenge(user, message, receive_email, staples_store)
 
             if not participate:
                 return HttpResponseRedirect('/challenges/%s/?error=store_taken' % str(cid))
         else:
-            challenge.participate_in_challenge(user, message)
+            challenge.participate_in_challenge(user, message, receive_email)
 
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -527,9 +528,17 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         initial = {}
-        emailfile = open(os.path.join(settings.BASE_DIR, 'templates/emails/email_defualt.html'))
-        message=emailfile.read()
-        initial['message'] = message
+        #emailfile = open(os.path.join(settings.BASE_DIR, 'templates/emails/email_defualt.html'))
+        #message=emailfile.read()
+        #initial['message'] = message
+
+        cid = self.kwargs['cid']
+        challenge = get_object_or_404(Challenge, id=cid)
+
+        initial['from_email'] = challenge.contact_email
+        initial['group_name'] = challenge.organization
+        if not challenge.national_challenge and not challenge.virtual_challenge:
+            initial['address'] = challenge.address1 + ' ' + challenge.address2 +', ' + challenge.city + ', ' + challenge.province + ', ' + challenge.country
 
         return initial
 
@@ -540,23 +549,37 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
+        from_email = form.cleaned_data['from_email']
+        group_name = form.cleaned_data['group_name']
+        address = form.cleaned_data['address']
         subject = form.cleaned_data['subject']
         message = form.cleaned_data['message']
         cid = self.kwargs['cid']
         challenge = get_object_or_404(Challenge, id=cid)
         user = self.request.user
         if user.profile.is_clean_ambassador() and challenge.clean_team == user.profile.clean_team_member.clean_team:
-            from_email = self.request.user.email
             to_email = []
-            for leader in CleanTeamMember.objects.filter(clean_team=challenge.clean_team, status="approved"):
-                to_email.append(leader.user.email)
-            approvedparticipants = challenge.get_participants()
+            #for leader in CleanTeamMember.objects.filter(clean_team=challenge.clean_team, status="approved"):
+                #to_email.append(leader.user.email)
+            approvedparticipants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved", receive_email=True)
             for p in approvedparticipants:
                 to_email.append(p.user.email)
-            mail = EmailMessage(subject, message, from_email, to_email)
-            mail.content_subtype = "html"
-            mail.send()
-            self.request.session['email_sent_success'] = True
+            template = get_template('emails/defualt_email.html')
+            uri = self.request.build_absolute_uri("/")
+            settings_uri = u'%susers/settings/' %uri
+            content = Context({ 'email': from_email, 'group_name': group_name, 'address': address, 'message': message, 'settings_uri': settings_uri})
+            render_content = template.render(content)
+            if len(to_email) > 0:
+                try:
+                    mail = EmailMessage(subject, render_content, from_email, to_email)
+                    mail.content_subtype = "html"
+                    mail.send()
+                    self.request.session['email_sent_success'] = True
+                except Exception, e:
+                    print e
+                    self.request.session['exception'] = "Sender Verification failed, please use a valid email address."
+            else:
+                self.request.session['exception'] = "No participant receives this mail."
         return HttpResponseRedirect(u'/challenges/participants-email/%s' %(challenge.id))
 
     def get_context_data(self, **kwargs):
@@ -577,6 +600,9 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
             if self.request.session.get('email_sent_success', False):
                 context['success'] = True
                 del self.request.session['email_sent_success']
+            if self.request.session.get('exception', False):
+                context['exception'] = self.request.session.get('exception', False)
+                del self.request.session['exception']
 
             approvedparticipants = challenge.get_participants()
 

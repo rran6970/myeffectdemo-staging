@@ -5,6 +5,8 @@ import os
 import tempfile
 import re
 import json
+import sys
+import csv
 
 from django.conf import settings
 from django.contrib import auth
@@ -23,7 +25,7 @@ from django.template.loader import get_template
 
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
-
+import cleanteams.forms
 from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership, ChallengeCommunityMembership
@@ -250,6 +252,10 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             initial['twitter'] = clean_team.twitter
             initial['facebook'] = clean_team.facebook
             initial['instagram'] = clean_team.instagram
+	    initial['focus'] = clean_team.focus
+	  
+	    
+	    
             # initial['logo'] = clean_team.logo
             initial['about'] = clean_team.about
             initial['region'] = clean_team.region
@@ -307,7 +313,9 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.instagram = form.cleaned_data['instagram']
         clean_team.about = form.cleaned_data['about']
         clean_team.region = form.cleaned_data['region']
-
+	clean_team.focus =form.cleaned_data['focus']
+        print clean_team.focus
+        #print request.POST.getlist('category')
         logo = form.cleaned_data['logo']
 
         if logo:
@@ -651,18 +659,26 @@ class CommunityView(TemplateView):
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
-
+    
     def get_object(self):
         return get_object_or_404(User, pk=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super(CleanTeamView, self).get_context_data(**kwargs)
         user = self.request.user
-
+	
         if 'ctid' in self.kwargs:
             ctid = self.kwargs['ctid']
             context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
-
+	    all_categories= cleanteams.forms.ORG_CATEGORIES
+	    #print all_categories[0][0]
+	    labeled_selected_categories=''
+	    selected_categories=context['clean_team'].focus
+	    for t in all_categories:
+		if t[0] in selected_categories:
+			labeled_selected_categories+=t[1]
+	    context['focus']=labeled_selected_categories
+	    #print labeled_selected_categories
             follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
             cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
             ccs = CleanChampion.objects.filter(clean_team_id=ctid)
