@@ -51,9 +51,15 @@
     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-items menu-items-right">{{ user.first_name }}<span class="glyphicon glyphicon-chevron-down"></span></a>
     <ul class="dropdown-menu profile-dropdown" role="menu" aria-labelledby="dLabel">
       <li><a href="/users/profile/{{ user.id }}" class="menu-items">My Profile</a></li>
+<<<<<<< HEAD
       <li><a href="/users/upgrade-account" class="menu-items">Upgrade Account</a></li>
       <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
       <li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+=======
+      <li><a href="/challenges/my-challenges/" class="menu-items">My Actions</a></li>
+      <li><a href="/users/report-card/" class="menu-items">Report Card</a></li>
+      <li><a href="/users/upgrade-account" class="menu-items">Upgrade Account</a></li>
+>>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
       <li><a href="/users/settings/" class="menu-items">Settings</a></li>
       <li><a href="/users/FAQ/" class="menu-items">FAQ</a></li>
       <li><a href="/users/logout" class="menu-items">Logout</a></li>
@@ -136,7 +142,11 @@
             <li>
               <span>
                 <input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" />
+<<<<<<< HEAD
                 <label for="">Actions for groups</label>
+=======
+                <label for="">Change Team Actions</label>
+>>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
               </span>
             </li>
           </ul>

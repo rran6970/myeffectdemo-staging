@@ -343,6 +343,7 @@ ROLE_CHOICES = (
 class InviteForm(forms.Form):
     email = forms.CharField(required=True, widget=forms.Textarea)
     role = forms.ChoiceField(widget=forms.Select(), choices=ROLE_CHOICES)
+    invite_team = forms.FileField(required=False, label="Invite_team (CSV Only)")
     terms = forms.BooleanField(required=True)
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
 
