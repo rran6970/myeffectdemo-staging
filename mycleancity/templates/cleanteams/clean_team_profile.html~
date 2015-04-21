@@ -1,8 +1,5 @@
 {% extends '_public_base.html' %}
-<<<<<<< HEAD
 {% load i18n %}
-=======
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
 
 {% block title %} My Effect - {{ clean_team.name }} {% endblock %}
 
@@ -55,14 +52,11 @@
           </div>
       
           <div class="sign-point-meter-bottom">
-<<<<<<< HEAD
               <h1 id="your-points"><span class="blue">{%trans "Change Creds" %}:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
           </div>   
-=======
               <h1 id="your-points"><span class="blue">Change Creds:</span>&nbsp;<span id="clean-creds">{{ clean_team.clean_creds }}</span></h1>
          
 </div>   
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
         </div><!-- /.point-meter -->
         
 
@@ -84,11 +78,7 @@
             <!--<img id="badge-icon" src="{{ STATIC_URL }}{{ clean_team.level.badge }}" alt="Badge Level" />-->
 
             <div class="clean-creds">
-<<<<<<< HEAD
               <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
-=======
-              <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>:&nbsp;{{ clean_team.clean_creds }}</span></p>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             </div>
             
             <div id="clean-team-info">
@@ -109,15 +99,9 @@
               </div>
               {% endif %}
             </div>
-<<<<<<< HEAD
             <a href="#clean-team-members-list" class="popup-600">{%trans "View Members" %}</a>
             {% if challenges %}
               <a href="#clean-team-challenges-list" class="popup-600">{%trans "View Actions" %}</a>
-=======
-            <a href="#clean-team-members-list" class="popup-600">View Members</a>
-            {% if challenges %}
-              <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             {% endif %}
 
             {% if user.is_authenticated %}
@@ -153,27 +137,17 @@
                 {% endif %}
               {% endif %}
             {% else %}
-<<<<<<< HEAD
               <a id="register-to-join-btn" class="btn btn-primary btn-block" href="/users/register">{%trans "Register Now to Join" %}</a>
-=======
-              <a id="register-to-join-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Join</a>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
             {% endif %}
 
           </div><!-- /#clean-team-info -->
           
-<<<<<<< HEAD
           <h2>{{ clean_team.name }} {% if clean_team.website %}<a href="{{ clean_team.website }}" target="_blank">{%trans "View Website" %}</a> {% endif %}</h2>
-
-          <div class="info" id="about">
-=======
-          <h2>{{ clean_team.name }} {% if clean_team.website %}<a href="{{ clean_team.website }}" target="_blank">View Website</a> {% endif %}</h2> 
- 
+           
 <h2><br/>Focus</h2>
 
           <div class="info" id="about">
-<p>{{clean_team.focus}}</p>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
+<p>{{focus}}</p>
             <div class="clear"></div>
 
             {% if clean_team.about %}
@@ -186,11 +160,7 @@
 
           <div class="info" id="wall">
             <div class="field">
-<<<<<<< HEAD
               <p class="title">{%trans "Posts" %}</p>
-=======
-              <p class="title">Posts</p>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               <div class="clear"></div>
     
               <!-- <button class="btn btn-primary" id="show-post-message-box">Post A Message</button> -->
@@ -220,11 +190,7 @@
                   <div class="clear"></div>
                 {% endfor %}
               {% else %}
-<<<<<<< HEAD
                 <p class="messsage">{%trans "No recent posts" %}</p>
-=======
-                <p class="messsage">No recent posts</p>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
               {% endif %}
               </div>
             </div>
@@ -256,7 +222,6 @@
           <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
 
           {% if challenge.1.clean_team_only %}
-<<<<<<< HEAD
             <span class="clean-team-only"><h2 class="bold">{%trans "Change Teams Only" %}</h2></span>
           {% endif %}
 
@@ -265,16 +230,6 @@
           </p>
           <p class="date-time">
             <span class="bold">{%trans "Ends" %}:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
-=======
-            <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
-          {% endif %}
-
-          <p class="date-time">
-            <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
-          </p>
-          <p class="date-time">
-            <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
           </p>
           <p>{{ challenge.1.description|slice:":255" }}</p>
           <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>

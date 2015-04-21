@@ -5,11 +5,8 @@ import os
 import tempfile
 import re
 import json
-<<<<<<< HEAD
-=======
 import sys
 import csv
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
 
 from django.conf import settings
 from django.contrib import auth
@@ -28,11 +25,7 @@ from django.template.loader import get_template
 
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
-<<<<<<< HEAD
 import cleanteams.forms
-=======
-
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
 from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
 from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
 from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership, ChallengeCommunityMembership
@@ -259,13 +252,10 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             initial['twitter'] = clean_team.twitter
             initial['facebook'] = clean_team.facebook
             initial['instagram'] = clean_team.instagram
-<<<<<<< HEAD
 	    initial['focus'] = clean_team.focus
 	  
 	    
 	    
-=======
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
             # initial['logo'] = clean_team.logo
             initial['about'] = clean_team.about
             initial['region'] = clean_team.region
@@ -323,13 +313,9 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.instagram = form.cleaned_data['instagram']
         clean_team.about = form.cleaned_data['about']
         clean_team.region = form.cleaned_data['region']
-<<<<<<< HEAD
 	clean_team.focus =form.cleaned_data['focus']
         print clean_team.focus
         #print request.POST.getlist('category')
-=======
-
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
         logo = form.cleaned_data['logo']
 
         if logo:
@@ -344,7 +330,7 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
                 task = CleanTeamLevelTask.objects.get(name="ct_description")
                 clean_team.complete_level_task(task)
                 clean_team.add_team_clean_creds(5)
-            # onluy uncomment this if your testing turning this on, otherwise user can keep addidng 5CC to the team
+            # only uncomment this if your testing turning this on, otherwise user can keep addidng 5CC to the team
             # else:
                 # task = CleanTeamLevelTask.objects.get(name="ct_description")
                 # clean_team.uncomplete_level_task(task)
@@ -673,18 +659,13 @@ class CommunityView(TemplateView):
 
 class CleanTeamView(TemplateView):
     template_name = "cleanteams/clean_team_profile.html"
-<<<<<<< HEAD
     
-=======
-
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
     def get_object(self):
         return get_object_or_404(User, pk=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super(CleanTeamView, self).get_context_data(**kwargs)
         user = self.request.user
-<<<<<<< HEAD
 	
         if 'ctid' in self.kwargs:
             ctid = self.kwargs['ctid']
@@ -694,17 +675,10 @@ class CleanTeamView(TemplateView):
 	    labeled_selected_categories=''
 	    selected_categories=context['clean_team'].focus
 	    for t in all_categories:
-		if t[0] in selected_categories:
+		if selected_categories and t[0] in selected_categories:
 			labeled_selected_categories+=t[1]
 	    context['focus']=labeled_selected_categories
-	    print labeled_selected_categories
-=======
-
-        if 'ctid' in self.kwargs:
-            ctid = self.kwargs['ctid']
-            context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
-
->>>>>>> d34d34bfb15dd13708079fe0a5c8ce8883eb8a2a
+	    #print labeled_selected_categories
             follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
             cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
             ccs = CleanChampion.objects.filter(clean_team_id=ctid)

@@ -39,7 +39,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
-    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     role = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -66,7 +66,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
         # twitter = cleaned_data.get('twitter')
         # facebook = cleaned_data.get('twitter')
         # instagram = cleaned_data.get('instagram')
-        region = cleaned_data.get('region')
+        city = cleaned_data.get('city')
         group = cleaned_data.get('group')
         # contact_phone = cleaned_data.get('contact_phone')
         #clean_team_id = cleaned_data.get('clean_team_id')
@@ -78,8 +78,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
         if not name:
             raise forms.ValidationError("Please enter your Change Team's name")
-        elif not region:
-            raise forms.ValidationError("Please enter your region")
+        elif not city:
+            raise forms.ValidationError("Please enter your city")
         elif not group:
             raise forms.ValidationError("Please the group your team associated with")
         elif not contact_phone:
@@ -110,7 +110,7 @@ class RegisterCommunityForm(forms.ModelForm):
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
-    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
     category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     class Meta:
@@ -193,7 +193,7 @@ class EditCleanTeamForm(forms.ModelForm):
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
-    region = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput())
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     community = forms.CharField(required=False, max_length=128, min_length=1, widget=forms.TextInput())
@@ -212,7 +212,7 @@ class EditCleanTeamForm(forms.ModelForm):
         twitter = cleaned_data.get('twitter')
         facebook = cleaned_data.get('facebook')
         instagram = cleaned_data.get('instagram')
-        region = cleaned_data.get('region')
+        city = cleaned_data.get('city')
         group = cleaned_data.get('group')
         clean_team_id = cleaned_data.get('clean_team_id')
         community = cleaned_data.get('community')
@@ -226,8 +226,8 @@ class EditCleanTeamForm(forms.ModelForm):
 
         if not name:
             raise forms.ValidationError("Please enter your Change Team's name")
-        elif not region:
-            raise forms.ValidationError("Please enter your region")
+        elif not city:
+            raise forms.ValidationError("Please enter your city")
 
         if logo:
             if logo._size > 2*1024*1024:
@@ -247,7 +247,7 @@ class EditCommunityForm(forms.ModelForm):
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     community_id = forms.CharField(required=False, widget=forms.HiddenInput())
-    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    city = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
     category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
 
     # Combines the form with the corresponding model
