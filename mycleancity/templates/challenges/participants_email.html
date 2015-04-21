@@ -22,13 +22,10 @@
         <div id="white-box" class="participants-manage">
         	<h1>{%trans "Send email to all participants of" %} {{ challenge.title }}</h1>
           {% if success %}
-<<<<<<< HEAD
             <div class="alert alert-success" role="alert">{%trans "Email sent successfully!" %}</div>
-=======
             <div class="alert alert-success" role="alert">Email sent successfully!</div>
           {% elif exception %}
             <div class="alert alert-danger" role="alert">{{ exception }}</div>
->>>>>>> ccc7a23fc992c83cf6edb1e6d836090e3bda8b6a
           {% else %}
           	{% if form.non_field_errors %}
                 <div class="message-box error">
