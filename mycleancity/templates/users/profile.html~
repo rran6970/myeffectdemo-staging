@@ -39,7 +39,7 @@
                 <table>
                     <tr>
                       <td>{{ form.category.label_tag }} {{ form.category }}</td>
-                      <td>Interests <br/>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
+                      <td>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
  {{value}}<br/> {% endfor%}</td>
                     </tr>
                     <tr>

@@ -676,7 +676,7 @@ class CleanTeamView(TemplateView):
 		if t[0] in selected_categories:
 			labeled_selected_categories+=t[1]
 	    context['focus']=labeled_selected_categories
-	    #print labeled_selected_categories
+	    print labeled_selected_categories
             follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
             cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
             ccs = CleanChampion.objects.filter(clean_team_id=ctid)

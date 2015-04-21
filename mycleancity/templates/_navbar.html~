@@ -139,12 +139,6 @@
                 <label for="">Actions for groups</label>
               </span>
             </li>
-	    <li>
-              <span>
-                <input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" />
-                <label for="">Virtual Action</label>
-              </span>
-            </li>
           </ul>
         </div>
         <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by title, city or skill..." />

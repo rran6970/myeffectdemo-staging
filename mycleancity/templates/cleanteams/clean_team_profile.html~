@@ -144,7 +144,7 @@
 <h2><br/>Focus</h2>
 
           <div class="info" id="about">
-<p>{{focus}}</p>
+<p>{{clean_team.focus}}</p>
             <div class="clear"></div>
 
             {% if clean_team.about %}

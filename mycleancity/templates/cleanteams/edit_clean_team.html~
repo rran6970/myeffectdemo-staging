@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
-		    <td>{{ form.team_type.label_tag }} {{ form.team_type }}
+		    <td>
 		    </td>
 		</tr>
 		<tr>
