@@ -1,0 +1,1176 @@
+---
+  - 
+    pk: 1
+    model: "cleanteams.cleanteamlevel"
+    fields: 
+      next_level: 2
+      badge: "images/badge-level-1-75x63.png"
+      name: "Seedling"
+      tree_level: "images/clean-team-tree-stage-1.png"
+  - 
+    pk: 2
+    model: "cleanteams.cleanteamlevel"
+    fields: 
+      next_level: 3
+      badge: "images/badge-level-2-75x59.png"
+      name: "Sprout"
+      tree_level: "images/clean-team-tree-stage-2.png"
+  - 
+    pk: 3
+    model: "cleanteams.cleanteamlevel"
+    fields: 
+      next_level: 4
+      badge: "images/badge-level-3-75x63.png"
+      name: "Sapling"
+      tree_level: "images/clean-team-tree-stage-3.png"
+  - 
+    pk: 4
+    model: "cleanteams.cleanteamlevel"
+    fields: 
+      next_level: 5
+      badge: "images/badge-level-4-75x73.png"
+      name: "Tree"
+      tree_level: "images/clean-team-tree-stage-4.png"
+  - 
+    pk: 5
+    model: "cleanteams.cleanteamlevel"
+    fields: 
+      next_level: null
+      badge: "images/badge-level-5-75x73.png"
+      name: "Full Bloom"
+      tree_level: "images/clean-team-tree-stage-5.png"
+  - 
+    pk: 5
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "ct_description"
+      title: "Profiler"
+      link: "/clean-team/edit/"
+      clean_team_level: 1
+      approval_required: false
+      description: "Add a profile description and logo to your Clean Team"
+  - 
+    pk: 6
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "ct_twitter"
+      title: "Birdie"
+      link: "/clean-team/edit/"
+      clean_team_level: 1
+      approval_required: false
+      description: "Add Twitter account to your Clean Team profile"
+  - 
+    pk: 7
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "invite_5_mcc"
+      title: "Friendly"
+      link: "/clean-team/invite"
+      clean_team_level: 1
+      approval_required: false
+      description: "Invite at least 5 friends to My Clean City"
+  - 
+    pk: 9
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "1_challenge"
+      title: "Novice Challenger"
+      link: "/challenges/new-challenge/"
+      clean_team_level: 1
+      approval_required: false
+      description: "Post Your 1st Action"
+  - 
+    pk: 11
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "3_ccs"
+      title: "Novice Recruiter"
+      link: "/clean-team/invite"
+      clean_team_level: 1
+      approval_required: false
+      description: "Recruit 3 Clean Champions"
+  - 
+    pk: 12
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "follow_twitter"
+      title: null
+      link: "https://twitter.com/intent/user?screen_name=MyCleanCity1"
+      clean_team_level: 1
+      approval_required: false
+      description: "Follow My Clean City on Twitter"
+  - 
+    pk: 13
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "5_challenges"
+      title: "Actioneer"
+      link: "/challenges/new-challenge/"
+      clean_team_level: 1
+      approval_required: false
+      description: "Create 5 Actions"
+  - 
+    pk: 14
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "10_ccs"
+      title: "Help Gathers"
+      link: "/clean-team/invite"
+      clean_team_level: 1
+      approval_required: false
+      description: "Recruit 10 Clean Champions"
+  - 
+    pk: 16
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "refer_teacher"
+      title: "United Leaders"
+      link: "/clean-team/leader-referral"
+      clean_team_level: 1
+      approval_required: true
+      description: "Refer an interested teacher, youth group leader or city hall counselor"
+  - 
+    pk: 17
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "2_national_challenges_signup"
+      title: "Going Global"
+      link: "/challenges/?national_challenges=on&q="
+      clean_team_level: 1
+      approval_required: false
+      description: "Sign up for at least 2 national Challenges"
+  - 
+    pk: 18
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "20_ccs"
+      title: "Army of Volunteers"
+      link: "/clean-team/invite"
+      clean_team_level: 1
+      approval_required: false
+      description: "Recruit 20 Clean Champions "
+  - 
+    pk: 19
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "mcc_presentation"
+      title: "Show Off"
+      link: "/clean-team/send-presentation"
+      clean_team_level: 1
+      approval_required: true
+      description: "Make a My Clean City presentation"
+  - 
+    pk: 32
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "cc_250"
+      title: "The Beginning"
+      link: null
+      clean_team_level: 1
+      approval_required: false
+      description: "Total 250 Change Credits as a team!"
+  - 
+    pk: 33
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "cc_1000"
+      title: "Team Effort"
+      link: null
+      clean_team_level: 1
+      approval_required: false
+      description: "Total 1000 Change Credits as a team!"
+  - 
+    pk: 34
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "cc_5000"
+      title: "Swimmin' in Change"
+      link: null
+      clean_team_level: 1
+      approval_required: false
+      description: "Total 5,000 Change Credits as a team!"
+  - 
+    pk: 35
+    model: "cleanteams.cleanteamleveltask"
+    fields: 
+      name: "cc_10,000"
+      title: "Top of a New World"
+      link: null
+      clean_team_level: 1
+      approval_required: false
+      description: "Be among the top teams and gain 10,000 Change Credits!!"
+  - 
+    pk: 1
+    model: "challenges.challengetype"
+    fields: 
+      challenge_type: "hourly"
+      name: "Per Hour"
+      description: "This would be the numbers of hours * Change Creds/hour"
+  - 
+    pk: 2
+    model: "challenges.challengetype"
+    fields: 
+      challenge_type: "one-time"
+      name: "Flat Per Completed Action"
+      description: "One time scan in via QR code"
+  - 
+    pk: 1
+    model: "challenges.cleangrid"
+    fields: 
+      name: "LAN"
+      value: "0.827625"
+  - 
+    pk: 2
+    model: "challenges.cleangrid"
+    fields: 
+      name: "AIR"
+      value: "0.804139"
+  - 
+    pk: 3
+    model: "challenges.cleangrid"
+    fields: 
+      name: "WAT "
+      value: "11.426941"
+  - 
+    pk: 4
+    model: "challenges.cleangrid"
+    fields: 
+      name: "MBF"
+      value: "5.022831"
+  - 
+    pk: 5
+    model: "challenges.cleangrid"
+    fields: 
+      name: "ARM"
+      value: "2.283105"
+  - 
+    pk: 6
+    model: "challenges.cleangrid"
+    fields: 
+      name: "ELE"
+      value: "1.272632"
+  - 
+    pk: 7
+    model: "challenges.cleangrid"
+    fields: 
+      name: "FF"
+      value: "1.986614"
+  - 
+    pk: 8
+    model: "challenges.cleangrid"
+    fields: 
+      name: "CP"
+      value: "1.461096"
+  - 
+    pk: 1
+    model: "challenges.challengequestiontype"
+    fields: 
+      name: "point_value"
+      description: "An assigned point value"
+  - 
+    pk: 2
+    model: "challenges.challengequestiontype"
+    fields: 
+      name: "clean_grid_value"
+      description: "CleanGrid values are calculated"
+  - 
+    pk: 3
+    model: "challenges.challengequestiontype"
+    fields: 
+      name: "no_point_value"
+      description: "No points, only for survey purposes"
+  - 
+    pk: 4
+    model: "challenges.challengequestiontype"
+    fields: 
+      name: "equal_to_input_value"
+      description: "CC = dollar amount inputed i.e. $10 raised for every complete action, then 10 Change Creds would be added to the tally"
+  - 
+    pk: 1
+    model: "challenges.answertype"
+    fields: 
+      name: "single"
+      description: "Can select ONLY one answer"
+  - 
+    pk: 2
+    model: "challenges.answertype"
+    fields: 
+      name: "multiple"
+      description: "Can select multiple answers"
+  - 
+    pk: 3
+    model: "challenges.answertype"
+    fields: 
+      name: "number"
+      description: "number input"
+  - 
+    pk: 4
+    model: "challenges.answertype"
+    fields: 
+      name: "text"
+      description: "text input"
+  - 
+    pk: 1
+    model: "challenges.challengequestion"
+    fields: 
+      type: 3
+      question_number: 200
+      question: "Does this action involve fundraising?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 2
+    model: "challenges.challengequestion"
+    fields: 
+      type: 4
+      question_number: 201
+      question: "How many dollars are raised for your cause for every completed action?"
+      answer_type: 3
+      required: false
+  - 
+    pk: 3
+    model: "challenges.challengequestion"
+    fields: 
+      type: 3
+      question_number: 300
+      question: "Does this action involve mentorship that fosters personal development or professional development?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 4
+    model: "challenges.challengequestion"
+    fields: 
+      type: 4
+      question_number: 301
+      question: "Enter the approximate number of people that are mentored per hour:"
+      answer_type: 3
+      required: false
+  - 
+    pk: 5
+    model: "challenges.challengequestion"
+    fields: 
+      type: 1
+      question_number: 400
+      question: "Is this a certified skill development or training activity?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 6
+    model: "challenges.challengequestion"
+    fields: 
+      type: 3
+      question_number: 500
+      question: "Are people or animals helped through this action?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 7
+    model: "challenges.challengequestion"
+    fields: 
+      type: 4
+      question_number: 501
+      question: "Enter the approximate number helped per hour:"
+      answer_type: 3
+      required: false
+  - 
+    pk: 8
+    model: "challenges.challengequestion"
+    fields: 
+      type: 1
+      question_number: 600
+      question: "Does this action create or build something new (i.e. sustained effect such as building a home or planting a tree)?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 9
+    model: "challenges.challengequestion"
+    fields: 
+      type: 1
+      question_number: 700
+      question: "Does this action at least 30 minutes of physial activity?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 10
+    model: "challenges.challengequestion"
+    fields: 
+      type: 1
+      question_number: 800
+      question: "Does this action promote healthy eating or lifestyle changes?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 11
+    model: "challenges.challengequestion"
+    fields: 
+      type: 3
+      question_number: 900
+      question: "Does this action involved physical labour?"
+      answer_type: 1
+      required: true
+  - 
+    pk: 12
+    model: "challenges.challengequestion"
+    fields: 
+      type: 1
+      question_number: 901
+      question: "Intensity:"
+      answer_type: 1
+      required: false
+  - 
+    pk: 13
+    model: "challenges.challengequestion"
+    fields: 
+      type: 2
+      question_number: 1
+      question: "Select the type of goods being recycled:"
+      answer_type: 2
+      required: false
+  - 
+    pk: 14
+    model: "challenges.challengequestion"
+    fields: 
+      type: 4
+      question_number: 3
+      question: "If your action involves recycling, how many items are recycled in one completed action?"
+      answer_type: 3
+      required: false
+  - 
+    pk: 15
+    model: "challenges.challengequestion"
+    fields: 
+      type: 2
+      question_number: 4
+      question: "Does your action address any of the following? Select all that apply"
+      answer_type: 2
+      required: false
+  - 
+    pk: 16
+    model: "challenges.challengequestion"
+    fields: 
+      type: 3
+      question_number: 2
+      question: "Please specify:"
+      answer_type: 4
+      required: false
+  - 
+    pk: 20
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Batteries"
+      clean_grid: null
+      score: 2
+      question: 13
+      answer_number: "A"
+  - 
+    pk: 21
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Cans"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "B"
+  - 
+    pk: 22
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Clothing"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "C"
+  - 
+    pk: 23
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Electronics- Small( i.e. mp3s, mobile phones)"
+      clean_grid: null
+      score: 2
+      question: 13
+      answer_number: "D"
+  - 
+    pk: 24
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Electronics- Large( i.e. cameras, laptops, TVs)"
+      clean_grid: null
+      score: 3
+      question: 13
+      answer_number: "E"
+  - 
+    pk: 33
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Ink Cartridges"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "F"
+  - 
+    pk: 34
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Light Bulbs"
+      clean_grid: null
+      score: 2
+      question: 13
+      answer_number: "G"
+  - 
+    pk: 35
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Paper"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "H"
+  - 
+    pk: 36
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "PET Plastic Bottles"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "I"
+  - 
+    pk: 37
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Specialty/Hard to Recycle Items"
+      clean_grid: null
+      score: 2
+      question: 13
+      answer_number: "J"
+  - 
+    pk: 38
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Styrofoam"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "K"
+  - 
+    pk: 39
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Other"
+      clean_grid: null
+      score: 1
+      question: 13
+      answer_number: "L"
+  - 
+    pk: 40
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Air Polllution"
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "A"
+  - 
+    pk: 41
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Energy Efficiency/Conversation "
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "B"
+  - 
+    pk: 42
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Fossil Fuels"
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "C"
+  - 
+    pk: 43
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Restoration of Habitat"
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "D"
+  - 
+    pk: 44
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Species Protection"
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "E"
+  - 
+    pk: 45
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Water Conservation"
+      clean_grid: null
+      score: 1
+      question: 15
+      answer_number: "F"
+  - 
+    pk: 46
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 0
+      question: 1
+      answer_number: "A"
+  - 
+    pk: 47
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 1
+      answer_number: "B"
+  - 
+    pk: 48
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 0
+      question: 3
+      answer_number: "A"
+  - 
+    pk: 49
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 3
+      answer_number: "B"
+  - 
+    pk: 50
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 1
+      question: 5
+      answer_number: "A"
+  - 
+    pk: 51
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 5
+      answer_number: "B"
+  - 
+    pk: 52
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 0
+      question: 6
+      answer_number: "A"
+  - 
+    pk: 53
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 6
+      answer_number: "B"
+  - 
+    pk: 54
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 1
+      question: 8
+      answer_number: "A"
+  - 
+    pk: 55
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 8
+      answer_number: "B"
+  - 
+    pk: 56
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 1
+      question: 9
+      answer_number: "A"
+  - 
+    pk: 57
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 9
+      answer_number: "B"
+  - 
+    pk: 58
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 2
+      question: 10
+      answer_number: "A"
+  - 
+    pk: 59
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 10
+      answer_number: "B"
+  - 
+    pk: 60
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Yes"
+      clean_grid: null
+      score: 0
+      question: 11
+      answer_number: "A"
+  - 
+    pk: 61
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "No"
+      clean_grid: null
+      score: 0
+      question: 11
+      answer_number: "B"
+  - 
+    pk: 62
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Light"
+      clean_grid: null
+      score: 1
+      question: 12
+      answer_number: "A"
+  - 
+    pk: 63
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Moderate"
+      clean_grid: null
+      score: 2
+      question: 12
+      answer_number: "B"
+  - 
+    pk: 64
+    model: "challenges.questionanswer"
+    fields: 
+      answer: "Demanding"
+      clean_grid: null
+      score: 3
+      question: 12
+      answer_number: "C"
+  - 
+    pk: 1
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Reading Text"
+      description: "Reading materials in the form of sentences or paragraphs such as notes, letters, memos, manuals, specifications, books, reports and journals."
+  - 
+    pk: 2
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Writing"
+      description: "The preparation of written materials for a variety of purposes.  Completing such tasks as filling in forms, writing text and using computers to write."
+  - 
+    pk: 3
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Document Use"
+      description: "Reading different types of material such as labels, signs, lists, tables, graphs, forms, diagrams, blueprints and other similar material."
+  - 
+    pk: 4
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Computer Use"
+      description: "The use of any type of computerized technology."
+  - 
+    pk: 5
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Oral Communication"
+      description: "Using verbal skills to exchange ideas and information with others."
+  - 
+    pk: 6
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Money Math"
+      description: "The use of mathematical skills in making financial transactions, such as handling cash, preparing bills, and making payments."
+  - 
+    pk: 7
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Scheduling or Budgeting and Accounting"
+      description: "Planning for the best use of time and money, as well as monitoring of the use of time and money."
+  - 
+    pk: 8
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Measurement and Calculation"
+      description: "The measurement and calculation of quantities, areas, volumes, and/or distances."
+  - 
+    pk: 9
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Data Analysis"
+      description: "The collection and analysis of data in numerical form."
+  - 
+    pk: 10
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Numerical Estimation"
+      description: "The production of estimates in numerical terms."
+  - 
+    pk: 11
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Job Task Planning and Organizing"
+      description: "Planning and organizing your own work."
+  - 
+    pk: 12
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Decision Making"
+      description: "Making a choice among options using appropriate information."
+  - 
+    pk: 13
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Problem Solving"
+      description: "The identification and solving of problems."
+  - 
+    pk: 14
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Finding Information"
+      description: "The use of a variety of sources, including written text, people, computerized databases, and information systems."
+  - 
+    pk: 15
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Working Safely"
+      description: "Working in a manner that prevents injury to self and others ."
+  - 
+    pk: 16
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Teamwork"
+      description: "Working willingly with others. Showing respect for the ideas and opinions of others. Taking responsibility for his or her share of the work."
+  - 
+    pk: 17
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Reliability"
+      description: "Being punctual. Following directions. Giving attention to detail. Using time effectively and producing work on time. Acting in accordance with health and safety practices."
+  - 
+    pk: 18
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Organization"
+      description: "Organizing work priorities when faced with a number of tasks. Devising and following a coherent plan to complete a task. Revising the plan when necessary to complete a task or to make improvements."
+  - 
+    pk: 19
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Working Independently"
+      description: null
+  - 
+    pk: 20
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Initiative"
+      description: null
+  - 
+    pk: 21
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Self-Advocacy"
+      description: null
+  - 
+    pk: 22
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Customer Service"
+      description: null
+  - 
+    pk: 23
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Entrepreneurship"
+      description: null
+  - 
+    pk: 24
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Networking"
+      description: null
+  - 
+    pk: 25
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Business Planning"
+      description: null
+  - 
+    pk: 26
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Leadership"
+      description: null
+  - 
+    pk: 27
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Creative Development"
+      description: null
+  - 
+    pk: 28
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Design"
+      description: null
+  - 
+    pk: 29
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Social Media"
+      description: null
+  - 
+    pk: 30
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Marketing"
+      description: null
+  - 
+    pk: 31
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Public Relations"
+      description: null
+  - 
+    pk: 32
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Networking"
+      description: null
+  - 
+    pk: 33
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Relationship Management/Communications"
+      description: null
+  - 
+    pk: 34
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Program & Campaign Development"
+      description: null
+  - 
+    pk: 35
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Skills Trade"
+      description: null
+  - 
+    pk: 36
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Event Planning"
+      description: null
+  - 
+    pk: 37
+    model: "challenges.skilltag"
+    fields: 
+      skill_name: "Program Execution"
+      description: null
+  - 
+    pk: 1
+    model: "notifications.notification"
+    fields: 
+      name: "Challenge posted"
+      users_to_notify: "clean-ambassador, clean-champion"
+      link: "/challenges/{0}/"
+      notification_type: "challenge_posted"
+      message: "{0} posted a challenge called {1}"
+      description: "A Change Team posts a Challenge"
+  - 
+    pk: 2
+    model: "notifications.notification"
+    fields: 
+      name: "Message posted"
+      users_to_notify: "clean-ambassador, clean-champion"
+      link: "/clean-team/{0}"
+      notification_type: "message_posted"
+      message: "{0} posted a message on their wall"
+      description: "A Change Team posts a message"
+  - 
+    pk: 3
+    model: "notifications.notification"
+    fields: 
+      name: "New Clean Champion"
+      users_to_notify: "clean-ambassador"
+      link: "/clean-team/members/"
+      notification_type: "cc_joined"
+      message: "{0} joined {1} as a Change Agent!"
+      description: "A new Change Agent has joined a Change Team"
+  - 
+    pk: 4
+    model: "notifications.notification"
+    fields: 
+      name: "New Clean Ambassador request"
+      users_to_notify: "clean-ambassador"
+      link: "/clean-team/members/"
+      notification_type: "ca_request"
+      message: "{0} has requested to join {1} as a Change Leader"
+      description: "A new Change Leader request is made"
+  - 
+    pk: 5
+    model: "notifications.notification"
+    fields: 
+      name: "Clean Ambassador invite"
+      users_to_notify: "individual-user"
+      link: "/clean-team/invite-response/{0}"
+      notification_type: "ca_invite"
+      message: "{0} from {1} has invited you to become a Change Leader"
+      description: "A requst is sent to a User for them to become a Leader"
+  - 
+    pk: 6
+    model: "notifications.notification"
+    fields: 
+      name: "Clean Champion invite"
+      users_to_notify: "individual-user"
+      link: "/clean-team/invite-response/{0}"
+      notification_type: "cc_invite"
+      message: "{0} from {1} has invited you to become a Change Agent"
+      description: "A requst is sent to a User for them to become a Agent"
+  - 
+    pk: 7
+    model: "notifications.notification"
+    fields: 
+      name: "Clean Ambassador approved"
+      users_to_notify: "individual-user"
+      link: "/clean-team/{0}"
+      notification_type: "ca_approved"
+      message: "You have been approved to be a Change Leader for {0}"
+      description: "A new Change Leader request is approved"
+  - 
+    pk: 8
+    model: "notifications.notification"
+    fields: 
+      name: "New Clean Ambassador"
+      users_to_notify: "clean-ambassador"
+      link: "/clean-team/members/"
+      notification_type: "ca_joined"
+      message: "{0} joined {1} as a Change Leader!"
+      description: "A new Change Leader has joined a Change Team"
+  - 
+    pk: 9
+    model: "notifications.notification"
+    fields: 
+      name: "Level Up"
+      users_to_notify: "clean-ambassador"
+      link: "/clean-team/{0}"
+      notification_type: "level_up"
+      message: "Congratulations, {0} has just leveled up to {1}!"
+      description: "A Change Team has just leveled up"
+  - 
+    pk: 10
+    model: "notifications.notification"
+    fields: 
+      name: "Add CleanCreds to User"
+      users_to_notify: "individual-user"
+      link: "/users/profile/{0}"
+      notification_type: "user_add_clean_creds"
+      message: "Congratulations, you just earned {0} ChangeCreds!"
+      description: "ChangeCreds have been added to a User"
+  - 
+    pk: 11
+    model: "notifications.notification"
+    fields: 
+      name: "Add CleanCreds to Clean Teams"
+      users_to_notify: "clean-ambassador"
+      link: "/clean-team/{0}"
+      notification_type: "clean_team_add_clean_creds"
+      message: "Congratulations, {0} just earned {1} ChangeCreds!"
+      description: "ChangeCreds have been added to a Change Team"
+  - 
+    pk: 1
+    model: "socialaccount.socialapp"
+    fields: 
+      name: "Myeffect Twitter Signin"
+      sites: 
+        - 1
+      secret: "1RSbtG2bo60ph37uEAXdfFD941zb89OXxgOEjeDAF5TDIBiCRH"
+      client_id: "Q3VzRA07B1LFSNMifvGu8xbT8"
+      key: ""
+      provider: "twitter"
+  - 
+    pk: 3
+    model: "socialaccount.socialapp"
+    fields: 
+      name: "LinkedIn"
+      sites: 
+        - 1
+      secret: "riyNcV8xz8GcK8K3"
+      client_id: "7816d6zmthvhzw"
+      key: ""
+      provider: "linkedin"
+  - 
+    pk: 4
+    model: "socialaccount.socialapp"
+    fields: 
+      name: "Facebook"
+      sites: 
+        - 1
+      secret: "caf15cf21486a8cdf3c42b887d9860a3"
+      client_id: "394573090720595"
+      key: ""
+      provider: "facebook"
+  - 
+    pk: 5
+    model: "socialaccount.socialapp"
+    fields: 
+      name: "Google"
+      sites: 
+        - 1
+      secret: "comA__mcCQ_0IjorQI56vLf6"
+      client_id: "1096184111127-2nj0j9ceuiirq8hsn9jn333c77gd74m3.apps.googleusercontent.com"
+      key: ""
+      provider: "google"
+  - 
+    pk: 6
+    model: "socialaccount.socialapp"
+    fields: 
+      name: "Instagram"
+      sites: 
+        - 1
+      secret: "3e4c980341ff49989c6e539a0c67f32f"
+      client_id: "1998fc6f911d4b6ab8592746a28db572"
+      key: ""
+      provider: "instagram"
+
