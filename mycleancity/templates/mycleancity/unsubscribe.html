@@ -1,4 +1,5 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
 {% block title %} My Effect {% endblock %}
 
@@ -16,7 +17,7 @@
     <div class="container">
       
       <div id="white-box">
-        <h1>Successfully Unsubscribed</h1>
+        <h1>{%trans "Successfully Unsubscribed" %}</h1>
       </div><!-- /#white-box -->
   
     </div><!-- /.container -->

@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Register Organization {% endblock %}
+{% block title %} My Effect - {%trans "Register Organization" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -21,7 +22,7 @@
       <a href="/challenge-centre"></a> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
         <div id="white-box" class="small">
-            <h2>Register as an Organization</h2>
+            <h2>{%trans "Register as an Organization" %}</h2>
 
             {% if form.non_field_errors %}
               <div class="message-box error">
@@ -54,7 +55,7 @@
                 </table>
                 <input class="btn btn-primary" type="submit" value="Register" />
             </form>
-            <p>Already have an account? Login in <a href="/users/login">here</a>.</p>
+            <p>{%trans "Already have an account? Login in" %} <a href="/users/login">{%trans "here" %}</a>.</p>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

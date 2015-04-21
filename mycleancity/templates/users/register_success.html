@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Success {% endblock %}
+{% block title %} My Effect - {%trans "Success" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -21,10 +22,10 @@
       <a href="/challenge-centre"></a> -->
       
         <div id="white-box" class="small">
-            <p>Thank you youasfdasdfr registration has been received and has been sent for approval by our team.We will notify you with next steps once the approval process is complete.
+            <p>{%trans "Thank you youasfdasdfr registration has been received and has been sent for approval by our team.We will notify you with next steps once the approval process is complete." %}
             </p>
             <p>
-              Thank you again for your interest in My Effect.
+              {%trans "Thank you again for your interest in My Effect." %}
             </p>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

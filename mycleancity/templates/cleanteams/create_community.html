@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Create Community {% endblock %}
+{% block title %} My Effect - {%trans "Create Community" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -29,7 +30,7 @@
               <form action="/clean-team/create-community/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
                 <table class="table" style="width: 70%;">
                     <tr>
-                        <td><label for="id_name">Community Name</label></td>
+                        <td><label for="id_name">{%trans "Community Name" %}</label></td>
                         <td style="text-align:right;">
                             {% if form.name.errors %}
                               <div class="message-box error">
@@ -47,7 +48,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="is_private">Is your community private?</label>
+                            <label for="is_private">{%trans "Is your community private?" %}</label>
                         </td>
                         <td style="text-align:right;">
                             {{ form.is_private}}
@@ -73,7 +74,7 @@
                 </table>
               </form>
             {% else %}
-              <p>You need to <a href="/users/upgrade-account/">upgrade your account</a> before you can create communities.</p>
+              <p>{%trans "You need to" %} <a href="/users/upgrade-account/">{%trans "upgrade your account" %}</a> {%trans "before you can create communities" %}.</p>
             {% endif %}
         </div>
     </div>

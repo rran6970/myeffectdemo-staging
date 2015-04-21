@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Profile {% endblock %}
+{% block title %} My Effect - {%trans "Profile" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -21,7 +22,7 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
-            <h2>My Profile</h2>
+            <h2>{%trans "My Profile" %}</h2>
             {% include "socialaccount/snippets/connection_list.html" %}
             {% if form.errors %}
               <div class="message-box error">

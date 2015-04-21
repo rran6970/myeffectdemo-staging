@@ -1,0 +1,113 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - {{ community.name }} Members {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  <div class="content">
+    <div class="container">
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
+        <div id="white-box" class="team-members-ca">
+        {% csrf_token %}
+        <h1 id="team-name">{{ community.name }}</h1>
+        <p class="subtitle">{%trans "Edit community members" %}</p>
+        <div class="table-container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="members"><h2>{%trans "Members" %}</h2></th>
+                <th class="type"><h2>{%trans "Type" %}</h2></th>
+                <th class="actions"><h2>{%trans "Actions" %}</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for user_membership_request in user_membership_requests %}
+              <tr>
+                <td class="members">
+                  <a href="/users/profile/{{ user_membership_request.user.id }}">{{ user_membership_request.user.first_name }} {{ user_membership_request.user.last_name }}</a>
+                </td>
+                <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                <td class="type">{%trans "User" %}</td>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user_membership_request.user.id }}" />
+                    <input type="hidden" id="action" name="action" value="approve" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+                  </form>
+                </td>
+                </form>
+              </tr>
+            {% endfor %}
+            {% for team_membership_request in team_membership_requests %}
+              <tr>
+                <td class="members">
+                  <a href="/clean-team/{{ team_membership_request.clean_team.id }}">{{ team_membership_request.clean_team.name }}</a>
+                </td>
+                <td class="type">{%trans "Team" %}</td>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="clean_team_id" value="{{ team_membership_request.clean_team.id }}" />
+                    <input type="hidden" id="action" name="action" value="approve" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Approve" />
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+            {% for user_membership in user_memberships %}
+              <tr>
+                <td class="members">
+                  <a href="/users/profile/{{ user_membership.user.id }}">{{ user_membership.user.first_name }} {{ user_membership.user.last_name }}</a>
+                </td>
+                <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                <td class="type">User</td>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user_membership.user.id }}" />
+                    <input type="hidden" id="action" name="action" value="remove" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Remove" />
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+            {% for team_membership in team_memberships %}
+              <tr>
+                <td class="members">
+                  <a href="/clean-team/{{ team_membership.clean_team.id }}">{{ team_membership.clean_team.name }}</a>
+                </td>
+                <td class="type">{%trans "Team" %}</td>
+                <td class="actions">
+                  <form class="members-forms" action="/clean-team/community-member-action/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="clean_team_id" value="{{ team_membership.clean_team.id }}" />
+                    <input type="hidden" id="action" name="action" value="remove" />
+                    <input type="submit" id="action-btn" class="btn btn-primary" value="Remove" />
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,0 +1,90 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Create Community {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/mycleancity-css-migration.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public-better">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content-better">
+    <div class="container-better">
+        <div class="better-white-box" style="height: 580px;">
+            {% if form.non_field_errors %}
+              <div class="message-box error">
+              {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            {% if has_upgraded %}
+              <form action="/clean-team/create-community/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
+                <table class="table" style="width: 70%;">
+                    <tr>
+                        <td><label for="id_name">{%trans "Community Name" %}</label></td>
+                        <td style="text-align:right;">
+                            {% if form.name.errors %}
+                              <div class="message-box error">
+                                  {{ form.name.errors }}
+                              </div>
+                            {% endif %}
+                            <span style="float: right;">{{ form.name }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.region.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.region }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="is_private">{%trans "Is your community private?" %}</label>
+                        </td>
+                        <td style="text-align:right;">
+                            {{ form.is_private}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.category.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.category }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.logo.label_tag }}</td>
+                        <td style="text-align:right;">
+                            <span style="float:right;">{{ form.logo }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <input style="float: left;" class="btn btn-primary" type="submit" value="Create Community" />
+                      </td>
+                    </tr>
+                </table>
+              </form>
+            {% else %}
+              <p>{%trans "You need to" %} <a href="/users/upgrade-account/">{%trans "upgrade your account" %}</a> {%trans "before you can create communities" %}.</p>
+            {% endif %}
+        </div>
+    </div>
+  </div>
+</div>
+<div class="better-footer-wrapper">
+{% include "_footer_navbar.html" %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

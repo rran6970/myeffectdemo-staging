@@ -1,0 +1,15 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+{% include '_navbar.html' with login='active' %}
+
+{% block title %} My Effect - Logout {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	
+	<p>{%trans "You are logged out." %}</p>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

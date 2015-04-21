@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - {{ clean_team.name }} Members {% endblock %}
+{% block title %} My Effect - {{ clean_team.name }} {%trans "Members" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -21,15 +22,15 @@
         <div id="white-box" class="team-members-ca">
 			{% csrf_token %}
 			<h1 id="team-name">{{ clean_team.name }}</h1>
-			<p class="subtitle">Edit team members    <a href="/clean-team/invite" class="edit-profile-link">Invite new members</a></p>
+			<p class="subtitle">{%trans "Edit team members" %}    <a href="/clean-team/invite" class="edit-profile-link">{%trans "Invite new members" %}</a></p>
 			<div class="table-container">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="members"><h2>Members</h2></th>
-							<th class="status"><h2>Status</h2></th>
-							<th class="status"><h2>Role</h2></th>
-							<th class="actions"><h2>Actions</h2></th>
+							<th class="members"><h2>{%trans "Members" %}</h2></th>
+							<th class="status"><h2>{%trans "Status" %}</h2></th>
+							<th class="status"><h2>{%trans "Role" %}</h2></th>
+							<th class="actions"><h2>{%trans "Actions" %}</h2></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,7 +82,7 @@
         </div><!-- /#white-box -->
 
 		<div id="white-box" class="team-members-cc">	
-			<h1 id="team-name">Agent</h1>	
+			<h1 id="team-name">{%trans "Agent" %}</h1>	
 	        <div id="clean-team-members-list">
 			    {% for cc in ccs %}
 			      {% if cc.user.is_active %}

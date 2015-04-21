@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Change Team Level Progress {% endblock %}
+{% block title %} My Effect - {%trans "Change Team Level Progress" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -23,7 +24,7 @@
       <div id="white-box" class="clean-team-progress">
 
           {% if tasks_complete >= 0 %}
-          <h1>{{ clean_team.name }}'s Achievements</h1><p><br /></p>
+          <h1>{{ clean_team.name }}'s {%trans "Achievements" %}</h1><p><br /></p>
           {% endif %}
 
 
@@ -33,7 +34,7 @@
              <img src="images/EmptyMeter.png" alt="" />
           {%  endif %}
            {% if tasks_complete == 10 %}
-              <p>Hello World I am a winner</p>
+              <p>{%trans "Hello World I am a winner" %}</p>
           {%  endif %}
 
             <table class="table table-hover">
@@ -64,7 +65,7 @@
                       {% endif %}
                       {% if task.approval_requested %}
                         <div class="success">
-                          <p>Our team has received your submission. Once we approved it, we will mark this task completed.</p>
+                          <p>{%trans "Our team has received your submission. Once we approved it, we will mark this task completed." %}</p>
                         </div>
                       {% endif %}
                     </td>

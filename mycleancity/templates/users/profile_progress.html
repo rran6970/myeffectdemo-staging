@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Profile Progress {% endblock %}
+{% block title %} My Effect - {%trans "Profile Progress" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,7 +19,7 @@
   <div class="content">
     <div class="container">
       <div id="white-box" class="clean-team-progress">
-          <h1>{{ user.first_name }}'s Profile Goals</h1><p><br /></p>
+          <h1>{{ user.first_name }}'s {%trans "Profile Goals" %}</h1><p><br /></p>
 
           <div class="clear"> </div>
           <div class="table-container">

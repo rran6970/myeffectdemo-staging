@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Login {% endblock %}
+{% block title %} My Effect - {%trans "Login" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,10 +20,10 @@
     <div class="container">
         <a href="#" onclick="history.go(-1); return false;"><div class="sign login" id="sign-go-back"></div></a>
         <div id="white-box" class="login">
-            <h2>Login to your Account</h2>
+            <h2>{%trans "Login to your Account" %}</h2>
             {% if invalid %}
               <div class="message-box error">
-               <p>Sorry, that's not a valid username or password</p>
+               <p>{%trans "Sorry, that's not a valid username or password" %}</p>
               </div>
             {% endif %}
 
@@ -32,18 +33,18 @@
               <form action="/users/auth/" method="post">
             {% endif %}
                 {% csrf_token %}
-                <label for="email">Email:</label>
+                <label for="email">{%trans "Email:" %}</label>
                 <input type="text" name="email" value="" />
 
-                <label for="password">Password:</label>
+                <label for="password">{%trans "Password:" %}</label>
                 <input type="password" name="password" value="" />
 
                 <input class="btn btn-primary" type="submit" value="Login" />
             </form>
             <p>
-              Don't have an account? Create one <a href="/users/register">here</a>.
+              {%trans "Don't have an account? Create one" %} <a href="/users/register">{%trans "here" %}</a>.
               <br/
-              >Forgot your password? Reset it <a href="/user/password/reset/">here</a>.
+              >{%trans "Forgot your password? Reset it" %} <a href="/user/password/reset/">{%trans "here" %}</a>.
             </p>
         </div><!-- /#white-box -->
     </div><!-- /.container -->

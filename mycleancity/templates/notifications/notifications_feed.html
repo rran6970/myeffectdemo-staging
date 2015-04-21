@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Change Teams {% endblock %}
+{% block title %} My Effect - {%trans "Change Teams" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,9 +20,9 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-notifications" id="sign-go-back"></div></a>
       <div id="white-box" class="all-notifications">
-          <h1>{{ user.first_name }}'s Notifications</h1>
+          <h1>{{ user.first_name }}'s {%trans "Notifications" %}</h1>
 
-          <a href="/notifications/read-all/">Mark all as read</a>
+          <a href="/notifications/read-all/">{%trans "Mark all as read" %}</a>
           <div class="table-container">
               <table class="table table-hover">
                 <tbody>

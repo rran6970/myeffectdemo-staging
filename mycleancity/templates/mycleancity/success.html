@@ -1,4 +1,5 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
 {% block title %} My Effect {% endblock %}
 
@@ -12,15 +13,15 @@
   <div class="clouds"></div>
   <div class="tree"></div>
   <div class="logo"></div>
-  <h1 class="title">Change starts with ME!</h1>
+  <h1 class="title">{%trans "Change starts with ME!" %}</h1>
   <div class="wrapper">
       <ul class="successlist">
-        <li>Thank you! You will be notified when we launch.</li>
+        <li>{%trans "Thank you! You will be notified when we launch." %}</li>
       </ul>
   </div><!-- /wrapper -->
 
   <div class="social-media">
-    <h2>Let's stay in touch</h2>
+    <h2>{%trans "Let's stay in touch" %}</h2>
     <a id="facebook" href="https://www.facebook.com/pages/My-Clean-City/203721359785216" target="_blank"></a>
     <a id="twitter" href="https://twitter.com/MyCleanCity1" target="_blank"></a>
   </div>

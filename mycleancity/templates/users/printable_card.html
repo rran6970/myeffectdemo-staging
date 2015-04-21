@@ -1,3 +1,4 @@
+{% load i18n %}
 <link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet">
 <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
 
@@ -7,7 +8,7 @@
 		<img id="qr-code" src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
 		<div class="name-container">
 			<h1 class="full-name">{{ user.profile.get_full_name }}</h1>
-			<h1 class="user-id">Member ID: {{ user.id }}</h1>
+			<h1 class="user-id">{%trans "Member ID:" %} {{ user.id }}</h1>
 		</div>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Leader Referral {% endblock %}
+{% block title %} My Effect - {%trans "Leader Referral" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,8 +19,8 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="leader-referral small">
-          <h1>Refer a leader to My Effect</h1>
-          <p class="subtitle">Do you know an interested teacher youth group leader, or city hall counselor?</p>
+          <h1>{%trans "Refer a leader to" %} My Effect</h1>
+          <p class="subtitle">{%trans "Do you know an interested teacher youth group leader, or city hall counselor?" %}</p>
           
           {% if form.non_field_errors %}
             <div class="message-box error">

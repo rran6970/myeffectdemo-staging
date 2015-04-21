@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Clean City - Report Card {% endblock %}
+{% block title %} My Clean City - {%trans "Report Card" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -20,18 +21,18 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign report-card" id="sign-go-back"></div></a> -->
         <div id="white-box" class="report-card">
-            <h2>{{ user.first_name }}'s Volunteer Report Card</h2>
-            <a style="display: block; margin-bottom: 10px;" href="/users/printable-report-card">Printer Friendly Version</a>
+            <h2>{{ user.first_name }}'s {%trans "Volunteer Report Card" %}</h2>
+            <a style="display: block; margin-bottom: 10px;" href="/users/printable-report-card">{%trans "Printer Friendly Version" %}</a>
             
             <table>
               <thead>
                 <tr>
-                  <td class="date">Date</td>
-                  <td class="hours">Hours</td>
-                  <td class="organization">Organization</td>
-                  <td class="skills">Skills</td>
-                  <td class="description">Description</td>
-                  <td class="supervisor-name">Supervistor's Name<br/>and Phone Number</td>
+                  <td class="date">{%trans "Date" %}</td>
+                  <td class="hours">{%trans "Hours" %}</td>
+                  <td class="organization">{%trans "Organization" %}</td>
+                  <td class="skills">{%trans "Skills" %}</td>
+                  <td class="description">{%trans "Description" %}</td>
+                  <td class="supervisor-name">{%trans "Supervistor's Name" %}<br/>{%trans "and Phone Number" %}</td>
                   <!-- <td class="supervisor-signature">Supervistor's Signature</td>
                   <td class="designate-signature">Principal's/Designate's<br/>Signature(if required)</td> -->
                 </tr>
@@ -94,7 +95,7 @@
                   {% endfor %}
                 {% else %}
                   <tr>
-                    <td style="padding: 100px;" colspan="7">You haven't participated in any CleanActs yet.</td>
+                    <td style="padding: 100px;" colspan="7">{%trans "You haven't participated in any CleanActs yet." %}</td>
                   </tr>
                 {% endif %}
               </tbody>

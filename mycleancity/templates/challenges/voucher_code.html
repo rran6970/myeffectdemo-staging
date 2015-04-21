@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Voucher Code {% endblock %}
+{% block title %} My Effect - {%trans "Voucher Code" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,8 +20,8 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-            <h2>Voucher Code</h2>
-            <span class="subtitle">Enter your voucher code to claim your <span class="blue bold">Change</span> <span class="gold bold">Creds</span>.</span>
+            <h2>{%trans "Voucher Code" %}</h2>
+            <span class="subtitle">{%trans "Enter your voucher code to claim your" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>.</span>
 
 			       {% if form.non_field_errors %}
               <div class="message-box error">

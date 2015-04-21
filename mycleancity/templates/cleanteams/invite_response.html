@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Register Change Team {% endblock %}
+{% block title %} My Effect - {%trans "Register Change Team" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,11 +19,11 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="invite-response">
-            <p>{{ invite.user.get_full_name }} from {{ invite.clean_team.name }} is inviting you to be a 
+            <p>{{ invite.user.get_full_name }} {%trans "from" %} {{ invite.clean_team.name }} {%trans "is inviting you to be a" %} 
               {% if invite.role == "leader" %}
-                Change Leader
+                {%trans "Change Leader" %}
               {% else %}
-                Agent
+                {%trans "Agent" %}
               {% endif %}
             </p>
 

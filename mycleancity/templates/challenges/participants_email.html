@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - {{ challenge.title }} Participants Manage {% endblock %}
+{% block title %} My Effect - {{ challenge.title }} {%trans "Participants Manage" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -23,9 +24,9 @@
     <div class="container">
     	<a href="#" onclick="history.go(-1); return false;"><div class="sign clean-team-members" id="sign-go-back"></div></a>
         <div id="white-box" class="participants-manage">
-        	<h1>Send email to all participants of {{ challenge.title }}</h1>
+        	<h1>{%trans "Send email to all participants of" %} {{ challenge.title }}</h1>
           {% if success %}
-            <div class="alert alert-success" role="alert">Email sent successfully!</div>
+            <div class="alert alert-success" role="alert">{%trans "Email sent successfully!" %}</div>
           {% else %}
           	{% if form.non_field_errors %}
                 <div class="message-box error">
@@ -45,10 +46,10 @@
         </div><!-- /#white-box -->
 
 		<div id="white-box" class="participants">	
-			<h1 id="team-name">Participants</h1>
-			<p>Total: {{ count }}
+			<h1 id="team-name">{%trans "Participants" %}</h1>
+			<p>{%trans "Total:" %} {{ count }}
 	        {% if challenge.limit > 0 %}
-	        Max: {{challenge.limit}}
+	        {%trans "Max:" %} {{challenge.limit}}
 	        {% endif %}
 	        </p>
 	        <div id="clean-team-members-list">

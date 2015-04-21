@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Invite to Join {% endblock %}
+{% block title %} My Effect - {%trans "Invite to Join" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -21,7 +22,7 @@
       
       <div id="white-box" class="invite">
         {% csrf_token %}
-        <h2>Organization Referral</h2>
+        <h2>{%trans "Organization Referral" %}</h2>
         
         <div class="table-container">
           <table class="table table-hover" id="invitees-table">
@@ -49,8 +50,8 @@
       </div><!-- /#white-box -->
 
       <div id="white-box" class="invite-form">  
-        <h1>Refer an Organization to My Effect</h1>
-          <p class="subtitle">Do you know a community organization with an existing project or event that promotes positive change?</p>
+        <h1>{%trans "Refer an Organization to" %} My Effect</h1>
+          <p class="subtitle">{%trans "Do you know a community organization with an existing project or event that promotes positive change?" %}</p>
           
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -62,16 +63,16 @@
             <table>
               <tr>
                 {% if clean_team %}
-                <td><label for="id_role">Role</label> <select id="invite_id_role" name="role">
-                  <option value="agent">Friend(Agent)</option>
-                  <option value="leader">Leader</option>
-                  <option value="organization" selected>Organization</option>
+                <td><label for="id_role">{%trans "Role" %}</label> <select id="invite_id_role" name="role">
+                  <option value="agent">{%trans "Friend(Agent)" %}</option>
+                  <option value="leader">{%trans "Leader" %}</option>
+                  <option value="organization" selected>{%trans "Organization" %}</option>
                   </select>
                 </td>
                 {% else %}
-                <td><label for="id_role">Role</label> <select id="invite_id_role" name="role">
-                  <option value="friend">Friend</option>
-                  <option value="organization" selected>Organization</option>
+                <td><label for="id_role">{%trans "Role" %}</label> <select id="invite_id_role" name="role">
+                  <option value="friend">{%trans "Friend" %}</option>
+                  <option value="organization" selected>{%trans "Organization" %}</option>
                   </select>
                 </td>
                 {% endif %}

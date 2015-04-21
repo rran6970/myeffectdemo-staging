@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Invite to Join {% endblock %}
+{% block title %} My Effect - {%trans "Invite to Join" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,9 +23,9 @@
       <div id="white-box" class="invite">
         {% csrf_token %}
         {% if clean_team %}
-        <h2>Invite to join {{ user.profile.clean_team_member.clean_team.name }}</h2>
+        <h2>{%trans "Invite to join" %} {{ user.profile.clean_team_member.clean_team.name }}</h2>
         {% else %}
-        <h2>Invite to join MyEffect</h2>
+        <h2>{%trans "Invite to join" %} MyEffect</h2>
         {% endif %}
         
         <div class="table-container">
@@ -62,14 +63,14 @@
       </div><!-- /#white-box -->
       <div id="white-box" class="invite-form">
         {% if role == "leader" %}
-        <h2 id="invite-heading">Invite Leader</h2> 
-        <p id="invite-subtitle">Invite a leader to become a manager of your Change Team.</p>
+        <h2 id="invite-heading">{%trans "Invite Leader" %}</h2> 
+        <p id="invite-subtitle">{%trans "Invite a leader to become a manager of your Change Team." %}</p>
         {% elif role == "agent" %}
-        <h2 id="invite-heading">Invite Members</h2> 
-        <p id="invite-subtitle">Invite your friends to support your Change Team.</p>
+        <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
+        <p id="invite-subtitle">{%trans "Invite your friends to support your Change Team." %}</p>
         {% else %}
-        <h2 id="invite-heading">Invite Members</h2> 
-        <p id="invite-subtitle">Invite your friends to join MyEffect.</p>
+        <h2 id="invite-heading">{%trans "Invite Members" %}</h2> 
+        <p id="invite-subtitle">{%trans "Invite your friends to join MyEffect." %}</p>
         {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -84,19 +85,19 @@
                 {% if role %}
                 <td>{{ form.role.label_tag }} {{ form.role }}</td>
                 {% else %}
-                <td><label for="id_role">Role</label> 
+                <td><label for="id_role">{%trans "Role" %}</label> 
                   <select id="id_role" name="role">
-                    <option value="friend" selected="selected">Friend</option>
-                    <option value="organization">Organization</option>
+                    <option value="friend" selected="selected">{%trans "Friend" %}</option>
+                    <option value="organization">{%trans "Organization" %}</option>
                   </select>
                 </td>
                 {% endif %}
               </tr>
               <tr>
-                <td><span>Email: (separate each email address with a comma)</span> {{ form.email }}</td>
+                <td><span>{%trans "Email: (separate each email address with a comma)" %}</span> {{ form.email }}</td>
               </tr>
               <tr>
-                <td>{{ form.terms }}<label for="">I agree to abide by anti-spam regulations and not abuse this feature.</label></td>
+                <td>{{ form.terms }}<label for="">{%trans "I agree to abide by anti-spam regulations and not abuse this feature." %}</label></td>
               </tr>
               <tr>
                 <td><input id="send-invite-button" type="submit" value="Send Invite" class="btn btn-primary"></td>

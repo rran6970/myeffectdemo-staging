@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Settings {% endblock %}
+{% block title %} My Effect - {%trans "Settings" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -20,7 +21,7 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
-            <h2>My Settings</h2>
+            <h2>{%trans "My Settings" %}</h2>
 
             {% if form.errors %}
               <div class="message-box error">
@@ -44,7 +45,7 @@
                   </tr>
                   <tr>
                       <td>{{ form.data_privacy.label_tag }}
-                          <span class="gray-italic-subtitle">By unchecking this box, your challenge participation and volunteer hours will not be seen by the organizations you work with.</span>
+                          <span class="gray-italic-subtitle">{%trans "By unchecking this box, your challenge participation and volunteer hours will not be seen by the organizations you work with." %}</span>
                         {{ form.data_privacy }}
                       </td>
                   </tr>

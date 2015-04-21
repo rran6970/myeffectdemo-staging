@@ -1,0 +1,97 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Clean City - Report Card {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="wrapper public printer-friendly">
+        <a href="/" class="logo"></a>
+
+        <div id="white-box" class="report-card printer-friendly">
+            <h2>{{ user.first_name }}'s {%trans "Volunteer Report Card" %}</h2>
+            
+            <table>
+              <thead>
+                <tr>
+                  <td class="date">{%trans "Date" %}</td>
+                  <td class="hours">{%trans "Hours" %}</td>
+                  <td class="organization">{%trans "Organization" %}</td>
+                  <td class="skills">{%trans "Skills" %}</td>
+                  <td class="description">{%trans "Description" %}</td>
+                  <td class="supervisor-name">{%trans "Supervistor's Name" %}<br/>{%trans "and Phone Number" %}</td>
+                  <!-- <td class="supervisor-signature">Supervistor's Signature</td>
+                  <td class="designate-signature">Principal's/Designate's<br/>Signature(if required)</td> -->
+                </tr>
+              </thead>
+              <tbody>
+                {% if challenges %}
+                
+                  {% for challenge in challenges %}
+                    {% for user_challenge in challenge.user_challenges %}
+                    <tr>
+                      <td>{{ user_challenge.timestamp }}</td>
+                      <td>{{ user_challenge.total_hours }}</td>
+                      <td>{{ user_challenge.challenge.organization }}</td>
+                      <td>{{ user_challenge.challenge.title }}</td>
+                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}<br/>
+                        {{ user_challenge.challenge.contact_phone }}<br/>
+                        {{ user_challenge.challenge.contact_email }}
+                      </td>
+                      <!-- <td></td>
+                      <td></td> -->
+                    </tr>
+                    {% endfor %}
+
+                    {% for clean_team_challenge in challenge.clean_team_challenges %}
+                    <tr>
+                      <td>{{ clean_team_challenge.timestamp }}</td>
+                      <td>{{ clean_team_challenge.total_hours }}</td>
+                      <td>{{ clean_team_challenge.challenge.organization }}</td>
+                      <td>{{ clean_team_challenge.challenge.title }}</td>
+                      <td>{{ clean_team_challenge.challenge.contact_first_name }} {{ clean_team_challenge.challenge.contact_last_name }}</td>
+                      <!-- <td></td>
+                      <td></td> -->
+                    </tr>
+                    {% endfor %}
+
+                    {% for staples_challenge in challenge.staples_challenges %}
+                    <tr>
+                      <td>{{ staples_challenge.timestamp }}</td>
+                      <td>{{ staples_challenge.total_hours }}</td>
+                      <td>{{ staples_challenge.challenge.organization }}</td>
+                      <td>{{ staples_challenge.challenge.title }}</td>
+                      <td>{{ staples_challenge.challenge.contact_first_name }} {{ staples_challenge.challenge.contact_last_name }}</td>
+                      <!-- <td></td>
+                      <td></td> -->
+                    </tr>
+                    {% endfor %}
+
+                    {% for user_challenge in challenge.user_challenges %}
+                    <tr>
+                      <td>{{ user_challenge.timestamp }}</td>
+                      <td>{{ user_challenge.total_hours }}</td>
+                      <td>{{ user_challenge.challenge.organization }}</td>
+                      <td>{{ user_challenge.challenge.title }}</td>
+                      <td>{{ user_challenge.challenge.contact_first_name }} {{ user_challenge.challenge.contact_last_name }}</td>
+                      <!-- <td></td>
+                      <td></td> -->
+                    </tr>
+                    {% endfor %}
+
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td style="padding: 100px;" colspan="7">{%trans "You haven't participated in any CleanActs yet." %}</td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+        </div><!-- /#white-box -->
+</div> <!-- /.wrapper -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}

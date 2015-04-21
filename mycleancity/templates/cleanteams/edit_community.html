@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Edit Community {% endblock %}
+{% block title %} My Effect - {%trans "Edit Community" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,7 +23,7 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign edit-clean-team" id="sign-go-back"></div></a>
       <div id="white-box" class="edit-clean-team">
-          <h2>Edit Community</h2>
+          <h2>{%trans "Edit Community" %}</h2>
 
           {% if form.non_field_errors %}
             <div class="message-box error">
