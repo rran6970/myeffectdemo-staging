@@ -33,7 +33,7 @@
               <table>
 		   <tr id = "org_type_tr" >
                     <td>
-                      <label for="org_type">Organization Type:</label>
+                      <label for="org_type">Organization type:</label>
                     </td>
                     <td>
                       {{form.org_type}}
