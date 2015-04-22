@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="1;url=/users/profile/">
+        <script type="text/javascript">
+            window.location.href = "/users/profile/"
+        </script>
+        <title>Social account disconnected</title>
+    </head>
+    <body>
+        Your social account has been disconnected. If you are not redirected automatically, follow the <a href='/users/profile/'>link to profile</a>
+    </body>
+</html>

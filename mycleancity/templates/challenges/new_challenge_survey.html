@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - New Action {% endblock %}
+{% block title %} My Effect - {%trans "New Action" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -24,8 +25,8 @@
       	<div id="white-box" class="new-challenge-survey">
       		<form id="action-survey-frm" autocomplete="off" action="" method="post" data-parsley-validate data-parsley-trigger="change">{% csrf_token %}
 	      	<div>
-	      		<h2>Actions Survey Questions</h2>
-      			<span class="subtitle">Please fill out our survey to calculate the <span class="blue bold">Change</span> <span class="gold bold">Creds</span></span>
+	      		<h2>{%trans "Actions Survey Questions" %}</h2>
+      			<span class="subtitle">{%trans "Please fill out our survey to calculate the" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span></span>
 	      		{{ form.category.label_tag }}{{ form.category }}{{ form.category.errors }}</div><div><section>
 		      	{% for question in form %}
 		      	{% if question.label_tag != form.category.label_tag %}

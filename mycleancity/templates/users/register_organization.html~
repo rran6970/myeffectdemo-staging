@@ -1,0 +1,67 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Register Organization {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <!-- <div id="buildings"></div>
+      <a href="/challenge-centre"></a> -->
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+        <div id="white-box" class="small">
+            <h2>{%trans "Register as an Organization" %}</h2>
+
+            {% if form.non_field_errors %}
+              <div class="message-box error">
+              {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <form action="/users/register-organization/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <table>
+                    <tr>
+                        <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
+                        <td>{{ form.last_name.label_tag }} {{ form.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.organization.label_tag }} {{ form.organization }}</td>
+                        <td>{{ form.email.label_tag }} {{ form.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.password.label_tag }} {{ form.password }}</td>
+                        <td>{{ form.confirm_password.label_tag }} {{ form.confirm_password }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.city.label_tag }} {{ form.city }}</td>
+                        <td>{{ form.province.label_tag }} {{ form.province }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.website.label_tag }} {{ form.website }}</td>
+                        <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
+                    </tr>
+                </table>
+                <input class="btn btn-primary" type="submit" value="Register" />
+            </form>
+            <p>{%trans "Already have an account? Login in" %} <a href="/users/login">{%trans "here" %}</a>.</p>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

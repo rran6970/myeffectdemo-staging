@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Students {% endblock %}
+{% block title %} My Effect - {%trans "Students" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -34,31 +35,31 @@
         <div id="white-box" class="tab-content">
 
           <div class="tab-pane active" id="students">
-            <h1 class="tab-titles">Students</h1>
+            <h1 class="tab-titles">{%trans "Students" %}</h1>
             <div style="width: 550px; float: left;">
-              <p>Have the freedom to choose how, when, and where you make an impact.</p>
-              <p>Make community involvement about more than just volunteer hours.</p>
-              <p>Earn rewards for your efforts!</p>
+              <p>{%trans "Have the freedom to choose how, when, and where you make an impact." %}</p>
+              <p>{%trans "Make community involvement about more than just volunteer hours." %}</p>
+              <p>{%trans "Earn rewards for your efforts!" %}</p>
 
               <p>
-                With My Effect volunteerism can be fun and create new opportunities. We are a leadership initiative made for YOUth by YOUth.
+                {%trans "With My Effect volunteerism can be fun and create new opportunities. We are a leadership initiative made for YOUth by YOUth." %}
               </p>
               <p>
-                Our goal is to provide YOUth with a portal to:
+                {%trans "Our goal is to provide YOUth with a portal to:" %}
               </p>
               <ol>
-                <li>Collaborate with peers</li>
-                <li>Engage in fun volunteer challenges called Actions</li>
-                <li>Effortlessly track your volunteer hours and impact in your community</li>
-                <li>Make an environmental impact</li>
+                <li>{%trans "Collaborate with peers" %}</li>
+                <li>{%trans "Engage in fun volunteer challenges called Actions" %}</li>
+                <li>{%trans "Effortlessly track your volunteer hours and impact in your community" %}</li>
+                <li>{%trans "Make an environmental impact" %}</li>
               </ol>
 
               <p>
-                There are endless opportunities to express yourself, find your own volunteer opportunities, use the My Effect App to paperless track your volunteer activities and participate contests with friends.
+                {%trans "There are endless opportunities to express yourself, find your own volunteer opportunities, use the My Effect App to paperless track your volunteer activities and participate contests with friends." %}
               </p>
 
               <p>
-                So what are you waiting for? Join My Effect and transform your summer volunteer <span class="red">work</span> into volunteer <span class="green">PLAY!</span>
+                {%trans "So what are you waiting for? Join My Effect and transform your summer volunteer" %} <span class="red">{%trans "work" %}</span> {%trans "into volunteer" %} <span class="green">{%trans "PLAY!" %}</span>
               </p>
             </div>
 
@@ -68,7 +69,7 @@
           </div>
 
           <div class="tab-pane" id="why-mcc">
-            <h1 class="tab-titles">Why My Effect?</h3>
+            <h1 class="tab-titles">{%trans "Why My Effect?" %}</h3>
             
 
             <div class="right">
@@ -83,36 +84,36 @@
 
             <div class="left" style="width: 460px;">
               <p>
-              Whether you need volunteer hours, you are a passionate leader looking for an opportunity to take action or you simply want to get involved in your community, My Effect is has something to offer everyone. My Effect believes in the potential of YOUth and created a portal to give YOUth the freedom to lead in community your way. 
+              {%trans "Whether you need volunteer hours, you are a passionate leader looking for an opportunity to take action or you simply want to get involved in your community, My Effect is has something to offer everyone. My Effect believes in the potential of YOUth and created a portal to give YOUth the freedom to lead in community your way." %} 
               </p>
 
               <p>
-                <span class="blue">YOUth create our Actions</span><span class="green">, YOUth choose the activities to volunteer in,</span><span class="blue"> YOUth decide which organizations to connect with and YOUth lead our program in your community.</span>
+                <span class="blue">{%trans "YOUth create our Actions" %}</span><span class="green">, {%trans "YOUth choose the activities to volunteer in," %}</span><span class="blue"> {%trans "YOUth decide which organizations to connect with and YOUth lead our program in your community." %}</span>
               </p>  
-              <p>With My Effect you can show the world what YOUth are capable of and be creative doing it!</p> 
+              <p>{%trans "With My Effect you can show the world what YOUth are capable of and be creative doing it!" %}</p> 
 
-              <p><span class="bold">Engage</span> – Connect with like-minded peers and community leaders who are passionate about making a difference.</p>
+              <p><span class="bold">{%trans "Engage" %}</span> – {%trans "Connect with like-minded peers and community leaders who are passionate about making a difference." %}</p>
 
-              <p><span class="bold">Impact</span> – Sign up and participate in Actions to make a positive impact in your community.</p>
+              <p><span class="bold">{%trans "Impact" %}</span> – {%trans "Sign up and participate in Actions to make a positive impact in your community." %}</p>
 
-              <p><span class="bold">Earn</span> – Get rewarded for your effort by earning ChangeCreds. The greater the impact, the more you receive!</p>
+              <p><span class="bold">{%trans "Earn" %}</span> – {%trans "Get rewarded for your effort by earning ChangeCreds. The greater the impact, the more you receive!" %}</p>
 
-              <p><span class="bold">Redeem</span> – Cash in your <span class="bold green">Clean</span><span class="bold blue">Creds</span> for awesome rewards including gift cards, prize packs, and leadership opportunities</p>
+              <p><span class="bold">{%trans "Redeem" %}</span> – {%trans "Cash in your" %} <span class="bold green">{%trans "Clean" %}</span><span class="bold blue">{%trans "Creds" %}</span> {%trans "for awesome rewards including gift cards, prize packs, and leadership opportunities" %}</p>
             </div>
 
             <div class="clear"></div>
           </div>
 
           <div class="tab-pane" id="volunteer-tracking">
-            <h1 class="tab-titles">Volunteer Tracking</h1>
+            <h1 class="tab-titles">{%trans "Volunteer Tracking" %}</h1>
             <p>
-              Are you tired of carrying around your volunteer tracking papers? Misplacing your signatures and trying to keep all your activities straight to track your hours?
+              {%trans "Are you tired of carrying around your volunteer tracking papers? Misplacing your signatures and trying to keep all your activities straight to track your hours?" %}
             </p>
 
             <p>
-              My Effect is leading a movement for YOUth to upgrade volunteering to the 21st century. With our mobile app you can effortlessly track all your activities and hours with a simple scan of a smartphone. 
+              {%trans "My Effect is leading a movement for YOUth to upgrade volunteering to the 21st century. With our mobile app you can effortlessly track all your activities and hours with a simple scan of a smartphone." %} 
             </p>  
-            <p>Best part is, our activities are <span class="blue">100% verified and don't rely on self-reporting.</span></p> 
+            <p>{%trans "Best part is, our activities are" %} <span class="blue">{%trans "100% verified and don't rely on self-reporting." %}</span></p> 
 
             <div class="right">
               <div id="overview-infographic-thumbnail">
@@ -121,42 +122,42 @@
             </div>
 
             <div class="left" style="width: 400px;">
-              <h2 class="subtitle-blue">What does this mean?</h2>
+              <h2 class="subtitle-blue">{%trans "What does this mean?" %}</h2>
               
-              <p>You participate our volunteer challenges called <span class="green bold">#Clean</span><span class="blue bold">Acts</span>, track all your hours with our mobile app and <span class="green">simply press PRINT from your web browser.</span></p>
+              <p>{%trans "You participate our volunteer challenges called" %} <span class="green bold">#{%trans "Clean" %}</span><span class="blue bold">{%trans "Acts" %}</span>, {%trans "track all your hours with our mobile app and" %} <span class="green">{%trans "simply press PRINT from your web browser." %}</span></p>
               
-              <p><span class="blue bold">PRESTO</span> your summer work all laid out on a clean piece of paper ready to be submitted to your school on a silver platter.</p>
+              <p><span class="blue bold">{%trans "PRESTO" %}</span> {%trans "your summer work all laid out on a clean piece of paper ready to be submitted to your school on a silver platter." %}</p>
             
               <p>
-                Already have volunteer opportunities that aren't included as <span class="green bold">#Clean</span><span class="blue bold">Acts</span> in our <a href="/challenges/">Challenge Centre</a>? <a href="/contact?subject=CleanAct Referral">Email us</a> the details and your volunteer coordinator with the subject line: CleanAct Referral.
+                {%trans "Already have volunteer opportunities that aren't included as" %} <span class="green bold">#{%trans "Clean" %}</span><span class="blue bold">{%trans "Acts" %}</span> {%trans "in our" %} <a href="/challenges/">{%trans "Challenge Centre" %}</a>? <a href="/contact?subject=CleanAct Referral">{%trans "Email us" %}</a> {%trans "the details and your volunteer coordinator with the subject line: CleanAct Referral." %}
               </p>
             </div>
 
             <div class="clear"></div>
             
             <p>
-              Don’t forget to to <a href="/register/">register</a> and download the My Effect App for <a href="https://play.google.com/store/search?q=pub:My%20Clean%20City" target="_blank">Android</a> or <a href="https://itunes.apple.com/us/app/my-clean-city-app/id880287683?ls=1&mt=8" target="_blank">iPhone</a> to start tracking those hours!
+              {%trans "Don’t forget to" %} <a href="/register/">{%trans "register" %}</a> {%trans "and download the My Effect App for" %} <a href="https://play.google.com/store/search?q=pub:My%20Clean%20City" target="_blank">Android</a> {%trans "or" %} <a href="https://itunes.apple.com/us/app/my-clean-city-app/id880287683?ls=1&mt=8" target="_blank">iPhone</a> {%trans "to start tracking those hours! %}
             </p>
 
             <div class="clear"></div>
           </div>
 
           <div class="tab-pane" id="get-started">
-            <h1 class="tab-titles">Get Started</h1>
-            <p>Your Impact Your Way!</p>
-            <p>Participate as an individual or a team. <a class="popup-image" href="#infographic-user">Click to see the full benefits of each.</a></p>
+            <h1 class="tab-titles">{%trans "Get Started" %}</h1>
+            <p>{%trans "Your Impact Your Way!" %}</p>
+            <p>{%trans "Participate as an individual or a team." %} <a class="popup-image" href="#infographic-user">{%trans "Click to see the full benefits of each." %}</a></p>
 
-            <p>There are two ways to get involved:</p>
+            <p>{%trans "There are two ways to get involved:" %}</p>
             <ol>
               <li>
                 <p>
-                  <a class="popup-image" href="#infographic-user"><span class="blue">Ambassador</span></a> - You are a leader, form a new Change Team with your friends or represent existing club, local team or organization as official My Effect program leaders. Get your own team page to create <span class="green bold">#Clean</span><span class="blue bold">Acts</span>, earn team rewards and receive exclusive leadership and mentorship opportunities. <a href="#ambassador" data-toggle="tab">Click to learn more.</a>
+                  <a class="popup-image" href="#infographic-user"><span class="blue">{%trans "Ambassador" %}</span></a> - {%trans "You are a leader, form a new Change Team with your friends or represent existing club, local team or organization as official My Effect program leaders. Get your own team page to create" %} <span class="green bold">#{%trans "Clean" %}</span><span class="blue bold">{%trans "Acts" %}</span>, {%trans "earn team rewards and receive exclusive leadership and mentorship opportunities." %} <a href="#ambassador" data-toggle="tab">{%trans "Click to learn more." %}</a>
                 </p>
               </li>
 
               <li>
                 <p>
-                  <a class="popup-image" href="#infographic-user"><span class="blue">Catalyst</span></a> - You are a free agent, participate in the <span class="green bold">#Clean</span><span class="blue bold">Acts</span> that interest you at your own pace. Earn your volunteer hours and redeem for individual rewards.
+                  <a class="popup-image" href="#infographic-user"><span class="blue">{%trans "Catalyst" %}</span></a> - {%trans "You are a free agent, participate in the" %} <span class="green bold">#{%trans "Clean" %}</span><span class="blue bold">{%trans "Acts" %}</span> {%trans "that interest you at your own pace. Earn your volunteer hours and redeem for individual rewards." %}
                 </p>
               </li>
             </ol>
@@ -166,12 +167,12 @@
           </div>
 
           <div class="tab-pane" id="create-team">
-            <h1 class="tab-titles">Create a Team</h1>
+            <h1 class="tab-titles">{%trans "Create a Team" %}</h1>
 
-            <h2 class="subtitle-blue">Want to lead a Change Team?</h2>
+            <h2 class="subtitle-blue">{%trans "Want to lead a Change Team?" %}</h2>
             
             <p>
-              Every Change Team starts off as a seed. As your team grows to create Actions and recruit peers to sign up as Catalysts you move up levels from sprout, to sapling to tree and all the way to full bloom. Special privileges are unlocked along the way, you earn more responsibility as a My Effect leader and if you hit full bloom you will receive national recognition including an exclusive invite to My Effect's official executive team.
+              {%trans "Every Change Team starts off as a seed. As your team grows to create Actions and recruit peers to sign up as Catalysts you move up levels from sprout, to sapling to tree and all the way to full bloom. Special privileges are unlocked along the way, you earn more responsibility as a My Effect leader and if you hit full bloom you will receive national recognition including an exclusive invite to My Effect's official executive team." %}
             </p>
 
             <img src="{{ STATIC_URL }}images/badge-level-1-75x63.png" alt="" />
@@ -180,71 +181,71 @@
             <img src="{{ STATIC_URL }}images/badge-level-4-75x73.png" alt="" />
             <img src="{{ STATIC_URL }}images/badge-level-5-75x73.png" alt="" />
 
-            <h2 class="subtitle-blue">What are some privileges to look forward to?</h2>
+            <h2 class="subtitle-blue">{%trans "What are some privileges to look forward to?" %}</h2>
 
             <ul>
-              <li>$1000 Staples Gift Card Grand Prize</li>
-              <li>Represent My Effect at events and in media</li>
-              <li>Receive special rewards and opportunities with corporate leaders</li>
-              <li>Unlock bonus <span class="blue bold">Change</span> <span class="gold bold">Creds</span> and multipliers to use with your Actions and more!</li>
+              <li>$1000 {%trans "Staples Gift Card Grand Prize" %}</li>
+              <li>{%trans "Represent My Effect at events and in media" %}</li>
+              <li>{%trans "Receive special rewards and opportunities with corporate leaders" %}</li>
+              <li>{%trans "Unlock bonus" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "and multipliers to use with your Actions and more!" %}</li>
             </ul>
 
             <p>
-              Start building your Change Team to learn about all of the exciting opportunities we have in store for you!
+              {%trans "Start building your Change Team to learn about all of the exciting opportunities we have in store for you!" %}
             </p>
 
-            <p class="center"><a href="/register/">Register</a> to be an ambassador to <span class="bold">earn 50 bonus</span> <span class="blue bold">Change</span> <span class="gold bold">Creds</span>.</p>
+            <p class="center"><a href="/register/">{%trans "Register" %}</a> {%trans "to be an ambassador to" %} <span class="bold">{%trans "earn 50 bonus" %}</span> <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>.</p>
           </div>  
 
           <div class="tab-pane" id="ambassador">
-            <h1 class="tab-titles">Become an Ambassador</h1>
+            <h1 class="tab-titles">{%trans "Become an Ambassador" %}</h1>
 
-            <p>We need ambitious and charismatic leaders to bring My Effect to your community!</p>
-            <p>Our Ambassadors are our leaders. They inspire others to make an impact and take an active role in marketing and communications on behalf of My Effect. Run by YOUth for YOUth, you are our face and voice in your city!</p>
+            <p>{%trans "We need ambitious and charismatic leaders to bring My Effect to your community!" %}</p>
+            <p>{%trans "Our Ambassadors are our leaders. They inspire others to make an impact and take an active role in marketing and communications on behalf of My Effect. Run by YOUth for YOUth, you are our face and voice in your city!" %}</p>
 
-            <p>As a Ambassador, you get to:</p>
+            <p>{%trans "As a Ambassador, you get to:" %}</p>
 
             <ul>
-              <li>Choose how, when and where you lead others to make a difference</li>
-              <li>Network with local not-for-profit and grassroots organizations, and be a liaison to connect volunteers in your community</li>
-              <li>Lead a team and create your own Actions</li>
-              <li>Manage your team page and have a hub to share your ideas and take action in your community</li>
-              <li>Participate in exclusive Change Team challenges with our brand partners</li>
-              <li>Unlock special rewards and leadership opportunities</li>
-              <li>Become a top Change Team and be invited to join My Effect's executive leadership team</li>
+              <li>{%trans "Choose how, when and where you lead others to make a difference" %}</li>
+              <li>{%trans "Network with local not-for-profit and grassroots organizations, and be a liaison to connect volunteers in your community" %}</li>
+              <li>{%trans "Lead a team and create your own Actions" %}</li>
+              <li>{%trans "Manage your team page and have a hub to share your ideas and take action in your community" %}</li>
+              <li>{%trans "Participate in exclusive Change Team challenges with our brand partners" %}</li>
+              <li>{%trans "Unlock special rewards and leadership opportunities" %}</li>
+              <li>{%trans "Become a top Change Team and be invited to join My Effect's executive leadership team" %}</li>
             </ul>
 
             <p>
-              Check out the 5 easy steps of becoming a <a class="popup-image" href="#infographic-clean-team">Ambassador</a>.
+              {%trans "Check out the 5 easy steps of becoming a" %} <a class="popup-image" href="#infographic-clean-team">{%trans "Ambassador" %}</a>.
             </p>
-            <p>Sign up as a Ambassador today and earn 50 Bonus <span class="bold green">Clean</span><span class="bold blue">Creds</span>!</p>
+            <p>{%trans "Sign up as a Ambassador today and earn 50 Bonus" %} <span class="bold green">{%trans "Clean" %}</span><span class="bold blue">{%trans "Creds" %}</span>!</p>
 
             <p>
               <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
             </p>
-            <p class="center"><a href="/register/">Register</a> to be an ambassador to <span class="bold">earn 50 bonus</span> <span class="blue bold">Change</span> <span class="gold bold">Creds</span>.</p>
+            <p class="center"><a href="/register/">{%trans "Register" %}</a> {%trans "to be an ambassador to" %} <span class="bold">{%trans "earn 50 bonus" %}</span> <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>.</p>
           </div>
 
           <div class="tab-pane" id="get-rewarded">
-            <h1 class="tab-titles">Get Rewarded</h1>
+            <h1 class="tab-titles">{%trans "Get Rewarded" %}</h1>
 
             <p>
-              My Effect wants to recognize you for your actions. Cash in your volunteer hours for awesome rewards including gift cards, prize packs, and leadership opportunities.
+              {%trans "My Effect wants to recognize you for your actions. Cash in your volunteer hours for awesome rewards including gift cards, prize packs, and leadership opportunities." %}
             </p>
 
-            <h2 class="subtitle-blue" style="margin-top: 17px;">How do I earn rewards?</h2>
+            <h2 class="subtitle-blue" style="margin-top: 17px;">{%trans "How do I earn rewards?" %}</h2>
             <ul>
-              <li>Take Action</li>
-              <li>Complete Actions</li>
-              <li>Earn <span class="blue bold">Change</span> <span class="gold bold">Creds</span></li>
+              <li>{%trans "Take Action" %}</li>
+              <li>{%trans "Complete Actions" %}</li>
+              <li>{%trans "Earn" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span></li>
             </ul>
 
-            <h2 class="subtitle-blue" style="margin-top: 17px;">How do <span class="blue bold">Change</span> <span class="gold bold">Creds</span> work?</h2>
+            <h2 class="subtitle-blue" style="margin-top: 17px;">{%trans "How do" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "work?" %}</h2>
             <p>
-              <span class="blue bold">Change</span> <span class="gold bold">Creds</span> allow you to measure your impact and compete with your peers on a national level! It’s like volunteering where you get to keep score! Choose what you want to do, and show others your accomplishments! Become a TOP Catalyst or Team and move up on our <a href="/users/leaderboard/">Leader Board</a>.
+              <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "allow you to measure your impact and compete with your peers on a national level! It’s like volunteering where you get to keep score! Choose what you want to do, and show others your accomplishments! Become a TOP Catalyst or Team and move up on our" %} <a href="/users/leaderboard/">{%trans "Leader Board" %}</a>.
             </p>
             <p>
-              Visit our <a href="/rewards">Rewards Hub</a> for a <span class="blue bold">Change</span> <span class="gold bold">Creds</span> cheat sheet and learn how to boost your score.
+              {%trans "Visit our" %} <a href="/rewards">{%trans "Rewards Hub" %}</a> {%trans "for a" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "cheat sheet and learn how to boost your score." %}
             </p>
 
             <p>
@@ -254,20 +255,20 @@
 
           <div class="tab-pane" id="go-viral">
             <br/><br/><br/><br/>
-            <h1 class="tab-titles">Go Viral</h1>
+            <h1 class="tab-titles">{%trans "Go Viral" %}</h1>
             <p>
-              Add your voice to our national movement and show Canada what YOUth are capable of!
+              {%trans "Add your voice to our national movement and show Canada what YOUth are capable of!" %}
             </p>
 
-            <p>Join the <a href="http://twitter.com/#MyCleanCity" target="_blank">#MyCleanCity</a> Challenge on Twitter, Instagram, and Facebook</p>
+            <p>{%trans "Join the" %} <a href="http://twitter.com/#MyCleanCity" target="_blank">#MyCleanCity</a> {%trans "Challenge on Twitter, Instagram, and Facebook" %}</p>
 
             <ul>
               <li>Twitter: <a href="http://twitter.com/@MyCleanCity1" target="_blank">@MyCleanCity1</a></li>
               <li>Instagram: <a href="http://instagram.com/MyCleanCity" target="_blank">@MyCleanCity</a></li>
             </ul>
 
-            <h2 class="subtitle-blue" style="margin-top: 17px;">Follow us. Tag us. Like us.</h2>
-            <p>See how others are transforming leadership into <a href="http://twitter.com/#volunteerplay" target="_blank">#volunteerplay</a> in our <a href="/media-hub">Communications Hub</a>.</p>
+            <h2 class="subtitle-blue" style="margin-top: 17px;">{%trans "Follow us. Tag us. Like us." %}</h2>
+            <p>{%trans "See how others are transforming leadership into" %} <a href="http://twitter.com/#volunteerplay" target="_blank">#{%trans "volunteerplay" %}</a> {%trans "in our" %} <a href="/media-hub">{%trans "Communications Hub" %}</a>.</p>
           </div>
 
         </div><!-- /#white-box -->

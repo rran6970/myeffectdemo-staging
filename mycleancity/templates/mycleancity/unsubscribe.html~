@@ -1,0 +1,29 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="wrapper public">
+  <div class="clouds"></div>
+        
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+      <div id="white-box">
+        <h1>Successfully Unsubscribed</h1>
+      </div><!-- /#white-box -->
+  
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

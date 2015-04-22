@@ -1,6 +1,12 @@
 {% extends '_public_base.html' %}
+<<<<<<< HEAD
 
 {% block title %} My Effect - Profile {% endblock %}
+=======
+{% load i18n %}
+
+{% block title %} My Effect - {%trans "Profile" %} {% endblock %}
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -13,13 +19,23 @@
   {% include "_navbar.html" %}
   <a href="/" class="logo"></a>
   {% load wysiwyg %}
+<<<<<<< HEAD
   {% wysiwyg_setup %}
+=======
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/django-wysiwyg/skin.css">
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/editor.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/django_wysiwyg.js"></script>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
   <div class="content">
     <div class="container">
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
+<<<<<<< HEAD
             <h2>My Profile</h2>
+=======
+            <h2>{%trans "My Profile" %}</h2>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
             {% include "socialaccount/snippets/connection_list.html" %}
             {% if form.errors %}
               <div class="message-box error">
@@ -37,7 +53,12 @@
                 <table>
                     <tr>
                       <td>{{ form.category.label_tag }} {{ form.category }}</td>
+<<<<<<< HEAD
                       <td></td>
+=======
+                      <td>Interests <br/>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
+ {{value}}<br/> {% endfor%}</td>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                     </tr>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
@@ -50,10 +71,16 @@
                     <tr>
                         <td>{{ form.emergency_contact_fname.label_tag }} {{ form.emergency_contact_fname }}</td>
                         <td>{{ form.emergency_contact_lname.label_tag }} {{ form.emergency_contact_lname }}</td>
+<<<<<<< HEAD
 			<td>{{ form.emergency_phone.label_tag }} {{ form.emergency_phone }}</td>
                     </tr>
                     <tr>
                         
+=======
+                    </tr>
+                    <tr>
+                        <td>{{ form.emergency_phone.label_tag }} {{ form.emergency_phone }}</td>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                         <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
                     </tr>
                     <tr>
@@ -65,6 +92,14 @@
                         <td>{{ form.country.label_tag }} {{ form.country }}</td>
                     </tr>
                     <tr>
+<<<<<<< HEAD
+=======
+                        <td id="community-td">{{ form.community.label_tag }} {{ form.community }}
+                        {% if form.community_request_pending %}
+                           (Request Pending)
+                        {% endif %}
+                        </td>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                         <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
                     </tr>
                     <tr>
@@ -80,7 +115,11 @@
                     <tr>
                       <td style="padding-top: 10px;" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                     </tr>
+<<<<<<< HEAD
                 </table> 
+=======
+                </table>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                 <input class="btn btn-primary" type="submit" value="Update" />
             </form>
         </div><!-- /#white-box -->
@@ -88,7 +127,13 @@
   </div><!-- /.about -->
   {% wysiwyg_editor "id_about" %}
 </div> <!-- /.wrapper -->
+<<<<<<< HEAD
 
+=======
+<script type="text/javascript">
+    var communities_search_url = "{{ community_search_url }}";
+</script>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

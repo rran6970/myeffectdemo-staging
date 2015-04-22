@@ -1,0 +1,14 @@
+{% extends '_public_base.html' %}
+{% include '_navbar.html' with login='active' %}
+
+{% block title %} My Effect - Invalid {% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	
+	<p>That email and password is incorrect.</p>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,4 +1,5 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
 {% block title %} My Effect - {{ challenge.title }} {% endblock %}
 
@@ -38,19 +39,19 @@
 
           <div class="clear"></div>
           {% if challenge.clean_team_only %}
-            <span class="clean-team-only bold"><h2>Change Teams Only</h2></span>
+            <span class="clean-team-only bold"><h2>{%trans "Change Teams Only" %}</h2></span>
           {% endif %}
         	<div class="clear"></div>
 
         	{% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team.id == challenge.clean_team.id %}
           <div>
             <span id="edit-challenge-link">
-            <a href="/challenges/edit/{{ challenge.id }}/">Edit Action</a>
+            <a href="/challenges/edit/{{ challenge.id }}/">{%trans "Edit Action" %}</a>
           </span>
           </div>
         	<div>
             <span id="send-email-link">
-            <a href="/challenges/participants-email/{{ challenge.id }}/">Send emails to participants</a>
+            <a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
             </span>
           </div>
           
@@ -60,55 +61,55 @@
   			<table>
           {% if challenge.host_organization %}
             <tr>
-              <td><span class="titles">Hosted by: {{ challenge.host_organization }}</span></td>
+              <td><span class="titles">{%trans "Hosted by:" %} {{ challenge.host_organization }}</span></td>
             </tr>
           {% endif %}
           <tr>
-            <td colspan="2"><span class="titles">Category:</span> <span class="bold"><a href="/challenges/?q=&amp;cat={{ challenge.category }}">{{ challenge.get_category }}</a></span></td>
+            <td colspan="2"><span class="titles">{%trans "Category:" %}</span> <span class="bold"><a href="/challenges/?q=&amp;cat={{ challenge.category }}">{{ challenge.get_category }}</a></span></td>
           </tr>
           <tr>
-            <td colspan="2"><span class="titles">Created by:</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
+            <td colspan="2"><span class="titles">{%trans "Created by:" %}</span> <span class="bold"><a href="/clean-team/{{ challenge.clean_team.id }}">{{ challenge.clean_team.name }}</a></span></td>
           </tr>
           {% if challenge.contact_first_name %}
           <tr>
-            <td colspan="2"><span class="titles">Main Contact:</span> <span class="bold">
+            <td colspan="2"><span class="titles">{%trans "Main Contact:" %}</span> <span class="bold">
               <a class="popup-600" href="#challenge-description">{{ challenge.contact_first_name }} {{ challenge.contact_last_name }}</a></span></td>
           </tr>
           {% endif %}
           {% if challenge.day_of_week != -1 %}
           <tr>
-            <td colspan="2"><span class="titles">Time:</span>&nbsp;Every {{ challenge.get_day_of_week }} from {{ challenge.event_start_time }} to {{ challenge.event_end_time }}</td>
+            <td colspan="2"><span class="titles">{%trans "Time:" %}</span>&nbsp;{%trans "Every" %} {{ challenge.get_day_of_week }} {%trans "from" %} {{ challenge.event_start_time }} {%trans "to" %} {{ challenge.event_end_time }}</td>
           </tr>
           <tr>
-            <td colspan="2"><span class="titles">Start Date:</span>&nbsp;{{ challenge.event_start_date }}</td>
+            <td colspan="2"><span class="titles">{%trans "Start Date:" %}</span>&nbsp;{{ challenge.event_start_date }}</td>
           </tr>
           <tr>
-            <td colspan="2"><span class="titles">End Date:</span>&nbsp;{{ challenge.event_end_date }}</td>
+            <td colspan="2"><span class="titles">{%trans "End Date:" %}</span>&nbsp;{{ challenge.event_end_date }}</td>
           </tr>
           {% else %}
   				<tr>
-  					<td colspan="2"><span class="titles">Date and time:</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} until {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
+  					<td colspan="2"><span class="titles">{%trans "Date and time:" %}</span> {{ challenge.event_start_date }} {{ challenge.event_start_time }} {%trans "until" %} {{ challenge.event_end_date }} {{ challenge.event_end_time }}</td>
           </tr>
           {% endif %}
           {% if challenge.address1 and challenge.province %}
   				<tr>
-  					<td colspan="2"><span class="titles">Location:</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
+  					<td colspan="2"><span class="titles">{%trans "Location:" %}</span> {{ challenge.address1 }} {{ challenge.address2 }} {{ challenge.city }}, {{ challenge.province }} {{ challenge.postal_code }} {{ challenge.country }}</td>
   				</tr>
           {% elif challenge.country %}
           <tr>
-            <td colspan="2"><span class="titles">Country:</span>{{ challenge.country }}</td>
+            <td colspan="2"><span class="titles">{%trans "Country:" %}</span>{{ challenge.country }}</td>
           </tr>
           {% endif %}
           {% if challenge.link %}
           <tr>
-            <td colspan="2"><a href="{{ challenge.link }}" target="_blank">External Link</a></td>
+            <td colspan="2"><a href="{{ challenge.link }}" target="_blank">{%trans "External Link" %}</a></td>
           </tr>
           {% endif %}
           {% if skilltags %}
           <tr>
             <td colspan="2">
               <div class ="skilltags-list">
-                <span class="titles">Skills:</span>
+                <span class="titles">{%trans "Skills:" %}</span>
                   <ul>
                     {% for tag in skilltags %}
                     <!--<span><a href="">{{ tag.skill_tag.skill_name }}</a>,&nbsp;</span>-->
@@ -121,7 +122,7 @@
           {% endif %}
 
   				<tr>
-  					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
+  					<td><h2 class="clean-creds-per-hour">{{ challenge.clean_creds_per_hour }}&nbsp;<span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span><span>{% if challenge.type.challenge_type == "hourly" %}/hr{% endif %}</span></h2></td>
             <td><div class="fb-like" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
         
         <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a></td>
@@ -129,7 +130,7 @@
           <tr>
             <td colspan="2">
               <p>{{ challenge.description|slice:":130" }}...</p>
-              <a id="learn-more" class="popup-600" href="#challenge-description">Learn more</a>
+              <a id="learn-more" class="popup-600" href="#challenge-description">{%trans "Learn more" %}</a>
             </td>
           </tr>
   			</table>
@@ -139,25 +140,27 @@
   			{% if user.is_authenticated %}
           {% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
             <form action="/challenges/participants-manage/{{ challenge.id }}/">
-            <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
-          </form>
+              <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
+            </form>
+          {% else  %}
+	            <p>You must be a manager to manager participants.</p>
           {% endif %}
           {% if challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}
               {% if user_challenge %}
                 {% if participating_store %}
-                  <h2>Participating with</h2>
+                  <h2>{%trans "Participating with" %}</h2>
                   <div class="clear"></div>
-                  <p>Store {{ participating_store.staples_store.store_no }} - {{ participating_store.staples_store.store_name }}
+                  <p>{%trans "Store" %} {{ participating_store.staples_store.store_no }} - {{ participating_store.staples_store.store_name }}
                     <br>
                   {{ participating_store.staples_store.address }} {{ participating_store.staples_store.city }}
                   </p>
                 {% endif %}
-                {% if can_unparticipate %}
-                  <form action="/challenges/unparticipate/" method="post">
+                {% if can_withdraw %}
+                  <form action="/challenges/withdraw/" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="cid" value="{{ challenge.id }}">
-                    <input id="participate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
+                    <input id="participate-btn" class="btn btn-primary" type="submit" value="Withdraw" />
                   </form>
                 {% else %}
                   <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="Participating" />
@@ -168,11 +171,11 @@
                   <input type="hidden" name="cid" value="{{ challenge.id }}">
 
                   {% if challenge.url == "staples-cleanact" %}
-                    <label id="staples-stores-label" for="staples_store">Select an available Staples store below:</label>
+                    <label id="staples-stores-label" for="staples_store">{%trans "Select an available Staples store below:" %}</label>
                     <div class="clear"></div>
                     <select name="staples_store" id="staples-stores-selection">
                     {% for store in staples_stores %}
-                      <option value="{{ store.id }}">Store No: {{ store.store_no }}&nbsp;at&nbsp;{{ store.store_name }}</option>
+                      <option value="{{ store.id }}">{%trans "Store No:" %} {{ store.store_no }}&nbsp;{%trans "at" %}&nbsp;{{ store.store_name }}</option>
                     {% endfor %}
                     </select>
                   {% endif %}
@@ -181,7 +184,7 @@
                 </form>
               {% endif %}
             {% else %}
-              <a id="participate-btn" class="btn btn-primary btn-block" href="/clean-team/create-or-request/">Create Change Team</a>
+              <a id="participate-btn" class="btn btn-primary btn-block" href="/clean-team/create-or-request/">{%trans "Create Change Team" %}</a>
             {% endif %}
           {% else %}
             {% if user_challenge %}
@@ -190,11 +193,11 @@
               {% else %}
                 <input id="participate-btn" disabled class="btn btn-primary" type="submit" value="awaiting for approval" />
               {% endif %}
-              {% if can_unparticipate %}
-                <form action="/challenges/unparticipate/" method="post">
+              {% if can_withdraw %}
+                <form action="/challenges/withdraw/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="cid" value="{{ challenge.id }}">
-                  <input id="unparticipate-btn" class="btn btn-primary" type="submit" value="Unparticipate" />
+                  <input id="withdraw-btn" class="btn btn-primary" type="submit" value="Withdraw" />
                 </form>
               {% endif %}
             {% else %}
@@ -207,25 +210,29 @@
                 <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Participate" />
                 {% endif %}
                 <div id="participating-message-box" style="display: none;">
-                  <p>Please describe the reason you want to participate in this action:</p>
+                  <p>{%trans "Please describe the reason you want to participate in this action:" %}</p>
                   <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
+                  <p>Please describe the reason you want to participate in this action:</p>
+                  <textarea cols="30" id="id_message" name="message" rows="5"></textarea><br>
+                  <input id="id_receive_email" name="receive_email" type="checkbox">
+                  <label for="id_receive_email">Would you like to receive info and reminders of this action?</label>
                   <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
                 </div>
               </form>
             {% endif %}
           {% endif %}
   			{% else %}
-  				<a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">Register Now to Participate</a>
+  				<a id="participate-btn" class="btn btn-primary btn-block" href="/users/register">{%trans "Register Now to Participate" %}</a>
   			{% endif %}
 
       </div><!-- /#white-box -->
 
       <div id="participants-box">
-      	<h1>Participants</h1>
+      	<h1>{%trans "Participants" %}</h1>
 
-      	<p>Total: {{ count }}
+      	<p>{%trans "Total:" %} {{ count }}
         {% if challenge.limit > 0 %}
-        Max: {{challenge.limit}}
+        {%trans "Max:" %} {{challenge.limit}}
         {% endif %}
         </p>
         <ul class="participants-list">
@@ -265,20 +272,20 @@
       <div id="challenge-description" class="popup">
         <p>{{ challenge.description }}</p>
         <div id="main-contact-container">
-          <h2>Main Contact</h2>
+          <h2>{%trans "Main Contact" %}</h2>
           <table class="table">
             <tr>
-              <td><span class="titles">Name:</span> <span class="bold">
+              <td><span class="titles">{%trans "Name:" %}</span> <span class="bold">
                 {{ challenge.contact_first_name }} {{ challenge.contact_last_name }}
               </td>
             </tr>
             <tr>
-              <td><span class="titles">Email address:</span> <span class="bold">
+              <td><span class="titles">{%trans "Email address:" %}</span> <span class="bold">
                 <a href="mailto:{{ challenge.clean_team.contact_user.email }}">{{ challenge.contact_email }}</a>
               </td>
             </tr>
             <tr>
-              <td><span class="titles">Phone number:</span> <span class="bold">
+              <td><span class="titles">{%trans "Phone number:" %}</span> <span class="bold">
                 {{ challenge.contact_phone }}
               </td>
             </tr>

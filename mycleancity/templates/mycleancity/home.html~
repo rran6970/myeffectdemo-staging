@@ -1,0 +1,57 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include '_navbar.html' %}
+  <a href="/" class="logo"></a>
+  
+  <h1 class="title">{% trans "Change starts with ME!" %}</h1>
+  <div class="container">
+    <a id="buildings-link" href="/challenges/"></a>
+    <div id="buildings"></div>
+
+    <a href="/communication-hub"><div id="recycle-bench"></div></a>
+    
+    {% if user.is_authenticated %}
+      <div id="sign-user">
+        <div class="left"></div>
+        <div class="sign-content">WELCOME {{ user.first_name|upper }}</div>
+        <div class="right"></div>
+      </div><!-- /#sign-user -->
+      <a href="/users/profile/{{ user.id }}"><div class="sign" id="sign-my-profile"></div></a>
+      <a href="/challenges/my-challenges"><div class="sign" id="sign-my-actions2"></div></a>
+      <a href="/rewards"><div class="sign" id="sign-rewards3"></div></a>
+    {% else %}
+      <a href="//www.youtube.com/embed/FewQQN8lVjI?rel=0&amp;wmode=transparent" class="youtube-popup"><div class="sign" id="sign-learn-more"></div></a>
+      <a href="/register"><div class="sign" id="sign-register"></div></a>
+      <a href="/students"><div class="sign" id="sign-students"></div></a>
+      <a href="/organizations"><div class="sign" id="sign-organizations"></div></a>
+      <a href="/rewards"><div class="sign" id="sign-rewards"></div></a>
+    {% endif %}
+    <div id="sign-stump"></div>
+    
+    <div id="grass-1"></div>
+    <div id="grass-2"></div>
+    <div id="grass-3"></div>
+    
+    <a id="path-1-link" href="/users/leaderboard"></a>
+    <div id="path-1"></div>
+  
+    <div id="path-2"></div>
+  </div><!-- /.container -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,0 +1,90 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Communication Hub {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content communication-hub">
+    <div class="container">
+        <div id="sign-communication-hub"></div>
+        
+        <a href="#mission" data-toggle="tab"><div class="sign" id="sign-mission"></div></a>
+        <a href="#founder" data-toggle="tab"><div class="sign" id="sign-our-founder"></div></a>
+        <a href="#approach" data-toggle="tab"><div class="sign" id="sign-approach"></div></a>
+        <a href="#model" data-toggle="tab"><div class="sign" id="sign-model"></div></a>
+        <a href="#" onclick="history.go(-1); return false;"><div class="sign about" id="sign-go-back-big"></div></a>
+        <div id="sign-stump-long"></div>
+        
+        <div id="white-box" class="tab-content">
+          <div class="tab-pane active" id="mission">
+            <a class="twitter-timeline" href="https://twitter.com/MyCleanCity1" data-widget-id="384907140789309441">Tweets by @MyCleanCity1</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+            <div class="clear"></div>
+
+            <h1 class="titles">{%trans "Photos and Videos" %}</h1>
+            <div id="instafeed"></div>
+
+            <iframe scrolling="no" marginheight="0" frameborder="0" width="609" src="http://vinalwidget.com/gallery.php?id=992634697492611072&amp;width=189&amp;margin=4&amp;display_username=1&amp;likes=1&amp;comments=1&amp;revines=1&amp;date=1&amp;description=0&amp;responsive=0&amp;frame=1" style="height: 235px;"></iframe>
+          </div>
+
+          <div class="tab-pane" id="approach">
+            <h1 class="titles">{%trans "Annoucements" %}</h1>
+
+            <a href="#staples-banner" class="popup-image"><img src="{{ STATIC_URL }}images/staples-200x300.jpg" alt="" /></a>
+
+            <p>
+              {%trans "My Effect is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!" %}
+            </p>
+            <p>
+              {%trans "Be sure to share the opportunity with your friends, My Effect will be watching for leaders who trend #RFE and we may even award some special surprises!" %}
+
+              <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+                <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">{%trans "Tweet" %}</a>
+            </p>
+          </div>
+          
+        </div><!-- /#white-box -->
+
+
+        <div id="white-box" class="resources">
+          <h2><a target="_blank" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf">{%trans "Download the YMCA Environmental Guide" %}</a></h2>
+        </div><!-- /#white-box -->
+       
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+
+<div class="popup-container">
+  <div id="staples-banner" class="popup">
+    <img src="{{ STATIC_URL }}images/staples-851x315.jpg" alt="" />
+  </div>
+</div><!-- /.popup-container -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  var feed = new Instafeed({
+      get: 'user',
+      userId: 588574229,
+      accessToken: '588574229.467ede5.399d001a278240e28c2669ede67c461e',
+      link: 'true',
+      clientId: 'c4d979a78daa4114b8d0800e135097e6'
+  });
+  feed.run();
+</script>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - My Profile {% endblock %}
+{% block title %} My Effect - {%trans "My Profile" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -24,7 +25,7 @@
           </div>
 
           <div class="sign-point-meter-bottom">
-              <h1 id="your-points"><span class="blue">CHANGE</span> <span class="gold">CREDS:</span>&nbsp;<span class="blue" id="clean-creds">{{ user_profile.profile.clean_creds }}</span></h1>
+              <h1 id="your-points"><span class="blue">{%trans "CHANGE" %}</span> <span class="gold">{%trans "CREDS:" %}</span>&nbsp;<span class="blue" id="clean-creds">{{ user_profile.profile.clean_creds }}</span></h1>
           </div>
         </div><!-- /.point-meter -->
             
@@ -46,39 +47,40 @@
           <div class="clear"></div>
           {% if user_profile.profile.city and user_profile.profile.province %}
           <div class="field">
-            <p class="title">From:</p>
+            <p class="title">{%trans "From:" %}</p>
             <p class="text">{{ user_profile.profile.city }} {{ user_profile.profile.province }}</p>
           </div>
           {% endif %}
           {% if not user_profile.profile.settings.email_privacy %}
           <div class="field">
-            <p class="title">Email:</p>
+            <p class="title">{%trans "Email:" %}</p>
             <p class="text">{{ user_profile.email }}</p>
           </div>
           {% endif %}
 
           {% if user_profile.profile.website and not user_profile.profile.website == "www.yourwebsite.com" %}
           <div class="field">
-            <p class="title">Website:</p>
+            <p class="title">{%trans "Website:" %}</p>
             <p class="text"><a href="{{ user_profile.profile.website }}" target="_blank">{{ user_profile.profile.website }}</a></p>
           </div>
           {% endif %}
           
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
-            <p class="title">Change Team:</p>
+            <p class="title">{%trans "Change Team:" %}</p>
             <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
           </div>
           {% endif %}
 
           <div class="field">
-            <p class="title">Community:</p>
+            <p class="title">{%trans "Community:" %}</p>
             {% if community %}
               <p class="text">{{ community.name }}</p>
             {% endif %}
           </div>
 <DIV style="position: absolute; top:200px; left:300px; width:200px; height:10px">
           <span class="clean-creds">
+<<<<<<< HEAD
             <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span>
 </DIV>
    
@@ -88,13 +90,22 @@
             <p class="title">Total Hours:</p>
             <p class="text">{{ total_hours }}</p>
 </DIV>
+=======
+            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
+          </span>
+          <div class="field">
+            <p class="title">{%trans "Total Hours:" %}</p>
+            <p class="text">{{ total_hours }}</p>
+	    <p class="title">Interests</p>
+            <p class="field">{{focus}}</P>
+>>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
           </div>
 </p>
           </span>
           {% load socialaccount %}
           {% get_social_accounts user_profile.profile.user as accounts %}
           {% if accounts %}
-          <p><strong>Social accounts:</strong></p>
+          <p><strong>{%trans "Social accounts:" %}</strong></p>
           <div class="socialaccount_profile" id ="connection_list">
             {% if accounts.twitter %}
             <a href="{{accounts.twitter.0.get_profile_url }}" target="_blank">
@@ -142,10 +153,14 @@
 
         {% endif %}
 
+        {% if user.resume == user_profile.resume %}
+	  <div style="text-align: center;"><span><a href="/users/profile.resume">Resume</a></span></div>
+        {% endif %}
+
         <div class="info" style="width: 100%;">
           {% if user_profile.profile.about %}
           <div class="field about">
-            <p class="title">About:</p>
+            <p class="title">{%trans "About:" %}</p>
             <div class="clear"></div>
             <p class="text">{{ user_profile.profile.about }}</p>
           </div>

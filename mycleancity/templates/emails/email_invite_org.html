@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -20,23 +21,23 @@
             </tr>
             <tr>
               <td>
-              	<p>Hi {{ first_name }} {{ first_name }},</p>
+              	<p>{%trans "Hi" %} {{ first_name }} {{ first_name }},</p>
 
-                <p>You've been invited to join My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> by {{ user.first_name }} {{ user.last_name }} and create an organization account.</p>
-                <p>My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> is a social change network and action portal that creates meaningful connections between volunteers, employers and community to drive change. Not your average volunteer portal, My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> provides modern tools that enables community partners to drive change, build quality relationships, and measure impact.</p>
+                <p>{%trans "You've been invited to join" %} My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> {%trans "by" %} {{ user.first_name }} {{ user.last_name }} {%trans "and create an organization account." %}</p>
+                <p>My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> {%trans "is a social change network and action portal that creates meaningful connections between volunteers, employers and community to drive change. Not your average volunteer portal" %}, My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> {%trans "provides modern tools that enables community partners to drive change, build quality relationships, and measure impact." %}</p>
                 <p>
-                  By joining My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> your organization will receive:
+                  {%trans "By joining" %} My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM</span> {%trans "your organization will receive:" %}
                 </p>
                 <ul>
-                  <li>A dedicated organization page and social hub to convene volunteers and highlight community programs or volunteer opportunities</li>
-                  <li>Unlimited postings to our Action Centre to promote volunteer activities and community events</li>
-                  <li>Access to My Effect’s patent-pending tracking tools to effortlessly record volunteer hours and measure organization impact</li>
-                  <li>Data reporting to track volunteers and program performance</li>
+                  <li>{%trans "A dedicated organization page and social hub to convene volunteers and highlight community programs or volunteer opportunities" %}</li>
+                  <li>{%trans "Unlimited postings to our Action Centre to promote volunteer activities and community events" %}</li>
+                  <li>{%trans "Access to My Effect’s patent-pending tracking tools to effortlessly record volunteer hours and measure organization impact" %}</li>
+                  <li>{%trans "Data reporting to track volunteers and program performance" %}</li>
                 </ul>
-                <p>Get started today and create your free account!</p>
-        			  <p><a href="{{ invite_full_uri }}"><span style="display:inline;font-family:'Helvetica',Arial,sans-serif;text-decoration:none;font-weight:500;font-style:normal;font-size:20px; padding:10px; line-height:42px;border:none;background-color:#ffd430!important;color:#000000!important">Accept the invite.</span></a></p>
+                <p>{%trans "Get started today and create your free account!" %}</p>
+        			  <p><a href="{{ invite_full_uri }}"><span style="display:inline;font-family:'Helvetica',Arial,sans-serif;text-decoration:none;font-weight:500;font-style:normal;font-size:20px; padding:10px; line-height:42px;border:none;background-color:#ffd430!important;color:#000000!important">{%trans "Accept the invite." %}</span></a></p>
 
-                <p>Warm Regards,</p>
+                <p>{%trans "Warm Regards" %},</p>
 
                 <p>My Effect Team</p>
                 <p>---------</p>
@@ -49,7 +50,7 @@
                 <p>Kitchener, ON</p>
                 <p><a href="mailto:subscriptions@myeffect.ca" target="_blank">subscriptions@myeffect.ca</a></p>
 
-                <p>You are receiving this email because {{ user.first_name }} {{ user.last_name }} has indicated they know you and has your consent to send you electronic communications. If you are receiving this message in error or would not like to receive any further My Effect invites please  decline your invite <a href="{{ unsubscribe_full_uri }}">here</a>.</p>
+                <p>{%trans "You are receiving this email because" %} {{ user.first_name }} {{ user.last_name }} {%trans "has indicated they know you and has your consent to send you electronic communications. If you are receiving this message in error or would not like to receive any further My Effect invites please  decline your invite" %} <a href="{{ unsubscribe_full_uri }}">{%trans "here" %}</a>.</p>
               </td>
             </tr>
           </table>

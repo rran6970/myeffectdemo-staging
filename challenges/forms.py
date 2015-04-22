@@ -346,15 +346,27 @@ class ChallengeUploadFileForm(forms.ModelForm):
         return cleaned_data
 
 class ParticipantEmailForm(forms.Form):
+    from_email = forms.CharField(label='From', max_length=200, widget=forms.TextInput())
+    group_name = forms.CharField(label='Group Name', max_length=200, widget=forms.TextInput())
+    address = forms.CharField(label='Address', max_length=200, widget=forms.TextInput())
     subject = forms.CharField(label='Subject', max_length=200, widget=forms.TextInput())
     message = forms.CharField(label='Message', widget=forms.Textarea())
 
     def clean(self):
         cleaned_data = super(ParticipantEmailForm, self).clean()
+        from_email = cleaned_data.get("from_email")
+        group_name = cleaned_data.get("group_name")
+        address = cleaned_data.get("address")
         subject = cleaned_data.get("subject")
         message = cleaned_data.get("message")
 
-        if not subject:
+        if not from_email:
+            raise forms.ValidationError("Please enter your email address")
+        elif not group_name:
+            raise forms.ValidationError("Please enter your group name")
+        elif not address:
+            raise forms.ValidationError("Please enter a valid Address")
+        elif not subject:
             raise forms.ValidationError("Please enter a valid Subject")
         elif not message:
             raise forms.ValidationError("Please enter the message")

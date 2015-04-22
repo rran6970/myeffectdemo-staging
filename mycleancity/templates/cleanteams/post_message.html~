@@ -1,0 +1,52 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Post to Wall {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  {% load wysiwyg %}
+  {% wysiwyg_setup %}
+
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
+      <div id="white-box" class="small">
+          <h2>{%trans "Post to Wall" %}</h2>
+
+          {% if form.non_field_errors %}
+            <div class="message-box error">
+            {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <form autocomplete="off" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.clean_team_id }}
+            <table>
+                <tr>
+                    <td>{{ form.message.label_tag }} {{ form.message }}</td>
+                </tr>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Post Message" />
+          </form>
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+  {% wysiwyg_editor "id_message" %}
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

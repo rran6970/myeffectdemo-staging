@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Change Team Presentation {% endblock %}
+{% block title %} My Effect - {%trans "Change Team Presentation" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,8 +19,8 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="leader-referral small">
-          <h1>Change Team Presentation</h1>
-          <p class="subtitle">Send your presentation using the form below.</p>
+          <h1>{%trans "Change Team Presentation" %}</h1>
+          <p class="subtitle">{%trans "Send your presentation using the form below." %}</p>
           
           {% if form.non_field_errors %}
             <div class="message-box error">

@@ -1,7 +1,8 @@
+{% load i18n %}
 {% load socialaccount %}
 {% get_social_accounts user as accounts %}
 <div style="border: 1px solid; padding: 10px;">
-	<div style=" padding: 5px; display: -webkit-box; "><h4>My Connections: &nbsp;</h4><p>(click on grey icons to connect)</p></div>
+	<div style=" padding: 5px; display: -webkit-box; "><h4>{%trans "My Connections:" %} &nbsp;</h4><p>{%trans "(click on grey icons to connect)" %}</p></div>
 	<!--{% if form.non_field_errors %}
 	<div id="errorMsg">{ #  form.non_field_errors}}</div>
 	{% endif %}-->

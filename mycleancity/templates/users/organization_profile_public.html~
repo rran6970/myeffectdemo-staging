@@ -1,0 +1,43 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Profile {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      
+        <div id="white-box" class="profile">
+            <h2>{{ organization.profile.organization }}
+
+            {{ organization.first_name }} {{ organization.last_name }}
+  
+            <h2>{%trans "Challenges Posted" %}</h2>
+            <table>
+              {% for challenge in challenges %}
+              <tr>
+                <td><a href="/challenges/{{ challenge.id }}">{{ challenge.title }}</a></td>
+              </tr>
+              {% endfor %}
+            </table>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}
