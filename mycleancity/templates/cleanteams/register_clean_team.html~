@@ -1,10 +1,7 @@
 {% extends '_public_base.html' %}
-<<<<<<< HEAD
-=======
 {% load i18n %}
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
 
-{% block title %} My Effect - Register Change Team {% endblock %}
+{% block title %} My Effect - {%trans "Register Change Team" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -23,13 +20,8 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
       <div id="white-box" class="small new-clean-team">
-<<<<<<< HEAD
-          <h2>Create a new Change Team</h2>
-          <span class="subtitle">Please provide the information for your Change Team</span>
-=======
           <h2>{%trans "Create a new Change Team" %}</h2>
           <span class="subtitle">{%trans "Please provide the information for your Change Team" %}</span>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
 
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -40,41 +32,20 @@
           <form autocomplete="off" action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
               {{ form.role }}
               <table>
-<<<<<<< HEAD
 		   <tr id = "org_type_tr" >
                     <td>
-                      <label for="org_type">Organization type:</label>
+                      <label for="org_type">{%trans "Organization Type:" %}</label>
                     </td>
                     <td>
                       {{form.org_type}}
                     </td>
                   </tr>
                   <tr>
-                      <td><label for="id_name">Team Name</label> {{ form.name }}</td>
-                      <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
-                  </tr>
-                  <tr>
-                    <td><label for="id_name">City</label><!--{{ form.region.label_tag }}--> {{ form.region }}</td>
-                  </tr>
-                  <tr>
-                      {% if isManager %}
-                      <td><label for="id_name">Company/Organization Name</label> {{ form.group }}</td>
-                      {% else %}
-                      <td><label for="id_name">Associated School/Group</label> {{ form.group }}</td>
-                      {% endif %}
-                  </tr>
-                  
-                  <tr id="registered_number_tr" style="display: none;">
-                    <td>
-                      <label for="registered_number"><span style="color:red;" >&#42;&#32;</span>Registered Number:</label><br>
-                      <p style="color: blue;">&#32;&#32;(Apply for a free 12 month subscription)</p>
-=======
-                  <tr>
                       <td><label for="id_name">{%trans "Team Name" %}</label> {{ form.name }}</td>
                       <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                   </tr>
                   <tr>
-                    <td>{{ form.region.label_tag }} {{ form.region }}</td>
+                    <td><label for="id_name">City</label><!--{{ form.region.label_tag }}--> {{ form.region }}</td>
                   </tr>
                   <tr>
                       {% if isManager %}
@@ -85,9 +56,6 @@
                   </tr>
                   <tr id = "org_type_tr" >
                     <td>
-                      <label for="org_type">{%trans "Organization type" %}:</label>
-                    </td>
-                    <td>
                       {{form.org_type}}
                     </td>
                   </tr>
@@ -95,7 +63,6 @@
                     <td>
                       <label for="registered_number"><span style="color:red;" >&#42;&#32;</span>{%trans "Registered Number" %}:</label><br>
                       <p style="color: blue;">&#32;&#32;({%trans "Apply for a free 12 month subscription" %})</p>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                     </td>
                     <td>
                       {{form.registered_number}}
@@ -103,11 +70,7 @@
                   </tr>
                   <tr id = "category_tr" style="display: none;">
                     <td>
-<<<<<<< HEAD
-                      <label for="category">Category:</label>
-=======
                       <label for="category">{%trans "Category" %}:</label>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                     </td>
                     <td>
                       {{form.category}}
@@ -115,11 +78,7 @@
                   </tr>
                   <tr id = "number_of_users_tr">
                     <td>
-<<<<<<< HEAD
-                      <label for="number_of_users"><span style="color:red;" >&#42;&#32;</span>Number Of Users:(must be number)</label>
-=======
                       <label for="number_of_users"><span style="color:red;" >&#42;&#32;</span>{%trans "Number Of Users:(must be number)" %}</label>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                     </td>
                     <td>
                       {{form.number_of_users}}
@@ -127,13 +86,8 @@
                   </tr>
               </table>
 
-<<<<<<< HEAD
-              <h2 style="margin-top: 50px;">Main Contact Information</h2>
-              <span class="subtitle">The primary contact of your Change Team</span>
-=======
               <h2 style="margin-top: 50px;">{%trans "Main Contact Information" %}</h2>
               <span class="subtitle">{%trans "The primary contact of your Change Team" %}</span>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
               
               <table>
                   <tr>

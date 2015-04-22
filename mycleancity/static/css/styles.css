@@ -171,10 +171,6 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 #btn-next-survey { top: 300px; position: relative; z-index: 101;}
 #id_question_txt_2 {padding: 0px; font-size: 14px;}
 
-<<<<<<< HEAD
 .participants-manage #id_subject { width: 100%; }
-
-=======
 .participants-manage-tb { width: 100%; }
 .participants-manage-tb input[type="text"], .participants-manage-tb textarea { width: 100%; }
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd

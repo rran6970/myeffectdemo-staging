@@ -68,39 +68,26 @@
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
             <p class="title">{%trans "Change Team:" %}</p>
-            <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
+            <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">	{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
           </div>
           {% endif %}
 
           <div class="field">
-            <p class="title">{%trans "Community:" %}</p>
-            {% if community %}
-              <p class="text">{{ community.name }}</p>
-            {% endif %}
+            <p class="title">{%trans "Interests:" %}</p>
+              <p class="field">{{focus}}</p>
           </div>
-<DIV style="position: absolute; top:200px; left:300px; width:200px; height:10px">
-          <span class="clean-creds">
-<<<<<<< HEAD
-            <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span>
-</DIV>
-   
 
-       <div class="field">
-<DIV style="position: absolute; top:230px; left:300px; width:200px; height:10px">
-            <p class="title">Total Hours:</p>
-            <p class="text">{{ total_hours }}</p>
-</DIV>
-=======
-            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
+	<DIV style="position: absolute; top:190px; left:300px; width:200px; height:10px">
+            {% if user.resume == user_profile.resume %}
+	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
+            {% endif %}
+            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
-	    <p class="title">Interests</p>
-            <p class="field">{{focus}}</P>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
-          </div>
-</p>
+	    </div> </DIV>
+	</p>
           </span>
           {% load socialaccount %}
           {% get_social_accounts user_profile.profile.user as accounts %}
@@ -132,7 +119,7 @@
         </div><!-- /.info -->
         
         {% if user.id == user_profile.id %}
-          <div style="text-align: center;"><span><a href="/users/profile">Edit Profile</a></span>
+          <div style="text-align: center;"><span><a href="/users/profile">{%trans "Edit Profile" %}</a></span>
          </div>
         {% endif %}
 
@@ -151,10 +138,6 @@
         {% else %}
           <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
 
-        {% endif %}
-
-        {% if user.resume == user_profile.resume %}
-	  <div style="text-align: center;"><span><a href="/users/profile.resume">Resume</a></span></div>
         {% endif %}
 
         <div class="info" style="width: 100%;">

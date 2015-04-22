@@ -1,12 +1,7 @@
 {% extends '_public_base.html' %}
-<<<<<<< HEAD
-
-{% block title %} My Effect - Groups {% endblock %}
-=======
 {% load i18n %}
 
-{% block title %} My Effect - Change Groups {% endblock %}
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
+{% block title %} My Effect - {%trans "Change Groups" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -26,11 +21,7 @@
       <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
       <div id="white-box" class="all-clean-teams">
         <div>
-<<<<<<< HEAD
-          <h1 class="all-change-teams-header">All Groups</h1>
-=======
           <h1 class="all-change-teams-header">{%trans "All Groups" %}</h1>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
           <div class="clean-teams-search">
             <span class="glyphicon glyphicon-search"></span> &nbsp;
             <input autocomplete="off" id="team-search-box" type="text" placeholder="Search Groups" />
@@ -40,11 +31,7 @@
         <div class="table-container">
           <table id="team-list-table" class="table table-hover">
             <tbody>
-<<<<<<< HEAD
-              <tr style="text-align:center;"><td><strong>Name</strong></td><td><strong>Roles</strong></td><td></td><td><strong>Type</strong></td></tr>
-=======
               <tr style="text-align:center;"><td><strong>{%trans "Name" %}</strong></td><td><strong>{%trans "Roles" %}</strong></td><td></td><td><strong>{%trans "Type" %}</strong></td></tr>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
               {% for team in teams %}
                 <tr>
                   <td class="team">                          
@@ -80,11 +67,7 @@
                         </div>
                     {% endif %}
                   </td>
-<<<<<<< HEAD
-                  <td style="text-align: center;">Team</td>
-=======
                   <td style="text-align: center;">{%trans "Team" %}</td>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                 </tr>
               {% endfor %}
               {% for community in communities %}
@@ -103,11 +86,7 @@
                   <td class="roles">
                   </td>
                   <td></td>
-<<<<<<< HEAD
-                  <td>Community</td>
-=======
                   <td>{%trans "Community" %}</td>
->>>>>>> 88f76f513be007373639635da226a03e8dfdfdbd
                 </tr>
               {% endfor %}
             </tbody>
