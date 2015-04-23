@@ -66,7 +66,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
         # twitter = cleaned_data.get('twitter')
         # facebook = cleaned_data.get('twitter')
         # instagram = cleaned_data.get('instagram')
-        region = cleaned_data.get('city')
+        region = cleaned_data.get('region')
         group = cleaned_data.get('group')
         # contact_phone = cleaned_data.get('contact_phone')
         #clean_team_id = cleaned_data.get('clean_team_id')
