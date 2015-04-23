@@ -116,19 +116,19 @@ class UploadFileToS3(object):
 
         return k.key
 
-LOCAL_PATH= '/backup/S3'
+#LOCAL_PATH= '/backup/S3'
 
-class DownloadFilefromS3(object):
+#class DownloadFilefromS3(object):
 
-    def download(self, key, file):
-       conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-       bucket = conn.get_bucket(settings.AWS_BUCKET)
-       bucket_list = bucket.list()
-       for l in bucket_list:
-          keyString = str(l.key)
-          l.get_contents_to_filename(LOCAL_PATH+key)
+  #  def download(self, key, file):
+     #  conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+      # bucket = conn.get_bucket(settings.AWS_BUCKET)
+       #bucket_list = bucket.list()
+       #for l in bucket_list:
+        #  keyString = str(l.key)
+         # l.get_contents_to_filename(LOCAL_PATH+key)
 
-    return l.key
+    #return l.key
 
 def decimal_default(obj):
     if isinstance(obj, decimal.Decimal):
