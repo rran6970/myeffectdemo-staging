@@ -45,6 +45,7 @@
 				<input type="hidden" id="pre_loaded_first_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.first_name }}" />
 				<input type="hidden" id="pre_loaded_last_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.last_name }}" />
 				<input type="hidden" id="pre_loaded_email" value="{{ user.profile.clean_team_member.clean_team.contact_user.email }}" />
+				<input type="hidden" id="pre_loaded_contact_phone" value="{{ user.profile.clean_team_member.clean_team.contact_phone }}" />
 				
 				<table>
 					<tr>
@@ -131,7 +132,7 @@
 									{% for tag in skill_tags %}
 									<li>
 										<core-tooltip>
-											<label tagid="{{ tag.id }}">{{ tag.skill_name }}<span class="add-tag">+</span></label>
+											<label tagid="{{ tag.id }}" class="{{ tag.category.color }}-tag">{{ tag.skill_name }}<span class="add-tag">+</span></label>
 											<div tip style="width: 200px; white-space:normal; line-height: normal;">
 												{% if tag.description %}
     											{{ tag.description }}

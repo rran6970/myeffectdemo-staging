@@ -548,6 +548,7 @@ function hostIsCleanTeam(e)
         var first_name = $("#pre_loaded_first_name").val();
         var last_name = $("#pre_loaded_last_name").val();
         var email = $("#pre_loaded_email").val();
+        var contact_phone = $("#pre_loaded_contact_phone").val();
 
         $("#id_organization").val(clean_team_name);
         $("#id_organization").attr("readonly", "readonly");
@@ -560,6 +561,9 @@ function hostIsCleanTeam(e)
 
         $("#id_contact_email").val(email);
         $("#id_contact_email").attr("readonly", "readonly");
+
+        $("#id_contact_phone").inputmask('remove');
+        $("#id_contact_phone").val(contact_phone);
     }
     else
     {
@@ -574,6 +578,9 @@ function hostIsCleanTeam(e)
 
         $("#id_contact_email").val("");
         $("#id_contact_email").removeAttr("readonly");
+
+        $("#id_contact_phone").val("");
+        $("#id_contact_phone").inputmask("9{1,3}-9{1,3}-9{1,4}");
     }    
 }
 

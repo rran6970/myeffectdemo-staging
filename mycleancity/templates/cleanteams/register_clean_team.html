@@ -32,12 +32,20 @@
           <form autocomplete="off" action="/clean-team/register-clean-team/" method="post" enctype="multipart/form-data">{% csrf_token %}
               {{ form.role }}
               <table>
+		   <tr id = "org_type_tr" >
+                    <td>
+                      <label for="org_type">{%trans "Organization Type:" %}</label>
+                    </td>
+                    <td>
+                      {{form.org_type}}
+                    </td>
+                  </tr>
                   <tr>
                       <td><label for="id_name">{%trans "Team Name" %}</label> {{ form.name }}</td>
                       <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                   </tr>
                   <tr>
-                    <td>{{ form.region.label_tag }} {{ form.region }}</td>
+                    <td><label for="id_name">City</label><!--{{ form.region.label_tag }}--> {{ form.region }}</td>
                   </tr>
                   <tr>
                       {% if isManager %}
@@ -45,14 +53,6 @@
                       {% else %}
                       <td><label for="id_name">{%trans "Associated School/Group" %}</label> {{ form.group }}</td>
                       {% endif %}
-                  </tr>
-                  <tr id = "org_type_tr" >
-                    <td>
-                      <label for="org_type">{%trans "Organization type" %}:</label>
-                    </td>
-                    <td>
-                      {{form.org_type}}
-                    </td>
                   </tr>
                   <tr id="registered_number_tr" style="display: none;">
                     <td>

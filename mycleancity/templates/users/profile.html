@@ -14,9 +14,7 @@
   {% include "_navbar.html" %}
   <a href="/" class="logo"></a>
   {% load wysiwyg %}
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/django-wysiwyg/skin.css">
-  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/editor.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/django_wysiwyg.js"></script>
+  {% wysiwyg_setup %}
   <div class="content">
     <div class="container">
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
@@ -54,6 +52,7 @@
                     <tr>
                         <td>{{ form.emergency_contact_fname.label_tag }} {{ form.emergency_contact_fname }}</td>
                         <td>{{ form.emergency_contact_lname.label_tag }} {{ form.emergency_contact_lname }}</td>
+			
                     </tr>
                     <tr>
                         <td>{{ form.emergency_phone.label_tag }} {{ form.emergency_phone }}</td>
@@ -68,11 +67,6 @@
                         <td>{{ form.country.label_tag }} {{ form.country }}</td>
                     </tr>
                     <tr>
-                        <td id="community-td">{{ form.community.label_tag }} {{ form.community }}
-                        {% if form.community_request_pending %}
-                           (Request Pending)
-                        {% endif %}
-                        </td>
                         <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
                     </tr>
                     <tr>
@@ -88,7 +82,7 @@
                     <tr>
                       <td style="padding-top: 10px;" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
                     </tr>
-                </table>
+                </table> 
                 <input class="btn btn-primary" type="submit" value="Update" />
             </form>
         </div><!-- /#white-box -->
@@ -96,9 +90,7 @@
   </div><!-- /.about -->
   {% wysiwyg_editor "id_about" %}
 </div> <!-- /.wrapper -->
-<script type="text/javascript">
-    var communities_search_url = "{{ community_search_url }}";
-</script>
+
 {% include "_footer_navbar.html" %}
 
 {% endblock %}

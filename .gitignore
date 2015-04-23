@@ -3,3 +3,9 @@ venv
 staticfiles
 media
 src
+.idea
+amal
+*.py~
+*.html~
+*.css~
+*.js~

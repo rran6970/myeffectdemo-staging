@@ -72,6 +72,11 @@ class CleanTeamPresentationAdmin(admin.ModelAdmin):
     search_fields = ['user', 'title']
     actions = [export_as_csv_action("CSV Export")]
 
+class TeamAntiSpamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'clean_team', 'blocked', 'group_name', 'email', 'address')
+    search_fields = ['clean_team', 'group_name']
+    actions = [export_as_csv_action("CSV Export")]
+
 admin.site.register(CleanTeamLevel, CleanTeamLevelAdmin)
 admin.site.register(CleanTeam, CleanTeamAdmin)
 admin.site.register(CleanTeamMember, CleanTeamMemberAdmin)
@@ -82,3 +87,4 @@ admin.site.register(CleanTeamLevelTask, CleanTeamLevelTaskAdmin)
 admin.site.register(CleanTeamLevelProgress, CleanTeamLevelProgressAdmin)
 admin.site.register(CleanTeamPresentation, CleanTeamPresentationAdmin)
 admin.site.register(LeaderReferral, LeaderReferralAdmin)
+admin.site.register(TeamAntiSpam, TeamAntiSpamAdmin)

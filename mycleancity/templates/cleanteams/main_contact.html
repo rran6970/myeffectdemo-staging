@@ -22,7 +22,6 @@
       <div id="white-box" class="small main-contact">
           <h2>{%trans "Main Contact for" %} {{ user.profile.clean_team_member.clean_team.name }}</h2>
           <span class="subtitle">{%trans "Select one of the Ambassadors to set them as the primary contact. If their information is incorrect, have them update their information by logging in and going to Edit Profile." %}</span>
-
           {% if form.non_field_errors %}
             <div class="message-box error">
             {{ form.non_field_errors }}
@@ -43,6 +42,18 @@
                 <tr>
                     <td>{{ form.contact_email.label_tag }} {{ form.contact_email }}</td>
                     <td>{{ form.contact_phone.label_tag }} {{ form.contact_phone }}</td>
+                </tr>
+                </table>
+                <table class="anti-spam-info-tb">
+                <tr>
+                  <th><h2>Anti-Spam Signature</h2></th>
+                </tr>
+                <tr>
+                    <td>{{ form.group_name.label_tag }} {{ form.group_name }}</td>
+                    <td>{{ form.anti_spam_email.label_tag }} {{ form.anti_spam_email }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">{{ form.address.label_tag }} {{ form.address }}</td>
                 </tr>
             </table>
 

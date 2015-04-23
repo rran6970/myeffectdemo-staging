@@ -68,26 +68,27 @@
           {% if user_profile.profile.has_clean_team %}
           <div class="field">
             <p class="title">{%trans "Change Team:" %}</p>
-            <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
+            <p class="text"><a href="/clean-team/{{ user_profile.profile.clean_team_member.clean_team.id }}">	{{ user_profile.profile.clean_team_member.clean_team.name }}</a></p>
           </div>
           {% endif %}
 
           <div class="field">
-            <p class="title">{%trans "Community:" %}</p>
-            {% if community %}
-              <p class="text">{{ community.name }}</p>
-            {% endif %}
+            <p class="title">{%trans "Interests:" %}</p>
+              <p class="field">{{focus}}</p>
           </div>
 
-          <span class="clean-creds">
-            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: {{ user_profile.profile.clean_creds }}</span></p>
+	<DIV style="position: absolute; top:190px; left:300px; width:200px; height:10px">
+            {% if user.resume == user_profile.resume %}
+	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
+            {% endif %}
+            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
-	    <p class="title">Interests</p>
-            <p class="field">{{focus}}</P>
-          </div>
+	    </div> </DIV>
+	</p>
+          </span>
           {% load socialaccount %}
           {% get_social_accounts user_profile.profile.user as accounts %}
           {% if accounts %}
@@ -118,7 +119,8 @@
         </div><!-- /.info -->
         
         {% if user.id == user_profile.id %}
-          <div style="text-align: center;"><span><a href="/users/profile">Edit Profile</a></span></div>
+          <div style="text-align: center;"><span><a href="/users/profile">{%trans "Edit Profile" %}</a></span>
+         </div>
         {% endif %}
 
         {% if user_profile.profile.picture %}
@@ -135,10 +137,12 @@
           <img src="{{accounts.instagram.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
         {% else %}
           <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
-        {% endif %}
 
+<<<<<<< HEAD
         {% if user.resume == user_profile.resume %}
 	  <div style="text-align: center;"><span><a href="/backup/S3/">Resume</a></span></div>
+=======
+>>>>>>> 6ab8aa062bb8a3c59ab77c664271fc89c22a2e70
         {% endif %}
 
         <div class="info" style="width: 100%;">

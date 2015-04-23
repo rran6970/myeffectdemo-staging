@@ -524,7 +524,7 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 2, 
-    "question_number": 1, 
+    "question_number": 2, 
     "question": "Select the type of goods being recycled:", 
     "answer_type": 2, 
     "required": false
@@ -535,8 +535,8 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 4, 
-    "question_number": 3, 
-    "question": "If your action involves recycling, how many items are recycled in one completed action?", 
+    "question_number": 1, 
+    "question": "How many approximate units are recycled for one completed action or per hour?", 
     "answer_type": 3, 
     "required": false
   }
@@ -557,9 +557,53 @@
   "model": "challenges.challengequestion", 
   "fields": {
     "type": 3, 
-    "question_number": 2, 
+    "question_number": 3, 
     "question": "Please specify:", 
     "answer_type": 4, 
+    "required": false
+  }
+},
+{
+  "pk": 17, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 3, 
+    "question_number": 250, 
+    "question": "Does this action involve donation collection?", 
+    "answer_type": 1, 
+    "required": true
+  }
+},
+{
+  "pk": 18, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 2, 
+    "question_number": 251, 
+    "question": "Select the type of goods being collected:", 
+    "answer_type": 2, 
+    "required": false
+  }
+},
+{
+  "pk": 19, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 3, 
+    "question_number": 252, 
+    "question": "Please specify:", 
+    "answer_type": 4, 
+    "required": false
+  }
+},
+{
+  "pk": 20, 
+  "model": "challenges.challengequestion", 
+  "fields": {
+    "type": 4, 
+    "question_number": 253, 
+    "question": "How many approximate units are collected for one completed action or per hour?", 
+    "answer_type": 3, 
     "required": false
   }
 },
@@ -971,9 +1015,87 @@
   }
 },
 {
+  "pk": 65, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Yes", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 17, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 66, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "No", 
+    "clean_grid": null, 
+    "score": 0, 
+    "question": 17, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 67, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Clothing", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 18, 
+    "answer_number": "A"
+  }
+},
+{
+  "pk": 68, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Food", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 18, 
+    "answer_number": "B"
+  }
+},
+{
+  "pk": 69, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "School Supplies", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 18, 
+    "answer_number": "C"
+  }
+},
+{
+  "pk": 70, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Hygiene Items", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 18, 
+    "answer_number": "D"
+  }
+},
+{
+  "pk": 71, 
+  "model": "challenges.questionanswer", 
+  "fields": {
+    "answer": "Other", 
+    "clean_grid": null, 
+    "score": 1, 
+    "question": 18, 
+    "answer_number": "E"
+  }
+},
+{
   "pk": 1, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 1, 
     "skill_name": "Reading Text", 
     "description": "Reading materials in the form of sentences or paragraphs such as notes, letters, memos, manuals, specifications, books, reports and journals."
   }
@@ -982,6 +1104,7 @@
   "pk": 2, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 1, 
     "skill_name": "Writing", 
     "description": "The preparation of written materials for a variety of purposes.  Completing such tasks as filling in forms, writing text and using computers to write."
   }
@@ -990,6 +1113,7 @@
   "pk": 3, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 1, 
     "skill_name": "Document Use", 
     "description": "Reading different types of material such as labels, signs, lists, tables, graphs, forms, diagrams, blueprints and other similar material."
   }
@@ -998,6 +1122,7 @@
   "pk": 4, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 1, 
     "skill_name": "Computer Use", 
     "description": "The use of any type of computerized technology."
   }
@@ -1006,6 +1131,7 @@
   "pk": 5, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 1, 
     "skill_name": "Oral Communication", 
     "description": "Using verbal skills to exchange ideas and information with others."
   }
@@ -1014,6 +1140,7 @@
   "pk": 6, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 2, 
     "skill_name": "Money Math", 
     "description": "The use of mathematical skills in making financial transactions, such as handling cash, preparing bills, and making payments."
   }
@@ -1022,6 +1149,7 @@
   "pk": 7, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 2, 
     "skill_name": "Scheduling or Budgeting and Accounting", 
     "description": "Planning for the best use of time and money, as well as monitoring of the use of time and money."
   }
@@ -1030,6 +1158,7 @@
   "pk": 8, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 2, 
     "skill_name": "Measurement and Calculation", 
     "description": "The measurement and calculation of quantities, areas, volumes, and/or distances."
   }
@@ -1038,6 +1167,7 @@
   "pk": 9, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 2, 
     "skill_name": "Data Analysis", 
     "description": "The collection and analysis of data in numerical form."
   }
@@ -1046,6 +1176,7 @@
   "pk": 10, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 2, 
     "skill_name": "Numerical Estimation", 
     "description": "The production of estimates in numerical terms."
   }
@@ -1054,6 +1185,7 @@
   "pk": 11, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 3, 
     "skill_name": "Job Task Planning and Organizing", 
     "description": "Planning and organizing your own work."
   }
@@ -1062,6 +1194,7 @@
   "pk": 12, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 3, 
     "skill_name": "Decision Making", 
     "description": "Making a choice among options using appropriate information."
   }
@@ -1070,6 +1203,7 @@
   "pk": 13, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 3, 
     "skill_name": "Problem Solving", 
     "description": "The identification and solving of problems."
   }
@@ -1078,6 +1212,7 @@
   "pk": 14, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 3, 
     "skill_name": "Finding Information", 
     "description": "The use of a variety of sources, including written text, people, computerized databases, and information systems."
   }
@@ -1086,6 +1221,7 @@
   "pk": 15, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Working Safely", 
     "description": "Working in a manner that prevents injury to self and others ."
   }
@@ -1094,6 +1230,7 @@
   "pk": 16, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Teamwork", 
     "description": "Working willingly with others. Showing respect for the ideas and opinions of others. Taking responsibility for his or her share of the work."
   }
@@ -1102,6 +1239,7 @@
   "pk": 17, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Reliability", 
     "description": "Being punctual. Following directions. Giving attention to detail. Using time effectively and producing work on time. Acting in accordance with health and safety practices."
   }
@@ -1110,6 +1248,7 @@
   "pk": 18, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Organization", 
     "description": "Organizing work priorities when faced with a number of tasks. Devising and following a coherent plan to complete a task. Revising the plan when necessary to complete a task or to make improvements."
   }
@@ -1118,6 +1257,7 @@
   "pk": 19, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Working Independently", 
     "description": null
   }
@@ -1126,6 +1266,7 @@
   "pk": 20, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Initiative", 
     "description": null
   }
@@ -1134,6 +1275,7 @@
   "pk": 21, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Self-Advocacy", 
     "description": null
   }
@@ -1142,6 +1284,7 @@
   "pk": 22, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Customer Service", 
     "description": null
   }
@@ -1150,6 +1293,7 @@
   "pk": 23, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 4, 
     "skill_name": "Entrepreneurship", 
     "description": null
   }
@@ -1158,6 +1302,7 @@
   "pk": 24, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Networking", 
     "description": null
   }
@@ -1166,6 +1311,7 @@
   "pk": 25, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Business Planning", 
     "description": null
   }
@@ -1174,6 +1320,7 @@
   "pk": 26, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Leadership", 
     "description": null
   }
@@ -1182,6 +1329,7 @@
   "pk": 27, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Creative Development", 
     "description": null
   }
@@ -1190,6 +1338,7 @@
   "pk": 28, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Design", 
     "description": null
   }
@@ -1198,6 +1347,7 @@
   "pk": 29, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Social Media", 
     "description": null
   }
@@ -1206,6 +1356,7 @@
   "pk": 30, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Marketing", 
     "description": null
   }
@@ -1214,6 +1365,7 @@
   "pk": 31, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Public Relations", 
     "description": null
   }
@@ -1222,6 +1374,7 @@
   "pk": 32, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Networking", 
     "description": null
   }
@@ -1230,6 +1383,7 @@
   "pk": 33, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Relationship Management/Communications", 
     "description": null
   }
@@ -1238,6 +1392,7 @@
   "pk": 34, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Program & Campaign Development", 
     "description": null
   }
@@ -1246,6 +1401,7 @@
   "pk": 35, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Skills Trade", 
     "description": null
   }
@@ -1254,6 +1410,7 @@
   "pk": 36, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Event Planning", 
     "description": null
   }
@@ -1262,8 +1419,318 @@
   "pk": 37, 
   "model": "challenges.skilltag", 
   "fields": {
+    "category": 5, 
     "skill_name": "Program Execution", 
     "description": null
+  }
+},
+{
+  "pk": 38, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Videography", 
+    "description": null
+  }
+},
+{
+  "pk": 39, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Blogging", 
+    "description": null
+  }
+},
+{
+  "pk": 40, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Social Media", 
+    "description": null
+  }
+},
+{
+  "pk": 41, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Graphic Design", 
+    "description": null
+  }
+},
+{
+  "pk": 42, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Event Planning", 
+    "description": null
+  }
+},
+{
+  "pk": 43, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Child Care", 
+    "description": null
+  }
+},
+{
+  "pk": 44, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Mentoring", 
+    "description": null
+  }
+},
+{
+  "pk": 45, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Legal", 
+    "description": null
+  }
+},
+{
+  "pk": 46, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Computer Programming", 
+    "description": null
+  }
+},
+{
+  "pk": 47, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Web Development", 
+    "description": null
+  }
+},
+{
+  "pk": 48, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Animation", 
+    "description": null
+  }
+},
+{
+  "pk": 49, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Journalism", 
+    "description": null
+  }
+},
+{
+  "pk": 50, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Advertising", 
+    "description": null
+  }
+},
+{
+  "pk": 51, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Post Production", 
+    "description": null
+  }
+},
+{
+  "pk": 52, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Music", 
+    "description": null
+  }
+},
+{
+  "pk": 53, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Hospitality", 
+    "description": null
+  }
+},
+{
+  "pk": 54, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Cooking", 
+    "description": null
+  }
+},
+{
+  "pk": 55, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Agriculture", 
+    "description": null
+  }
+},
+{
+  "pk": 56, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Research", 
+    "description": null
+  }
+},
+{
+  "pk": 57, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "STEM", 
+    "description": null
+  }
+},
+{
+  "pk": 58, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Engineering", 
+    "description": null
+  }
+},
+{
+  "pk": 59, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Medical", 
+    "description": null
+  }
+},
+{
+  "pk": 60, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Customer Service", 
+    "description": null
+  }
+},
+{
+  "pk": 61, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Fashion Design", 
+    "description": null
+  }
+},
+{
+  "pk": 62, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Photography", 
+    "description": null
+  }
+},
+{
+  "pk": 63, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Retail", 
+    "description": null
+  }
+},
+{
+  "pk": 64, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Social Work", 
+    "description": null
+  }
+},
+{
+  "pk": 65, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Sales", 
+    "description": null
+  }
+},
+{
+  "pk": 66, 
+  "model": "challenges.skilltag", 
+  "fields": {
+    "category": 6, 
+    "skill_name": "Translating", 
+    "description": null
+  }
+},
+{
+  "pk": 1, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "red", 
+    "category_name": "Essential Skills"
+  }
+},
+{
+  "pk": 2, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "brown", 
+    "category_name": "Numeracy"
+  }
+},
+{
+  "pk": 3, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "coral", 
+    "category_name": "Thinking Skills"
+  }
+},
+{
+  "pk": 4, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "crimson", 
+    "category_name": "Work Habits"
+  }
+},
+{
+  "pk": 5, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "navy", 
+    "category_name": "Professional Development"
+  }
+},
+{
+  "pk": 6, 
+  "model": "challenges.skilltagcategory", 
+  "fields": {
+    "color": "green", 
+    "category_name": "Career Related"
   }
 },
 {
