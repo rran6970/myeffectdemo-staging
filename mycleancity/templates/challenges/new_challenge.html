@@ -76,10 +76,28 @@
 	                	<td>{{ form.virtual_challenge }} </td><td colspan="3">{{ form.virtual_challenge.label_tag }}</td>
 	                </tr>
 	                <tr>
-	                	<td style="float: right; margin-right: 5px;">{{ form.clean_team_only }} </td><td colspan="3">{{ form.clean_team_only.label_tag }}</td>
+	                	<td style="float: right; margin-right: 5px;">
+	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		{{ form.clean_team_only }}
+	                		</core-tooltip>
+	                	</td>
+	                	<td colspan="3">
+	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		{{ form.clean_team_only.label_tag }}
+	                		</core-tooltip>
+	                	</td>
 	                </tr>
 	                <tr>
-	                	<td style="float: right; margin-right: 5px;">{{ form.is_private }} </td><td colspan="3">{{ form.is_private.label_tag }}</td>
+	                	<td style="float: right; margin-right: 5px;">
+	                		<core-tooltip label="Only members of your Change Community or Team will see this action" noarrow>
+	                		{{ form.is_private }}
+	                	</core-tooltip>
+	                	</td>
+	                	<td colspan="3">
+	                		<core-tooltip label="Only members of your Change Community or Team will see this action" noarrow>
+	                		{{ form.is_private.label_tag }}
+	                		</core-tooltip>
+	                	</td>
 	                </tr>
 	                <tr>
 	                    <td>{{ form.title.label_tag }}</td><td colspan="3">{{ form.title }}</td>

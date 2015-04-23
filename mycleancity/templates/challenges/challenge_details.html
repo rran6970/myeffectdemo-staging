@@ -211,11 +211,11 @@
                 {% endif %}
                 <div id="participating-message-box" style="display: none;">
                   <p>{%trans "Please describe the reason you want to participate in this action:" %}</p>
-                  <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
-                  <p>Please describe the reason you want to participate in this action:</p>
                   <textarea cols="30" id="id_message" name="message" rows="5"></textarea><br>
-                  <input id="id_receive_email" name="receive_email" type="checkbox">
-                  <label for="id_receive_email">Would you like to receive info and reminders of this action?</label>
+                  <div style="padding: 10px;">
+                    <input id="id_receive_email" name="receive_email" type="checkbox">
+                    <label for="id_receive_email">Would you like to receive updates and reminders of this action?</label>
+                  </div>
                   <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
                 </div>
               </form>

@@ -108,8 +108,8 @@ class NewChallengeForm(forms.Form):
 
         self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
         self.fields['virtual_challenge'] = forms.BooleanField(label="This is a Virtual  Action", required=False)
-        self.fields['clean_team_only'] = forms.BooleanField(label="This is only for Change Teams", required=False)
-        self.fields['is_private'] = forms.BooleanField(label="This is a private challenge", required=False)
+        self.fields['clean_team_only'] = forms.BooleanField(label="Allow groups to endorse this Action", required=False)
+        self.fields['is_private'] = forms.BooleanField(label="Make this Action private", required=False)
         self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all(), label="Change Creds Rate")
         self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 

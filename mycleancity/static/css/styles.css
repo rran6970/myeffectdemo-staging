@@ -168,6 +168,8 @@ textarea:focus { outline: 0; border-color: #c1d72e !important; -webkit-box-shado
 
 .parsley-errors-list > li {color: red; line-height:15px !important; }
 
+.label-yellow {background-color: #FFD430;}
+
 #btn-next-survey { top: 300px; position: relative; z-index: 101;}
 #id_question_num_1 {float: left;}
 #id_question_txt_3, #id_question_txt_252 {padding: 0px; font-size: 14px;}

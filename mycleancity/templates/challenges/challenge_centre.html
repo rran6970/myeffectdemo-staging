@@ -41,7 +41,12 @@
                   {% endif %}
                 </a>
 
-                <a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>{{ challenge.title }}</h1></a>
+                <a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>
+                  {{ challenge.title }}
+                  {% if challenge.virtual_challenge %}
+                  <span class="label label-yellow">Viritual</span>
+                  {% endif %}
+                </h1></a>
                 
 
                 {% if challenge.clean_team_only %}

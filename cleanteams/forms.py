@@ -39,7 +39,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
     twitter = forms.CharField(required=False, initial="@", max_length = 128, min_length=1, widget=forms.TextInput(attrs={'placeholder':'@'}))
     facebook = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
     instagram = forms.CharField(required=False, initial="", max_length = 128, min_length=1, widget=forms.TextInput())
-    city = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput())
+    region = forms.CharField(required=True, max_length=128, min_length=3, widget=forms.TextInput(), label="City")
     group = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput())
     clean_team_id = forms.CharField(required=False, widget=forms.HiddenInput())
     role = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -78,7 +78,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
 
         if not name:
             raise forms.ValidationError("Please enter your Change Team's name")
-        elif not city:
+        elif not region:
             raise forms.ValidationError("Please enter your city")
         elif not group:
             raise forms.ValidationError("Please the group your team associated with")
