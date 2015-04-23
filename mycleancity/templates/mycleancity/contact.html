@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Contact {% endblock %}
+{% block title %} My Effect - {%trans "Contact" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -19,9 +20,9 @@
     <div class="container">
         <a href="#" onclick="history.go(-1); return false;"><div class="sign contact" id="sign-go-back"></div></a>
         <div id="white-box" class="contact">
-          <h2>Contact</h2>
+          <h2>{%trans "Contact" %}</h2>
           
-          <p>Issues? Contact our <a href="mailto:webmaster@mycleancity.org">development team</a>.</p>
+          <p>{%trans "Issues? Contact our" %} <a href="mailto:webmaster@mycleancity.org">{%trans "development team" %}</a>.</p>
 
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -37,7 +38,7 @@
             {{ form.message.label_tag }} {{ form.message }}
   
             <div class="padding-20">
-              {{ form.receive_newsletters }}<label for="">I would like to receive My Effect communications containing important program announcements, news, updates, partner opportunities, contests and promotions, regarding My Effect's program and tools. You may withdraw consent at anytime.</label>
+              {{ form.receive_newsletters }}<label for="">{%trans "I would like to receive My Effect communications containing important program announcements, news, updates, partner opportunities, contests and promotions, regarding My Effect's program and tools. You may withdraw consent at anytime." %}</label>
             </div>
 
             <div class="padding-20">

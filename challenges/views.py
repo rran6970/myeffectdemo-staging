@@ -99,13 +99,13 @@ def participate_in_challenge(request):
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
 @login_required
-def unparticipate_in_challenge(request):
+def withdraw_in_challenge(request):
     if request.method == 'POST':
         cid = request.POST['cid']
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
-        challenge.unparticipate_in_challenge(user)
+        challenge.withdraw_in_challenge(user)
 
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -686,7 +686,7 @@ class ChallengeView(TemplateView):
             if user.is_authenticated():
                 user_challenge = challenge.get_participating_challenge(user)
                 context['user_challenge'] = user_challenge
-                context['can_unparticipate'] = challenge.can_unparticipate(user)
+                context['can_withdraw'] = challenge.can_withdraw(user)
 
             participants = challenge.get_participants()
 

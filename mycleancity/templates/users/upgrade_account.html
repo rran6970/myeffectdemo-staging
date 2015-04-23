@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Upgrade Account{% endblock %}
+{% block title %} My Effect - {%trans "Upgrade Account" %}{% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -20,7 +21,7 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <a href="#" onclick="history.go(-1); return false;"><div class="sign profile" id="sign-go-back"></div></a>
         <div id="white-box" class="profile">
-            <h2>Upgrade To Manager</h2>
+            <h2>{%trans "Upgrade To Manager" %}</h2>
 
             {% if form.errors %}
               <div class="message-box error">
@@ -35,7 +36,7 @@
             {% endif %}
 
             {% if is_manager %}
-              <p>You are already a manager.</p>
+              <p>{%trans "You are already a manager." %}</p>
             {% else %}
               {% if clean_team_member_id %}
                 <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
@@ -44,7 +45,7 @@
                       <tbody id = "submit_org_tr">
                         <tr>
                           <td>
-                            <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
+                            <label for="access_code"><span style="color:red;" >&#42;&#32;</span>{%trans "Access Code:" %}</label>
                           </td>
                           <td>
                             {{form.access_code}}
@@ -52,7 +53,7 @@
                         </tr>
                         <tr>
                           <td colspan="2">
-                            <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
+                            <p><strong>{%trans "Don't have an access code?" %} <a href="/forlicensecontact/" class="contact_for_license" >{%trans "Contact a My Effect Account Representative" %}</a> {%trans "to learn our pricing options" %}</strong></p>
                           </td>
                         </tr>
                         <tr>
@@ -64,7 +65,7 @@
                   </table>
                 </form>
               {% else %}
-                <p>You must <a href="/clean-team/register-clean-team/">become the leader</a> of team before you can upgrade to a manager.</p>
+                <p>{%trans "You must" %} <a href="/clean-team/register-clean-team/">{%trans "become the leader" %}</a> {%trans "of team before you can upgrade to a manager." %}</p>
               {% endif %}
             {% endif %}
 
@@ -77,17 +78,17 @@
             {% if has_upgraded %}
               {% if glbl_my_community %}
               {% else  %}
-                <p>You can create a community <a href="/clean-team/create-community/">here</a>.</p>
+                <p>{%trans "You can create a community" %} <a href="/clean-team/create-community/">{%trans "here" %}</a>.</p>
               {% endif %}
             {% else %}
-              <h2>Upgrade To Create Communities</h2>
+              <h2>{%trans "Upgrade To Create Communities" %}</h2>
               <form action="/users/upgrade-account/" method="post" enctype="multipart/form-data">{% csrf_token %}{{form.current_user}}
                 <input type="hidden" name="upgrade_type" value="community" />
                 <table>
                     <tbody id = "submit_org_tr">
                       <tr>
                         <td>
-                          <label for="access_code"><span style="color:red;" >&#42;&#32;</span>Access Code:</label>
+                          <label for="access_code"><span style="color:red;" >&#42;&#32;</span>{%trans "Access Code:" %}</label>
                         </td>
                         <td>
                           {{form.access_code}}
@@ -95,7 +96,7 @@
                       </tr>
                       <tr>
                         <td colspan="2">
-                          <p><strong>Don't have an access code? <a href="/forlicensecontact/" class="contact_for_license" >Contact a My Effect Account Representative</a> to learn our pricing options</strong></p>
+                          <p><strong>{%trans "Don't have an access code?" %} <a href="/forlicensecontact/" class="contact_for_license" >{%trans "Contact a My Effect Account Representative" %}</a> {%trans "to learn our pricing options" %}</strong></p>
                         </td>
                       </tr>
                       <tr>

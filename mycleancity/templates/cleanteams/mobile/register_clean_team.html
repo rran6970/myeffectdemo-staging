@@ -1,6 +1,7 @@
 {% extends '_public_mobile_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Register Change Team Mobile {% endblock %}
+{% block title %} My Effect - {%trans "Register Change Team Mobile" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -12,8 +13,8 @@
   <a href="/" class="logo"></a> 
       
   <div id="white-box">
-    <h2>Create a new Change Team</h2>
-    <span class="subtitle">Please provide the information for your Change Team</span>
+    <h2>{%trans "Create a new Change Team" %}</h2>
+    <span class="subtitle">{%trans "Please provide the information for your Change Team" %}</span>
 
     {% if form.non_field_errors %}
       <div class="message-box error">
@@ -37,8 +38,8 @@
             </tr>
         </table>
 
-        <h2 style="margin-top: 50px;">Main Contact Information</h2>
-        <span class="subtitle">The primary contact of your Change Team</span>
+        <h2 style="margin-top: 50px;">{%trans "Main Contact Information" %}</h2>
+        <span class="subtitle">{%trans "The primary contact of your Change Team" %}</span>
         
         <table>
             <tr>

@@ -1,6 +1,7 @@
 {% extends '_public_mobile_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Register Change Team Mobile {% endblock %}
+{% block title %} My Effect - {%trans "Register Change Team Mobile" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -12,8 +13,8 @@
   <a href="/" class="logo"></a> 
       
   <div id="white-box">
-    <h1>Be a Catalyst</h1>
-    <p class="subtitle">Select a Change Team to sponsor</p>
+    <h1>{%trans "Be a Catalyst" %}</h1>
+    <p class="subtitle">{%trans "Select a Change Team to sponsor" %}</p>
 
     {% if false %}
       <div class="message-box error">

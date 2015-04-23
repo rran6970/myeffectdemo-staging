@@ -557,7 +557,7 @@ class Challenge(models.Model):
 
         return True
 
-    def can_unparticipate(self, user):
+    def can_withdraw(self, user):
         if self.clean_team_only:
             if user.profile.is_clean_ambassador():
                 count = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team).count()
@@ -578,8 +578,8 @@ class Challenge(models.Model):
 
         return False
 
-    def unparticipate_in_challenge(self, user):
-        if self.can_unparticipate(user):
+    def withdraw_in_challenge(self, user):
+        if self.can_withdraw(user):
             if self.clean_team_only:
                 clean_team_challenge = CleanTeamChallenge.objects.filter(challenge=self, clean_team=user.profile.clean_team_member.clean_team)
                 clean_team_challenge.delete()

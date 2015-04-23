@@ -1,0 +1,92 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Change Team Level Progress {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"> </div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"> </a>
+  
+  <div class="content">
+
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"> </div></a>
+
+      <div id="white-box" class="clean-team-progress">
+
+          {% if tasks_complete >= 0 %}
+          <h1>{{ clean_team.name }}'s {%trans "Achievements" %}</h1><p><br /></p>
+          {% endif %}
+
+
+          <div class="clear"> </div>
+          <div class="table-container">
+          {% if tasks_complete == 3 %}
+             <img src="images/EmptyMeter.png" alt="" />
+          {%  endif %}
+           {% if tasks_complete == 10 %}
+              <p>{%trans "Hello World I am a winner" %}</p>
+          {%  endif %}
+
+            <table class="table table-hover">
+              <tbody>
+                {% if tasks %}
+                  {% for task in tasks %}
+                  <tr>
+                    <td class="status">
+                      {% if task.completed %}
+                        <img title="Complete" class="status-icon" src="{{ STATIC_URL }}images/32x32-complete.png" alt="" />
+                      {% else %}
+                        <img title="In progress"  class="status-icon" src="{{ STATIC_URL }}images/32x32-checked-in.png" alt="" />
+                      {% endif %}
+                    </td>
+                    <td class="description" rel="tooltip" data-html="true"  data-original-title="
+                  <span class='description'><strong><b>{{ task.level_task.title }}</b></strong><br />{{ task.level_task.description }}</span>">
+                      {% if task.level_task.link %}
+                        {% if task.level_task.name == "follow_twitter" %}
+                          <form action="">{% csrf_token %}
+                            <a href="https://twitter.com/MyEffectHub" class="twitter-follow-button">Follow @MyEffectHub</a>
+                            <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+                          </form>
+                        {% else %}
+                          <p><a href="{{ task.level_task.link }}" >{{ task.level_task.title }}</a></p>
+                        {% endif %}
+                      {% else %}
+                        <p>{{ task.level_task.title }}</p>
+                      {% endif %}
+                      {% if task.approval_requested %}
+                        <div class="success">
+                          <p>{%trans "Our team has received your submission. Once we approved it, we will mark this task completed." %}</p>
+                        </div>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <!--<tr>
+                    <td class="next_level" colspan="2">
+                      <p>Complete all of the these tasks to get to <img src="{{ STATIC_URL }}{{ clean_team.level.next_level.badge }}" alt="Badge Level" /></p>
+                    </td>
+                  </tr>-->
+                {% endif %}
+              </tbody>
+            </table><!-- /.table.table-hover -->
+            
+          </div><!-- /.table-container -->
+      </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

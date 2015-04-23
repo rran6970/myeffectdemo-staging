@@ -1,5 +1,9 @@
 # Django settings for mycleancity project.
 import os
+import sys
+from django.utils.translation import ugettext_lazy as _
+
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -16,7 +20,7 @@ DATABASES = {
         'NAME': 'mycleancity',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'nokia6070',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                     # Set to empty string for default.
         'OPTIONS': {

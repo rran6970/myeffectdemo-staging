@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Member ID {% endblock %}
+{% block title %} My Effect - {%trans "Member ID" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,10 +19,10 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="qr-code">
-          <h1>Member ID: {{ user.id }}</h1>
+          <h1>{%trans "Member ID:" %} {{ user.id }}</h1>
           <img src="{{ MEDIA_URL }}{{ qr_code.qr_image }}" alt="">
 
-          <a class="btn btn-primary" href="/users/printable-card/">View Printable Card</a>
+          <a class="btn btn-primary" href="/users/printable-card/">{%trans "View Printable Card" %}</a>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

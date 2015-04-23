@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Communication Hub {% endblock %}
+{% block title %} My Effect - {%trans "Communication Hub" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -33,25 +34,25 @@
 
             <div class="clear"></div>
 
-            <h1 class="titles">Photos and Videos</h1>
+            <h1 class="titles">{%trans "Photos and Videos" %}</h1>
             <div id="instafeed"></div>
 
             <iframe scrolling="no" marginheight="0" frameborder="0" width="609" src="http://vinalwidget.com/gallery.php?id=992634697492611072&amp;width=189&amp;margin=4&amp;display_username=1&amp;likes=1&amp;comments=1&amp;revines=1&amp;date=1&amp;description=0&amp;responsive=0&amp;frame=1" style="height: 235px;"></iframe>
           </div>
 
           <div class="tab-pane" id="approach">
-            <h1 class="titles">Annoucements</h1>
+            <h1 class="titles">{%trans "Annoucements" %}</h1>
 
             <a href="#staples-banner" class="popup-image"><img src="{{ STATIC_URL }}images/staples-200x300.jpg" alt="" /></a>
 
             <p>
-              My Effect is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!
+              {%trans "My Effect is a proud partner of Staples’s Recycle for Education Contest. Get a head start in the CLEAN game and register your school for a change to win a $25,000 computer lab!" %}
             </p>
             <p>
-              Be sure to share the opportunity with your friends, My Effect will be watching for leaders who trend #RFE and we may even award some special surprises!
+              {%trans "Be sure to share the opportunity with your friends, My Effect will be watching for leaders who trend #RFE and we may even award some special surprises!" %}
 
               <div class="fb-like" style="margin-left: 30px;" data-href="http://www.mycleancity.org{{ page_url }}" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
-                <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">Tweet</a>
+                <a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button">{%trans "Tweet" %}</a>
             </p>
           </div>
           
@@ -59,7 +60,7 @@
 
 
         <div id="white-box" class="resources">
-          <h2><a target="_blank" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf">Download the YMCA Environmental Guide</a></h2>
+          <h2><a target="_blank" href="/download/?filename=YMCA_Enviro_Guide_FINAL_ENG.pdf">{%trans "Download the YMCA Environmental Guide" %}</a></h2>
         </div><!-- /#white-box -->
        
     </div><!-- /.container -->

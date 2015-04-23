@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - New Action {% endblock %}
+{% block title %} My Effect - {%trans "New Action" %} {% endblock %}
 
 {% block css %}
 <script src="{{ STATIC_URL }}bower_components/webcomponentsjs/webcomponents.min.js"></script>
@@ -26,8 +27,8 @@
     <div class="container">
       	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
         <div id="white-box" class="new-challenge">
-        	<h2>Host Contact Information</h2>
-	        <span class="subtitle">Please provide the contact information of host</span>
+        	<h2>{%trans "Host Contact Information" %}</h2>
+	        <span class="subtitle">{%trans "Please provide the contact information of host" %}</span>
 			{% if form.non_field_errors %}
               <div class="message-box error">
               {{ form.non_field_errors }}
@@ -48,7 +49,7 @@
 				
 				<table>
 					<tr>
-						<td>{{ form.host_is_clean_team }}</td><td colspan="3">{{ user.profile.clean_team_member.clean_team.name }} is hosting this Action</td>
+						<td>{{ form.host_is_clean_team }}</td><td colspan="3">{{ user.profile.clean_team_member.clean_team.name }} {%trans "is hosting this Action" %}</td>
 					</tr>
 					<tr>
 						<td>{{ form.organization.label_tag }}</td><td>{{ form.organization }}</td>
@@ -64,8 +65,8 @@
 					</tr>
 				</table>
 
-				<h2 style="margin-top: 50px;">Create Action</h2>
-	            <span class="subtitle">Fill out the fields below to create your Action</span>
+				<h2 style="margin-top: 50px;">{%trans "Create Action" %}</h2>
+	            <span class="subtitle">{%trans "Fill out the fields below to create your Action" %}</span>
 			
 	            <table>
 	                <tr>
@@ -118,14 +119,14 @@
 	                	<td colspan="4">
 	                		{{ form.tags.label_tag }}
 	                		<div class="selected-tags">
-	                			<a id="show-tags">Add</a>
+	                			<a id="show-tags">{%trans "Add" %}</a>
 	                		{{ form.tags }}
 	                		</div>
 	                	</td>
 	                </tr>
 	                <tr>
 	                	<td colspan="4">
-	                		<a id="hide-tags">Hide</a>
+	                		<a id="hide-tags">{%trans "Hide" %}</a>
 	                		<div class="tags-to-select">
 	                			<ul>
 									{% for tag in skill_tags %}

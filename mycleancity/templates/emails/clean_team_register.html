@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -23,18 +24,18 @@
             </tr>
             <tr>
               <td>
-              	<p>Hey {{ first_name }},</p>
+              	<p>{%trans "Hey" %} {{ first_name }},</p>
 
-                <p>Congratulations on joining our leadership team! As a Change Leader you will have the opportunity to access a variety of entrepreneurial experiences and lead My Effect’s operations in your region or school community.</p>
+                <p>{%trans "Congratulations on joining our leadership team! As a Change Leader you will have the opportunity to access a variety of entrepreneurial experiences and lead My Effect’s operations in your region or school community." %}</p>
                 <p>
-                  We will be following up shortly with some useful resources and supports to help you build your wave of change. In the meantime you can:
+                  {%trans "We will be following up shortly with some useful resources and supports to help you build your wave of change. In the meantime you can:" %}
                 </p>
                 <ol>
-                  <li>Begin searching for a few fellow leaders to join your executive team, if you have not done so already.</li>
-                  <li>Check out <a href="{{ level_progress_uri }}">Team Achievements</a> to learn about some quick next steps to take action with My Effect<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM </span> and become a top Change Team.</li>
+                  <li>{%trans "Begin searching for a few fellow leaders to join your executive team, if you have not done so already." %}</li>
+                  <li>{%trans "Check out" %} <a href="{{ level_progress_uri }}">{%trans "Team Achievements" %}</a> {%trans "to learn about some quick next steps to take action with My Effect" %}<span style="font-size:9px;vertical-align:super;white-space:pre-wrap">TM </span> {%trans "and become a top Change Team." %}</li>
                 </ol>
 
-        				<p>If you have any questions at any time, please feel free to reach out to our Director of Training, Diane Gies at <a href="mailto:diane@myeffect.ca" target="_blank">diane@myeffect.ca</a>. She is your dedicated resource and support for all your team needs.</p>
+        				<p>{%trans "If you have any questions at any time, please feel free to reach out to our Director of Training, Diane Gies at" %} <a href="mailto:diane@myeffect.ca" target="_blank">diane@myeffect.ca</a>. {%trans "She is your dedicated resource and support for all your team needs." %}</p>
 
                 <p>My Effect</p>
                 <p>---------</p>

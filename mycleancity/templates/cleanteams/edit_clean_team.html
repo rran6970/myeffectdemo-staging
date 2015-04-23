@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Edit Change Team {% endblock %}
+{% block title %} My Effect - {%trans "Edit Change Team" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,7 +23,7 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign edit-clean-team" id="sign-go-back"></div></a>
       <div id="white-box" class="edit-clean-team">
-          <h2>Edit Change Team</h2>
+          <h2>{%trans "Edit Change Team" %}</h2>
 
           {% if form.non_field_errors %}
             <div class="message-box error">
@@ -46,7 +47,7 @@
                     <td>{{ form.instagram.label_tag }} {{ form.instagram }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form.region.label_tag }} {{ form.region }}</td>
+                  <td>{{ form.city.label_tag }} {{ form.city }}</td>
                   <td id="community-td">{{ form.community.label_tag }} {{ form.community }}
                   {% if form.community_request_pending %}
                      (Request Pending)
@@ -55,7 +56,11 @@
                 </tr>
                 <tr>
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
-                    <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+		    <td>{{ form.team_type.label_tag }} {{ form.team_type }}
+		    </td>
+		</tr>
+		<tr>
+                    <td colspan="2">{{ form.focus.label_tag }} {{ form.focus }}</td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ form.clean_ambassadors.label_tag }} {{ form.clean_ambassadors }}</td>

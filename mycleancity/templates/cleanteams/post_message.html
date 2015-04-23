@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Post to Wall {% endblock %}
+{% block title %} My Effect - {%trans "Post to Wall" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -22,7 +23,7 @@
     <div class="container">
       <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a>
       <div id="white-box" class="small">
-          <h2>Post to Wall</h2>
+          <h2>{%trans "Post to Wall" %}</h2>
 
           {% if form.non_field_errors %}
             <div class="message-box error">

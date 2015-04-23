@@ -1,0 +1,400 @@
+{% extends '_public_mobile_base.html' %}
+
+{% block title %} My Effect - Terms &amp; Conditions {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mobile-view" id="terms">            
+  <a href="/" class="logo"></a> 
+      
+	<div id="white-box">
+    <div id="terms-conditions">
+      <h1>My Effect User<br/>Agreement and Usage Policies</h1>
+
+      <p>Dear mycleancity.org user,</p>
+      <p>
+        Thanks for visiting mycleancity.org, an online community owned and operated by MY CLEAN CITY.  These Terms of Use, which incorporate the Privacy Policy, set forth the terms and conditions that govern the use of this Site and that must be followed by any person or entity ("User") that uses the Site. 
+      </p>
+
+      <h2 class="section-overview">1. ACCEPTANCE OF TERMS OF USE</h2>
+      <p>
+        By clicking on the "I Accept the Terms of Use" checkbox on the Site, you agree to the terms and conditions set forth below and provided by MY CLEAN CITY and to follow all applicable laws regulations that apply to this Site. If you do not agree to the Terms of Use you must stop using the Site. 
+      </p>
+
+      <h2 class="section-overview">2. GENERAL</h2>
+
+      <h3 class="section">A. Acceptance</h3>
+      <p>
+        Lovell Corporation c.o.b. MY CLEAN CITY (hereinafter "MY CLEAN CITY", "we" or "us") provides enterprise software, mobile applications, and online community forums to connect you with organizations, volunteers and peer groups to exchange ideas, learn, find opportunities, connect with volunteers, track activities, monitor your community involvement, manage events and staff, and collaborate with a variety of groups to aid you in your community goals (individually, a "Service" and collectively, the "Services"). This website (including any related sub-site, service, feature or functionality) (the "Site") and the Services are provided subject to these Terms of Use, as they may be amended by us, and any guidelines, rules or operating policies that we may post on this website, including, without limitation, our Privacy Policy, which is specifically incorporated herein by reference (collectively, the "Agreement"). We may amend this Agreement from time to time due to changes to the Site or the Services, to account for developments under the law, or for any other commercially reasonable reason. Future performance by us of our obligations under this Agreement is sufficient consideration for any such amendment. Any amendment will only become effective upon notification to you (by email or by posting on our Site) and, if you do not want to agree to any such amendment, you should stop using the Site and the Services. By checking the box next to the "I agree" button on the sign-up page, by logging in to your MY CLEAN CITY user account, by accessing the Site or by accessing any of the Services, you accept this Agreement on behalf of yourself and any business or organization you represent (collectively, "you").  
+      </p>
+
+      <h3 class="section">B. Minimum Age</h3>
+      <p>
+        MY CLEAN CITY requires that any User be at least 13 years of age before creating a user account.  In some jurisdictions this age limit may be higher.  If you do not qualify, you are not permitted to create a user account or use the Site or the Services. If you are using the Site or the Services on behalf of an organization, you represent and warrant that you have the ability to bind such organization by your use of the Site and the Services. 
+      </p>
+
+      <h3 class="section">C. Registration</h3>    
+      <p>You agree to provide true, accurate, current and complete information about yourself and your organization, as applicable, as requested in the registration form and elsewhere on the Site.</p>
+
+      <h3 class="section">D. Account Access</h3>
+      <p>We may, in our discretion, permit you to authorize additional users to use your MY CLEAN CITY account. For purposes of this Agreement, you are the "Account Owner" and any other users you authorize will be deemed "Authorized Users". You will be responsible for each Authorized User's use of your MY CLEAN CITY account and each Authorized User's compliance with this Agreement. </p>
+
+      <h2 class="section-overview">3. COPYRIGHT AND TRADEMARKS</h2>
+
+      <p>
+        Except as otherwise indicated, the Site, and all text, images, marks, logos and other content contained herein, including, without limitation, the  MY CLEAN CITY logo, Kelly Effect, YOU Effect, Kelly A. Lovell, My Effect and all designs, text, graphics, pictures, information, data, software, sound files, other files, messages, information, text, music, sound, photos, graphics, code or other material and the selection and arrangement thereof (collectively, the "Site Content") are the proprietary property of MY CLEAN CITY or its licensors and are protected by Canadian and international copyright laws. All rights to the Site Content are expressly reserved. 
+      </p>
+      <p>
+        MY CLEAN CITY, its logo and all other product or service names or slogans displayed on the Site are registered and/or common law trademarks of MY CLEAN CITY and/or its suppliers or licensors, and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY or the applicable trademark holder. In addition, the look and feel of the Site, including all page headers, custom graphics, button icons and scripts, is the service mark, trademark and/or trade dress of MY CLEAN CITY and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY.  
+      </p>
+      <p>
+        ANY COPYING, DISTRIBUTING, TRANSMITTING, POSTING, LINKING, DEEP LINKING, OR OTHER MODIFICATION OF THIS SITE WITHOUT THE EXPRESS WRITTEN PERMISSION OF LOVELL IS STRICTLY PROHIBITED. Any violation of this policy may result in a copyright, trademark or other intellectual property right infringement that may subject you to civil and /or criminal penalties.
+      </p>
+    
+      <h2 class="section-overview">4. MESSAGES AND PROHIBITION ON SPAM</h2>
+
+      <p>You may not use the Site or the Services for purposes of sending unsolicited SMS, voice or email messages (sometimes called "spam"). You agree to be bound by and comply with all applicable anti-spam legislation, including, without limitation, Canada's anti-spam legislation. </p>
+
+      <p>
+        Without limiting the remedies available to MY CLEAN CITY for any breach of this Agreement, MY CLEAN CITY may immediately restrict, suspend or terminate your access to the Site at any time and without notice if MY CLEAN CITY, in its sole discretion, determines that you have violated any applicable anti-spam legislation. 
+      </p>
+
+      <p>
+        In your use of the Site or the Services, you shall represent yourself or your organization accurately and will not impersonate any other person, whether actual or fictitious. You agree that for any email message sent by you using the Site or the Services will not contain any deceptive or misleading content regarding the overall subject matter of the email message.
+      </p>
+    
+      <h2 class="section-overview">5. PROVISION OF SERVICES AND USER CONDUCT </h2>
+
+      <h3 class="section">A. MY CLEAN CITY's Responsibilities and Use of Site and Services</h3>
+
+      <p>
+        You acknowledge that you are solely responsible for all data input and that MY CLEAN CITY is responsible solely for (i) providing the Site platform and interface and instructions on how to use same, and (ii) providing data storage on the Site utilizing industry standard safeguards for the protection thereof. You are solely responsible for ensuring adherence to all such instructions on how to use the Site and Services.
+      </p>
+      <p>
+        Save and except for its obligations set forth above, MY CLEAN CITY takes no responsibility and assumes no liability for any content or data input or stored or uploaded by you or any third party (including, without limitation, all contact information and message content), or for any loss or damage thereto.
+      </p>
+      <p>
+        You further agree to comply with the following in connection with your use of the Site and the Services: 
+      </p>
+      <ul>
+        <li>
+          You may not access or use the Site or the Services in a way that uses technology or other means to access, index, re-render, frame, mirror, truncate, add to, inject, filter or link to the Site or the Services that is not authorized by us (including by removing, disabling, bypassing, or circumventing any content protection or access control mechanisms intended to prevent the unauthorized use, download, linking, framing, reproduction, access to, or distribution of the Site or the Services).
+        </li>
+        <li>
+          You may not use any deep-link, page-scrape, robot, crawl, index, spider, offline reader, click spam, macro programs, internet agent, or other automatic device, program, algorithm or methodology which does the same things, to use, access, copy, index, acquire information, generate impressions or clicks, input information, store information, search, generate searches, or monitor any portion of the Site or the Services for any unauthorized purpose.
+        </li>
+        <li>
+          You may not use the Site or the Services in a way that, to be determined in our sole discretion, damages, disables, overburdens, impairs, or gains unauthorized access to the Site or the Services, including MY CLEAN CITY's servers, computer network, or user accounts.
+        </li>
+        <li>
+          You may not use the Site or the Services in a way that removes, modifies, disables, blocks, obscures or otherwise impairs any advertising in connection with the Site or the Services.
+        </li>
+        <li>
+          You may not copy, display, distribute, download, license, modify, publish, re-post, reproduce, reuse, sell, transmit, use to create a derivative work, or otherwise use the content of the Site or the Services for public or commercial purposes without our express written permission.
+        </li>
+        <li>
+          You shall not interfere with or disrupt the Site or any related MY CLEAN CITY websites or servers or networks connected to the Site or the Services.
+        </li>
+        <li>
+          You shall not restrict or inhibit any other user from enjoying and using the Site or the Services.
+        </li>
+        <li>
+          You shall not use the Site or the Services in violation of applicable law or third party rights (including third party terms of service), and shall not use the Site or the Services for hosting content (for example, images and documents) that infringes on the intellectual property rights of others.
+        </li>
+        <li>
+          You may only use our templates, any images we provide, or any other features or functionality of the Services with the Services themselves (for example, you may not take an image or template and use it on your website). This restriction also applies to customized templates prepared by our professional services group.
+        </li>
+        <li>
+          You shall not use documents and images hosted by us on servers controlled by us for any purpose whatsoever other than in connection with the Services. If you own the document or image, you can use it outside of the Services so long as it is not hosted by us.
+        </li>
+      </ul>
+      
+      <h3 class="section">B. Restrictions on Use</h3>
+      <p>
+        You expressly agree not to transmit, distribute, store, create or otherwise publish through the Site any of the following: 
+      </p>
+
+      <ul>
+        <li>
+          content that is unlawful, libelous, defamatory, obscene, pornographic, indecent, lewd, suggestive, harassing, threatening, invasive of privacy or publicity rights, abusive, inflammatory, fraudulent or otherwise objectionable 
+        </li>
+        <li>
+          content that would constitute, encourage or provide instructions for a criminal offense, violate the rights of any party, or that would otherwise create liability or violate any local, provincial, federal or international law
+        </li>
+        <li>
+          content that may infringe any patent, trademark, trade secret, copyright or other intellectual or proprietary right of any party 
+        </li>
+        <li>
+          content that would violate or infringe upon the rights of others
+        </li>
+        <li>
+          content that impersonates any person or entity or otherwise misrepresents your affiliation with a person or entity
+        </li>
+        <li>
+          content that is false and misleading
+        </li>
+        <li>
+          unsolicited promotions, political campaigning, advertising or solicitations 
+        </li>
+        <li>
+          viruses, corrupted data or other harmful, disruptive or destructive files
+        </li>
+        <li>
+          content that, in the sole judgment of MY CLEAN CITY, is objectionable or which may expose MY CLEAN CITY or its affiliates or its users to any harm or liability of any kind. 
+        </li>
+      </ul>
+
+      <p>
+        Any use of the Site in violation of the foregoing violates this Agreement and may result in, among other things, termination or suspension of your rights to use the Site or Services.
+      </p>
+
+      <h3 class="section">C. Limitations on Use</h3>
+
+      <p>
+        You understand that delivery of messages by means of the Site or the Services may involve transmissions over various networks, and that the messages (including images and text contained therein) could be reformatted or otherwise revised to conform to the formatting or technical requirements of such networks. You also understand and agree that messages exceeding maximum character limitations may be truncated, abbreviated, reduced or otherwise abruptly cut short.
+      </p>
+
+      <p>
+        You agree that we may establish general practices and limits concerning use of the Site or the Services. We reserve the right to modify, revise, suspend or discontinue any Service in whole or in part, either temporarily or permanently and with or without notice, and you acknowledge that we are not obligated to support or update the Services in any manner. 
+      </p>
+
+      <h3 class="section">D. Grant of Rights</h3>
+      <p>
+        By posting on the Site, and without necessity of any further consideration, you automatically grant (or warrant that the owner of such materials expressly grants) MY CLEAN CITY a world-wide, perpetual, royalty-free, irrevocable and non-exclusive right and license to use, copy, store, adapt, transmit, communicate, publicly display and perform, distribute and create compilations and derivative works from such submitted materials and to use such content for promotional and marketing purposes. You hereby waive any "moral rights" you may have in any such content.
+      </p>
+
+      <p>
+        You shall be solely responsible for your own submissions and the consequences of posting or publishing them on the Site. In connection with each of your submissions, you affirm, represent, and/or warrant that (a) you own or have the necessary licenses, rights, consents, and permissions to use and authorize us to use all patent, trademark, trade secret, copyright or other proprietary rights in and to any and all such submissions to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use, and (b) you have the written consent, release, and/or permission of each and every identifiable individual person in such submissions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use.
+      </p>
+
+      <h2 class="section-overview">6. RESTRICTIONS AND RESPONSIBILITIES</h2>
+      <h3 class="section">A. No Rights in Software</h3>
+
+      <p>
+        Nothing on the Site shall be construed to confer any grant or license of any intellectual property rights, whether by estoppel, by implication, or otherwise. You will not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of, or found at or through the Site or the Services or any software, documentation, or data related to the Site or the Services ("Software"); remove any proprietary notices or labels from the Site or the Services or any Software; modify, translate, or create derivative works based on the Site or the Services or any Software; or copy, distribute, pledge, assign, or otherwise transfer or encumber rights to the Site or the Services or any Software. If you are using the Site or the Services in any jurisdiction which restricts the ability of a software provider to restrict your right to reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of the Site, the Software or the Services, then you hereby covenant that, prior to engaging in such activities, you will first request that we perform such work at our standard professional services rates. We can then decide either: (a) to perform the work in order to achieve such interoperability and charge our then standard rates for such work to you; (b) to permit you to reverse engineer parts of the Software in order to obtain such source code, but only to the extent necessary to achieve such interoperability; or (c) to provide you with the information that you need regarding the Software for the purpose for which applicable law permits you to engage in such activities despite a contractual prohibition on such activities. 
+      </p>
+
+      <h3 class="section">B. Compliance with Laws</h3>
+
+      <p>
+        The Site and the Services shall only be used for lawful purposes and you shall use the Site and the Services only in compliance with this Agreement, and all applicable laws, including, without limitation all applicable anti-spam legislation and any other policies and laws related to unsolicited emails, spamming, privacy, obscenity, defamation and copyright and trademark infringement. 
+      </p>
+
+      <h3 class="section">C. Monitoring</h3>
+
+      <p>
+        Although we have no obligation to monitor the content provided by you or your use of the Site or the Services, we may do so and may block any messages, remove any content, including surveys, event registrations or social campaigns, or prohibit any use of the Site or the Services that we believe may be (or is alleged to be) in violation of the foregoing or any other provision of this Agreement.
+      </p>    
+
+      <h2 class="section-overview">7. THIRD-PARTY WEBSITES AND SERVICES</h2>
+      
+      <p>
+        The Site may contain links to websites that are controlled by third parties and access to certain third-party services, which may include, without limitation, social bookmarking services and social network platforms (each, a "Third Party Service"). These links and services are provided to you as a convenience, and we are not affiliated with or responsible for the content, action or performance of any linked website or Third-Party Service and you use such websites or services at your own risk. 
+      </p>
+
+      <p>
+        You agree to abide by the terms and conditions of any applicable Third Party Service. Notwithstanding anything set forth herein to the contrary, you will abide by this Agreement regardless of anything to the contrary in your agreement with any third party and you shall not use such Third Party Service to avoid the restrictions set forth in this Agreement.
+      </p>
+
+      <p>
+        We may terminate any Third Party Service's ability to interact with the Site or any of the Services at any time, with or without notice, and in our sole discretion, with no liability to you or to the third party. Any Third Party Service may take actions to impact our ability to make available some or all of the features of the Site or the Services at any time, with or without notice, and we will not be liable to you or to the third party for any such actions. We accept no responsibility for reviewing changes or updates to, or the quality, content, policies, nature or reliability of, any Third Party Services.
+      </p>
+
+      <h2 class="section-overview">8. USERNAME AND PASSWORD</h2>
+      
+      <p>
+        You are responsible for maintaining the security of your user account and passwords (including the passwords that your Authorized Users, if any, have access to). We will accept the instructions of any individual who claims to be authorized to direct changes to your user account so long as such person presents the user account owner username and password or provides other appropriate account identifying information, as determined by us in our sole discretion, by email or by phone, or through a Third Party Service, if any, through which you access the Site or the Services.  You shall be solely responsible and liable for any activity that occurs under your username and the activities of your Authorized Users, if any, and we shall not be responsible for the actions of any individuals who misuse or misappropriate your contact lists or other assets using your username and password or other appropriate account identifying information. You agree to notify us immediately of any unauthorized use of your user account or any other breach of security. 
+      </p>
+
+      <h2 class="section-overview">9. DISCLAIMER OF WARRANTY</h2>
+      
+      <p>
+        ALL CONTENT, PRODUCTS, AND SERVICES ON THE SITE, OR OBTAINED FROM A WEBSITE TO WHICH THE SITE IS LINKED (A "LINKED SITE") ARE PROVIDED TO YOU "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, SECURITY OR ACCURACY. LOVELL DOES NOT ENDORSE AND IS NOT RESPONSIBLE FOR (A) THE ACCURACY OR RELIABILITY OF ANY OPINION, ADVICE OR STATEMENT MADE THROUGH A LINKED SITE BY ANY PARTY OTHER THAN LOVELL (B) ANY CONTENT PROVIDED ON LINKED SITES OR (C) THE CAPABILITIES OR RELIABILITY OF ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. 
+      </p>
+
+      <p>
+        OTHER THAN AS REQUIRED UNDER APPLICABLE CONSUMER PROTECTION LAW, UNDER NO CIRCUMSTANCE WILL LOVELL BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY A USER'S RELIANCE ON INFORMATION OBTAINED THROUGH THE SITE OR A LINKED SITE, OR YOUR RELIANCE ON ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. IT IS YOUR RESPONSIBILITY TO EVALUATE THE ACCURACY, COMPLETENESS OR USEFULNESS OF ANY OPINION, ADVICE OR OTHER CONTENT OBTAINED FROM A LINKED SITE. PLEASE SEEK THE ADVICE OF PROFESSIONALS, AS APPROPRIATE, REGARDING THE EVALUATION OF ANY SPECIFIC OPINION, ADVICE, PRODUCT, SERVICE, OR OTHER CONTENT OBTAINED FROM A LINKED SITE.
+      </p>
+
+      <h2 class="section-overview">10. LIMITATION OF LIABILITY</h2>
+      
+      <p>
+        You waive and covenant not to assert any claims or allegations of any nature whatsoever against MY CLEAN CITY, its affiliates, or their respective directors, officers, employees or agents arising out of or in any way relating to your use of the Site, the Services or any other materials contained in or accessible through the Site. 
+      </p>
+
+      <p>
+        In no event shall the aggregate liability of MY CLEAN CITY, whether in contract, warranty, tort (including negligence, whether active, passive or imputed), product liability, strict liability or other theory, arising out of or relating to the use of the Site exceed any compensation you pay to MY CLEAN CITY for Services. 
+      </p>
+
+      <p>
+        YOU EXPRESSLY UNDERSTAND AND AGREE THAT LOVELL AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, PARTNERS AND LICENSORS SHALL NOT BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF LOVELL HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), RESULTING FROM USE OF THE SITE, CONTENT OR ANY RELATED SERVICES.
+      </p>
+
+      <h2 class="section-overview">11. INDEMNITY</h2>
+      
+      <p>
+        You hereby release and forever discharge MY CLEAN CITY, its affiliates, and their respective shareholders, directors, employees, partners, members, managers, contractors, agents, successors and assigns (collectively, "Releasees") from any and all claims, liabilities, obligations, actions, causes of action, suits, debts, covenants, controversies, damages, judgments and demands whatsoever in law, equity or any kind, type, or description, whether known or unknown, disputed or undisputed, accrued or unaccrued, liquidated or contingent, foreseen or unforeseen, asserted or unasserted, related to or arising out of any dispute with, any harm or injury (including, without limitation, personal injury or damage to property) caused by, or any other act or failure to act by, any, advertisers, sponsors, other users of this Site and/or any other third parties, including any products and/or services offered or provided by third parties. 
+      </p>
+
+      <p>
+        You agree to indemnify, defend and hold harmless all Releasees from and against any and all claims, actions, demands, liabilities, losses, damages, penalties, interest, judgments, settlements, costs and expenses (including reasonable attorneys' fees) that relate to, arise out of or are based upon: (a) any misrepresentation or breach of any warranty, covenant or agreement made by you related to these Terms of Use; or (b) any violation by you of any law, regulation or rule.  
+      </p>
+
+      <p>
+        MY CLEAN CITY reserves the right, at its own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, but doing so shall not excuse your indemnity obligations.  MY CLEAN CITY shall have the right to participate in the defense of all claims as to which it does not assume defense and control, and you shall not settle any such claim without MY CLEAN CITY's prior written consent. You also agree to indemnify MY CLEAN CITY for any reasonable legal fees or other costs incurred by MY CLEAN CITY, acting reasonably, in investigating or enforcing its rights under these Terms of Use.
+      </p>    
+
+      <h2 class="section-overview">12. TERMINATION</h2>
+      
+      <p>
+        MY CLEAN CITY may change or discontinue the Site or any of the Services at any time without prior notice. MY CLEAN CITY reserves the right to terminate your use of this Site and the Services at MY CLEAN CITY's election and for any reason, without prior notice, and your agreement with MY CLEAN CITY in accordance with these Terms of Use will automatically terminate in the event that you violate any of the terms and conditions set forth herein. In the event of any termination, you will immediately cease access to the Site and Services.   
+      </p>
+
+      <p>
+        If your user account is classified (at our sole discretion) as inactive for over 120 days, we have the right to permanently delete any of your data which has been stored.
+      </p>
+
+      <h2 class="section-overview">13. SURVIVAL OF TERMS</h2>
+      
+      <p>
+        Notwithstanding any other provisions of these Terms of Use, or any general legal principles to the contrary, any provision of these Terms of Use that imposes or contemplates continuing obligations on a party will survive the expiration or termination of these Terms of Use. 
+      </p>
+    
+      <h2 class="section-overview">14. APPLICABLE LAW AND VENUE</h2>
+      <p>
+        The Site (excluding Third-Party Sites) is controlled by MY CLEAN CITY and operated by it from its offices in Kitchener, Ontario. However, the Site is accessible in all Provinces of Canada and in other countries. You and MY CLEAN CITY explicitly agree that all disputes, claims or other matters arising from or relating to your use of the Site will be governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein. 
+      </p>  
+      <p>
+        Except where prohibited by applicable law, any claim, dispute or controversy (whether in contract or tort, pursuant to statute or regulation, or otherwise, and whether pre-existing, present or future) arising out of or relating to these Terms of Use (b) the Services (c) oral or written statements, advertisements or promotions relating to these Terms of Use or to the Services or (d) the relationships that result from these Terms of Use or the Services (collectively, a "Claim") will be referred to and determined by a sole arbitrator (to the exclusion of the courts). Except where prohibited by applicable law, you waive any right you may have to commence or participate in any class action against MY CLEAN CITY related to any Claim and, where applicable, you also agree to opt out of any class proceedings against MY CLEAN CITY If you have a Claim, you should give written notice to arbitrate at the address specified below. If MY CLEAN CITY has a Claim, MY CLEAN CITY will give you notice to arbitrate at your address provided in your Registration Data. Arbitration will be conducted by one arbitrator pursuant to the commercial arbitration laws and rules in effect on the date of the notice in the Province of Ontario. 
+      </p>
+      <p>
+        To the extent arbitration as described in the immediately preceding paragraph is prohibited by applicable law, you agree that all Claims will be heard and resolved in a court of competent subject matter jurisdiction located in Toronto, Ontario. You consent to the personal jurisdiction of such courts over you, stipulate to the fairness and convenience of proceeding in such courts, and covenant not to assert any objection to proceeding in such courts. 
+      </p>
+      <p>
+        If you choose to access the Site from locations other than Ontario, you will be responsible for compliance with all local laws of such other jurisdiction and you agree to indemnify MY CLEAN CITY for your failure to comply with any such laws. 
+      </p>
+
+      <h2 class="section-overview">15. OTHER</h2>
+      <p>
+        If any provision of these Terms of Use are deemed invalid, void, or for any reason unenforceable, then that provision shall be deemed severable form these Terms of Use and shall not affect the validity and enforceability of any remaining provisions. MY CLEAN CITY may assign any or all of its rights hereunder to any party without your consent. You are not permitted to assign any of your rights or obligations hereunder without the prior written consent of MY CLEAN CITY, and any such attempted assignment will be void and unenforceable. This Agreement constitutes the entire agreement between you and MY CLEAN CITY regarding your use of the Site, and supersedes all prior or contemporaneous communications whether electronic, oral or written between you and MY CLEAN CITY regarding your use of the Site. Headings are for reference purposes only and do not limit the scope or extent of such section. The failure of MY CLEAN CITY to act with respect to a breach by you or others does not waive its right to act with respect to subsequent or similar breaches. MY CLEAN CITY does not guarantee it will take action against all breaches of these Terms of Use. Except as otherwise expressly provided herein, there shall be no third-party beneficiaries to these Terms of Use. This Agreement constitutes the entire agreement between you and MY CLEAN CITY and governs your use of the Site, superseding any prior agreements between you and MY CLEAN CITY with respect to the Site.  
+      </p>
+      <p>
+        The parties hereto confirm their express wish that this Agreement and all documents and agreements directly or indirectly relating thereto be drawn up in the English language. Les parties reconnaissent leur volonté expresse que la présente convention ainsi que tous les documents et contrats s'y rattachant directement ou indirectment soient rédigés en anglais.
+      </p>
+
+      <h2 class="section-overview">16. QUESTIONS AND COMMENTS</h2>
+      <p>
+        If you have any questions regarding these Terms of Use or your use of the Site, please contact us here:  
+      </p>
+      <p>LOVELL CORPORATION</p>
+      <p>810-1061 Queen's Blvd<br/>
+      Kitchener, Ontario<br/>
+      N2M 1C1</p>
+      
+      <p>Version: 1a</p>
+      <p>Last updated: July 16, 2014</p>
+
+      <div id="copyright">
+        <p>By continuing with your registration you consent to all of the above terms and conditions of service.</p>
+        <p>&copy; {% now "Y" %}. MyCleanCity.org. All rights reserved.</p>
+      </div>
+    </div><!-- end of #terms-conditions -->
+
+    <div id="terms-conditions-fr">
+      <h1>Conditions et politiques d'utilisation<br/>de Ma Ville Propre </h1>
+
+      <h3 class="section">1.1. Déclaration des droits et responsabilités</h2>
+      <p>
+          La version d'origine de ce document est l'anglais (États-Unis). En cas de divergence entre une version traduite du présent accord et la version anglaise, celle-ci fait foi.
+      </p>
+      <p>
+      La mission de Ma Ville Propre est de connecter les jeunes aux projets environnementaux existants et leur permettre de s'engager dans leurs communautés en interagissant avec des organisations écologiques. Pour réaliser notre mission, nous offrons des services en ligne à travers notre site Web qui vous aideront et aideront vos réseaux ainsi que des millions d'autres personnes. Vous pourrez partager vos opinions, échanger vos idées, vous développer, créer des opportunités et prendre des décisions dans un réseau bien établi et des groupes éprouvés.
+      </p>
+
+      <h3 class="section">1.2. Portée et Intention</h2>
+      <p>Quand vous utilisez Ma Ville Propre, vous entrez dans un accord légal et vous êtes d'accord avec tous ces termes. </p>
+      <p>Vous êtes aussi d'accord avec notre politique de confidentialité qui couvre comment nous rassemblons, utilisons, partageons et entreposons vos informations personnelles.</p>
+      <p>Vous reconnaissez qu'en vous inscrivant sur Ma Ville Propre, ou en utilisant notre site Web, y compris tous nos services, ou d'autres informations fournis dans le cadre des services de Ma Ville Propre (collectivement "Ma Ville Propre" ou "les services"), vous entrez dans un accord juridiquement contraignant avec Ma Ville Propre.org ("nous", "notre" et "Ma Ville Propre") basé sur les termes de cet accord d'utilisation de Ma Ville Propre et la politique de confidentialité de Ma Ville Propre, qui est par la présente incorporé par la référence (collectivement mentionné comme "l'Accord") et devenir un membre de Ma Ville Propre ("le Membre"). Si vous utilisez Ma Ville Propre pour le compte d'une entreprise ou d'une autre entité juridique, vous êtes néanmoins individuellement liés par cet Accord même si votre entreprise a un accord séparé avec nous. Si vous ne voulez pas enregistrer un compte et devenir un Membre de Ma Ville Propre, n'entrez pas dans cet Accord, ne cliquez pas "sur le Registre" et n'avez pas accès, voyez, téléchargez ou utilisez autrement n'importe quelle page Web Ma Ville Propre, informations ou des services. En cliquant "S'inscrire"(ou "Ouvrir une session" ou semblable), vous reconnaissez que vous avez lu et avez compris les conditions générales de cet Accord et que vous consentez à être liés par toutes ses dispositions. En cliquant "S'inscrire", vous consentez aussi à utiliser des signatures électroniques et vous reconnaissez que votre clic du bouton "S'inscrire" est une forme de signature. Notez, s'il vous plaît, que l'Accord d'utilisation de Ma Ville Propre et la Politique de confidentialité sont aussi collectivement mentionnés comme les "Conditions d'utilisation" de Ma Ville Propre.</p>
+
+      <h3 class="section">1.3 Confidentialité</h2>
+      <p>Nos utilisateurs inscrits ("Membres") partagent leurs identités, s'engagent avec leur réseau, échangent leurs connaissances, expériences et créent des opportunités. Nous croyons que notre service permet à nos Membres de compléter des heures de bénévolats efficacement et de réaliser leur plein potentiel de participation de communauté. Un des piliers de notre organisation est de se concentrer sur nos Membres d'abord.</p>
+      <p>Maintenir votre confiance est notre priorité absolue, donc nous adhérons aux principes suivant pour protéger votre vie privée:</p>
+      <ul>
+        <li>Nous protégeons vos informations personnelles et le fournirons seulement aux tiers-parties : (1) Avec votre consentement; (2) Où il est nécessaire d'effectuer vos instructions; (3) Comme raisonnablement nécessaire pour fournir Ma Ville Propre vous figure et la fonctionnalité; (4) Comme nous croyons être raisonnablement autorisé par la loi ou les règlements; Ou (5) au besoin pour faire respecter notre Accord d'utilisation ou protéger les droits, la propriété, ou la sécurité des Membres de Ma Ville Propre et le public. En cliquant sur "S'inscrire", vous consentez à ce que Ma Ville Propre partage vos informations avec tous les partenaires tiers.</li>
+        <li>Nous avons mis en oeuvre des sauvegardes de sécurité appropriées conçues pour protéger vos informations conformément aux standards de l'industrie.</li>
+      </ul>
+      <p>Nous pouvons modifier cette Politique confidentialité de temps en temps et si nous y faisons des changements significatifs, nous fournirons un avertissement par notre site Web, notre application, ou d'autres services ("Ma Ville Propre" ou "le Service") ou par d'autres moyens pour que vous puissiez passer en revue les changements avant que vous ne continuiez à utiliser Ma Ville Propre. Si vous élevez une objection aux changements, vous pouvez fermer votre compte. Si vous continuez d'utiliser Ma Ville Propre après que nous publions ou communiquions un avis de n'importe quels changements à cette Politique de confidentialité, cela signifie que vous consentez aux changements.</p>
+
+      <h2 class="section-overview">2. Médias sociaux, courrier électronique et utilisation du logo</h2>
+
+      <h3 class="section">2.1 Utilisation des médias sociaux</h3>
+      <p>L'utilisation des médias sociaux, incluant, mais non limité à, Facebook, Twitter et Instagram, pour les buts de promotion ou autrement l'interaction avec d'autres comme un représentant de Ma Ville Propre, est autorisée seulement pour conduire les activités de Ma Ville Propre. L'utilisation non autorisée de sites Web Ma Ville Propre et des comptes des média sociaux crée la possibilité d'infractions à la sécurité d'informations confidentielles de Ma Ville Propre. </p>
+      <p>En aucun cas les propriétés de Ma Ville Propre ne peuvent être utilisées pour obtenir, voir, ou atteindre n'importe quels sites pornographiques, ou autrement immoraux, contraires à l'éthique, ou non-concernant-les-affaires. Le faire peut mener à une action disciplinaire et allant jusqu'à être banni pour la vie de Ma Ville Propre.</p>
+
+      <h3 class="section">2.2 Utilisation de courrier électronique (courriel) de Ma Ville Propre</h3>
+      <p>Les comptes courriel de Ma Ville Propre doivent être utilisés seulement pour des activités Ma Ville Propre. En tout temps, les informations confidentielles ne doivent pas être partagées, sans autorisation, à l'extérieur des groupes de Ma Ville Propre. De plus,  vous ne devez pas effectuer des affaires personnelles en utilisant les comptes d'utilisateur de Ma Ville Propre ou le courrier électronique.</p>
+      <p>Le visionnement de pornographie, ou la distribution d'histoire ou de plaisanteries pornographiques via le courrier électronique, seront considérés comme du harcèlement sexuel et seront adressés selon les lois concernant le harcèlement sexuelles dans votre juridiction légale.</p>
+
+      <h3 class="section">2.3 Les courriels qui discriminent</h3>    
+      <p>Si un courriel discrimine en vertu de n'importe quelle classification protégée incluant la race, le genre, la nationalité, la religion, et ainsi de suite, seront traités selon les lois de harcèlement dans votre juridiction légale.</p>
+      <p>Ces courriers électroniques sont interdits à Ma Ville Propre. L'envoi ou l'expédition des courriers électroniques de cette nature, ou cela viole n'importe quelles lois fédérales ou provinciales aboutira à l'action disciplinaire qui peut mener à la poursuite et l'interdiction de durée de vie de la participation Ma Ville Propre.</p>
+
+      <h3 class="section">2.4 Ma Ville Propre possède les adresses et les comptes courriels de l'organisation</h3>
+      <p>Ma Ville Propre possède toutes communications envoyées ou entreposées via le courrier électronique des serveurs de Ma Ville Propre. L'administration et autres représentants de Ma Ville Propre ont le droit d'avoir accès à n'importe quel matériel dans votre courrier électronique de Ma Ville Propre à tout moment. Veuillez ne pas considérer vos communications électroniques ou toutes informations, entreposées par l'entremise de Ma Ville Propre, comme privés.</p>
+
+      <h2 class="section-overview">3. Utilisation et distribution du logo</h2>
+
+      <p>Le logo de Ma Ville Propre est la propriété de Ma Ville Propre et n'est donc pas pour être copié, utilisé ou distribué électroniquement ou autrement, dans n'importe quel format sans le consentement écrit d'un représentant autorisé de Ma Ville Propre. N'importe quelle reproduction, utilisation ou distribution sans le consentement d'un représentant autorisé de Ma Ville Propre aboutiront à la révocation de privilèges et potentiellement une action en justice, ainsi qu'une interdiction à vie de Ma Ville Propre.</p>
+    
+      <h2 class="section-overview">4. Enregistrement et Sécurité de Compte</h2>
+
+      <p>Les utilisateurs de Ma Ville Propre fournissent leurs noms et informations personnelles réels, pour nous en assurer, voici quelques engagements que vous nous faites lier à l'inscription et le maintien de la sécurité de votre compte: </p>
+
+      <ul>
+        <li>
+          Vous ne fournirez pas d'informations personnelles fausses sur Ma Ville Propre, ou créerez un compte de quelqu'un d'autre que vous sans permission.
+        </li>
+        <li>
+          Vous ne créerez pas plus qu'un compte personnel.
+        </li>
+        <li>
+          Si nous mettons votre compte hors de service, vous ne créerez pas un autre sans notre permission.
+        </li>
+        <li>
+          Vous n'utiliserez pas votre compte personnel pour votre propre gain commercial.
+        </li>
+        <li>
+          Vous n'utiliserez pas Ma Ville Propre si vous êtes âgés de moins que 13 ans.
+        </li>
+        <li>
+          Vous n'utiliserez pas Ma Ville Propre si vous êtes un délinquant sexuel reconnu coupable.
+        </li>
+        <li>
+          Vous garderez vos coordonnées précises et à jour.
+        </li>
+        <li>
+          Vous ne partagerez pas votre mot de passe (ou dans le cas des promoteurs, votre clé secrète), vous ne laisserez pas quelqu'un d'autre accéder votre compte, ou faire autre chose qui pourrait mettre en danger la sécurité de votre compte.
+        </li>
+        <li>
+          Vous ne transférerez pas votre compte (incluant une Page ou une application que vous administrez) à quelqu'un sans première obtention notre permission écrite.
+        </li>
+        <li>
+          Ssi vous choisissez un nom d'utilisateur ou un identifiant semblable pour votre compte ou votre Page, nous nous réservons le droit d'enlever ou de réclamer votre compte or votre Page, si nous croyons que c'est approprié (comme quand un propriétaire de marque déposée se plaint d'un nom d'utilisateur qui n'a aucun rapport au nom réel d'un utilisateur).
+        </li>
+      </ul>
+
+      <div id="copyright">
+        <p>En continuant avec votre inscription vous consentez à toutes les conditions générales ci-dessus de service.</p>
+        <p>L'avis de droits d'auteur (Affiché sur notre site Web)</p>
+        <p>&copy; {% now "Y" %}. mycleancity.org. Tous droits réservés.</p>
+      </div>
+    </div><!-- end of #terms-conditions -->
+  </div>
+</div>
+
+
+{% endblock %}

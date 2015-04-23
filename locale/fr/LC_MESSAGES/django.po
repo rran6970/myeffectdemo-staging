@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-05 18:03-0500\n"
+"POT-Creation-Date: 2015-04-16 00:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,100 +20,107 @@ msgstr ""
 
 #: mailchimp/models.py:207
 msgid "Mailchimp Log"
-msgstr ""
+msgstr "Inscription Mailchimp"
 
 #: mailchimp/models.py:208
 msgid "Mailchimp Logs"
-msgstr ""
+msgstr "Inscriptions Mailchimp"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:8
 #: mailchimp/templates/mailchimp/overview.html:8
+#: mycleancity/templates/_footer_navbar.html:22
 msgid "Home"
-msgstr ""
+msgstr "Page d’accueil"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:9
 #: mailchimp/templates/mailchimp/overview.html:9
 msgid "mailchimp overview"
-msgstr ""
+msgstr "Aperçu Mailchimp"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:28
 msgid "Campaign Information:"
-msgstr ""
+msgstr "Campagne d’information:"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:31
 #: mailchimp/templates/mailchimp/overview.html:25
 msgid "Sent Date"
-msgstr ""
+msgstr "Date d’envoi"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:35
 msgid "View on Mailchimp"
-msgstr ""
+msgstr "Vue sur Mailchimp"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:36
 msgid "Click here"
-msgstr ""
+msgstr "Cliquez ici"
 
 #: mailchimp/templates/mailchimp/campaign_information.html:40
 msgid "object"
-msgstr ""
+msgstr "objet"
 
 #: mailchimp/templates/mailchimp/overview.html:19
 msgid "Log"
-msgstr ""
+msgstr "inscription"
 
 #: mailchimp/templates/mailchimp/overview.html:24
 #: mailchimp/templates/mailchimp/overview.html:60
 msgid "Subject"
-msgstr ""
+msgstr "subjet"
 
 #: mailchimp/templates/mailchimp/overview.html:40
 msgid "First"
-msgstr ""
+msgstr "Premier"
 
 #: mailchimp/templates/mailchimp/overview.html:50
 msgid "Last"
-msgstr ""
+msgstr "Dernier"
 
 #: mailchimp/templates/mailchimp/overview.html:55
 msgid "Queue"
-msgstr ""
+msgstr "Queue"
 
 #: mailchimp/templates/mailchimp/overview.html:61
+#: mycleancity/templates/challenges/challenge_centre.html:125
+#: mycleancity/templates/challenges/my_challenges.html:79
+#: mycleancity/templates/challenges/my_challenges.html:90
+#: mycleancity/templates/challenges/participants_manage.html:34
+#: mycleancity/templates/cleanteams/clean_team_members.html:33
+#: mycleancity/templates/cleanteams/community_members.html:31
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: mailchimp/templates/mailchimp/overview.html:67
 msgid "via"
-msgstr ""
+msgstr "via"
 
 #: mailchimp/templates/mailchimp/overview.html:68
 msgid "Send Now!"
-msgstr ""
+msgstr "Envoyez maintenant!"
 
 #: mailchimp/templates/mailchimp/overview.html:68
 msgid "Cancel!"
-msgstr ""
+msgstr "Annulez!"
 
 #: mailchimp/templates/mailchimp/overview.html:71
 msgid "No Campaigns in the Queue"
-msgstr ""
+msgstr "Aucune campagne dans la queue"
 
 #: mailchimp/templates/mailchimp/send_button.html:23
 #: mailchimp/templates/mailchimp/send_button.html:25
 msgid "Sent via mailchimp:"
-msgstr ""
+msgstr "Envoyez via mailchimp:"
 
 #: mailchimp/templates/mailchimp/send_button.html:28
 msgid "scheduled for sending via mailchimp"
-msgstr ""
+msgstr "plannifié pour l’envoi via mailchimp"
 
 #: mailchimp/templates/mailchimp/send_button.html:31
 msgid "Send via Mailchimp to ALL subscribers of this list."
-msgstr ""
+msgstr "Envoyez via Mailchimp pour tous les souscripteurs de cette liste."
 
 #: mailchimp/templates/mailchimp/send_button.html:35
 msgid "Send Test Mail"
-msgstr ""
+msgstr "Envoyez le courriel test"
 
 #: mailchimp/templates/mailchimp/send_button.html:37
 msgid "your account requires a valid email to send test mails"
@@ -133,12 +140,265 @@ msgid ""
 "\t\tThis process might take several minutes."
 msgstr ""
 
-#: mycleancity/karthick_settings.py:55
+#: mycleancity/karthick_settings.py:55 mycleancity/relder_settings.py:45
 msgid "English"
 msgstr ""
 
-#: mycleancity/karthick_settings.py:56
+#: mycleancity/karthick_settings.py:56 mycleancity/relder_settings.py:46
 msgid "French"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:23
+#: mycleancity/templates/mycleancity/about.html:4
+msgid "About"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:24
+#: mycleancity/templates/mycleancity/students.html:4
+#: mycleancity/templates/mycleancity/students.html:38
+msgid "Students"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:25
+#: mycleancity/templates/mycleancity/organizations.html:4
+#: mycleancity/templates/mycleancity/organizations.html:37
+msgid "Organizations"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:26
+#: mycleancity/templates/mycleancity/rewards.html:4
+msgid "Rewards"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:27
+#: mycleancity/templates/mycleancity/contact.html:4
+#: mycleancity/templates/mycleancity/contact.html:23
+msgid "Contact"
+msgstr ""
+
+#: mycleancity/templates/_footer_navbar.html:28
+#: mycleancity/templates/mycleancity/privacy.html:4
+#: mycleancity/templates/mycleancity/privacy.html:24
+msgid "Privacy Policy"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:2
+#: mycleancity/templates/mycleancity/students.html:245
+#: mycleancity/templates/users/leaderboard.html:4
+msgid "Leader Board"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:6
+#: mycleancity/templates/mycleancity/students.html:238
+#, fuzzy
+msgid "Take Action"
+msgstr "Actions"
+
+#: mycleancity/templates/_navbar.html:8
+msgid "Find Opportunities"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:9
+msgid "Boost My Effect"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:10
+msgid "Connect With Groups"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:11
+msgid "Claim Change Creds™"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:12
+msgid "Make a Referral"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:33
+msgid "Team Profile"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:34
+#: mycleancity/templates/emails/clean_team_register.html:35
+msgid "Team Achievements"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:35
+#, fuzzy
+msgid "Post Actions"
+msgstr "Actions"
+
+#: mycleancity/templates/_navbar.html:40
+#: mycleancity/templates/challenges/challenge_details.html:185
+msgid "Create Change Team"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:44 mycleancity/templates/_navbar.html:46
+msgid "Manage Team Members"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:53
+#: mycleancity/templates/users/profile.html:25
+#: mycleancity/templates/users/public_profile.html:4
+msgid "My Profile"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:54
+#: mycleancity/templates/users/upgrade_account.html:4
+msgid "Upgrade Account"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:55
+#: mycleancity/templates/challenges/my_challenges.html:4
+#, fuzzy
+msgid "My Actions"
+msgstr "Actions"
+
+#: mycleancity/templates/_navbar.html:56
+#: mycleancity/templates/users/printable_report_card.html:4
+#: mycleancity/templates/users/report_card.html:4
+msgid "Report Card"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:57
+#: mycleancity/templates/users/settings.html:4
+msgid "Settings"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:58
+msgid "FAQ"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:59
+#: mycleancity/templates/users/loggedin.html:12
+#: mycleancity/templates/users/logout.html:5
+msgid "Logout"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:78
+msgid "Make unread"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:80
+msgid "Make read"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:88
+msgid "No notifications"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:93
+msgid "View all notifications"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:108
+msgid "Advanced Search:"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:115
+msgid "All"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:116
+msgid "General"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:117
+msgid "Animals"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:117
+msgid "Wildlife"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:118
+msgid "Arts"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:118
+msgid "Culture"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:119
+msgid "Business"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:119
+msgid "Entrepreneurship"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:120
+msgid "Children"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:120
+msgid "Youth"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:121
+#, fuzzy
+msgid "Education"
+msgstr "Actions"
+
+#: mycleancity/templates/_navbar.html:121
+msgid "Research"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:122
+msgid "Environment"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:123
+msgid "Health"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:123
+msgid "Wellness"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:124
+msgid "Human Rights"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:124
+msgid "Advocacy"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:125
+msgid "International Relief"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:125
+msgid "Development"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:126
+msgid "Social Services"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:126
+#: mycleancity/templates/cleanteams/all_clean_teams.html:89
+msgid "Community"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:127
+msgid "Sports"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:127
+msgid "Recreation"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:133
+msgid "National Actions only"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:139
+msgid "Change Team Actions"
+msgstr ""
+
+#: mycleancity/templates/_navbar.html:153
+msgid "View all results"
 msgstr ""
 
 #: mycleancity/templates/account/account_inactive.html:5
@@ -242,6 +502,46 @@ msgstr ""
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr ""
 
+#: mycleancity/templates/account/login.html:6
+#: mycleancity/templates/users/login.html:4
+msgid "Login"
+msgstr ""
+
+#: mycleancity/templates/account/login.html:25
+msgid "Login with:"
+msgstr ""
+
+#: mycleancity/templates/account/login.html:41
+#: mycleancity/templates/users/login.html:26
+msgid "Sorry, that's not a valid username or password"
+msgstr ""
+
+#: mycleancity/templates/account/login.html:54
+#: mycleancity/templates/registration/password_reset_form.html:29
+#: mycleancity/templates/users/login.html:45
+msgid "Don't have an account? Create one"
+msgstr ""
+
+#: mycleancity/templates/account/login.html:54
+#: mycleancity/templates/account/login.html:56
+#: mycleancity/templates/emails/email_invite_agent.html:44
+#: mycleancity/templates/emails/email_invite_friend.html:45
+#: mycleancity/templates/emails/email_invite_leader.html:43
+#: mycleancity/templates/emails/email_invite_org.html:53
+#: mycleancity/templates/registration/password_reset_complete.html:24
+#: mycleancity/templates/registration/password_reset_form.html:29
+#: mycleancity/templates/users/login.html:45
+#: mycleancity/templates/users/login.html:47
+#: mycleancity/templates/users/register_organization.html:58
+#: mycleancity/templates/users/upgrade_account.html:81
+msgid "here"
+msgstr ""
+
+#: mycleancity/templates/account/login.html:56
+#: mycleancity/templates/users/login.html:47
+msgid "Forgot your password? Reset it"
+msgstr ""
+
 #: mycleancity/templates/account/logout.html:6
 #: mycleancity/templates/account/logout.html:9
 #: mycleancity/templates/account/logout.html:18
@@ -322,6 +622,7 @@ msgstr ""
 
 #: mycleancity/templates/account/signup.html:9
 #: mycleancity/templates/account/signup.html:19
+#: mycleancity/templates/socialaccount/signup.html:6
 msgid "Sign Up"
 msgstr ""
 
@@ -459,9 +760,4188 @@ msgstr ""
 msgid "you are already logged in as %(user_display)s."
 msgstr ""
 
+#: mycleancity/templates/challenges/challenge_centre.html:4
+#, fuzzy
+msgid "Action Centre"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/challenge_centre.html:22
+msgid ""
+"Do you know of volunteer opportunities or events that aren't listed in our "
+"Action Centre?"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:23
+msgid ""
+"Change Agents: Connect My Effect to the local organization host or refer an "
+"Action to earn a 10 bonus change creds"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:24
+msgid "Change Leaders:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:24
+msgid "Upload your opportunity"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:24
+msgid "as an Action for your Change Team to start earning ongoing change creds"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:48
+#: mycleancity/templates/challenges/challenge_details.html:42
+#: mycleancity/templates/cleanteams/clean_team_profile.html:219
+#: mycleancity/templates/cleanteams/community_profile.html:40
+#: mycleancity/templates/cleanteams/community_profile.html:223
+msgid "Change Teams Only"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:52
+#: mycleancity/templates/challenges/challenge_details.html:68
+msgid "Category:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:56
+#: mycleancity/templates/challenges/challenge_details.html:71
+msgid "Created by:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:60
+#: mycleancity/templates/challenges/challenge_details.html:125
+#: mycleancity/templates/challenges/hm_voucher_code.html:24
+#: mycleancity/templates/challenges/my_challenges.html:67
+#: mycleancity/templates/challenges/my_challenges.html:92
+#: mycleancity/templates/challenges/new_challenge_survey.html:29
+#: mycleancity/templates/challenges/voucher_code.html:24
+#: mycleancity/templates/cleanteams/clean_team_profile.html:78
+#: mycleancity/templates/cleanteams/community_profile.html:44
+#: mycleancity/templates/cleanteams/community_profile.html:109
+#: mycleancity/templates/cleanteams/community_profile.html:233
+#: mycleancity/templates/emails/email_invite_agent.html:28
+#: mycleancity/templates/emails/email_invite_friend.html:29
+#: mycleancity/templates/emails/user_register_success.html:40
+#: mycleancity/templates/mycleancity/about.html:104
+#: mycleancity/templates/mycleancity/communication_hub.html:94
+#: mycleancity/templates/mycleancity/organizations.html:185
+#: mycleancity/templates/mycleancity/rewards.html:36
+#: mycleancity/templates/mycleancity/rewards.html:38
+#: mycleancity/templates/mycleancity/rewards.html:40
+#: mycleancity/templates/mycleancity/rewards.html:43
+#: mycleancity/templates/mycleancity/rewards.html:45
+#: mycleancity/templates/mycleancity/rewards.html:47
+#: mycleancity/templates/mycleancity/rewards.html:56
+#: mycleancity/templates/mycleancity/rewards.html:71
+#: mycleancity/templates/mycleancity/rewards.html:72
+#: mycleancity/templates/mycleancity/rewards.html:74
+#: mycleancity/templates/mycleancity/rewards.html:87
+#: mycleancity/templates/mycleancity/rewards.html:90
+#: mycleancity/templates/mycleancity/rewards.html:93
+#: mycleancity/templates/mycleancity/rewards.html:96
+#: mycleancity/templates/mycleancity/rewards.html:138
+#: mycleancity/templates/mycleancity/rewards.html:179
+#: mycleancity/templates/mycleancity/students.html:190
+#: mycleancity/templates/mycleancity/students.html:197
+#: mycleancity/templates/mycleancity/students.html:226
+#: mycleancity/templates/mycleancity/students.html:240
+#: mycleancity/templates/mycleancity/students.html:243
+#: mycleancity/templates/mycleancity/students.html:245
+#: mycleancity/templates/mycleancity/students.html:248
+#: mycleancity/templates/users/public_profile.html:83
+msgid "Change"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:60
+#: mycleancity/templates/challenges/challenge_details.html:125
+#: mycleancity/templates/challenges/hm_voucher_code.html:24
+#: mycleancity/templates/challenges/my_challenges.html:67
+#: mycleancity/templates/challenges/my_challenges.html:92
+#: mycleancity/templates/challenges/new_challenge_survey.html:29
+#: mycleancity/templates/challenges/voucher_code.html:24
+#: mycleancity/templates/cleanteams/clean_team_profile.html:78
+#: mycleancity/templates/cleanteams/community_profile.html:44
+#: mycleancity/templates/cleanteams/community_profile.html:109
+#: mycleancity/templates/cleanteams/community_profile.html:233
+#: mycleancity/templates/emails/email_invite_agent.html:28
+#: mycleancity/templates/emails/email_invite_friend.html:29
+#: mycleancity/templates/emails/user_register_success.html:40
+#: mycleancity/templates/mycleancity/about.html:104
+#: mycleancity/templates/mycleancity/communication_hub.html:94
+#: mycleancity/templates/mycleancity/organizations.html:185
+#: mycleancity/templates/mycleancity/rewards.html:36
+#: mycleancity/templates/mycleancity/rewards.html:38
+#: mycleancity/templates/mycleancity/rewards.html:40
+#: mycleancity/templates/mycleancity/rewards.html:43
+#: mycleancity/templates/mycleancity/rewards.html:45
+#: mycleancity/templates/mycleancity/rewards.html:47
+#: mycleancity/templates/mycleancity/rewards.html:56
+#: mycleancity/templates/mycleancity/rewards.html:71
+#: mycleancity/templates/mycleancity/rewards.html:72
+#: mycleancity/templates/mycleancity/rewards.html:74
+#: mycleancity/templates/mycleancity/rewards.html:84
+#: mycleancity/templates/mycleancity/rewards.html:87
+#: mycleancity/templates/mycleancity/rewards.html:90
+#: mycleancity/templates/mycleancity/rewards.html:93
+#: mycleancity/templates/mycleancity/rewards.html:96
+#: mycleancity/templates/mycleancity/rewards.html:138
+#: mycleancity/templates/mycleancity/rewards.html:179
+#: mycleancity/templates/mycleancity/students.html:101
+#: mycleancity/templates/mycleancity/students.html:190
+#: mycleancity/templates/mycleancity/students.html:197
+#: mycleancity/templates/mycleancity/students.html:221
+#: mycleancity/templates/mycleancity/students.html:226
+#: mycleancity/templates/mycleancity/students.html:240
+#: mycleancity/templates/mycleancity/students.html:243
+#: mycleancity/templates/mycleancity/students.html:245
+#: mycleancity/templates/mycleancity/students.html:248
+#: mycleancity/templates/users/public_profile.html:83
+#: mycleancity/templates/users/register.html:94
+#: mycleancity/templates/users/register.html:96
+#: mycleancity/templates/users/register.html:116
+#: mycleancity/templates/users/register.html:118
+msgid "Creds"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:65
+#: mycleancity/templates/challenges/challenge_details.html:81
+msgid "Time:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:65
+#: mycleancity/templates/challenges/challenge_details.html:81
+msgid "Every"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:65
+#: mycleancity/templates/challenges/challenge_details.html:81
+#: mycleancity/templates/cleanteams/invite_response.html:22
+msgid "from"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:65
+#: mycleancity/templates/challenges/challenge_details.html:81
+msgid "to"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:67
+#: mycleancity/templates/challenges/challenge_details.html:84
+#, fuzzy
+msgid "Start Date:"
+msgstr "Date d’envoi"
+
+#: mycleancity/templates/challenges/challenge_centre.html:67
+#: mycleancity/templates/challenges/challenge_details.html:87
+#, fuzzy
+msgid "End Date:"
+msgstr "Date d’envoi"
+
+#: mycleancity/templates/challenges/challenge_centre.html:71
+#: mycleancity/templates/challenges/my_challenges.html:56
+#: mycleancity/templates/cleanteams/clean_team_profile.html:223
+msgid "Starts:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:71
+#: mycleancity/templates/challenges/challenge_centre.html:74
+#: mycleancity/templates/challenges/challenge_details.html:176
+#: mycleancity/templates/challenges/my_challenges.html:56
+#: mycleancity/templates/challenges/my_challenges.html:59
+#: mycleancity/templates/cleanteams/community_profile.html:227
+#: mycleancity/templates/cleanteams/community_profile.html:230
+#, fuzzy
+msgid "at"
+msgstr "Dernier"
+
+#: mycleancity/templates/challenges/challenge_centre.html:74
+#: mycleancity/templates/challenges/my_challenges.html:59
+msgid "Ends:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:85
+#: mycleancity/templates/challenges/challenge_details.html:112
+msgid "Skills:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:98
+#: mycleancity/templates/challenges/challenge_centre.html:110
+msgid "Added"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:125
+msgid "Sorry, no"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_centre.html:125
+msgid "found."
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:49
+#: mycleancity/templates/challenges/my_challenges.html:43
+#, fuzzy
+msgid "Edit Action"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/challenge_details.html:54
+#: mycleancity/templates/challenges/participants_manage.html:25
+msgid "Send emails to participants"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:64
+msgid "Hosted by:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:75
+msgid "Main Contact:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:91
+msgid "Date and time:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:91
+msgid "until"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:96
+#: mycleancity/templates/challenges/my_challenges.html:63
+#, fuzzy
+msgid "Location:"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/challenge_details.html:100
+msgid "Country:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:105
+msgid "External Link"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:133
+#: mycleancity/templates/mycleancity/about.html:104
+msgid "Learn more"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:150
+msgid "Participating with"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:152
+#: mycleancity/templates/challenges/my_challenges.html:151
+msgid "Store"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:172
+msgid "Select an available Staples store below:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:176
+msgid "Store No:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:211
+msgid "Please describe the reason you want to participate in this action:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:219
+msgid "Register Now to Participate"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:225
+#: mycleancity/templates/challenges/challenge_participants.html:4
+#: mycleancity/templates/challenges/participants_email.html:49
+#: mycleancity/templates/challenges/participants_manage.html:31
+#: mycleancity/templates/challenges/participants_manage.html:77
+msgid "Participants"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:227
+#: mycleancity/templates/challenges/participants_email.html:50
+#: mycleancity/templates/challenges/participants_manage.html:78
+msgid "Total:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:229
+#: mycleancity/templates/challenges/participants_email.html:52
+#: mycleancity/templates/challenges/participants_manage.html:80
+msgid "Max:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:269
+#: mycleancity/templates/cleanteams/main_contact.html:4
+msgid "Main Contact"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:272
+msgid "Name:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:277
+msgid "Email address:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_details.html:282
+msgid "Phone number:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:26
+msgid ""
+"In the event of an emergency, please click anywhere in the row of a "
+"partcipant to view their emergency contact number. If they do not have one, "
+"none will appear beneath their name."
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:31
+msgid "Participant"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:53
+#: mycleancity/templates/challenges/challenge_participants.html:100
+#: mycleancity/templates/challenges/challenge_participants.html:143
+msgid "Emergency Number:"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:58
+msgid "Last check in on"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:61
+msgid "Last check out on"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:117
+msgid "Total Hours"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:122
+#: mycleancity/templates/mycleancity/rewards.html:84
+#: mycleancity/templates/mycleancity/students.html:101
+#: mycleancity/templates/mycleancity/students.html:127
+#: mycleancity/templates/mycleancity/students.html:132
+#: mycleancity/templates/mycleancity/students.html:154
+#: mycleancity/templates/mycleancity/students.html:160
+#: mycleancity/templates/mycleancity/students.html:221
+#: mycleancity/templates/users/register.html:94
+#: mycleancity/templates/users/register.html:96
+#: mycleancity/templates/users/register.html:116
+#: mycleancity/templates/users/register.html:118
+msgid "Clean"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:122
+#: mycleancity/templates/mycleancity/students.html:127
+#: mycleancity/templates/mycleancity/students.html:132
+#: mycleancity/templates/mycleancity/students.html:154
+#: mycleancity/templates/mycleancity/students.html:160
+msgid "Acts"
+msgstr ""
+
+#: mycleancity/templates/challenges/challenge_participants.html:139
+msgid "Last Checked In:"
+msgstr ""
+
+#: mycleancity/templates/challenges/edit_challenge.html:4
+#: mycleancity/templates/mycleancity/coming_soon.html:4
+#: mycleancity/templates/mycleancity/not_authorized.html:4
+msgid "New Challenge"
+msgstr ""
+
+#: mycleancity/templates/challenges/edit_challenge.html:39
+#: mycleancity/templates/challenges/new_challenge.html:31
+msgid "Please provide the contact information of host"
+msgstr ""
+
+#: mycleancity/templates/challenges/edit_challenge.html:65
+#, fuzzy
+msgid "Update Action"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/edit_challenge.html:66
+msgid "Fill out the fields below to update your Action"
+msgstr ""
+
+#: mycleancity/templates/challenges/hm_voucher_code.html:4
+#: mycleancity/templates/challenges/hm_voucher_code.html:23
+#: mycleancity/templates/challenges/voucher_code.html:4
+#: mycleancity/templates/challenges/voucher_code.html:23
+msgid "Voucher Code"
+msgstr ""
+
+#: mycleancity/templates/challenges/hm_voucher_code.html:24
+msgid "Enter your "
+msgstr ""
+
+#: mycleancity/templates/challenges/hm_voucher_code.html:24
+msgid "voucher code to claim your"
+msgstr ""
+
+#: mycleancity/templates/challenges/hm_voucher_code.html:24
+msgid "if you do NOT have a smartphone."
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:27
+#, fuzzy
+msgid "Posted Actions"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/my_challenges.html:39
+msgid "Export User Data"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:41
+msgid "View Participants"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:52
+msgid "Last updated by:"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:73
+msgid "There are no Actions that you've posted."
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:82
+#: mycleancity/templates/users/public_profile.html:86
+msgid "Total Hours:"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:89
+#: mycleancity/templates/challenges/participants_manage.html:33
+#: mycleancity/templates/cleanteams/clean_team_members.html:31
+msgid "Status"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:91
+#: mycleancity/templates/users/printable_report_card.html:21
+#: mycleancity/templates/users/report_card.html:31
+msgid "Hours"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:113
+msgid "Download Forms"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:116
+#: mycleancity/templates/challenges/my_challenges.html:157
+msgid "Checked in on"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:118
+#: mycleancity/templates/challenges/my_challenges.html:159
+msgid "Not checked in"
+msgstr ""
+
+#: mycleancity/templates/challenges/my_challenges.html:178
+msgid "There are no Actions you are partcipating in."
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge.html:4
+#: mycleancity/templates/challenges/new_challenge_survey.html:4
+#, fuzzy
+msgid "New Action"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/new_challenge.html:30
+#, fuzzy
+msgid "Host Contact Information"
+msgstr "Campagne d’information:"
+
+#: mycleancity/templates/challenges/new_challenge.html:51
+msgid "is hosting this Action"
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge.html:67
+#, fuzzy
+msgid "Create Action"
+msgstr "Actions"
+
+#: mycleancity/templates/challenges/new_challenge.html:68
+msgid "Fill out the fields below to create your Action"
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge.html:121
+msgid "Add"
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge.html:128
+msgid "Hide"
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge_survey.html:28
+msgid "Actions Survey Questions"
+msgstr ""
+
+#: mycleancity/templates/challenges/new_challenge_survey.html:29
+msgid "Please fill out our survey to calculate the"
+msgstr ""
+
+#: mycleancity/templates/challenges/participants_email.html:4
+#: mycleancity/templates/challenges/participants_manage.html:4
+msgid "Participants Manage"
+msgstr ""
+
+#: mycleancity/templates/challenges/participants_email.html:27
+msgid "Send email to all participants of"
+msgstr ""
+
+#: mycleancity/templates/challenges/participants_email.html:29
+msgid "Email sent successfully!"
+msgstr ""
+
+#: mycleancity/templates/challenges/participants_manage.html:32
+msgid "Message"
+msgstr ""
+
+#: mycleancity/templates/challenges/voucher_code.html:24
+msgid "Enter your voucher code to claim your"
+msgstr ""
+
+#: mycleancity/templates/challenges/snippets/actionform.html:4
+msgid "Download Forms:"
+msgstr ""
+
+#: mycleancity/templates/challenges/snippets/actionform.html:19
+msgid "leader"
+msgstr ""
+
+#: mycleancity/templates/challenges/snippets/actionform.html:23
+msgid "Add Form:"
+msgstr ""
+
+#: mycleancity/templates/challenges/snippets/actionform.html:30
+msgid "You must be a manager to upload forms."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:4
+msgid "Change Groups"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:24
+msgid "All Groups"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:34
+msgid "Name"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:34
+msgid "Roles"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:34
+#: mycleancity/templates/cleanteams/community_members.html:30
+#: mycleancity/templates/cleanteams/community_profile.html:258
+msgid "Type"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/all_clean_teams.html:70
+#: mycleancity/templates/cleanteams/community_members.html:58
+#: mycleancity/templates/cleanteams/community_members.html:91
+#: mycleancity/templates/cleanteams/community_profile.html:275
+msgid "Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_members.html:4
+#: mycleancity/templates/cleanteams/clean_team_members.html:30
+#: mycleancity/templates/cleanteams/community_members.html:4
+#: mycleancity/templates/cleanteams/community_members.html:29
+#: mycleancity/templates/cleanteams/community_profile.html:257
+msgid "Members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_members.html:25
+msgid "Edit team members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_members.html:25
+msgid "Invite new members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_members.html:32
+#: mycleancity/templates/cleanteams/invite.html:88
+#: mycleancity/templates/cleanteams/invite_organization.html:66
+#: mycleancity/templates/cleanteams/invite_organization.html:73
+msgid "Role"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_members.html:85
+#: mycleancity/templates/cleanteams/invite_response.html:26
+msgid "Agent"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_presentation.html:4
+#: mycleancity/templates/cleanteams/clean_team_presentation.html:22
+msgid "Change Team Presentation"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_presentation.html:23
+msgid "Send your presentation using the form below."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:55
+msgid "Change Creds"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:99
+#: mycleancity/templates/cleanteams/community_profile.html:130
+msgid "View Members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:101
+#: mycleancity/templates/cleanteams/community_profile.html:132
+#, fuzzy
+msgid "View Actions"
+msgstr "Actions"
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:137
+msgid "Register Now to Join"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:142
+#: mycleancity/templates/cleanteams/community_profile.html:149
+msgid "View Website"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:157
+#: mycleancity/templates/cleanteams/community_profile.html:164
+msgid "Posts"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:187
+#: mycleancity/templates/cleanteams/community_profile.html:193
+msgid "No recent posts"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/clean_team_profile.html:226
+#: mycleancity/templates/cleanteams/community_profile.html:230
+msgid "Ends"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_members.html:24
+msgid "Edit community members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_members.html:41
+#: mycleancity/templates/cleanteams/community_profile.html:267
+msgid "User"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_profile.html:24
+msgid "ACTIONS"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_profile.html:67
+#: mycleancity/templates/users/leaderboard.html:57
+msgid "TOP CHANGE TEAMS"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_profile.html:138
+msgid "Membership Request Sent"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/community_profile.html:227
+msgid "Starts"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:4
+msgid "Create Community"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:33
+msgid "Community Name"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:51
+msgid "Is your community private?"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:77
+msgid "You need to"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:77
+msgid "upgrade your account"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_community.html:77
+msgid "before you can create communities"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_join.html:4
+#: mycleancity/templates/cleanteams/create_team_or_org.html:4
+#: mycleancity/templates/cleanteams/invite_response.html:4
+#: mycleancity/templates/cleanteams/register_clean_team.html:4
+#: mycleancity/templates/cleanteams/register_request_join.html:4
+msgid "Register Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:35
+msgid "Create A Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:39
+msgid "For student run or grassroots groups"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:45
+msgid "Representing An Organization"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:49
+msgid "Create a team as an organization"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:55
+#: mycleancity/templates/cleanteams/register_clean_team.html:51
+msgid "Organization type"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:63
+#: mycleancity/templates/cleanteams/register_clean_team.html:59
+msgid "Registered Number"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:64
+#: mycleancity/templates/cleanteams/register_clean_team.html:60
+msgid "Apply for a free 12 month subscription"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:72
+#: mycleancity/templates/cleanteams/register_clean_team.html:68
+msgid "Category"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:80
+#: mycleancity/templates/cleanteams/register_clean_team.html:76
+msgid "Number Of Users:(must be number)"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:102
+msgid "Access Code"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:110
+#: mycleancity/templates/users/upgrade_account.html:56
+#: mycleancity/templates/users/upgrade_account.html:99
+msgid "Don't have an access code?"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:110
+#: mycleancity/templates/users/upgrade_account.html:56
+#: mycleancity/templates/users/upgrade_account.html:99
+msgid "Contact a My Effect Account Representative"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/create_team_or_org.html:110
+#: mycleancity/templates/users/upgrade_account.html:56
+#: mycleancity/templates/users/upgrade_account.html:99
+msgid "to learn our pricing options"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/edit_clean_team.html:4
+#: mycleancity/templates/cleanteams/edit_clean_team.html:26
+msgid "Edit Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/edit_community.html:4
+#: mycleancity/templates/cleanteams/edit_community.html:26
+msgid "Edit Community"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:4
+#: mycleancity/templates/cleanteams/invite_organization.html:4
+msgid "Invite to Join"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:26
+#: mycleancity/templates/cleanteams/invite.html:28
+msgid "Invite to join"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:66
+msgid "Invite Leader"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:67
+msgid "Invite a leader to become a manager of your Change Team."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:69
+#: mycleancity/templates/cleanteams/invite.html:72
+msgid "Invite Members"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:70
+msgid "Invite your friends to support your Change Team."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:73
+msgid "Invite your friends to join MyEffect."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:90
+#: mycleancity/templates/cleanteams/invite_organization.html:74
+msgid "Friend"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:91
+#: mycleancity/templates/cleanteams/invite_organization.html:69
+#: mycleancity/templates/cleanteams/invite_organization.html:75
+#: mycleancity/templates/users/printable_report_card.html:22
+#: mycleancity/templates/users/report_card.html:32
+msgid "Organization"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:97
+msgid "Email: (separate each email address with a comma)"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite.html:100
+msgid "I agree to abide by anti-spam regulations and not abuse this feature."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_organization.html:25
+msgid "Organization Referral"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_organization.html:53
+msgid "Refer an Organization to"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_organization.html:54
+msgid ""
+"Do you know a community organization with an existing project or event that "
+"promotes positive change?"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_organization.html:67
+msgid "Friend(Agent)"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_organization.html:68
+msgid "Leader"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_response.html:22
+msgid "is inviting you to be a"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/invite_response.html:24
+msgid "Change Leader"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/leader_referral.html:4
+msgid "Leader Referral"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/leader_referral.html:22
+msgid "Refer a leader to"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/leader_referral.html:23
+msgid ""
+"Do you know an interested teacher youth group leader, or city hall counselor?"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/level_progress.html:4
+msgid "Change Team Level Progress"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/level_progress.html:27
+msgid "Achievements"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/level_progress.html:37
+msgid "Hello World I am a winner"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/level_progress.html:68
+msgid ""
+"Our team has received your submission. Once we approved it, we will mark "
+"this task completed."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/main_contact.html:23
+msgid "Main Contact for"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/main_contact.html:24
+msgid ""
+"Select one of the Ambassadors to set them as the primary contact. If their "
+"information is incorrect, have them update their information by logging in "
+"and going to Edit Profile."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/post_message.html:4
+#: mycleancity/templates/cleanteams/post_message.html:26
+msgid "Post to Wall"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:23
+#: mycleancity/templates/cleanteams/mobile/register_clean_team.html:16
+msgid "Create a new Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:24
+#: mycleancity/templates/cleanteams/mobile/register_clean_team.html:17
+msgid "Please provide the information for your Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:36
+msgid "Team Name"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:44
+msgid "Company/Organization Name"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:46
+msgid "Associated School/Group"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:84
+#: mycleancity/templates/cleanteams/mobile/register_clean_team.html:41
+#, fuzzy
+msgid "Main Contact Information"
+msgstr "Campagne d’information:"
+
+#: mycleancity/templates/cleanteams/register_clean_team.html:85
+#: mycleancity/templates/cleanteams/mobile/register_clean_team.html:42
+msgid "The primary contact of your Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_request_join.html:23
+#: mycleancity/templates/cleanteams/mobile/register_request_join.html:16
+msgid "Request to join a Change Team"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_request_join.html:24
+#: mycleancity/templates/cleanteams/mobile/register_request_join.html:17
+msgid "Select a Change Team to join as a Ambassador"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/register_request_join.html:34
+#: mycleancity/templates/cleanteams/mobile/register_request_join.html:21
+msgid "You are already part of a Change Team."
+msgstr ""
+
+#: mycleancity/templates/cleanteams/mobile/create_team_or_join.html:4
+msgid "Create Team or Join"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/mobile/create_team_or_join.html:16
+#: mycleancity/templates/users/mobile/create_team_or_join.html:16
+msgid "I would like to:"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/mobile/register_clean_champion.html:4
+#: mycleancity/templates/cleanteams/mobile/register_clean_team.html:4
+#: mycleancity/templates/cleanteams/mobile/register_request_join.html:4
+msgid "Register Change Team Mobile"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/mobile/register_clean_champion.html:16
+msgid "Be a Catalyst"
+msgstr ""
+
+#: mycleancity/templates/cleanteams/mobile/register_clean_champion.html:17
+msgid "Select a Change Team to sponsor"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:27
+#: mycleancity/templates/emails/email_invite_agent.html:24
+#: mycleancity/templates/emails/email_invite_leader.html:24
+#: mycleancity/templates/emails/user_register_success.html:27
+msgid "Hey"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:29
+msgid ""
+"Congratulations on joining our leadership team! As a Change Leader you will "
+"have the opportunity to access a variety of entrepreneurial experiences and "
+"lead My Effect’s operations in your region or school community."
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:31
+msgid ""
+"We will be following up shortly with some useful resources and supports to "
+"help you build your wave of change. In the meantime you can:"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:34
+msgid ""
+"Begin searching for a few fellow leaders to join your executive team, if you "
+"have not done so already."
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:35
+msgid "Check out"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:35
+msgid "to learn about some quick next steps to take action with My Effect"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:35
+msgid "and become a top Change Team."
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:38
+msgid ""
+"If you have any questions at any time, please feel free to reach out to our "
+"Director of Training, Diane Gies at"
+msgstr ""
+
+#: mycleancity/templates/emails/clean_team_register.html:38
+msgid "She is your dedicated resource and support for all your team needs."
+msgstr ""
+
+#: mycleancity/templates/emails/email_defualt.html:15
+msgid "Your message here..."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:26
+#: mycleancity/templates/emails/email_invite_friend.html:26
+#: mycleancity/templates/emails/email_invite_leader.html:26
+#: mycleancity/templates/emails/email_invite_org.html:26
+msgid "You've been invited to join"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:26
+#: mycleancity/templates/emails/email_invite_friend.html:26
+#: mycleancity/templates/emails/email_invite_leader.html:26
+#: mycleancity/templates/emails/email_invite_org.html:26
+msgid "by"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:26
+msgid "and become a Change Agent of of their team,"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:27
+msgid ""
+"is a social change network and action portal that helps you create "
+"meaningful connections with organizations and employers that share your "
+"community passions. As Change Agent you will receive exclusive updates about"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:27
+msgid ""
+"volunteer opportunities and events as well as gain access My Effect’s tools "
+"to effortlessly track all your community hours and contributions."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:28
+#: mycleancity/templates/emails/email_invite_friend.html:29
+msgid "Get started today and receive"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:28
+#: mycleancity/templates/emails/email_invite_friend.html:29
+#: mycleancity/templates/emails/user_register_success.html:40
+msgid "BONUS"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:28
+#: mycleancity/templates/emails/email_invite_friend.html:29
+msgid "when you create your free account."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:29
+#: mycleancity/templates/emails/email_invite_friend.html:30
+#: mycleancity/templates/emails/email_invite_leader.html:28
+#: mycleancity/templates/emails/email_invite_org.html:38
+msgid "Accept the invite."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:31
+#: mycleancity/templates/emails/email_invite_friend.html:32
+#: mycleancity/templates/emails/email_invite_leader.html:30
+#: mycleancity/templates/emails/email_invite_org.html:40
+msgid "Warm Regards"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:44
+#: mycleancity/templates/emails/email_invite_friend.html:45
+#: mycleancity/templates/emails/email_invite_leader.html:43
+#: mycleancity/templates/emails/email_invite_org.html:53
+msgid "You are receiving this email because"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_agent.html:44
+#: mycleancity/templates/emails/email_invite_friend.html:45
+#: mycleancity/templates/emails/email_invite_leader.html:43
+#: mycleancity/templates/emails/email_invite_org.html:53
+msgid ""
+"has indicated they know you and has your consent to send you electronic "
+"communications. If you are receiving this message in error or would not like "
+"to receive any further My Effect invites please  decline your invite"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_friend.html:24
+#: mycleancity/templates/emails/email_invite_org.html:24
+msgid "Hi"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_friend.html:27
+msgid ""
+"is a social change network and action portal that helps you create "
+"meaningful connections with organizations and employers that share your "
+"community passions. As a"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_friend.html:27
+msgid ""
+"member, you will be able to search volunteer and leadership opportunities "
+"that match your interests, as well as create an impressive extracurricular "
+"resume using"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_friend.html:27
+msgid ""
+"mobile tools to effortlessly track all your community hours in the palm of "
+"your hand."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_friend.html:28
+msgid ""
+"Did we mention you get to earn a first of its kind altruistic money for your "
+"actions with My Effect? Transform volunteering into a rewarding experience "
+"and redeem your impact for skill badges, leadership opportunities and even "
+"products and services from brands!"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_leader.html:26
+msgid "and become a Change Leader of of their team"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_leader.html:27
+msgid "As a Change Leader you will become a manager of"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_leader.html:27
+msgid "and receive access to upload team Actions and post to"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:26
+msgid "and create an organization account."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:27
+msgid ""
+"is a social change network and action portal that creates meaningful "
+"connections between volunteers, employers and community to drive change. Not "
+"your average volunteer portal"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:27
+msgid ""
+"provides modern tools that enables community partners to drive change, build "
+"quality relationships, and measure impact."
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:29
+msgid "By joining"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:29
+msgid "your organization will receive:"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:32
+msgid ""
+"A dedicated organization page and social hub to convene volunteers and "
+"highlight community programs or volunteer opportunities"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:33
+msgid ""
+"Unlimited postings to our Action Centre to promote volunteer activities and "
+"community events"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:34
+msgid ""
+"Access to My Effect’s patent-pending tracking tools to effortlessly record "
+"volunteer hours and measure organization impact"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:35
+msgid "Data reporting to track volunteers and program performance"
+msgstr ""
+
+#: mycleancity/templates/emails/email_invite_org.html:37
+msgid "Get started today and create your free account!"
+msgstr ""
+
+#: mycleancity/templates/emails/register_email_notification.html:25
+msgid "A new Student named"
+msgstr ""
+
+#: mycleancity/templates/emails/register_email_notification.html:25
+#: mycleancity/templates/emails/register_email_notification.html:27
+msgid "has signed up under"
+msgstr ""
+
+#: mycleancity/templates/emails/register_email_notification.html:27
+msgid "A new Organization named"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:29
+msgid "Welcome to"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:31
+msgid "Are you ready to show the world what YOUth are capable of?"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:33
+msgid "Get started today by:"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:37
+msgid "Taking action"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:37
+msgid ""
+"sign up for Actions that are posted in our Challenge Centre and earn your "
+"volunteer hours while creating environmental impact."
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:40
+msgid "Supporting your friends"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:40
+msgid "earn"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:40
+msgid "for sponsoring Change Teams organized by your friends or school."
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:44
+#: mycleancity/templates/registration/password_reset_email.html:36
+msgid "Don't forget to follow us via Facebook"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:44
+#: mycleancity/templates/mycleancity/organizations.html:39
+#: mycleancity/templates/mycleancity/organizations.html:153
+msgid "and"
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:44
+#: mycleancity/templates/registration/password_reset_email.html:36
+msgid "for important updates and contest details."
+msgstr ""
+
+#: mycleancity/templates/emails/user_register_success.html:56
+msgid ""
+"You are receiving this email because you register for My Effect if this has "
+"been in error or you would like to stop receiving commercial electronic "
+"communications from My Effect please"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/404.html:11
+msgid "Page Not Found"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/404.html:40
+msgid "Page not found"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/404.html:41
+#: mycleancity/templates/mycleancity/coming_soon.html:23
+msgid "Go Back"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:35
+msgid "Our Mission"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:37
+msgid ""
+"Provide a national multi-pillar program that collaborates with socially "
+"committed organizations to engage, enable and evaluate youth volunteer "
+"actions. Our goal is to build a sustainable future."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:40
+msgid ""
+"Create a leadership program run by YOUth for YOUth with measurable results."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:46
+msgid "Our Approach"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:48
+msgid ""
+"Transform community engagement into a results driven and rewarding endeavour."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:53
+msgid "Results Driven:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:53
+msgid ""
+"My Effect strives to quantify youth impact by recording their volunteer "
+"results and crediting youth and organizations that assist in achieving "
+"community change."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:56
+msgid "Rewarding Experience:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:56
+msgid ""
+"My Effect caters to the 21st century volunteer; providing a platform that "
+"engages goal-oriented mindsets and adds personal motivation to volunteer "
+"experiences."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:61
+msgid ""
+"Together we are working to bridge the gap between youth, local community "
+"resources and corporate leaders to spark positive change."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:66
+msgid "Our Model"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:68
+msgid "We strive to shift the attitude of volunteer  to volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:68
+msgid "play!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:69
+msgid "Catering to the 21st century volunteer, My Effect transforms volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:69
+#: mycleancity/templates/mycleancity/students.html:62
+msgid "work"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:69
+#: mycleancity/templates/mycleancity/students.html:62
+msgid "into volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:69
+msgid "play"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:69
+msgid "making community engagement a fun and rewarding endeavour."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:72
+msgid "Take Action, Earn Rewards"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:76
+msgid "How we meet the characteristics of the 21st Century Volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:79
+msgid "Tech-savvy"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:80
+msgid ""
+"Online leadership portal enhanced with social media plugins and paperless "
+"activity tracking."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:83
+msgid "Goal Oriented"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:84
+msgid "Short term challenges to meet individual needs"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:84
+msgid "volunteering goals"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:87
+msgid "Social"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:88
+msgid "Connect with friends, participate with a team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:88
+msgid "share your progress"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:91
+msgid "Results Driven"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:92
+msgid "Be recognized"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:92
+msgid "rewarded for your contribution"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:95
+msgid "Self-directed"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:96
+msgid "Pick how, when"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:96
+msgid "where you volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:99
+msgid "Mobile"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:100
+msgid "Mobile app for iOS &amp Andriod"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:104
+msgid "about our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:104
+msgid "system."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:105
+msgid "Learn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:105
+msgid "how My Effect's program fits your organization."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:114
+msgid "Our Founder"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:117
+msgid ""
+"My Effect was founded by Kelly Lovell, a Canadian motivational figure, "
+"nonprofit"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:117
+msgid ""
+"community engagement consultant and global youth leader. Recently recognized "
+"as one of the Top 50 Student Leaders of the World with an inauguration as a "
+"Hesselbien Fellow and being named Canada's 2013 Emerging Innovator by Ashoka "
+"and American Express, Lovell invests her time in empowering individuals and "
+"organizations to excel to their full potential."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:120
+msgid ""
+"Creator of The Kelly Effect, Lovell works to develop forward-thinking "
+"initiatives to address current issues, promote social engagement and build "
+"sustainable communities. Her track record of fruitful nonprofit projects is "
+"an example of her investment in others."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:123
+msgid ""
+"Lovell exudes a commitment to fostering leadership development and community "
+"change in all of her work. As a motivational youth figure she has graced "
+"respected stages including TEDx and WE Day, speaking live to audiences as "
+"large as 7000+ and spreading messages of empowerment across the globe."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:126
+msgid ""
+"If I were able to define my life with one word, it would be passion; it's "
+"the driving force behind everything I do, but more importantly, it’s the "
+"essence of how I help individuals find success in life. I invite you to be a "
+"part of my quest for global change and inspiration."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:126
+msgid "Kelly Lovell, Motivational Public Figure and CEO of The Kelly Effect"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/about.html:129
+msgid "To learn more about Kelly and The Kelly Effect please visit"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/coming_soon.html:22
+msgid "Coming soon!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:4
+#: mycleancity/templates/mycleancity/media_hub.html:4
+msgid "Communication Hub"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:33
+msgid "Resources"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:37
+msgid "Printable Poster"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:42
+msgid "YMCA Environmental Guide"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:47
+msgid "Change Team letter template for event organization outreach"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:52
+msgid "Press"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:76
+msgid "Contests"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:82
+msgid "Announcements"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:86
+msgid "My Effect Summer Challenge is Launched!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:88
+msgid ""
+"As My Effect prepares for our official fall debut, we are hosting a special "
+"summer challenge to involve YOUth in bringing My Effect to your community."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:91
+msgid "Create a Change Team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:91
+msgid "and become part of our executive leadership team."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:94
+msgid "Volunteer in your community and earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:94
+msgid ""
+"from July 1st - August 31st to be eligible for our grand prizes. A luxury "
+"trip to NYC, Staples"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:94
+msgid ""
+"M gift card prize packs, and over $10,000 of more gift cards to give away!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/communication_hub.html:96
+msgid "Join today and become our Top Champions!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/contact.html:25
+msgid "Issues? Contact our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/contact.html:25
+msgid "development team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/contact.html:41
+msgid ""
+"I would like to receive My Effect communications containing important "
+"program announcements, news, updates, partner opportunities, contests and "
+"promotions, regarding My Effect's program and tools. You may withdraw "
+"consent at anytime."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/contact_for_license.html:5
+msgid "Access Code Inquiry"
+msgstr ""
+
 #: mycleancity/templates/mycleancity/home.html:18
+#: mycleancity/templates/mycleancity/index.html:18
+#: mycleancity/templates/mycleancity/landing.html:16
+#: mycleancity/templates/mycleancity/success.html:16
 msgid "Change starts with ME!"
 msgstr "Changement commence avec moi!"
+
+#: mycleancity/templates/mycleancity/home.html:28
+#: mycleancity/templates/mycleancity/index.html:29
+msgid "WELCOME"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/landing.html:20
+msgid "Pre-register Today"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/landing.html:47
+#: mycleancity/templates/mycleancity/success.html:24
+msgid "Let's stay in touch"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:37
+msgid "Photos and Videos"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:44
+msgid "Annoucements"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:49
+msgid ""
+"My Effect is a proud partner of Staples’s Recycle for Education Contest. Get "
+"a head start in the CLEAN game and register your school for a change to win "
+"a $25,000 computer lab!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:52
+msgid ""
+"Be sure to share the opportunity with your friends, My Effect will be "
+"watching for leaders who trend #RFE and we may even award some special "
+"surprises!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:55
+msgid "Tweet"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/media_hub.html:63
+msgid "Download the YMCA Environmental Guide"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/message_sent_success.html:5
+msgid "Message sent success"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/message_sent_success.html:13
+msgid "Message sent success!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/message_sent_success.html:14
+msgid "Our account representative will contact you soon."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/not_authorized.html:22
+msgid "Not authorized!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/not_authorized.html:23
+msgid "Go back"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+msgid ""
+"My Effect is a collaborative project. We strive to streamline youth "
+"engagement to build on existing environmental resources and efforts. Our "
+"goal is to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+msgid "engage"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+msgid "retain"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+msgid "youth interest in"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+#: mycleancity/templates/mycleancity/rewards.html:138
+msgid "your"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:39
+msgid "programs and meet your objectives. We are your portal to access youth."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:42
+msgid ""
+"My Effect collaborates with cities, schools, non-profits, and corporations "
+"on local, provincial and national levels."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:45
+msgid ""
+"Our mission is only possible through collaborations with forward-thinking, "
+"responsible organizations."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:47
+msgid "Our partners:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:49
+msgid "Believe in the potential of youth"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:50
+msgid "Desire a more sustainable future"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:51
+msgid "Seek to bridge the gap between youth and community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:52
+msgid ""
+"Wish to strengthen existing environmental efforts to foster leadership in "
+"young Canadians"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:53
+msgid ""
+"Strive to move beyond awareness for environmental change and promote action"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:56
+msgid "If you value these pillars we encourage you to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:56
+msgid "contact us"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:56
+msgid "today to learn how we can work together!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:60
+msgid "Nonprofits/Local Groups"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:62
+#: mycleancity/templates/mycleancity/organizations.html:88
+msgid "My Effect provides Organizations tools that:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:66
+msgid "Manage volunteer registration and participation of current programming"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:69
+msgid ""
+"Effortlessly track and verify volunteer hours (no need for paper sign offs)"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:72
+msgid ""
+"Provides a unique, easy to use portal to promote existing programs to a "
+"motivated volunteer base"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:75
+msgid ""
+"Meet the needs of  youth volunteers with a social media enhanced outreach "
+"tool and mobile app technology"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:78
+msgid ""
+"Offers a rewards program to promote engagement and provide incentive for "
+"existing volunteers"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:82
+#, python-format
+msgid ""
+"Interested in getting involved? My Effect’s tools are 100%% free until "
+"August 31st, 2014!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:82
+#: mycleancity/templates/mycleancity/organizations.html:111
+#: mycleancity/templates/mycleancity/organizations.html:140
+#: mycleancity/templates/mycleancity/organizations.html:166
+msgid "Contact us today"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:82
+msgid "to learn more."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:86
+msgid "Schools"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:92
+msgid ""
+"Provide a creative interface to inspire not yet engaged students to "
+"participate in leadership and volunteerism"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:95
+msgid ""
+"Engage students to apply leadership and classroom learning in your community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:98
+msgid ""
+"Assists students in meeting their volunteering goals and adds accountability "
+"to their volunteer tracking (no self-reporting)"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:101
+msgid ""
+"Motivates students to participate in volunteer activities that develop "
+"higher order skills"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:104
+msgid ""
+"Offers a portal for students to interact with local organizations and learn "
+"about existing community resources"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:107
+msgid ""
+"Brings your students together to work as a team both in and outside of the "
+"classroom"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:111
+msgid "Want to learn more?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:111
+msgid "to book a free demo."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:115
+msgid "Municipalities"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:117
+msgid ""
+"My Effect aligns with municipalities across Canada to support your goals in "
+"citizen engagement while also developing the next generation of your "
+"community leaders. Why cities are partnering with My Effect:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:121
+msgid ""
+"Provide youth a portal to interact with local organizations and learn about "
+"existing community resources"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:124
+msgid "Demonstrate your commitment to building sustainable communities"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:127
+msgid ""
+"Support the development of young leaders who are invested in improving their "
+"city"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:130
+msgid ""
+"Access tools that track citizen participation in a variety of activities or "
+"applications"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:133
+msgid ""
+"Tap into a rewards program that provides incentive for local participation "
+"in community events"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:136
+msgid ""
+"Build vibrant communities with strong organizations and engaged citizens"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:140
+#: mycleancity/templates/mycleancity/organizations.html:166
+msgid "to learn how we can work together."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:144
+msgid "Corporate Leaders"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:146
+msgid ""
+"My Effect creates custom programs for each of our partners. We provide you:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:150
+msgid "A critical portal to access the youth demographic"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:153
+msgid ""
+"An opportunity for a custom Clean Challenge to prompt youth to come into "
+"store locations, learn about product"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:153
+msgid "service offerings,"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:153
+msgid "as well as"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:153
+msgid "discover company commitments to community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:156
+msgid "A tool to quantify the impact of your corporate giving"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:159
+msgid ""
+"A means to demonstrate your brand dedication as a sustainability leader and "
+"become top of mind to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:159
+msgid "youth and emerging"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:159
+msgid "professionals"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:162
+msgid "As a rewards partner, an opportunity to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:162
+msgid "increase brand loyalty"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:162
+msgid "and generate new consumers among today’s youth."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:170
+msgid "Why Partner?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:172
+msgid ""
+"My Effect strives to create an attitude shift towards volunteerism. My "
+"Effect is a team created by YOUth for YOUth, with the aim of redefining "
+"volunteerism as fun, engaging, self-expressive, and rewarding."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:174
+msgid "Our tools provide youth:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:177
+msgid "Freedom to choose how, when and where they make a difference"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:178
+msgid "Earn and track required volunteer hours with ease"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:179
+msgid ""
+"Be recognized for their leadership and community contributions with rewards"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:179
+msgid "opportunities"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:180
+msgid ""
+"Participate in a peer led program that integrates with social networks and "
+"accommodates their mobile lifestyles."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:181
+msgid ""
+"Volunteer with friends, compete with peers and have fun while getting "
+"involved in the community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:185
+msgid "In giving youth the freedom to choose, and through utilizing"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:185
+msgid ""
+"a results based program - My Effect will engage and harness those efforts "
+"for measurable community change!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/organizations.html:191
+msgid "Our Supporters"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:27
+msgid ""
+"We consider your personal information to be very important and it should be "
+"protected. This Privacy Policy describes how we treat the information we "
+"collect when you visit our Site and/or register with us as a user.  Please "
+"take the time to read this Privacy Policy carefully.  This Privacy Policy "
+"should be read in conjunction with the terms and conditions contained in the "
+"Terms of Use posted on the Site.  All capitalized terms used herein not "
+"otherwise defined shall have the meanings ascribed to them in the Terms of "
+"Use."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:30
+msgid "PRIVACY STATEMENT"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:32
+#: mycleancity/templates/mycleancity/mobile/terms.html:33
+#: mycleancity/templates/users/register.html:145
+msgid "Lovell Corporation c.o.b. MY CLEAN CITY (hereinafter "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:35
+msgid ""
+"MY CLEAN CITY respects the privacy of each individual with whom it comes "
+"into contact as a visitor to this Site.  MY CLEAN CITY will not rent or sell "
+"any customer information or any information about any visitor to this Site "
+"to any organization or individual unless you give us permission to do so."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:38
+msgid "PERSONAL INFORMATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:40
+msgid ""
+"In order for the Site to work for all parties, we need to communicate with "
+"you. To do this, we require your email address. In order to establish your "
+"user account, we also require certain registration data.  We may also "
+"request additional information to better provide you with our Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:43
+msgid ""
+"MY CLEAN CITY does not collect any other personal information that you do "
+"not expressly provide. If you do not want your personal information "
+"collected, do not provide it to us. If you have already submitted the "
+"information and would like us to remove it from our records, or you would "
+"like to know what information is held in our records or wish to have any of "
+"the information updated or modified, please contact us at the address set "
+"forth below. MY CLEAN CITY will not disclose your personal information to "
+"any third party without your consent, except as detailed below."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:46
+msgid "NON-PERSONAL INFORMATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:48
+msgid ""
+"It is possible that we may also request non-personally identifiable "
+"information, like gender, city of residence and age. We may use this data to "
+"improve the Site and/or personalize your experience on the Site, in order to "
+"bring you more targeted and relevant Services and to display site content "
+"according to your preferences. We may share this information with others, "
+"such as advertisers interested in advertising on the Site but never on an "
+"individual level. This information will only be shared in an aggregate, "
+"anonymous form, which means that the information will not contain any "
+"personally identifiable information about you or any other person."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:51
+msgid "USAGE INFORMATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:53
+msgid ""
+"In addition to collecting personal and non-personal information, MY CLEAN "
+"CITY may also collect non-personal, aggregated information about its "
+"registered users' use of the Site. This information is not personally "
+"identifiable and will only be used to find out how its registered users use "
+"the Services and the Site. For example, this information will tell us about "
+"usage, how much time users spend on the Site, from which other websites "
+"users came, and to what other websites users go. The collection of this "
+"information allows us, among other things, to create new programs, prepare "
+"for traffic load demands and to efficiently distribute our email "
+"communications."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:56
+msgid "USE OF PERSONAL INFORMATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:58
+msgid ""
+"MY CLEAN CITY may use and/or maintain records of your personal information "
+"such as your name,  address and other registration data, current location "
+"and/or other unique personal identifiers, as the case may be, to provide and "
+"facilitate use of the Site. Some instances where such personal information "
+"is used or collected are: to process and store the information provided so "
+"that we are able to better understand your needs; for troubleshooting "
+"problems and technical or security issues; for detecting and protecting "
+"against error, fraud or other criminal activity as required by any "
+"applicable laws, rules or regulations or governmental requirements; for "
+"other internal purposes; as otherwise expressly informed at the time of "
+"collection; and to keep you informed about our Services. We may also "
+"maintain and use records of such information to send you updates and news "
+"about MY CLEAN CITY. If you do not want to receive updates, newsletters or "
+"other notifications from us, please let us know by emailing us at the email "
+"address set forth below. Alternatively, you can opt out of receiving further "
+"communications from us by using the response mechanism in our communications "
+"with you."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:61
+msgid ""
+"Any personal information or content that you voluntarily disclose while "
+"using the Site which can be viewed by other users thereof (for example, on "
+"discussion boards, in messages and chat areas, via messages or third party "
+"services etc.), becomes publicly viewable and can be collected and used by "
+"others."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:64
+msgid ""
+"Due to the global nature of the Internet, you may be transferring your "
+"personal information to countries outside of Canada whose legal systems do "
+"not offer the same protection for your data as the laws of Canada."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:67
+msgid "EMAIL COMMUNICATIONS"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:69
+msgid ""
+"From time to time we may send you e-mail with information and/or special "
+"offers that we believe would be of interest to you.  All such communications "
+"shall be made in full compliance with Canada's Anti-Spam Legislation. If you "
+"do not wish to receive e-mail you can notify MY CLEAN CITY at any time of "
+"your preference."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:72
+msgid ""
+"MY CLEAN CITY may use a reputable third party to deliver email. Such third "
+"party is under a contractual requirement to keep all personal information "
+"confidential and to only use any personal information for the sole purpose "
+"of sending you email on behalf of MY CLEAN CITY and to return any personal "
+"information once their services are completed."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:75
+msgid "SHARING INFORMATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:77
+msgid ""
+"Except with your consent and as set out below, we will not sell, license, "
+"trade or disclose your personal information to or with others."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:80
+msgid ""
+"We may disclose or share non-personally identifiable information with "
+"partners, advertisers or prospective partners or advertisers to help explain "
+"our business and the effectiveness of our business or for promotional "
+"purposes.  For example, we may disclose aggregated demographic information "
+"which does not include any personally identifiable information."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:83
+msgid ""
+"MY CLEAN CITY may disclose personal information to third party providers of "
+"MY CLEAN CITY, including third parties engaged to assist us in providing "
+"Services (including but not limited to software development, website "
+"development and hosting, data processing, transaction processing services, "
+"document management and office administration) to you or to carry out one or "
+"more of the uses described above. These service providers are prohibited "
+"from using your personal information for any purpose other than to provide "
+"this assistance and are required to protect personal information disclosed "
+"by MY CLEAN CITY and to comply with the general privacy principles describes "
+"in this Privacy Policy."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:86
+msgid ""
+"MY CLEAN CITY reserves the right to disclose personal information to a third "
+"party if a law, regulation, search warrant, subpoena or court order legally "
+"requires or authorizes us to do so."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:89
+msgid ""
+"MY CLEAN CITY also reserves the right to disclose and/or transfer personal "
+"information to a third party in the event of a proposed or actual purchase, "
+"sale (including a liquidation, realization, foreclosure or repossession), "
+"lease, merger, amalgamation or any other type of acquisition, disposal, "
+"transfer, conveyance or financing of all or any portion of MY CLEAN CITY or "
+"of any of the business or assets or shares of MY CLEAN CITY or a division "
+"thereof. MY CLEAN CITY will secure an undertaking from any such third party "
+"to treat the disclosed and/or transferred personal information with the same "
+"degree of diligence as had been previously provided by MY CLEAN CITY."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:92
+msgid "TRACKING AND THIRD PARTY COOKIES"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:94
+msgid ""
+"MY CLEAN CITY may store cookies on your computer to facilitate and customize "
+"your experience on the Site. Cookies are alphanumeric identifiers that "
+"enable our systems to recognize your browser and to provide certain "
+"features. We use cookies because they save you time while navigating the "
+"Site and help us track and target users' interests in order to provide a "
+"better, more customized experience. Cookies also allow us to collect "
+"automatic information from you, like which pages you visit and what links "
+"you click. Most browsers automatically accept cookies, however, it is "
+"possible to change your browser settings so that your browser declines "
+"cookies. The "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:97
+msgid "IP ADDRESS"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:99
+msgid "Your Internet Protocol ("
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:102
+msgid "SECURITY"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:104
+msgid ""
+"We use physical, electronic, and administrative safeguards to assist us in "
+"preventing unauthorized access, maintaining data accuracy, and correctly "
+"using your personal information. Except as specified in this Privacy Policy, "
+"we use commercially reasonable efforts to limit access to your personal "
+"information to the employees, agents, and officers of MY CLEAN CITY on a "
+"need-to-know basis."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:107
+msgid "CONTACT"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:109
+msgid ""
+"If you wish to know what information we have in our files about you, ask a "
+"question about the information in your file or request a change to the "
+"information in your file, or have any questions regarding this Privacy "
+"Policy, please contact us here:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:116
+msgid "Version: 1a"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:117
+msgid "Last updated: July 23, 2014"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/privacy.html:120
+#: mycleancity/templates/mycleancity/mobile/terms.html:304
+msgid "All rights reserved."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:36
+msgid "Calculation"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:38
+msgid "What are"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:40
+msgid ""
+"is our rewards system. It is a currency that is earned by volunteerism and "
+"community impact!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:43
+msgid "How are"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:43
+msgid "Calculated?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:45
+msgid "Impact + Effect ="
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:47
+msgid ""
+"are based on the volunteer hours donated to a Clean Challenge and the impact "
+"of your actions."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:49
+msgid "How do we measure your hours?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:51
+msgid "Through our super cool new app available to download for your "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:51
+msgid ""
+"Search for Actions near you, register to track your hours and share your "
+"progress with your friends."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:54
+msgid "How do we calculate the impact of your efforts?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:56
+msgid "The impact of your actions is determined by our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:59
+msgid "Land"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:59
+msgid "the effect of a Actions on our carbon footprint"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:60
+msgid "Air"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:60
+msgid "the ability of the Actions to positively change air quality"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:61
+msgid "Water"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:61
+msgid ""
+"the impact of your Actions on water use, contaminant levels and pollution"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:62
+msgid "Species"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:62
+msgid "the impact of your Actions on the ecosystems and populations of animals"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:63
+msgid "Result"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:63
+msgid "a metric based score that measures volunteer impact"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:71
+msgid "Cheatsheet"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:72
+msgid "How do I earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:74
+msgid "You earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:74
+msgid "in two ways:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:76
+msgid "Completing Actions and making a difference"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:77
+msgid "Mobilizing your friends to get involved as a community leader"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:80
+msgid "Here are some quick tips to boost your score:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:84
+msgid "Impact:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:84
+msgid "Each Actions will have a"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:84
+msgid ""
+"multiplier based on the impact of your actions. The greater the impact your "
+"Actions has on our environment the more ChangeCreds you earn per hour!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:87
+msgid "Lead:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:87
+msgid "Sign Up as an"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:87
+msgid "Ambassador to lead a Change Team. Earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:87
+msgid "50 bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:87
+msgid ""
+"for taking leadership in your community to mobilize your peers and make a "
+"positive difference"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:90
+msgid "Recruit:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:90
+#: mycleancity/templates/mycleancity/students.html:99
+#: mycleancity/templates/mycleancity/students.html:240
+#: mycleancity/templates/users/register.html:94
+#: mycleancity/templates/users/register.html:116
+msgid "Earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:90
+msgid "bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:90
+msgid "for every Catalyst that signs up to support your Change Team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:93
+msgid "Support:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:93
+msgid ""
+"Help your friends by sponsoring their Change Team. Sign up as a Catalyst to "
+"earn"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:93
+msgid "20 bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:96
+msgid "Connect:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:96
+msgid "Interact with us on social media to be entered into weekly contests and"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:96
+msgid "giveaways. Follow"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:96
+msgid "Trend"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:102
+msgid "Change Team Rewards"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:104
+msgid ""
+"You have accepted the challenge to be a leader in your community and My "
+"Effect has some extra special rewards lined up for your efforts!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:107
+msgid ""
+"Move up in our Change Team Level system as you grow your team page and "
+"unlock special opportunities including mentorship, leadership recognition "
+"and team rewards."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:110
+msgid "Reward Highlights"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:113
+msgid ""
+"Our top National Change Team will win a $1000 Staples Gift Card prize pack."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:116
+msgid ""
+"From tablets, laptops, project supplies and much more, our top Change Team "
+"will have the opportunity to splurge on whatever they need at Staples."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:121
+msgid "Our 2nd"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:121
+msgid "3rd place Top Teams will win $500 Staples Gift Card Prize Pack."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:123
+msgid ""
+"There’s more! Each Top Provincial Team will receive $250 Staples Prize Pack."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:126
+msgid ""
+"We have many more surprises waiting for you so be sure to follow us on "
+"twitter"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:126
+msgid "and instagram"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:126
+msgid "for special contests and updates."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:131
+msgid "Catalyst Rewards"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:133
+msgid ""
+"With My Effect, volunteering is a rewarding experience both figuratively and "
+"literally!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:136
+msgid ""
+"Our partners are excited to recognize YOUth for your impact. My Effect has "
+"over $10,000 worth of gift cards to give away to our dedicated members by "
+"August 31st!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:138
+msgid "In addition to qualifying for our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:138
+msgid "grand prizes"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:138
+msgid ""
+"can be redeemed for a variety of other rewards. Some rewards to look forward "
+"to:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:163
+msgid "Double"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:163
+msgid "credit for every hour"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:165
+msgid "Collect 25 volunteer hours with My Effect and earn a $50"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:165
+msgid "Gift Card*"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:171
+msgid "Clean Superstar Prize Pack"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:173
+msgid "Earn all of your 40 volunteers hours with My Effect."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:175
+msgid "Redeem for"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:175
+msgid "gift card AND $100 Staples Gift card*"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:177
+msgid "Top 10 Champions"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:179
+msgid "Top 10 Catalysts with the highest"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:179
+msgid "scores will receive a"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:179
+msgid "gift card."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:182
+msgid "Cool Surprises"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:184
+msgid "Some surprises prize packs for our dedicated members"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:185
+msgid "hint: we love electronics including tablets"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:185
+msgid ""
+"laptops...we also love to shop, wouldn’t it be cool to close down a store "
+"for a private shopping experience? :P"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:189
+#: mycleancity/templates/mycleancity/rewards.html:258
+msgid "Be sure to follow us on Twitter"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:189
+#: mycleancity/templates/mycleancity/rewards.html:258
+msgid "and like us on"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:189
+#: mycleancity/templates/mycleancity/rewards.html:258
+msgid ""
+"to stay up to date on our national challenge and to learn more about our "
+"rewards!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:198
+msgid "Grand Prize"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:200
+msgid ""
+"Our top national Catalyst with the highest ChangeCred score will deserve to "
+"end summer in style"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:202
+msgid "Win a trip to New York City"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:202
+msgid "luxury experience!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:210
+msgid "Grand Prize 1 - My Clean Style"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:212
+msgid ""
+"Win a luxury shopping tour in New York City! Explore the city that never "
+"sleeps and shop in the absolute trendiest boutiques in New York City. Luxury "
+"Shopping Tour Includes:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:216
+msgid "Flight"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:216
+msgid "accommodations"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:219
+#, python-format
+msgid "Exclusive boutique discounts (up to 20%% off)"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:222
+msgid "Private designer showroom visit (by special request – weekdays only)"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:225
+msgid "Luxury transportation with chauffeur"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:228
+msgid "Complimentary beverages and snacks while you shop"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:231
+msgid "Style Tips from a Style-Savvy Guide"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:231
+msgid "emailed Shopping Guide"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:234
+msgid "Visit some of the hippest neighborhoods in NYC"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:237
+msgid "Lunch reservations at a trendy restaurant in the Meatpacking District"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:244
+msgid ""
+"Our 2nd and 3rd place runner ups still get to enjoy a shopping splurge with "
+"a $200 gift card prize pack from"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:247
+msgid "Grand Prize Sponsor"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:249
+msgid ""
+"These amazing opportunities are brought to you by My Effect’s partner "
+"Entertainment Coaching. Entertainment Coaching is the only online community "
+"where aspiring artists in the entertainment business can get connected, "
+"receive hands on coaching, collaborate, create, and build a fan base online. "
+"EntertainmentCoaching.com brings you real opportunities to jumpstart your "
+"career every month and REALTIME webinar collaboration with coaches who have "
+"launched the careers of Zach Efron, Jennifer Hudson, Queen Latifa, Cole "
+"Sprouse, and more!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:251
+msgid ""
+"If you have a passion for acting, singing, dancing or modeling, use promo "
+"code KL30 and you can start receiving mentorship from top industry Pros at"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/rewards.html:267
+msgid ""
+"Winner must have 20 volunteers hours​ or have a ChangeCred score of 10,000 or "
+"higher to qualify"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:40
+msgid "Have the freedom to choose how, when, and where you make an impact."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:41
+msgid "Make community involvement about more than just volunteer hours."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:42
+msgid "Earn rewards for your efforts!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:45
+msgid ""
+"With My Effect volunteerism can be fun and create new opportunities. We are "
+"a leadership initiative made for YOUth by YOUth."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:48
+msgid "Our goal is to provide YOUth with a portal to:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:51
+msgid "Collaborate with peers"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:52
+msgid "Engage in fun volunteer challenges called Actions"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:53
+msgid "Effortlessly track your volunteer hours and impact in your community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:54
+msgid "Make an environmental impact"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:58
+msgid ""
+"There are endless opportunities to express yourself, find your own volunteer "
+"opportunities, use the My Effect App to paperless track your volunteer "
+"activities and participate contests with friends."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:62
+msgid ""
+"So what are you waiting for? Join My Effect and transform your summer "
+"volunteer"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:62
+msgid "PLAY!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:72
+msgid "Why My Effect?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:87
+msgid ""
+"Whether you need volunteer hours, you are a passionate leader looking for an "
+"opportunity to take action or you simply want to get involved in your "
+"community, My Effect is has something to offer everyone. My Effect believes "
+"in the potential of YOUth and created a portal to give YOUth the freedom to "
+"lead in community your way."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:91
+msgid "YOUth create our Actions"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:91
+msgid "YOUth choose the activities to volunteer in,"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:91
+msgid ""
+"YOUth decide which organizations to connect with and YOUth lead our program "
+"in your community."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:93
+msgid ""
+"With My Effect you can show the world what YOUth are capable of and be "
+"creative doing it!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:95
+#: mycleancity/templates/users/register.html:90
+#: mycleancity/templates/users/register.html:112
+msgid "Engage"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:95
+#: mycleancity/templates/users/register.html:90
+#: mycleancity/templates/users/register.html:112
+msgid ""
+"Connect with like-minded peers and community leaders who are passionate "
+"about making a difference."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:97
+#: mycleancity/templates/users/register.html:92
+#: mycleancity/templates/users/register.html:114
+msgid "Impact"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:97
+msgid ""
+"Sign up and participate in Actions to make a positive impact in your "
+"community."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:99
+msgid ""
+"Get rewarded for your effort by earning ChangeCreds. The greater the impact, "
+"the more you receive!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:101
+#: mycleancity/templates/users/register.html:96
+#: mycleancity/templates/users/register.html:118
+msgid "Redeem"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:101
+#: mycleancity/templates/users/register.html:96
+#: mycleancity/templates/users/register.html:118
+msgid "Cash in your"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:101
+msgid ""
+"for awesome rewards including gift cards, prize packs, and leadership "
+"opportunities"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:108
+msgid "Volunteer Tracking"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:110
+msgid ""
+"Are you tired of carrying around your volunteer tracking papers? Misplacing "
+"your signatures and trying to keep all your activities straight to track "
+"your hours?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:114
+msgid ""
+"My Effect is leading a movement for YOUth to upgrade volunteering to the "
+"21st century. With our mobile app you can effortlessly track all your "
+"activities and hours with a simple scan of a smartphone."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:116
+msgid "Best part is, our activities are"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:116
+#, python-format
+msgid "100%% verified and don't rely on self-reporting."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:125
+msgid "What does this mean?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:127
+msgid "You participate our volunteer challenges called"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:127
+msgid "track all your hours with our mobile app and"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:127
+msgid "simply press PRINT from your web browser."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:129
+msgid "PRESTO"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:129
+msgid ""
+"your summer work all laid out on a clean piece of paper ready to be "
+"submitted to your school on a silver platter."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:132
+msgid "Already have volunteer opportunities that aren't included as"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:132
+#: mycleancity/templates/mycleancity/students.html:271
+msgid "in our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:132
+msgid "Challenge Centre"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:132
+msgid "Email us"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:132
+msgid ""
+"the details and your volunteer coordinator with the subject line: CleanAct "
+"Referral."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:139
+msgid "Don’t forget to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:139
+msgid "register"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:139
+msgid "and download the My Effect App for"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:139
+msgid "or"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:146
+msgid "Get Started"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:147
+msgid "Your Impact Your Way!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:148
+msgid "Participate as an individual or a team."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:148
+msgid "Click to see the full benefits of each."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:150
+msgid "There are two ways to get involved:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:154
+#: mycleancity/templates/mycleancity/students.html:219
+msgid "Ambassador"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:154
+msgid ""
+"You are a leader, form a new Change Team with your friends or represent "
+"existing club, local team or organization as official My Effect program "
+"leaders. Get your own team page to create"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:154
+msgid ""
+"earn team rewards and receive exclusive leadership and mentorship "
+"opportunities."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:154
+#, fuzzy
+msgid "Click to learn more."
+msgstr "Cliquez ici"
+
+#: mycleancity/templates/mycleancity/students.html:160
+msgid "Catalyst"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:160
+msgid "You are a free agent, participate in the"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:160
+msgid ""
+"that interest you at your own pace. Earn your volunteer hours and redeem for "
+"individual rewards."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:170
+msgid "Create a Team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:172
+msgid "Want to lead a Change Team?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:175
+msgid ""
+"Every Change Team starts off as a seed. As your team grows to create Actions "
+"and recruit peers to sign up as Catalysts you move up levels from sprout, to "
+"sapling to tree and all the way to full bloom. Special privileges are "
+"unlocked along the way, you earn more responsibility as a My Effect leader "
+"and if you hit full bloom you will receive national recognition including an "
+"exclusive invite to My Effect's official executive team."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:184
+msgid "What are some privileges to look forward to?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:187
+msgid "Staples Gift Card Grand Prize"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:188
+msgid "Represent My Effect at events and in media"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:189
+msgid "Receive special rewards and opportunities with corporate leaders"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:190
+msgid "Unlock bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:190
+msgid "and multipliers to use with your Actions and more!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:194
+msgid ""
+"Start building your Change Team to learn about all of the exciting "
+"opportunities we have in store for you!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:197
+#: mycleancity/templates/mycleancity/students.html:226
+#: mycleancity/templates/users/register.html:4
+msgid "Register"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:197
+#: mycleancity/templates/mycleancity/students.html:226
+msgid "to be an ambassador to"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:197
+#: mycleancity/templates/mycleancity/students.html:226
+msgid "earn 50 bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:201
+msgid "Become an Ambassador"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:203
+msgid ""
+"We need ambitious and charismatic leaders to bring My Effect to your "
+"community!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:204
+msgid ""
+"Our Ambassadors are our leaders. They inspire others to make an impact and "
+"take an active role in marketing and communications on behalf of My Effect. "
+"Run by YOUth for YOUth, you are our face and voice in your city!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:206
+msgid "As a Ambassador, you get to:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:209
+msgid "Choose how, when and where you lead others to make a difference"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:210
+msgid ""
+"Network with local not-for-profit and grassroots organizations, and be a "
+"liaison to connect volunteers in your community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:211
+msgid "Lead a team and create your own Actions"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:212
+msgid ""
+"Manage your team page and have a hub to share your ideas and take action in "
+"your community"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:213
+msgid "Participate in exclusive Change Team challenges with our brand partners"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:214
+msgid "Unlock special rewards and leadership opportunities"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:215
+msgid ""
+"Become a top Change Team and be invited to join My Effect's executive "
+"leadership team"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:219
+msgid "Check out the 5 easy steps of becoming a"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:221
+msgid "Sign up as a Ambassador today and earn 50 Bonus"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:230
+msgid "Get Rewarded"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:233
+msgid ""
+"My Effect wants to recognize you for your actions. Cash in your volunteer "
+"hours for awesome rewards including gift cards, prize packs, and leadership "
+"opportunities."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:236
+msgid "How do I earn rewards?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:239
+#, fuzzy
+msgid "Complete Actions"
+msgstr "Actions"
+
+#: mycleancity/templates/mycleancity/students.html:243
+msgid "How do"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:243
+msgid "work?"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:245
+msgid ""
+"allow you to measure your impact and compete with your peers on a national "
+"level! It’s like volunteering where you get to keep score! Choose what you "
+"want to do, and show others your accomplishments! Become a TOP Catalyst or "
+"Team and move up on our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:248
+msgid "Visit our"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:248
+msgid "Rewards Hub"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:248
+msgid "for a"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:248
+msgid "cheat sheet and learn how to boost your score."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:258
+msgid "Go Viral"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:260
+msgid ""
+"Add your voice to our national movement and show Canada what YOUth are "
+"capable of!"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:263
+msgid "Join the"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:263
+msgid "Challenge on Twitter, Instagram, and Facebook"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:270
+msgid "Follow us. Tag us. Like us."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:271
+msgid "See how others are transforming leadership into"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:271
+msgid "volunteerplay"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/students.html:271
+msgid "Communications Hub"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/success.html:19
+msgid "Thank you! You will be notified when we launch."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/unsubscribe.html:20
+msgid "Successfully Unsubscribed"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:4
+msgid "Terms"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:4
+msgid "Conditions"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:17
+#: mycleancity/templates/users/register.html:129
+msgid "My Effect User"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:17
+#: mycleancity/templates/users/register.html:129
+msgid "Agreement and Usage Policies"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:19
+msgid "Dear mycleancity.org user,"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:21
+#: mycleancity/templates/users/register.html:133
+msgid ""
+"Thanks for visiting mycleancity.org, an online community owned and operated "
+"by MY CLEAN CITY.  These Terms of Use, which incorporate the Privacy Policy, "
+"set forth the terms and conditions that govern the use of this Site and that "
+"must be followed by any person or entity ("
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:24
+#: mycleancity/templates/users/register.html:136
+msgid "ACCEPTANCE OF TERMS OF USE"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:26
+#: mycleancity/templates/users/register.html:138
+msgid "By clicking on the "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:29
+#: mycleancity/templates/users/register.html:141
+msgid "GENERAL"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:31
+#: mycleancity/templates/users/register.html:143
+msgid "Acceptance"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:36
+#: mycleancity/templates/users/register.html:148
+msgid "Minimum Age"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:38
+#: mycleancity/templates/users/register.html:150
+msgid ""
+"MY CLEAN CITY requires that any User be at least 13 years of age before "
+"creating a user account.  In some jurisdictions this age limit may be "
+"higher.  If you do not qualify, you are not permitted to create a user "
+"account or use the Site or the Services. If you are using the Site or the "
+"Services on behalf of an organization, you represent and warrant that you "
+"have the ability to bind such organization by your use of the Site and the "
+"Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:41
+#: mycleancity/templates/users/register.html:153
+msgid "Registration"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:42
+#: mycleancity/templates/users/register.html:154
+msgid ""
+"You agree to provide true, accurate, current and complete information about "
+"yourself and your organization, as applicable, as requested in the "
+"registration form and elsewhere on the Site."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:44
+#: mycleancity/templates/users/register.html:156
+msgid "Account Access"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:45
+#: mycleancity/templates/users/register.html:157
+msgid ""
+"We may, in our discretion, permit you to authorize additional users to use "
+"your MY CLEAN CITY account. For purposes of this Agreement, you are the "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:47
+#: mycleancity/templates/users/register.html:159
+msgid "COPYRIGHT AND TRADEMARKS"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:50
+#: mycleancity/templates/users/register.html:162
+msgid ""
+"Except as otherwise indicated, the Site, and all text, images, marks, logos "
+"and other content contained herein, including, without limitation, the  MY "
+"CLEAN CITY logo, Kelly Effect, YOU Effect, Kelly A. Lovell, My Effect and "
+"all designs, text, graphics, pictures, information, data, software, sound "
+"files, other files, messages, information, text, music, sound, photos, "
+"graphics, code or other material and the selection and arrangement thereof "
+"(collectively, the "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:53
+#: mycleancity/templates/users/register.html:165
+msgid ""
+"MY CLEAN CITY, its logo and all other product or service names or slogans "
+"displayed on the Site are registered and/or common law trademarks of MY "
+"CLEAN CITY and/or its suppliers or licensors, and may not be copied, "
+"imitated or used, in whole or in part, without the prior written permission "
+"of MY CLEAN CITY or the applicable trademark holder. In addition, the look "
+"and feel of the Site, including all page headers, custom graphics, button "
+"icons and scripts, is the service mark, trademark and/or trade dress of MY "
+"CLEAN CITY and may not be copied, imitated or used, in whole or in part, "
+"without the prior written permission of MY CLEAN CITY."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:56
+#: mycleancity/templates/users/register.html:168
+msgid ""
+"ANY COPYING, DISTRIBUTING, TRANSMITTING, POSTING, LINKING, DEEP LINKING, OR "
+"OTHER MODIFICATION OF THIS SITE WITHOUT THE EXPRESS WRITTEN PERMISSION OF "
+"LOVELL IS STRICTLY PROHIBITED. Any violation of this policy may result in a "
+"copyright, trademark or other intellectual property right infringement that "
+"may subject you to civil and /or criminal penalties."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:59
+#: mycleancity/templates/users/register.html:171
+msgid "MESSAGES AND PROHIBITION ON SPAM"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:61
+#: mycleancity/templates/users/register.html:173
+msgid ""
+"You may not use the Site or the Services for purposes of sending unsolicited "
+"SMS, voice or email messages (sometimes called "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:64
+#: mycleancity/templates/users/register.html:176
+msgid ""
+"Without limiting the remedies available to MY CLEAN CITY for any breach of "
+"this Agreement, MY CLEAN CITY may immediately restrict, suspend or terminate "
+"your access to the Site at any time and without notice if MY CLEAN CITY, in "
+"its sole discretion, determines that you have violated any applicable anti-"
+"spam legislation."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:68
+#: mycleancity/templates/users/register.html:180
+msgid ""
+"In your use of the Site or the Services, you shall represent yourself or "
+"your organization accurately and will not impersonate any other person, "
+"whether actual or fictitious. You agree that for any email message sent by "
+"you using the Site or the Services will not contain any deceptive or "
+"misleading content regarding the overall subject matter of the email message."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:71
+#: mycleancity/templates/users/register.html:183
+msgid "PROVISION OF SERVICES AND USER CONDUCT"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:73
+#: mycleancity/templates/users/register.html:185
+msgid "MY CLEAN CITY's Responsibilities and Use of Site and Services"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:76
+#: mycleancity/templates/users/register.html:188
+msgid ""
+"You acknowledge that you are solely responsible for all data input and that "
+"MY CLEAN CITY is responsible solely for (i) providing the Site platform and "
+"interface and instructions on how to use same, and (ii) providing data "
+"storage on the Site utilizing industry standard safeguards for the "
+"protection thereof. You are solely responsible for ensuring adherence to all "
+"such instructions on how to use the Site and Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:79
+#: mycleancity/templates/users/register.html:191
+msgid ""
+"Save and except for its obligations set forth above, MY CLEAN CITY takes no "
+"responsibility and assumes no liability for any content or data input or "
+"stored or uploaded by you or any third party (including, without limitation, "
+"all contact information and message content), or for any loss or damage "
+"thereto."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:82
+#: mycleancity/templates/users/register.html:194
+msgid ""
+"You further agree to comply with the following in connection with your use "
+"of the Site and the Services:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:86
+#: mycleancity/templates/users/register.html:198
+msgid ""
+"You may not access or use the Site or the Services in a way that uses "
+"technology or other means to access, index, re-render, frame, mirror, "
+"truncate, add to, inject, filter or link to the Site or the Services that is "
+"not authorized by us (including by removing, disabling, bypassing, or "
+"circumventing any content protection or access control mechanisms intended "
+"to prevent the unauthorized use, download, linking, framing, reproduction, "
+"access to, or distribution of the Site or the Services)."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:89
+#: mycleancity/templates/users/register.html:201
+msgid ""
+"You may not use any deep-link, page-scrape, robot, crawl, index, spider, "
+"offline reader, click spam, macro programs, internet agent, or other "
+"automatic device, program, algorithm or methodology which does the same "
+"things, to use, access, copy, index, acquire information, generate "
+"impressions or clicks, input information, store information, search, "
+"generate searches, or monitor any portion of the Site or the Services for "
+"any unauthorized purpose."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:92
+#: mycleancity/templates/users/register.html:204
+msgid ""
+"You may not use the Site or the Services in a way that, to be determined in "
+"our sole discretion, damages, disables, overburdens, impairs, or gains "
+"unauthorized access to the Site or the Services, including MY CLEAN CITY's "
+"servers, computer network, or user accounts."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:95
+#: mycleancity/templates/users/register.html:207
+msgid ""
+"You may not use the Site or the Services in a way that removes, modifies, "
+"disables, blocks, obscures or otherwise impairs any advertising in "
+"connection with the Site or the Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:98
+#: mycleancity/templates/users/register.html:210
+msgid ""
+"You may not copy, display, distribute, download, license, modify, publish, "
+"re-post, reproduce, reuse, sell, transmit, use to create a derivative work, "
+"or otherwise use the content of the Site or the Services for public or "
+"commercial purposes without our express written permission."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:101
+#: mycleancity/templates/users/register.html:213
+msgid ""
+"You shall not interfere with or disrupt the Site or any related MY CLEAN "
+"CITY websites or servers or networks connected to the Site or the Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:104
+#: mycleancity/templates/users/register.html:216
+msgid ""
+"You shall not restrict or inhibit any other user from enjoying and using the "
+"Site or the Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:107
+#: mycleancity/templates/users/register.html:219
+msgid ""
+"You shall not use the Site or the Services in violation of applicable law or "
+"third party rights (including third party terms of service), and shall not "
+"use the Site or the Services for hosting content (for example, images and "
+"documents) that infringes on the intellectual property rights of others."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:110
+#: mycleancity/templates/users/register.html:222
+msgid ""
+"You may only use our templates, any images we provide, or any other features "
+"or functionality of the Services with the Services themselves (for example, "
+"you may not take an image or template and use it on your website). This "
+"restriction also applies to customized templates prepared by our "
+"professional services group."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:113
+#: mycleancity/templates/users/register.html:225
+msgid ""
+"You shall not use documents and images hosted by us on servers controlled by "
+"us for any purpose whatsoever other than in connection with the Services. If "
+"you own the document or image, you can use it outside of the Services so "
+"long as it is not hosted by us."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:117
+#: mycleancity/templates/users/register.html:229
+msgid "Restrictions on Use"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:119
+#: mycleancity/templates/users/register.html:231
+msgid ""
+"You expressly agree not to transmit, distribute, store, create or otherwise "
+"publish through the Site any of the following:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:124
+#: mycleancity/templates/users/register.html:236
+msgid ""
+"content that is unlawful, libelous, defamatory, obscene, pornographic, "
+"indecent, lewd, suggestive, harassing, threatening, invasive of privacy or "
+"publicity rights, abusive, inflammatory, fraudulent or otherwise "
+"objectionable"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:127
+#: mycleancity/templates/users/register.html:239
+msgid ""
+"content that would constitute, encourage or provide instructions for a "
+"criminal offense, violate the rights of any party, or that would otherwise "
+"create liability or violate any local, provincial, federal or international "
+"law"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:130
+#: mycleancity/templates/users/register.html:242
+msgid ""
+"content that may infringe any patent, trademark, trade secret, copyright or "
+"other intellectual or proprietary right of any party"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:133
+#: mycleancity/templates/users/register.html:245
+msgid "content that would violate or infringe upon the rights of others"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:136
+#: mycleancity/templates/users/register.html:248
+msgid ""
+"content that impersonates any person or entity or otherwise misrepresents "
+"your affiliation with a person or entity"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:139
+#: mycleancity/templates/users/register.html:251
+msgid "content that is false and misleading"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:142
+#: mycleancity/templates/users/register.html:254
+msgid ""
+"unsolicited promotions, political campaigning, advertising or solicitations"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:145
+#: mycleancity/templates/users/register.html:257
+msgid ""
+"viruses, corrupted data or other harmful, disruptive or destructive files"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:148
+#: mycleancity/templates/users/register.html:260
+msgid ""
+"content that, in the sole judgment of MY CLEAN CITY, is objectionable or "
+"which may expose MY CLEAN CITY or its affiliates or its users to any harm or "
+"liability of any kind."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:153
+#: mycleancity/templates/users/register.html:265
+msgid ""
+"Any use of the Site in violation of the foregoing violates this Agreement "
+"and may result in, among other things, termination or suspension of your "
+"rights to use the Site or Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:156
+#: mycleancity/templates/users/register.html:268
+msgid "Limitations on Use"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:159
+#: mycleancity/templates/users/register.html:271
+msgid ""
+"You understand that delivery of messages by means of the Site or the "
+"Services may involve transmissions over various networks, and that the "
+"messages (including images and text contained therein) could be reformatted "
+"or otherwise revised to conform to the formatting or technical requirements "
+"of such networks. You also understand and agree that messages exceeding "
+"maximum character limitations may be truncated, abbreviated, reduced or "
+"otherwise abruptly cut short."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:163
+#: mycleancity/templates/users/register.html:275
+msgid ""
+"You agree that we may establish general practices and limits concerning use "
+"of the Site or the Services. We reserve the right to modify, revise, suspend "
+"or discontinue any Service in whole or in part, either temporarily or "
+"permanently and with or without notice, and you acknowledge that we are not "
+"obligated to support or update the Services in any manner."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:166
+#: mycleancity/templates/users/register.html:278
+msgid "Grant of Rights"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:168
+#: mycleancity/templates/users/register.html:280
+msgid ""
+"By posting on the Site, and without necessity of any further consideration, "
+"you automatically grant (or warrant that the owner of such materials "
+"expressly grants) MY CLEAN CITY a world-wide, perpetual, royalty-free, "
+"irrevocable and non-exclusive right and license to use, copy, store, adapt, "
+"transmit, communicate, publicly display and perform, distribute and create "
+"compilations and derivative works from such submitted materials and to use "
+"such content for promotional and marketing purposes. You hereby waive any "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:172
+#: mycleancity/templates/users/register.html:284
+msgid ""
+"You shall be solely responsible for your own submissions and the "
+"consequences of posting or publishing them on the Site. In connection with "
+"each of your submissions, you affirm, represent, and/or warrant that (a) you "
+"own or have the necessary licenses, rights, consents, and permissions to use "
+"and authorize us to use all patent, trademark, trade secret, copyright or "
+"other proprietary rights in and to any and all such submissions to enable "
+"inclusion and use of such submissions in the manner contemplated by us and "
+"these Terms of Use, and (b) you have the written consent, release, and/or "
+"permission of each and every identifiable individual person in such "
+"submissions to use the name or likeness of each and every such identifiable "
+"individual person to enable inclusion and use of such submissions in the "
+"manner contemplated by us and these Terms of Use."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:175
+#: mycleancity/templates/users/register.html:287
+msgid "RESTRICTIONS AND RESPONSIBILITIES"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:176
+#: mycleancity/templates/users/register.html:288
+msgid "No Rights in Software"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:179
+#: mycleancity/templates/users/register.html:291
+msgid ""
+"Nothing on the Site shall be construed to confer any grant or license of any "
+"intellectual property rights, whether by estoppel, by implication, or "
+"otherwise. You will not, directly or indirectly, reverse engineer, "
+"decompile, disassemble, or otherwise attempt to discover the source code, "
+"object code, or underlying structure, ideas, or algorithms of, or found at "
+"or through the Site or the Services or any software, documentation, or data "
+"related to the Site or the Services ("
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:182
+#: mycleancity/templates/users/register.html:294
+msgid "Compliance with Laws"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:185
+#: mycleancity/templates/users/register.html:297
+msgid ""
+"The Site and the Services shall only be used for lawful purposes and you "
+"shall use the Site and the Services only in compliance with this Agreement, "
+"and all applicable laws, including, without limitation all applicable anti-"
+"spam legislation and any other policies and laws related to unsolicited "
+"emails, spamming, privacy, obscenity, defamation and copyright and trademark "
+"infringement."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:188
+#: mycleancity/templates/users/register.html:300
+msgid "Monitoring"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:191
+#: mycleancity/templates/users/register.html:303
+msgid ""
+"Although we have no obligation to monitor the content provided by you or "
+"your use of the Site or the Services, we may do so and may block any "
+"messages, remove any content, including surveys, event registrations or "
+"social campaigns, or prohibit any use of the Site or the Services that we "
+"believe may be (or is alleged to be) in violation of the foregoing or any "
+"other provision of this Agreement."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:194
+#: mycleancity/templates/users/register.html:306
+msgid "THIRD-PARTY WEBSITES AND SERVICES"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:197
+#: mycleancity/templates/users/register.html:309
+msgid ""
+"The Site may contain links to websites that are controlled by third parties "
+"and access to certain third-party services, which may include, without "
+"limitation, social bookmarking services and social network platforms (each, "
+"a "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:201
+#: mycleancity/templates/users/register.html:313
+msgid ""
+"You agree to abide by the terms and conditions of any applicable Third Party "
+"Service. Notwithstanding anything set forth herein to the contrary, you will "
+"abide by this Agreement regardless of anything to the contrary in your "
+"agreement with any third party and you shall not use such Third Party "
+"Service to avoid the restrictions set forth in this Agreement."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:205
+#: mycleancity/templates/users/register.html:317
+msgid ""
+"We may terminate any Third Party Service's ability to interact with the Site "
+"or any of the Services at any time, with or without notice, and in our sole "
+"discretion, with no liability to you or to the third party. Any Third Party "
+"Service may take actions to impact our ability to make available some or all "
+"of the features of the Site or the Services at any time, with or without "
+"notice, and we will not be liable to you or to the third party for any such "
+"actions. We accept no responsibility for reviewing changes or updates to, or "
+"the quality, content, policies, nature or reliability of, any Third Party "
+"Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:208
+#: mycleancity/templates/users/register.html:320
+msgid "USERNAME AND PASSWORD"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:211
+#: mycleancity/templates/users/register.html:323
+msgid ""
+"You are responsible for maintaining the security of your user account and "
+"passwords (including the passwords that your Authorized Users, if any, have "
+"access to). We will accept the instructions of any individual who claims to "
+"be authorized to direct changes to your user account so long as such person "
+"presents the user account owner username and password or provides other "
+"appropriate account identifying information, as determined by us in our sole "
+"discretion, by email or by phone, or through a Third Party Service, if any, "
+"through which you access the Site or the Services.  You shall be solely "
+"responsible and liable for any activity that occurs under your username and "
+"the activities of your Authorized Users, if any, and we shall not be "
+"responsible for the actions of any individuals who misuse or misappropriate "
+"your contact lists or other assets using your username and password or other "
+"appropriate account identifying information. You agree to notify us "
+"immediately of any unauthorized use of your user account or any other breach "
+"of security."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:214
+#: mycleancity/templates/users/register.html:326
+msgid "DISCLAIMER OF WARRANTY"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:217
+#: mycleancity/templates/users/register.html:329
+msgid ""
+"ALL CONTENT, PRODUCTS, AND SERVICES ON THE SITE, OR OBTAINED FROM A WEBSITE "
+"TO WHICH THE SITE IS LINKED (A "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:221
+#: mycleancity/templates/users/register.html:333
+msgid ""
+"OTHER THAN AS REQUIRED UNDER APPLICABLE CONSUMER PROTECTION LAW, UNDER NO "
+"CIRCUMSTANCE WILL LOVELL BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY A USER'S "
+"RELIANCE ON INFORMATION OBTAINED THROUGH THE SITE OR A LINKED SITE, OR YOUR "
+"RELIANCE ON ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. IT IS YOUR "
+"RESPONSIBILITY TO EVALUATE THE ACCURACY, COMPLETENESS OR USEFULNESS OF ANY "
+"OPINION, ADVICE OR OTHER CONTENT OBTAINED FROM A LINKED SITE. PLEASE SEEK "
+"THE ADVICE OF PROFESSIONALS, AS APPROPRIATE, REGARDING THE EVALUATION OF ANY "
+"SPECIFIC OPINION, ADVICE, PRODUCT, SERVICE, OR OTHER CONTENT OBTAINED FROM A "
+"LINKED SITE."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:224
+#: mycleancity/templates/users/register.html:336
+msgid "LIMITATION OF LIABILITY"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:227
+#: mycleancity/templates/users/register.html:339
+msgid ""
+"You waive and covenant not to assert any claims or allegations of any nature "
+"whatsoever against MY CLEAN CITY, its affiliates, or their respective "
+"directors, officers, employees or agents arising out of or in any way "
+"relating to your use of the Site, the Services or any other materials "
+"contained in or accessible through the Site."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:231
+#: mycleancity/templates/users/register.html:343
+msgid ""
+"In no event shall the aggregate liability of MY CLEAN CITY, whether in "
+"contract, warranty, tort (including negligence, whether active, passive or "
+"imputed), product liability, strict liability or other theory, arising out "
+"of or relating to the use of the Site exceed any compensation you pay to MY "
+"CLEAN CITY for Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:235
+#: mycleancity/templates/users/register.html:347
+msgid ""
+"YOU EXPRESSLY UNDERSTAND AND AGREE THAT LOVELL AND ITS AFFILIATES, OFFICERS, "
+"EMPLOYEES, AGENTS, PARTNERS AND LICENSORS SHALL NOT BE LIABLE TO YOU FOR ANY "
+"DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, "
+"INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, "
+"DATA OR OTHER INTANGIBLE LOSSES (EVEN IF LOVELL HAS BEEN ADVISED OF THE "
+"POSSIBILITY OF SUCH DAMAGES), RESULTING FROM USE OF THE SITE, CONTENT OR ANY "
+"RELATED SERVICES."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:238
+#: mycleancity/templates/users/register.html:350
+msgid "INDEMNITY"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:241
+#: mycleancity/templates/users/register.html:353
+msgid ""
+"You hereby release and forever discharge MY CLEAN CITY, its affiliates, and "
+"their respective shareholders, directors, employees, partners, members, "
+"managers, contractors, agents, successors and assigns (collectively, "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:245
+#: mycleancity/templates/users/register.html:357
+msgid ""
+"You agree to indemnify, defend and hold harmless all Releasees from and "
+"against any and all claims, actions, demands, liabilities, losses, damages, "
+"penalties, interest, judgments, settlements, costs and expenses (including "
+"reasonable attorneys' fees) that relate to, arise out of or are based upon: "
+"(a) any misrepresentation or breach of any warranty, covenant or agreement "
+"made by you related to these Terms of Use; or (b) any violation by you of "
+"any law, regulation or rule."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:249
+#: mycleancity/templates/users/register.html:361
+msgid ""
+"MY CLEAN CITY reserves the right, at its own expense, to assume the "
+"exclusive defense and control of any matter otherwise subject to "
+"indemnification by you, but doing so shall not excuse your indemnity "
+"obligations.  MY CLEAN CITY shall have the right to participate in the "
+"defense of all claims as to which it does not assume defense and control, "
+"and you shall not settle any such claim without MY CLEAN CITY's prior "
+"written consent. You also agree to indemnify MY CLEAN CITY for any "
+"reasonable legal fees or other costs incurred by MY CLEAN CITY, acting "
+"reasonably, in investigating or enforcing its rights under these Terms of "
+"Use."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:252
+#: mycleancity/templates/users/register.html:364
+msgid "TERMINATION"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:255
+#: mycleancity/templates/users/register.html:367
+msgid ""
+"MY CLEAN CITY may change or discontinue the Site or any of the Services at "
+"any time without prior notice. MY CLEAN CITY reserves the right to terminate "
+"your use of this Site and the Services at MY CLEAN CITY's election and for "
+"any reason, without prior notice, and your agreement with MY CLEAN CITY in "
+"accordance with these Terms of Use will automatically terminate in the event "
+"that you violate any of the terms and conditions set forth herein. In the "
+"event of any termination, you will immediately cease access to the Site and "
+"Services."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:259
+#: mycleancity/templates/users/register.html:371
+msgid ""
+"If your user account is classified (at our sole discretion) as inactive for "
+"over 120 days, we have the right to permanently delete any of your data "
+"which has been stored."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:262
+#: mycleancity/templates/users/register.html:374
+msgid "SURVIVAL OF TERMS"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:265
+#: mycleancity/templates/users/register.html:377
+msgid ""
+"Notwithstanding any other provisions of these Terms of Use, or any general "
+"legal principles to the contrary, any provision of these Terms of Use that "
+"imposes or contemplates continuing obligations on a party will survive the "
+"expiration or termination of these Terms of Use."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:268
+#: mycleancity/templates/users/register.html:380
+msgid "APPLICABLE LAW AND VENUE"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:270
+#: mycleancity/templates/users/register.html:382
+msgid ""
+"The Site (excluding Third-Party Sites) is controlled by MY CLEAN CITY and "
+"operated by it from its offices in Kitchener, Ontario. However, the Site is "
+"accessible in all Provinces of Canada and in other countries. You and MY "
+"CLEAN CITY explicitly agree that all disputes, claims or other matters "
+"arising from or relating to your use of the Site will be governed by the "
+"laws of the Province of Ontario and the federal laws of Canada applicable "
+"therein."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:273
+#: mycleancity/templates/users/register.html:385
+msgid ""
+"Except where prohibited by applicable law, any claim, dispute or controversy "
+"(whether in contract or tort, pursuant to statute or regulation, or "
+"otherwise, and whether pre-existing, present or future) arising out of or "
+"relating to these Terms of Use (b) the Services (c) oral or written "
+"statements, advertisements or promotions relating to these Terms of Use or "
+"to the Services or (d) the relationships that result from these Terms of Use "
+"or the Services (collectively, a "
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:276
+#: mycleancity/templates/users/register.html:388
+msgid ""
+"To the extent arbitration as described in the immediately preceding "
+"paragraph is prohibited by applicable law, you agree that all Claims will be "
+"heard and resolved in a court of competent subject matter jurisdiction "
+"located in Toronto, Ontario. You consent to the personal jurisdiction of "
+"such courts over you, stipulate to the fairness and convenience of "
+"proceeding in such courts, and covenant not to assert any objection to "
+"proceeding in such courts."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:279
+#: mycleancity/templates/users/register.html:391
+msgid ""
+"If you choose to access the Site from locations other than Ontario, you will "
+"be responsible for compliance with all local laws of such other jurisdiction "
+"and you agree to indemnify MY CLEAN CITY for your failure to comply with any "
+"such laws."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:282
+#: mycleancity/templates/users/register.html:394
+msgid "OTHER"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:284
+#: mycleancity/templates/users/register.html:396
+msgid ""
+"If any provision of these Terms of Use are deemed invalid, void, or for any "
+"reason unenforceable, then that provision shall be deemed severable form "
+"these Terms of Use and shall not affect the validity and enforceability of "
+"any remaining provisions. MY CLEAN CITY may assign any or all of its rights "
+"hereunder to any party without your consent. You are not permitted to assign "
+"any of your rights or obligations hereunder without the prior written "
+"consent of MY CLEAN CITY, and any such attempted assignment will be void and "
+"unenforceable. This Agreement constitutes the entire agreement between you "
+"and MY CLEAN CITY regarding your use of the Site, and supersedes all prior "
+"or contemporaneous communications whether electronic, oral or written "
+"between you and MY CLEAN CITY regarding your use of the Site. Headings are "
+"for reference purposes only and do not limit the scope or extent of such "
+"section. The failure of MY CLEAN CITY to act with respect to a breach by you "
+"or others does not waive its right to act with respect to subsequent or "
+"similar breaches. MY CLEAN CITY does not guarantee it will take action "
+"against all breaches of these Terms of Use. Except as otherwise expressly "
+"provided herein, there shall be no third-party beneficiaries to these Terms "
+"of Use. This Agreement constitutes the entire agreement between you and MY "
+"CLEAN CITY and governs your use of the Site, superseding any prior "
+"agreements between you and MY CLEAN CITY with respect to the Site."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:287
+msgid ""
+"The parties hereto confirm their express wish that this Agreement and all "
+"documents and agreements directly or indirectly relating thereto be drawn up "
+"in the English language."
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:290
+#: mycleancity/templates/users/register.html:402
+msgid "QUESTIONS AND COMMENTS"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:292
+#: mycleancity/templates/users/register.html:404
+msgid ""
+"If you have any questions regarding these Terms of Use or your use of the "
+"Site, please contact us here:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:299
+msgid "Version:"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:300
+msgid "Last updated: July 16, 2014"
+msgstr ""
+
+#: mycleancity/templates/mycleancity/mobile/terms.html:303
+#: mycleancity/templates/users/register.html:415
+msgid ""
+"By continuing with your registration you consent to all of the above terms "
+"and conditions of service."
+msgstr ""
+
+#: mycleancity/templates/notifications/notifications_feed.html:4
+msgid "Change Teams"
+msgstr ""
+
+#: mycleancity/templates/notifications/notifications_feed.html:23
+#, fuzzy
+msgid "Notifications"
+msgstr "Actions"
+
+#: mycleancity/templates/notifications/notifications_feed.html:25
+msgid "Mark all as read"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_complete.html:4
+#: mycleancity/templates/registration/password_reset_confirm.html:4
+#: mycleancity/templates/registration/password_reset_done.html:4
+#: mycleancity/templates/registration/password_reset_form.html:4
+msgid "Reset Password"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_complete.html:23
+msgid "Your password has been reset."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_complete.html:24
+msgid "Login in"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:24
+msgid "Please enter your new password twice."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:25
+msgid "So we can verify you typed it in correctly."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:35
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:36
+msgid "The password reset link was invalid,"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:37
+msgid "possibly because it has already been used."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_confirm.html:38
+msgid "Please request a new password reset."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_done.html:23
+msgid ""
+"You will receive an email to reset your password shortly. Don't forget to "
+"check your junk mail folder."
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_email.html:29
+msgid ""
+"Someone asked for password reset for email {{ email }}. Follow the link "
+"below:"
+msgstr ""
+
+#: mycleancity/templates/registration/password_reset_form.html:23
+msgid ""
+"Please specify your email address to receive instructions for resetting it."
+msgstr ""
 
 #: mycleancity/templates/socialaccount/authentication_error.html:5
 #: mycleancity/templates/socialaccount/authentication_error.html:8
@@ -471,6 +4951,20 @@ msgstr ""
 #: mycleancity/templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
+msgstr ""
+
+#: mycleancity/templates/socialaccount/connections.html:10
+msgid "Social account disconnected"
+msgstr ""
+
+#: mycleancity/templates/socialaccount/connections.html:13
+msgid ""
+"Your social account has been disconnected. If you are not redirected "
+"automatically, follow the"
+msgstr ""
+
+#: mycleancity/templates/socialaccount/connections.html:13
+msgid "link to profile"
 msgstr ""
 
 #: mycleancity/templates/socialaccount/connectionsold.html:6
@@ -523,4 +5017,302 @@ msgstr ""
 
 #: mycleancity/templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
+msgstr ""
+
+#: mycleancity/templates/socialaccount/snippets/connection_list.html:5
+msgid "My Connections:"
+msgstr ""
+
+#: mycleancity/templates/socialaccount/snippets/connection_list.html:5
+msgid "(click on grey icons to connect)"
+msgstr ""
+
+#: mycleancity/templates/users/invalid_login.html:4
+msgid "Invalid"
+msgstr ""
+
+#: mycleancity/templates/users/leaderboard.html:27
+msgid "TOP AGENTS"
+msgstr ""
+
+#: mycleancity/templates/users/leaderboard.html:42
+#: mycleancity/templates/users/leaderboard.html:75
+msgid ""
+"See who is leading the nation in our summer challenge. Who will win our "
+"grand prize and be recognized as TOP My Effect leaders? Let the challenge "
+"begin."
+msgstr ""
+
+#: mycleancity/templates/users/leaderboard.html:48
+#: mycleancity/templates/users/leaderboard.html:82
+#: mycleancity/templates/users/public_profile.html:28
+msgid "CHANGE"
+msgstr ""
+
+#: mycleancity/templates/users/leaderboard.html:48
+#: mycleancity/templates/users/leaderboard.html:82
+#: mycleancity/templates/users/public_profile.html:28
+msgid "CREDS:"
+msgstr ""
+
+#: mycleancity/templates/users/leaderboard.html:50
+#: mycleancity/templates/users/leaderboard.html:85
+msgid "Register Now"
+msgstr ""
+
+#: mycleancity/templates/users/loggedin.html:5
+msgid "Dashboard"
+msgstr ""
+
+#: mycleancity/templates/users/login.html:23
+msgid "Login to your Account"
+msgstr ""
+
+#: mycleancity/templates/users/login.html:36
+#: mycleancity/templates/users/public_profile.html:56
+msgid "Email:"
+msgstr ""
+
+#: mycleancity/templates/users/login.html:39
+msgid "Password:"
+msgstr ""
+
+#: mycleancity/templates/users/logout.html:11
+msgid "You are logged out."
+msgstr ""
+
+#: mycleancity/templates/users/organization_profile.html:4
+#: mycleancity/templates/users/organization_profile_public.html:4
+#: mycleancity/templates/users/profile.html:4
+msgid "Profile"
+msgstr ""
+
+#: mycleancity/templates/users/organization_profile.html:23
+msgid "My Organization Profile"
+msgstr ""
+
+#: mycleancity/templates/users/organization_profile_public.html:27
+msgid "Challenges Posted"
+msgstr ""
+
+#: mycleancity/templates/users/printable_card.html:11
+#: mycleancity/templates/users/qr_code.html:22
+msgid "Member ID:"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:15
+#: mycleancity/templates/users/report_card.html:24
+msgid "Volunteer Report Card"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:20
+#: mycleancity/templates/users/report_card.html:30
+#, fuzzy
+msgid "Date"
+msgstr "Date d’envoi"
+
+#: mycleancity/templates/users/printable_report_card.html:23
+#: mycleancity/templates/users/report_card.html:33
+msgid "Skills"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:24
+#: mycleancity/templates/users/report_card.html:34
+msgid "Description"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:25
+#: mycleancity/templates/users/report_card.html:35
+msgid "Supervistor's Name"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:25
+#: mycleancity/templates/users/report_card.html:35
+msgid "and Phone Number"
+msgstr ""
+
+#: mycleancity/templates/users/printable_report_card.html:88
+#: mycleancity/templates/users/report_card.html:98
+msgid "You haven't participated in any CleanActs yet."
+msgstr ""
+
+#: mycleancity/templates/users/profile_progress.html:4
+msgid "Profile Progress"
+msgstr ""
+
+#: mycleancity/templates/users/profile_progress.html:22
+msgid "Profile Goals"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:50
+msgid "From:"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:63
+msgid "Website:"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:70
+msgid "Change Team:"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:76
+msgid "Community:"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:92
+msgid "Social accounts:"
+msgstr ""
+
+#: mycleancity/templates/users/public_profile.html:141
+msgid "About:"
+msgstr ""
+
+#: mycleancity/templates/users/qr_code.html:4
+msgid "Member ID"
+msgstr ""
+
+#: mycleancity/templates/users/qr_code.html:25
+msgid "View Printable Card"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:24
+msgid "Sign up with:"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:41
+msgid "or:"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:87
+msgid ""
+"YOU want to make a difference but YOU DON'T want to be told what to do!  My "
+"Effect was created for Youth who want to show the world what they can do and "
+"be CREATIVE doing it!"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:92
+#: mycleancity/templates/users/register.html:114
+msgid ""
+"Sign up for Actions to make a positive environmental impact in your "
+"community."
+msgstr ""
+
+#: mycleancity/templates/users/register.html:94
+#: mycleancity/templates/users/register.html:116
+msgid "Get rewarded for your effort by earning"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:94
+msgid "The greater the impact, the more you receive!"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:96
+#: mycleancity/templates/users/register.html:118
+msgid ""
+"for awesome rewards including gift cards, event tickets, scholarships, and "
+"leadership opportunities."
+msgstr ""
+
+#: mycleancity/templates/users/register.html:109
+msgid ""
+"YOU want to make a difference but YOU DON'T want to be told what to do!  My "
+"Effect was created for YOUth who want to show the world what they can do and "
+"be CREATIVE doing it!"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:116
+msgid ". The greater the impact, the more you receive!"
+msgstr ""
+
+#: mycleancity/templates/users/register.html:122
+#, fuzzy
+msgid "Get Started Now!"
+msgstr "Envoyez maintenant!"
+
+#: mycleancity/templates/users/register.html:399
+msgid ""
+"The parties hereto confirm their express wish that this Agreement and all "
+"documents and agreements directly or indirectly relating thereto be drawn up "
+"in the English language. Les parties reconnaissent leur volonté expresse que "
+"la présente convention ainsi que tous les documents et contrats s'y "
+"rattachant directement ou indirectment soient rédigés en anglais."
+msgstr ""
+
+#: mycleancity/templates/users/register.html:412
+msgid "Last updated:"
+msgstr ""
+
+#: mycleancity/templates/users/register_organization.html:4
+msgid "Register Organization"
+msgstr ""
+
+#: mycleancity/templates/users/register_organization.html:25
+msgid "Register as an Organization"
+msgstr ""
+
+#: mycleancity/templates/users/register_organization.html:58
+msgid "Already have an account? Login in"
+msgstr ""
+
+#: mycleancity/templates/users/register_success.html:4
+msgid "Success"
+msgstr ""
+
+#: mycleancity/templates/users/register_success.html:25
+msgid ""
+"Thank you youasfdasdfr registration has been received and has been sent for "
+"approval by our team.We will notify you with next steps once the approval "
+"process is complete."
+msgstr ""
+
+#: mycleancity/templates/users/register_success.html:28
+msgid "Thank you again for your interest in My Effect."
+msgstr ""
+
+#: mycleancity/templates/users/report_card.html:25
+msgid "Printer Friendly Version"
+msgstr ""
+
+#: mycleancity/templates/users/settings.html:24
+msgid "My Settings"
+msgstr ""
+
+#: mycleancity/templates/users/settings.html:48
+msgid ""
+"By unchecking this box, your challenge participation and volunteer hours "
+"will not be seen by the organizations you work with."
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:24
+msgid "Upgrade To Manager"
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:39
+msgid "You are already a manager."
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:48
+#: mycleancity/templates/users/upgrade_account.html:91
+msgid "Access Code:"
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:68
+msgid "You must"
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:68
+msgid "become the leader"
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:68
+msgid "of team before you can upgrade to a manager."
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:81
+msgid "You can create a community"
+msgstr ""
+
+#: mycleancity/templates/users/upgrade_account.html:84
+msgid "Upgrade To Create Communities"
 msgstr ""

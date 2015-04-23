@@ -1,0 +1,69 @@
+{% load socialaccount %}
+{% get_social_accounts user as accounts %}
+<div style="border: 1px solid; padding: 10px;">
+	<div style=" padding: 5px; display: -webkit-box; "><h4>My Connections: &nbsp;</h4><p>(click on grey icons to connect)</p></div>
+	<!--{% if form.non_field_errors %}
+	<div id="errorMsg">{ #  form.non_field_errors}}</div>
+	{% endif %}-->
+	<form method="post" action="/accounts/social/connections/?next=/users/profile/">{% csrf_token %}
+	<div class="socialaccount_ballot" id ="connection_list">
+	<div>
+	  {% if accounts.twitter %}
+	  <a href="{{accounts.twitter.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
+	    <img class="social-login-cross" src="/static/images/cross108.png" alt="cross">
+	    <input type="image" class="social-login-cross" src="/static/images/cross108.png" alt="cross" name="account" value="{{ accounts.twitter.0.id }}">
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "twitter" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/twitter175x175.png" alt="Twitter">
+		<img class="social-login-add" src="/static/images/add40.png" alt="add"></a>
+	  {% endif %}
+	</div>
+	<div>
+	  {% if accounts.facebook %}
+	  <a href="{{accounts.facebook.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/facebook175x175.png" alt="Facebook"></a>
+	    <input type="image" class="social-login-cross" src="/static/images/cross108.png" alt="cross" name="account" value="{{ accounts.facebook.0.id }}">
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "facebook" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/facebook175x175.png" alt="Facebook">
+	    <img class="social-login-add" src="/static/images/add40.png" alt="add"></a>
+	  {% endif %}
+	</div>
+	<div>
+	  {% if accounts.instagram %}
+	  <a href="{{accounts.instagram.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/instagram175x175.jpeg" alt="Instagram"></a>
+	    <input type="image" class="social-login-cross" src="/static/images/cross108.png" alt="cross" name="account" value="{{ accounts.instagram.0.id }}">
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "instagram" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/instagram175x175.jpeg" alt="Instagram">
+		<img class="social-login-add" src="/static/images/add40.png" alt="add"></a>
+	  {% endif %}
+	</div>
+	<div>
+	  {% if accounts.linkedin %}
+	  <a href="{{accounts.linkedin.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/linkedin175x175.png" alt="LinkedIn"></a>
+	    <input type="image" class="social-login-cross" src="/static/images/cross108.png" alt="cross" name="account" value="{{ accounts.linkedin.0.id }}">
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "linkedin" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/linkedin175x175.png" alt="LinkedIn">
+		<img class="social-login-add" src="/static/images/add40.png" alt="add"></a>
+	  {% endif %}
+	</div>
+	<div>
+	  {% if accounts.google %}
+	  <a href="{{accounts.google.0.get_profile_url }}" target="_blank">
+	    <img class="social-login-icon" src="/static/images/google175x175.jpeg" alt="Google"></a>
+	    <input type="image" class="social-login-cross" src="/static/images/cross108.png" alt="cross" name="account" value="{{ accounts.google.0.id }}">
+	  {% else %}
+	  <a title="Click to connect" href="{% provider_login_url "google" process="connect" next="/users/profile/" %}">
+	    <img class="social-login-icon grayscale" src="/static/images/google175x175.jpeg" alt="Google">
+		<img class="social-login-add" src="/static/images/add40.png" alt="add"></a>
+	  {% endif %}
+	</div>
+	<a id="edit-social-connection" href="#">Edit</a>
+	</div>
+	</form>
+</div>

@@ -1,4 +1,5 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
 {% block title %} My Effect - {{ community.name }} {% endblock %}
 
@@ -20,7 +21,7 @@
     <div class="container">
         <div class="community-profile-right-container">
           <div class="plain-sign-top">
-            ACTIONS
+            {%trans "ACTIONS" %}
           </div>
           <div class="community-profile-challenges">
             <div class="community-profile-inner-1">
@@ -36,11 +37,11 @@
                         <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
                
                         {% if challenge.1.clean_team_only %}
-                          <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
+                          <span class="clean-team-only"><h2 class="bold">{%trans "Change Teams Only" %}</h2></span>
                         {% endif %}
                
                         <p>{{ challenge.1.description|slice:":255" }}</p>
-                        <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+                        <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
                
                         {% if user.is_authenticated %}
                           {% if challenge.0 == "particpating" %}
@@ -63,7 +64,7 @@
             </div>
           </div>
           <div class="plain-sign-bottom">
-            TOP CHANGE TEAMS
+            {%trans "TOP CHANGE TEAMS" %}
           </div>
           <div class="community-profile-top-clean-teams">
             <div class="community-profile-inner-1">
@@ -105,7 +106,7 @@
             {% endif %}
             
             <div class="clean-creds">
-              <p><span class="blue bold">Change</span> <span class="gold bold">Creds<sup>TM</sup></span><span>:&nbsp;{{ community.clean_creds }}</span></p>
+              <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>:&nbsp;{{ community.clean_creds }}</span></p>
             </div>
             
             <div id="clean-team-info">
@@ -126,15 +127,15 @@
               </div>
               {% endif %}
             </div>
-            <a href="#clean-team-members-list" class="popup-600">View Members</a>
+            <a href="#clean-team-members-list" class="popup-600">{%trans "View Members" %}</a>
             {% if challenges %}
-              <a href="#clean-team-challenges-list" class="popup-600">View Actions</a>
+              <a href="#clean-team-challenges-list" class="popup-600">{%trans "View Actions" %}</a>
             {% endif %}
 
             <div class="community-membership-request" style="text-align: center; padding-top:10px;">
               {% if not is_member %}
                 {% if has_membership_request %}
-                  Membership Request Sent
+                  {%trans "Membership Request Sent" %}
                 {% else %}
                   {% csrf_token %}
                   <input type="hidden" name="community_id" value="{{ community.id }}">
@@ -145,7 +146,7 @@
 
           </div>
           
-          <h2>{{ community.name }} {% if community.website %}<a href="{{ community.website }}" target="_blank">View Website</a> {% endif %}</h2>
+          <h2>{{ community.name }} {% if community.website %}<a href="{{ community.website }}" target="_blank">{%trans "View Website" %}</a> {% endif %}</h2>
 
           <div class="info" id="about">
             <div class="clear"></div>
@@ -160,7 +161,7 @@
 
           <div class="info" id="wall">
             <div class="field">
-              <p class="title">Posts</p>
+              <p class="title">{%trans "Posts" %}</p>
               <div class="clear"></div>
     
               {% if user.is_active %}
@@ -189,7 +190,7 @@
                   <div class="clear"></div>
                 {% endfor %}
               {% else %}
-                <p class="messsage">No recent posts</p>
+                <p class="messsage">{%trans "No recent posts" %}</p>
               {% endif %}
               </div>
             </div>
@@ -219,17 +220,17 @@
           <h1><a href="/challenges/{{ challenge.1.id }}/">{{ challenge.1.title }}</a></h1>
 
           {% if challenge.1.community_only %}
-            <span class="clean-team-only"><h2 class="bold">Change Teams Only</h2></span>
+            <span class="clean-team-only"><h2 class="bold">{%trans "Change Teams Only" %}</h2></span>
           {% endif %}
 
           <p class="date-time">
-            <span class="bold">Starts:</span><span>&nbsp;{{ challenge.1.event_start_date }} at {{ challenge.1.event_start_time }}</span>
+            <span class="bold">{%trans "Starts" %}:</span><span>&nbsp;{{ challenge.1.event_start_date }} {%trans "at" %} {{ challenge.1.event_start_time }}</span>
           </p>
           <p class="date-time">
-            <span class="bold">Ends:</span><span>&nbsp;{{ challenge.1.event_end_date }} at {{ challenge.1.event_end_time }}</span>
+            <span class="bold">{%trans "Ends" %}:</span><span>&nbsp;{{ challenge.1.event_end_date }} {%trans "at" %} {{ challenge.1.event_end_time }}</span>
           </p>
           <p>{{ challenge.1.description|slice:":255" }}</p>
-          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">Change</span> <span class="gold bold">Creds</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
+          <p class="clean-creds"><span class="bold">{{ challenge.1.clean_creds_per_hour }}</span>&nbsp;<span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span><span class="bold">{% if challenge.1.type.challenge_type == "hourly" %}/hr{% endif %}</span></p>
 
           {% if user.is_authenticated %}
             {% if challenge.0 == "particpating" %}
@@ -253,8 +254,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th class="members"><h2>Members</h2></th>
-          <th class="type"><h2>Type</h2></th>
+          <th class="members"><h2>{%trans "Members" %}</h2></th>
+          <th class="type"><h2>{%trans "Type" %}</h2></th>
         </tr>
       </thead>
       <tbody>
@@ -263,7 +264,7 @@
             <td class="members">
               <a href="/users/profile/{{ user_membership.user.id }}">{{ user_membership.user.first_name }} {{ user_membership.user.last_name }}</a>
             </td>
-            <td class="type">User</td>
+            <td class="type">{%trans "User" %}</td>
           </tr>
         {% endfor %}
         {% for team_membership in team_memberships %}
@@ -271,7 +272,7 @@
             <td class="members">
               <a href="/clean-team/{{ team_membership.clean_team.id }}">{{ team_membership.clean_team.name }}</a>
             </td>
-            <td class="type">Team</td>
+            <td class="type">{%trans "Team" %}</td>
           </tr>
         {% endfor %}
       </tbody>

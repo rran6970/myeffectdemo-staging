@@ -1,0 +1,278 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Rewards {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content rewards">
+    <div class="container">
+        <div class="signs nav-tabs">
+          <a href="#cleancreds-calculation" data-toggle="tab"><div class="sign" id="sign-rewards2"></div></a>
+          <a href="#cleancreds-calculation" data-toggle="tab"><div class="sign" id="sign-cleancreds-calculation"></div></a>
+          <a href="#cleancreds-cheatsheet" data-toggle="tab"><div class="sign" id="sign-cleancreds-cheatsheet"></div></a>
+          <a href="#clean-teams" data-toggle="tab"><div class="sign" id="sign-clean-teams"></div></a>
+          <a href="#catalysts" data-toggle="tab"><div class="sign" id="sign-catalysts"></div></a>
+          <a href="#grand-prize" data-toggle="tab"><div class="sign" id="sign-grand-prize"></div></a>
+          <a href="#" onclick="history.go(-1); return false;"><div class="sign rewards" id="sign-go-back-big"></div></a>
+          
+          <div id="sign-stump-long"></div>
+        </div><!-- ./nav-tabs -->
+        
+        <div id="white-box" class="tab-content">
+          
+          <div class="tab-pane active" id="cleancreds-calculation">
+            <h1 class="tab-titles"><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "Calculation" %}</h1>
+
+            <h2 class="question subtitle-blue">{%trans "What are" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>?</h2>
+            <p>
+              <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "is our rewards system. It is a currency that is earned by volunteerism and community impact!" %}
+            </p>
+
+            <h2 class="question subtitle-blue">{%trans "How are" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "Calculated?" %}</h2>
+            <p>
+              {%trans "Impact + Effect =" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>!
+            </p>
+            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "are based on the volunteer hours donated to a Clean Challenge and the impact of your actions." %}</p>
+            
+            <h2 class="question subtitle-blue">{%trans "How do we measure your hours?" %}</h2>
+            <p>
+              {%trans "Through our super cool new app available to download for your " %}<a href="https://itunes.apple.com/us/app/my-clean-city-app/id880287683?ls=1&mt=8" target="_blank">iPhone</a> &amp; <a href="https://play.google.com/store/search?q=pub:My%20Clean%20City" target="_blank">Android</a>! {%trans "Search for Actions near you, register to track your hours and share your progress with your friends." %}
+            </p>
+
+            <h2 class="question subtitle-blue">{%trans "How do we calculate the impact of your efforts?" %} </h2>
+            <p>
+              {%trans "The impact of your actions is determined by our" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> L.A.W.S:
+            </p>
+
+            <p><span class="bold">{%trans "Land" %}</span> - {%trans "the effect of a Actions on our carbon footprint" %}</p>
+            <p><span class="bold">{%trans "Air" %}</span> – {%trans "the ability of the Actions to positively change air quality" %}</p>
+            <p><span class="bold">{%trans "Water" %}</span> – {%trans "the impact of your Actions on water use, contaminant levels and pollution" %}</p>
+            <p><span class="bold">{%trans "Species" %}</span> – {%trans "the impact of your Actions on the ecosystems and populations of animals" %}</p>
+            <p><span class="bold">{%trans "Result" %}</span>: {%trans "a metric based score that measures volunteer impact" %}</p>
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+          </div>
+
+          <div class="tab-pane" id="cleancreds-cheatsheet">
+            <h1 class="tab-titles"><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "Cheatsheet" %}</h1>
+            <h2 class="question subtitle-blue">{%trans "How do I earn" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>?</h2>
+            
+            <p>{%trans "You earn" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "in two ways:" %}</p>
+            <ol>
+              <li>{%trans "Completing Actions and making a difference" %}</li>
+              <li>{%trans "Mobilizing your friends to get involved as a community leader" %}</li>
+            </ol>
+
+            <p>{%trans "Here are some quick tips to boost your score:" %}</p>
+
+            <ol>
+              <li>
+                <span class="bold">{%trans "Impact:" %}</span> {%trans "Each Actions will have a" %} <span class="bold green">{%trans "Clean" %}</span><span class="bold blue">{%trans "Creds" %}</span> {%trans "multiplier based on the impact of your actions. The greater the impact your Actions has on our environment the more ChangeCreds you earn per hour!" %}
+              </li>
+              <li>
+                <span class="bold">{%trans "Lead:" %}</span> {%trans "Sign Up as an" %} <a href="/students#ambassador"></a>{%trans "Ambassador to lead a Change Team. Earn" %} <span class="bold blue">{%trans "50 bonus" %}</span> <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "for taking leadership in your community to mobilize your peers and make a positive difference" %}
+              </li>
+              <li>
+                <span class="bold">{%trans "Recruit:" %}</span> {%trans "Earn" %} <span class="bold blue">5 {%trans "bonus" %}</span> <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "for every Catalyst that signs up to support your Change Team" %}
+              </li>
+              <li>
+                <span class="bold">{%trans "Support:" %}</span> {%trans "Help your friends by sponsoring their Change Team. Sign up as a Catalyst to earn" %} <span class="bold blue">{%trans "20 bonus" %}</span> <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span>
+              </li>
+              <li>
+                <span class="bold">{%trans "Connect:" %}</span> {%trans "Interact with us on social media to be entered into weekly contests and" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "giveaways. Follow" %} <a href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a>. {%trans "Trend" %} <a href="http://twitter.com/#MyCleanCity">#MyCleanCity</a>
+              </li>
+            </ol>
+          </div>
+
+          <div class="tab-pane" id="clean-teams">
+            <h1 class="tab-titles">{%trans "Change Team Rewards" %}</h1>
+            <p>
+              {%trans "You have accepted the challenge to be a leader in your community and My Effect has some extra special rewards lined up for your efforts!" %}
+            </p>
+            <p>
+              {%trans "Move up in our Change Team Level system as you grow your team page and unlock special opportunities including mentorship, leadership recognition and team rewards." %} 
+            </p>
+
+            <h2 class="question subtitle-blue">{%trans "Reward Highlights" %}</h2>
+            
+            <p>
+              {%trans "Our top National Change Team will win a $1000 Staples Gift Card prize pack." %} 
+            </p>
+            <p>
+              {%trans "From tablets, laptops, project supplies and much more, our top Change Team will have the opportunity to splurge on whatever they need at Staples." %}
+            </p>
+            <img class="images-padded-10" src="{{ STATIC_URL }}images/rewards/staples-giftcard.png" alt="" />
+            <img class="images-padded-10" src="{{ STATIC_URL }}images/rewards/staples-computer.jpg" alt="" />
+
+            <p>{%trans "Our 2nd" %} &amp; {%trans "3rd place Top Teams will win $500 Staples Gift Card Prize Pack." %}</p>
+
+            <p>{%trans "There’s more! Each Top Provincial Team will receive $250 Staples Prize Pack." %}</p>
+
+            <p>
+              {%trans "We have many more surprises waiting for you so be sure to follow us on twitter" %} <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> {%trans "and instagram" %} <a target="_blank" href="http://instagram.com/MyCleanCity1">@MyCleanCity</a> {%trans "for special contests and updates." %}
+            </p>
+          </div>
+
+          <div class="tab-pane" id="catalysts">
+            <h1 class="tab-titles">{%trans "Catalyst Rewards" %}</h1>
+            <p>
+              {%trans "With My Effect, volunteering is a rewarding experience both figuratively and literally!" %}
+            </p>
+            <p>
+              {%trans "Our partners are excited to recognize YOUth for your impact. My Effect has over $10,000 worth of gift cards to give away to our dedicated members by August 31st!" %}
+            </p> 
+            <p>{%trans "In addition to qualifying for our" %} <a href="#grand-prizes">{%trans "grand prizes" %}</a> {%trans "your" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "can be redeemed for a variety of other rewards. Some rewards to look forward to:" %}</p>
+
+            <!-- <table class="rewards-table">
+              <tr>
+                <td class="reward">
+                  <img src="{{ STATIC_URL }}images/rewards/staples-giftcard.png" alt="Staples Giftcard" />
+                  <span class="title">Staples Gift Cards</span>
+                </td>
+                <td class="reward">
+                  <img src="{{ STATIC_URL }}images/rewards/hm-giftcard.png" alt="Staples Giftcard" />
+                  <span class="title">H&amp;M Gift Cards</span>
+                </td>
+                <td class="reward">
+                  <img src="{{ STATIC_URL }}images/rewards/grass-roots-giftcard.png" alt="Grass Roots Giftcard" />
+                  <span class="title">Grass Roots Gift Card</span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" class="reward">
+                  <img src="{{ STATIC_URL }}images/rewards/epishock-product.png" alt="Epishock Environmental Products" />
+                  <span class="title">Environmental Products at Grass Roots Store</span>
+                </td>
+              </tr>
+            </table> -->
+
+            <h2 class="subtitle-blue">{% "2 for 1" %} - {%trans "Double" %} H&amp;M {%trans "credit for every hour" %}</h2>
+            <p>
+              {%trans "Collect 25 volunteer hours with My Effect and earn a $50" %} H&amp;M {%trans "Gift Card*" %} 
+            </p>
+            <div class="reward">
+              <img src="{{ STATIC_URL }}images/rewards/hm-giftcard.png" alt="Staples Giftcard" />
+            </div>
+
+            <h2 class="subtitle-blue">{%trans "Clean Superstar Prize Pack" %}</h2>
+            <p>
+              {%trans "Earn all of your 40 volunteers hours with My Effect." %}
+            </p>
+            <p>{%trans "Redeem for" %} $100 H&amp;M {%trans "gift card AND $100 Staples Gift card*" %}</p>
+
+            <h2 class="subtitle-blue">{%trans "Top 10 Champions" %}</h2>
+            <p>
+              {%trans "Top 10 Catalysts with the highest" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "scores will receive a" %} $50 H&amp;M {%trans "gift card." %}
+            </p>
+
+            <h2 class="subtitle-blue">{%trans "Cool Surprises" %}</h2>
+            <p>
+              {%trans "Some surprises prize packs for our dedicated members" %} 
+              ({%trans "hint: we love electronics including tablets" %} &amp; {%trans "laptops...we also love to shop, wouldn’t it be cool to close down a store for a private shopping experience? :P" %}). 
+            </p>
+            
+            <p>
+              {%trans "Be sure to follow us on Twitter" %} <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> {%trans "and like us on" %} <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> {%trans "to stay up to date on our national challenge and to learn more about our rewards!" %} 
+            </p>  
+            
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+          </div>
+
+          <div class="tab-pane" id="grand-prize">
+            <h1 class="tab-titles">{%trans "Grand Prize" %}</h1>
+            <p>
+              {%trans "Our top national Catalyst with the highest ChangeCred score will deserve to end summer in style" %} (*). 
+            </p>
+            <p><span class="blue">{%trans "Win a trip to New York City" %} &amp; {%trans "luxury experience!" %}</span></p>
+          
+            <table class="grand-prize-table">
+              <tr>
+                <td>
+                  <img src="{{ STATIC_URL }}images/rewards/nyc-tours.png" alt="Pups United" />
+                </td>
+                <td>
+                  <h2 class="subtitle-blue">{%trans "Grand Prize 1 - My Clean Style" %}</h2>
+                  <p>
+                    {%trans "Win a luxury shopping tour in New York City! Explore the city that never sleeps and shop in the absolute trendiest boutiques in New York City. Luxury Shopping Tour Includes:" %}
+                  </p>
+                  <ul>
+                    <li>
+                      {%trans "Flight" %} &amp; {%trans "accommodations" %}
+                    </li>
+                    <li>
+                      {%trans "Exclusive boutique discounts (up to 20% off)" %}
+                    </li>
+                    <li>
+                      {%trans "Private designer showroom visit (by special request – weekdays only)" %}
+                    </li>
+                    <li>
+                      {%trans "Luxury transportation with chauffeur" %}
+                    </li>
+                    <li>
+                      {%trans "Complimentary beverages and snacks while you shop" %}
+                    </li>
+                    <li>
+                      {%trans "Style Tips from a Style-Savvy Guide" %} &amp; {%trans "emailed Shopping Guide" %}
+                    </li>
+                    <li>
+                      {%trans "Visit some of the hippest neighborhoods in NYC" %}
+                    </li>
+                    <li>
+                      {%trans "Lunch reservations at a trendy restaurant in the Meatpacking District" %}
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+            
+            <p>{%trans "Our 2nd and 3rd place runner ups still get to enjoy a shopping splurge with a $200 gift card prize pack from" %} H&amp;M!</p>
+
+            <div id="grand-prize-title">
+              <h2 class="subtitle-blue">{%trans "Grand Prize Sponsor" %}</h2>
+              <p>
+                {%trans "These amazing opportunities are brought to you by My Effect’s partner Entertainment Coaching. Entertainment Coaching is the only online community where aspiring artists in the entertainment business can get connected, receive hands on coaching, collaborate, create, and build a fan base online. EntertainmentCoaching.com brings you real opportunities to jumpstart your career every month and REALTIME webinar collaboration with coaches who have launched the careers of Zach Efron, Jennifer Hudson, Queen Latifa, Cole Sprouse, and more!" %}</p>
+              <p>
+                {%trans "If you have a passion for acting, singing, dancing or modeling, use promo code KL30 and you can start receiving mentorship from top industry Pros at" %} <a href="http://www.entertainmentcoaching.com">www.entertainmentcoaching.com</a>.
+              </p>
+
+              <img src="{{ STATIC_URL }}images/rewards/entertainment-coaching.png" alt="Entertainment Coaching" />
+            </div>
+
+            <p>
+              {%trans "Be sure to follow us on Twitter" %} <a target="_blank" href="http://twitter.com/MyCleanCity1">@MyCleanCity1</a> {%trans "and like us on" %} <a href="https://www.facebook.com/pages/My-Clean-City/203721359785216?ref=br_tf">Facebook</a> {%trans "to stay up to date on our national challenge and to learn more about our rewards!" %} 
+            </p>  
+
+            {% if not user.is_authenticated %}            
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+            {% endif %}
+            
+            * {%trans "Winner must have 20 volunteers hours​ or have a ChangeCred score of 10,000 or higher to qualify" %}
+          </div>
+
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

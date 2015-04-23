@@ -1,4 +1,5 @@
 {% extends '_public_mobile_base.html' %}
+{% load i18n %}
 
 {% block title %} My Effect - Create Team or Join {% endblock %}
 
@@ -12,7 +13,7 @@
     <a href="/" class="logo"></a> 
       
 	<div id="white-box">
-		<h2>I would like to:</h2>
+		<h2>{%trans "I would like to:" %}</h2>
 
         {% if form.non_field_errors %}
           <div class="message-box error">

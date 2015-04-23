@@ -1,0 +1,142 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - {%trans "About" %} {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+
+  <div class="content about">
+    <div class="container">
+        <div class="signs nav-tabs">
+          <div id="sign-about"></div>
+          <a href="#mission" data-toggle="tab"><div class="sign" id="sign-mission"></div></a>
+          <a href="#founder" data-toggle="tab"><div class="sign" id="sign-our-founder"></div></a>
+          <a href="#approach" data-toggle="tab"><div class="sign" id="sign-approach"></div></a>
+          <a href="#model" data-toggle="tab"><div class="sign" id="sign-model"></div></a>
+          <a href="#" onclick="history.go(-1); return false;"><div class="sign about" id="sign-go-back-big"></div></a>
+          
+          <div id="sign-stump-long"></div>
+        </div><!-- ./nav-tabs -->
+
+        <div id="white-box" class="tab-content">
+          <div class="tab-pane active" id="mission">
+            <br/><br/><br/><br/><br/><br/><br/>
+            <h1 class="tab-titles">{%trans "Our Mission" %}</h1>
+            <p>
+              {%trans "Provide a national multi-pillar program that collaborates with socially committed organizations to engage, enable and evaluate youth volunteer actions. Our goal is to build a sustainable future." %}
+            </p>
+            <p>
+              {%trans "Create a leadership program run by YOUth for YOUth with measurable results." %}
+            </p>
+          </div>
+
+          <div class="tab-pane" id="approach">
+            <br/><br/>
+            <h1 class="tab-titles">{%trans "Our Approach" %}</h1>
+            <p>
+              {%trans "Transform community engagement into a results driven and rewarding endeavour." %}
+            </p>
+            <p>
+              <ul>
+                <li>
+                  <span class="titles">{%trans "Results Driven:" %}</span> {%trans "My Effect strives to quantify youth impact by recording their volunteer results and crediting youth and organizations that assist in achieving community change." %}
+                </li>
+                <li>
+                  <span class="titles">{%trans "Rewarding Experience:" %}</span> {%trans "My Effect caters to the 21st century volunteer; providing a platform that engages goal-oriented mindsets and adds personal motivation to volunteer experiences." %}
+                </li>
+              </ul>
+            </p>
+            <p>
+              {%trans "Together we are working to bridge the gap between youth, local community resources and corporate leaders to spark positive change." %}
+            </p>
+          </div>
+
+          <div class="tab-pane" id="model">
+            <h1 class="tab-titles">{%trans "Our Model" %}</h1>
+            <p>
+              {%trans "We strive to shift the attitude of volunteer  to volunteer" %} <span class="blue">{%trans "play!" %}</span>
+              {%trans "Catering to the 21st century volunteer, My Effect transforms volunteer" %} <span class="red">{%trans "work" %}</span> {%trans "into volunteer" %} <span class="blue">{%trans "play" %}</span> {%trans "making community engagement a fun and rewarding endeavour." %} 
+            </p>
+
+            <h2 class="subtitle-blue" style="margin: 10px 0;">{%trans "Take Action, Earn Rewards" %}</h2>
+
+            <table class="table">
+              <tr>
+                <td class="blue-cell" colspan="2">{%trans "How we meet the characteristics of the 21st Century Volunteer" %}</td>
+              </tr>
+              <tr>
+                <td class="green-cell">{%trans "Tech-savvy" %}</td>
+                <td>{%trans "Online leadership portal enhanced with social media plugins and paperless activity tracking." %}</td>
+              </tr>
+              <tr>
+                <td class="blue-cell">{%trans "Goal Oriented" %}</td>
+                <td>{%trans "Short term challenges to meet individual needs" %} &amp; {%trans "volunteering goals" %}</td>
+              </tr>
+              <tr>
+                <td class="green-cell">{%trans "Social" %}</td>
+                <td>{%trans "Connect with friends, participate with a team" %} &amp; {%trans "share your progress" %}</td>
+              </tr>
+              <tr>
+                <td class="blue-cell">{%trans "Results Driven" %}</td>
+                <td>{%trans "Be recognized" %} &amp; {%trans "rewarded for your contribution" %}</td>
+              </tr>
+              <tr>
+                <td class="green-cell">{%trans "Self-directed" %}</td>
+                <td>{%trans "Pick how, when" %} &amp; {%trans "where you volunteer" %}</td>
+              </tr>
+              <tr>
+                <td class="blue-cell">{%trans "Mobile" %}</td>
+                <td>{%trans "Mobile app for iOS &amp Andriod" %}</td>
+              </tr>
+            </table>
+
+            <p><a href="/rewards/">{%trans "Learn more" %}</a> {%trans "about our" %} <span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}</span> {%trans "system." %}</p>
+            <p><a href="/organizations/">{%trans "Learn" %}</a> {%trans "how My Effect's program fits your organization." %}</p>
+
+            <p>
+              <a class="badge-join" href="/register/"><img src="{{ STATIC_URL }}images/badge-join-200-145.png" alt=""/></a>
+            </p>
+
+          </div>
+
+          <div class="tab-pane" id="founder">
+            <h1 class="tab-titles">{%trans "Our Founder" %}</h1>
+            <img id="kelly-img" src="{{ STATIC_URL }}images/kelly.jpg" alt="" />
+            <p>
+              {%trans "My Effect was founded by Kelly Lovell, a Canadian motivational figure, nonprofit" %} &amp; {%trans "community engagement consultant and global youth leader. Recently recognized as one of the Top 50 Student Leaders of the World with an inauguration as a Hesselbien Fellow and being named Canada's 2013 Emerging Innovator by Ashoka and American Express, Lovell invests her time in empowering individuals and organizations to excel to their full potential." %}
+            </p>
+            <p>
+              {%trans "Creator of The Kelly Effect, Lovell works to develop forward-thinking initiatives to address current issues, promote social engagement and build sustainable communities. Her track record of fruitful nonprofit projects is an example of her investment in others." %}
+            </p>
+            <p>
+              {%trans "Lovell exudes a commitment to fostering leadership development and community change in all of her work. As a motivational youth figure she has graced respected stages including TEDx and WE Day, speaking live to audiences as large as 7000+ and spreading messages of empowerment across the globe." %}
+            </p>
+            <p>
+              {%trans ""If I were able to define my life with one word, it would be passion; it's the driving force behind everything I do, but more importantly, it’s the essence of how I help individuals find success in life. I invite you to be a part of my quest for global change and inspiration." - Kelly Lovell, Motivational Public Figure and CEO of The Kelly Effect" %}
+            </p>
+
+            <p>{%trans "To learn more about Kelly and The Kelly Effect please visit" %} <a href="http://www.kellyalovell.com">www.kellyalovell.com</a></p>
+
+            <iframe width="420" height="315" src="//www.youtube.com/embed/SOz13TIGm-4" frameborder="0" allowfullscreen></iframe>
+
+          </div>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

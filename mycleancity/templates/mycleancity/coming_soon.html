@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - New Challenge {% endblock %}
+{% block title %} My Effect - {%trans "New Challenge" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -18,8 +19,8 @@
   <div class="content">
     <div class="container">
         <div id="white-box" class="login">
-			   <h1 style="text-align: center;">Coming soon!</h1>
-          <a href="#" onclick="history.go(-1); return false;"><h2>Go Back</h2></a>
+			   <h1 style="text-align: center;">{%trans "Coming soon!" %}</h1>
+          <a href="#" onclick="history.go(-1); return false;"><h2>{%trans "Go Back" %}</h2></a>
         </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->

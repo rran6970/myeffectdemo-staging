@@ -1,0 +1,39 @@
+{% extends '_public_mobile_base.html' %}
+
+{% block title %} My Effect - {%trans "Create Team or Join" %} {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mobile-view" id="mobile-create-or-request-join">            
+    <a href="/" class="logo"></a> 
+      
+	<div id="white-box">
+		<h2>{%trans "I would like to:" %}</h2>
+
+        {% if form.non_field_errors %}
+          <div class="message-box error">
+          {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <form action="/clean-team/create-or-request/" method="post" enctype="multipart/form-data">{% csrf_token %}
+          <div class="btn-group" data-toggle="buttons">
+            {% for radio in form.selections %}
+              <label class="btn btn-radio-group">
+                {{ radio.choice_label }}
+                {{ radio.tag }}
+              </label>
+            {% endfor %}
+          </div>
+
+          <input class="btn btn-primary" type="submit" value="Continue" />
+        </form>
+	</div>
+</div>
+
+
+{% endblock %}

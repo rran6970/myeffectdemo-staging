@@ -1,0 +1,56 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - Register Change Team {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+        <div id="white-box" class="invite-response">
+            <p>{{ invite.user.get_full_name }} {%trans "from" %} {{ invite.clean_team.name }} {%trans "is inviting you to be a" %} 
+              {% if invite.role == "leader" %}
+                {%trans "Change Leader" %}
+              {% else %}
+                {%trans "Agent" %}
+              {% endif %}
+            </p>
+
+            {% if form.non_field_errors %}
+              <div class="message-box error">
+              {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+              {{ form.token }}
+              <div class="btn-group" data-toggle="buttons">
+                {% for radio in form.selections %}
+                  <label class="btn btn-radio-group">
+                    {{ radio.choice_label }}
+                    {{ radio.tag }}
+                  </label>
+                {% endfor %}
+              </div> 
+              <input class="btn btn-primary" type="submit" value="Continue" />
+            </form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

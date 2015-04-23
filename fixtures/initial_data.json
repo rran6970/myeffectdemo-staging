@@ -1742,7 +1742,7 @@
     "link": "/challenges/{0}/", 
     "notification_type": "challenge_posted", 
     "message": "{0} posted a challenge called {1}", 
-    "description": "A Clean Team posts a Challenge"
+    "description": "A Change Team posts a Challenge"
   }
 },
 {
@@ -1754,7 +1754,7 @@
     "link": "/clean-team/{0}", 
     "notification_type": "message_posted", 
     "message": "{0} posted a message on their wall", 
-    "description": "A Clean Team posts a message"
+    "description": "A Change Team posts a message"
   }
 },
 {
@@ -1765,8 +1765,8 @@
     "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "cc_joined", 
-    "message": "{0} joined {1} as a Clean Champion!", 
-    "description": "A new Clean Champion has joined a Clean Team"
+    "message": "{0} joined {1} as a Change Agent!", 
+    "description": "A new Change Agent has joined a Change Team"
   }
 },
 {
@@ -1777,8 +1777,8 @@
     "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_request", 
-    "message": "{0} has requested to join {1} as a Clean Ambassador", 
-    "description": "A new Clean Ambassador request is made"
+    "message": "{0} has requested to join {1} as a Change Leader", 
+    "description": "A new Change Leader request is made"
   }
 },
 {
@@ -1789,7 +1789,7 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "ca_invite", 
-    "message": "{0} from {1} has invited you to become a Clean Ambassador", 
+    "message": "{0} from {1} has invited you to become a Change Leader", 
     "description": "A requst is sent to a User for them to become a Leader"
   }
 },
@@ -1801,7 +1801,7 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/invite-response/{0}", 
     "notification_type": "cc_invite", 
-    "message": "{0} from {1} has invited you to become a Clean Champion", 
+    "message": "{0} from {1} has invited you to become a Change Agent", 
     "description": "A requst is sent to a User for them to become a Agent"
   }
 },
@@ -1813,8 +1813,8 @@
     "users_to_notify": "individual-user", 
     "link": "/clean-team/{0}", 
     "notification_type": "ca_approved", 
-    "message": "You have been approved to be a Clean Ambassador for {0}", 
-    "description": "A new Clean Ambassador request is approved"
+    "message": "You have been approved to be a Change Leader for {0}", 
+    "description": "A new Change Leader request is approved"
   }
 },
 {
@@ -1825,8 +1825,8 @@
     "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/members/", 
     "notification_type": "ca_joined", 
-    "message": "{0} joined {1} as a Clean Ambassador!", 
-    "description": "A new Clean Ambassador has joined a Clean Team"
+    "message": "{0} joined {1} as a Change Leader!", 
+    "description": "A new Change Leader has joined a Change Team"
   }
 },
 {
@@ -1838,7 +1838,7 @@
     "link": "/clean-team/{0}", 
     "notification_type": "level_up", 
     "message": "Congratulations, {0} has just leveled up to {1}!", 
-    "description": "A Clean Team has just leveled up"
+    "description": "A Change Team has just leveled up"
   }
 },
 {
@@ -1849,8 +1849,8 @@
     "users_to_notify": "individual-user", 
     "link": "/users/profile/{0}", 
     "notification_type": "user_add_clean_creds", 
-    "message": "Congratulations, you just earned {0} CleanCreds!", 
-    "description": "CleanCreds have been added to a User"
+    "message": "Congratulations, you just earned {0} ChangeCreds!", 
+    "description": "ChangeCreds have been added to a User"
   }
 },
 {
@@ -1861,8 +1861,8 @@
     "users_to_notify": "clean-ambassador", 
     "link": "/clean-team/{0}", 
     "notification_type": "clean_team_add_clean_creds", 
-    "message": "Congratulations, {0} just earned {1} CleanCreds!", 
-    "description": "CleanCreds have been added to a Clean Team"
+    "message": "Congratulations, {0} just earned {1} ChangeCreds!", 
+    "description": "ChangeCreds have been added to a Change Team"
   }
 },
 {

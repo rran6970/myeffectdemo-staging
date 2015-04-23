@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 {% load socialaccount %}
-{% block title %} My Effect - Register {% endblock %}
+{% block title %} My Effect - {%trans "Register" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -20,7 +21,7 @@
         <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign register" id="sign-go-back"></div></a> -->
         <div id="white-box" class="register">
             <div class="socialaccount_signup">
-              <h2>Sign up with: </h2>
+              <h2>{%trans "Sign up with:" %} </h2>
               <a href="{% provider_login_url "twitter" %}">
                 <img class="social-login-icon" src="/static/images/twitter175x175.png" alt="Twitter"></a>
               <a href="{% provider_login_url "facebook" %}">
@@ -37,7 +38,7 @@
 
               <div style=" padding: 2px;"><a href="http://www.mycleancity.org{{ page_url }}" class="twitter-share-button" data-text="I'm cleaning up the environment by signing up for My Effect" data-url="http://www.mycleancity.org{{ page_url }}">Tweet</a></div>
             </div>
-            <h2>or:</h2>
+            <h2>{%trans "or:" %}</h2>
             <h2>Register / Inscription</h2>
 
             {% if form.non_field_errors %}
@@ -83,16 +84,16 @@
         {% if popup %}
         <div id="white-box" class="qr-code-blurb">
           <p>
-            YOU want to make a difference but YOU DON'T want to be told what to do!  My Effect was created for YOUth who want to show the world what they can do and be CREATIVE doing it!
+            {%trans "YOU want to make a difference but YOU DON'T want to be told what to do!  My Effect was created for Youth who want to show the world what they can do and be CREATIVE doing it!" %}
           </p>
           
-          <p><span class="bold">Engage</span> – Connect with like-minded peers and community leaders who are passionate about making a difference.</p>
+          <p><span class="bold">{%trans "Engage" %}</span> – {%trans "Connect with like-minded peers and community leaders who are passionate about making a difference." %}</p>
 
-          <p><span class="bold">Impact</span> – Sign up for Actions to make a positive environmental impact in your community.</p>
+          <p><span class="bold">{%trans "Impact" %}</span> – {%trans "Sign up for Actions to make a positive environmental impact in your community." %}</p>
 
-          <p><span class="bold">Earn</span> – Get rewarded for your effort by earning <span class="bold blue">Clean</span><span class="bold green">Creds</span>. The greater the impact, the more you receive!</p>
+          <p><span class="bold">{%trans "Earn" %}</span> – {%trans "Get rewarded for your effort by earning" %} <span class="bold blue">{%trans "Clean" %}</span><span class="bold green">{%trans "Creds" %}</span>. {%trans "The greater the impact, the more you receive!" %}</p>
 
-          <p><span class="bold">Redeem</span> – Cash in your <span class="bold blue">Clean</span><span class="bold green">Creds</span> for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities.</p>
+          <p><span class="bold">{%trans "Redeem" %}</span> – {%trans "Cash in your" %} <span class="bold blue">{%trans "Clean" %}</span><span class="bold green">{%trans "Creds" %}</span> {%trans "for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities." %}</p>
 
           <div class="clear"></div>
           
@@ -105,302 +106,302 @@
 <div class="popup-container">
   <div id="blurb" class="popup">
     <p>
-      YOU want to make a difference but YOU DON'T want to be told what to do!  My Effect was created for YOUth who want to show the world what they can do and be CREATIVE doing it!
+      {%trans "YOU want to make a difference but YOU DON'T want to be told what to do!  My Effect was created for YOUth who want to show the world what they can do and be CREATIVE doing it!" %}
     </p>
         
-    <p><span class="bold">Engage</span> – Connect with like-minded peers and community leaders who are passionate about making a difference.</p>
+    <p><span class="bold">{%trans "Engage" %}</span> – {%trans "Connect with like-minded peers and community leaders who are passionate about making a difference." %}</p>
 
-    <p><span class="bold">Impact</span> – Sign up for Actions to make a positive environmental impact in your community.</p>
+    <p><span class="bold">{%trans "Impact" %}</span> – {%trans "Sign up for Actions to make a positive environmental impact in your community." %}</p>
 
-    <p><span class="bold">Earn</span> – Get rewarded for your effort by earning <span class="bold blue">Clean</span><span class="bold green">Creds</span>. The greater the impact, the more you receive!</p>
+    <p><span class="bold">{%trans "Earn" %}</span> – {%trans "Get rewarded for your effort by earning" %} <span class="bold blue">{%trans "Clean" %}</span><span class="bold green">{%trans "Creds" %}</span>{%trans ". The greater the impact, the more you receive!" %}</p>
 
-    <p><span class="bold">Redeem</span> – Cash in your <span class="bold blue">Clean</span><span class="bold green">Creds</span> for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities.</p>
+    <p><span class="bold">{%trans "Redeem" %}</span> – {%trans "Cash in your" %} <span class="bold blue">{%trans "Clean" %}</span><span class="bold green">{%trans "Creds" %}</span> {%trans "for awesome rewards including gift cards, event tickets, scholarships, and leadership opportunities." %}</p>
 
     <div class="clear"></div>
 
-    <a class="btn btn-primary">Get Started Now!</a>
+    <a class="btn btn-primary">{%trans "Get Started Now!" %}</a>
   </div>
 
 
 
 
   <div id="terms-conditions" class="popup">
-    <h1>My Effect User<br/>Agreement and Usage Policies</h1>
+    <h1>{%trans "My Effect User" %}<br/>{%trans "Agreement and Usage Policies" %}</h1>
 
     <p>Dear mycleancity.org user,</p>
     <p>
-      Thanks for visiting mycleancity.org, an online community owned and operated by MY CLEAN CITY.  These Terms of Use, which incorporate the Privacy Policy, set forth the terms and conditions that govern the use of this Site and that must be followed by any person or entity ("User") that uses the Site. 
+      {% blocktrans %} "Thanks for visiting mycleancity.org, an online community owned and operated by MY CLEAN CITY.  These Terms of Use, which incorporate the Privacy Policy, set forth the terms and conditions that govern the use of this Site and that must be followed by any person or entity ("User") that uses the Site." {% endblocktrans %} 
     </p>
 
-    <h2 class="section-overview">1. ACCEPTANCE OF TERMS OF USE</h2>
+    <h2 class="section-overview">1. {%trans "ACCEPTANCE OF TERMS OF USE" %}</h2>
     <p>
-      By clicking on the "I Accept the Terms of Use" checkbox on the Site, you agree to the terms and conditions set forth below and provided by MY CLEAN CITY and to follow all applicable laws regulations that apply to this Site. If you do not agree to the Terms of Use you must stop using the Site. 
+      {% blocktrans %} "By clicking on the "I Accept the Terms of Use" checkbox on the Site, you agree to the terms and conditions set forth below and provided by MY CLEAN CITY and to follow all applicable laws regulations that apply to this Site. If you do not agree to the Terms of Use you must stop using the Site." {% endblocktrans %} 
     </p>
 
-    <h2 class="section-overview">2. GENERAL</h2>
+    <h2 class="section-overview">2. {%trans "GENERAL" %}</h2>
 
-    <h3 class="section">A. Acceptance</h3>
+    <h3 class="section">A. {%trans "Acceptance" %}</h3>
     <p>
-      Lovell Corporation c.o.b. MY CLEAN CITY (hereinafter "MY CLEAN CITY", "we" or "us") provides enterprise software, mobile applications, and online community forums to connect you with organizations, volunteers and peer groups to exchange ideas, learn, find opportunities, connect with volunteers, track activities, monitor your community involvement, manage events and staff, and collaborate with a variety of groups to aid you in your community goals (individually, a "Service" and collectively, the "Services"). This website (including any related sub-site, service, feature or functionality) (the "Site") and the Services are provided subject to these Terms of Use, as they may be amended by us, and any guidelines, rules or operating policies that we may post on this website, including, without limitation, our Privacy Policy, which is specifically incorporated herein by reference (collectively, the "Agreement"). We may amend this Agreement from time to time due to changes to the Site or the Services, to account for developments under the law, or for any other commercially reasonable reason. Future performance by us of our obligations under this Agreement is sufficient consideration for any such amendment. Any amendment will only become effective upon notification to you (by email or by posting on our Site) and, if you do not want to agree to any such amendment, you should stop using the Site and the Services. By checking the box next to the "I agree" button on the sign-up page, by logging in to your MY CLEAN CITY user account, by accessing the Site or by accessing any of the Services, you accept this Agreement on behalf of yourself and any business or organization you represent (collectively, "you").  
+      {% blocktrans %}"Lovell Corporation c.o.b. MY CLEAN CITY (hereinafter "MY CLEAN CITY", "we" or "us") provides enterprise software, mobile applications, and online community forums to connect you with organizations, volunteers and peer groups to exchange ideas, learn, find opportunities, connect with volunteers, track activities, monitor your community involvement, manage events and staff, and collaborate with a variety of groups to aid you in your community goals (individually, a "Service" and collectively, the "Services"). This website (including any related sub-site, service, feature or functionality) (the "Site") and the Services are provided subject to these Terms of Use, as they may be amended by us, and any guidelines, rules or operating policies that we may post on this website, including, without limitation, our Privacy Policy, which is specifically incorporated herein by reference (collectively, the "Agreement"). We may amend this Agreement from time to time due to changes to the Site or the Services, to account for developments under the law, or for any other commercially reasonable reason. Future performance by us of our obligations under this Agreement is sufficient consideration for any such amendment. Any amendment will only become effective upon notification to you (by email or by posting on our Site) and, if you do not want to agree to any such amendment, you should stop using the Site and the Services. By checking the box next to the "I agree" button on the sign-up page, by logging in to your MY CLEAN CITY user account, by accessing the Site or by accessing any of the Services, you accept this Agreement on behalf of yourself and any business or organization you represent (collectively, "you")." {% endblocktrans %}  
     </p>
 
-    <h3 class="section">B. Minimum Age</h3>
+    <h3 class="section">B. {%trans "Minimum Age" %}</h3>
     <p>
-      MY CLEAN CITY requires that any User be at least 13 years of age before creating a user account.  In some jurisdictions this age limit may be higher.  If you do not qualify, you are not permitted to create a user account or use the Site or the Services. If you are using the Site or the Services on behalf of an organization, you represent and warrant that you have the ability to bind such organization by your use of the Site and the Services. 
+      {%trans "MY CLEAN CITY requires that any User be at least 13 years of age before creating a user account.  In some jurisdictions this age limit may be higher.  If you do not qualify, you are not permitted to create a user account or use the Site or the Services. If you are using the Site or the Services on behalf of an organization, you represent and warrant that you have the ability to bind such organization by your use of the Site and the Services." %} 
     </p>
 
-    <h3 class="section">C. Registration</h3>    
-    <p>You agree to provide true, accurate, current and complete information about yourself and your organization, as applicable, as requested in the registration form and elsewhere on the Site.</p>
+    <h3 class="section">C. {%trans "Registration" %}</h3>    
+    <p>{%trans "You agree to provide true, accurate, current and complete information about yourself and your organization, as applicable, as requested in the registration form and elsewhere on the Site." %}</p>
 
-    <h3 class="section">D. Account Access</h3>
-    <p>We may, in our discretion, permit you to authorize additional users to use your MY CLEAN CITY account. For purposes of this Agreement, you are the "Account Owner" and any other users you authorize will be deemed "Authorized Users". You will be responsible for each Authorized User's use of your MY CLEAN CITY account and each Authorized User's compliance with this Agreement. </p>
+    <h3 class="section">D. {%trans "Account Access" %}</h3>
+    <p>{% blocktrans %}"We may, in our discretion, permit you to authorize additional users to use your MY CLEAN CITY account. For purposes of this Agreement, you are the "Account Owner" and any other users you authorize will be deemed "Authorized Users". You will be responsible for each Authorized User's use of your MY CLEAN CITY account and each Authorized User's compliance with this Agreement." {%endblocktrans%} </p>
 
-    <h2 class="section-overview">3. COPYRIGHT AND TRADEMARKS</h2>
+    <h2 class="section-overview">3. {%trans "COPYRIGHT AND TRADEMARKS" %}</h2>
 
     <p>
-      Except as otherwise indicated, the Site, and all text, images, marks, logos and other content contained herein, including, without limitation, the  MY CLEAN CITY logo, Kelly Effect, YOU Effect, Kelly A. Lovell, My Effect and all designs, text, graphics, pictures, information, data, software, sound files, other files, messages, information, text, music, sound, photos, graphics, code or other material and the selection and arrangement thereof (collectively, the "Site Content") are the proprietary property of MY CLEAN CITY or its licensors and are protected by Canadian and international copyright laws. All rights to the Site Content are expressly reserved. 
+      {% blocktrans %} "Except as otherwise indicated, the Site, and all text, images, marks, logos and other content contained herein, including, without limitation, the  MY CLEAN CITY logo, Kelly Effect, YOU Effect, Kelly A. Lovell, My Effect and all designs, text, graphics, pictures, information, data, software, sound files, other files, messages, information, text, music, sound, photos, graphics, code or other material and the selection and arrangement thereof (collectively, the "Site Content") are the proprietary property of MY CLEAN CITY or its licensors and are protected by Canadian and international copyright laws. All rights to the Site Content are expressly reserved." {% endblocktrans %} 
     </p>
     <p>
-      MY CLEAN CITY, its logo and all other product or service names or slogans displayed on the Site are registered and/or common law trademarks of MY CLEAN CITY and/or its suppliers or licensors, and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY or the applicable trademark holder. In addition, the look and feel of the Site, including all page headers, custom graphics, button icons and scripts, is the service mark, trademark and/or trade dress of MY CLEAN CITY and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY.  
+      {% blocktrans %} "MY CLEAN CITY, its logo and all other product or service names or slogans displayed on the Site are registered and/or common law trademarks of MY CLEAN CITY and/or its suppliers or licensors, and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY or the applicable trademark holder. In addition, the look and feel of the Site, including all page headers, custom graphics, button icons and scripts, is the service mark, trademark and/or trade dress of MY CLEAN CITY and may not be copied, imitated or used, in whole or in part, without the prior written permission of MY CLEAN CITY." {% endblocktrans %}  
     </p>
     <p>
-      ANY COPYING, DISTRIBUTING, TRANSMITTING, POSTING, LINKING, DEEP LINKING, OR OTHER MODIFICATION OF THIS SITE WITHOUT THE EXPRESS WRITTEN PERMISSION OF LOVELL IS STRICTLY PROHIBITED. Any violation of this policy may result in a copyright, trademark or other intellectual property right infringement that may subject you to civil and /or criminal penalties.
-    </p>
-  
-    <h2 class="section-overview">4. MESSAGES AND PROHIBITION ON SPAM</h2>
-
-    <p>You may not use the Site or the Services for purposes of sending unsolicited SMS, voice or email messages (sometimes called "spam"). You agree to be bound by and comply with all applicable anti-spam legislation, including, without limitation, Canada's anti-spam legislation. </p>
-
-    <p>
-      Without limiting the remedies available to MY CLEAN CITY for any breach of this Agreement, MY CLEAN CITY may immediately restrict, suspend or terminate your access to the Site at any time and without notice if MY CLEAN CITY, in its sole discretion, determines that you have violated any applicable anti-spam legislation. 
-    </p>
-
-    <p>
-      In your use of the Site or the Services, you shall represent yourself or your organization accurately and will not impersonate any other person, whether actual or fictitious. You agree that for any email message sent by you using the Site or the Services will not contain any deceptive or misleading content regarding the overall subject matter of the email message.
+      {% blocktrans %}"ANY COPYING, DISTRIBUTING, TRANSMITTING, POSTING, LINKING, DEEP LINKING, OR OTHER MODIFICATION OF THIS SITE WITHOUT THE EXPRESS WRITTEN PERMISSION OF LOVELL IS STRICTLY PROHIBITED. Any violation of this policy may result in a copyright, trademark or other intellectual property right infringement that may subject you to civil and /or criminal penalties." {%endblocktrans%}
     </p>
   
-    <h2 class="section-overview">5. PROVISION OF SERVICES AND USER CONDUCT </h2>
+    <h2 class="section-overview">4. {%trans "MESSAGES AND PROHIBITION ON SPAM" %}</h2>
 
-    <h3 class="section">A. MY CLEAN CITY's Responsibilities and Use of Site and Services</h3>
+    <p>{% blocktrans %}"You may not use the Site or the Services for purposes of sending unsolicited SMS, voice or email messages (sometimes called "spam"). You agree to be bound by and comply with all applicable anti-spam legislation, including, without limitation, Canada's anti-spam legislation." {%endblocktrans%} </p>
 
     <p>
-      You acknowledge that you are solely responsible for all data input and that MY CLEAN CITY is responsible solely for (i) providing the Site platform and interface and instructions on how to use same, and (ii) providing data storage on the Site utilizing industry standard safeguards for the protection thereof. You are solely responsible for ensuring adherence to all such instructions on how to use the Site and Services.
+      {% blocktrans %} "Without limiting the remedies available to MY CLEAN CITY for any breach of this Agreement, MY CLEAN CITY may immediately restrict, suspend or terminate your access to the Site at any time and without notice if MY CLEAN CITY, in its sole discretion, determines that you have violated any applicable anti-spam legislation." {%endblocktrans%} 
+    </p>
+
+    <p>
+      {% blocktrans %}"In your use of the Site or the Services, you shall represent yourself or your organization accurately and will not impersonate any other person, whether actual or fictitious. You agree that for any email message sent by you using the Site or the Services will not contain any deceptive or misleading content regarding the overall subject matter of the email message." {%endblocktrans%}
+    </p>
+  
+    <h2 class="section-overview">5. {%trans "PROVISION OF SERVICES AND USER CONDUCT" %} </h2>
+
+    <h3 class="section">A. {%trans "MY CLEAN CITY's Responsibilities and Use of Site and Services" %}</h3>
+
+    <p>
+      {% blocktrans %}"You acknowledge that you are solely responsible for all data input and that MY CLEAN CITY is responsible solely for (i) providing the Site platform and interface and instructions on how to use same, and (ii) providing data storage on the Site utilizing industry standard safeguards for the protection thereof. You are solely responsible for ensuring adherence to all such instructions on how to use the Site and Services." {%endblocktrans%}
     </p>
     <p>
-      Save and except for its obligations set forth above, MY CLEAN CITY takes no responsibility and assumes no liability for any content or data input or stored or uploaded by you or any third party (including, without limitation, all contact information and message content), or for any loss or damage thereto.
+      {% blocktrans %} "Save and except for its obligations set forth above, MY CLEAN CITY takes no responsibility and assumes no liability for any content or data input or stored or uploaded by you or any third party (including, without limitation, all contact information and message content), or for any loss or damage thereto." {%endblocktrans%}
     </p>
     <p>
-      You further agree to comply with the following in connection with your use of the Site and the Services: 
+      {%trans "You further agree to comply with the following in connection with your use of the Site and the Services:" %} 
     </p>
     <ul>
       <li>
-        You may not access or use the Site or the Services in a way that uses technology or other means to access, index, re-render, frame, mirror, truncate, add to, inject, filter or link to the Site or the Services that is not authorized by us (including by removing, disabling, bypassing, or circumventing any content protection or access control mechanisms intended to prevent the unauthorized use, download, linking, framing, reproduction, access to, or distribution of the Site or the Services).
+        {%blocktrans %} "You may not access or use the Site or the Services in a way that uses technology or other means to access, index, re-render, frame, mirror, truncate, add to, inject, filter or link to the Site or the Services that is not authorized by us (including by removing, disabling, bypassing, or circumventing any content protection or access control mechanisms intended to prevent the unauthorized use, download, linking, framing, reproduction, access to, or distribution of the Site or the Services)." {% endblocktrans %}
       </li>
       <li>
-        You may not use any deep-link, page-scrape, robot, crawl, index, spider, offline reader, click spam, macro programs, internet agent, or other automatic device, program, algorithm or methodology which does the same things, to use, access, copy, index, acquire information, generate impressions or clicks, input information, store information, search, generate searches, or monitor any portion of the Site or the Services for any unauthorized purpose.
+        {% blocktrans %} "You may not use any deep-link, page-scrape, robot, crawl, index, spider, offline reader, click spam, macro programs, internet agent, or other automatic device, program, algorithm or methodology which does the same things, to use, access, copy, index, acquire information, generate impressions or clicks, input information, store information, search, generate searches, or monitor any portion of the Site or the Services for any unauthorized purpose." {% endblocktrans %}
       </li>
       <li>
-        You may not use the Site or the Services in a way that, to be determined in our sole discretion, damages, disables, overburdens, impairs, or gains unauthorized access to the Site or the Services, including MY CLEAN CITY's servers, computer network, or user accounts.
+        {% blocktrans %}"You may not use the Site or the Services in a way that, to be determined in our sole discretion, damages, disables, overburdens, impairs, or gains unauthorized access to the Site or the Services, including MY CLEAN CITY's servers, computer network, or user accounts." {%endblocktrans%}
       </li>
       <li>
-        You may not use the Site or the Services in a way that removes, modifies, disables, blocks, obscures or otherwise impairs any advertising in connection with the Site or the Services.
+        {% blocktrans %}"You may not use the Site or the Services in a way that removes, modifies, disables, blocks, obscures or otherwise impairs any advertising in connection with the Site or the Services." {%endblocktrans%}
       </li>
       <li>
-        You may not copy, display, distribute, download, license, modify, publish, re-post, reproduce, reuse, sell, transmit, use to create a derivative work, or otherwise use the content of the Site or the Services for public or commercial purposes without our express written permission.
+        {% blocktrans %} "You may not copy, display, distribute, download, license, modify, publish, re-post, reproduce, reuse, sell, transmit, use to create a derivative work, or otherwise use the content of the Site or the Services for public or commercial purposes without our express written permission." {% endblocktrans %}
       </li>
       <li>
-        You shall not interfere with or disrupt the Site or any related MY CLEAN CITY websites or servers or networks connected to the Site or the Services.
+        {%trans "You shall not interfere with or disrupt the Site or any related MY CLEAN CITY websites or servers or networks connected to the Site or the Services." %}
       </li>
       <li>
-        You shall not restrict or inhibit any other user from enjoying and using the Site or the Services.
+        {%trans "You shall not restrict or inhibit any other user from enjoying and using the Site or the Services." %}
       </li>
       <li>
-        You shall not use the Site or the Services in violation of applicable law or third party rights (including third party terms of service), and shall not use the Site or the Services for hosting content (for example, images and documents) that infringes on the intellectual property rights of others.
+        {% blocktrans %}"You shall not use the Site or the Services in violation of applicable law or third party rights (including third party terms of service), and shall not use the Site or the Services for hosting content (for example, images and documents) that infringes on the intellectual property rights of others." {% endblocktrans %}
       </li>
       <li>
-        You may only use our templates, any images we provide, or any other features or functionality of the Services with the Services themselves (for example, you may not take an image or template and use it on your website). This restriction also applies to customized templates prepared by our professional services group.
+        {%blocktrans %}"You may only use our templates, any images we provide, or any other features or functionality of the Services with the Services themselves (for example, you may not take an image or template and use it on your website). This restriction also applies to customized templates prepared by our professional services group." {%endblocktrans%}
       </li>
       <li>
-        You shall not use documents and images hosted by us on servers controlled by us for any purpose whatsoever other than in connection with the Services. If you own the document or image, you can use it outside of the Services so long as it is not hosted by us.
+        {% blocktrans %}"You shall not use documents and images hosted by us on servers controlled by us for any purpose whatsoever other than in connection with the Services. If you own the document or image, you can use it outside of the Services so long as it is not hosted by us." {% endblocktrans %}
       </li>
     </ul>
     
-    <h3 class="section">B. Restrictions on Use</h3>
+    <h3 class="section">B. {%trans "Restrictions on Use" %}</h3>
     <p>
-      You expressly agree not to transmit, distribute, store, create or otherwise publish through the Site any of the following: 
+      {%trans "You expressly agree not to transmit, distribute, store, create or otherwise publish through the Site any of the following:" %} 
     </p>
 
     <ul>
       <li>
-        content that is unlawful, libelous, defamatory, obscene, pornographic, indecent, lewd, suggestive, harassing, threatening, invasive of privacy or publicity rights, abusive, inflammatory, fraudulent or otherwise objectionable 
+        {% blocktrans %}"content that is unlawful, libelous, defamatory, obscene, pornographic, indecent, lewd, suggestive, harassing, threatening, invasive of privacy or publicity rights, abusive, inflammatory, fraudulent or otherwise objectionable" {% endblocktrans %} 
       </li>
       <li>
-        content that would constitute, encourage or provide instructions for a criminal offense, violate the rights of any party, or that would otherwise create liability or violate any local, provincial, federal or international law
+        {% blocktrans %}"content that would constitute, encourage or provide instructions for a criminal offense, violate the rights of any party, or that would otherwise create liability or violate any local, provincial, federal or international law" {% endblocktrans %}
       </li>
       <li>
-        content that may infringe any patent, trademark, trade secret, copyright or other intellectual or proprietary right of any party 
+        {%trans "content that may infringe any patent, trademark, trade secret, copyright or other intellectual or proprietary right of any party" %} 
       </li>
       <li>
-        content that would violate or infringe upon the rights of others
+        {%trans "content that would violate or infringe upon the rights of others" %}
       </li>
       <li>
-        content that impersonates any person or entity or otherwise misrepresents your affiliation with a person or entity
+        {%trans "content that impersonates any person or entity or otherwise misrepresents your affiliation with a person or entity" %}
       </li>
       <li>
-        content that is false and misleading
+        {%trans "content that is false and misleading" %}
       </li>
       <li>
-        unsolicited promotions, political campaigning, advertising or solicitations 
+        {%trans "unsolicited promotions, political campaigning, advertising or solicitations" %} 
       </li>
       <li>
-        viruses, corrupted data or other harmful, disruptive or destructive files
+        {%trans "viruses, corrupted data or other harmful, disruptive or destructive files" %}
       </li>
       <li>
-        content that, in the sole judgment of MY CLEAN CITY, is objectionable or which may expose MY CLEAN CITY or its affiliates or its users to any harm or liability of any kind. 
+        {% blocktrans %}"content that, in the sole judgment of MY CLEAN CITY, is objectionable or which may expose MY CLEAN CITY or its affiliates or its users to any harm or liability of any kind." {%endblocktrans%} 
       </li>
     </ul>
 
     <p>
-      Any use of the Site in violation of the foregoing violates this Agreement and may result in, among other things, termination or suspension of your rights to use the Site or Services.
+      {% blocktrans %}"Any use of the Site in violation of the foregoing violates this Agreement and may result in, among other things, termination or suspension of your rights to use the Site or Services." {%endblocktrans%}
     </p>
 
-    <h3 class="section">C. Limitations on Use</h3>
+    <h3 class="section">C. {%trans "Limitations on Use" %}</h3>
 
     <p>
-      You understand that delivery of messages by means of the Site or the Services may involve transmissions over various networks, and that the messages (including images and text contained therein) could be reformatted or otherwise revised to conform to the formatting or technical requirements of such networks. You also understand and agree that messages exceeding maximum character limitations may be truncated, abbreviated, reduced or otherwise abruptly cut short.
-    </p>
-
-    <p>
-      You agree that we may establish general practices and limits concerning use of the Site or the Services. We reserve the right to modify, revise, suspend or discontinue any Service in whole or in part, either temporarily or permanently and with or without notice, and you acknowledge that we are not obligated to support or update the Services in any manner. 
-    </p>
-
-    <h3 class="section">D. Grant of Rights</h3>
-    <p>
-      By posting on the Site, and without necessity of any further consideration, you automatically grant (or warrant that the owner of such materials expressly grants) MY CLEAN CITY a world-wide, perpetual, royalty-free, irrevocable and non-exclusive right and license to use, copy, store, adapt, transmit, communicate, publicly display and perform, distribute and create compilations and derivative works from such submitted materials and to use such content for promotional and marketing purposes. You hereby waive any "moral rights" you may have in any such content.
+      {%blocktrans%} "You understand that delivery of messages by means of the Site or the Services may involve transmissions over various networks, and that the messages (including images and text contained therein) could be reformatted or otherwise revised to conform to the formatting or technical requirements of such networks. You also understand and agree that messages exceeding maximum character limitations may be truncated, abbreviated, reduced or otherwise abruptly cut short." {%endblocktrans%}
     </p>
 
     <p>
-      You shall be solely responsible for your own submissions and the consequences of posting or publishing them on the Site. In connection with each of your submissions, you affirm, represent, and/or warrant that (a) you own or have the necessary licenses, rights, consents, and permissions to use and authorize us to use all patent, trademark, trade secret, copyright or other proprietary rights in and to any and all such submissions to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use, and (b) you have the written consent, release, and/or permission of each and every identifiable individual person in such submissions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use.
+      {%blocktrans%} "You agree that we may establish general practices and limits concerning use of the Site or the Services. We reserve the right to modify, revise, suspend or discontinue any Service in whole or in part, either temporarily or permanently and with or without notice, and you acknowledge that we are not obligated to support or update the Services in any manner." {%endblocktrans%} 
     </p>
 
-    <h2 class="section-overview">6. RESTRICTIONS AND RESPONSIBILITIES</h2>
-    <h3 class="section">A. No Rights in Software</h3>
-
+    <h3 class="section">D. {%trans "Grant of Rights" %}</h3>
     <p>
-      Nothing on the Site shall be construed to confer any grant or license of any intellectual property rights, whether by estoppel, by implication, or otherwise. You will not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of, or found at or through the Site or the Services or any software, documentation, or data related to the Site or the Services ("Software"); remove any proprietary notices or labels from the Site or the Services or any Software; modify, translate, or create derivative works based on the Site or the Services or any Software; or copy, distribute, pledge, assign, or otherwise transfer or encumber rights to the Site or the Services or any Software. If you are using the Site or the Services in any jurisdiction which restricts the ability of a software provider to restrict your right to reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of the Site, the Software or the Services, then you hereby covenant that, prior to engaging in such activities, you will first request that we perform such work at our standard professional services rates. We can then decide either: (a) to perform the work in order to achieve such interoperability and charge our then standard rates for such work to you; (b) to permit you to reverse engineer parts of the Software in order to obtain such source code, but only to the extent necessary to achieve such interoperability; or (c) to provide you with the information that you need regarding the Software for the purpose for which applicable law permits you to engage in such activities despite a contractual prohibition on such activities. 
+      {%blocktrans%} "By posting on the Site, and without necessity of any further consideration, you automatically grant (or warrant that the owner of such materials expressly grants) MY CLEAN CITY a world-wide, perpetual, royalty-free, irrevocable and non-exclusive right and license to use, copy, store, adapt, transmit, communicate, publicly display and perform, distribute and create compilations and derivative works from such submitted materials and to use such content for promotional and marketing purposes. You hereby waive any "moral rights" you may have in any such content." {%endblocktrans%}
     </p>
 
-    <h3 class="section">B. Compliance with Laws</h3>
-
     <p>
-      The Site and the Services shall only be used for lawful purposes and you shall use the Site and the Services only in compliance with this Agreement, and all applicable laws, including, without limitation all applicable anti-spam legislation and any other policies and laws related to unsolicited emails, spamming, privacy, obscenity, defamation and copyright and trademark infringement. 
+      {%blocktrans%} "You shall be solely responsible for your own submissions and the consequences of posting or publishing them on the Site. In connection with each of your submissions, you affirm, represent, and/or warrant that (a) you own or have the necessary licenses, rights, consents, and permissions to use and authorize us to use all patent, trademark, trade secret, copyright or other proprietary rights in and to any and all such submissions to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use, and (b) you have the written consent, release, and/or permission of each and every identifiable individual person in such submissions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of such submissions in the manner contemplated by us and these Terms of Use." {%endblocktrans%}
     </p>
 
-    <h3 class="section">C. Monitoring</h3>
+    <h2 class="section-overview">6. {%trans "RESTRICTIONS AND RESPONSIBILITIES" %}</h2>
+    <h3 class="section">A. {%trans "No Rights in Software" %}</h3>
 
     <p>
-      Although we have no obligation to monitor the content provided by you or your use of the Site or the Services, we may do so and may block any messages, remove any content, including surveys, event registrations or social campaigns, or prohibit any use of the Site or the Services that we believe may be (or is alleged to be) in violation of the foregoing or any other provision of this Agreement.
+      {%blocktrans%} "Nothing on the Site shall be construed to confer any grant or license of any intellectual property rights, whether by estoppel, by implication, or otherwise. You will not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of, or found at or through the Site or the Services or any software, documentation, or data related to the Site or the Services ("Software"); remove any proprietary notices or labels from the Site or the Services or any Software; modify, translate, or create derivative works based on the Site or the Services or any Software; or copy, distribute, pledge, assign, or otherwise transfer or encumber rights to the Site or the Services or any Software. If you are using the Site or the Services in any jurisdiction which restricts the ability of a software provider to restrict your right to reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code, object code, or underlying structure, ideas, or algorithms of the Site, the Software or the Services, then you hereby covenant that, prior to engaging in such activities, you will first request that we perform such work at our standard professional services rates. We can then decide either: (a) to perform the work in order to achieve such interoperability and charge our then standard rates for such work to you; (b) to permit you to reverse engineer parts of the Software in order to obtain such source code, but only to the extent necessary to achieve such interoperability; or (c) to provide you with the information that you need regarding the Software for the purpose for which applicable law permits you to engage in such activities despite a contractual prohibition on such activities." {%endblocktrans%} 
+    </p>
+
+    <h3 class="section">B. {%trans "Compliance with Laws" %}</h3>
+
+    <p>
+      {%blocktrans%} "The Site and the Services shall only be used for lawful purposes and you shall use the Site and the Services only in compliance with this Agreement, and all applicable laws, including, without limitation all applicable anti-spam legislation and any other policies and laws related to unsolicited emails, spamming, privacy, obscenity, defamation and copyright and trademark infringement." {%endblocktrans%} 
+    </p>
+
+    <h3 class="section">C. {%trans "Monitoring" %}</h3>
+
+    <p>
+      {%blocktrans%} "Although we have no obligation to monitor the content provided by you or your use of the Site or the Services, we may do so and may block any messages, remove any content, including surveys, event registrations or social campaigns, or prohibit any use of the Site or the Services that we believe may be (or is alleged to be) in violation of the foregoing or any other provision of this Agreement." {%endblocktrans%}
     </p>    
 
-    <h2 class="section-overview">7. THIRD-PARTY WEBSITES AND SERVICES</h2>
+    <h2 class="section-overview">7. {%trans "THIRD-PARTY WEBSITES AND SERVICES" %}</h2>
     
     <p>
-      The Site may contain links to websites that are controlled by third parties and access to certain third-party services, which may include, without limitation, social bookmarking services and social network platforms (each, a "Third Party Service"). These links and services are provided to you as a convenience, and we are not affiliated with or responsible for the content, action or performance of any linked website or Third-Party Service and you use such websites or services at your own risk. 
+      {%blocktrans%} "The Site may contain links to websites that are controlled by third parties and access to certain third-party services, which may include, without limitation, social bookmarking services and social network platforms (each, a "Third Party Service"). These links and services are provided to you as a convenience, and we are not affiliated with or responsible for the content, action or performance of any linked website or Third-Party Service and you use such websites or services at your own risk." {%endblocktrans%} 
     </p>
 
     <p>
-      You agree to abide by the terms and conditions of any applicable Third Party Service. Notwithstanding anything set forth herein to the contrary, you will abide by this Agreement regardless of anything to the contrary in your agreement with any third party and you shall not use such Third Party Service to avoid the restrictions set forth in this Agreement.
+      {%blocktrans%} "You agree to abide by the terms and conditions of any applicable Third Party Service. Notwithstanding anything set forth herein to the contrary, you will abide by this Agreement regardless of anything to the contrary in your agreement with any third party and you shall not use such Third Party Service to avoid the restrictions set forth in this Agreement." {%endblocktrans%}
     </p>
 
     <p>
-      We may terminate any Third Party Service's ability to interact with the Site or any of the Services at any time, with or without notice, and in our sole discretion, with no liability to you or to the third party. Any Third Party Service may take actions to impact our ability to make available some or all of the features of the Site or the Services at any time, with or without notice, and we will not be liable to you or to the third party for any such actions. We accept no responsibility for reviewing changes or updates to, or the quality, content, policies, nature or reliability of, any Third Party Services.
+      {%blocktrans%} "We may terminate any Third Party Service's ability to interact with the Site or any of the Services at any time, with or without notice, and in our sole discretion, with no liability to you or to the third party. Any Third Party Service may take actions to impact our ability to make available some or all of the features of the Site or the Services at any time, with or without notice, and we will not be liable to you or to the third party for any such actions. We accept no responsibility for reviewing changes or updates to, or the quality, content, policies, nature or reliability of, any Third Party Services." {%endblocktrans%}
     </p>
 
-    <h2 class="section-overview">8. USERNAME AND PASSWORD</h2>
+    <h2 class="section-overview">8. {%trans "USERNAME AND PASSWORD" %}</h2>
     
     <p>
-      You are responsible for maintaining the security of your user account and passwords (including the passwords that your Authorized Users, if any, have access to). We will accept the instructions of any individual who claims to be authorized to direct changes to your user account so long as such person presents the user account owner username and password or provides other appropriate account identifying information, as determined by us in our sole discretion, by email or by phone, or through a Third Party Service, if any, through which you access the Site or the Services.  You shall be solely responsible and liable for any activity that occurs under your username and the activities of your Authorized Users, if any, and we shall not be responsible for the actions of any individuals who misuse or misappropriate your contact lists or other assets using your username and password or other appropriate account identifying information. You agree to notify us immediately of any unauthorized use of your user account or any other breach of security. 
+      {%blocktrans%} "You are responsible for maintaining the security of your user account and passwords (including the passwords that your Authorized Users, if any, have access to). We will accept the instructions of any individual who claims to be authorized to direct changes to your user account so long as such person presents the user account owner username and password or provides other appropriate account identifying information, as determined by us in our sole discretion, by email or by phone, or through a Third Party Service, if any, through which you access the Site or the Services.  You shall be solely responsible and liable for any activity that occurs under your username and the activities of your Authorized Users, if any, and we shall not be responsible for the actions of any individuals who misuse or misappropriate your contact lists or other assets using your username and password or other appropriate account identifying information. You agree to notify us immediately of any unauthorized use of your user account or any other breach of security." {%endblocktrans%} 
     </p>
 
-    <h2 class="section-overview">9. DISCLAIMER OF WARRANTY</h2>
+    <h2 class="section-overview">9. {%trans "DISCLAIMER OF WARRANTY" %}</h2>
     
     <p>
-      ALL CONTENT, PRODUCTS, AND SERVICES ON THE SITE, OR OBTAINED FROM A WEBSITE TO WHICH THE SITE IS LINKED (A "LINKED SITE") ARE PROVIDED TO YOU "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, SECURITY OR ACCURACY. LOVELL DOES NOT ENDORSE AND IS NOT RESPONSIBLE FOR (A) THE ACCURACY OR RELIABILITY OF ANY OPINION, ADVICE OR STATEMENT MADE THROUGH A LINKED SITE BY ANY PARTY OTHER THAN LOVELL (B) ANY CONTENT PROVIDED ON LINKED SITES OR (C) THE CAPABILITIES OR RELIABILITY OF ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. 
+      {%blocktrans%} "ALL CONTENT, PRODUCTS, AND SERVICES ON THE SITE, OR OBTAINED FROM A WEBSITE TO WHICH THE SITE IS LINKED (A "LINKED SITE") ARE PROVIDED TO YOU "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, SECURITY OR ACCURACY. LOVELL DOES NOT ENDORSE AND IS NOT RESPONSIBLE FOR (A) THE ACCURACY OR RELIABILITY OF ANY OPINION, ADVICE OR STATEMENT MADE THROUGH A LINKED SITE BY ANY PARTY OTHER THAN LOVELL (B) ANY CONTENT PROVIDED ON LINKED SITES OR (C) THE CAPABILITIES OR RELIABILITY OF ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE." {%endblocktrans%} 
     </p>
 
     <p>
-      OTHER THAN AS REQUIRED UNDER APPLICABLE CONSUMER PROTECTION LAW, UNDER NO CIRCUMSTANCE WILL LOVELL BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY A USER'S RELIANCE ON INFORMATION OBTAINED THROUGH THE SITE OR A LINKED SITE, OR YOUR RELIANCE ON ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. IT IS YOUR RESPONSIBILITY TO EVALUATE THE ACCURACY, COMPLETENESS OR USEFULNESS OF ANY OPINION, ADVICE OR OTHER CONTENT OBTAINED FROM A LINKED SITE. PLEASE SEEK THE ADVICE OF PROFESSIONALS, AS APPROPRIATE, REGARDING THE EVALUATION OF ANY SPECIFIC OPINION, ADVICE, PRODUCT, SERVICE, OR OTHER CONTENT OBTAINED FROM A LINKED SITE.
+      {%blocktrans%} "OTHER THAN AS REQUIRED UNDER APPLICABLE CONSUMER PROTECTION LAW, UNDER NO CIRCUMSTANCE WILL LOVELL BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY A USER'S RELIANCE ON INFORMATION OBTAINED THROUGH THE SITE OR A LINKED SITE, OR YOUR RELIANCE ON ANY PRODUCT OR SERVICE OBTAINED FROM A LINKED SITE. IT IS YOUR RESPONSIBILITY TO EVALUATE THE ACCURACY, COMPLETENESS OR USEFULNESS OF ANY OPINION, ADVICE OR OTHER CONTENT OBTAINED FROM A LINKED SITE. PLEASE SEEK THE ADVICE OF PROFESSIONALS, AS APPROPRIATE, REGARDING THE EVALUATION OF ANY SPECIFIC OPINION, ADVICE, PRODUCT, SERVICE, OR OTHER CONTENT OBTAINED FROM A LINKED SITE." {%endblocktrans%}
     </p>
 
-    <h2 class="section-overview">10. LIMITATION OF LIABILITY</h2>
+    <h2 class="section-overview">10. {%trans "LIMITATION OF LIABILITY" %}</h2>
     
     <p>
-      You waive and covenant not to assert any claims or allegations of any nature whatsoever against MY CLEAN CITY, its affiliates, or their respective directors, officers, employees or agents arising out of or in any way relating to your use of the Site, the Services or any other materials contained in or accessible through the Site. 
+      {%blocktrans%} "You waive and covenant not to assert any claims or allegations of any nature whatsoever against MY CLEAN CITY, its affiliates, or their respective directors, officers, employees or agents arising out of or in any way relating to your use of the Site, the Services or any other materials contained in or accessible through the Site." {%endblocktrans%} 
     </p>
 
     <p>
-      In no event shall the aggregate liability of MY CLEAN CITY, whether in contract, warranty, tort (including negligence, whether active, passive or imputed), product liability, strict liability or other theory, arising out of or relating to the use of the Site exceed any compensation you pay to MY CLEAN CITY for Services. 
+      {%blocktrans%} "In no event shall the aggregate liability of MY CLEAN CITY, whether in contract, warranty, tort (including negligence, whether active, passive or imputed), product liability, strict liability or other theory, arising out of or relating to the use of the Site exceed any compensation you pay to MY CLEAN CITY for Services." {%endblocktrans%} 
     </p>
 
     <p>
-      YOU EXPRESSLY UNDERSTAND AND AGREE THAT LOVELL AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, PARTNERS AND LICENSORS SHALL NOT BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF LOVELL HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), RESULTING FROM USE OF THE SITE, CONTENT OR ANY RELATED SERVICES.
+      {%blocktrans%} "YOU EXPRESSLY UNDERSTAND AND AGREE THAT LOVELL AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, PARTNERS AND LICENSORS SHALL NOT BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF LOVELL HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), RESULTING FROM USE OF THE SITE, CONTENT OR ANY RELATED SERVICES." {%endblocktrans%}
     </p>
 
-    <h2 class="section-overview">11. INDEMNITY</h2>
+    <h2 class="section-overview">11. {%trans "INDEMNITY" %}</h2>
     
     <p>
-      You hereby release and forever discharge MY CLEAN CITY, its affiliates, and their respective shareholders, directors, employees, partners, members, managers, contractors, agents, successors and assigns (collectively, "Releasees") from any and all claims, liabilities, obligations, actions, causes of action, suits, debts, covenants, controversies, damages, judgments and demands whatsoever in law, equity or any kind, type, or description, whether known or unknown, disputed or undisputed, accrued or unaccrued, liquidated or contingent, foreseen or unforeseen, asserted or unasserted, related to or arising out of any dispute with, any harm or injury (including, without limitation, personal injury or damage to property) caused by, or any other act or failure to act by, any, advertisers, sponsors, other users of this Site and/or any other third parties, including any products and/or services offered or provided by third parties. 
+      {%blocktrans%} "You hereby release and forever discharge MY CLEAN CITY, its affiliates, and their respective shareholders, directors, employees, partners, members, managers, contractors, agents, successors and assigns (collectively, "Releasees") from any and all claims, liabilities, obligations, actions, causes of action, suits, debts, covenants, controversies, damages, judgments and demands whatsoever in law, equity or any kind, type, or description, whether known or unknown, disputed or undisputed, accrued or unaccrued, liquidated or contingent, foreseen or unforeseen, asserted or unasserted, related to or arising out of any dispute with, any harm or injury (including, without limitation, personal injury or damage to property) caused by, or any other act or failure to act by, any, advertisers, sponsors, other users of this Site and/or any other third parties, including any products and/or services offered or provided by third parties." {%endblocktrans%} 
     </p>
 
     <p>
-      You agree to indemnify, defend and hold harmless all Releasees from and against any and all claims, actions, demands, liabilities, losses, damages, penalties, interest, judgments, settlements, costs and expenses (including reasonable attorneys' fees) that relate to, arise out of or are based upon: (a) any misrepresentation or breach of any warranty, covenant or agreement made by you related to these Terms of Use; or (b) any violation by you of any law, regulation or rule.  
+      {%blocktrans%} "You agree to indemnify, defend and hold harmless all Releasees from and against any and all claims, actions, demands, liabilities, losses, damages, penalties, interest, judgments, settlements, costs and expenses (including reasonable attorneys' fees) that relate to, arise out of or are based upon: (a) any misrepresentation or breach of any warranty, covenant or agreement made by you related to these Terms of Use; or (b) any violation by you of any law, regulation or rule." {%endblocktrans%}  
     </p>
 
     <p>
-      MY CLEAN CITY reserves the right, at its own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, but doing so shall not excuse your indemnity obligations.  MY CLEAN CITY shall have the right to participate in the defense of all claims as to which it does not assume defense and control, and you shall not settle any such claim without MY CLEAN CITY's prior written consent. You also agree to indemnify MY CLEAN CITY for any reasonable legal fees or other costs incurred by MY CLEAN CITY, acting reasonably, in investigating or enforcing its rights under these Terms of Use.
+      {%blocktrans%} "MY CLEAN CITY reserves the right, at its own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, but doing so shall not excuse your indemnity obligations.  MY CLEAN CITY shall have the right to participate in the defense of all claims as to which it does not assume defense and control, and you shall not settle any such claim without MY CLEAN CITY's prior written consent. You also agree to indemnify MY CLEAN CITY for any reasonable legal fees or other costs incurred by MY CLEAN CITY, acting reasonably, in investigating or enforcing its rights under these Terms of Use." {%endblocktrans%}
     </p>    
 
-    <h2 class="section-overview">12. TERMINATION</h2>
+    <h2 class="section-overview">12. {%trans "TERMINATION" %}</h2>
     
     <p>
-      MY CLEAN CITY may change or discontinue the Site or any of the Services at any time without prior notice. MY CLEAN CITY reserves the right to terminate your use of this Site and the Services at MY CLEAN CITY's election and for any reason, without prior notice, and your agreement with MY CLEAN CITY in accordance with these Terms of Use will automatically terminate in the event that you violate any of the terms and conditions set forth herein. In the event of any termination, you will immediately cease access to the Site and Services.   
+      {%blocktrans%} "MY CLEAN CITY may change or discontinue the Site or any of the Services at any time without prior notice. MY CLEAN CITY reserves the right to terminate your use of this Site and the Services at MY CLEAN CITY's election and for any reason, without prior notice, and your agreement with MY CLEAN CITY in accordance with these Terms of Use will automatically terminate in the event that you violate any of the terms and conditions set forth herein. In the event of any termination, you will immediately cease access to the Site and Services." {%endblocktrans%}   
     </p>
 
     <p>
-      If your user account is classified (at our sole discretion) as inactive for over 120 days, we have the right to permanently delete any of your data which has been stored.
+      {%blocktrans%} "If your user account is classified (at our sole discretion) as inactive for over 120 days, we have the right to permanently delete any of your data which has been stored." {%endblocktrans%}
     </p>
 
-    <h2 class="section-overview">13. SURVIVAL OF TERMS</h2>
+    <h2 class="section-overview">13. {%trans "SURVIVAL OF TERMS" %}</h2>
     
     <p>
-      Notwithstanding any other provisions of these Terms of Use, or any general legal principles to the contrary, any provision of these Terms of Use that imposes or contemplates continuing obligations on a party will survive the expiration or termination of these Terms of Use. 
+      {%blocktrans%} "Notwithstanding any other provisions of these Terms of Use, or any general legal principles to the contrary, any provision of these Terms of Use that imposes or contemplates continuing obligations on a party will survive the expiration or termination of these Terms of Use." {%endblocktrans%} 
     </p>
   
-    <h2 class="section-overview">14. APPLICABLE LAW AND VENUE</h2>
+    <h2 class="section-overview">14. {%trans "APPLICABLE LAW AND VENUE" %}</h2>
     <p>
-      The Site (excluding Third-Party Sites) is controlled by MY CLEAN CITY and operated by it from its offices in Kitchener, Ontario. However, the Site is accessible in all Provinces of Canada and in other countries. You and MY CLEAN CITY explicitly agree that all disputes, claims or other matters arising from or relating to your use of the Site will be governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein. 
+      {%blocktrans%} "The Site (excluding Third-Party Sites) is controlled by MY CLEAN CITY and operated by it from its offices in Kitchener, Ontario. However, the Site is accessible in all Provinces of Canada and in other countries. You and MY CLEAN CITY explicitly agree that all disputes, claims or other matters arising from or relating to your use of the Site will be governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein." {%endblocktrans%} 
     </p>  
     <p>
-      Except where prohibited by applicable law, any claim, dispute or controversy (whether in contract or tort, pursuant to statute or regulation, or otherwise, and whether pre-existing, present or future) arising out of or relating to these Terms of Use (b) the Services (c) oral or written statements, advertisements or promotions relating to these Terms of Use or to the Services or (d) the relationships that result from these Terms of Use or the Services (collectively, a "Claim") will be referred to and determined by a sole arbitrator (to the exclusion of the courts). Except where prohibited by applicable law, you waive any right you may have to commence or participate in any class action against MY CLEAN CITY related to any Claim and, where applicable, you also agree to opt out of any class proceedings against MY CLEAN CITY If you have a Claim, you should give written notice to arbitrate at the address specified below. If MY CLEAN CITY has a Claim, MY CLEAN CITY will give you notice to arbitrate at your address provided in your Registration Data. Arbitration will be conducted by one arbitrator pursuant to the commercial arbitration laws and rules in effect on the date of the notice in the Province of Ontario. 
+      {%blocktrans%} "Except where prohibited by applicable law, any claim, dispute or controversy (whether in contract or tort, pursuant to statute or regulation, or otherwise, and whether pre-existing, present or future) arising out of or relating to these Terms of Use (b) the Services (c) oral or written statements, advertisements or promotions relating to these Terms of Use or to the Services or (d) the relationships that result from these Terms of Use or the Services (collectively, a "Claim") will be referred to and determined by a sole arbitrator (to the exclusion of the courts). Except where prohibited by applicable law, you waive any right you may have to commence or participate in any class action against MY CLEAN CITY related to any Claim and, where applicable, you also agree to opt out of any class proceedings against MY CLEAN CITY If you have a Claim, you should give written notice to arbitrate at the address specified below. If MY CLEAN CITY has a Claim, MY CLEAN CITY will give you notice to arbitrate at your address provided in your Registration Data. Arbitration will be conducted by one arbitrator pursuant to the commercial arbitration laws and rules in effect on the date of the notice in the Province of Ontario." {%endblocktrans%} 
     </p>
     <p>
-      To the extent arbitration as described in the immediately preceding paragraph is prohibited by applicable law, you agree that all Claims will be heard and resolved in a court of competent subject matter jurisdiction located in Toronto, Ontario. You consent to the personal jurisdiction of such courts over you, stipulate to the fairness and convenience of proceeding in such courts, and covenant not to assert any objection to proceeding in such courts. 
+      {%blocktrans%} "To the extent arbitration as described in the immediately preceding paragraph is prohibited by applicable law, you agree that all Claims will be heard and resolved in a court of competent subject matter jurisdiction located in Toronto, Ontario. You consent to the personal jurisdiction of such courts over you, stipulate to the fairness and convenience of proceeding in such courts, and covenant not to assert any objection to proceeding in such courts." {%endblocktrans%} 
     </p>
     <p>
-      If you choose to access the Site from locations other than Ontario, you will be responsible for compliance with all local laws of such other jurisdiction and you agree to indemnify MY CLEAN CITY for your failure to comply with any such laws. 
-    </p>
-
-    <h2 class="section-overview">15. OTHER</h2>
-    <p>
-      If any provision of these Terms of Use are deemed invalid, void, or for any reason unenforceable, then that provision shall be deemed severable form these Terms of Use and shall not affect the validity and enforceability of any remaining provisions. MY CLEAN CITY may assign any or all of its rights hereunder to any party without your consent. You are not permitted to assign any of your rights or obligations hereunder without the prior written consent of MY CLEAN CITY, and any such attempted assignment will be void and unenforceable. This Agreement constitutes the entire agreement between you and MY CLEAN CITY regarding your use of the Site, and supersedes all prior or contemporaneous communications whether electronic, oral or written between you and MY CLEAN CITY regarding your use of the Site. Headings are for reference purposes only and do not limit the scope or extent of such section. The failure of MY CLEAN CITY to act with respect to a breach by you or others does not waive its right to act with respect to subsequent or similar breaches. MY CLEAN CITY does not guarantee it will take action against all breaches of these Terms of Use. Except as otherwise expressly provided herein, there shall be no third-party beneficiaries to these Terms of Use. This Agreement constitutes the entire agreement between you and MY CLEAN CITY and governs your use of the Site, superseding any prior agreements between you and MY CLEAN CITY with respect to the Site.  
-    </p>
-    <p>
-      The parties hereto confirm their express wish that this Agreement and all documents and agreements directly or indirectly relating thereto be drawn up in the English language. Les parties reconnaissent leur volonté expresse que la présente convention ainsi que tous les documents et contrats s'y rattachant directement ou indirectment soient rédigés en anglais.
+      {%blocktrans%} "If you choose to access the Site from locations other than Ontario, you will be responsible for compliance with all local laws of such other jurisdiction and you agree to indemnify MY CLEAN CITY for your failure to comply with any such laws." {%endblocktrans%} 
     </p>
 
-    <h2 class="section-overview">16. QUESTIONS AND COMMENTS</h2>
+    <h2 class="section-overview">15. {%trans "OTHER" %}</h2>
     <p>
-      If you have any questions regarding these Terms of Use or your use of the Site, please contact us here:  
+      {%blocktrans%} "If any provision of these Terms of Use are deemed invalid, void, or for any reason unenforceable, then that provision shall be deemed severable form these Terms of Use and shall not affect the validity and enforceability of any remaining provisions. MY CLEAN CITY may assign any or all of its rights hereunder to any party without your consent. You are not permitted to assign any of your rights or obligations hereunder without the prior written consent of MY CLEAN CITY, and any such attempted assignment will be void and unenforceable. This Agreement constitutes the entire agreement between you and MY CLEAN CITY regarding your use of the Site, and supersedes all prior or contemporaneous communications whether electronic, oral or written between you and MY CLEAN CITY regarding your use of the Site. Headings are for reference purposes only and do not limit the scope or extent of such section. The failure of MY CLEAN CITY to act with respect to a breach by you or others does not waive its right to act with respect to subsequent or similar breaches. MY CLEAN CITY does not guarantee it will take action against all breaches of these Terms of Use. Except as otherwise expressly provided herein, there shall be no third-party beneficiaries to these Terms of Use. This Agreement constitutes the entire agreement between you and MY CLEAN CITY and governs your use of the Site, superseding any prior agreements between you and MY CLEAN CITY with respect to the Site." {%endblocktrans%}  
+    </p>
+    <p>
+      {%blocktrans%} "The parties hereto confirm their express wish that this Agreement and all documents and agreements directly or indirectly relating thereto be drawn up in the English language. Les parties reconnaissent leur volonté expresse que la présente convention ainsi que tous les documents et contrats s'y rattachant directement ou indirectment soient rédigés en anglais." {%endblocktrans%}
+    </p>
+
+    <h2 class="section-overview">16. {%trans "QUESTIONS AND COMMENTS" %}</h2>
+    <p>
+      {%trans "If you have any questions regarding these Terms of Use or your use of the Site, please contact us here:" %}
     </p>
     <p>LOVELL CORPORATION</p>
     <p>810-1061 Queen's Blvd<br/>
@@ -408,10 +409,10 @@
     N2M 1C1</p>
     
     <p>Version: 1a</p>
-    <p>Last updated: July 16, 2014</p>
+    <p>{%trans "Last updated:" %} July 16, 2014</p>
 
     <div id="copyright">
-      <p>By continuing with your registration you consent to all of the above terms and conditions of service.</p>
+      <p>{%trans "By continuing with your registration you consent to all of the above terms and conditions of service." %}</p>
       <p>&copy; {% now "Y" %}. MyCleanCity.org. All rights reserved.</p>
     </div>
   </div><!-- end of #terms-conditions -->

@@ -1,0 +1,47 @@
+{% extends '_public_base.html' %}
+
+{% block title %} My Effect - H&amp;M Voucher Code {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      	<a href="#" onclick="history.go(-1); return false;"><div class="sign new-challenge" id="sign-go-back"></div></a>
+        <div id="white-box" class="new-challenge">
+          <h2>H&amp;M Voucher Code</h2>
+          <span class="subtitle">Enter your H&amp;M voucher code to claim your <span class="blue bold">Change</span> <span class="gold bold">Creds</span> if you do NOT have a smartphone.</span>
+
+          {% if form.non_field_errors %}
+          <div class="message-box error">
+          {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+		
+		      <form autocomplete="off" action="" method="post">{% csrf_token %}
+			   	  <table>
+              <tr>
+                  <td>{{ form.voucher.label_tag }} {{ form.voucher }}</td>
+              </tr>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Claim ChangeCreds" />
+          </form>
+        </div><!-- /#white-box -->
+    </div><!-- /.container -->
+  </div><!-- /.about -->
+</div> <!-- /.wrapper -->
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

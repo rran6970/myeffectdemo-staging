@@ -1,6 +1,7 @@
 {% extends '_public_base.html' %}
+{% load i18n %}
 
-{% block title %} My Effect - Profile {% endblock %}
+{% block title %} My Effect - {%trans "Profile" %} {% endblock %}
 
 {% block css %}
   <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
@@ -23,7 +24,7 @@
 
             {{ organization.first_name }} {{ organization.last_name }}
   
-            <h2>Challenges Posted</h2>
+            <h2>{%trans "Challenges Posted" %}</h2>
             <table>
               {% for challenge in challenges %}
               <tr>
