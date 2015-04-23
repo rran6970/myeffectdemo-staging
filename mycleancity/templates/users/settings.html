@@ -51,18 +51,23 @@
                   <tr>
                       <td>{{ form.receive_newsletters.label_tag }} {{ form.receive_newsletters }}</td>
                   </tr>
+                  {% if receive_emails %}
                   <tr>
-                      <td style="padding-bottom: 30px;">{{ form.timezone.label_tag }} {{ form.timezone }}</td>
+                      <td><label>Receive updates and reminders about the following actions:</label></td>
                   </tr>
                   {% for re in receive_emails %}
                   <tr>
-                      <td>
+                      <td style="padding-left: 30px;">
                         <input name="{{ re.id }}" type="checkbox" {% if re.receive_email %}checked{% endif %}>
-                        <label>Receive info and reminders from {{ re.challenge.title }}.</label>
+                        <label>{{ re.challenge.title }}.</label>
                       </td>
                   </tr>
                   {% endfor %}
+                  {% endif %}
                   <tr>
+                  <tr>
+                      <td style="padding-top: 30px;">{{ form.timezone.label_tag }} {{ form.timezone }}</td>
+                  </tr>
                       <td style="padding-top: 30px;">
                         <input class="btn btn-primary" type="submit" value="Update" />
                       </td>

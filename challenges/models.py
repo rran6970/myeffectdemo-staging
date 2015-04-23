@@ -788,6 +788,16 @@ def create_challenge(sender, instance, created, **kwargs):
 
 post_save.connect(create_challenge, sender=Challenge) 
 
+class SkillTagCategory(models.Model):
+    category_name = models.CharField(max_length=50, blank=False, null=False)
+    color = models.CharField(max_length=50, blank=False, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Skill Tag Category'
+
+    def save(self, *args, **kwargs):
+        super(SkillTagCategory, self).save(*args, **kwargs)
+        
 """
 Name:           SkillTag
 Date created:   Feb 11, 2015
@@ -796,6 +806,7 @@ Description:    All the tags for action posting
 class SkillTag(models.Model):
     skill_name = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=1024, blank=True, null=True)
+    category = models.ForeignKey(SkillTagCategory)
 
     class Meta:
         verbose_name_plural = u'Skill Tag'

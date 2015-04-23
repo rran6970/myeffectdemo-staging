@@ -1,6 +1,7 @@
 import datetime
 import re
 
+from django.core.validators import RegexValidator
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -81,8 +82,8 @@ class NewChallengeForm(forms.Form):
         skilltags_choices = tuple(tag_list)
 
         self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-        self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-        self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}), label="Program Start Date")
+        self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}), label="Program End Date")
         self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
         self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
         self.fields['event_type'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=EVENTTYPES, label="Event Type")
@@ -102,7 +103,7 @@ class NewChallengeForm(forms.Form):
         self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
         self.fields['contact_first_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
         self.fields['contact_last_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
-        self.fields['contact_phone'] = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class': 'phone-number'}), label="Phone number")
+        self.fields['contact_phone'] = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class': 'phone-number'}), label="Phone number", validators=[RegexValidator(regex='[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,4}', message='Contact Phone Number format incorrect', code='invalid_phone')])
         self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 
         self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
@@ -346,27 +347,15 @@ class ChallengeUploadFileForm(forms.ModelForm):
         return cleaned_data
 
 class ParticipantEmailForm(forms.Form):
-    from_email = forms.CharField(label='From', max_length=200, widget=forms.TextInput())
-    group_name = forms.CharField(label='Group Name', max_length=200, widget=forms.TextInput())
-    address = forms.CharField(label='Address', max_length=200, widget=forms.TextInput())
     subject = forms.CharField(label='Subject', max_length=200, widget=forms.TextInput())
     message = forms.CharField(label='Message', widget=forms.Textarea())
 
     def clean(self):
         cleaned_data = super(ParticipantEmailForm, self).clean()
-        from_email = cleaned_data.get("from_email")
-        group_name = cleaned_data.get("group_name")
-        address = cleaned_data.get("address")
         subject = cleaned_data.get("subject")
         message = cleaned_data.get("message")
 
-        if not from_email:
-            raise forms.ValidationError("Please enter your email address")
-        elif not group_name:
-            raise forms.ValidationError("Please enter your group name")
-        elif not address:
-            raise forms.ValidationError("Please enter a valid Address")
-        elif not subject:
+        if not subject:
             raise forms.ValidationError("Please enter a valid Subject")
         elif not message:
             raise forms.ValidationError("Please enter the message")
