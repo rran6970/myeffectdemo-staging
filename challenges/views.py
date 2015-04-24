@@ -640,15 +640,8 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
         user = self.request.user
 
         if user.profile.is_clean_ambassador():
-            try:
-                ctm = CleanTeamMember.objects.get(user=user, status="approved")
-                context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
-            except Exception, e:
-                print e
-
             clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
             context['clean_team_challenges'] = clean_team_challenges
-
             try:
                 staples_challenge = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
                 print staples_challenge
