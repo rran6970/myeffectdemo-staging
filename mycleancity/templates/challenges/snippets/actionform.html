@@ -16,7 +16,7 @@
 			{{ error_msg }}
 			</div>
 		{% endif %}
-		{% if user.profile.clean_team_member.role == "{trans "manager" %}" or user.profile.clean_team_member.role == "{%trans "leader" %}" %}
+		{% if user.profile.clean_team_member.role == "manager" or user.profile.clean_team_member.role == "leader" %}
 		<form enctype="multipart/form-data" action="/challenges/uploadform/" method="post">
 			{% csrf_token %}
 			<input id="id_challenge_id" name="challenge_id" type="hidden" value="{{ challenge.id }}">

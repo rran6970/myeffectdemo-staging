@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                   <td>{{ form.city.label_tag }} {{ form.city }}</td>
-                  <td id="community-td"><label for="id_name">Associated Change</label>{{ form.community.label_tag }} {{ form.community }}
+                  <!--<td id="community-td"><label for="id_name">Associated Change Community</label> {{ form.community }}-->
                   {% if form.community_request_pending %}
                      (Request Pending)
                   {% endif %}

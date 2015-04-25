@@ -20,7 +20,7 @@ from django.views.generic.base import View
 
 from challenges.forms import *
 from challenges.models import *
-from cleanteams.models import CleanTeamMember, CleanChampion, Community, UserCommunityMembership
+from cleanteams.models import CleanTeamMember, CleanChampion, Community, UserCommunityMembership, TeamAntiSpam
 from userprofile.models import UserProfile
 from mycleancity.actions import *
 from mycleancity.mixins import LoginRequiredMixin
@@ -534,12 +534,6 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
 
         cid = self.kwargs['cid']
         challenge = get_object_or_404(Challenge, id=cid)
-
-        initial['from_email'] = challenge.contact_email
-        initial['group_name'] = challenge.organization
-        if not challenge.national_challenge and not challenge.virtual_challenge:
-            initial['address'] = challenge.address1 + ' ' + challenge.address2 +', ' + challenge.city + ', ' + challenge.province + ', ' + challenge.country
-
         return initial
 
     def form_invalid(self, form, **kwargs):
@@ -549,13 +543,21 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form):
-        from_email = form.cleaned_data['from_email']
-        group_name = form.cleaned_data['group_name']
-        address = form.cleaned_data['address']
-        subject = form.cleaned_data['subject']
-        message = form.cleaned_data['message']
         cid = self.kwargs['cid']
         challenge = get_object_or_404(Challenge, id=cid)
+        try:
+                team_anti_spam = TeamAntiSpam.objects.get(clean_team=challenge.clean_team)
+                if not team_anti_spam.blocked:
+                    from_email = team_anti_spam.email
+                    group_name = team_anti_spam.group_name
+                    address = team_anti_spam.address
+                    signature = team_anti_spam.signature
+        except Exception, e:
+            print e
+            return HttpResponseRedirect(u'/challenges/participants-email/%s' %(challenge.id))
+
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
         user = self.request.user
         if user.profile.is_clean_ambassador() and challenge.clean_team == user.profile.clean_team_member.clean_team:
             to_email = []
@@ -567,7 +569,8 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
             template = get_template('emails/defualt_email.html')
             uri = self.request.build_absolute_uri("/")
             settings_uri = u'%susers/settings/' %uri
-            content = Context({ 'email': from_email, 'group_name': group_name, 'address': address, 'message': message, 'settings_uri': settings_uri})
+            spam_uri = u'%sclean-team/report-spam/%s' %(uri, signature)
+            content = Context({ 'email': from_email, 'group_name': group_name, 'address': address, 'message': message, 'settings_uri': settings_uri, 'spam_uri': spam_uri})
             render_content = template.render(content)
             if len(to_email) > 0:
                 try:
@@ -577,7 +580,8 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
                     self.request.session['email_sent_success'] = True
                 except Exception, e:
                     print e
-                    self.request.session['exception'] = "Sender Verification failed, please use a valid email address."
+                    uri = self.request.build_absolute_uri("/")
+                    self.request.session['invalid_email'] = u'%sclean-team/main-contact' %uri
             else:
                 self.request.session['exception'] = "No participant receives this mail."
         return HttpResponseRedirect(u'/challenges/participants-email/%s' %(challenge.id))
@@ -603,6 +607,21 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
             if self.request.session.get('exception', False):
                 context['exception'] = self.request.session.get('exception', False)
                 del self.request.session['exception']
+            if self.request.session.get('invalid_email', False):
+                context['invalid_email'] = self.request.session.get('invalid_email', False)
+                del self.request.session['invalid_email']
+
+            try:
+                team_anti_spam = TeamAntiSpam.objects.get(clean_team=challenge.clean_team)
+                if team_anti_spam.blocked:
+                    uri = self.request.build_absolute_uri("/")
+                    context['blocked'] = u'%scontact' %uri
+                if not team_anti_spam.group_name or not team_anti_spam.email or not team_anti_spam.address:
+                    uri = self.request.build_absolute_uri("/")
+                    context['anti_spam_incomplete'] = u'%sclean-team/main-contact' %uri
+            except Exception, e:
+                uri = self.request.build_absolute_uri("/")
+                context['anti_spam_incomplete'] = u'%sclean-team/main-contact' %uri
 
             approvedparticipants = challenge.get_participants()
 
@@ -621,15 +640,8 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
         user = self.request.user
 
         if user.profile.is_clean_ambassador():
-            try:
-                ctm = CleanTeamMember.objects.get(user=user, status="approved")
-                context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
-            except Exception, e:
-                print e
-
             clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
             context['clean_team_challenges'] = clean_team_challenges
-
             try:
                 staples_challenge = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
                 print staples_challenge
@@ -648,6 +660,31 @@ class MyChallengesView(LoginRequiredMixin, TemplateView):
         context['total_hours'] = user.profile.get_total_hours()
         context['user_challenges'] = user_challenges
 
+        return context
+
+class PostedActionsView(LoginRequiredMixin, TemplateView):
+    template_name = "challenges/posted_challenges.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PostedActionsView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        if user.profile.is_clean_ambassador():
+            try:
+                ctm = CleanTeamMember.objects.get(user=user, status="approved")
+                context['posted_challenges'] = Challenge.objects.filter(clean_team=ctm.clean_team).order_by("event_start_date")
+            except Exception, e:
+                print e
+
+            clean_team_challenges = CleanTeamChallenge.objects.filter(clean_team=user.profile.clean_team_member.clean_team).order_by("time_in")
+            context['clean_team_challenges'] = clean_team_challenges
+
+            try:
+                staples_challenge = StaplesChallenge.get_participating_store(user.profile.clean_team_member.clean_team)
+                print staples_challenge
+                context['staples_challenge'] = staples_challenge
+            except Exception, e:
+                print e
         return context
 
 class ChallengeView(TemplateView):

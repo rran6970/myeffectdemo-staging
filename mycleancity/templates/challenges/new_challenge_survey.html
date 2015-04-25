@@ -15,10 +15,6 @@
   {% include "_navbar.html" %}
 
   <a href="/" class="logo"></a>
-
-  {% load wysiwyg %}
-  {% wysiwyg_setup %}
-
   <div class="content">
     <div class="container">
       	<a id="btn-previous-survey" onclick="history.go(-1); return false;"><div class="sign new-challenge-survey" id="sign-go-back"></div></a>
@@ -43,7 +39,6 @@
 		</div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
-  {% wysiwyg_editor "id_description" %}
 </div> <!-- /.wrapper -->
 
 {% include "_footer_navbar.html" %}
@@ -59,8 +54,8 @@
       page.next().next().hide();
     }
     else{
-      page.next().fadeOut();
-      page.next().next().fadeOut();
+      page.next().hide();
+      page.next().next().hide();
     }
 
   	$( ":radio" ).each(function( index ) {
@@ -72,11 +67,15 @@
   		}
 	});
   	$('.subquestions').hide();
+    $( "#id_question_num_1" ).after( '<select><option>pieces</option><option>bags</option><option>bins</option><option>grams</option><option>pounds</option></select><div class="clear"></div>' );
   });
 
-  var optionother = $( "input[name='question_1']" ).last().closest('li');
-  $( "#id_question_txt_2" ).prev().appendTo(optionother);
-  $( "#id_question_txt_2" ).appendTo(optionother);
+  var optionother1 = $( "input[name='question_2']" ).last().closest('li');
+  $( "#id_question_txt_3" ).prev().appendTo(optionother1);
+  $( "#id_question_txt_3" ).appendTo(optionother1);
+  var optionother2 = $( "input[name='question_251']" ).last().closest('li');
+  $( "#id_question_txt_252" ).prev().appendTo(optionother2);
+  $( "#id_question_txt_252" ).appendTo(optionother2);
   
 
   function next() {
@@ -132,12 +131,12 @@
   	var page = $(this).closest('div');
     if ($(':checked', page).parent().text() == " Yes"){
     	$('.subquestions', page).fadeIn();
-    	$('input', page).attr('data-parsley-required', 'true');
-    	$('input', page).attr('data-parsley-required-message', 'This field is required.');
+    	//$('input', page).attr('data-parsley-required', 'true');
+    	//$('input', page).attr('data-parsley-required-message', 'This field is required.');
     }
     else{
     	$('.subquestions', page).fadeOut();
-    	$('input', page).attr('data-parsley-required', 'false');
+    	//$('input', page).attr('data-parsley-required', 'false');
     }
 	});
 

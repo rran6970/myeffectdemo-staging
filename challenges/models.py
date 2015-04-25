@@ -496,7 +496,7 @@ class Challenge(models.Model):
             raise e
 
     # Have to remove staples_store parameter only there for the Staples CleanAct
-    def participate_in_challenge(self, user, message="", receive_email=False, staples_store=None):
+    def participate_in_challenge(self, user, message="", receive_email=None, staples_store=None):
         try:
             if self.clean_team_only:
                 if user.profile.is_clean_ambassador():
@@ -535,7 +535,8 @@ class Challenge(models.Model):
                         challengeparticipant.status = "approved"
                         user_challenge = UserChallengeEvent.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
                     challengeparticipant.message = message
-                    challengeparticipant.receive_email = receive_email
+                    if receive_email:
+                        challengeparticipant.receive_email = receive_email
                     challengeparticipant.save()
                 else:
                     return False
@@ -788,6 +789,16 @@ def create_challenge(sender, instance, created, **kwargs):
 
 post_save.connect(create_challenge, sender=Challenge) 
 
+class SkillTagCategory(models.Model):
+    category_name = models.CharField(max_length=50, blank=False, null=False)
+    color = models.CharField(max_length=50, blank=False, null=False)
+
+    class Meta:
+        verbose_name_plural = u'Skill Tag Category'
+
+    def save(self, *args, **kwargs):
+        super(SkillTagCategory, self).save(*args, **kwargs)
+        
 """
 Name:           SkillTag
 Date created:   Feb 11, 2015
@@ -796,6 +807,7 @@ Description:    All the tags for action posting
 class SkillTag(models.Model):
     skill_name = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=1024, blank=True, null=True)
+    category = models.ForeignKey(SkillTagCategory)
 
     class Meta:
         verbose_name_plural = u'Skill Tag'

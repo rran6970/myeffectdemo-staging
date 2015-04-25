@@ -45,6 +45,7 @@
 				<input type="hidden" id="pre_loaded_first_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.first_name }}" />
 				<input type="hidden" id="pre_loaded_last_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.last_name }}" />
 				<input type="hidden" id="pre_loaded_email" value="{{ user.profile.clean_team_member.clean_team.contact_user.email }}" />
+				<input type="hidden" id="pre_loaded_contact_phone" value="{{ user.profile.clean_team_member.clean_team.contact_phone }}" />
 				
 				<table>
 					<tr>
@@ -75,10 +76,28 @@
 	                	<td>{{ form.virtual_challenge }} </td><td colspan="3">{{ form.virtual_challenge.label_tag }}</td>
 	                </tr>
 	                <tr>
-	                	<td style="float: right; margin-right: 5px;">{{ form.clean_team_only }} </td><td colspan="3">{{ form.clean_team_only.label_tag }}</td>
+	                	<td style="float: right; margin-right: 5px;">
+	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		{{ form.clean_team_only }}
+	                		</core-tooltip>
+	                	</td>
+	                	<td colspan="3">
+	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		{{ form.clean_team_only.label_tag }}
+	                		</core-tooltip>
+	                	</td>
 	                </tr>
 	                <tr>
-	                	<td style="float: right; margin-right: 5px;">{{ form.is_private }} </td><td colspan="3">{{ form.is_private.label_tag }}</td>
+	                	<td style="float: right; margin-right: 5px;">
+	                		<core-tooltip label="Only members of your Change Community or Team will see this action" noarrow>
+	                		{{ form.is_private }}
+	                	</core-tooltip>
+	                	</td>
+	                	<td colspan="3">
+	                		<core-tooltip label="Only members of your Change Community or Team will see this action" noarrow>
+	                		{{ form.is_private.label_tag }}
+	                		</core-tooltip>
+	                	</td>
 	                </tr>
 	                <tr>
 	                    <td>{{ form.title.label_tag }}</td><td colspan="3">{{ form.title }}</td>
@@ -131,7 +150,7 @@
 									{% for tag in skill_tags %}
 									<li>
 										<core-tooltip>
-											<label tagid="{{ tag.id }}">{{ tag.skill_name }}<span class="add-tag">+</span></label>
+											<label tagid="{{ tag.id }}" class="{{ tag.category.color }}-tag">{{ tag.skill_name }}<span class="add-tag">+</span></label>
 											<div tip style="width: 200px; white-space:normal; line-height: normal;">
 												{% if tag.description %}
     											{{ tag.description }}

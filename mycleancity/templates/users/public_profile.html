@@ -78,15 +78,16 @@
           </div>
 
 	<DIV style="position: absolute; top:190px; left:300px; width:200px; height:10px">
-            {% if user.resume == user_profile.resume %}
-	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
-            {% endif %}
-            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
+          <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
-	    </div> </DIV>
+	    </div> 
+            {% if user.resume == user_profile.resume %}
+	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
+            {% endif %}
+</DIV>
 	</p>
           </span>
           {% load socialaccount %}
@@ -137,8 +138,7 @@
           <img src="{{accounts.instagram.0.get_avatar_url}}" alt="" class="profile-pic profile-pic-124x124" />
         {% else %}
           <img src="{{ STATIC_URL }}images/default-profile-pic-124x124.png" alt="" class="profile-pic profile-pic-124x124" />
-
-        {% endif %}
+	{% endif %}
 
         <div class="info" style="width: 100%;">
           {% if user_profile.profile.about %}

@@ -27,7 +27,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView, UpdateView
 import cleanteams.forms
 from cleanteams.forms import RegisterCleanTeamForm, EditCommunityForm, EditCleanTeamForm, RegisterCommunityForm, RegisterOrganizationForm, RequestJoinTeamsForm, PostMessageForm, JoinTeamCleanChampionForm, InviteForm, InviteResponseForm, LeaderReferralForm, CleanTeamPresentationForm, EditCleanTeamMainContact
-from cleanteams.models import CleanTeam, CleanTeamMember, CommunityPost, CleanTeamPost, CleanChampion, CleanTeamInvite, CleanTeamLevelTask, CleanTeamLevelProgress, LeaderReferral, CleanTeamPresentation, CleanTeamFollow, OrgProfile, Community, UserCommunityMembership, TeamCommunityMembership, UserCommunityMembershipRequest, TeamCommunityMembershipRequest
+from cleanteams.models import *
 from challenges.models import Challenge, UserChallengeEvent, ChallengeTeamMembership, ChallengeCommunityMembership
 from users.models import OrganizationLicense
 from notifications.models import Notification
@@ -203,6 +203,17 @@ class CleanTeamMainContactView(LoginRequiredMixin, FormView):
             initial['clean_ambassadors'] = clean_team.contact_user.id
             initial['clean_team_id'] = clean_team.id
 
+            try:
+                team_anti_spam = TeamAntiSpam.objects.get(clean_team=clean_team)
+                initial['group_name'] = team_anti_spam.group_name
+                initial['anti_spam_email'] = team_anti_spam.email
+                initial['address'] = team_anti_spam.address
+            except Exception, e:
+                char_set = string.ascii_lowercase + string.digits
+                signature = ''.join(random.sample(char_set*20,20))
+                team_anti_spam = TeamAntiSpam(clean_team=clean_team, signature=signature)
+                team_anti_spam.save()
+
         return initial
 
     # Initialize the form with initial values
@@ -231,10 +242,36 @@ class CleanTeamMainContactView(LoginRequiredMixin, FormView):
         try:
             clean_team_member = CleanTeamMember.objects.get(user=self.request.user)
             clean_team_member.clean_team.update_main_contact(form.cleaned_data)
+            team_anti_spam = TeamAntiSpam.objects.get(clean_team_id=clean_team_id)
+            team_anti_spam.group_name = form.cleaned_data['group_name']
+            team_anti_spam.email = form.cleaned_data['anti_spam_email']
+            team_anti_spam.address = form.cleaned_data['address']
+            team_anti_spam.save()
         except Exception, e:
             print e
 
         return HttpResponseRedirect(u'/clean-team/%s' %(clean_team_id))
+
+# Coming from the email
+def report_as_spam(request, signature):
+    teamantispam = get_object_or_404(TeamAntiSpam, signature=signature)
+    team = teamantispam.clean_team
+    uri = request.build_absolute_uri("/")
+    team_uri = u'%sclean-team/%s' % (uri, team.id)
+    edit_uri = u'%sadmin/cleanteams/teamantispam/%s' % (uri, teamantispam.id)
+    message = u'<a href="%s">%s</a> is reported spamming. You could block its email function <a href="%s">here</a>.' % (team_uri, team.name, edit_uri)
+
+    subject = "Spam Reporting"
+    from_email = "info@myeffect.ca"
+    to = 'admin@myeffect.ca'
+    try:
+        mail = EmailMessage(subject, message, from_email, [to])
+        mail.content_subtype = "html"
+        mail.send()
+    except Exception, e:
+            print e
+
+    return render_to_response('mycleancity/report_spam.html', context_instance=RequestContext(request))
 
 class EditCleanTeamView(LoginRequiredMixin, FormView):
     template_name = "cleanteams/edit_clean_team.html"

@@ -37,6 +37,10 @@ ALLOWED_HOSTS = []
 # In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'America/Chicago'
 
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'fr'
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -51,10 +55,6 @@ LANGUAGES = (
    ('en',_('English')),
    ('fr',_('French')),
 )
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'fr-ca'
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
@@ -121,6 +121,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'cleanteams.views.get_nav_data',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -261,6 +262,7 @@ MAILCHIMP_API_KEY = 'f6ad2ba74b01cf949e699362413aa6db-us9'
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 
+LOCAL_PATH= '/backup/S3'
 AWS_ACCESS_KEY_ID = 'AKIAJLI4AHTNZQXEOA4Q'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_BUCKET = 'myeffectstaging'

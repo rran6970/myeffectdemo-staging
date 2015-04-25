@@ -1084,3 +1084,25 @@ class UserCommunityMembershipRequest(models.Model):
 
     def save(self, *args, **kwargs):
         super(UserCommunityMembershipRequest, self).save(*args, **kwargs)
+
+"""
+Name:           Team Anti Spam
+Date created:   April 21, 2015
+Description:    Team Anti Spam Settings
+"""
+class TeamAntiSpam(models.Model):
+    clean_team = models.ForeignKey(CleanTeam, null=False, unique=True)
+    blocked = models.BooleanField(default=0, null=False)
+    group_name = models.CharField(max_length=60, blank=True, null=True)
+    email = models.CharField(max_length=60, blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    signature = models.CharField(max_length=50, blank=True)
+
+    class Meta:
+        verbose_name_plural = u'Team Anti Spam'
+
+    def __unicode__(self):
+        return u'%s' % self.id
+
+    def save(self, *args, **kwargs):
+        super(TeamAntiSpam, self).save(*args, **kwargs)
