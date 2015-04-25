@@ -49,14 +49,12 @@
                         <td>{{ form.email.label_tag }} {{ form.email }}</td>
                         <td>{{ form.website.label_tag }} {{ form.website }}</td>
                     </tr>
-                    <tr>
-                        <td>{{ form.emergency_contact_fname.label_tag }} {{ form.emergency_contact_fname }}</td>
-                        <td>{{ form.emergency_contact_lname.label_tag }} {{ form.emergency_contact_lname }}</td>
-			
-                    </tr>
-                    <tr>
-                        <td>{{ form.emergency_phone.label_tag }} {{ form.emergency_phone }}</td>
+		    <tr>
+                        
                         <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
+                        <td><span title="Optional: Contact information will only be available to organizations you have approved to share your volunteer data with in your user settings <link to user settings> in case of an emergency during your Actions. ">{{ form.emergency_contact_fname.label_tag }}</span> {{ form.emergency_contact_fname }}
+                            {{ form.emergency_contact_lname }}
+			    {{ form.emergency_phone }}</td>
                     </tr>
                     <tr>
                         <td>{{ form.street_address.label_tag }} {{ form.street_address }}</td>

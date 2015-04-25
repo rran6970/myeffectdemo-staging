@@ -125,11 +125,11 @@
               {% else %}
                 <!-- Ambassador -->
                 {% if not user.profile.clean_team_member or user.profile.clean_team_member.status == "removed" %}
-                <form action="/clean-team/ca-request-join/" method="post">
+                <!--<form action="/clean-team/ca-request-join/" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="ctid" value="{{ clean_team.id }}">
                   <input id="request-join-clean-team-btn" class="btn btn-primary" type="submit" value="Request to Join" />
-                </form>
+                </form>-->
                 {% endif %}
           
                 {% if user.profile.clean_team_member.status == "pending" %}
