@@ -198,6 +198,9 @@ $(function(){
     $("#clean-team-only-checkbox").on("click", function(e){
         showSearchResults(e);
     });
+    $("#virtual-action-checkbox").on("click", function(e){
+        showSearchResults(e);
+    });
     
     // $('form.participation-forms').on('submit', ajaxParticipation);
     $('form.participation-forms').on('submit', ajaxCheckInCheckOut);
@@ -416,6 +419,7 @@ function showSearchResults(e)
     var cat = $("#category-search-selection").val();
     var national_challenges = $("#national-challenge-checkbox").is(':checked');
     var clean_team_only = $("#clean-team-only-checkbox").is(':checked');
+    var virtual_action = $("#virtual-action-checkbox").is(':checked');
 
     var challenge_url = '/challenges/?q=' + value;
 
@@ -449,10 +453,15 @@ function showSearchResults(e)
         challenge_url += '&clean_team_only=on';
     }
 
+    if (virtual_action != "")
+    {
+        challenge_url += '&virtual_action=on';
+    }
+
     $("#view-all-challenges").attr('href', challenge_url);
     $("#search-form").attr('action', challenge_url);
 
-    if(value || city || tag || title || cat || national_challenges == true || clean_team_only == true)
+    if(value || city || tag || title || cat || national_challenges == true || clean_team_only == true || virtual_action == true)
     {
         $.ajax({
             type: 'GET',
@@ -464,7 +473,8 @@ function showSearchResults(e)
                 'title': title,
                 'cat': cat,
                 'national_challenges': national_challenges,
-                'clean_team_only': clean_team_only
+                'clean_team_only': clean_team_only,
+                'virtual_action': virtual_action
             },
             beforeSend: function()
             {

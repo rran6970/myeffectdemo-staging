@@ -699,7 +699,7 @@ div.content.challenge-centre #white-box div.challenges img.badge-icon { position
 
 div.content.challenge-centre #white-box div.challenges a.team-picture { display: block; float: left; margin-right: 20px; }
 div.content.challenge-centre #white-box div.challenges a.team-picture img { display: block; border-radius: 4px; /*border: 2px solid #4a3c2e;*/ }
-div.content.challenge-centre #white-box div.challenges a.challenge-title { display: block; margin-bottom: 10px; width: 550px; }
+div.content.challenge-centre #white-box div.challenges h1.challenge-title { display: block; margin-bottom: 10px; }
 div.content.challenge-centre #white-box div.challenges a.challenge-title h1 { line-height: 20px; font-weight: 900; font-size: 20px; color: #00aeef; }
 
 div.content.challenge-centre #white-box div.challenges span.clean-team-only { display: block; margin-bottom: 10px; }
