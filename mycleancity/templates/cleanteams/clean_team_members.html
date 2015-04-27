@@ -84,6 +84,37 @@
 		<div id="white-box" class="team-members-cc">	
 			<h1 id="team-name">{%trans "Agent" %}</h1>	
 	        <div id="clean-team-members-list">
+		<div class="table-container table-container-a">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="members"><h2>{%trans "Members" %}</h2></th>
+							<th class="actions"><h2>{%trans "Actions" %}</h2></th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for ca in cas %}
+						{% if ca.user.is_active and ca.role == "agent" %}
+						<tr>
+							<td class="members">
+							{% if ca.status == "approved" %}
+			                  <img id="badge-icon" src="{{ STATIC_URL }}images/badge-my-effect-cl-62x78.png" alt="Badge CA" />
+			                {% endif %}
+			                  <a href="/users/profile/{{ ca.user.id }}">{{ ca.user.first_name }} {{ ca.user.last_name }}</a>
+							</td>
+							<td class="actions">
+								{% csrf_token %}
+								<input type="hidden" name="uid" value="{{ ca.user.id }}" />
+								<input type="hidden" name="ctid" value="{{ clean_team.id }}">
+									<input type="hidden" id="action" name="action" value="remove" />
+									<input type="submit" id="action-btn" class="btn btn-primary dark" value="Remove" />                                          
+							</td>
+							</form>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+				</table><!-- /.table.table-hover -->
 			    {% for cc in ccs %}
 			      {% if cc.user.is_active %}
 			        {% if cc.status == "approved" %}
