@@ -338,7 +338,7 @@ class InviteResponseForm(forms.Form):
     token = forms.CharField(required=True, widget=forms.HiddenInput())
 
 ROLE_CHOICES = (
-    ('agent', 'Agent'),
+    ('agent', 'Agent(Volunteer)'),
     ('leader', 'Leader'),
     ('organization', 'Organization')
 )
