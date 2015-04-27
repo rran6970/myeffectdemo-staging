@@ -77,12 +77,12 @@
 	                </tr>
 	                <tr>
 	                	<td style="float: right; margin-right: 5px;">
-	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		<core-tooltip label="This allows groups to add your action to their profile & share it with their members" noarrow>
 	                		{{ form.clean_team_only }}
 	                		</core-tooltip>
 	                	</td>
 	                	<td colspan="3">
-	                		<core-tooltip label="This allows groups to add your action to their profuile & share it with their members" noarrow>
+	                		<core-tooltip label="This allows groups to add your action to their profile & share it with their members" noarrow>
 	                		{{ form.clean_team_only.label_tag }}
 	                		</core-tooltip>
 	                	</td>
@@ -199,11 +199,28 @@ $( document ).ready(function() {
 	if($('#id_event_type').val() == "weekly"){
         $("#id_day_of_week").closest('td').prev().fadeIn();
 		$("#id_day_of_week").closest('td').fadeIn();
+		$("#id_event_start_time").closest('td').prev().fadeIn();
+		$("#id_event_start_time").closest('td').fadeIn();
+		$("#id_event_end_time").closest('td').prev().fadeIn();
+		$("#id_event_end_time").closest('td').fadeIn();
     }
-    else {
+    else if($('#id_event_type').val() == "onetime"){
     	$("#id_day_of_week").val('-1');
         $("#id_day_of_week").closest('td').prev().fadeOut();
 		$("#id_day_of_week").closest('td').fadeOut();
+		$("#id_event_start_time").closest('td').prev().fadeIn();
+		$("#id_event_start_time").closest('td').fadeIn();
+		$("#id_event_end_time").closest('td').prev().fadeIn();
+		$("#id_event_end_time").closest('td').fadeIn();
+    }
+    else{
+    	$("#id_day_of_week").val('-1');
+        $("#id_day_of_week").closest('td').prev().fadeOut();
+		$("#id_day_of_week").closest('td').fadeOut();
+		$("#id_event_start_time").closest('td').prev().fadeOut();
+		$("#id_event_start_time").closest('td').fadeOut();
+		$("#id_event_end_time").closest('td').prev().fadeOut();
+		$("#id_event_end_time").closest('td').fadeOut();
     }
 	if($('#id_virtual_challenge').is(':checked') || $('#id_national_challenge').is(':checked')) {
 		$("#id_address1").closest('tr').fadeOut();
@@ -212,6 +229,12 @@ $( document ).ready(function() {
     else{
     	$("#id_address1").closest('tr').fadeIn();
 		$("#id_city").closest('tr').fadeIn();
+    }
+    if($('#id_virtual_challenge').is(':checked')){
+    	$("#id_country").closest('tr').fadeOut();
+    }
+    else{
+    	$("#id_country").closest('tr').fadeIn();
     }
 });
 
@@ -247,10 +270,18 @@ $('#id_national_challenge').on("click", function(e){
 	if(this.checked || $('#id_virtual_challenge').is(':checked')) {
 		$("#id_address1").closest('tr').fadeOut();
 		$("#id_city").closest('tr').fadeOut();
+		$("#id_country").closest('tr').fadeOut();
     }
     else{
     	$("#id_address1").closest('tr').fadeIn();
 		$("#id_city").closest('tr').fadeIn();
+		$("#id_country").closest('tr').fadeIn();
+    }
+    if($('#id_virtual_challenge').is(':checked')){
+    	$("#id_country").closest('tr').fadeOut();
+    }
+    else{
+    	$("#id_country").closest('tr').fadeIn();
     }
 });
 $('#id_virtual_challenge').on("click", function(e){
@@ -262,16 +293,39 @@ $('#id_virtual_challenge').on("click", function(e){
     	$("#id_address1").closest('tr').fadeIn();
 		$("#id_city").closest('tr').fadeIn();
     }
+    if(this.checked){
+    	$("#id_country").closest('tr').fadeOut();
+    }
+    else{
+    	$("#id_country").closest('tr').fadeIn();
+    }
 });
 $('#id_event_type').on("change", function(e){
     if($(this).val() == "weekly"){
         $("#id_day_of_week").closest('td').prev().fadeIn();
 		$("#id_day_of_week").closest('td').fadeIn();
+		$("#id_event_start_time").closest('td').prev().fadeIn();
+		$("#id_event_start_time").closest('td').fadeIn();
+		$("#id_event_end_time").closest('td').prev().fadeIn();
+		$("#id_event_end_time").closest('td').fadeIn();
     }
-    else {
+    else if($(this).val() == "onetime"){
     	$("#id_day_of_week").val('-1');
         $("#id_day_of_week").closest('td').prev().fadeOut();
 		$("#id_day_of_week").closest('td').fadeOut();
+		$("#id_event_start_time").closest('td').prev().fadeIn();
+		$("#id_event_start_time").closest('td').fadeIn();
+		$("#id_event_end_time").closest('td').prev().fadeIn();
+		$("#id_event_end_time").closest('td').fadeIn();
+    }
+    else{
+    	$("#id_day_of_week").val('-1');
+        $("#id_day_of_week").closest('td').prev().fadeOut();
+		$("#id_day_of_week").closest('td').fadeOut();
+		$("#id_event_start_time").closest('td').prev().fadeOut();
+		$("#id_event_start_time").closest('td').fadeOut();
+		$("#id_event_end_time").closest('td').prev().fadeOut();
+		$("#id_event_end_time").closest('td').fadeOut();
     }
 });
 </script>

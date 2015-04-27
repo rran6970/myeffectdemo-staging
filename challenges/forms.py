@@ -83,9 +83,9 @@ class NewChallengeForm(forms.Form):
 
         self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}), label="Program Start Date")
-        self.fields['event_start_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}), label="Program End Date")
-        self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-        self.fields['event_end_time'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_start_time'] = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}), label="Program End Date")
+        self.fields['event_end_time'] = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
         self.fields['event_type'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=EVENTTYPES, label="Event Type")
         self.fields['day_of_week'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=WEEKDAYS)
         self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
@@ -157,11 +157,11 @@ class NewChallengeForm(forms.Form):
             raise forms.ValidationError("Please enter a title")
         elif not event_start_date:
             raise forms.ValidationError("Please enter a starting event date")
-        elif not event_start_time:
+        elif event_type != 'ongoing' and not event_start_time :
             raise forms.ValidationError("Please enter a starting event time")
         elif not event_end_date:
             raise forms.ValidationError("Please enter an ending event date")
-        elif not event_end_time:
+        elif event_type != 'ongoing' and not event_end_time:
             raise forms.ValidationError("Please enter an ending event time")
         elif not description:
             raise forms.ValidationError("Please enter a description")

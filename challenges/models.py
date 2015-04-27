@@ -129,9 +129,9 @@ class Challenge(models.Model):
     title = models.CharField(max_length=60, blank=False, verbose_name="Title")
     category = models.CharField(max_length=60, blank=False, default="General")
     event_start_date = models.DateField(blank=True, null=True)
-    event_start_time = models.TimeField(blank=True, null=True)
+    event_start_time = models.TimeField(default='0:00')
     event_end_date = models.DateField(blank=True, null=True)
-    event_end_time = models.TimeField(blank=True, null=True)
+    event_end_time = models.TimeField(default='23:59:59')
     day_of_week = models.IntegerField(default=-1)
     address1 = models.CharField(max_length=60, blank=True, verbose_name="Address")
     address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
@@ -174,9 +174,11 @@ class Challenge(models.Model):
         self.last_updated_by = user
         self.title = form['title']
         self.event_start_date = form['event_start_date']
-        self.event_start_time = form['event_start_time']
+        if form['event_start_time']:
+            self.event_start_time = form['event_start_time']
         self.event_end_date = form['event_end_date']
-        self.event_end_time = form['event_end_time']
+        if form['event_end_time']:
+            self.event_end_time = form['event_end_time']
         self.day_of_week = form['day_of_week']
         self.address1 = form['address1']
         self.address2 = form['address2']
@@ -663,7 +665,7 @@ class Challenge(models.Model):
             return participants
 
     @staticmethod
-    def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
+    def search_challenges(query, national_challenges=False, clean_team_only=False, virtual_action=False, limit=False):
         today = datetime.datetime.now()
 
         predicates = Q(event_end_date__gte=today)
@@ -673,6 +675,9 @@ class Challenge(models.Model):
 
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if virtual_action == "true" or virtual_action == "on":
+            predicates.add(Q(virtual_challenge=True), predicates.connector)
 
         tags = SkillTag.objects.filter(skill_name__icontains=query)
         challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
@@ -686,7 +691,7 @@ class Challenge(models.Model):
         return challenges
 
     @staticmethod
-    def advenced_search_challenges(city, tag, title, cat, national_challenges=False, clean_team_only=False, limit=False):
+    def advenced_search_challenges(city, tag, title, cat, national_challenges=False, clean_team_only=False, virtual_action=False, limit=False):
         today = datetime.datetime.now()
 
         predicates = Q(event_end_date__gte=today)
@@ -696,6 +701,9 @@ class Challenge(models.Model):
 
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if virtual_action == "true" or virtual_action == "on":
+            predicates.add(Q(virtual_challenge=True), predicates.connector)
 
         if city:
             predicates.add(Q(city__icontains=city), predicates.connector)
