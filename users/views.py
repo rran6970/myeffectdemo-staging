@@ -532,14 +532,25 @@ class SettingsView(LoginRequiredMixin, FormView):
     success_url = "/users/settings"
 
     def get_initial(self):
-        settings = self.request.user.profile.settings
-
+        setting = self.request.user.profile.settings
         initial = {}
-        initial['communication_language'] = settings.communication_language
-        initial['email_privacy'] = settings.email_privacy
-        initial['data_privacy'] = settings.data_privacy
-        initial['receive_newsletters'] = settings.receive_newsletters
-        initial['timezone'] = settings.timezone
+        try:
+            list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
+            member = list.get_member(self.request.user.email)
+            if member and member.status == 'subscribed':
+                initial['receive_newsletters'] = True
+                setting.receive_newsletters = 1
+                setting.save()
+            else:
+                initial['receive_newsletters'] = False
+                setting.receive_newsletters = 0
+                setting.save()
+        except Exception, e:
+            print e
+        initial['communication_language'] = setting.communication_language
+        initial['email_privacy'] = setting.email_privacy
+        initial['data_privacy'] = setting.data_privacy
+        initial['timezone'] = setting.timezone
         return initial
 
     def get(self, request, *args, **kwargs):
@@ -566,11 +577,18 @@ class SettingsView(LoginRequiredMixin, FormView):
             user.profile.settings.email_privacy = 1
         else:
             user.profile.settings.email_privacy = 0
-
-        if form.cleaned_data['receive_newsletters'] == "True":
-            user.profile.settings.receive_newsletters = 1
-        else:
-            user.profile.settings.receive_newsletters = 0
+        if form.cleaned_data['receive_newsletters'] == "True" and user.profile.settings.receive_newsletters==0:
+            try:
+                list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
+                list.subscribe(user.email, {'EMAIL': user.email, 'FNAME': user.first_name, 'LNAME': user.last_name}, 'html', False)
+            except Exception, e:
+                print e
+        elif form.cleaned_data['receive_newsletters'] == "False" and user.profile.settings.receive_newsletters==1:
+            try:
+                list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
+                list.unsubscribe(user.email)
+            except Exception, e:
+                print e
 
         user.profile.settings.timezone = form.cleaned_data['timezone']
         user.profile.settings.communication_language = form.cleaned_data['communication_language']

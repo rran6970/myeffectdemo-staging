@@ -68,12 +68,14 @@ h2.question { font-weight: 800; margin-top: 40px !important; margin-bottom: 0; p
 .profile-pic-42x42 { margin-right: 10px; height: 42px; width: 42px; }
 .profile-pic-50x50 { margin-right: 10px; height: 50px; width: 50px; }
 
-#search-container { position: absolute; z-index: 1001; right: 213px; top: 14px; width: 274px; }
+#search-container { position: static; z-index: 1001; right: 213px; top: 60px; width: 274px; }
+.search-container-top { position: absolute !important; z-index: 1001; right: 213px; top: 14px !important; width: 274px; }
+/*.search-container-agent { position: static !important; z-index: 1001; right: 213px; top: 60px !important; width: 274px; }*/
 #search-container > input[type="text"] { width: 250px; padding: 8px; font-size: 14px; border: 1px solid #7E7E7E; }
 #search-container > input[type="text"]:focus { box-shadow: none !important; border: 1px solid #7E7E7E !important; }
 #search-container > input[type="text"] + .glyphicon-search { }
 #search-container .input-group-btn button { width: 55px; height: 34px; }
-#search-container ul.dropdown-menu { left: -184px; top: 34px; border: 1px solid #BBB; }
+#search-container ul.dropdown-menu { left: -184px; top: 34px; border: 1px solid #BBB; padding-bottom: 19px; }
 #search-container ul.dropdown-menu li { min-width: 168px; }
 #search-container ul.dropdown-menu li span { display: block; padding: 6px 8px; text-decoration: none; min-width: 237px; }
 #search-container ul.dropdown-menu li span input[type="checkbox"] { float: left; margin-right: 9px; }
@@ -697,7 +699,7 @@ div.content.challenge-centre #white-box div.challenges img.badge-icon { position
 
 div.content.challenge-centre #white-box div.challenges a.team-picture { display: block; float: left; margin-right: 20px; }
 div.content.challenge-centre #white-box div.challenges a.team-picture img { display: block; border-radius: 4px; /*border: 2px solid #4a3c2e;*/ }
-div.content.challenge-centre #white-box div.challenges a.challenge-title { display: block; margin-bottom: 10px; width: 550px; }
+div.content.challenge-centre #white-box div.challenges h1.challenge-title { display: block; margin-bottom: 10px; }
 div.content.challenge-centre #white-box div.challenges a.challenge-title h1 { line-height: 20px; font-weight: 900; font-size: 20px; color: #00aeef; }
 
 div.content.challenge-centre #white-box div.challenges span.clean-team-only { display: block; margin-bottom: 10px; }

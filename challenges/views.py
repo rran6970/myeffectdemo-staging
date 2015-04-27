@@ -154,10 +154,11 @@ def dropdown_search_for_challenges(request):
     cat = request.GET['cat']
     national_challenges = request.GET['national_challenges']
     clean_team_only = request.GET['clean_team_only']
+    virtual_action = request.GET['virtual_action']
     if query:
-        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
+        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, virtual_action, 10)
     else:
-        challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, 10)
+        challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, virtual_action, 10)
     challenges_json = Challenge.search_results_to_json(challenges)
 
     if challenges_json != "{}":
@@ -176,6 +177,7 @@ class ChallengeCentreView(TemplateView):
         cat = ""
         national_challenges = False
         clean_team_only = False
+        virtual_action = False
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -194,10 +196,13 @@ class ChallengeCentreView(TemplateView):
         if 'clean_team_only' in request.GET:
             clean_team_only = request.GET['clean_team_only']
 
+        if 'virtual_action' in request.GET:
+            virtual_action = request.GET['virtual_action']
+
         if city or tag or title or cat:
-            challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only)
+            challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, virtual_action)
         else:
-            challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
+            challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, virtual_action)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
         if self.request.user.is_authenticated():

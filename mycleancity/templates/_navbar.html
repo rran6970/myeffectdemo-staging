@@ -100,7 +100,7 @@
   </div>
 
   <form action="" method="get" id="search-form">
-    <div id="search-container" class="input-group">
+    <div id="search-container" class="input-group search-container-top">
         <div class="input-group-btn">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span>
@@ -138,13 +138,14 @@
               <span>
                 <input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" />
                 <label for="">{%trans "Change Team Actions" %}</label>
-                <label for="">Actions for groups</label>
+                <label for="">{%trans "Actions for groups" %}</label>
               </span>
             </li>
 	    <li>
               <span>
                 <input type="checkbox" name="clean_team_only" id="clean-team-only-checkbox" />
-                <label for="">Virtual Action</label>
+                <input type="checkbox" name="virtual_action" id="virtual-action-checkbox" />
+                <label for="">{%trans "Virtual Action" %}</label>
               </span>
             </li>
           </ul>
@@ -163,8 +164,8 @@
       </div>
     </form>
 {% else %}
-  <a href="/contact" class="menu-items menu-items-right">Contact</a>
-  <a href="/about" class="menu-items menu-items-right">About</a>
-  <a href="/register" class="menu-items menu-items-right">Register</a>
-  <a href="/accounts/login" class="menu-items menu-items-right">Login</a>
+  <a href="/contact" class="menu-items menu-items-right">{%trans "Contact" %}</a>
+  <a href="/about" class="menu-items menu-items-right">{%trans "About" %}</a>
+  <a href="/register" class="menu-items menu-items-right">{%trans "Register" %}</a>
+  <a href="/accounts/login" class="menu-items menu-items-right">{%trans "Login" %}</a>
 {% endif %}

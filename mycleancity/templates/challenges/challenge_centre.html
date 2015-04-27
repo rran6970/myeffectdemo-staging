@@ -41,13 +41,14 @@
                   {% endif %}
                 </a>
 
-                <a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>
-                  {{ challenge.title }}
-                  {% if challenge.virtual_challenge %}
-                  <span class="label label-yellow">Viritual</span>
-                  {% endif %}
-                </h1></a>
-                
+                <h1 class="challenge-title"><a href="/challenges/{{ challenge.id }}/">
+                  {{ challenge.title }}</a>
+                {% if challenge.virtual_challenge %}
+                <a href="/challenges/?q=&amp;virtual_action=on">
+                <span class="label label-yellow">Viritual</span>
+                </a>
+                {% endif %}
+                </h1>
 
                 {% if challenge.clean_team_only %}
                   <span class="clean-team-only bold"><h2>{%trans "Change Teams Only" %}</h2></span>
@@ -173,6 +174,10 @@
 
     if(query.clean_team_only=="on" || query.clean_team_only=="true"){
       $("#clean-team-only-checkbox").prop('checked', true);
+    }
+
+    if(query.virtual_action=="on" || query.virtual_action=="true"){
+      $("#virtual-action-checkbox").prop('checked', true);
     }
 
     $(".community-approve").each(function () {
