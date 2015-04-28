@@ -573,7 +573,8 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
                 #to_email.append(leader.user.email)
             approvedparticipants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved", receive_email=True)
             for p in approvedparticipants:
-                to_email.append(p.user.email)
+                if not p.end_date or p.end_date > datetime.date.today():
+                    to_email.append(p.user.email)
             template = get_template('emails/defualt_email.html')
             uri = self.request.build_absolute_uri("/")
             settings_uri = u'%susers/settings/' %uri
