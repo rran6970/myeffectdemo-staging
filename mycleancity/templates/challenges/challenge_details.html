@@ -140,7 +140,7 @@
   			{% if user.is_authenticated %}
           {% if user.profile.is_clean_ambassador and user.profile.clean_team_member.clean_team == challenge.clean_team %}
             <form action="/challenges/participants-manage/{{ challenge.id }}/">
-              <input id="participate-btn" class="btn btn-primary" type="submit" value="Manage Participants" />
+              <input class="btn btn-primary" type="submit" value="Manage Participants" />
             </form>
           {% else  %}
 	            <p>You must be a manager to manager participants.</p>
@@ -201,7 +201,7 @@
                 </form>
               {% endif %}
             {% else %}
-              <form action="/challenges/participate/" method="post">
+              <form action="/challenges/participate/" method="post" onsubmit="return participatePeriodValidate();">
                 {% csrf_token %}
                 <input type="hidden" name="cid" value="{{ challenge.id }}">
                 {% if challenge.limit > 0 %}
@@ -210,13 +210,40 @@
                 <input id="participate-btn" class="btn btn-primary" type="button" onclick="showParticipatingMessageBox();" value="Participate" />
                 {% endif %}
                 <div id="participating-message-box" style="display: none;">
-                  <p>{%trans "Please describe the reason you want to participate in this action:" %}</p>
-                  <textarea cols="30" id="id_message" name="message" rows="5"></textarea><br>
-                  <div style="padding: 10px;">
-                    <input id="id_receive_email" name="receive_email" type="checkbox">
-                    <label for="id_receive_email">I would like to receive email communications and reminders about this action.</label>
-                  </div>
-                  <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
+                  <table>
+                    <tr><td>
+                      <p>{%trans "Please describe the reason you want to participate in this action:" %}</p>
+                    </td></tr>
+                    <tr><td>
+                      <textarea cols="30" id="id_message" name="message" rows="5"></textarea>
+                    </td></tr>
+                    {% if challenge.day_of_week > -1 %}
+                      <tr><td>
+                        <input type="radio" onclick="$('#date-period-tr').fadeOut();" name="subscribe" value="full" checked>
+                        <label>I would like to participate on weekly basis</label>
+                      </td></tr>
+                      <tr><td>
+                        <input type="radio" onclick="$('#date-period-tr').fadeIn();" name="subscribe" value="period">
+                        <label>I would like to participate for a specific time period</label>
+                      </td></tr>
+                      <tr id="date-period-tr" style="display: none;"><td style="padding: 0;">
+                        <label>From:</label>
+                        <input autocomplete="off" class="datepicker" id="id_start_date" name="start_date" type="text" style="width: 190px;">
+                        <label>To:</label>
+                        <input autocomplete="off" class="datepicker" id="id_end_date" name="end_date" type="text" style="width: 190px;">
+                      </td></tr>
+                      <tr><td><span id="date-period-error" style="color:red;"></span><br></td></tr>
+                    {% endif %}
+                    <tr><td>
+                      <div class="flex">
+                      <input id="id_receive_email" name="receive_email" type="checkbox">
+                      <label for="id_receive_email">I would like to receive email communications and reminders about this action.</label>
+                      </div>
+                    </td></tr>
+                    <tr><td>
+                      <input id="id_send_btn" class="btn btn-primary" type="submit" value="Send" />
+                    </td></tr>
+                  </table>
                 </div>
               </form>
             {% endif %}

@@ -180,3 +180,5 @@ label[for=id_question_txt_3], label[for=id_question_txt_252] {padding-left: 10px
 
 .anti-spam-info-tb { margin-top: 20px; margin-bottom: 30px; }
 .anti-spam-info-tb #id_address { width: 100%; }
+
+.flex {display: -webkit-flex; display: flex;}

@@ -900,7 +900,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box p { font-weight: 400; }
 #white-box.participants-manage { width: 885px; left: 5%; }
 #white-box.participants-manage table thead tr th.participants {}
-#white-box.participants-manage table thead tr th.message { width: 600px; }
+#white-box.participants-manage table thead tr th.message { width: 330px; }
 #white-box.participants-manage table thead tr th.actions { text-align: center; }
 
 #white-box.participants { width: 270px; left: 76%; }
