@@ -498,7 +498,14 @@ class Challenge(models.Model):
             raise e
 
     # Have to remove staples_store parameter only there for the Staples CleanAct
-    def participate_in_challenge(self, user, message="", receive_email=None, staples_store=None):
+    def participate_in_challenge(self, user, message="", receive_email=None, subscribe="full", start_date=None, end_date=None, staples_store=None):
+        if subscribe == "period":
+            if not start_date or not end_date:
+                return False
+            else:
+                print(start_date)
+                print(end_date)
+
         try:
             if self.clean_team_only:
                 if user.profile.is_clean_ambassador():
@@ -537,6 +544,9 @@ class Challenge(models.Model):
                         challengeparticipant.status = "approved"
                         user_challenge = UserChallengeEvent.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
                     challengeparticipant.message = message
+                    if subscribe == "period":
+                        challengeparticipant.start_date = start_date
+                        challengeparticipant.end_date = end_date
                     if receive_email:
                         challengeparticipant.receive_email = receive_email
                     challengeparticipant.save()
@@ -851,6 +861,8 @@ class ChallengeParticipant(models.Model):
     status = models.CharField(max_length=30, default="pending")
     message = models.TextField(blank=True, null=True, default="")
     receive_email = models.BooleanField(default=False)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = u'Challenges user participated in'
