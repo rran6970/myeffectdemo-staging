@@ -244,6 +244,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
+
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/users/logout/'
@@ -262,7 +264,6 @@ MAILCHIMP_API_KEY = 'f6ad2ba74b01cf949e699362413aa6db-us9'
 
 DJANGO_WYSIWYG_FLAVOR = 'yui'
 
-LOCAL_PATH= '/backup/S3'
 AWS_ACCESS_KEY_ID = 'AKIAJLI4AHTNZQXEOA4Q'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_BUCKET = 'myeffectstaging'

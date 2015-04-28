@@ -244,6 +244,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+QR_CODE_BASE_URL = "http://mycleancity-staging.herokuapp.com/"
+
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/users/logout/'

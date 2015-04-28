@@ -52,6 +52,10 @@
 							<form class="participant_action-forms" action="/challenges/participant-action/" method="post">
 							<td class="status">
 								{{pa.status }}
+								{% if pa.start_date %}
+								<br><span>from: {{pa.start_date }}</span>
+								<br><span>to: {{pa.end_date }}</span>
+								{% endif %}
 							</td>
 							<td class="actions">
 								{% csrf_token %}

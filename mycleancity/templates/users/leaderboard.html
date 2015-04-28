@@ -26,6 +26,33 @@
         <div class="board">
           <h1>{%trans "TOP AGENTS" %}</h1>
           {% if user.is_authenticated %}
+<form action="" method="get" id="search-form">
+    <div id="search-container" class="input-group">
+        
+        <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by city, province/state or country..." />
+<div class="input-group-btn">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><span>{%trans "Advanced Search:" %}</span></li>
+            <li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
+            <li><span><input autocomplete="off" id="province-search-box" class="advanced-search-box" type="text" placeholder="Province/State"></span></li>  
+            <li><span><input autocomplete="off" id="country-search-box" class="advanced-search-box" type="text" placeholder="Country"></span></li> 
+         </ul>
+        </div>
+        <div class="dropdown-menu search-result-dropdown">
+        <ul role="menu" aria-labelledby="dLabel">
+          <li>
+            <a>
+              <div style="text-align: center"><img src="{{ STATIC_URL }}images/loading.gif" alt="" /></div>
+            </a>
+          </li>
+        </ul>
+        <a id="view-all-challenges" href="">{%trans "View all results" %}</a>
+      </div>
+      </div>
+    </form>
             <table>
             {% for leader in individual_leaders %}
               <tr>
@@ -56,6 +83,59 @@
         <div class="board">
           <h1>{%trans "TOP CHANGE TEAMS" %}</h1>
           {% if user.is_authenticated %}
+<form action="" method="get" id="search-form">
+    <div id="search-container" class="input-group">
+        <input autocomplete="off" name="q" id="search-box" type="text" class="form-control" placeholder="Find Actions by city, type or category..." />
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><span>{%trans "Advanced Search:" %}</span></li>
+            <li><span><input autocomplete="off" id="city-search-box" class="advanced-search-box" type="text" placeholder="City"></span></li>
+            <li><span><input autocomplete="off" id="tag-search-box" class="advanced-search-box" type="text" placeholder="type"></span></li>
+            <li><span>Category:</span></li>
+            <li>
+              <select id="category-search-selection">
+                <option value="" selected="selected">{%trans "All" %}</option>
+                <option value="General">{%trans "General" %}</option>
+                <option value="Animals_Wildlife">{%trans "Animals" %} &amp; {%trans "Wildlife" %}</option>
+                <option value="Arts_Culture">{%trans "Arts" %} &amp; {%trans "Culture" %}</option>
+                <option value="Business_Entrepreneurship">{%trans "Business" %} &amp; {%trans "Entrepreneurship" %}</option>
+                <option value="Children_Youth">{%trans "Children" %} &amp; {%trans "Youth" %}</option>
+                <option value="Education_Research">{%trans "Education" %} &amp; {%trans "Research" %}</option>
+                <option value="Environment">{%trans "Environment" %}</option>
+                <option value="Health_Wellness">{%trans "Health" %} &amp; {%trans "Wellness" %}</option>
+                <option value="HumanRights_Advocacy">{%trans "Human Rights" %} &amp; {%trans "Advocacy" %}</option>
+                <option value="InternationalRelief_Development">{%trans "International Relief" %} &amp; {%trans "Development" %}</option>
+                <option value="SocialServices_Community">{%trans "Social Services" %} &amp; {%trans "Community" %}</option>
+                <option value="Sports_Recreation">{%trans "Sports" %} &amp; {%trans "Recreation" %}</option>
+              </select>
+            </li>            
+          </ul>
+        </div>
+        <div class="dropdown-menu search-result-dropdown">
+        <ul role="menu" aria-labelledby="dLabel">
+          <li>
+            <a>
+              <div style="text-align: center"><img src="{{ STATIC_URL }}images/loading.gif" alt="" /></div>
+            </a>
+          </li>
+        </ul>
+        <a id="view-all-challenges" href="">{%trans "View all results" %}</a>
+      </div>
+      </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
             <table>
             {% for leader in clean_team_leaders %}
               <tr>

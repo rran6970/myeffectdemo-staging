@@ -20,7 +20,7 @@
     <div class="container">
         <div id="white-box" class="message">
           <p>{%trans "Do you know of volunteer opportunities or events that aren't listed in our Action Centre?" %}</p>
-          <p>{%blocktrans%} <strong>Change Agents</strong>: Connect My Effect to the local organization host and <a href="/clean-team/invite">refer an Action</a> to earn a 10 bonus Change Creds {%endblocktrans%}<sup>TM</sup>!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
+          <p>{%blocktrans%} <strong>Change Agents</strong>: Connect My Effect to the local organization host and <a href="/clean-team/invite-org">refer an Action</a> to earn a 10 bonus Change Creds {%endblocktrans%}<sup>TM</sup>!<!-- TODO: INSERT LINK TO REFERRAL FORM --></p>
           <p>{%trans "<strong>Change Leaders</strong>:" %} {% if user.is_authenticated and user.profile.has_clean_team %}<a href="/challenges/new-challenge-survey">{%trans "Upload your opportunity" %} </a>{% else %} {%trans "Upload your opportunity" %} {% endif %}{%trans " to your change team and start earning Change Creds" %}<sup>TM</sup>{%trans " for the impact of your action" %}</p>
         </div>
 
@@ -41,13 +41,14 @@
                   {% endif %}
                 </a>
 
-                <a class="challenge-title" href="/challenges/{{ challenge.id }}/"><h1>
-                  {{ challenge.title }}
-                  {% if challenge.virtual_challenge %}
-                  <span class="label label-yellow">Viritual</span>
-                  {% endif %}
-                </h1></a>
-                
+                <h1 class="challenge-title"><a href="/challenges/{{ challenge.id }}/">
+                  {{ challenge.title }}</a>
+                {% if challenge.virtual_challenge %}
+                <a href="/challenges/?q=&amp;virtual_action=on">
+                <span class="label label-yellow">Viritual</span>
+                </a>
+                {% endif %}
+                </h1>
 
                 {% if challenge.clean_team_only %}
                   <span class="clean-team-only bold"><h2>{%trans "Change Teams Only" %}</h2></span>
@@ -173,6 +174,10 @@
 
     if(query.clean_team_only=="on" || query.clean_team_only=="true"){
       $("#clean-team-only-checkbox").prop('checked', true);
+    }
+
+    if(query.virtual_action=="on" || query.virtual_action=="true"){
+      $("#virtual-action-checkbox").prop('checked', true);
     }
 
     $(".community-approve").each(function () {

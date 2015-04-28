@@ -81,6 +81,9 @@ def participate_in_challenge(request):
         cid = request.POST['cid']
         message = request.POST.get('message', None)
         receive_email = request.POST.get('receive_email', None)
+        subscribe = request.POST.get('subscribe', None)
+        start_date = request.POST.get('start_date', None)
+        end_date = request.POST.get('end_date', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -89,12 +92,12 @@ def participate_in_challenge(request):
             staples_store = request.POST['staples_store']
             staples_store = StaplesStores.objects.get(id=staples_store)
 
-            participate = challenge.participate_in_challenge(user, message, receive_email, staples_store)
+            participate = challenge.participate_in_challenge(user, message, receive_email, subscribe, start_date, end_date, staples_store)
 
             if not participate:
                 return HttpResponseRedirect('/challenges/%s/?error=store_taken' % str(cid))
         else:
-            challenge.participate_in_challenge(user, message, receive_email)
+            challenge.participate_in_challenge(user, message, receive_email, subscribe, start_date, end_date)
 
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -154,10 +157,11 @@ def dropdown_search_for_challenges(request):
     cat = request.GET['cat']
     national_challenges = request.GET['national_challenges']
     clean_team_only = request.GET['clean_team_only']
+    virtual_action = request.GET['virtual_action']
     if query:
-        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, 10)
+        challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, virtual_action, 10)
     else:
-        challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, 10)
+        challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, virtual_action, 10)
     challenges_json = Challenge.search_results_to_json(challenges)
 
     if challenges_json != "{}":
@@ -176,6 +180,7 @@ class ChallengeCentreView(TemplateView):
         cat = ""
         national_challenges = False
         clean_team_only = False
+        virtual_action = False
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -194,10 +199,13 @@ class ChallengeCentreView(TemplateView):
         if 'clean_team_only' in request.GET:
             clean_team_only = request.GET['clean_team_only']
 
+        if 'virtual_action' in request.GET:
+            virtual_action = request.GET['virtual_action']
+
         if city or tag or title or cat:
-            challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only)
+            challenges = Challenge.advenced_search_challenges(city, tag, title, cat, national_challenges, clean_team_only, virtual_action)
         else:
-            challenges = Challenge.search_challenges(query, national_challenges, clean_team_only)
+            challenges = Challenge.search_challenges(query, national_challenges, clean_team_only, virtual_action)
         skilltags = ChallengeSkillTag.objects.filter(challenge__in=challenges)
 
         if self.request.user.is_authenticated():

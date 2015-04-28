@@ -129,9 +129,9 @@ class Challenge(models.Model):
     title = models.CharField(max_length=60, blank=False, verbose_name="Title")
     category = models.CharField(max_length=60, blank=False, default="General")
     event_start_date = models.DateField(blank=True, null=True)
-    event_start_time = models.TimeField(blank=True, null=True)
+    event_start_time = models.TimeField(default='0:00')
     event_end_date = models.DateField(blank=True, null=True)
-    event_end_time = models.TimeField(blank=True, null=True)
+    event_end_time = models.TimeField(default='23:59:59')
     day_of_week = models.IntegerField(default=-1)
     address1 = models.CharField(max_length=60, blank=True, verbose_name="Address")
     address2 = models.CharField(max_length=60, blank=True, verbose_name="Suite")
@@ -174,9 +174,11 @@ class Challenge(models.Model):
         self.last_updated_by = user
         self.title = form['title']
         self.event_start_date = form['event_start_date']
-        self.event_start_time = form['event_start_time']
+        if form['event_start_time']:
+            self.event_start_time = form['event_start_time']
         self.event_end_date = form['event_end_date']
-        self.event_end_time = form['event_end_time']
+        if form['event_end_time']:
+            self.event_end_time = form['event_end_time']
         self.day_of_week = form['day_of_week']
         self.address1 = form['address1']
         self.address2 = form['address2']
@@ -496,7 +498,14 @@ class Challenge(models.Model):
             raise e
 
     # Have to remove staples_store parameter only there for the Staples CleanAct
-    def participate_in_challenge(self, user, message="", receive_email=None, staples_store=None):
+    def participate_in_challenge(self, user, message="", receive_email=None, subscribe="full", start_date=None, end_date=None, staples_store=None):
+        if subscribe == "period":
+            if not start_date or not end_date:
+                return False
+            else:
+                print(start_date)
+                print(end_date)
+
         try:
             if self.clean_team_only:
                 if user.profile.is_clean_ambassador():
@@ -535,6 +544,9 @@ class Challenge(models.Model):
                         challengeparticipant.status = "approved"
                         user_challenge = UserChallengeEvent.objects.get_or_create(user=user, challenge=self, time_in__isnull=True)
                     challengeparticipant.message = message
+                    if subscribe == "period":
+                        challengeparticipant.start_date = start_date
+                        challengeparticipant.end_date = end_date
                     if receive_email:
                         challengeparticipant.receive_email = receive_email
                     challengeparticipant.save()
@@ -663,7 +675,7 @@ class Challenge(models.Model):
             return participants
 
     @staticmethod
-    def search_challenges(query, national_challenges=False, clean_team_only=False, limit=False):
+    def search_challenges(query, national_challenges=False, clean_team_only=False, virtual_action=False, limit=False):
         today = datetime.datetime.now()
 
         predicates = Q(event_end_date__gte=today)
@@ -673,6 +685,9 @@ class Challenge(models.Model):
 
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if virtual_action == "true" or virtual_action == "on":
+            predicates.add(Q(virtual_challenge=True), predicates.connector)
 
         tags = SkillTag.objects.filter(skill_name__icontains=query)
         challenges_tags = ChallengeSkillTag.objects.filter(skill_tag__in=tags)
@@ -686,7 +701,7 @@ class Challenge(models.Model):
         return challenges
 
     @staticmethod
-    def advenced_search_challenges(city, tag, title, cat, national_challenges=False, clean_team_only=False, limit=False):
+    def advenced_search_challenges(city, tag, title, cat, national_challenges=False, clean_team_only=False, virtual_action=False, limit=False):
         today = datetime.datetime.now()
 
         predicates = Q(event_end_date__gte=today)
@@ -696,6 +711,9 @@ class Challenge(models.Model):
 
         if clean_team_only == "true" or clean_team_only == "on":
             predicates.add(Q(clean_team_only=True), predicates.connector)
+
+        if virtual_action == "true" or virtual_action == "on":
+            predicates.add(Q(virtual_challenge=True), predicates.connector)
 
         if city:
             predicates.add(Q(city__icontains=city), predicates.connector)
@@ -843,6 +861,8 @@ class ChallengeParticipant(models.Model):
     status = models.CharField(max_length=30, default="pending")
     message = models.TextField(blank=True, null=True, default="")
     receive_email = models.BooleanField(default=False)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = u'Challenges user participated in'

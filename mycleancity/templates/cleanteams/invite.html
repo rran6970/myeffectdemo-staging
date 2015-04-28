@@ -25,7 +25,7 @@
         {% if clean_team %}
         <h2>{%trans "Invite to join" %} {{ user.profile.clean_team_member.clean_team.name }}</h2>
         {% else %}
-        <h2>{%trans "Invite to join" %} MyEffect</h2>
+        <h2>{%trans "Invite to join" %} My Effect</h2>
         {% endif %}
         
         <div class="table-container">
@@ -66,11 +66,11 @@
         <h2 id="invite-heading">{%trans "Invite Leader" %}</h2> 
         <p id="invite-subtitle">{%trans "Invite a leader to become a manager of your Change Team." %}</p>
         {% elif role == "agent" %}
-        <h2 id="invite-heading">Invite Volunteer</h2> 
-        <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
-        {% else %}
         <h2 id="invite-heading">Invite Agent</h2> 
         <p id="invite-subtitle">Invite existing volunteers or supporters to your Change Team.</p>
+        {% else %}
+        <h2 id="invite-heading">Invite Friends</h2> 
+        <p id="invite-subtitle">Invite friends to join My Effect.</p>
         {% endif %}
         {% if form.non_field_errors %}
           <div class="message-box error">
@@ -103,6 +103,9 @@
                   <td colspan="2">
                     {{ form.invite_team.label_tag }} {{ form.invite_team }}
                   </td>
+              </tr>
+	      <tr>
+	        <td><span>{%trans "The csv file should include First Name, Last Name and Email Id respectively."%}</span></td> 
               </tr>
               <tr>
                 <td style="padding-top: 10px;" colspan="2">{{ form.about.label_tag }} {{ form.about }}</td>
