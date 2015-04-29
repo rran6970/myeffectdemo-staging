@@ -532,7 +532,7 @@ class SettingsView(LoginRequiredMixin, FormView):
     success_url = "/users/settings"
 
     def get_initial(self):
-        setting = self.request.user.profile.settings
+        setting = UserSettings.objects.get(user=self.request.user)
         initial = {}
         try:
             list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
