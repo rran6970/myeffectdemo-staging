@@ -309,7 +309,7 @@ class EditCleanTeamMainContact(forms.Form):
 
         # Prepopulate the Clean Ambassador drop down
         ctm_queryset = CleanTeamMember.objects.filter(clean_team=clean_team)
-        self.fields["clean_ambassadors"] = forms.ChoiceField(label="Change Leader", widget=None, choices=[(o.user.id, str(o.user.profile.get_full_name())) for o in ctm_queryset])
+        self.fields["clean_ambassadors"] = forms.ChoiceField(label="Change Leader", widget=None, choices=[(o.user.id, unicode(o.user.profile.get_full_name())) for o in ctm_queryset])
 
     def clean(self):
         cleaned_data = super(EditCleanTeamMainContact, self).clean()

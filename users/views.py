@@ -432,7 +432,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         if user.profile.focus is None:
             initial['focus']=user.profile.focus
         else:
-            categories= [str(x) for x in user.profile.focus.split(',')]
+            categories= [unicode(x) for x in user.profile.focus.split(',')]
             initial['focus'] = categories
             
         if user.profile.website:

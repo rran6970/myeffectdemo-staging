@@ -289,10 +289,10 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
             initial['twitter'] = clean_team.twitter
             initial['facebook'] = clean_team.facebook
             initial['instagram'] = clean_team.instagram
-	    initial['focus'] = clean_team.focus
-	  
-	    
-	    
+            initial['focus'] = clean_team.focus
+      
+        
+        
             # initial['logo'] = clean_team.logo
             initial['about'] = clean_team.about
             initial['region'] = clean_team.region
@@ -350,7 +350,7 @@ class EditCleanTeamView(LoginRequiredMixin, FormView):
         clean_team.instagram = form.cleaned_data['instagram']
         clean_team.about = form.cleaned_data['about']
         clean_team.region = form.cleaned_data['region']
-	clean_team.focus =form.cleaned_data['focus']
+        clean_team.focus =form.cleaned_data['focus']
         print clean_team.focus
         #print request.POST.getlist('category')
         logo = form.cleaned_data['logo']
@@ -596,18 +596,17 @@ class ViewAllCleanTeams(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ViewAllCleanTeams, self).get_context_data(**kwargs)
-	user=self.request.user
+        user=self.request.user
         selected_teams = user.profile.clean_team_member.clean_team
-	print selected_teams
-	teams=CleanTeam.objects.all()
+        teams=CleanTeam.objects.all()
         communities = Community.objects.all()
-	
+    
         
         #ccs = CleanChampion.objects.filter(clean_team=ct.clean_team)
         following_map = {}
 
         if self.request.user.is_authenticated():
-	    
+        
             clean_champions = CleanChampion.objects.filter(user=self.request.user)
             follow_list = CleanTeamFollow.objects.filter(user=self.request.user)
             for follow in follow_list:
@@ -619,10 +618,10 @@ class ViewAllCleanTeams(TemplateView):
         context['communities'] = communities
         context['user'] = self.request.user
         context['following_map'] = following_map
-	context['selected_team']= selected_teams
+        context['selected_team']= selected_teams
         return context
 
-class MyChangeNetwork(TemplateView):
+class MyChangeNetwork(LoginRequiredMixin, TemplateView):
     template_name = "cleanteams/my_change_network.html"
 
     def get_object(self):
@@ -630,28 +629,23 @@ class MyChangeNetwork(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyChangeNetwork, self).get_context_data(**kwargs)
-	user=self.request.user
+        user=self.request.user
 
         selected_teams = user.profile.clean_team_member.clean_team
-	#print selected_teams
-	teams=CleanTeam.objects.all()
+        #print selected_teams
+        teams=CleanTeam.objects.all()
         community = Community.objects.all()
-        
-        
-        
-       
-        if self.request.user.is_authenticated():
-	    user_mem = UserCommunityMembership.objects.filter(user=self.request.user)
-            clean_champions = CleanChampion.objects.filter(user=self.request.user)
-            
+
+        user_mem = UserCommunityMembership.objects.filter(user=self.request.user)
+        clean_champions = CleanChampion.objects.filter(user=self.request.user)
 
         context['clean_champions'] = clean_champions
-	context['communities'] = community
+        context['communities'] = community
         context['teams'] = teams
         context['user_memberships'] = user_mem
         context['user'] = self.request.user
         
-	context['selected_team']= selected_teams
+        context['selected_team']= selected_teams
         return context
 
 class LevelProgressView(TemplateView):
@@ -740,77 +734,76 @@ class CleanTeamView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CleanTeamView, self).get_context_data(**kwargs)
         user = self.request.user
-	
+    
         if 'ctid' in self.kwargs:
             ctid = self.kwargs['ctid']
             context['clean_team'] = get_object_or_404(CleanTeam, id=ctid)
-	    all_categories= cleanteams.forms.ORG_CATEGORIES
-	    #print all_categories[0][0]
-	    labeled_selected_categories=''
-	    selected_categories=context['clean_team'].focus
-	    for t in all_categories:
-		if selected_categories and t[0] in selected_categories:
-			labeled_selected_categories+=t[1]
-	    context['focus']=labeled_selected_categories
-	    #print labeled_selected_categories
-            follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
-            cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
-            ccs = CleanChampion.objects.filter(clean_team_id=ctid)
-            posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
+        all_categories= cleanteams.forms.ORG_CATEGORIES
+        #print all_categories[0][0]
+        labeled_selected_categories=''
+        selected_categories=context['clean_team'].focus
+        for t in all_categories:
+            if selected_categories and t[0] in selected_categories:
+                labeled_selected_categories+=t[1]
+        context['focus']=labeled_selected_categories
+        #print labeled_selected_categories
+        follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
+        cas = CleanTeamMember.objects.filter(clean_team_id=ctid)
+        ccs = CleanChampion.objects.filter(clean_team_id=ctid)
+        posts = CleanTeamPost.objects.filter(clean_team_id=ctid).order_by('-timestamp')
 
-            try:
-                clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=user)
-                context['clean_champion'] = clean_champion
-            except Exception, e:
-                print e
+        try:
+            clean_champion = CleanChampion.objects.get(clean_team_id=ctid, user=user)
+            context['clean_champion'] = clean_champion
+        except Exception, e:
+            print e
 
-            try:
-                invite = CleanTeamInvite.objects.get(email=user.email, clean_team_id=ctid)
-                context['invite'] = invite
-            except Exception, e:
-                print e
+        try:
+            invite = CleanTeamInvite.objects.get(email=user.email, clean_team_id=ctid)
+            context['invite'] = invite
+        except Exception, e:
+            print e
 
-            try:
-                # TODO: Need to pass this to the template
-                clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="leader")
-                context['clean_ambassador'] = clean_ambassador
-            except Exception, e:
-                print e
+        try:
+            # TODO: Need to pass this to the template
+            clean_ambassador = CleanTeamMember.objects.get(clean_team_id=ctid, user=user, status="approved", role="leader")
+            context['clean_ambassador'] = clean_ambassador
+        except Exception, e:
+            print e
 
-            try:
-                user_challenges = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid)
-                user_challenges_list = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
-            except Exception, e:
-                user_challenges = []
-                user_challenges_list = []
+        try:
+            user_challenges = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid)
+            user_challenges_list = UserChallengeEvent.objects.filter(user=user, challenge__clean_team_id=ctid).values_list('challenge_id', flat=True)
+        except Exception, e:
+            user_challenges = []
+            user_challenges_list = []
 
-            today = datetime.datetime.now()
-            team_approved_challenges = list(ChallengeTeamMembership.objects.filter(clean_team_id=ctid).values_list('challenge_id', flat=True))
-            challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(clean_team_id=ctid) | Q(id__in=team_approved_challenges)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
+        today = datetime.datetime.now()
+        team_approved_challenges = list(ChallengeTeamMembership.objects.filter(clean_team_id=ctid).values_list('challenge_id', flat=True))
+        challenges = Challenge.objects.filter(Q(event_end_date__gte=today), Q(clean_team_id=ctid) | Q(id__in=team_approved_challenges)).exclude(id__in=user_challenges_list).order_by('-promote_top', '-event_start_date')
 
-            challenge_dict = {}
+        challenge_dict = {}
 
-            count = 0
-            for challenge in challenges:
-                challenge_dict[count] = ["not-particpating", challenge]
-                count += 1
+        count = 0
+        for challenge in challenges:
+            challenge_dict[count] = ["not-particpating", challenge]
+            count += 1
 
-            for user_challenge in user_challenges:
-                challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
+        for user_challenge in user_challenges:
+            challenge_dict[user_challenge.challenge.id] = ["particpating", user_challenge.challenge]
 
-            if user.is_authenticated():
-                if user.profile.is_clean_ambassador():
-                    leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
-                    context['leading_teams'] = leading_teams
-                    context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
+        if user.is_authenticated():
+            if user.profile.is_clean_ambassador():
+                leading_teams = user.profile.clean_team_member.clean_team.get_leading_teams()
+                context['leading_teams'] = leading_teams
+                context['pixels'] = user.profile.clean_team_member.clean_team.get_pixels_for_leading_teams(user.profile.clean_team_member.clean_team.clean_creds)
 
-            context['challenges'] = challenge_dict
-            context['page_url'] = self.request.get_full_path()
-            context['cas'] = cas
-            context['ccs'] = ccs
-            context['posts'] = posts
-            context['follows'] = follows
-
+        context['challenges'] = challenge_dict
+        context['page_url'] = self.request.get_full_path()
+        context['cas'] = cas
+        context['ccs'] = ccs
+        context['posts'] = posts
+        context['follows'] = follows
         context['user'] = user
 
         return context

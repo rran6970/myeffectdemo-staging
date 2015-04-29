@@ -88,7 +88,7 @@ def country_is_valid(country):
     for _country in _countries:
         if getattr(_country, 'alpha2', False):
             countries.append(_country.alpha2)
-    if str(country) not in countries:
+    if unicode(country) not in countries:
         raise forms.ValidationError('Invalid country')
 
 SCHOOLS = (('', 'Please select one...'),('Elementary Student', 'Elementary Student'), ('High School Student', 'High School Student'), ('Post Secondary Student', 'Post Secondary Student'))
