@@ -74,19 +74,20 @@
 
           <div class="field">
             <p class="title">{%trans "Interests:" %}</p>
-              <p class="field">{{focus}}</p>
+              <p class="text">{{focus}}</p>
           </div>
 
 	<DIV style="position: absolute; top:190px; left:300px; width:200px; height:10px">
-            {% if user.resume == user_profile.resume %}
-	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
-            {% endif %}
-            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
+          <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
-	    </div> </DIV>
+	    </div> 
+            {% if user.resume == user_profile.resume %}
+	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
+            {% endif %}
+</DIV>
 	</p>
           </span>
           {% load socialaccount %}

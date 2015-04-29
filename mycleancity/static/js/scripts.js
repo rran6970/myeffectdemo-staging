@@ -601,6 +601,37 @@ function showParticipatingMessageBox(e)
     $("#id_send_btn").focus();
 }
 
+function participatePeriodValidate(e)
+{
+    if ($('input[name=subscribe]:checked').val()=="period") {
+        var re = /^\d{4}\-\d{2}\-\d{2}$/;
+        var start_date=$('#id_start_date').val();
+        var end_date=$('#id_end_date').val();
+        if (start_date=='' || end_date=='') {
+            $('#date-period-error').text('Date value incomplete');
+            return false;
+        }
+        else if (!start_date.match(re) || !end_date.match(re)) {
+            $('#date-period-error').text('Date format sould be like 2015-04-27');
+            return false;
+        }
+        var date_start = new Date(start_date.substring(0, 4), parseInt(start_date.substring(5, 7))-1, start_date.substring(8, 10));
+        var date_end = new Date(end_date.substring(0, 4), parseInt(end_date.substring(5, 7))-1, end_date.substring(8, 10));
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        if (date_start > date_end) {
+            $('#date-period-error').text('End date must equal or after start date');
+            return false;
+        }
+        else if (today > date_start) {
+            $('#date-period-error').text('Start date must equal or after today');
+            return false;
+        }
+    }
+    $('#date-period-error').text('');
+    return true;
+}
+
 function ajaxQuickUnreadNotification(e)
 {
     var element = $(this);

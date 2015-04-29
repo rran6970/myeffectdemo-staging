@@ -81,6 +81,9 @@ def participate_in_challenge(request):
         cid = request.POST['cid']
         message = request.POST.get('message', None)
         receive_email = request.POST.get('receive_email', None)
+        subscribe = request.POST.get('subscribe', None)
+        start_date = request.POST.get('start_date', None)
+        end_date = request.POST.get('end_date', None)
         user = request.user
 
         challenge = Challenge.objects.get(id=cid)
@@ -89,12 +92,12 @@ def participate_in_challenge(request):
             staples_store = request.POST['staples_store']
             staples_store = StaplesStores.objects.get(id=staples_store)
 
-            participate = challenge.participate_in_challenge(user, message, receive_email, staples_store)
+            participate = challenge.participate_in_challenge(user, message, receive_email, subscribe, start_date, end_date, staples_store)
 
             if not participate:
                 return HttpResponseRedirect('/challenges/%s/?error=store_taken' % str(cid))
         else:
-            challenge.participate_in_challenge(user, message, receive_email)
+            challenge.participate_in_challenge(user, message, receive_email, subscribe, start_date, end_date)
 
     return HttpResponseRedirect('/challenges/%s' % str(cid))
 
@@ -570,7 +573,8 @@ class ChallengeParticipantEmailView(LoginRequiredMixin, FormView):
                 #to_email.append(leader.user.email)
             approvedparticipants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved", receive_email=True)
             for p in approvedparticipants:
-                to_email.append(p.user.email)
+                if not p.end_date or p.end_date > datetime.date.today():
+                    to_email.append(p.user.email)
             template = get_template('emails/defualt_email.html')
             uri = self.request.build_absolute_uri("/")
             settings_uri = u'%susers/settings/' %uri

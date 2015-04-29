@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
         challenges = Challenge.objects.filter(event_start_date=tomorrow)
         if challenges:
             template = get_template('emails/action_reminder.html')
@@ -19,7 +19,10 @@ class Command(BaseCommand):
                 participants = ChallengeParticipant.objects.filter(challenge=challenge, status="approved", receive_email=True)
                 to = []
                 for participant in participants:
-                    to.append(str(participant.user.email))
+                    if not participant.start_date or not participant.end_date:
+                        to.append(str(participant.user.email))
+                    elif participant.start_date <= tomorrow and participant.end_date >= tomorrow:
+                        to.append(str(participant.user.email))
                 if len(to) > 0:
                     self.stdout.write(str(to))
                     from_email = 'info@myeffect.ca'

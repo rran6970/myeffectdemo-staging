@@ -35,4 +35,5 @@ urlpatterns = patterns('',
     url(r'^community/(?P<community_id>\d+)/?$', CommunityView.as_view()),
     url(r'^community-search/?$', 'cleanteams.views.community_search'),
     url(r'^/?$', ViewAllCleanTeams.as_view()),
-    url(r'^(?P<ctid>\d+)/?$', CleanTeamView.as_view()))
+    url(r'^(?P<ctid>\d+)/?$', CleanTeamView.as_view()),
+    url(r'^my-change-network/?$', MyChangeNetwork.as_view()))

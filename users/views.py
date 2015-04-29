@@ -389,8 +389,8 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
                 for t in all_categories:
                     if t[0] in selected_categories:
                         labeled_selected_categories+=t[1]
-                        labeled_selected_categories+=" ,   "
-                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-1]
+                        labeled_selected_categories+="   "
+                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-2]
                         context['focus']=labeled_selected_categories
                         print labeled_selected_categories
             
@@ -532,7 +532,7 @@ class SettingsView(LoginRequiredMixin, FormView):
     success_url = "/users/settings"
 
     def get_initial(self):
-        setting = self.request.user.profile.settings
+        setting = UserSettings.objects.get(user=self.request.user)
         initial = {}
         try:
             list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
