@@ -742,7 +742,7 @@ div.content.my-challenges #white-box div.challenges p { padding: 0; }
 div.content.my-challenges #white-box div.challenges a:hover { color: #86b45c !important; }
 
 div.content.my-challenges #white-box.user-challenges { width: 528px; height: 400px; }
-div.content.my-challenges #white-box.user-challenges div.table-container { border: none; overflow: initial; }
+div.content.my-challenges #white-box.user-challenges div.table-container { border: none; overflow: initial;}
 div.content.my-challenges #white-box.user-challenges .table tr td.icon { padding: 0 10px !important; }
 div.content.my-challenges #white-box.user-challenges .table tr th { padding: 0 5px 5px 0 !important; }
 div.content.my-challenges #white-box.user-challenges .table tr #clean-creds { text-align: right; }
@@ -913,7 +913,7 @@ div.content.leadership-board { background: transparent url(../images/no-trees-bg
 #white-box.team-members-ca #team-name {  }
 #white-box.team-members-ca table thead tr th.actions { text-align: center; }
 
-#white-box.team-members-cc { width: 270px; left: 73%; }
+#white-box.team-members-cc { width: 343px; left: 73%; }
 
 #white-box.invite-form { left: 66%; width: 360px; }
 #white-box.invite-form input[type="text"] { width: 270px; }
@@ -1100,6 +1100,7 @@ div[id^='textbox_jbeeb_'] { color: #638d3d !important; font-weight: bold; }
 	Table
 ******************************/
 div.table-container { border: 2px solid #abd78c; padding: 10px; border-radius: 5px; height: 100%; overflow-y: scroll; }
+div.table-container-a {width: 290px;overflow: hidden !important;height: 477px;}
 div.table-container table { }
 div.table-container table tr th { padding: 14px 15px !important; border-bottom: 1px solid #abd78c; }
 div.table-container table tr td { padding: 14px 15px !important; vertical-align: middle; }
