@@ -65,8 +65,9 @@
  		{% endif %}
 {% endfor %}
               {% endfor %}
+		{% for user in user_memberships %}
               {% for community in communities %}
-{% if community == user.profile.community_member.community %}
+{% if community == user.community %}
                 <tr>
                   <td class="team">                          
                     <a href="/clean-team/community/{{ community.id }}">
@@ -85,6 +86,7 @@
                   <td>{%trans "Community" %}</td>
                 </tr>
 {% endif %}
+ {% endfor %}
               {% endfor %}
 	
             </tbody>

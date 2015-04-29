@@ -625,29 +625,32 @@ class ViewAllCleanTeams(TemplateView):
 class MyChangeNetwork(TemplateView):
     template_name = "cleanteams/my_change_network.html"
 
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
     def get_context_data(self, **kwargs):
         context = super(MyChangeNetwork, self).get_context_data(**kwargs)
 	user=self.request.user
+
         selected_teams = user.profile.clean_team_member.clean_team
 	#print selected_teams
 	teams=CleanTeam.objects.all()
-        communities = Community.objects.all()
-	
-        following_map = {}
-
+        community = Community.objects.all()
+        
+        
+        
+       
         if self.request.user.is_authenticated():
-	    
+	    user_mem = UserCommunityMembership.objects.filter(user=self.request.user)
             clean_champions = CleanChampion.objects.filter(user=self.request.user)
-            follow_list = CleanTeamFollow.objects.filter(user=self.request.user)
-            for follow in follow_list:
-                following_map[follow.clean_team_id] = follow.clean_team_id
+            
 
-            context['clean_champions'] = clean_champions
-
+        context['clean_champions'] = clean_champions
+	context['communities'] = community
         context['teams'] = teams
-        context['communities'] = communities
+        context['user_memberships'] = user_mem
         context['user'] = self.request.user
-        context['following_map'] = following_map
+        
 	context['selected_team']= selected_teams
         return context
 

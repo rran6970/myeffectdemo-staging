@@ -389,8 +389,8 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
                 for t in all_categories:
                     if t[0] in selected_categories:
                         labeled_selected_categories+=t[1]
-                        labeled_selected_categories+=" ,   "
-                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-1]
+                        labeled_selected_categories+="   "
+                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-2]
                         context['focus']=labeled_selected_categories
                         print labeled_selected_categories
             
