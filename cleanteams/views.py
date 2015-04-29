@@ -743,8 +743,8 @@ class CleanTeamView(TemplateView):
         labeled_selected_categories=''
         selected_categories=context['clean_team'].focus
         for t in all_categories:
-        if selected_categories and t[0] in selected_categories:
-            labeled_selected_categories+=t[1]
+            if selected_categories and t[0] in selected_categories:
+                labeled_selected_categories+=t[1]
         context['focus']=labeled_selected_categories
         #print labeled_selected_categories
         follows = CleanTeamFollow.objects.filter(clean_team_id=ctid, user_id=self.request.user.id).count()
