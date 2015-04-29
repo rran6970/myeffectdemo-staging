@@ -549,6 +549,7 @@ class SettingsView(LoginRequiredMixin, FormView):
             print e
         initial['communication_language'] = setting.communication_language
         initial['email_privacy'] = setting.email_privacy
+	initial['from_privacy'] = setting.from_privacy
         initial['data_privacy'] = setting.data_privacy
         initial['timezone'] = setting.timezone
         return initial
@@ -577,6 +578,12 @@ class SettingsView(LoginRequiredMixin, FormView):
             user.profile.settings.email_privacy = 1
         else:
             user.profile.settings.email_privacy = 0
+
+        if form.cleaned_data['from_privacy'] == "True":
+            user.profile.settings.from_privacy = 1
+        else:
+            user.profile.settings.from_privacy = 0
+
         if form.cleaned_data['receive_newsletters'] == "True" and user.profile.settings.receive_newsletters==0:
             try:
                 list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)

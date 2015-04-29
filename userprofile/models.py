@@ -32,6 +32,7 @@ class UserSettings(models.Model):
     communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
     receive_newsletters = models.BooleanField(default=0)
     email_privacy = models.BooleanField(default=0)
+    from_privacy = models.BooleanField(default=0)
     data_privacy = models.BooleanField(default=0)
     timezone = TimeZoneField(default='America/Toronto')
 
