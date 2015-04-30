@@ -814,6 +814,12 @@ class SkillTagCategory(models.Model):
     class Meta:
         verbose_name_plural = u'Skill Tag Category'
 
+    @property
+    def get_tags(self):
+        skilltags = SkillTag.objects.filter(category=self)
+
+        return skilltags
+
     def save(self, *args, **kwargs):
         super(SkillTagCategory, self).save(*args, **kwargs)
         

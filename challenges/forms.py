@@ -234,35 +234,47 @@ class NewActionSurveyForm(forms.Form):
         cleaned_data = super(NewActionSurveyForm, self).clean()
         return cleaned_data
 
-class EditChallengeForm(forms.ModelForm):
-    title = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    event_start_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-    event_start_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
-    event_end_date = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}))
-    event_end_time = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
-    address1 = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    address2 = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-    city = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
-    province = forms.ChoiceField(widget=forms.Select(), choices=PROVINCES)
-    postal_code = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-    country = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-    description = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
-    link = forms.URLField(required=False, min_length=2, label="External link")
+class EditChallengeForm(forms.Form):
+    
+    def __init__(self, *args, **kwargs):
+        super(EditChallengeForm, self).__init__(*args, **kwargs)
+        skilltags = SkillTag.objects.all()
+        tag_list = []
+        for tag in skilltags:
+            tag_list.append((tag.id, tag.skill_name))
+        skilltags_choices = tuple(tag_list)
 
-    host_is_clean_team = forms.BooleanField(required=False)
-    organization = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
-    contact_first_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
-    contact_last_name = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
-    contact_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
-    contact_email = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
+        self.fields['title'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput())
+        self.fields['event_start_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}), label="Program Start Date")
+        self.fields['event_start_time'] = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_end_date'] = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'datepicker', 'autocomplete':'off'}), label="Program End Date")
+        self.fields['event_end_time'] = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs={'class':'timepicker', 'autocomplete':'off'}))
+        self.fields['event_type'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=EVENTTYPES, label="Event Type")
+        self.fields['day_of_week'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=WEEKDAYS)
+        self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
+        self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
+        self.fields['city'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES)
+        #self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+        self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
+        self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
+        self.fields['tags'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), choices=skilltags_choices, label="Skill Tags")
+        self.fields['link'] = forms.CharField(required=False, min_length=2, label="External link")
+        self.fields['limit'] = forms.IntegerField(required=False, label="Maximum Participants")
 
-    national_challenge = forms.BooleanField(label="This is a National Challenge", required=False)
-    type = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all())
-    challenge_id = forms.CharField(required=False, widget=forms.HiddenInput())
+        self.fields['host_is_clean_team'] = forms.BooleanField(required=False)
+        self.fields['organization'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Host Organization")
+        self.fields['contact_first_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="First name")
+        self.fields['contact_last_name'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Last name")
+        self.fields['contact_phone'] = forms.CharField(required=True, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class': 'phone-number'}), label="Phone number", validators=[RegexValidator(regex='[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,4}', message='Contact Phone Number format incorrect', code='invalid_phone')])
+        self.fields['contact_email'] = forms.CharField(required=True, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Email address")
 
-    class Meta:
-        model = Challenge
-        exclude = ('user', 'clean_team', 'clean_creds_per_hour', 'last_updated_by', 'qr_code', 'token')
+        self.fields['national_challenge'] = forms.BooleanField(label="This is a National Action", required=False)
+        self.fields['virtual_challenge'] = forms.BooleanField(label="This is a Virtual  Action", required=False)
+        self.fields['clean_team_only'] = forms.BooleanField(label="Allow groups to endorse this Action", required=False)
+        self.fields['is_private'] = forms.BooleanField(label="Make this Action private", required=False)
+        self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all(), label="Change Creds Rate")
+        self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def clean(self):
         cleaned_data = super(EditChallengeForm, self).clean()
@@ -271,22 +283,27 @@ class EditChallengeForm(forms.ModelForm):
         event_start_time = cleaned_data.get("event_start_time")
         event_end_date = cleaned_data.get("event_end_date")
         event_end_time = cleaned_data.get("event_end_time")
+        event_type = cleaned_data.get("event_type")
+        day_of_week = cleaned_data.get("day_of_week")
         address1 = cleaned_data.get("address1")
         address2 = cleaned_data.get("address2")
         city = cleaned_data.get("city")
         province = cleaned_data.get("province")
         country = cleaned_data.get("country")
-        postal_code = cleaned_data.get("postal_code")
+        #postal_code = cleaned_data.get("postal_code")
+        tags = cleaned_data.get("tags")
         description = cleaned_data.get("description")
         link = cleaned_data.get("link")
-
         organization = cleaned_data.get("organization")
         contact_first_name = cleaned_data.get("contact_first_name")
         contact_last_name = cleaned_data.get("contact_last_name")
         contact_phone = cleaned_data.get("contact_phone")
         contact_email = cleaned_data.get("contact_email")
-
         national_challenge = cleaned_data.get("national_challenge")
+        virtual_challenge = cleaned_data.get("virtual_challenge")
+        clean_team_only = cleaned_data.get("clean_team_only")
+        is_private = cleaned_data.get("is_private")
+        type = cleaned_data.get("type")
         challenge_id = cleaned_data.get("challenge_id")
 
         if not organization:
@@ -303,24 +320,25 @@ class EditChallengeForm(forms.ModelForm):
             raise forms.ValidationError("Please enter a title")
         elif not event_start_date:
             raise forms.ValidationError("Please enter a starting event date")
-        elif not event_start_time:
+        elif event_type != 'ongoing' and not event_start_time :
             raise forms.ValidationError("Please enter a starting event time")
         elif not event_end_date:
             raise forms.ValidationError("Please enter an ending event date")
-        elif not event_end_time:
+        elif event_type != 'ongoing' and not event_end_time:
             raise forms.ValidationError("Please enter an ending event time")
-        elif not address1:
-            raise forms.ValidationError("Please enter an address")
-        elif not city:
-            raise forms.ValidationError("Please enter a city")
-        elif not province:
-            raise forms.ValidationError("Please select a province")
-        elif not country:
-            raise forms.ValidationError("Please enter a country")
-        elif not postal_code:
-            raise forms.ValidationError("Please enter a postal code")
         elif not description:
             raise forms.ValidationError("Please enter a description")
+        elif not national_challenge and not virtual_challenge:
+            if not country:
+                raise forms.ValidationError("Please enter a country")
+            elif not address1:
+                raise forms.ValidationError("Please enter an address")
+            elif not city:
+                raise forms.ValidationError("Please enter a city")
+            elif not province:
+                raise forms.ValidationError("Please select a province")
+            #elif not postal_code:
+                #raise forms.ValidationError("Please enter a postal code")
 
         return cleaned_data
 
