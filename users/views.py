@@ -579,10 +579,10 @@ class SettingsView(LoginRequiredMixin, FormView):
         else:
             user.profile.settings.email_privacy = 0
 
-      #  if form.cleaned_data['from_privacy'] == "True":
-      #      user.profile.settings.from_privacy = 1
-      #  else:
-      #      user.profile.settings.from_privacy = 0
+        if form.cleaned_data['from_privacy'] == "True":
+            user.profile.settings.from_privacy = 1
+        else:
+            user.profile.settings.from_privacy = 0
 
         if form.cleaned_data['receive_newsletters'] == "True" and user.profile.settings.receive_newsletters==0:
             try:
