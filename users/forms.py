@@ -211,7 +211,7 @@ class PrelaunchEmailsForm(forms.ModelForm):
 
 @parsleyfy
 class RegisterUserForm(forms.ModelForm):
-    HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Clean Ambassador', 'Clean Ambassador',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
+    HEAR_CHOICES = (('not-specified', '-----Select-----',), ('Twitter', 'Twitter',), ('Instagram', 'Instagram',), ('Facebook', 'Facebook',), ('Google', 'Google',), ('Volunteer Posting', 'Volunteer Posting/Affichage du poste de bénévolat',), ('School Flyer', 'School Flyer/Prospectus scolaire',), ('Teacher', 'Teacher',), ('Friend', 'Friend / Amis',), ('Change Leader', 'Change Leader',), ('Website', 'Website / Site Web',), ('Staples', 'Staples / Bureau en gros',))
 
     first_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="First name / Prénom")
     last_name = forms.CharField(required=True, max_length = 128, min_length = 2, label="Last name / Nom de famille")
@@ -302,7 +302,7 @@ class ProfileForm(forms.ModelForm):
     emergency_phone = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Emergency contact phone number")
     picture = forms.ImageField(required=False, label="Profile picture")
     resume = PdfFileField(required=False, label="Resume (PDF Only)")
-    dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=False)
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1950, datetime.date.today().year)), label="Date of birth", required=True)
     category = forms.ChoiceField(required=True, widget=forms.Select, choices=CATEGORIES, label="I am a(n)")
     emergency_contact_fname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(attrs={'placeholder':'First name'}),   	label="Emergency contact")
     emergency_contact_lname = forms.CharField(required=False, max_length=128, widget=forms.TextInput(attrs={'placeholder':'Last name'}))
