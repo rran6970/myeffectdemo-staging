@@ -45,10 +45,10 @@
           {% endif %}
 
           <div class="clear"></div>
-          {% if user_profile.profile.city and user_profile.profile.province %}
+          {% if not user_profile.profile.settings.from_privacy %}
           <div class="field">
             <p class="title">{%trans "From:" %}</p>
-            <p class="text">{{ user_profile.profile.city }} {{ user_profile.profile.province }}</p>
+            <p class="text">{{ user_profile.profile.city }}, {{ user_profile.profile.province }}</p>
           </div>
           {% endif %}
           {% if not user_profile.profile.settings.email_privacy %}
