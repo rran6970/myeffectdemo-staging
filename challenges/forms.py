@@ -91,7 +91,7 @@ class NewChallengeForm(forms.Form):
         self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
         self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
         self.fields['city'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES)
+        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES, label="Province/State")
         #self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
@@ -112,6 +112,7 @@ class NewChallengeForm(forms.Form):
         self.fields['is_private'] = forms.BooleanField(label="Make this Action private", required=False)
         self.fields['type'] = forms.ModelChoiceField(required=False, queryset=ChallengeType.objects.all(), label="Change Creds Rate")
         self.fields['challenge_id'] = forms.CharField(required=False, widget=forms.HiddenInput())
+        self.fields['upload_file'] = forms.FileField(required=False, label="Upload document")
 
     def clean(self):
         cleaned_data = super(NewChallengeForm, self).clean()
@@ -142,6 +143,7 @@ class NewChallengeForm(forms.Form):
         is_private = cleaned_data.get("is_private")
         type = cleaned_data.get("type")
         challenge_id = cleaned_data.get("challenge_id")
+        upload_file = cleaned_data.get("upload_file")
 
         if not organization:
             raise forms.ValidationError("Please enter a host organization")
@@ -254,7 +256,7 @@ class EditChallengeForm(forms.Form):
         self.fields['address1'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Address")
         self.fields['address2'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput(), label="Suite (optional)")
         self.fields['city'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
-        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES)
+        self.fields['province'] = forms.ChoiceField(required=False, widget=forms.Select(), choices=PROVINCES, label="Province/State")
         #self.fields['postal_code'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['country'] = forms.CharField(required=False, max_length = 128, min_length = 2, widget=forms.TextInput())
         self.fields['description'] = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())

@@ -39,7 +39,7 @@
               </div>
             {% endif %}
 
-			<form autocomplete="off" action="" method="post">{% csrf_token %}
+			<form autocomplete="off" action="" enctype="multipart/form-data" method="post">{% csrf_token %}
 				<input type="hidden" id="pre_loaded_clean_team_name" value="{{ user.profile.clean_team_member.clean_team.name }}" />
 				<input type="hidden" id="pre_loaded_first_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.first_name }}" />
 				<input type="hidden" id="pre_loaded_last_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.last_name }}" />
@@ -131,6 +131,10 @@
 	                <tr>
 	                	<td>{{ form.type.label_tag }}</td><td>{{ form.type }}</td>
 	                	<td>{{ form.limit.label_tag }}</td><td>{{ form.limit }}</td>
+	                </tr>
+	                <tr>
+	                	<td>{{ form.upload_file.label_tag }}</td><td>{{ form.upload_file }}</td>
+	                	<td></td><td></td>
 	                </tr>
 	                <tr>
 	                	<td colspan="4">

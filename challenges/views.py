@@ -386,9 +386,9 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         initial['event_start_time'] = challenge.event_start_time
         initial['event_end_date'] = challenge.event_end_date
         initial['event_end_time'] = challenge.event_end_time
-        if challenge.day_of_week == -1:
+        if challenge.day_of_week > -1:
             initial['event_type'] = 'weekly'
-        elif challenge.event_start_time == '00:00:00' and challenge.event_end_time == '23:59:59':
+        elif str(challenge.event_start_time) == '00:00:00' and str(challenge.event_end_time) == '23:59:59':
             initial['event_type'] = 'ongoing'
         else:
             initial['event_type'] = 'onetime'
