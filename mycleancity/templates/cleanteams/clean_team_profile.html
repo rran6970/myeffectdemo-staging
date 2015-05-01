@@ -21,10 +21,12 @@
         
         <div id="point-meter">
           <div class="meter-container">
+	
             {% if user.is_authenticated %}
               {% if user.profile.has_clean_team %}
                 {% if clean_team == user.profile.clean_team_member.clean_team %}
                   <div class="your-team-box" style="bottom: {{ pixels }}px;">
+	
                     {% if clean_team.logo %}
                       <img rel="tooltip" data-placement="right" title="{{ user.profile.clean_team_member.clean_team.name }}" src="{{ MEDIA_URL }}{{ clean_team.logo }}" alt="Team Logo" class="profile-pic profile-pic-50x50" />
                     {% else %}
@@ -48,7 +50,8 @@
             {% endif %}
   
             <div class="meter-filling"></div>
-            <div class="frame"></div>
+            <div class="frame">
+</div>
           </div>
       
           <div class="sign-point-meter-bottom">
@@ -140,16 +143,17 @@
           </div><!-- /#clean-team-info -->
           
           <h2>{{ clean_team.name }} {% if clean_team.website %}<a href="{{ clean_team.website }}" target="_blank">{%trans "View Website" %}</a> {% endif %}</h2>
-           
-<h2><br/>Focus</h2>
+          
+<h2><br/>Focus: {{focus}}</h2>
 
           <div class="info" id="about">
-<p>{{focus}}</p>
+ 
             <div class="clear"></div>
 
             {% if clean_team.about %}
             <div class="field about">
               <div class="clear"></div>
+		 
               <p class="text">{{ clean_team.about }}</p>
             </div>
             {% endif %}

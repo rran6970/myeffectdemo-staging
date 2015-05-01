@@ -1,0 +1,103 @@
+{% extends '_public_base.html' %}
+{% load i18n %}
+
+{% block title %} My Effect - {%trans "Change Groups" %} {% endblock %}
+
+{% block css %}
+  <link href="{{ STATIC_URL }}css/mycleancity.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper public">
+  <div class="clouds"></div>
+  
+  {% include "_navbar.html" %}
+  
+  <a href="/" class="logo"></a>
+  
+  <div class="content">
+    <div class="container">
+      <a href="#" onclick="history.go(-1); return false;"><div class="sign all-clean-teams" id="sign-go-back"></div></a>
+      <div id="white-box" class="all-clean-teams">
+        <div>
+          <h1 class="all-change-teams-header">{%trans "My change Network" %}</h1>
+          <div class="clean-teams-search">
+            <span class="glyphicon glyphicon-search"></span> &nbsp;
+            <input autocomplete="off" id="team-search-box" type="text" placeholder="Search Groups" />
+          </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="table-container">
+          <table id="team-list-table" class="table table-hover">
+            <tbody>
+              <tr style="text-align:left;"><td><strong>{%trans "Name" %}</strong></td><td><strong>{%trans "Roles" %}</strong></td><td><strong>{%trans "Type" %}</strong></td></tr>
+	{% for clean_champion in clean_champions %}
+              {% for team in teams %}
+		{% if team == clean_champion.clean_team %}
+                <tr >
+                  <td class="team">                          
+                    <a href="{{ team.id }}">
+                      {% if team.logo %}
+                        <img src="{{ MEDIA_URL }}{{ team.logo }}" alt="" class="profile-pic profile-pic-42x42" />
+                      {% else %}
+                        <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
+                      {% endif %}
+                      <span class="team-name-wrapper">{{ team.name }}</span>
+
+                    </a>
+                  </td>
+                 
+                  <td class="roles" style="text-align: left;">
+                    
+                     
+                        <img id="badge-cc" src="{{ STATIC_URL }}images/badge-my-effect-ca-62x78.png" alt="Agent" />
+                      
+                   
+
+                    {% if team == user.profile.clean_team_member.clean_team and user.profile.clean_team_member.role == "leader" and user.profile.clean_team_member.status == "approved" %}
+                      <img id="badge-ca" src="{{ STATIC_URL }}images/badge-my-effect-cl-62x78.png" alt="Leader" />
+                    {% endif %}
+                  </td>
+                  
+                  <td style="text-align: left;">{%trans "Team" %}</td>
+                </tr>
+ 		{% endif %}
+{% endfor %}
+              {% endfor %}
+		{% for user in user_memberships %}
+              {% for community in communities %}
+{% if community == user.community %}
+                <tr>
+                  <td class="team">                          
+                    <a href="/clean-team/community/{{ community.id }}">
+                      {% if community.logo %}
+                        <img src="{{ MEDIA_URL }}{{ community.logo }}" alt="" class="profile-pic profile-pic-42x42" />
+                      {% else %}
+                        <img src="{{ STATIC_URL }}images/default-team-pic-42x42.png" alt="" class="profile-pic profile-pic-42x42" />
+                      {% endif %}
+                      <span class="team-name-wrapper">{{ community.name }}</span>
+                    </a>
+                  </td>
+                  
+                  <td class="roles">
+                  </td>
+                  
+                  <td>{%trans "Community" %}</td>
+                </tr>
+{% endif %}
+ {% endfor %}
+              {% endfor %}
+	
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "_footer_navbar.html" %}
+
+{% endblock %}
+
+

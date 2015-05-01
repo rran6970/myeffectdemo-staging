@@ -45,10 +45,10 @@
           {% endif %}
 
           <div class="clear"></div>
-          {% if user_profile.profile.city and user_profile.profile.province %}
+          {% if not user_profile.profile.settings.from_privacy %}
           <div class="field">
             <p class="title">{%trans "From:" %}</p>
-            <p class="text">{{ user_profile.profile.city }} {{ user_profile.profile.province }}</p>
+            <p class="text">{{ user_profile.profile.city }}, {{ user_profile.profile.province }}</p>
           </div>
           {% endif %}
           {% if not user_profile.profile.settings.email_privacy %}
@@ -74,19 +74,21 @@
 
           <div class="field">
             <p class="title">{%trans "Interests:" %}</p>
-              <p class="field">{{focus}}</p>
+              <p class="text">{{focus}}</p>
           </div>
 
 	<DIV style="position: absolute; top:190px; left:300px; width:200px; height:10px">
-            {% if user.resume == user_profile.resume %}
-	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
-            {% endif %}
-            <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
+          <p><span class="blue bold">{%trans "Change" %}</span> <span class="gold bold">{%trans "Creds" %}<sup>TM</sup></span><span>: 	{{ user_profile.profile.clean_creds }}</span></p>
           </span>
           <div class="field">
             <p class="title">{%trans "Total Hours:" %}</p>
             <p class="text">{{ total_hours }}</p>
-	    </div> </DIV>
+	    </div> 
+            {% if user.resume == user_profile.resume %}
+	    <span><a href="/users/profile.resume">{%trans "Resume" %}</a></span>
+            {% endif %}
+	<p class="text"><a href="/clean-team/my-change-network">My Change Network</a></p>
+</DIV>
 	</p>
           </span>
           {% load socialaccount %}

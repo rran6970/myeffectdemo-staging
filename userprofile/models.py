@@ -15,7 +15,7 @@ from cStringIO import StringIO
 
 from mycleancity.actions import *
 from challenges.models import Challenge, UserChallengeEvent, CleanTeamChallenge, StaplesChallenge
-from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral
+from cleanteams.models import CleanTeamMember, CleanChampion, LeaderReferral, Community
 from users.models import ProfileTask, ProfileProgress, ProfilePhase
 from notifications.models import Notification, UserNotification
 from userorganization.models import UserOrganization
@@ -32,6 +32,7 @@ class UserSettings(models.Model):
     communication_language = models.CharField(max_length=10, blank=False, null=False, default="English", verbose_name='Communication Language')
     receive_newsletters = models.BooleanField(default=0)
     email_privacy = models.BooleanField(default=0)
+    from_privacy = models.BooleanField(default=0)
     data_privacy = models.BooleanField(default=0)
     timezone = TimeZoneField(default='America/Toronto')
 
@@ -165,6 +166,7 @@ class UserProfile(models.Model):
     smartphone = models.BooleanField(default=0)
     emergency_phone = models.CharField(max_length=15, blank=True, verbose_name="Emergency Phone Number")
     clean_team_member = models.ForeignKey(CleanTeamMember, null=True, blank=True)
+    #community_member = models.ForeignKey(Community, null=True, blank=True)
     picture = models.ImageField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Profile Picture')
     resume = models.FileField(upload_to=get_upload_file_name, blank=True, null=True, default="", verbose_name='Resume (PDF Only)')
     hear_about_us = models.CharField(max_length=100, blank=True, null=True, verbose_name='How did you hear about us?')
@@ -181,7 +183,7 @@ class UserProfile(models.Model):
         return u'UserProfile: %s' % self.user.username
 
     def get_full_name(self):
-        return "%s %s" % (self.user.first_name, self.user.last_name)
+        return u'%s %s' % (self.user.first_name, self.user.last_name)
 
     def get_total_hours(self):
         user_challenges = UserChallengeEvent.objects.filter(user=self.user)

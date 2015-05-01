@@ -237,6 +237,21 @@ class Challenge(models.Model):
                 except Exception, e:
                     print e
 
+        if form['upload_file']:
+            try:
+                upload_file = form['upload_file']
+                st = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+                key = 'uploads/upload_file_%s_%s' % (st, upload_file)
+                uploadFile = UploadFileToS3()
+                fileUrl = uploadFile.upload(key, upload_file)
+                challengeform = ChallengeUploadFile()
+                challengeform.challenge = self
+                challengeform.file_name = upload_file
+                challengeform.upload_file = fileUrl
+                challengeform.save()
+            except Exception, e:
+                print e
+
         # Send notifications
         notification = Notification.objects.get(notification_type="challenge_posted")
         # The names that will go in the notification message template
@@ -813,6 +828,12 @@ class SkillTagCategory(models.Model):
 
     class Meta:
         verbose_name_plural = u'Skill Tag Category'
+
+    @property
+    def get_tags(self):
+        skilltags = SkillTag.objects.filter(category=self)
+
+        return skilltags
 
     def save(self, *args, **kwargs):
         super(SkillTagCategory, self).save(*args, **kwargs)

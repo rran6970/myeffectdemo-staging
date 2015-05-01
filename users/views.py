@@ -389,8 +389,8 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
                 for t in all_categories:
                     if t[0] in selected_categories:
                         labeled_selected_categories+=t[1]
-                        labeled_selected_categories+=" ,   "
-                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-1]
+                        labeled_selected_categories+="   "
+                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-2]
                         context['focus']=labeled_selected_categories
                         print labeled_selected_categories
             
@@ -432,7 +432,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         if user.profile.focus is None:
             initial['focus']=user.profile.focus
         else:
-            categories= [str(x) for x in user.profile.focus.split(',')]
+            categories= [unicode(x) for x in user.profile.focus.split(',')]
             initial['focus'] = categories
             
         if user.profile.website:
@@ -532,7 +532,7 @@ class SettingsView(LoginRequiredMixin, FormView):
     success_url = "/users/settings"
 
     def get_initial(self):
-        setting = self.request.user.profile.settings
+        setting = UserSettings.objects.get(user=self.request.user)
         initial = {}
         try:
             list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
@@ -577,6 +577,10 @@ class SettingsView(LoginRequiredMixin, FormView):
             user.profile.settings.email_privacy = 1
         else:
             user.profile.settings.email_privacy = 0
+        if form.cleaned_data['from_privacy'] == "True":
+            user.profile.settings.from_privacy = 1
+        else:
+            user.profile.settings.from_privacy = 0
         if form.cleaned_data['receive_newsletters'] == "True" and user.profile.settings.receive_newsletters==0:
             try:
                 list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
