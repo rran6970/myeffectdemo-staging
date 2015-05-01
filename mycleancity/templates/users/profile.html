@@ -38,8 +38,7 @@
                 <table>
                     <tr>
                       <td>{{ form.category.label_tag }} {{ form.category }}</td>
-                      <td>Interests <br/>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
- {{value}}<br/> {% endfor%}</td>
+                      
                     </tr>
                     <tr>
                         <td>{{ form.first_name.label_tag }} {{ form.first_name }}</td>
@@ -51,8 +50,8 @@
                     </tr>
 		    <tr>
                         
-                        <td>{{ form.dob.label_tag }} {{ form.dob }}</td>
-                        <td><span title="Optional: Contact information will only be available to organizations you have approved to share your volunteer data with in your user settings <link to user settings> in case of an emergency during your Actions. ">{{ form.emergency_contact_fname.label_tag }}</span> {{ form.emergency_contact_fname }}
+                        <td><span title="Your date of birth helps us provide age-appropriate settings (plus lets us know when to send you birthday wishes!). We do not share this information and it will remain private.">{{ form.dob.label_tag }}</span> {{ form.dob }}</td>
+                        <td><span title="Optional: Contact information will only be available to organizations you have approved to share your volunteer data with in your user settings in case of an emergency during your Actions. ">{{ form.emergency_contact_fname.label_tag }}</span> {{ form.emergency_contact_fname }}
                             {{ form.emergency_contact_lname }}
 			    {{ form.emergency_phone }}</td>
                     </tr>
@@ -66,6 +65,8 @@
                     </tr>
                     <tr>
                         <td>{{ form.postal_code.label_tag }} {{ form.postal_code }}</td>
+			<td>Interests <br/>{% for field,value in form.focus.field.choices %}<input type="checkbox" {% if field|stringformat:"s" in form.initial.focus%} checked {%endif%} name="focus"  value="{{field}}">
+ {{value}}<br/> {% endfor%}</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -94,3 +95,5 @@
 {% endblock %}
 
 {% block javascript %}{% endblock %}
+
+

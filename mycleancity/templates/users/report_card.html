@@ -21,7 +21,7 @@
         <!-- <img src="{{ STATIC_URL }}images/tree-stage-1.png" alt="" id="tree-progress"> -->
         <!-- <a href="#" onclick="history.go(-1); return false;"><div class="sign report-card" id="sign-go-back"></div></a> -->
         <div id="white-box" class="report-card">
-            <h2>{{ user.first_name }}'s {%trans "Volunteer Report Card" %}</h2>
+            <h2>{{ user.first_name }} {{ user.last_name }}'s {%trans "Volunteer Report Card" %}</h2>
             <a style="display: block; margin-bottom: 10px;" href="/users/printable-report-card">{%trans "Printer Friendly Version" %}</a>
             
             <table>
