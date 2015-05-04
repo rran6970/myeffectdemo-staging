@@ -33,14 +33,13 @@
               <div class="message-box error">
               {{ form.non_field_errors }}
               </div>
-            {% endif %}
-            {% if form.errors %}
+            {% elif form.errors %}
               <div class="message-box error">
               {{ form.errors }}
               </div>
             {% endif %}
 
-			<form autocomplete="off" action="" method="post">{% csrf_token %}
+			<form autocomplete="off" action="" enctype="multipart/form-data" method="post">{% csrf_token %}
 				<input type="hidden" id="pre_loaded_clean_team_name" value="{{ user.profile.clean_team_member.clean_team.name }}" />
 				<input type="hidden" id="pre_loaded_first_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.first_name }}" />
 				<input type="hidden" id="pre_loaded_last_name" value="{{ user.profile.clean_team_member.clean_team.contact_user.last_name }}" />
@@ -134,6 +133,10 @@
 	                	<td>{{ form.limit.label_tag }}</td><td>{{ form.limit }}</td>
 	                </tr>
 	                <tr>
+	                	<td>{{ form.upload_file.label_tag }}</td><td>{{ form.upload_file }}</td>
+	                	<td></td><td></td>
+	                </tr>
+	                <tr>
 	                	<td colspan="4">
 	                		{{ form.tags.label_tag }}
 	                		<div class="selected-tags">
@@ -145,12 +148,14 @@
 	                <tr>
 	                	<td colspan="4">
 	                		<a id="hide-tags">{%trans "Hide" %}</a>
-	                		<div class="tags-to-select">
-	                			<ul>
-									{% for tag in skill_tags %}
+	                		<table class="tags-to-select">
+	                			
+	                				{% for category in categories %}
+	                				<tr class="{{ category.color }}-tr"><td><span class="tag-category-name">{{ category.category_name}}</span></td><td><ul>
+									{% for tag in category.get_tags %}
 									<li>
 										<core-tooltip>
-											<label tagid="{{ tag.id }}" class="{{ tag.category.color }}-tag">{{ tag.skill_name }}<span class="add-tag">+</span></label>
+											<label tagid="{{ tag.id }}" class="{{ category.color }}-tag">{{ tag.skill_name }}<span class="add-tag">+</span></label>
 											<div tip style="width: 200px; white-space:normal; line-height: normal;">
 												{% if tag.description %}
     											{{ tag.description }}
@@ -161,8 +166,10 @@
 										</core-tooltip>
 									</li>
 									{% endfor %}
-								</ul>
-	                		</div>
+									</ul></td></tr>
+									{% endfor %}
+								
+	                		</table>
 	                	</td>
 	                </tr>
 	                <tr>

@@ -1106,8 +1106,8 @@
       users_to_notify: "individual-user"
       link: "/users/profile/{0}"
       notification_type: "user_add_clean_creds"
-      message: "Congratulations, you just earned {0} ChangeCreds!"
-      description: "ChangeCreds have been added to a User"
+      message: "Congratulations, you just earned {0} Change Creds!"
+      description: "Change Creds have been added to a User"
   - 
     pk: 11
     model: "notifications.notification"
@@ -1116,8 +1116,8 @@
       users_to_notify: "clean-ambassador"
       link: "/clean-team/{0}"
       notification_type: "clean_team_add_clean_creds"
-      message: "Congratulations, {0} just earned {1} ChangeCreds!"
-      description: "ChangeCreds have been added to a Change Team"
+      message: "Congratulations, {0} just earned {1} Change Creds!"
+      description: "Change Creds have been added to a Change Team"
   - 
     pk: 1
     model: "socialaccount.socialapp"

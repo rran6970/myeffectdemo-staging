@@ -36,11 +36,12 @@
 						<div class="links">
 							{% if user.profile.is_manager %}
 							<a class="export-challenge-data" href="/challenges/export-data/{{ challenge.id }}/">{%trans "Export User Data" %}</a>
+							<a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
 							{% endif %}
 							<a class="edit-challenge" class="btn btn-primary" href="/challenges/edit/{{ challenge.id }}/">{%trans "Edit Action" %}</a>
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants/{{ challenge.id }}/">{%trans "View Participants" %}</a>
 							<a class="view-participants" class="btn btn-primary" href="/challenges/participants-manage/{{ challenge.id }}/">{%trans "Manage Participants" %}</a>
-							<a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
+							
 
 							{% if challenge.type.challenge_type == "one-time" %}
 							<a class="view-challenge-qrcode popup-image" href="#view-challenge-qrcode-{{ challenge.id }}"><img src="{{ MEDIA_URL }}{{ challenge.qr_code.qr_image }}" alt="" /></a>

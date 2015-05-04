@@ -34,7 +34,7 @@
               <table>
 		   <tr id = "org_type_tr" >
                     <td>
-                      <label for="org_type">{%trans "Organization Type:" %}</label>
+                      <label for="org_type">{%trans "Team Type:" %}</label>
                     </td>
                     <td>
                       {{form.org_type}}
@@ -45,7 +45,7 @@
                       <td>{{ form.logo.label_tag }} {{ form.logo }}</td>
                   </tr>
                   <tr>
-                    <td><label for="id_name">City</label><!--{{ form.region.label_tag }}--> {{ form.region }}</td>
+                    <td>{{ form.region.label_tag }} {{ form.region }}</td>
                   </tr>
                   <tr>
                       {% if isManager %}

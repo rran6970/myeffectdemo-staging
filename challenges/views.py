@@ -331,14 +331,12 @@ class NewChallengeView(LoginRequiredMixin, FormView):
         challenge = Challenge()
         challenge.new_challenge(self.request.user, form.cleaned_data)
 
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-
         return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
     def get_context_data(self, **kwargs):
         context = super(NewChallengeView, self).get_context_data(**kwargs)
-        context['skill_tags'] = SkillTag.objects.all()
+        #context['skill_tags'] = SkillTag.objects.all()
+        context['categories'] = SkillTagCategory.objects.all()
 
         return context
 
@@ -388,14 +386,21 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         initial['event_start_time'] = challenge.event_start_time
         initial['event_end_date'] = challenge.event_end_date
         initial['event_end_time'] = challenge.event_end_time
+        if challenge.day_of_week > -1:
+            initial['event_type'] = 'weekly'
+        elif str(challenge.event_start_time) == '00:00:00' and str(challenge.event_end_time) == '23:59:59':
+            initial['event_type'] = 'ongoing'
+        else:
+            initial['event_type'] = 'onetime'
+        initial['day_of_week'] = challenge.day_of_week
         initial['address1'] = challenge.address1
         initial['address2'] = challenge.address2
         initial['city'] = challenge.city
         initial['province'] = challenge.province
         initial['country'] = challenge.country
-        initial['postal_code'] = challenge.postal_code
         initial['description'] = challenge.description
         initial['link'] = challenge.link
+        initial['limit'] = challenge.limit
 
         if challenge.organization == self.request.user.profile.clean_team_member.clean_team.name:
             initial['host_is_clean_team'] = True
@@ -406,9 +411,14 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         initial['contact_phone'] = challenge.contact_phone
         initial['contact_email'] = challenge.contact_email
 
-        initial['type'] = challenge.type
         initial['national_challenge'] = challenge.national_challenge
+        initial['virtual_challenge'] = challenge.virtual_challenge
         initial['clean_team_only'] = challenge.clean_team_only
+
+        membership = ChallengeCommunityMembership.objects.filter(challenge=challenge)
+        if membership.count():
+            initial['is_private'] = membership[0].is_private
+        initial['type'] = challenge.type
         initial['challenge_id'] = challenge.id
 
         return initial
@@ -423,23 +433,40 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         challenge = Challenge.objects.get(id=form.cleaned_data['challenge_id'])
         challenge.title = form.cleaned_data['title']
         challenge.event_start_date = form.cleaned_data['event_start_date']
-        challenge.event_start_time = form.cleaned_data['event_start_time']
         challenge.event_end_date = form.cleaned_data['event_end_date']
-        challenge.event_end_time = form.cleaned_data['event_end_time']
+        if form.cleaned_data['event_type'] == "ongoing":
+            challenge.event_start_time = '0:00'
+            challenge.event_end_time = '23:59:59'
+            self.day_of_week = -1
+        elif form.cleaned_data['event_type'] == "weekly":
+            challenge.event_start_time = form.cleaned_data['event_start_time']
+            challenge.event_end_time = form.cleaned_data['event_end_time']
+            self.day_of_week = form.cleaned_data['day_of_week']
+        else:
+            challenge.event_start_time = form.cleaned_data['event_start_time']
+            challenge.event_end_time = form.cleaned_data['event_end_time']
+            self.day_of_week = -1
         challenge.address1 = form.cleaned_data['address1']
         challenge.address2 = form.cleaned_data['address2']
         challenge.city = form.cleaned_data['city']
-        challenge.postal_code = form.cleaned_data['postal_code']
         challenge.province = form.cleaned_data['province']
         challenge.country = form.cleaned_data['country']
         challenge.description = form.cleaned_data['description']
         challenge.link = form.cleaned_data['link']
+        challenge.national_challenge = form.cleaned_data['national_challenge']
+        challenge.virtual_challenge = form.cleaned_data['virtual_challenge']
+        challenge.clean_team_only = form.cleaned_data['clean_team_only']
 
         challenge.organization = form.cleaned_data['organization']
         challenge.contact_first_name = form.cleaned_data['contact_first_name']
         challenge.contact_last_name = form.cleaned_data['contact_last_name']
         challenge.contact_phone = form.cleaned_data['contact_phone']
         challenge.contact_email = form.cleaned_data['contact_email']
+
+        if form.cleaned_data['limit'] and form.cleaned_data['limit'] > 0:
+            self.limit = form.cleaned_data['limit']
+        else:
+            self.limit = -1
 
         if form.cleaned_data['type'] is not None:
             challenge.type = form.cleaned_data['type']
@@ -450,6 +477,25 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         challenge.clean_team_only = form.cleaned_data['clean_team_only']
         challenge.last_updated_by = self.request.user
         challenge.save()
+
+        membership = ChallengeCommunityMembership.objects.filter(challenge=challenge)
+        if membership.count():
+            membership[0].is_private = form.cleaned_data['is_private']
+            membership[0].save()
+
+        if ChallengeSkillTag.objects.filter(challenge=challenge).exists():
+            ChallengeSkillTag.objects.filter(challenge=challenge).delete()
+
+        if form.cleaned_data['tags']:
+            for tag in form.cleaned_data['tags']:
+                try:
+                    skilltag = SkillTag.objects.get(id=int(tag))
+                    challenge_skilltag = ChallengeSkillTag()
+                    challenge_skilltag.challenge = challenge
+                    challenge_skilltag.skill_tag = skilltag
+                    challenge_skilltag.save()
+                except Exception, e:
+                    print e
 
         return HttpResponseRedirect(u'/challenges/%s' %(challenge.id))
 
@@ -464,7 +510,6 @@ class EditChallengeView(LoginRequiredMixin, FormView):
 
             #TODO: Shouldn't be able to access all Challenges
             if self.request.user.profile.is_clean_ambassador and self.request.user.profile.clean_team_member.clean_team == challenge.clean_team:
-
                 pass
             else:
                 context = None
@@ -472,6 +517,8 @@ class EditChallengeView(LoginRequiredMixin, FormView):
         except Exception, e:
             print e
             return HttpResponseRedirect(u'/challenges/%s' %(cid))
+
+        context['categories'] = SkillTagCategory.objects.all()
 
         return context
 

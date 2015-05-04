@@ -49,12 +49,13 @@
             <a href="/challenges/edit/{{ challenge.id }}/">{%trans "Edit Action" %}</a>
           </span>
           </div>
+          {% if user.profile.is_manager %}
         	<div>
             <span id="send-email-link">
             <a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
             </span>
           </div>
-          
+          {% endif %}
         	{% endif %}
         	<div class="clear"></div>
         	
