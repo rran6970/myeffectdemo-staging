@@ -54,11 +54,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "ct_description", 
-    "title": "Profiler", 
+    "title": "Become official", 
     "link": "/clean-team/edit/", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Add a profile description and logo to your Clean Team"
+    "description": "Complete your team profile with a description & profile image"
   }
 },
 {
@@ -66,23 +66,23 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "ct_twitter", 
-    "title": "Birdie", 
+    "title": "Add your voice", 
     "link": "/clean-team/edit/", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Add Twitter account to your Clean Team profile"
+    "description": "Connect your social media accounts"
   }
 },
 {
   "pk": 7, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "name": "invite_5_mcc", 
-    "title": "Friendly", 
+    "name": "3_ccs", 
+    "title": "Build your team", 
     "link": "/clean-team/invite", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Invite at least 5 friends to My Clean City"
+    "description": "Invite 3 friends"
   }
 },
 {
@@ -90,7 +90,7 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "1_challenge", 
-    "title": "Novice Challenger", 
+    "title": "Take initiative", 
     "link": "/challenges/new-challenge/", 
     "clean_team_level": 1, 
     "approval_required": false, 
@@ -101,12 +101,12 @@
   "pk": 11, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
-    "name": "3_ccs", 
-    "title": "Novice Recruiter", 
+    "name": "invite_5_mcc", 
+    "title": "Share your profile", 
     "link": "/clean-team/invite", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Recruit 3 Clean Champions"
+    "description": "Invite 5 Change Agents"
   }
 },
 {
@@ -118,7 +118,7 @@
     "link": "https://twitter.com/intent/user?screen_name=MyCleanCity1", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Follow My Clean City on Twitter"
+    "description": "Follow on twitter & instagram, like on facebook"
   }
 },
 {
@@ -126,11 +126,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "5_challenges", 
-    "title": "Actioneer", 
+    "title": "Create impact", 
     "link": "/challenges/new-challenge/", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Create 5 Actions"
+    "description": "Post 5 more actions"
   }
 },
 {
@@ -138,11 +138,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "10_ccs", 
-    "title": "Help Gathers", 
+    "title": "Share your Actions", 
     "link": "/clean-team/invite", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Recruit 10 Clean Champions"
+    "description": "Invite 10 more Agents to your team"
   }
 },
 {
@@ -150,11 +150,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "refer_teacher", 
-    "title": "United Leaders", 
+    "title": "Spread your ripple", 
     "link": "/clean-team/leader-referral", 
     "clean_team_level": 1, 
     "approval_required": true, 
-    "description": "Refer an interested teacher, youth group leader or city hall counselor"
+    "description": "Refer a community organization, teacher or business leader that can benefit from My Effect"
   }
 },
 {
@@ -162,11 +162,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "2_national_challenges_signup", 
-    "title": "Going Global", 
+    "title": "Amplify your effect", 
     "link": "/challenges/?national_challenges=on&q=", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Sign up for at least 2 national Challenges"
+    "description": "Add 2 Actions from other Change Teams/Communities to your profile and invite your Agents to participate to earn bonus Change Creds"
   }
 },
 {
@@ -174,23 +174,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "20_ccs", 
-    "title": "Army of Volunteers", 
+    "title": "Engage your community", 
     "link": "/clean-team/invite", 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Recruit 20 Clean Champions "
-  }
-},
-{
-  "pk": 19, 
-  "model": "cleanteams.cleanteamleveltask", 
-  "fields": {
-    "name": "mcc_presentation", 
-    "title": "Show Off", 
-    "link": "/clean-team/send-presentation", 
-    "clean_team_level": 1, 
-    "approval_required": true, 
-    "description": "Make a My Clean City presentation"
+    "description": "Recruit 20 Agents to your team "
   }
 },
 {
@@ -198,11 +186,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "cc_250", 
-    "title": "The Beginning", 
+    "title": "Level: Splash", 
     "link": null, 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Total 250 Change Credits as a team!"
+    "description": "Earn 250 Change Creds"
   }
 },
 {
@@ -210,11 +198,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "cc_1000", 
-    "title": "Team Effort", 
+    "title": "Level: Ripple", 
     "link": null, 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Total 1000 Change Credits as a team!"
+    "description": "Earn 1000 Change Creds"
   }
 },
 {
@@ -222,11 +210,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "cc_5000", 
-    "title": "Swimmin' in Change", 
+    "title": "Level: Wave", 
     "link": null, 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Total 5,000 Change Credits as a team!"
+    "description": "Earn 5000 Change Creds"
   }
 },
 {
@@ -234,11 +222,11 @@
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {
     "name": "cc_10,000", 
-    "title": "Top of a New World", 
+    "title": "Level: Champion", 
     "link": null, 
     "clean_team_level": 1, 
     "approval_required": false, 
-    "description": "Be among the top teams and gain 10,000 Change Credits!!"
+    "description": "Earn 10,000 Change Creds"
   }
 },
 {
@@ -1863,76 +1851,6 @@
     "notification_type": "clean_team_add_clean_creds", 
     "message": "Congratulations, {0} just earned {1} Change Creds!", 
     "description": "Change Creds have been added to a Change Team"
-  }
-},
-{
-  "pk": 1, 
-  "model": "socialaccount.socialapp", 
-  "fields": {
-    "name": "Myeffect Twitter Signin", 
-    "sites": [
-      1
-    ], 
-    "secret": "1RSbtG2bo60ph37uEAXdfFD941zb89OXxgOEjeDAF5TDIBiCRH", 
-    "client_id": "Q3VzRA07B1LFSNMifvGu8xbT8", 
-    "key": "", 
-    "provider": "twitter"
-  }
-},
-{
-  "pk": 3, 
-  "model": "socialaccount.socialapp", 
-  "fields": {
-    "name": "LinkedIn", 
-    "sites": [
-      1
-    ], 
-    "secret": "riyNcV8xz8GcK8K3", 
-    "client_id": "7816d6zmthvhzw", 
-    "key": "", 
-    "provider": "linkedin"
-  }
-},
-{
-  "pk": 4, 
-  "model": "socialaccount.socialapp", 
-  "fields": {
-    "name": "Facebook", 
-    "sites": [
-      1
-    ], 
-    "secret": "caf15cf21486a8cdf3c42b887d9860a3", 
-    "client_id": "394573090720595", 
-    "key": "", 
-    "provider": "facebook"
-  }
-},
-{
-  "pk": 5, 
-  "model": "socialaccount.socialapp", 
-  "fields": {
-    "name": "Google", 
-    "sites": [
-      1
-    ], 
-    "secret": "comA__mcCQ_0IjorQI56vLf6", 
-    "client_id": "1096184111127-2nj0j9ceuiirq8hsn9jn333c77gd74m3.apps.googleusercontent.com", 
-    "key": "", 
-    "provider": "google"
-  }
-},
-{
-  "pk": 6, 
-  "model": "socialaccount.socialapp", 
-  "fields": {
-    "name": "Instagram", 
-    "sites": [
-      1
-    ], 
-    "secret": "3e4c980341ff49989c6e539a0c67f32f", 
-    "client_id": "1998fc6f911d4b6ab8592746a28db572", 
-    "key": "", 
-    "provider": "instagram"
   }
 }
 ]
