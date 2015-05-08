@@ -422,8 +422,9 @@ msgstr "Confirmez l’adresse courriel"
 #: mycleancity/templates/account/email_confirm.html:17
 #, python-format
 msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "Veuillez confirmez que <a href=\"mailto:%(email)s\">%(email)s</a> est une adresse courriel pour l’utilisateur %(user_display)s."
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr "Veuillez confirmez que <a href=\"mailto:%(email)s\">%(email)s</a> est une adresse courriel pour l’utilisateur"
 
 #: mycleancity/templates/account/email_confirm.html:21
 msgid "Confirm"
@@ -432,15 +433,14 @@ msgstr "Confirmez"
 #: mycleancity/templates/account/email_confirm.html:28
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please"
+"This e-mail confirmation link expired or is invalid. Please "
 "<a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr " Le lien du courriel de confirmation est expiré ou invalide."
 "<a href=\"%(email_url)s\">Veuillez émettre une nouvelle demande de courriel de confirmation</a>"
 
 #: mycleancity/templates/account/email_confirmed.html:15
 #, python-format
-msgid ""
-"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
+msgid "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
 msgstr "Vous avez confirmez que <a href=\"mailto:%(email)s\">%(email)s</a>le courriel est une adresse courriel pour l’utilisateur  %(user_display)s."
 
 #: mycleancity/templates/account/email_notusing.html:6
@@ -969,7 +969,7 @@ msgstr "trouvé."
 #: mycleancity/templates/challenges/my_challenges.html:43
 #, fuzzy
 msgid "Edit Action"
-msgstr "Éditer les Actions"
+msgsr "Éditer les Actions"
 
 #: mycleancity/templates/challenges/challenge_details.html:54
 #: mycleancity/templates/challenges/participants_manage.html:25
@@ -1354,7 +1354,6 @@ msgstr "Rôle"
 
 #: mycleancity/templates/cleanteams/clean_team_members.html:85
 #: mycleancity/templates/cleanteams/invite_response.html:26
-#: mycleancity/templates/cleanteams/invite_organization.html:67
 msgid "Agent"
 msgstr "Agent"
 
@@ -1601,6 +1600,10 @@ msgid ""
 "Do you know a community organization with an existing project or event that "
 "promotes positive change?"
 msgstr "Connaissez-vous une organisation communautaire avec un projet actuel ou un événement qui promouvoit un changement positif?"
+
+#: mycleancity/templates/cleanteams/invite_organization.html:67
+msgid "Agent"
+msgstr "Agent"
 
 #: mycleancity/templates/cleanteams/invite_organization.html:68
 msgid "Leader"
@@ -2302,7 +2305,6 @@ msgid "Contests"
 msgstr "Concours"
 
 #: mycleancity/templates/mycleancity/communication_hub.html:82
-#: mycleancity/templates/mycleancity/media_hub.html:44
 msgid "Announcements"
 msgstr "Annonces"
 
@@ -2387,6 +2389,10 @@ msgstr "Gardons le contact"
 #: mycleancity/templates/mycleancity/media_hub.html:37
 msgid "Photos and Videos"
 msgstr "Photos et vidéos"
+
+#: mycleancity/templates/mycleancity/media_hub.html:44
+msgid "Announcements"
+msgstr "Annonces"
 
 #: mycleancity/templates/mycleancity/media_hub.html:49
 msgid ""
@@ -2548,8 +2554,9 @@ msgstr "Offre un programme gratifiant pour promouvoir l’engagement et fournir 
 #: mycleancity/templates/mycleancity/organizations.html:82
 #, python-format
 msgid "" 
-"Interested in getting involved? My Effectâ€™s tools are 100%% free until August 31st, 2014!"
-msgstr "souhaitez-vous être impliqué> Les outils de Mon Effet sont à 100%% gratuits jusqu’au 31 août 2014"
+"Interested in getting involved? My Effectâ€™s tools are 100%% free until "
+"August 31st, 2014!"
+msgstr "souhaitez-vous être impliqué> Les outils de Mon Effet sont à 100% gratuits jusqu’au 31 août 2014"
 
 #: mycleancity/templates/mycleancity/organizations.html:82
 #: mycleancity/templates/mycleancity/organizations.html:111
@@ -2570,8 +2577,8 @@ msgstr "Ecoles"
 msgid "" 
 "Provide a creative interface to inspire not yet engaged students to "
 "participate in leadership and volunteerism"
-msgstr "Offrez une interface créative pour inspirer les étudiants pas encore engagés"
-"à participer au leadership et au bénévolat"
+msgstr "Offrez une interface créative pour inspirer les étudiants pas encore engagés
+ à participer au leadership et au bénévolat"
 
 #: mycleancity/templates/mycleancity/organizations.html:95
 msgid "Engage students to apply leadership and classroom learning in your community"
@@ -3411,7 +3418,7 @@ msgid ""
 msgstr " les ordinateurs portable.. nous aimons aussi magasiner, ne serait-il pas super de fermer un magasin pour une expérience de magasinage privée?"
 
 #: mycleancity/templates/mycleancity/rewards.html:189
-#: mycleancity/templates/mycleancity/rewards.html:258
+jiom#: mycleancity/templates/mycleancity/rewards.html:258
 msgid "Be sure to follow us on Twitter"
 msgstr "Soyez sûrs de nous suiver sur Twitter"
 
@@ -3466,7 +3473,7 @@ msgstr "hébergements"
 #: mycleancity/templates/mycleancity/rewards.html:219
 #, python-format
 msgid "Exclusive boutique discounts (up to 20%% off)"
-msgstr "Des rabais exclusifs (jusqu’à 20 %% off)"
+msgstr "Des rabais exclusifs (jusqu’à 20 % off)"
 
 #: mycleancity/templates/mycleancity/rewards.html:222
 msgid "Private designer showroom visit (by special request â€“ weekdays only)"
@@ -3528,8 +3535,8 @@ msgstr "Si vous avez une passion pour le théâtre, le chant, la danse ou pour l
 msgid "" 
 "Winner must have 20 volunteers hoursâ€‹ or have a ChangeCred score of 10,000 or "
 "higher to qualify"
-msgstr "Vous devez avoir 20 heures de bénévolat pour qualifier ou avoir un score de " 
-"10 000 crédits change ou plus pour qualifier"
+msgstr "Vous devez avoir 20 heures de bénévolat pour qualifier ou avoir un score de 
+10 000 crédits change ou plus pour qualifier"
 
 #: mycleancity/templates/mycleancity/students.html:40
 msgid "Have the freedom to choose how, when, and where you make an impact."
@@ -3694,7 +3701,7 @@ msgstr "La meilleure partie, nos activités sont"
 #: mycleancity/templates/mycleancity/students.html:116
 #, python-format
 msgid "100%% verified and don't rely on self-reporting."
-msgstr "100%% vérifiées et ne comptent pas sur des auto-évaluations."
+msgstr "100% vérifiées et ne comptent pas sur des auto-évaluations."
 
 #: mycleancity/templates/mycleancity/students.html:125
 msgid "What does this mean?"
@@ -4616,8 +4623,8 @@ msgid ""
 "THE ADVICE OF PROFESSIONALS, AS APPROPRIATE, REGARDING THE EVALUATION OF ANY "
 "SPECIFIC OPINION, ADVICE, PRODUCT, SERVICE, OR OTHER CONTENT OBTAINED FROM A "
 "LINKED SITE."
-msgstr "A MOINS QUE CELA S’APPLIQUE SELON LA LOI DE LA PROTECTION DU CONSOMMATEUR, EN AUCUN CAS LOVELL NE SERA RESPONSABLE DE TOUTE PERTE OU" "DOMMAGE CAUSÉ PAR LA CONFIANCE D’UN UTILISATEUR SUR DES RENSEIGNEMENTS OBTENUS SUR LE SITE OU DES SITES ASSOCIÉs OU VOTRE CONFIANCE EN DES" "PRODUITS OU SERVICES OBTENUS DEPUIS UN SITE LIÉ. IL EST DE VOTRE RESPONSABILITE D’EVALUER L’EXACTITUDE, L’INTÉGRALITÉ OU L’UTILITÉ DE TOUTE" "OPINION, CONSEIL OU AUTRE CONTENU OBTENU DE TOUT SITE ASSOCIÉ."
-"VEUILLEZ DEMANDER L’AVIS DE PROFESSIONNELS, DE FACON APPROPRIÉE, CONCERNANT L’ÉVALUATION D’OPINIONS, DE CONSEILS, DE PRODUITS, DE SERVICES," "OU D’AUTRES CONTENUS SPÉCIFIQUES OBTENUS D’UN SITE ASSOCIÉ."
+msgstr "A MOINS QUE CELA S’APPLIQUE SELON LA LOI DE LA PROTECTION DU CONSOMMATEUR, EN AUCUN CAS LOVELL NE SERA RESPONSABLE DE TOUTE PERTE OU DOMMAGE CAUSÉ PAR LA CONFIANCE D’UN UTILISATEUR SUR DES RENSEIGNEMENTS OBTENUS SUR LE SITE OU DES SITES ASSOCIÉs OU VOTRE CONFIANCE EN DES PRODUITS OU SERVICES OBTENUS DEPUIS UN SITE LIÉ. IL EST DE VOTRE RESPONSABILITE D’EVALUER L’EXACTITUDE, L’INTÉGRALITÉ OU L’UTILITÉ DE TOUTE OPINION, CONSEIL OU AUTRE CONTENU OBTENU DE TOUT SITE ASSOCIÉ.
+VEUILLEZ DEMANDER L’AVIS DE PROFESSIONNELS, DE FACON APPROPRIÉE, CONCERNANT L’ÉVALUATION D’OPINIONS, DE CONSEILS, DE PRODUITS, DE SERVICES, OU D’AUTRES CONTENUS SPÉCIFIQUES OBTENUS D’UN SITE ASSOCIÉ."
 
 #: mycleancity/templates/mycleancity/mobile/terms.html:224
 #: mycleancity/templates/users/register.html:336
@@ -4751,8 +4758,8 @@ msgid ""
 "arising from or relating to your use of the Site will be governed by the "
 "laws of the Province of Ontario and the federal laws of Canada applicable "
 "therein."
-msgstr "Le site (excluant les sites des tierces parties) est contrôlé par MA VILLE PROPRE"
-"et est opéré par ses bureaux situes à Kitchener, Ontario. Cependant, le site est accessible dans toutes les provinces du Canada et dans" "d’autres pays. Vous et MA VILELPROPRE acceptent explicitement que toutes les litiges, les réclamations ou les autres sujets provenant du" "site ou en relation avec votre utilisation au site, seront régis par les lois de la province de l’Ontario et les lois fédérales canadiennes" "applicables dans cette province."
+msgstr "Le site (excluant les sites des tierces parties) est contrôlé par MA VILLE PROPRE
+et est opéré par ses bureaux situes à Kitchener, Ontario. Cependant, le site est accessible dans toutes les provinces du Canada et dans d’autres pays. Vous et MA VILELPROPRE acceptent explicitement que toutes les litiges, les réclamations ou les autres sujets provenant du site ou en relation avec votre utilisation au site, seront régis par les lois de la province de l’Ontario et les lois fédérales canadiennes applicables dans cette province."
 
 #: mycleancity/templates/mycleancity/mobile/terms.html:273
 #: mycleancity/templates/users/register.html:385
@@ -4815,8 +4822,8 @@ msgid ""
 "of Use. This Agreement constitutes the entire agreement between you and MY "
 "CLEAN CITY and governs your use of the Site, superseding any prior "
 "agreements between you and MY CLEAN CITY with respect to the Site."
-msgstr "Si l’une des dispositions de ces conditions d’utilisation est jugée invalide, annulée, ou pour tout autre raison, inapplicable,"
-"cette disposition sera dissociable de ces conditions d’utilisation et n’affectera pas la validité et l’applicabilité des dispositions" "restantes. MA VILE PRORPE peut attribuer une partie ou tous ses droits ci-dessous à toute partie sans votre consentement. Il ne vous ai pas" "permis d’attribuer vos droits ou vos devoirs ci-dessous sans le consentement écrit au préalable de MA VILLE PRORPE, et toute tentative" "d’attribution sera annulée et inapplicable. Cet accord constitue l’entière entente entre vous et MA VILLE PROPRE concernant l’utilisation du" "site, et concernant toutes les communications antérieures ou contemporaines qu’ elles soient électroniques, orales ou écrites entre vous et" "MA VILLE PROPRE, au sujet du site. Les titres sont à titre de référence uniquement et ne limite pas la portée ou l’étendue d’une telle" "section. Si MA VILLE PROPRE manque d’agir envers une violation commise par vous ou autrui, n’annule pas son droit d’agir par rapport à des" "violations ultérieures ou similaires."
+msgstr "Si l’une des dispositions de ces conditions d’utilisation est jugée invalide, annulée, ou pour tout autre raison, inapplicable, cette disposition sera dissociable de ces conditions d’utilisation et n’affectera pas la validité et l’applicabilité des dispositions restantes. MA VILE PRORPE peut attribuer une partie ou tous ses droits ci-dessous à toute partie sans votre consentement. Il ne vous ai pas permis d’attribuer vos droits ou vos devoirs ci-dessous sans le consentement écrit au préalable de MA VILLE PRORPE, et toute tentative d’attribution sera annulée et inapplicable. Cet accord constitue l’entière entente entre vous et MA VILLE PROPRE concernant l’utilisation du site, et concernant toutes les communications antérieures ou contemporaines qu’ elles soient électroniques, orales ou écrites entre vous et MA VILLE PROPRE, au sujet du site. Les titres sont à titre de référence uniquement et ne limite pas la portée ou l’étendue d’une telle section. Si MA VILLE PROPRE manque d’agir envers une violation commise par vous ou autrui, n’annule pas son droit d’agir par rapport à des violations ultérieures ou similaires. 
+MA VILLE PROPRE ne garantie pas qu’elle agira contre toutes les violations de ces conditions d’utilisation. Sauf si cela y est expressément indiqué, il n’y aura pas de tierce partie bénéficiaire à ces conditions d’utilisation. Ce accord constitue une entente entière entre vous et MA VILLE PROPRE et régie votre utilisation du site, remplaçant tout accord précédemment conclu entre vous et MA VILLE PROPRE en ce qui a trait a l’utilisation de ce site."
 
 #: mycleancity/templates/mycleancity/mobile/terms.html:287
 msgid "" 

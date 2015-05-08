@@ -2549,7 +2549,7 @@ msgstr "Offre un programme gratifiant pour promouvoir l’engagement et fournir 
 #, python-format
 msgid "" 
 "Interested in getting involved? My Effectâ€™s tools are 100%% free until August 31st, 2014!"
-msgstr "souhaitez-vous être impliqué> Les outils de Mon Effet sont à 100%% gratuits jusqu’au 31 août 2014"
+msgstr "souhaitez-vous être impliqué> Les outils de Mon Effet sont à 100% gratuits jusqu’au 31 août 2014"
 
 #: mycleancity/templates/mycleancity/organizations.html:82
 #: mycleancity/templates/mycleancity/organizations.html:111

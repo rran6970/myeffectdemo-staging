@@ -841,6 +841,7 @@ div.content.challenge-overview #participate-btn, div.content.challenge-overview 
 	Leaderboard Page
 ******************************/
 #white-box.leaderboard { width: 670px; left: 7% }
+#white-box.clean-teams { position: absolute; float:left; width: 350px; height: 300px; left: 70% }
 #white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
 #white-box.profile p { text-align: center; }
 #white-box.profile table tr td.clean-creds { font-size: 18px; padding: 10px 0; }

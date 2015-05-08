@@ -549,6 +549,7 @@ class SettingsView(LoginRequiredMixin, FormView):
             print e
         initial['communication_language'] = setting.communication_language
         initial['email_privacy'] = setting.email_privacy
+        initial['from_privacy'] = setting.from_privacy
         initial['data_privacy'] = setting.data_privacy
         initial['timezone'] = setting.timezone
         return initial

@@ -232,9 +232,7 @@ class ChallengeCentreView(TemplateView):
             else:
                 #  Hide all challenges that are privately associated with communities
                 hidden_challenges = ChallengeCommunityMembership.objects.filter(is_private=True).values_list('challenge_id', flat=True)
-                
-            
-        return render(request, self.template_name, {'hidden_challenges': hidden_challenges, 'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community, 'community_approved_challenges': community_approved_challenges, 'team_approved_challenges': team_approved_challenges})
+            return render(request, self.template_name, {'hidden_challenges': hidden_challenges, 'challenges': challenges, 'skilltags': skilltags, 'my_team': my_team, 'my_community': my_community, 'community_approved_challenges': community_approved_challenges, 'team_approved_challenges': team_approved_challenges})
 
     def get_context_data(self, **kwargs):
         context = super(ChallengeCentreView, self).get_context_data(**kwargs)
