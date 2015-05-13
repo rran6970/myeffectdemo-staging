@@ -94,7 +94,8 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
 
         ct.save()
         ct.add_team_clean_creds(50)
-        ct.level_up()
+        # according to Kelly, leveling is an old functionality.
+        #ct.level_up()
 
         try:
             ctm = CleanTeamMember.objects.get(user=self.request.user)
@@ -108,6 +109,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         ctm.status = "approved"
         ctm.role = role
         ctm.org_profile = orgprofile
+       
         ctm.save()
 
         if user.profile.referral_token != '':
@@ -143,7 +145,7 @@ class RegisterCleanTeamView(LoginRequiredMixin, FormView):
         user.profile.clean_team_member = ctm
         user.profile.add_clean_creds(50)
         user.profile.save()
-
+        user.profile.settings=ctm.objects.get(user=self.request.user)
         lang = user.profile.settings.communication_language
 
         # Send registration email to user
