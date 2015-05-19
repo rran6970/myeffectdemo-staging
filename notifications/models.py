@@ -15,7 +15,7 @@ class Notification(models.Model):
 	link = models.TextField(blank=True, default="")
 	notification_type = models.CharField(max_length=60, blank=False, verbose_name="Notification Type", default="challenge_posted")	
 	users_to_notify = models.TextField(blank=False, default="")
-
+	
 	class Meta:
 		verbose_name_plural = u'Notifications'
 

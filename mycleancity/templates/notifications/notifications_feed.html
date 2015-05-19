@@ -30,17 +30,21 @@
                   <tr>
                     <td class="notification {% if not n.read %}unread{% endif %}">
                       <form action="/notifications/read/" method="post">{% csrf_token %}
-                        <input type="hidden" name="nid" value="{{ n.id }}" />
-                        <a href="{{ n.link }}" class="notification-link">
-                          {{ n.message }}
+                        
+                       <!--<input type="hidden" name="nid" value="{{ n.id }}" />-->
+                          <input type="checkbox" name="nid" value="{{ n.id }}"/> <a href="{{ n.link }}" class="notification-link">{{ n.message }}
+
                           <p class="timestamp">{{ n.timestamp }}</p>
                         </a>
-                      </form>
+
                     </td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table><!-- /.table.table-hover -->
+<input type="submit" value="Mark as read" name="read">
+<input type="submit" value="Mark as unread" name="unread">
+                      </form>
           </div><!-- /.table-container -->
           
       </div><!-- /#white-box -->

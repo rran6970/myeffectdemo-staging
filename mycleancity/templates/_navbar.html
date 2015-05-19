@@ -71,8 +71,9 @@
           {% for notification in user.profile.get_notifications %}
           <li class="{% if not notification.read %}unread{% endif %}">
             <form action="/notifications/read/" method="post">{% csrf_token %}
-              <input type="hidden" name="nid" value="{{ notification.id }}" />
-              <a href="{{ notification.link }}" class="notification-link">
+              <!--<input type="hidden" name="nid" value="{{ notification.id }}" />-->
+              <input type="checkbox" name="nid" value="{{ notification.id }}"/>
+		<a href="{{ notification.link }}" class="notification-link">
                 <div>{{ notification.message }}</div>
               </a>
 				
@@ -93,12 +94,13 @@
 				
                 <p class="timestamp">{{ notification.timestamp }}</p>
               </a>
-              {% if notification.read %}
+              <!--{% if notification.read %}
               <a class="notification-mark-unread">{%trans "Make unread" %}</a>
               {% else %}
               <a class="notification-mark-read">{%trans "Make read" %}</a>
-              {% endif %}
-            </form>
+              {% endif %}-->
+
+            
           </li>
           {% endfor %}
         {% else %}
@@ -109,6 +111,10 @@
           </li>
         {% endif %}
       </ul>
+<input type="submit" value="Mark as read" name="read">
+<input type="submit" value="Mark as unread" name="unread">
+</form>
+
       <a href="/notifications/">{%trans "View all notifications" %}</a>
     </div>
 
