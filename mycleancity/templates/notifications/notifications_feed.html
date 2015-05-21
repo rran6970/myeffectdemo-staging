@@ -32,7 +32,7 @@
                       <form action="/notifications/read/" method="post">{% csrf_token %}
                         
                        <!--<input type="hidden" name="nid" value="{{ n.id }}" />-->
-                          <input type="checkbox" name="nid" value="{{ n.id }}"/> <a href="{{ n.link }}" class="notification-link">{{ n.message }}
+                           <a href="{{ n.link }}" class="notification-link"> <input type="checkbox" name="nid" value="{{ n.id }}"/> &nbsp;&nbsp;{{ n.message }}
 
                           <p class="timestamp">{{ n.timestamp }}</p>
                         </a>
