@@ -845,8 +845,9 @@ div.content.challenge-overview #participants-box h1 { font-weight: 900; }
 div.content.challenge-overview #participants-box div.participants a img { float: left; margin: 0 auto 6px; display: block; border-radius: 4px; width: 42px; height: 42px; }*/
 
 div.content.challenge-overview #participants-box .participants-list { margin: 10px; }
-div.content.challenge-overview #participants-box .participants-list li a { display: block; margin: 10px 0; }
-div.content.challenge-overview #participants-box .participants-list li a span {  }
+div.content.challenge-overview #participants-box .participants-list li { background-color: rgba(0, 0, 0, 0.1); padding: 3px; display: block; margin: 10px 0; }
+div.content.challenge-overview #participants-box .participants-list li .emergency-contact-info { display: none; }
+div.content.challenge-overview #participants-box .participants-list li a { cursor:pointer; }
 div.content.challenge-overview #participants-box .participants-list li a img { margin-right: 10px; border-radius: 4px; width: 42px; height: 42px; }
 
 div.content.challenge-overview .fb-like { float: left; margin-right: 10px; }

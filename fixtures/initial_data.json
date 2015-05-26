@@ -182,6 +182,18 @@
   }
 },
 {
+  "pk": 19, 
+  "model": "cleanteams.cleanteamleveltask", 
+  "fields": {
+    "name": "mcc_presentation", 
+    "title": "Show Off", 
+    "link": "/clean-team/send-presentation", 
+    "clean_team_level": 1, 
+    "approval_required": true, 
+    "description": "Make a My Clean City presentation"
+  }
+},
+{
   "pk": 32, 
   "model": "cleanteams.cleanteamleveltask", 
   "fields": {

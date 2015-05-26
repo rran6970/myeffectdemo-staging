@@ -268,14 +268,28 @@
           
     			 {% for participant in participants %}
             <li>
-              <a href="/users/profile/{{ participant.user.id }}">
-                {% if participant.user.profile.picture %}
-                  <img class="profile-pic" src="{{ MEDIA_URL }}{{ participant.user.profile.picture }}" alt="" />
-                {% else %}
-                  <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
-                {% endif %}
-                <span>{{ participant.user.get_full_name }}</span>
-              </a>
+              <div>
+                <a onclick="$(this).parent().next('.emergency-contact-info').toggle();">
+                  {% if participant.user.profile.picture %}
+                    <img class="profile-pic" src="{{ MEDIA_URL }}{{ participant.user.profile.picture }}" alt="" />
+                  {% else %}
+                    <img class="profile-pic" src="{{ STATIC_URL }}images/default-profile-pic-42x42.png" alt="" />
+                  {% endif %}
+                  <span>{{ participant.user.get_full_name }}</span>
+                </a>
+              </div>
+              <div class="emergency-contact-info">
+                <table>
+                  <tr><td><a href="/users/profile/{{ participant.user.id }}">User Profile</a></td><td></td></tr>
+                  <tr><td colspan="2">Emergency Contact:</td></tr>
+                  <tr>
+                    <td>{{ participant.user.profile.emergency_contact_fname }} {{ participant.user.profile.emergency_contact_lname }} {{ participant.user.profile.emergency_phone }}</td>
+                    <td></td>
+                  </tr>
+                  
+                </table>
+              </div>
+              
             </li>
            {% endfor %}
         {% else %}
