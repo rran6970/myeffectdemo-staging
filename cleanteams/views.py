@@ -633,7 +633,7 @@ class MyChangeNetwork(LoginRequiredMixin, TemplateView):
         context = super(MyChangeNetwork, self).get_context_data(**kwargs)
         user=self.request.user
 
-        selected_teams = user.profile.clean_team_member.clean_team
+        #selected_teams = user.profile.clean_team_member.clean_team
         #print selected_teams
         teams=CleanTeam.objects.all()
         community = Community.objects.all()
@@ -647,7 +647,7 @@ class MyChangeNetwork(LoginRequiredMixin, TemplateView):
         context['user_memberships'] = user_mem
         context['user'] = self.request.user
         
-        context['selected_team']= selected_teams
+        
         return context
 
 class LevelProgressView(TemplateView):

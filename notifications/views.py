@@ -35,19 +35,27 @@ def read_all_notifications(request):
 	return HttpResponseRedirect('/notifications/')
 
 def read_notification(request):
-	if request.method == 'POST' and request.is_ajax:	
-		nid = request.POST['nid']
+	if 'unread' in request.POST:
+		return unread_notification(request) ## Really ugly, find how to hook the nav bar notification control to a glloal function then redirect to read_notificaion or unread_notification according to post['read'] and post['unread']
 		
-		user_notification = UserNotification.objects.get(id=nid, user=request.user)
-		user_notification.read_notification()
+
+	
+	if request.method == 'POST' and request.is_ajax:
+			nids = request.POST.getlist('nid')
+			 
+			for nid in nids:
+				 
+				user_notification = UserNotification.objects.get(id=nid, user=request.user)
+				user_notification.read_notification()
 			
-	return HttpResponse("success")
+	return HttpResponseRedirect('/notifications/')
 
 def unread_notification(request):
-	if request.method == 'POST' and request.is_ajax:	
-		nid = request.POST['nid']
-		
-		user_notification = UserNotification.objects.get(id=nid, user=request.user)
-		user_notification.unread_notification()
+	if request.method == 'POST' and request.is_ajax:
+			nids = request.POST.getlist('nid')
 			
-	return HttpResponse("success")
+			for nid in nids:
+				user_notification = UserNotification.objects.get(id=int(nid), user=request.user)
+				user_notification.unread_notification()
+			
+	return HttpResponseRedirect('/notifications/')

@@ -329,6 +329,7 @@ class CleanChampion(models.Model):
     user = models.ForeignKey(User)
     clean_team = models.ForeignKey(CleanTeam)
     status = models.CharField(max_length=30, default="approved")
+    data_privacy = models.BooleanField(default=0)
 
     class Meta:
         verbose_name_plural = u'Clean Champions'
@@ -425,6 +426,7 @@ class CleanTeamMember(models.Model):
     clean_team = models.ForeignKey(CleanTeam)
     role = models.CharField(max_length=30, default="leader")
     status = models.CharField(max_length=30, default="pending")
+    
 
     class Meta:
         verbose_name_plural = u'Change Team Member'

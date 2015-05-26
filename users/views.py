@@ -385,12 +385,13 @@ class ProfilePublicView(LoginRequiredMixin, TemplateView):
                 all_categories= users.forms.ORG_CATEGORIES
                 print all_categories[0][0]
                 labeled_selected_categories=''
-                selected_categories=context['user_profile'].profile.focus.split(',')
+                selected_categories=unicode(context['user_profile'].profile.focus.split(','))
+		
                 for t in all_categories:
                     if t[0] in selected_categories:
                         labeled_selected_categories+=t[1]
-                        labeled_selected_categories+="   "
-                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-2]
+                        labeled_selected_categories+="  "
+                        labeled_selected_categories=labeled_selected_categories[0:len(labeled_selected_categories)-1]
                         context['focus']=labeled_selected_categories
                         print labeled_selected_categories
             
@@ -533,6 +534,9 @@ class SettingsView(LoginRequiredMixin, FormView):
 
     def get_initial(self):
         setting = UserSettings.objects.get(user=self.request.user)
+	clean_champions = CleanChampion.objects.filter(user=self.request.user)
+	#context['teams']=[]
+        
         initial = {}
         try:
             list = mailchimp.utils.get_connection().get_list_by_id(settings.MAILCHIMP_MEMBERS_LIST_ID)
@@ -549,7 +553,10 @@ class SettingsView(LoginRequiredMixin, FormView):
             print e
         initial['communication_language'] = setting.communication_language
         initial['email_privacy'] = setting.email_privacy
-        initial['data_privacy'] = setting.data_privacy
+        initial['from_privacy'] = setting.from_privacy
+	#for clean_champion in clean_champions:
+	#initial['data_privacy'] = clean_champions
+	#print clean_champions
         initial['timezone'] = setting.timezone
         return initial
 
@@ -566,13 +573,23 @@ class SettingsView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
     def form_valid(self, form, **kwargs):
-        user = self.request.user
-
-        if form.cleaned_data['data_privacy'] == "True":
-            user.profile.settings.data_privacy = 1
-        else:
-            user.profile.settings.data_privacy = 0
-
+        user = self.request.user  
+	if self.request.method == 'POST':
+		user_clean_champions = CleanChampion.objects.filter(user=self.request.user)
+		nids = self.request.POST.getlist('teams')
+		checked_teams_ids = [int(numeric_string) for numeric_string in nids]
+		for clean_team in user_clean_champions:	
+			print checked_teams_ids
+			print clean_team.clean_team_id
+			if clean_team.clean_team_id in checked_teams_ids:
+				#checked_clean_champions = CleanChampion.objects.filter(clean_team_id=int(nid),user=self.request.user)
+				clean_team.data_privacy=1
+			else:
+				clean_team.data_privacy=0
+				#print obj.data_privacy
+			clean_team.save()
+        
+	user.profile.settings=UserSettings.objects.get(user=self.request.user)
         if form.cleaned_data['email_privacy'] == "True":
             user.profile.settings.email_privacy = 1
         else:
@@ -597,7 +614,7 @@ class SettingsView(LoginRequiredMixin, FormView):
         user.profile.settings.timezone = form.cleaned_data['timezone']
         user.profile.settings.communication_language = form.cleaned_data['communication_language']
         user.profile.settings.save()
-
+	
         challenge_articipants = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
         for cp in challenge_articipants:
             cp.receive_email = self.request.POST.get(str(cp.id), False)
@@ -611,6 +628,22 @@ class SettingsView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(SettingsView, self).get_context_data(**kwargs)
         context['receive_emails'] = ChallengeParticipant.objects.filter(user=self.request.user, status="approved")
+	
+        community = Community.objects.all()
+	
+        user_mem = UserCommunityMembership.objects.filter(user=self.request.user)
+	#print user_mem.community
+        clean_champions = CleanChampion.objects.filter(user=self.request.user)
+	checked_clean_champions = CleanChampion.objects.filter(user=self.request.user, data_privacy=1)
+	context['teams']=clean_champions
+	context['checked_teams']=checked_clean_champions
+        #for clean_champion in clean_champions:
+	#	context['teams']=clean_champion.clean_team
+
+        
+        context['communities'] = community
+        
+        context['user_memberships'] = user_mem
         return context
 
 class UpgradeAccountView(LoginRequiredMixin, FormView):

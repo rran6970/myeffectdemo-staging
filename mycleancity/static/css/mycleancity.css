@@ -160,6 +160,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.login, #sign-go-back.all-notifications { left: 424px; }
 #sign-go-back.all-clean-teams { left: 283px; }
 #sign-go-back.clean-team-progress { left: 283px; }
+#sign-go-back.leaderboard { left: 54px; }
 
 #sign-go-back.new-challenge-survey { left: 283px; }
 #sign-go-back.new-challenge { left: 155px; }
@@ -168,7 +169,7 @@ div.signs.nav-tabs { border: none; }
 #sign-go-back.register { left: 373px; }
 #sign-go-back.challenge-participants { left: 309px; }
 #sign-go-back.register-join-team { left: 270px; }
-#sign-go-back.clean-team-members { left: 28px; }
+#sign-go-back.clean-team-members { left: 182px; }
 #sign-go-back.edit-clean-team { left: 347px; }
 #sign-go-back.invite { left: 78px; }
 #sign-go-back.report-card { left: 78px; }
@@ -860,16 +861,16 @@ div.content.challenge-overview #participate-btn, div.content.challenge-overview 
 /******************************
 	Leaderboard Page
 ******************************/
-div.content.leadership-board { background: transparent url(../images/no-trees-bg.png) no-repeat center bottom; height: 546px; }
+#white-box.leaderboard { width: 670px; left: 7% }
+#white-box.clean-teams { position: absolute; float:left; width: 350px; height: 300px; left: 70% }
+#white-box.profile input[type="submit"] { width: 296px; font-size: 16px; margin: 0 auto; }
+#white-box.profile p { text-align: center; }
+#white-box.profile table tr td.clean-creds { font-size: 18px; padding: 10px 0; }
+#white-box.profile textarea { width: 500px; height: 200px; }
+#white-box.profile + #badge-icon {  }
 
-.brown-box #stage_jbeeb_3 { top: 38px !important; }
-
-.brown-box.individuals { float: left; margin-left: 62px; text-shadow: 1px 1px 3px #111; }
-.brown-box.clean-teams { float: right; margin-right: 50px; text-shadow: 1px 1px 3px #111; }
-.brown-box.clean-teams #badge-icon { height: 36px; }
-
-.brown-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 15px; }
-.brown-box h2 { font-size: 22px; font-weight: 900; }
+.white-box p { font-size: 18px; font-weight: 300; line-height: 25px; margin-top: 15px; }
+.white-box h2 { font-size: 22px; font-weight: 900; }
 
 .board { padding: 20px; overflow-y: scroll; border: 1px solid #362513; width: 510px; height: 320px; background-color: #433627; }
 .board h1 { color: #00aeef; font-size: 30px; font-weight: 900; margin-bottom: 13px; }

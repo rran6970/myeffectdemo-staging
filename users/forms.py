@@ -351,7 +351,8 @@ class ProfileForm(forms.ModelForm):
 class SettingsForm(forms.ModelForm):
     communication_language = forms.ChoiceField(widget=forms.RadioSelect, choices=COMM_CHOICES, label="Communication language")
     email_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Hide My email from my public profile?")
-    data_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="I consent to share my volunteer data with the following Change Teams & Communities.")
+    from_privacy = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Hide My location details from my public profile?")
+    data_privacy = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(attrs={"checked":""}), label="I consent to share my volunteer data with the following Change Teams & Communities.", required=False)
     receive_newsletters = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO_CHOICES, label="Receive My Effect email communications")
     timezone = forms.ChoiceField(widget=forms.Select(), choices=SCHOOLS, label="Select your timezone (default is America/Toronto)")
 
