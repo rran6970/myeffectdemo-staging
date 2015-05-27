@@ -654,6 +654,7 @@ div.container#register-join-team {  }
 /******************************
 	Register Change Team
 ******************************/
+#white-box.new-clean-team { width: 520px; left: 32%; }
 #white-box.new-clean-team input[type="submit"] { margin: 16px auto; }
 
 /******************************

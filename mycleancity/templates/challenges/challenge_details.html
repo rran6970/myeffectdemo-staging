@@ -49,13 +49,19 @@
             <a href="/challenges/edit/{{ challenge.id }}/">{%trans "Edit Action" %}</a>
           </span>
           </div>
-          {% if user.profile.is_manager %}
-        	<div>
-            <span id="send-email-link">
-            <a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
-            </span>
-          </div>
-          {% endif %}
+            {% if user.profile.is_manager %}
+          	<div>
+              <span id="send-email-link">
+              <a href="/challenges/participants-email/{{ challenge.id }}/">{%trans "Send emails to participants" %}</a>
+              </span>
+            </div>
+            {% else %}
+            <div>
+              <span id="send-email-link">
+              <a href="/users/upgrade-account/">{%trans "Upgrade to manager to email participants" %}</a>
+              </span>
+            </div>
+            {% endif %}
         	{% endif %}
         	<div class="clear"></div>
         	
@@ -143,8 +149,6 @@
             <form action="/challenges/participants-manage/{{ challenge.id }}/">
               <input class="btn btn-primary" type="submit" value="Manage Participants" />
             </form>
-          {% else  %}
-	            <p>You must be a manager to manager participants.</p>
           {% endif %}
           {% if challenge.clean_team_only %}
     				{% if user.profile.is_clean_ambassador %}

@@ -47,10 +47,10 @@ class RegisterCleanTeamForm(forms.ModelForm):
     contact_last_name = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Last name")
     contact_phone = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'class':'phone-number'}), label="Phone number")
     contact_email = forms.CharField(required=False, max_length=128, min_length=2, widget=forms.TextInput(attrs={'readonly':'readonly'}), label="Email address")
-    number_of_users = forms.IntegerField(required=False)
     org_type = forms.ChoiceField(widget=forms.Select(), choices=ORG_TYPES)
     registered_number = forms.CharField(required=False, widget=forms.TextInput(), max_length=30 )
     category = forms.ChoiceField(widget=forms.Select(), choices=ORG_CATEGORIES)
+    bio = forms.CharField(required=False, min_length = 2, widget=forms.Textarea())
 
     # Combines the form with the corresponding model
     class Meta:
@@ -74,6 +74,7 @@ class RegisterCleanTeamForm(forms.ModelForm):
         # contact_first_name = cleaned_data.get("contact_first_name")
         # contact_last_name = cleaned_data.get("contact_last_name")
         contact_phone = cleaned_data.get("contact_phone")
+        bio = cleaned_data.get("bio")
         # contact_email = cleaned_data.get("contact_email")
 
         if not name:
@@ -84,6 +85,8 @@ class RegisterCleanTeamForm(forms.ModelForm):
             raise forms.ValidationError("Please the group your team associated with")
         elif not contact_phone:
             raise forms.ValidationError("Please enter a contact phone number")
+        elif not bio:
+            raise forms.ValidationError("Please enter the change team bio")
 
         if logo:
             if logo._size > 2*1024*1024:

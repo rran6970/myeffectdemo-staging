@@ -15,6 +15,11 @@
   {% include "_navbar.html" %}
   
   <a href="/" class="logo"></a>
+
+  {% load wysiwyg %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/django-wysiwyg/skin.css">
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/editor.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/django-wysiwyg/django_wysiwyg.js"></script>
   
   <div class="content">
     <div class="container">
@@ -62,13 +67,8 @@
                       {{form.category}}
                     </td>
                   </tr>
-                  <tr id = "number_of_users_tr">
-                    <td>
-                      <label for="number_of_users"><span style="color:red;" >&#42;&#32;</span>{%trans "Number Of Users:(must be number)" %}</label>
-                    </td>
-                    <td>
-                      {{form.number_of_users}}
-                    </td>
+                  <tr>
+                    <td colspan="2">{{ form.bio.label_tag }} {{ form.bio }}</td>
                   </tr>
               </table>
 
@@ -90,6 +90,7 @@
       </div><!-- /#white-box -->
     </div><!-- /.container -->
   </div><!-- /.about -->
+  {% wysiwyg_editor "id_bio" %}
 </div> <!-- /.wrapper -->
 {% include "_footer_navbar.html" %}
 
