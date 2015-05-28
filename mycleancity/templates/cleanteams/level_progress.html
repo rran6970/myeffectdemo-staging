@@ -24,7 +24,13 @@
       <div id="white-box" class="clean-team-progress">
 
           {% if tasks_complete >= 0 %}
-          <h1>{{ clean_team.name }}'s {%trans "Achievements" %}</h1><p><br /></p>
+          <h1><strong>{{ clean_team.name }}'s {%trans "Progress" %}</strong></h1><p><br /></p>
+          <h2>Start your ripple effect. Complete all the steps to earn 250 bonus Change Creds!</h2><p><br />></p>
+          <h3><a href="/clean-team/edit" title="Complete your team profile with a description & profile image">Become official</a></h3>
+          <h3><a href="/clean-team/edit" title="Connect your social media accounts">Add your voice</a></h3>
+          <h3><a href="/clean-team/invite" title="Invite 3 friends">Build your team</a></h3>
+          <h3><a href="/challenges/new-challenge-survey" title="Post your first action">Take initiative</a></h3>
+          <h3><a href="/clean-team/invite" title="Invite 5 Change Agents">Share your profile</a></h3>
           {% endif %}
 
 

@@ -47,19 +47,18 @@
                     <td>{{ form.instagram.label_tag }} {{ form.instagram }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form.city.label_tag }} {{ form.city }}</td>
-                  <td id="community-td"><label for="id_name">Associated Change Community</label> {{ form.community }}
-                  {% if form.community_request_pending %}
+                    <td>{{ form.region.label_tag }} {{ form.region }}</td>
+                    <td id="community-td"><label for="id_name">Associated Change Community</label> {{ form.community }}
+                      {% if form.community_request_pending %}
                      (Request Pending)
-                  {% endif %}
-                  </td>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td id="clean-team-group-td" {% if form.team_type.value == "independent" %} style="display: none;" {% endif %}>{{ form.group.label_tag }} {{ form.group }}</td>
-		    <td>{{ form.team_type.label_tag }} {{ form.team_type }}
-		    </td>
-		</tr>
-		<tr>
+		            <td>{{ form.team_type.label_tag }} {{ form.team_type }}</td>
+		        </tr>
+		        <tr>
                     <td colspan="2">{{ form.focus.label_tag }} {{ form.focus }}</td>
                 </tr>
                 <tr>

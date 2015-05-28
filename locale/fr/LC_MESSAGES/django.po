@@ -251,8 +251,8 @@ msgstr "Profile de l’équipe"
 
 #: mycleancity/templates/_navbar.html:34
 #: mycleancity/templates/emails/clean_team_register.html:35
-msgid "Team Achievements"
-msgstr "Réussites de l’équipe"
+msgid "Team Progress"
+msgstr "progrès de l'équipe"
 
 #: mycleancity/templates/_navbar.html:35
 #, fuzzy
